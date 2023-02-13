@@ -3,6 +3,10 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import useSWR from "swr";
 
+export const config = {
+  runtime: "edge",
+};
+
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Home: NextPage = () => {
