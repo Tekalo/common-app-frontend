@@ -45,4 +45,11 @@ const Home: NextPage = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/require-await
+export async function getStaticProps() {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
+
 export default Home;
