@@ -1,19 +1,20 @@
-import type { NextRequest } from 'next/server'
+import type { NextRequest } from "next/server";
 
 export const config = {
-  runtime: 'edge',
-}
+  runtime: "edge",
+};
 
+// eslint-disable-next-line @typescript-eslint/require-await
 export default async function handler(req: NextRequest) {
   return new Response(
     JSON.stringify({
-      name: 'Seth Martin',
+      name: "Seth Martin",
     }),
     {
       status: 200,
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       },
     }
-  )
+  );
 }
