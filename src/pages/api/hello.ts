@@ -7,7 +7,7 @@ export const config = {
 export default async function handler(req: NextRequest) {
   return new Response(
     JSON.stringify({
-      name: 'Jim Halpert',
+      name: 'Seth Martin',
     }),
     {
       status: 200,
