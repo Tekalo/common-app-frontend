@@ -32,9 +32,10 @@ const Home: NextPage = () => {
               href=""
               target="_blank"
             >
-              <h3 className="text-2xl font-bold">Zardoz →</h3>
+              <h3 className="text-2xl font-bold">Login →</h3>
               <div className="text-lg">
-                This app will be authenticated using Auth0
+                This app will be authenticated using Auth0 (not yet
+                implemented!)
               </div>
             </Link>
           </div>
