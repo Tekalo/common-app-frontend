@@ -1,5 +1,9 @@
 import type { NextRequest } from "next/server";
 
+export const config = {
+  runtime: "edge",
+};
+
 // eslint-disable-next-line @typescript-eslint/require-await
 export default async function handler(req: NextRequest) {
   return new Response(
