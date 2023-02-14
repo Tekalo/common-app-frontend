@@ -49,4 +49,8 @@ export async function getStaticProps() {
   };
 }
 
+export const config = {
+  runtime: "edge",
+};
+
 export default Home;
