@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cloudflare/next-on-pages": "https://github.com/cloudflare/next-on-pages#14f07ec8b3eff2aa8d98afc5a61b27da22e34b48",
     "@next/font": "13.1.6",
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
@@ -19,7 +18,10 @@
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "4.9.5",
+    "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^0.3.0",
     "vercel": "^28.15.4"
   }
 }

@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    runtime: "edge",
-  },
   reactStrictMode: true,
-  swcMinify: true,
+  // experimental: {
+  //   runtime: "edge",
+  // },
 };
 
 module.exports = nextConfig;
