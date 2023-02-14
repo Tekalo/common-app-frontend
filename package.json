@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build:for-edge": "npx @cloudflare/next-on-pages --experimental-minify",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
