@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 
 export const config = {
-  runtime: "experimental-edge",
+  runtime: "edge",
 };
 
 // eslint-disable-next-line @typescript-eslint/require-await
