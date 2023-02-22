@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Link from "next/link";
+import React from "react";
 
 function Profile() {
   const { user, error, isLoading } = useUser();
