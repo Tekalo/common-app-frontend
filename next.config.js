@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     loader: "custom",
-    loaderFile: "./src/shared/NextImageLoader.tsx",
+    loaderFile: "./src/shared/NextImageLoader.js",
   },
 };
 
