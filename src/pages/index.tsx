@@ -1,3 +1,4 @@
+import Profile from "@/components/Profile";
 import Head from "next/head";
 
 export default function Home() {
@@ -10,9 +11,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className="text-3xl font-bold underline">
-          Schmidt Futures Common App
-        </h1>
+        <div className="flex flex-col space-y-5">
+          <p className="text-3xl font-bold underline">
+            Schmidt Futures Common App
+          </p>
+          <Profile />
+        </div>
       </main>
     </>
   );
