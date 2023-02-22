@@ -1,6 +1,6 @@
 // pages/api/auth/[...auth0].js
 import { handleAuth } from "@auth0/nextjs-auth0";
 
-export const config = { runtime: "experimental-edge" };
+export const config = { runtime: "edge" };
 
 export default handleAuth();
