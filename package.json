@@ -34,6 +34,8 @@
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "https://github.com/cloudflare/next-on-pages#14f07ec8b3eff2aa8d98afc5a61b27da22e34b48",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "autoprefixer": "^10.4.13",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
