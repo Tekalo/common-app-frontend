@@ -1,15 +1,15 @@
 // Next.js Edge API Routes: https://nextjs.org/docs/api-routes/edge-api-routes
-import type { NextRequest } from "next/server";
+import type { NextRequest } from 'next/server';
 
 export const config = {
-  runtime: "edge",
+  runtime: 'edge',
 };
 
-export default async function handler(req: NextRequest): Promise<Response> {
-  return new Response(JSON.stringify({ name: "John Doe" }), {
+export default async function handler(_req: NextRequest): Promise<Response> {
+  return new Response(JSON.stringify({ name: 'John Doe' }), {
     status: 200,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
 }
