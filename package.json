@@ -9,7 +9,7 @@
     "node": "16.19.1"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "build:for-edge": "npx @cloudflare/next-on-pages --experimental-minify",
     "start": "next start",
@@ -37,6 +37,7 @@
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "autoprefixer": "^10.4.13",
+    "cross-env": "^7.0.3",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
