@@ -2,6 +2,12 @@
   "name": "common-app-frontend",
   "version": "0.1.0",
   "private": true,
+  "engineStrict": true,
+  "engines": {
+    "npm": "please-use-pnpm",
+    "pnpm": ">=7",
+    "node": "16.19.1"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
