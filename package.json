@@ -15,11 +15,22 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schmidtfutures/common-app-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schmidtfutures/common-app-frontend/issues"
+  },
+  "homepage": "https://github.com/schmidtfutures/common-app-frontend#readme",
   "dependencies": {
     "@next/font": "13.1.6",
     "@types/node": "18.13.0",
