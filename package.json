@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
-    "build:for-edge": "npx @cloudflare/next-on-pages --experimental-minify",
+    "build:for-edge": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install"
