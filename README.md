@@ -1,8 +1,8 @@
 # Common App Frontend
 
-## Getting Started
+This repository contains the code to run the Common App Next.js frontend application. This README provides useful information concerning development, deployment, and project structure.
 
-Read this README file in full! Trust me, it is helpful.
+## Getting Started
 
 ### Pre-Requisites
 
