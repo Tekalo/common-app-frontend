@@ -21,15 +21,73 @@ Read this README file in full! Trust me, it is helpful.
 
 ## Project Organization
 
-## Commit Linting
+Configuration folders and files are at the root of the project and everything concerning the actual app is contained in the `src` directory.
 
-This project makes use of commitlint to ensure consistent commit messages. You can look at `commitlint.config.js` if you need to remember how to structure your commits. Generally all messages need to be of the form:
+In general, this project conforms to standard Next.js project structure. We do not currently make use of the experimental App directory that Next.js 13 provides.
 
-`feat: Implemented the widget click`
+### `components`
 
-or more generally
+Contains all re-usable components that can be dropped into a page
+
+### `lib`
+
+This for shared infrastructure across the application. You can think of it literally as a library to store business logic, reusable routes, and anything else that multiple pages or components might need to use.
+
+### `pages`
+
+Next.js expects a certain structure in the project. Namely, we make use of [Next.js pages](https://nextjs.org/docs/basic-features/pages) which are react components that have a 1-1 correspondence with the URL route. For example a page located at `src/pages/about.tsx` would be rendered at the url `{baseURL}/about` (e.g. `localhost:3000/about`).
+
+### `pages/api`
+
+This is a special folder in Next.js that allows us to have a frontend proxy api. Files in here are compiled into a Cloudflare worker and must, at the moment, contain the edge runtime flag to deploy properly.
+
+```javascript
+export const config = {
+  runtime: 'edge',
+};
+```
+
+### `styles`
+
+Since we are using tailwind, you won't have to mess around in here very much. Tailwind expects styles to be applied in-line on the component or pages themselves.
+
+## Infrastructure & Deployment
+
+### Git Branching
+
+The current git branching strategy expects three primary branches:
+
+- main
+- staging
+- develop
+
+All feature and WIP branches and work should be branched off of develop. Develop should be the only branch to merge into staging. Staging should be the only branch to merge into main.
+
+### Deployment
+
+We have implemented github actions to automatically build and deploy when commits are pushed to specific branches. Specifically, the following deployment paths are in place:
+
+- merges into `main` trigger a production deployment
+
+- merges into `staging` trigger a preview deployment
+
+- merges into any branch with the naming pattern `test/*` trigger a preview deployment
+
+  - This is especially useful when testing features that rely on the edge-runtime as functional local implementations may not function properly when deployed to cloudflare. Let's walk through an example:
+    - Pretend you're working on a branch `feat/some-new-widget` and think it is ready to merge into `develop` but want to make sure it will work properly on cloudflare.
+    - You can create a new branch off of your feature branch with `git branch -b test/some-new-widget` and push it to github.
+    - **This will trigger an isolated preview deployment for that specific branch**.
+    - If things are working as you expect, great! Prune/remove the test branch and proceed to PR. Otherwise, you can use this test branch to diagnose issues with your implementation
+
+### Commit Linting
+
+This project makes use of [commitlint](https://commitlint.js.org/#/) to ensure consistent commit messages. You can look at `commitlint.config.js` if you're curious about setup. All commit messages need to be of the form:
 
 `{type} {100-char max commit message}`
+
+for example...
+
+`feat: Implemented the widget click`
 
 The "type" can be any of the following:
 
