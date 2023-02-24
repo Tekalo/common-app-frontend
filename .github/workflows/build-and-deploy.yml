@@ -88,8 +88,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       - name: Install dependencies and Build (for Cloudflare Pages)
         run: |
-          pnpm next telemtry disable
           pnpm install
+          pnpm next telemetry disable
           pnpm build:for-edge
         env:
           CI: true
