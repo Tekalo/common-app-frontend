@@ -13,7 +13,7 @@ export default function Home() {
       <main>
         <div className="flex flex-col space-y-5">
           <p className="text-3xl font-bold underline">
-            Schmidt Futures Common App
+            Schmidt Futures Common App Test
           </p>
           <Profile />
         </div>
