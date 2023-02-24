@@ -48,7 +48,8 @@ jobs:
       - name: Install dependencies and Build (regular)
         run: |
           pnpm install
-          pnpm build
+          pnpm next telemetry disable
+          pnpm build:for-edge
         env:
           CI: true
 
