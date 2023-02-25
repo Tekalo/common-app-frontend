@@ -7,9 +7,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <Auth0Provider
       domain="sf-capp-dev.us.auth0.com"
       clientId="bk8hnOe5NfVA8xsVFy69iYJ1XEn42DTi"
-      authorizationParams={{
-        redirect_uri: 'http://localhost:3000',
-      }}
+      // authorizationParams={{ redirect_uri: window.location.origin }}
+      // authorizationParams={{
+      //   redirect_uri: 'http://localhost:3000',
+      // }}
     >
       <Component {...pageProps} />
     </Auth0Provider>
