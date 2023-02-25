@@ -19,7 +19,8 @@
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/api/*": ["./src/api/*"]
-    }
+    },
+    "types": ["@cloudflare/workers-types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
