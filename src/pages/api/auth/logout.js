@@ -1,5 +1,9 @@
 import { handleLogout } from '@auth0/nextjs-auth0';
 
+export const config = {
+  runtime: 'edge',
+};
+
 export default async function login(req, res) {
   try {
     await handleLogout(req, res);
