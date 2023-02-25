@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
       clientId="bk8hnOe5NfVA8xsVFy69iYJ1XEn42DTi"
       authorizationParams={{
         redirect_uri:
-          typeof window === 'undefined' ? '' : window.location.origin,
+          typeof window === 'undefined' ? undefined : window.location.origin,
       }}
       // authorizationParams={{
       //   redirect_uri: 'http://localhost:3000',
