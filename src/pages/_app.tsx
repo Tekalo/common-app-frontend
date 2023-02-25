@@ -11,9 +11,6 @@ export default function App({ Component, pageProps }: AppProps) {
         redirect_uri:
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
-      // authorizationParams={{
-      //   redirect_uri: 'http://localhost:3000',
-      // }}
     >
       <Component {...pageProps} />
     </Auth0Provider>
