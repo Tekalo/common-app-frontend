@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@auth0/auth0-react': ^2.0.1
   '@cloudflare/next-on-pages': https://github.com/cloudflare/next-on-pages#14f07ec8b3eff2aa8d98afc5a61b27da22e34b48
+  '@cloudflare/workers-types': ^4.20230221.0
   '@commitlint/cli': ^17.4.4
   '@commitlint/config-conventional': ^17.4.4
   '@next/font': 13.1.6
@@ -37,6 +38,7 @@ dependencies:
 
 devDependencies:
   '@cloudflare/next-on-pages': github.com/cloudflare/next-on-pages/14f07ec8b3eff2aa8d98afc5a61b27da22e34b48_vercel@28.16.7
+  '@cloudflare/workers-types': 4.20230221.0
   '@commitlint/cli': 17.4.4
   '@commitlint/config-conventional': 17.4.4
   '@next/font': 13.1.6
@@ -1288,6 +1290,10 @@ packages:
     dependencies:
       mime: 3.0.0
     dev: false
+
+  /@cloudflare/workers-types/4.20230221.0:
+    resolution: {integrity: sha512-Ge8csuFQMNv3hd8r85PFWv4KV6bHAtKoBaanTkjbbeJS+mizoiBn4OBva0CFQiGfRJklFSGd4OxuCuiK05kogg==}
+    dev: true
 
   /@commitlint/cli/17.4.4:
     resolution: {integrity: sha512-HwKlD7CPVMVGTAeFZylVNy14Vm5POVY0WxPkZr7EXLC/os0LH/obs6z4HRvJtH/nHCMYBvUBQhGwnufKfTjd5g==}
