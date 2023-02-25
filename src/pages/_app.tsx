@@ -8,7 +8,8 @@ export default function App({ Component, pageProps }: AppProps) {
       domain="sf-capp-dev.us.auth0.com"
       clientId="bk8hnOe5NfVA8xsVFy69iYJ1XEn42DTi"
       authorizationParams={{
-        redirect_uri: 'https://*.common-app-frontend.pages.dev/',
+        redirect_uri:
+          typeof window === 'undefined' ? '' : window.location.origin,
       }}
       // authorizationParams={{
       //   redirect_uri: 'http://localhost:3000',
