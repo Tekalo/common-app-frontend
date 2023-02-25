@@ -11,8 +11,8 @@
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "build:for-edge": "npx @cloudflare/next-on-pages --experimental-minify",
     "export": "next export",
+    "build:for-edge": "npx @cloudflare/next-on-pages --experimental-minify",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out",
     "start": "next start",
     "lint": "next lint",
