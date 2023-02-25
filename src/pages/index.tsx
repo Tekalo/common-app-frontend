@@ -1,6 +1,15 @@
+import LoginButton from '@/components/LoginButton';
+import LogoutButton from '@/components/LogoutButton';
+import { useAuth0 } from '@auth0/auth0-react';
 import Head from 'next/head';
 
 export default function Home() {
+  const { isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
   return (
     <>
       <Head>
@@ -13,10 +22,7 @@ export default function Home() {
         <h1 className="text-3xl font-bold underline">
           Schmidt Futures Common App
         </h1>
-        <button className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3">
-          ...
-        </button>
-        <div className="p-4 pt-2"></div>
+        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
       </main>
     </>
   );
