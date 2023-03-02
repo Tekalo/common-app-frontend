@@ -201,9 +201,42 @@ module.exports = {
       ],
     },
     spacing: {
-      // Mobile Spacing
-      // Tablet Spacing
-      // Desktop Spacing
+      // mobile Spacing
+      '1-mobile': '24px',
+      '2-mobile': '32px',
+      '3-mobile': '48px',
+      '4-mobile': '56px',
+      '5-mobile': '64px',
+      '6-mobile': '72px',
+      '7-mobile': '80px',
+      '8-mobile': '88px',
+      '9-mobile': '96px',
+      '10-mobile': '104px',
+      '11-mobile': '112px',
+      // tablet Spacing
+      '1-tablet': '32px',
+      '2-tablet': '40px',
+      '3-tablet': '56px',
+      '4-tablet': '64px',
+      '5-tablet': '72px',
+      '6-tablet': '80px',
+      '7-tablet': '88px',
+      '8-tablet': '96px',
+      '9-tablet': '112px',
+      '10-tablet': '120px',
+      '11-tablet': '128px',
+      // desktop Spacing
+      '1-desktop': '40px',
+      '2-desktop': '64px',
+      '3-desktop': '80px',
+      '4-desktop': '96px',
+      '5-desktop': '104px',
+      '6-desktop': '112px',
+      '7-desktop': '120px',
+      '8-desktop': '128px',
+      '9-desktop': '144px',
+      '10-desktop': '152px',
+      '11-desktop': '160px',
     },
     colors: {
       'text-black': '#272929',
