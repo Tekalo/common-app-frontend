@@ -239,7 +239,7 @@ module.exports = {
       '11-desktop': '160px',
     },
     colors: {
-      'text-black': '#272929',
+      'black-text': '#272929',
       'gray-1-darkest': '#6B7281',
       'gray-2-darker': '#9FA4AE',
       'gray-3-dark': '#DBDDE2',

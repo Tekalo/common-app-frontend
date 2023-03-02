@@ -19,7 +19,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className="font-display text-desktop-h5 font-bold text-blue-1-primary underline">
+        <h1 className="text-black-text font-display text-desktop-h1 underline">
           Schmidt Futures Common App
         </h1>
         {isAuthenticated ? <LogoutButton /> : <LoginButton />}
