@@ -21,7 +21,7 @@
     "preinstall": "pnpm dlx only-allow pnpm",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o docs-build",
-    "chromatic": "pnpm dlx chromatic --project-token=41178f82ac9d"
+    "chromatic": "chromatic --project-token=41178f82ac9d"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
