@@ -256,6 +256,7 @@ module.exports = {
       '10-desktop': '152px',
       '11-desktop': '160px',
     },
+
   },
   plugins: [],
 };
