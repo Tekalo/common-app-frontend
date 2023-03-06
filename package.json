@@ -18,9 +18,10 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "preinstall": "npx only-allow pnpm",
+    "preinstall": "pnpm dlx only-allow pnpm",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o docs-build"
+    "build-storybook": "storybook build -o docs-build",
+    "chromatic": "pnpm dlx chromatic --project-token=41178f82ac9d"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
@@ -43,7 +44,7 @@
     "wrangler": "^2.11.1"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "https://github.com/cloudflare/next-on-pages#14f07ec8b3eff2aa8d98afc5a61b27da22e34b48",
+    "@cloudflare/next-on-pages": "git+https://github.com/cloudflare/next-on-pages.git#14f07ec8b3eff2aa8d98afc5a61b27da22e34b48",
     "@cloudflare/workers-types": "^4.20230221.0",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
@@ -61,6 +62,7 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.10",
     "autoprefixer": "^10.4.13",
+    "chromatic": "^6.17.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
     "eslint": "8.34.0",
@@ -83,5 +85,7 @@
   },
   "resolutions": {
     "webpack": "^5"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "common-app-frontend@0.1.0"
 }
