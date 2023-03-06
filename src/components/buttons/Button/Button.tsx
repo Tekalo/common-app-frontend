@@ -4,7 +4,7 @@ export interface IButton {
 
 const Button: React.FC<IButton> = ({ sampleTextProp }) => {
   return (
-    <button className="bg-gradient-to-r from-yellow-500 to-red-500">
+    <button className="rounded-full bg-gradient-to-r from-yellow-500 to-red-500">
       {sampleTextProp}
     </button>
   );
