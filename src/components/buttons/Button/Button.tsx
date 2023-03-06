@@ -1,8 +1,8 @@
-export interface IBaseTemplate {
+export interface IButton {
   sampleTextProp: string;
 }
 
-const BaseTemplate: React.FC<IBaseTemplate> = ({ sampleTextProp }) => {
+const Button: React.FC<IButton> = ({ sampleTextProp }) => {
   return (
     <div className="bg-gradient-to-r from-cyan-500 to-blue-500">
       {sampleTextProp}
@@ -10,4 +10,4 @@ const BaseTemplate: React.FC<IBaseTemplate> = ({ sampleTextProp }) => {
   );
 };
 
-export default BaseTemplate;
+export default Button;

@@ -27,7 +27,19 @@ In general, this project conforms to standard Next.js project structure. We do n
 
 ### `components`
 
-Contains all re-usable components that can be dropped into a page
+Contains all re-usable components that can be dropped into a page.
+
+To create a new component do the following:
+
+1. Copy the `templates/base` folder to the desired component folder (e.g. `utility/search`)
+
+2. Rename each of the three files to the new component name (e.g. `BaseTemplate.tsx -->`Search.tsx`)
+
+3. Refactor the new component directory by replacing `BaseTemplate` with your component name in all three files
+
+   > This can be achieved in VSCode by right-clicking the new directory and clicking "Find in Folder" and performing a search and replace
+
+4. Inside of the new component story file, update the title appropriately
 
 ### `lib`
 
