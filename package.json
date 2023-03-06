@@ -20,7 +20,7 @@
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -o docs-build"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
@@ -55,6 +55,7 @@
     "@storybook/blocks": "^7.0.0-alpha.8",
     "@storybook/nextjs": "^7.0.0-beta.61",
     "@storybook/react": "^7.0.0-beta.61",
+    "@storybook/storybook-deployer": "^2.8.16",
     "@storybook/testing-library": "^0.0.14-next.1",
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
