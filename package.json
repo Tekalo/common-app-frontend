@@ -20,8 +20,7 @@
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o docs-build",
-    "chromatic": "npx chromatic --project-token=41178f82ac9d"
+    "build-storybook": "storybook build -o docs-build --exit-once-uploaded"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
