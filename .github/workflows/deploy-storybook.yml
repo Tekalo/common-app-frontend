@@ -48,4 +48,5 @@ jobs:
       - name: 🚀 Deploy
         uses: chromaui/action@v1
         with:
+          exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
