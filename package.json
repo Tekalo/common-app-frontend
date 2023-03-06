@@ -12,16 +12,16 @@
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "export": "next export",
-    "build:for-edge": "pnpm dlx @cloudflare/next-on-pages --experimental-minify",
+    "build:for-edge": "npx @cloudflare/next-on-pages --experimental-minify",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "preinstall": "pnpm dlx only-allow pnpm",
+    "preinstall": "npx only-allow pnpm",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o docs-build",
-    "chromatic": "chromatic --project-token=41178f82ac9d"
+    "chromatic": "npx chromatic --project-token=41178f82ac9d"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
