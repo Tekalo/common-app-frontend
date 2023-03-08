@@ -7,6 +7,7 @@ export default { component: Button };
 export const Primary = {
   args: { ...mockButtonProps.base },
 };
+
 export const Disabled = {
   args: { ...mockButtonProps.base, disabled: true },
 };

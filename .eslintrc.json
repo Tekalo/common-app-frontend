@@ -17,7 +17,8 @@
   ],
   "rules": {
     // Allows you to prefix variables with an underscore to avoid no-unused-vars lint error. Useful when WIP
-    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }]
+    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
+    "import/no-anonymous-default-export": [2, { "allowObject": true }]
   },
   "plugins": ["prettier"]
 }
