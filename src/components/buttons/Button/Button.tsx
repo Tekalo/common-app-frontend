@@ -1,5 +1,7 @@
+import { IconType } from '@/lib/types';
+
 export interface IButton {
-  icon?: React.ReactNode;
+  icon?: IconType;
   label: string;
   disabled?: boolean;
   outlined: boolean;
