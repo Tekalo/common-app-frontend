@@ -1,12 +1,28 @@
-export interface IPrimaryLayout {
-  sampleTextProp: string;
+import Head from 'next/head';
+
+export interface IPrimaryLayout extends React.ComponentPropsWithoutRef<'div'> {
+  justify?: 'items-center' | 'items-start';
 }
 
-const PrimaryLayout: React.FC<IPrimaryLayout> = ({ sampleTextProp }) => {
+const PrimaryLayout: React.FC<IPrimaryLayout> = ({
+  children,
+  justify = 'items-center',
+  ...divProps
+}) => {
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-500">
-      {sampleTextProp}
-    </div>
+    <>
+      <Head>
+        <title>Primary Layout</title>
+      </Head>
+      <div {...divProps} className={`flex min-h-screen flex-col ${justify}`}>
+        {/* <Header /> */}
+        <section>Header</section>
+        <main className="px-5">{children}</main>
+        <div className="m-auto" />
+        {/* <Footer /> */}
+        <section>Footer</section>
+      </div>
+    </>
   );
 };
 

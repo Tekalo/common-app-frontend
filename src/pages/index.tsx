@@ -1,6 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import Head from 'next/head';
-
 export default function Home() {
   const { isAuthenticated, isLoading } = useAuth0();
 
