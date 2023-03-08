@@ -3,13 +3,13 @@ import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app';
 
-type AppPropsWithLayout = AppProps & {
+interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
-};
+}
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <Auth0Provider

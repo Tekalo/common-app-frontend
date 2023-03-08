@@ -1,10 +1,10 @@
 import Head from 'next/head';
 
-export interface IPrimaryLayout extends React.ComponentPropsWithoutRef<'div'> {
+export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {
   justify?: 'items-center' | 'items-start';
 }
 
-const PrimaryLayout: React.FC<IPrimaryLayout> = ({
+const HomeLayout: React.FC<IHomeLayout> = ({
   children,
   justify = 'items-center',
   ...divProps
@@ -16,14 +16,14 @@ const PrimaryLayout: React.FC<IPrimaryLayout> = ({
       </Head>
       <div {...divProps} className={`flex min-h-screen flex-col ${justify}`}>
         {/* <Header /> */}
-        <section>Header</section>
+        <div>Header</div>
         <main className="px-5">{children}</main>
         <div className="m-auto" />
         {/* <Footer /> */}
-        <section>Footer</section>
+        <div>Footer</div>
       </div>
     </>
   );
 };
 
-export default PrimaryLayout;
+export default HomeLayout;
