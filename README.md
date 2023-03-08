@@ -37,9 +37,9 @@ To create a new component do the following:
 
 3. Refactor the new component directory by replacing `BaseTemplate` with your component name in all three files
 
-   > This can be achieved in VSCode by right-clicking the new directory and clicking "Find in Folder" and performing a search and replace of `BaseTemplate` with `YourComponent`. (e.g. `BaseTemplate` --> `Search`) There should be approximately 17 changes.
+   > This can be achieved in VSCode by right-clicking the new directory and clicking "Find in Folder" and performing a search and replace of `BaseTemplate` with `YourComponent`. (e.g. `BaseTemplate` --> `Search`) There should be approximately 11 changes.
 
-4. Inside of the new component story file, update the title with the new location appropriately (e.g. '`templates/BaseTemplate` --> `utility/Search`)
+4. Validate each file has changed as expected and that the new component is available in storybook with `pnpm storybook`
 
 ### `lib`
 

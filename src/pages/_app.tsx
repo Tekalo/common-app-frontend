@@ -1,8 +1,16 @@
+import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }: AppProps) {
+interface AppPropsWithLayout extends AppProps {
+  Component: NextPageWithLayout;
+}
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page);
+
   return (
     <Auth0Provider
       domain="sf-capp-dev.us.auth0.com"
@@ -12,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
     >
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </Auth0Provider>
   );
 }
