@@ -4,4 +4,4 @@ export interface IconTypeProps {
   color: string;
 }
 
-export type IconType = (props: IconTypeProps) => JSX.Element;
+export type IconType = (props: IconTypeProps) => React.ReactNode;
