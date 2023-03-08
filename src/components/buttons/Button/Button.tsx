@@ -21,7 +21,7 @@ const Button: React.FC<IButton> = ({
     content-center items-center gap-[10px] rounded border-2 border-blue-1-primary ${
       small ? 'px-4 py-0' : 'px-8 py-3'
     } font-sans text-component-lg font-normal hover:border-blue-2-hover
-    hover:bg-blue-2-hover focus:ring-2 focus:ring-[#A7C4DB] active:border-blue-3-pressed active:bg-blue-3-pressed disabled:border-blue-4-disabled disabled:bg-blue-4-disabled
+    hover:bg-blue-2-hover focus-visible:ring-2 focus-visible:ring-[#A7C4DB] active:border-blue-3-pressed active:bg-blue-3-pressed disabled:border-blue-4-disabled disabled:bg-blue-4-disabled
   disabled:text-white-text group`;
 
   const DEFAULT = `${BASE} bg-blue-1-primary text-white-text`;
