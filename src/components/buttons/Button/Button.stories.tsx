@@ -20,3 +20,7 @@ export const WithIcon = {
     icon: <ChevronRightIcon className="h-4 w-4 stroke-2 text-blue-1-primary" />,
   },
 };
+
+export const Small = {
+  args: { ...mockButtonProps.base, small: true },
+};
