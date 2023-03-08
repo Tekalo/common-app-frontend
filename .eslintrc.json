@@ -5,7 +5,7 @@
     "next/core-web-vitals",
     "eslint:recommended"
   ],
-  "globals": { "React": "readonly" },
+  "globals": { "React": "readonly", "JSX": "readonly" },
   "overrides": [
     {
       "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],

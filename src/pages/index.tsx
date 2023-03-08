@@ -1,5 +1,3 @@
-import LoginButton from '@/components/LoginButton';
-import LogoutButton from '@/components/LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import Head from 'next/head';
 
@@ -19,10 +17,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className="text-black-text font-display text-desktop-h1 underline">
-          Schmidt Futures Common App
-        </h1>
-        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+        <section>Navbar</section>
+        <section>Hero</section>
+        <section>About</section>
+        <section>How-it-works</section>
+        <section>For-organizations</section>
+        <section>Testimonials</section>
+        <section>FAQ</section>
+        <section>Contact-Us</section>
+        <section>Footer</section>
       </main>
     </>
   );

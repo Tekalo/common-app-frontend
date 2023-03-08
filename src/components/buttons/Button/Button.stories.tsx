@@ -1,20 +1,28 @@
-import { Meta, StoryFn } from '@storybook/react';
-import Button, { IButton } from './Button';
+import { ChevronRightIcon } from '@heroicons/react/24/solid';
+import Button from './Button';
 import { mockButtonProps } from './Button.mocks';
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { component: Button };
 
-export default {
-  title: 'buttons/Button',
-  component: Button,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {},
-} as Meta<typeof Button>;
+export const Primary = {
+  args: { ...mockButtonProps.base },
+};
+export const Disabled = {
+  args: { ...mockButtonProps.base, disabled: true },
+};
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: StoryFn<typeof Button> = (args) => <Button {...args} />;
+export const Outlined = { args: { ...mockButtonProps.base, outlined: true } };
 
-export const Base = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+export const WithIcon = {
+  args: {
+    ...mockButtonProps.base,
+    outlined: true,
+    icon: (
+      <ChevronRightIcon className="h-4 w-4 stroke-2 text-blue-1-primary group-hover:fill-white-text" />
+    ),
+  },
+};
 
-Base.args = {
-  ...mockButtonProps.base,
-} as IButton;
+export const Small = {
+  args: { ...mockButtonProps.base, small: true },
+};
