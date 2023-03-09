@@ -1,8 +1,8 @@
-import { ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Button from './Button';
 import { mockButtonProps } from './Button.mocks';
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { component: Button };
+export default { component: Button, parameters: { layout: 'centered' } };
 
 export const Primary = {
   args: { ...mockButtonProps.base },
@@ -25,5 +25,5 @@ export const WithIcon = {
 };
 
 export const Small = {
-  args: { ...mockButtonProps.base, small: true },
+  args: { ...mockButtonProps.base, className: 'px-6 py-3' },
 };

@@ -4,8 +4,8 @@ const base: IButton = {
   label: 'Placeholder',
   outlined: false,
   disabled: false,
-  small: false,
   onClick: () => {},
+  className: 'px-8 py-3',
 };
 
 export const mockButtonProps = {
