@@ -15,8 +15,9 @@ const HomeLayout: React.FC<IHomeLayout> = ({
       <Head>
         <title>Primary Layout</title>
       </Head>
+      <MainNavbar />
+
       <div {...divProps} className={`flex min-h-screen flex-col ${justify}`}>
-        <MainNavbar />
         <main className="px-5">{children}</main>
         <div className="m-auto" />
         {/* <Footer /> */}

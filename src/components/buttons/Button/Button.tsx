@@ -1,11 +1,11 @@
 import { IconType } from '@/lib/types';
 
-export interface IButton {
+export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   icon?: IconType;
   label: string;
   disabled?: boolean;
-  outlined: boolean;
-  small: boolean;
+  outlined?: boolean;
+  small?: boolean;
   onClick(): void;
 }
 
@@ -16,13 +16,14 @@ const Button: React.FC<IButton> = ({
   disabled,
   outlined,
   small,
+  className,
 }) => {
   const BASE = `group flex h-12 flex-row
     content-center items-center gap-[10px] rounded border-2 border-blue-1-primary ${
       small ? 'px-4 py-0' : 'px-8 py-3'
     } font-sans text-component-lg font-normal hover:border-blue-2-hover
     hover:bg-blue-2-hover focus-visible:ring-2 focus-visible:ring-[#A7C4DB] active:border-blue-3-pressed active:bg-blue-3-pressed disabled:border-blue-4-disabled disabled:bg-blue-4-disabled
-  disabled:text-white-text group`;
+  disabled:text-white-text group ${className}`;
 
   const DEFAULT = `${BASE} bg-blue-1-primary text-white-text`;
 

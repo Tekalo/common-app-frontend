@@ -7,7 +7,6 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <div>
-      <section>Navbar</section>
       <section>Hero</section>
       <section>About</section>
       <section>How-it-works</section>
