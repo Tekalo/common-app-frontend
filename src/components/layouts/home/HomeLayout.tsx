@@ -1,3 +1,4 @@
+import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
 import Head from 'next/head';
 
 export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {
@@ -12,12 +13,14 @@ const HomeLayout: React.FC<IHomeLayout> = ({
   return (
     <>
       <Head>
-        <title>Primary Layout</title>
+        <title>CommonApp</title>
       </Head>
-      <div {...divProps} className={`flex min-h-screen flex-col ${justify}`}>
-        {/* <Header /> */}
-        <div>Header</div>
-        <main className="px-5">{children}</main>
+      <div
+        {...divProps}
+        className={`flex min-h-screen w-screen flex-col ${justify}`}
+      >
+        <MainNavbar />
+        <main>{children}</main>
         <div className="m-auto" />
         {/* <Footer /> */}
         <div>Footer</div>
