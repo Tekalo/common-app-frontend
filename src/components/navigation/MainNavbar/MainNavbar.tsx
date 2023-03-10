@@ -43,7 +43,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
             ) : (
               <>
                 <a
-                  className="hidden cursor-pointer px-6 py-3 text-component-xl font-normal text-black-text tablet:block"
+                  className="hidden cursor-pointer px-6 py-3 text-component-xl font-normal text-black-text hover:text-blue-1-primary active:text-blue-2-hover tablet:block"
                   onClick={(e) => handleAuthentication(e)}
                 >
                   {isAuthenticated ? 'Log out' : 'Log in'}
