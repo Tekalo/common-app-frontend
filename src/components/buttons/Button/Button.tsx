@@ -17,7 +17,7 @@ const Button: React.FC<IButton> = ({
   className,
 }) => {
   const BASE = `group min-w-[118px] flex h-12 flex-row
-    content-center items-center justify-center rounded font-sans text-component-lg font-normal hover:bg-blue-2-hover focus-visible:ring-2 focus-visible:ring-[#A7C4DB] active:border-blue-3-pressed active:bg-blue-3-pressed disabled:border-blue-4-disabled disabled:bg-blue-4-disabled disabled:text-white-text group ${className}`;
+    content-center items-center justify-center rounded font-sans text-component-lg font-normal transition-colors hover:bg-blue-2-hover focus-visible:ring-2 focus-visible:ring-[#A7C4DB] active:border-blue-3-pressed active:bg-blue-3-pressed disabled:border-blue-4-disabled disabled:bg-blue-4-disabled disabled:text-white-text group ${className}`;
 
   const DEFAULT = `${BASE} bg-blue-1-primary text-white-text`;
 

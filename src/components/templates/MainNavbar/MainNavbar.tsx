@@ -4,23 +4,20 @@ import Button from '@/components/buttons/Button/Button';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { SyntheticEvent } from 'react';
 
 export interface IMainNavbar extends React.ComponentPropsWithoutRef<'header'> {}
 
 const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
-  const router = useRouter();
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const handleAuthentication = (e: SyntheticEvent) => {
+    // FIXME: There is an error somewhere in this component where the unauthenticated bar loads before being swapped to authenticated. May need to check that and do somethign about it -- loading maybe?
     e.preventDefault();
 
     isAuthenticated
       ? logout({ logoutParams: { returnTo: window.location.origin } })
       : loginWithRedirect();
-
-    router.refresh();
   };
 
   return (

@@ -1,4 +1,4 @@
-import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
+import MainNavbar from '@/components/templates/MainNavbar/MainNavbar';
 import Head from 'next/head';
 
 export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {
