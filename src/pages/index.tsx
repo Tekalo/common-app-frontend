@@ -8,11 +8,7 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <div>
-      <Link href="/privacy-info">
-        <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
-          Go to Privacy Info
-        </button>
-      </Link>
+      <Link href="/privacy-info">Privacy info</Link>
       <section>Hero</section>
       <section>About</section>
       <section>How-it-works</section>
