@@ -56,27 +56,15 @@ const AboutSection: React.FC<IAboutSection> = () => {
         <h3 className="text-center font-display text-desktop-h3 text-black-text">
           Roles being recruited through the [Name TBD]
         </h3>
-        <div className="grid grid-flow-col grid-rows-2 gap-4 px-96 py-12">
+        <div className="grid grid-flow-col grid-rows-2 gap-4 py-12 px-36 tablet:px-52 desktop:px-96">
           <img
             src="/images/roles/SWERole.png"
             alt="Software Engineer Role"
-            className="h-28 object-cover"
+            className="object-cover"
           />
-          <img
-            src="/images/roles/UXRole.png"
-            alt=""
-            className="h-28object-cover object-cover"
-          />
-          <img
-            src="/images/roles/PMRole.png"
-            alt=""
-            className="h-28 object-cover"
-          />
-          <img
-            src="/images/roles/DSRole.png"
-            alt=""
-            className="h-28 object-cover"
-          />
+          <img src="/images/roles/UXRole.png" alt="" className="object-cover" />
+          <img src="/images/roles/PMRole.png" alt="" className="object-cover" />
+          <img src="/images/roles/DSRole.png" alt="" className="object-cover" />
         </div>
       </div>
     </div>
