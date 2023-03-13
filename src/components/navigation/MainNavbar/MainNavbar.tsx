@@ -20,7 +20,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   };
 
   return (
-    <nav className="w-screen bg-white">
+    <nav className="fixed top-0 z-10 w-screen bg-white">
       <div className="mx-auto h-auto max-w-7xl xs:px-1 mobile:px-4 tablet:px-10 desktop:px-20">
         <div className="space-y-50 flex justify-around mobile:justify-between">
           <div className="flex py-4">
