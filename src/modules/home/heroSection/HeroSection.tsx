@@ -1,13 +1,13 @@
 import Button from '@/components/buttons/Button/Button';
 
-export interface IHero {}
+export interface IHeroSection {}
 
-const Hero: React.FC<IHero> = () => {
+const HeroSection: React.FC<IHeroSection> = () => {
   return (
-    <div className="relative bg-light-blue-bg">
+    <div className="relative top-20 bg-light-blue-bg">
       <div className="mx-auto max-w-[1880px] tablet:grid tablet:grid-cols-12">
         {/* CONTENT */}
-        <div className="col-span-7 py-24 pl-40">
+        <div className="col-span-6 pt-24 pl-40">
           <div className="mx-auto max-w-2xl tablet:mx-0">
             <div className="text-desktop-h1 text-black-text">
               Where technical talent and impact connect.
@@ -33,7 +33,7 @@ const Hero: React.FC<IHero> = () => {
           </div>
         </div>
         {/* IMAGE */}
-        <div className="relative col-start-8 col-end-13">
+        <div className="relative col-start-7 col-end-13">
           <img src="/images/HeroImage.png" alt="Hero Image" className="" />
         </div>
       </div>
@@ -41,4 +41,4 @@ const Hero: React.FC<IHero> = () => {
   );
 };
 
-export default Hero;
+export default HeroSection;
