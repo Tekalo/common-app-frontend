@@ -1,6 +1,6 @@
 import HomeLayout from '@/components/layouts/home/HomeLayout';
-import Hero from '@/components/modules/home/hero/Hero';
 import { NextPageWithLayout } from '@/lib/types';
+import Hero from '@/modules/home/hero/Hero';
 
 const Home: NextPageWithLayout = () => {
   return (
