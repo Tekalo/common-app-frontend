@@ -19,7 +19,8 @@
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/modules/*": ["./src/modules/*"],
-      "@/api/*": ["./src/api/*"]
+      "@/api/*": ["./src/api/*"],
+      "@/lib/*": ["./src/lib/*"]
     },
     "types": ["@cloudflare/workers-types"]
   },

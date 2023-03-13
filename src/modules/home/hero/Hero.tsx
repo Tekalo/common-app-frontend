@@ -1,4 +1,5 @@
 import Button from '@/components/buttons/Button/Button';
+import cloudflareLoader from '@/lib/imageLoader';
 import Image from 'next/image';
 import HeroImage from 'public/images/HeroImage.png';
 
@@ -36,7 +37,14 @@ const Hero: React.FC<IHero> = () => {
         </div>
         {/* IMAGE */}
         <div className="relative col-start-8 col-end-13">
-          <Image src={HeroImage} alt="Hero Image" className="" fill />
+          <Image
+            loader={cloudflareLoader}
+            src={HeroImage}
+            alt="Hero Image"
+            className=""
+            sizes="(max-width: 1200px) 50vw"
+            fill
+          />
         </div>
       </div>
     </div>
