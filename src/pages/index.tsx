@@ -1,15 +1,11 @@
 import HomeLayout from '@/components/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import { useAuth0 } from '@auth0/auth0-react';
-import Link from 'next/link';
+import Hero from '@/modules/home/hero/Hero';
 
 const Home: NextPageWithLayout = () => {
-  const { isAuthenticated, isLoading } = useAuth0();
-
   return (
     <div>
-      <Link href="/privacy-info">Privacy info</Link>
-      <section>Hero</section>
+      <Hero />
       <section>About</section>
       <section>How-it-works</section>
       <section>For-organizations</section>
