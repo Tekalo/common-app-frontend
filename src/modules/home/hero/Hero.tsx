@@ -1,5 +1,5 @@
 import Button from '@/components/buttons/Button/Button';
-import cloudflareLoader from '@/lib/imageLoader';
+import { cloudflareLoader } from '@/lib/imageLoader';
 import Image from 'next/image';
 import HeroImage from 'public/images/HeroImage.png';
 
