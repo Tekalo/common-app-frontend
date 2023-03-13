@@ -2,7 +2,7 @@ export interface IAboutSection {}
 
 const AboutSection: React.FC<IAboutSection> = () => {
   return (
-    <div className="flex flex-col items-center px-40">
+    <div className="flex flex-col items-center">
       {/* Coalition Logos */}
       <div className="w-[1120px] pt-28">
         <p className="text-center font-display text-desktop-lg-caption uppercase text-[#5D5E6F]">
@@ -52,7 +52,33 @@ const AboutSection: React.FC<IAboutSection> = () => {
         />
       </div>
       {/* Roles */}
-      <div className="pt-24"></div>
+      <div className="pt-32">
+        <h3 className="text-center font-display text-desktop-h3 text-black-text">
+          Roles being recruited through the [Name TBD]
+        </h3>
+        <div className="grid grid-flow-col grid-rows-2 gap-4 px-96 py-12">
+          <img
+            src="/images/roles/SWERole.png"
+            alt="Software Engineer Role"
+            className="h-28 object-cover"
+          />
+          <img
+            src="/images/roles/UXRole.png"
+            alt=""
+            className="h-28object-cover object-cover"
+          />
+          <img
+            src="/images/roles/PMRole.png"
+            alt=""
+            className="h-28 object-cover"
+          />
+          <img
+            src="/images/roles/DSRole.png"
+            alt=""
+            className="h-28 object-cover"
+          />
+        </div>
+      </div>
     </div>
   );
 };
