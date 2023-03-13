@@ -1,13 +1,13 @@
 import HomeLayout from '@/components/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import CoalitionSection from '@/modules/home/coalitionSection/CoalitionSection';
+import AboutSection from '@/modules/home/aboutSection/AboutSection';
 import Hero from '@/modules/home/heroSection/HeroSection';
 
 const Home: NextPageWithLayout = () => {
   return (
     <div>
       <Hero />
-      <CoalitionSection />
+      <AboutSection />
       <section>How-it-works</section>
       <section>For-organizations</section>
       <section>Testimonials</section>

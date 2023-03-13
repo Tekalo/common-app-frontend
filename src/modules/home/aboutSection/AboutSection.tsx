@@ -1,11 +1,58 @@
-export interface IAboutSection {
-  sampleTextProp: string;
-}
+export interface IAboutSection {}
 
-const AboutSection: React.FC<IAboutSection> = ({ sampleTextProp }) => {
+const AboutSection: React.FC<IAboutSection> = () => {
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-500">
-      {sampleTextProp}
+    <div className="flex flex-col items-center px-40">
+      {/* Coalition Logos */}
+      <div className="w-[1120px] pt-28">
+        <p className="text-center font-display text-desktop-lg-caption uppercase text-[#5D5E6F]">
+          The common app is supported by
+        </p>
+        <div className="flex flex-row items-center justify-around pt-10 align-middle">
+          <img
+            src="/images/logos/SchmidtFuturesLogo.png"
+            alt="Schmidt Futures Logo"
+            className="h-4 object-cover"
+          />
+          <img
+            src="/images/logos/USDigitalResponseLogo.png"
+            alt="US Digital Response Logo"
+            className="h-12 object-cover"
+          />
+          <img
+            src="/images/logos/AllTechIsHumanLogo.png"
+            alt="All Tech Is Human Logo"
+            className="h-24 object-cover"
+          />
+          <img
+            src="/images/logos/FastForwardLogo.png"
+            alt="Fast Forward Logo"
+            className="h-16 object-cover"
+          />
+        </div>
+      </div>
+      {/* Content */}
+      <div className="flex flex-col items-center pt-28">
+        <h2 className="px-64 text-center font-display text-desktop-h2 text-black-text">
+          [Name TBD] works for tech talent and impactful organizations
+        </h2>
+        <p className="px-80 pt-10 text-center font-sans text-desktop-h4 font-normal text-black-text">
+          Now more than ever, there are a multitude of opportunities outside of
+          traditional tech roles, creating a pressing need for technologists who
+          want to solve some of the world’s hardest and most urgent problems
+          lorem ipsum
+        </p>
+      </div>
+      {/* Benefits Image */}
+      <div className="flex justify-center px-64 pt-8">
+        <img
+          src="/images/BenefitHero.png"
+          alt="Benefits Image"
+          className="object-cover"
+        />
+      </div>
+      {/* Roles */}
+      <div className="pt-24"></div>
     </div>
   );
 };

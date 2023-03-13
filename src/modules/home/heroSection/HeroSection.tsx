@@ -34,11 +34,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
         </div>
         {/* IMAGE */}
         <div className="relative col-start-8 col-end-13">
-          <img
-            src="/images/HeroSectionImage.png"
-            alt="HeroSection Image"
-            className=""
-          />
+          <img src="/images/HeroImage.png" alt="Hero Image" className="" />
         </div>
       </div>
     </div>
