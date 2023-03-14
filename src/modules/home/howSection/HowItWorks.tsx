@@ -30,39 +30,41 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
   ];
 
   return (
-    <div className="bg-light-blue-bg desktop:h-[1086px] desktop:w-[1440px]">
-      {/* Title */}
-      <div className="pt-24 text-center font-display text-desktop-h3 text-black-text">
-        How it works
-      </div>
-      {/* Toggle Menu */}
-      <div className="flex flex-row justify-center space-x-10 pt-12">
-        <div
-          className={`text-desktop-h4 transition-all ${
-            forOrgs
-              ? 'text-gray-2-darker'
-              : 'text-blue-1-primary underline underline-offset-8'
-          }`}
-          onClick={() => setForOrgs(false)}
-        >
-          For candidates
+    <section className="grid w-full place-items-center">
+      <div className="bg-light-blue-bg desktop:h-[1086px] desktop:w-[1440px]">
+        {/* Title */}
+        <div className="pt-24 text-center font-display text-desktop-h3 text-black-text">
+          How it works
         </div>
-        <div
-          className={`text-desktop-h4 transition-all ${
-            forOrgs
-              ? 'text-blue-1-primary underline underline-offset-8'
-              : 'text-gray-2-darker'
-          }`}
-          onClick={() => setForOrgs(true)}
-        >
-          For organizations
+        {/* Toggle Menu */}
+        <div className="flex flex-row justify-center space-x-10 pt-12">
+          <div
+            className={`cursor-pointer text-desktop-h4 transition-all ${
+              forOrgs
+                ? 'text-gray-2-darker'
+                : 'text-blue-1-primary underline underline-offset-8'
+            }`}
+            onClick={() => setForOrgs(false)}
+          >
+            For candidates
+          </div>
+          <div
+            className={`cursor-pointer text-desktop-h4 transition-all ${
+              forOrgs
+                ? 'text-blue-1-primary underline underline-offset-8'
+                : 'text-gray-2-darker'
+            }`}
+            onClick={() => setForOrgs(true)}
+          >
+            For organizations
+          </div>
+        </div>
+        {/* Timeline Component */}
+        <div className="justify-center px-80 py-14 text-center align-middle">
+          {forOrgs ? orgItems[0].title : candidateItems[0].title}
         </div>
       </div>
-      {/* Timeline Component */}
-      <div className="justify-center px-80 py-14 text-center align-middle">
-        {forOrgs ? orgItems[0].title : candidateItems[0].title}
-      </div>
-    </div>
+    </section>
   );
 };
 
