@@ -1,3 +1,4 @@
+import Timeline from '@/components/timeline/Timeline';
 import { ITimelineItem } from '@/lib/types';
 import { useState } from 'react';
 
@@ -60,9 +61,7 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
           </div>
         </div>
         {/* Timeline Component */}
-        <div className="justify-center px-80 py-14 text-center align-middle">
-          {forOrgs ? orgItems[0].title : candidateItems[0].title}
-        </div>
+        <Timeline timelineItems={forOrgs ? orgItems : candidateItems} />
       </div>
     </section>
   );
