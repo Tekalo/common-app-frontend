@@ -1,8 +1,6 @@
 import { IHowItWorks } from './HowItWorks';
 
-const base: IHowItWorks = {
-  sampleTextProp: 'Hello world!',
-};
+const base: IHowItWorks = {};
 
 export const mockHowItWorksProps = {
   base,
