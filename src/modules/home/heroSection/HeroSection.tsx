@@ -9,10 +9,10 @@ const HeroSection: React.FC<IHeroSection> = () => {
         {/* CONTENT */}
         <div className="col-span-6 pt-24 pl-40">
           <div className="mx-auto max-w-2xl tablet:mx-0">
-            <div className="text-desktop-h1 text-black-text">
+            <div className="w-[640px] text-desktop-h1 text-black-text">
               Where technical talent and impact connect.
             </div>
-            <div className="w-[543px] pt-8 font-sans text-desktop-h4 font-normal">
+            <div className="w-[525px] pt-8 font-sans text-desktop-h4 font-normal">
               A platform for matchmaking between technical talent and
               mission-driven organizations.
             </div>

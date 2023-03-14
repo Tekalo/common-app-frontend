@@ -52,11 +52,11 @@ const AboutSection: React.FC<IAboutSection> = () => {
         />
       </div>
       {/* Roles */}
-      <div className="pt-32">
+      <div className="pt-28">
         <h3 className="text-center font-display text-desktop-h3 text-black-text">
           Roles being recruited through the [Name TBD]
         </h3>
-        <div className="grid grid-flow-col grid-rows-2 gap-4 py-12 px-36 tablet:px-52 desktop:px-96">
+        <div className="grid grid-flow-col grid-rows-2 gap-4 py-12 px-36 tablet:px-52 desktop:px-80">
           <img
             src="/images/roles/SWERole.png"
             alt="Software Engineer Role"
