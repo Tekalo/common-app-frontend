@@ -9,7 +9,7 @@ const Home: NextPageWithLayout = () => {
     <div>
       <Hero />
       <AboutSection />
-      <HowItWorks sampleTextProp="FIXME" />
+      <HowItWorks />
       <section>For-organizations</section>
       <section>Testimonials</section>
       <section>FAQ</section>
