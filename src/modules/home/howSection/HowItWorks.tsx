@@ -2,7 +2,7 @@ import Timeline from '@/components/timeline/Timeline';
 import { ITimelineItem } from '@/lib/types';
 import { useState } from 'react';
 
-interface IHowItWorks {}
+export interface IHowItWorks {}
 
 const HowItWorks: React.FC<IHowItWorks> = () => {
   const [forOrgs, setForOrgs] = useState(false);
