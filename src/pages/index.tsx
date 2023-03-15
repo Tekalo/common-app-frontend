@@ -3,6 +3,7 @@ import { NextPageWithLayout } from '@/lib/types';
 import AboutSection from '@/modules/home/aboutSection/AboutSection';
 import Hero from '@/modules/home/heroSection/HeroSection';
 import HowItWorks from '@/modules/home/howSection/HowItWorks';
+import ForOrganizations from '@/modules/home/orgSection/forOrganizations';
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -10,7 +11,7 @@ const Home: NextPageWithLayout = () => {
       <Hero />
       <AboutSection />
       <HowItWorks />
-      <section>For-organizations</section>
+      <ForOrganizations />
       <section>Testimonials</section>
       <section>FAQ</section>
       <section>Contact-Us</section>
