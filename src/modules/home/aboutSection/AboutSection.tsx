@@ -8,7 +8,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
         <p className="text-center font-display text-desktop-lg-caption uppercase text-[#5D5E6F]">
           The common app is supported by
         </p>
-        <div className="flex flex-row items-center justify-around pt-10">
+        <div className="flex flex-row items-center pt-10">
           <img
             src="/images/logos/SchmidtFuturesLogo.png"
             alt="Schmidt Futures Logo"
