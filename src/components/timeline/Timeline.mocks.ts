@@ -1,7 +1,7 @@
 import { ITimeline } from './Timeline';
 
 const base: ITimeline = {
-  sampleTextProp: 'Hello world!',
+  timelineItems: [{ title: 'Hello', text: 'World' }],
 };
 
 export const mockTimelineProps = {
