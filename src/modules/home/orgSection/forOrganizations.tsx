@@ -65,7 +65,7 @@ const ForOrganizations: React.FC<IForOrganizations> = () => {
           <div className="flex flex-col items-center  pt-16 text-center">
             {/* Title */}
             <div className="text-displaytext-center text-desktop-h3 text-black-text">
-              <p>Hire candidates that are aligned</p> with your mission.
+              <p>Hire candidates that are aligned</p> <p>with your mission.</p>
             </div>
             <div className="px-28 pt-6 text-center font-sans text-desktop-md-copy leading-7  text-black-text ">
               Candidates on [Name TBD] are carefully vetted and screened before
