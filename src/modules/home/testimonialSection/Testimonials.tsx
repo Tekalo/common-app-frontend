@@ -9,6 +9,17 @@ const Testimonials: React.FC<ITestimonials> = () => {
       <div className="pt-20 text-center font-display text-desktop-lg-caption uppercase text-gray-1-darkest">
         Tech talent solving impactful problems
       </div>
+      {/* FIXME: Honestly this approach is bad. I'm going to refactor it.
+      
+      In short, I want to create a single testimonial object that contains the image, quote, attribution and star/swoop icons. 
+
+      Then I want to create totally separate carousel component that takes in an array of react elements and does the state configuration
+
+      TODO: Carousel component that can carousel different objects
+      TODO: Wrap all images (star and swoop icon) in a testimonial 
+      TODO: Plug them into this area 
+
+      */}
       {/* STAR ICON */}
       <div className="pt-1 pl-44">
         <img
