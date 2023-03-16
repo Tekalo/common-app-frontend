@@ -3865,7 +3865,7 @@ packages:
       '@storybook/csf-plugin': 7.0.0-beta.61
       '@storybook/csf-tools': 7.0.0-beta.61
       '@storybook/global': 5.0.0
-      '@storybook/mdx2-csf': 1.0.0-next.5
+      '@storybook/mdx2-csf': 1.0.0-next.6
       '@storybook/node-logger': 7.0.0-beta.61
       '@storybook/postinstall': 7.0.0-beta.61
       '@storybook/preview-api': 7.0.0-beta.61
@@ -4745,8 +4745,8 @@ packages:
     resolution: {integrity: sha512-C38FyZ+EWH0iC8HXf/6GnAFYXpb97fJNJkxDilIh3GeJ1yxS/K1Y5sgjvgsHNDfoLNITfyNmAVVwoU9D/QrbhQ==}
     dev: true
 
-  /@storybook/mdx2-csf/1.0.0-next.5:
-    resolution: {integrity: sha512-02w0sgGZaK1agT050yCVhJ+o4rLHANWvLKWjQjeAsYbjneLC5ITt+3GDB4jRiWwJboZ8dHW1fGSK1Vg5fA34aQ==}
+  /@storybook/mdx2-csf/1.0.0-next.6:
+    resolution: {integrity: sha512-m6plojocU/rmrqWd26yvm8D+oHZPZ6PtSSFmZIgpNDEPVmc8s4fBD6LXOAB5MiPI5f8KLUr2HVhOMZ97o5pDTw==}
     dev: true
 
   /@storybook/nextjs/7.0.0-beta.61_pnqcpwwnf253qg4vedyb26k7xi:

@@ -29,7 +29,7 @@ const Testimonials: React.FC<ITestimonials> = () => {
           className="h-[30px] w-[30px] object-cover"
         />
       </div>
-      {/* SLIDER CONTROL */}
+      {/* TODO: CAROUSEL + SLIDER CONTROL */}
       <div className="pt-16"></div>
     </section>
   );
