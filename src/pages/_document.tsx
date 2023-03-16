@@ -6,13 +6,6 @@ export default function Document() {
       <Head>
         <link
           rel="preload"
-          href="/fonts/Figtree-Italic-VariableFont_wght.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
           href="/fonts/Figtree-VariableFont_wght.woff2"
           as="font"
           type="font/woff2"
@@ -20,9 +13,17 @@ export default function Document() {
         />
         <link
           rel="preload"
-          href="/fonts/GraphikMedium.otf"
+          href="/fonts/Figtree-Italic-VariableFont_wght.woff2"
           as="font"
-          type="font/otf"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+
+        <link
+          rel="preload"
+          href="/fonts/GraphikMedium.woff2"
+          as="font"
+          type="font/woff2"
           crossOrigin="anonymous"
         />
       </Head>
