@@ -19,6 +19,8 @@
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/modules/*": ["./src/modules/*"],
+      "@/layouts/*": ["./src/layouts/*"],
+      "@/templates/*": ["./src/templates/*"],
       "@/api/*": ["./src/api/*"],
       "@/lib/*": ["./src/lib/*"]
     },

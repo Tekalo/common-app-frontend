@@ -7,7 +7,7 @@ export interface IForOrganizations {}
 
 const ForOrganizations: React.FC<IForOrganizations> = () => {
   return (
-    <section className="grid w-full place-items-center pt-24">
+    <section className="grid w-full place-items-center pt-24 pb-28">
       <div className="min-w-full px-40">
         {/* Title */}
         <div className="text-center text-desktop-sm-caption uppercase text-gray-1-darkest">
@@ -64,7 +64,7 @@ const ForOrganizations: React.FC<IForOrganizations> = () => {
       <div className="relative flex w-[608px] flex-col items-center pt-28">
         {/* Offset Blackbox */}
         <div className="absolute -right-3 -bottom-3 z-0 flex h-[75%] w-[100%] items-stretch rounded-2xl bg-[#363D3F]" />
-        <div className="relative z-10 flex rounded-[10px] bg-[#FFFAF5] ring-4 ring-[#FFBC03]">
+        <div className="relative z-10 flex rounded-[10px] bg-light-organge-bg ring-4 ring-[#FFBC03]">
           {/* Content */}
           <div className="flex flex-col items-center  pt-16 text-center">
             {/* Title */}
