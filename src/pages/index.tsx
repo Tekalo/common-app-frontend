@@ -1,9 +1,12 @@
 import HomeLayout from '@/components/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import AboutSection from '@/modules/home/aboutSection/AboutSection';
+import Contact from '@/modules/home/contactSection/Contact';
+import FAQS from '@/modules/home/faqSection/FAQS';
 import Hero from '@/modules/home/heroSection/HeroSection';
 import HowItWorks from '@/modules/home/howSection/HowItWorks';
 import ForOrganizations from '@/modules/home/orgSection/forOrganizations';
+import Testimonials from '@/modules/home/testimonialSection/Testimonials';
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -12,6 +15,9 @@ const Home: NextPageWithLayout = () => {
       <AboutSection />
       <HowItWorks />
       <ForOrganizations />
+      <Testimonials sampleTextProp="TESTIMONIAL TODO" />
+      <FAQS sampleTextProp="FAQ TODO" />
+      <Contact sampleTextProp="CONTACT TODO" />
     </div>
   );
 };

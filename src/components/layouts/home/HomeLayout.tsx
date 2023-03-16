@@ -1,3 +1,4 @@
+import MainFooter from '@/components/navigation/MainFooter/MainFooter';
 import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
 import Head from 'next/head';
 
@@ -22,8 +23,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({
         <MainNavbar />
         <main>{children}</main>
         <div className="m-auto" />
-        {/* <Footer /> */}
-        <div>Footer</div>
+        <MainFooter sampleTextProp="FOOTER TODO" />
       </div>
     </>
   );

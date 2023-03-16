@@ -3,6 +3,8 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid';
 
 export interface IForOrganizations {}
 
+// TODO: Replace images with next/image --> figure out cloudflare + next/image
+
 const ForOrganizations: React.FC<IForOrganizations> = () => {
   return (
     <section className="grid w-full place-items-center pt-24">

@@ -2,6 +2,8 @@ import Button from '@/components/buttons/Button/Button';
 
 export interface IHeroSection {}
 
+// TODO: Replace images with next/image --> figure out cloudflare + next/image
+
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
     <div className="relative top-20 bg-light-blue-bg">
