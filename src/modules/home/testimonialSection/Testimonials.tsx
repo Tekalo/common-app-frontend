@@ -19,6 +19,19 @@ const Testimonials: React.FC<ITestimonials> = () => {
       TODO: Wrap all images (star and swoop icon) in a testimonial 
       TODO: Plug them into this area 
 
+      testimonials = [
+        {
+          image: "/path/to/src",
+          quote: "Some quote thing",
+          attribution: "So-and-So"
+        }
+      ]
+
+      <Carousel ...props>
+        { testimonials.map((props, i) => (<Testimonial ...props />))}
+      <Carousel />
+      ~~~
+
       */}
       {/* STAR ICON */}
       <div className="pt-1 pl-44">
