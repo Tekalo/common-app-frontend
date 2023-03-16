@@ -2,3 +2,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Variable Fonts */
+@font-face {
+  src: url(/fonts/Figtree-VariableFont_wght.woff2) format('woff2');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  font-named-instance: 'Regular';
+}
+@font-face {
+  src: url(/fonts/Figtree-Italic-VariableFont_wght.woff2) format('woff2');
+  font-family: 'Figtree';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: optional;
+  font-named-instance: 'Regular';
+}
+
+/* Static Fonts */
+@font-face {
+  font-named-instance: GraphikMedium;
+  font-display: optional;
+  font-family: Graphik;
+  font-weight: 700;
+  src: url(/fonts/GraphikMediu.ttf) format('ttf');
+}
+
+:root {
+  @apply font-sans antialiased;
+}

@@ -12,9 +12,6 @@ const Home: NextPageWithLayout = () => {
       <AboutSection />
       <HowItWorks />
       <ForOrganizations />
-      <section>Testimonials</section>
-      <section>FAQ</section>
-      <section>Contact-Us</section>
     </div>
   );
 };

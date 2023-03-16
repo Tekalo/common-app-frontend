@@ -17,7 +17,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({
       </Head>
       <div
         {...divProps}
-        className={`flex min-h-screen w-screen flex-col ${justify}`}
+        className={`flex min-h-screen max-w-[1440px] flex-col ${justify}`}
       >
         <MainNavbar />
         <main>{children}</main>
