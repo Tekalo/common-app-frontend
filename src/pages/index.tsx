@@ -1,4 +1,4 @@
-import HomeLayout from '@/components/layouts/home/HomeLayout';
+import HomeLayout from '@/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import AboutSection from '@/modules/home/aboutSection/AboutSection';
 import Contact from '@/modules/home/contactSection/Contact';
