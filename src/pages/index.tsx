@@ -2,7 +2,7 @@ import HomeLayout from '@/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import AboutSection from '@/modules/home/aboutSection/AboutSection';
 import Contact from '@/modules/home/contactSection/Contact';
-import FAQS from '@/modules/home/faqSection/FAQS';
+import FAQS from '@/modules/home/faqSection/faqSection';
 import Hero from '@/modules/home/heroSection/HeroSection';
 import HowItWorks from '@/modules/home/howSection/HowItWorks';
 import ForOrganizations from '@/modules/home/orgSection/forOrganizations';

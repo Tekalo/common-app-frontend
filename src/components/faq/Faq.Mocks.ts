@@ -7,6 +7,11 @@ const base: IFaq = {
       questionText: 'Hello',
       answerText: 'World',
     },
+    {
+      toggledOpen: true,
+      questionText: 'Zar',
+      answerText: 'Doz',
+    },
   ],
 };
 

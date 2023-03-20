@@ -20,9 +20,9 @@ const Faq: React.FC<IFaq> = ({ faqItems }) => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-500">
+    <div className="divide-y bg-gradient-to-r from-cyan-500 to-blue-500">
       {Faq.map((faq, index) => (
-        <div key={index}>
+        <div key={index} className="">
           <div className="">{faq.questionText}</div>
           <div className="">{faq.answerText}</div>
         </div>
