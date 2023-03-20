@@ -4,7 +4,7 @@ import '../src/styles/globals.css';
 const BREAKPOINTS_INT = {
   xs: 320,
   sm: 360,
-  tablet: 768,
+  md: 768,
   lg: 1280,
 };
 

@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     // Mirroring: https://www.figma.com/file/CCE0TsuhSMnDb2X0287IXX/%F0%9F%8E%A8-Common-App-Components?node-id=22%3A404&t=KfRuKN24GmEy0KBa-0
     colors: {
+      white: '#FFFFFF',
       'black-text': '#272929',
       'gray-1': '#6B7281',
       'gray-2': '#9FA4AE',
@@ -38,9 +39,10 @@ module.exports = {
       sm: '360px',
       md: '768px',
       lg: '1280px',
+      xl: '1880px',
     },
     fontSize: {
-      // Component Typography
+      // components
       'component-extra-large': [
         '18px',
         {
@@ -81,7 +83,7 @@ module.exports = {
           fontWeight: '400',
         },
       ],
-      // lg Typography
+      // desktop
       'p3-desktop': [
         '14px',
         {
@@ -150,7 +152,7 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      // sm/Tablet Typography
+      // mobile
       'p3-mobile': [
         '14px',
         {
@@ -220,47 +222,51 @@ module.exports = {
         },
       ],
     },
-    spacing: {
-      // mobile Spacing
-      '1-mobile': '24px',
-      '2-mobile': '32px',
-      '3-mobile': '40px',
-      '4-mobile': '48px',
-      '5-mobile': '56px',
-      '6-mobile': '64px',
-      '7-mobile': '72px',
-      '8-mobile': '80px',
-      '9-mobile': '88px',
-      '10-mobile': '96px',
-      '11-mobile': '104px',
-      '12-mobile': '112px',
-      // tablet Spacing
-      '1-tablet': '32px',
-      '2-tablet': '40px',
-      '3-tablet': '56px',
-      '4-tablet': '64px',
-      '5-tablet': '72px',
-      '6-tablet': '80px',
-      '7-tablet': '88px',
-      '8-tablet': '96px',
-      '9-tablet': '112px',
-      '10-tablet': '120px',
-      '11-tablet': '128px',
-      // lg Spacing
-      '1-desktop': '40px',
-      '2-desktop': '48px',
-      '3-desktop': '56px',
-      '4-desktop': '64px',
-      '5-desktop': '80px',
-      '6-desktop': '96px',
-      '7-desktop': '104px',
-      '8-desktop': '112px',
-      '9-desktop': '120px',
-      '10-desktop': '128px',
-      '11-desktop': '144px',
-      '12-desktop': '152px',
-      '13-desktop': '160px',
+
+    extend: {
+      spacing: {
+        px: '1px',
+        0: '0px',
+        // mobile Spacing
+        '1-mobile': '24px',
+        '2-mobile': '32px',
+        '3-mobile': '40px',
+        '4-mobile': '48px',
+        '5-mobile': '56px',
+        '6-mobile': '64px',
+        '7-mobile': '72px',
+        '8-mobile': '80px',
+        '9-mobile': '88px',
+        '10-mobile': '96px',
+        '11-mobile': '104px',
+        '12-mobile': '112px',
+        // tablet Spacing
+        '1-tablet': '32px',
+        '2-tablet': '40px',
+        '3-tablet': '56px',
+        '4-tablet': '64px',
+        '5-tablet': '72px',
+        '6-tablet': '80px',
+        '7-tablet': '88px',
+        '8-tablet': '96px',
+        '9-tablet': '112px',
+        '10-tablet': '120px',
+        '11-tablet': '128px',
+        // lg Spacing
+        '1-desktop': '40px',
+        '2-desktop': '48px',
+        '3-desktop': '56px',
+        '4-desktop': '64px',
+        '5-desktop': '80px',
+        '6-desktop': '96px',
+        '7-desktop': '104px',
+        '8-desktop': '112px',
+        '9-desktop': '120px',
+        '10-desktop': '128px',
+        '11-desktop': '144px',
+        '12-desktop': '152px',
+        '13-desktop': '160px',
+      },
     },
-    extend: {},
   },
 };

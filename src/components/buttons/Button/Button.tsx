@@ -29,7 +29,7 @@ const Button: React.FC<IButton> = ({
       disabled={disabled}
       className={outlined ? OUTLINED : DEFAULT}
     >
-      <div className="space-x-o flex items-center justify-center">
+      <div className="flex items-center justify-center space-x-0">
         {label}
         {icon ? <>{icon}</> : null}
       </div>

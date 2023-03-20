@@ -2,15 +2,9 @@ import MainFooter from '@/components/navigation/MainFooter/MainFooter';
 import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
 import Head from 'next/head';
 
-export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {
-  justify?: 'items-center' | 'items-start';
-}
+export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {}
 
-const HomeLayout: React.FC<IHomeLayout> = ({
-  children,
-  justify = 'items-center',
-  ...divProps
-}) => {
+const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
   return (
     <>
       <Head>
@@ -18,7 +12,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({
       </Head>
       <div
         {...divProps}
-        className={`flex min-h-screen max-w-[1440px] flex-col ${justify}`}
+        className={`flex min-h-screen min-w-full flex-col items-stretch`}
       >
         <MainNavbar />
         <main>{children}</main>

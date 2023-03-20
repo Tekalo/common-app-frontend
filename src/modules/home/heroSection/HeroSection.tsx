@@ -7,10 +7,10 @@ export interface IHeroSection {}
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
     <div className="relative top-20 bg-light-blue">
-      <div className="tablet:grid tablet:grid-cols-12 mx-auto max-w-[1440px]">
+      <div className="mx-auto max-w-[1440px] md:grid md:grid-cols-12">
         {/* CONTENT */}
         <div className="col-span-6 pt-24 pl-40">
-          <div className="tablet:mx-0 mx-auto max-w-2xl">
+          <div className="mx-auto max-w-2xl md:mx-0">
             <div className="w-[640px] text-h1-desktop text-black-text">
               Where technical talent and impact connect.
             </div>
