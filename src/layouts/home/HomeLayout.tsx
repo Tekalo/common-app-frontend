@@ -1,3 +1,4 @@
+import MainFooter from '@/components/navigation/MainFooter/MainFooter';
 import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
 import Head from 'next/head';
 
@@ -17,13 +18,12 @@ const HomeLayout: React.FC<IHomeLayout> = ({
       </Head>
       <div
         {...divProps}
-        className={`flex min-h-screen w-screen flex-col ${justify}`}
+        className={`flex min-h-screen max-w-[1440px] flex-col ${justify}`}
       >
         <MainNavbar />
         <main>{children}</main>
         <div className="m-auto" />
-        {/* <Footer /> */}
-        <div>Footer</div>
+        <MainFooter sampleTextProp="FOOTER TODO" />
       </div>
     </>
   );

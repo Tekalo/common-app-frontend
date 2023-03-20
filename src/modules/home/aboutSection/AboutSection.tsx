@@ -1,5 +1,6 @@
 export interface IAboutSection {}
 
+// TODO: Replace images with next/image --> figure out cloudflare + next/image
 const AboutSection: React.FC<IAboutSection> = () => {
   return (
     <div className="flex flex-col items-center pt-28">

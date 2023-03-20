@@ -2,10 +2,12 @@ import Button from '@/components/buttons/Button/Button';
 
 export interface IHeroSection {}
 
+// TODO: Replace images with next/image --> figure out cloudflare + next/image
+
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
     <div className="relative top-20 bg-light-blue-bg">
-      <div className="mx-auto max-w-[1880px] tablet:grid tablet:grid-cols-12">
+      <div className="mx-auto max-w-[1440px] tablet:grid tablet:grid-cols-12">
         {/* CONTENT */}
         <div className="col-span-6 pt-24 pl-40">
           <div className="mx-auto max-w-2xl tablet:mx-0">

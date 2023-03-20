@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         display: ['Graphik'],
-        sans: ['Proxima Nova', ...defaultTheme.fontFamily.sans],
+        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         'white-text': '#FFFFFF',
