@@ -20,37 +20,37 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   };
 
   return (
-    <nav className="bg-white fixed top-0 z-10 w-screen">
-      <div className="xs:px-1 tablet:px-10 desktop:px-20 mx-auto h-auto max-w-7xl sm:px-4">
+    <nav className="bg-white top-0 fixed z-10 w-screen">
+      <div className="tablet:px-10 xs:px-1 sm:px-4 lg:px-20 mx-auto h-auto max-w-7xl">
         <div className="space-y-50 flex justify-around sm:justify-between">
-          <div className="flex py-4">
+          <div className="py-4 flex">
             {/* Logo */}
             <Link
               href="/"
-              className="tablet:py-3 tablet:px-8 flex flex-row space-x-4 px-4 py-1 text-component-lg text-black-text"
+              className="tablet:py-3 tablet:px-8 space-x-4 px-4 py-1 flex flex-row text-component-large text-black-text"
             >
               LOGO TBD
             </Link>
           </div>
-          <div className="tablet:space-x-6 desktop:space-x-10 flex items-center space-x-2">
+          <div className="tablet:space-x-6 space-x-2 lg:space-x-10 flex items-center">
             {isLoading ? (
               // Creates skeleton loader to handle waiting for auth check
-              <div className="flex flex-auto animate-pulse flex-row space-x-4">
-                <div className="bg-slate-700 tablet:block hidden rounded px-12 py-3" />
-                <div className="bg-slate-700 tablet:px-8 desktop:px-12 rounded px-12 py-3" />
-                <div className="bg-slate-700 tablet:hidden flex h-6 w-6 items-center rounded"></div>
+              <div className="space-x-4 flex flex-auto animate-pulse flex-row">
+                <div className="bg-slate-700 tablet:block px-12 py-3 hidden rounded" />
+                <div className="bg-slate-700 tablet:px-8 px-12 py-3 lg:px-12 rounded" />
+                <div className="bg-slate-700 tablet:hidden h-6 w-6 flex items-center rounded"></div>
               </div>
             ) : (
               <>
                 <a
-                  className="tablet:block hidden cursor-pointer px-6 py-3 text-component-xl font-normal text-black-text hover:text-blue-1 active:text-blue-2"
+                  className="tablet:block px-6 py-3 hidden cursor-pointer text-component-extra-large font-normal text-black-text hover:text-blue-1 active:text-blue-2"
                   onClick={(e) => handleAuthentication(e)}
                 >
                   {isAuthenticated ? 'Log out' : 'Log in'}
                 </a>
                 <Link href={isAuthenticated ? '/dashboard' : '/sign-up'}>
                   {isAuthenticated ? (
-                    <div className="tablet:px-6 cursor-pointer px-3 py-3 text-component-xl font-normal text-black-text">
+                    <div className="tablet:px-6 px-3 py-3 cursor-pointer text-component-extra-large font-normal text-black-text">
                       My account
                     </div>
                   ) : (
@@ -62,7 +62,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   )}
                 </Link>
                 {/* Mobile Button */}
-                <div className="tablet:hidden flex items-center sm:mr-0">
+                <div className="tablet:hidden sm:mr-0 flex items-center">
                   <Bars3Icon className="h-6 w-6 stroke-2 text-black-text" />
                 </div>
               </>

@@ -7,15 +7,15 @@ export interface IForOrganizations {}
 
 const ForOrganizations: React.FC<IForOrganizations> = () => {
   return (
-    <section className="grid w-full place-items-center pt-24 pb-28">
-      <div className="min-w-full px-40">
+    <section className="pt-24 pb-28 grid w-full place-items-center">
+      <div className="px-40 min-w-full">
         {/* Title */}
-        <div className="text-center text-desktop-sm-caption uppercase text-gray-1">
+        <div className="text-center text-small-caption-desktop uppercase text-gray-1">
           Organizations that recruit though [name]
         </div>
         {/* Logo Grid */}
         <div className="px-24">
-          <div className="flex flex-row items-center justify-between pt-10">
+          <div className="pt-10 flex flex-row items-center justify-between">
             <img
               src="/images/logos/FreeWorldLogo.png"
               alt="Free World Logo"
@@ -54,24 +54,24 @@ const ForOrganizations: React.FC<IForOrganizations> = () => {
               className="h-16 object-cover"
             />
           </div>
-          <div className="space-x-o flex cursor-pointer flex-row items-center justify-center pt-14 text-center align-middle text-component-lg text-blue-1 transition-all">
+          <div className="space-x-o pt-14 flex cursor-pointer flex-row items-center justify-center text-center align-middle text-component-large text-blue-1 transition-all">
             See more
             {<ChevronRightIcon className="h-5 w-5" />}
           </div>
         </div>
       </div>
       {/* CTA Box*/}
-      <div className="relative flex w-[608px] flex-col items-center pt-28">
+      <div className="pt-28 relative flex w-[608px] flex-col items-center">
         {/* Offset Blackbox */}
-        <div className="absolute -right-3 -bottom-3 z-0 flex h-[75%] w-[100%] items-stretch rounded-2xl bg-[#363D3F]" />
+        <div className="-right-3 -bottom-3 absolute z-0 flex h-[75%] w-[100%] items-stretch rounded-2xl bg-[#363D3F]" />
         <div className="relative z-10 flex rounded-[10px] bg-light-orange ring-4 ring-[#FFBC03]">
           {/* Content */}
-          <div className="flex flex-col items-center  pt-16 text-center">
+          <div className="pt-16 flex flex-col  items-center text-center">
             {/* Title */}
-            <div className="text-displaytext-center text-desktop-h3 text-black-text">
+            <div className="text-displaytext-center text-h3-desktop text-black-text">
               <p>Hire candidates that are aligned</p> <p>with your mission.</p>
             </div>
-            <div className="px-28 pt-6 text-center font-sans text-desktop-md-copy leading-7  text-black-text ">
+            <div className="px-28 pt-6 text-center font-sans text-p2-desktop leading-7  text-black-text ">
               Candidates on [Name TBD] are carefully vetted and screened before
               you decide to interview
             </div>

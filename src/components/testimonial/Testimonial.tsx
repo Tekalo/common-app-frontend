@@ -14,7 +14,7 @@ const Testimonial: React.FC<ITestimonial> = ({ className }) => {
       <span className="absolute top-1/2 left-[26%]">PHOTO</span>
       {/* Text */}
       <div className="flex flex-col items-start justify-center pl-32 align-middle">
-        <div className="w-[500px] font-sans text-desktop-lg-copy font-normal text-black-text">
+        <div className="w-[500px] font-sans text-p1-desktop font-normal text-black-text">
           “I was inspired to join a non-profit that was committed to providing
           assistance and aid, and improving local communities.”
         </div>
@@ -28,7 +28,7 @@ const Testimonial: React.FC<ITestimonial> = ({ className }) => {
               className="stroke-[#363D3F] stroke-1"
             />
           </svg>
-          <div className="font-sans text-desktop-md-copy italic text-black-text">
+          <div className="font-sans text-p2-desktop italic text-black-text">
             Name / Software engineer at [Org name]
           </div>
         </div>

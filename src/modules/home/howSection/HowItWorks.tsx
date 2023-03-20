@@ -47,15 +47,15 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
 
   return (
     <section className="grid w-full place-items-center">
-      <div className="bg-light-blue desktop:h-[1086px] desktop:w-[1440px]">
+      <div className="bg-light-blue lg:h-[1086px] lg:w-[1440px]">
         {/* Title */}
-        <div className="pt-24 text-center font-display text-desktop-h3 text-black-text">
+        <div className="pt-24 text-center font-display text-h3-desktop text-black-text">
           How it works
         </div>
         {/* Toggle Menu */}
         <div className="flex flex-row justify-center space-x-10 pt-12">
           <div
-            className={`cursor-pointer text-desktop-h4 transition-all ${
+            className={`cursor-pointer text-h4-desktop transition-all ${
               forOrgs
                 ? 'text-gray-2'
                 : 'text-blue-1 underline underline-offset-8'
@@ -65,7 +65,7 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
             For candidates
           </div>
           <div
-            className={`cursor-pointer text-desktop-h4 transition-all ${
+            className={`cursor-pointer text-h4-desktop transition-all ${
               forOrgs
                 ? 'text-blue-1 underline underline-offset-8'
                 : 'text-gray-2'

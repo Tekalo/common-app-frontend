@@ -7,14 +7,14 @@ export interface IHeroSection {}
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
     <div className="relative top-20 bg-light-blue">
-      <div className="mx-auto max-w-[1440px] tablet:grid tablet:grid-cols-12">
+      <div className="tablet:grid tablet:grid-cols-12 mx-auto max-w-[1440px]">
         {/* CONTENT */}
         <div className="col-span-6 pt-24 pl-40">
-          <div className="mx-auto max-w-2xl tablet:mx-0">
-            <div className="w-[640px] text-desktop-h1 text-black-text">
+          <div className="tablet:mx-0 mx-auto max-w-2xl">
+            <div className="w-[640px] text-h1-desktop text-black-text">
               Where technical talent and impact connect.
             </div>
-            <div className="w-[525px] pt-8 font-sans text-desktop-h4 font-normal">
+            <div className="w-[525px] pt-8 font-sans text-h4-desktop font-normal">
               A platform for matchmaking between technical talent and
               mission-driven organizations.
             </div>

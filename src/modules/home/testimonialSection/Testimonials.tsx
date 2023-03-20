@@ -6,7 +6,7 @@ const Testimonials: React.FC<ITestimonials> = () => {
   return (
     <section className="bg-light-orange">
       {/* TITLE */}
-      <div className="pt-20 text-center font-display text-desktop-lg-caption uppercase text-gray-1">
+      <div className="pt-20 text-center font-display text-large-caption-desktop uppercase text-gray-1">
         Tech talent solving impactful problems
       </div>
       {/* FIXME: Honestly this approach is bad. I'm going to refactor it.

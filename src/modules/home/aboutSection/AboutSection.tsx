@@ -6,7 +6,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
     <div className="flex flex-col items-center pt-28">
       {/* Coalition Logos */}
       <div className="min-w-full px-40 pt-10">
-        <p className="text-center font-display text-desktop-lg-caption uppercase text-[#5D5E6F]">
+        <p className="text-center font-display text-large-caption-desktop uppercase text-[#5D5E6F]">
           The common app is supported by
         </p>
         <div className="flex flex-row items-center justify-around pt-10">
@@ -34,10 +34,10 @@ const AboutSection: React.FC<IAboutSection> = () => {
       </div>
       {/* Content */}
       <div className="flex  flex-col items-center pt-28">
-        <h2 className="min-w-full px-64 text-center font-display text-desktop-h2 text-black-text">
+        <h2 className="min-w-full px-64 text-center font-display text-h2-desktop text-black-text">
           [Name TBD] works for tech talent and impactful organizations
         </h2>
-        <p className="min-w-full px-96 pt-10 text-center font-sans text-desktop-h4 font-normal text-black-text">
+        <p className="min-w-full px-96 pt-10 text-center font-sans text-h4-desktop font-normal text-black-text">
           Now more than ever, there are a multitude of opportunities outside of
           traditional tech roles, creating a pressing need for technologists who
           want to solve some of the world’s hardest and most urgent problems
@@ -54,10 +54,10 @@ const AboutSection: React.FC<IAboutSection> = () => {
       </div>
       {/* Roles */}
       <div className="pt-28">
-        <h3 className="text-center font-display text-desktop-h3 text-black-text">
+        <h3 className="text-center font-display text-h3-desktop text-black-text">
           Roles being recruited through the [Name TBD]
         </h3>
-        <div className="grid grid-flow-col grid-rows-2 gap-4 py-12 px-36 tablet:px-52 desktop:px-80">
+        <div className="tablet:px-52 grid grid-flow-col grid-rows-2 gap-4 py-12 px-36 lg:px-80">
           <img
             src="/images/roles/SWERole.png"
             alt="Software Engineer Role"
