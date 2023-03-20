@@ -47,7 +47,7 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
 
   return (
     <section className="grid w-full place-items-center">
-      <div className="bg-light-blue-bg desktop:h-[1086px] desktop:w-[1440px]">
+      <div className="bg-light-blue desktop:h-[1086px] desktop:w-[1440px]">
         {/* Title */}
         <div className="pt-24 text-center font-display text-desktop-h3 text-black-text">
           How it works
@@ -57,8 +57,8 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
           <div
             className={`cursor-pointer text-desktop-h4 transition-all ${
               forOrgs
-                ? 'text-gray-2-darker'
-                : 'text-blue-1-primary underline underline-offset-8'
+                ? 'text-gray-2'
+                : 'text-blue-1 underline underline-offset-8'
             }`}
             onClick={() => setForOrgs(false)}
           >
@@ -67,8 +67,8 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
           <div
             className={`cursor-pointer text-desktop-h4 transition-all ${
               forOrgs
-                ? 'text-blue-1-primary underline underline-offset-8'
-                : 'text-gray-2-darker'
+                ? 'text-blue-1 underline underline-offset-8'
+                : 'text-gray-2'
             }`}
             onClick={() => setForOrgs(true)}
           >

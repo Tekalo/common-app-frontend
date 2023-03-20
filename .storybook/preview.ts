@@ -3,7 +3,7 @@ import '../src/styles/globals.css';
 
 const BREAKPOINTS_INT = {
   xs: 320,
-  mobile: 360,
+  sm: 360,
   tablet: 768,
   desktop: 1280,
 };

@@ -19,7 +19,7 @@ export const WithIcon = {
     ...mockButtonProps.base,
     outlined: true,
     icon: (
-      <ChevronRightIcon className="h-4 w-4 stroke-2 text-blue-1-primary group-hover:fill-white-text" />
+      <ChevronRightIcon className="h-4 w-4 stroke-2 text-blue-1 group-hover:fill-white" />
     ),
   },
 };

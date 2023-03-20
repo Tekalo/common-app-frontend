@@ -10,7 +10,7 @@ const ForOrganizations: React.FC<IForOrganizations> = () => {
     <section className="grid w-full place-items-center pt-24 pb-28">
       <div className="min-w-full px-40">
         {/* Title */}
-        <div className="text-center text-desktop-sm-caption uppercase text-gray-1-darkest">
+        <div className="text-center text-desktop-sm-caption uppercase text-gray-1">
           Organizations that recruit though [name]
         </div>
         {/* Logo Grid */}
@@ -54,7 +54,7 @@ const ForOrganizations: React.FC<IForOrganizations> = () => {
               className="h-16 object-cover"
             />
           </div>
-          <div className="space-x-o flex cursor-pointer flex-row items-center justify-center pt-14 text-center align-middle text-component-lg text-blue-1-primary transition-all">
+          <div className="space-x-o flex cursor-pointer flex-row items-center justify-center pt-14 text-center align-middle text-component-lg text-blue-1 transition-all">
             See more
             {<ChevronRightIcon className="h-5 w-5" />}
           </div>
@@ -64,7 +64,7 @@ const ForOrganizations: React.FC<IForOrganizations> = () => {
       <div className="relative flex w-[608px] flex-col items-center pt-28">
         {/* Offset Blackbox */}
         <div className="absolute -right-3 -bottom-3 z-0 flex h-[75%] w-[100%] items-stretch rounded-2xl bg-[#363D3F]" />
-        <div className="relative z-10 flex rounded-[10px] bg-light-organge-bg ring-4 ring-[#FFBC03]">
+        <div className="relative z-10 flex rounded-[10px] bg-light-orange ring-4 ring-[#FFBC03]">
           {/* Content */}
           <div className="flex flex-col items-center  pt-16 text-center">
             {/* Title */}

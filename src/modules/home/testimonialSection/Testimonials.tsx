@@ -4,9 +4,9 @@ export interface ITestimonials {}
 
 const Testimonials: React.FC<ITestimonials> = () => {
   return (
-    <section className="bg-light-organge-bg">
+    <section className="bg-light-orange">
       {/* TITLE */}
-      <div className="pt-20 text-center font-display text-desktop-lg-caption uppercase text-gray-1-darkest">
+      <div className="pt-20 text-center font-display text-desktop-lg-caption uppercase text-gray-1">
         Tech talent solving impactful problems
       </div>
       {/* FIXME: Honestly this approach is bad. I'm going to refactor it.

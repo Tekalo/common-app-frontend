@@ -5,41 +5,48 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     // Mirroring: https://www.figma.com/file/CCE0TsuhSMnDb2X0287IXX/%F0%9F%8E%A8-Common-App-Components?node-id=22%3A404&t=KfRuKN24GmEy0KBa-0
+    colors: {
+      'black-text': '#272929',
+      'gray-1': '#6B7281',
+      'gray-2': '#9FA4AE',
+      'gray-3': '#DBDDE2',
+      'gray-4': '#EFF0F2',
+      'blue-1': '#317BB5',
+      'blue-2': '#2B6796',
+      'blue-3': '#245277',
+      'blue-4': '#D0E3F2',
+      'light-blue': '#F3F9FF',
+      'light-orange': '#FFFAF5',
+      'red-error': '#D50000',
+      'green-success': '#00A870',
+      'illustration-black': '#363D3F',
+      'illustration-beige': '#FFEACE',
+      'illustration-orange': '#FFBC03',
+      'illustration-blue': '#16A4F0',
+      'illustration-light-blue': '#98D7F8',
+      'illustration-green': '#3BB98F',
+      'illustration-light-green': '#9ADFC8',
+      'illustration-blue-green': '#00A0CC',
+      'illustration-mint': '#C4E6F0',
+    },
+    fontFamily: {
+      display: ['Graphik'],
+      sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+    },
     extend: {
-      fontFamily: {
-        display: ['Graphik'],
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-      },
-      colors: {
-        'white-text': '#FFFFFF',
-        'black-text': '#272929',
-        'gray-1-darkest': '#6B7281',
-        'gray-2-darker': '#9FA4AE',
-        'gray-3-dark': '#DBDDE2',
-        'gray-4-light': '#EFF0F2',
-        'blue-1-primary': '#317BB5',
-        'blue-2-hover': '#2B6796',
-        'blue-3-pressed': '#245277',
-        'blue-4-disabled': '#D0E3F2',
-        'light-blue-bg': '#F3F9FF',
-        'light-organge-bg': '#FFFAF5',
-        'red-error': '#D50000',
-        'green-success': '#00A870',
-        'orange-warn': '#EB9D00',
-      },
       spacing: {
-        // mobile Spacing
-        '1-mobile': '24px',
-        '2-mobile': '32px',
-        '3-mobile': '48px',
-        '4-mobile': '56px',
-        '5-mobile': '64px',
-        '6-mobile': '72px',
-        '7-mobile': '80px',
-        '8-mobile': '88px',
-        '9-mobile': '96px',
-        '10-mobile': '104px',
-        '11-mobile': '112px',
+        // sm Spacing
+        '1-sm': '24px',
+        '2-sm': '32px',
+        '3-sm': '48px',
+        '4-sm': '56px',
+        '5-sm': '64px',
+        '6-sm': '72px',
+        '7-sm': '80px',
+        '8-sm': '88px',
+        '9-sm': '96px',
+        '10-sm': '104px',
+        '11-sm': '112px',
         // tablet Spacing
         '1-tablet': '32px',
         '2-tablet': '40px',
@@ -66,12 +73,7 @@ module.exports = {
         '11-desktop': '160px',
       },
     },
-    screens: {
-      xs: '320px',
-      mobile: '360px',
-      tablet: '768px',
-      desktop: '1280px',
-    },
+
     fontSize: {
       // Component Typography
       'component-xl': [
@@ -188,8 +190,8 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      // Mobile/Tablet Typography
-      'mobile-md-copy': [
+      // sm/Tablet Typography
+      'sm-md-copy': [
         '16px',
         {
           lineHeight: '26px',
@@ -197,14 +199,14 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'mobile-lg-copy': [
+      'sm-lg-copy': [
         '18px',
         {
           lineHeight: '26px',
           fontWeight: '400',
         },
       ],
-      'mobile-sm-caption': [
+      'sm-sm-caption': [
         '12px',
         {
           lineHeight: '16px',
@@ -212,7 +214,7 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'mobile-lg-caption': [
+      'sm-lg-caption': [
         '16px',
         {
           lineHeight: '22px',
@@ -220,7 +222,7 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'mobile-h5': [
+      'sm-h5': [
         '16px',
         {
           lineHeight: '22px',
@@ -228,7 +230,7 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'mobile-h4': [
+      'sm-h4': [
         '20px',
         {
           lineHeight: '28px',
@@ -236,21 +238,21 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'mobile-h3': [
+      'sm-h3': [
         '32px',
         {
           lineHeight: '46px',
           fontWeight: '500',
         },
       ],
-      'mobile-h2': [
+      'sm-h2': [
         '40px',
         {
           lineHeight: '48px',
           fontWeight: '500',
         },
       ],
-      'mobile-h1': [
+      'sm-h1': [
         '56px',
         {
           lineHeight: '72px',
