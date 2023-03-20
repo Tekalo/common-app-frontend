@@ -6,22 +6,25 @@ export interface IFaq {
 }
 
 const Faq: React.FC<IFaq> = ({ faqItems }) => {
-  const [Faq, setFaq] = useState(faqItems);
+  const [faqs, setFaqs] = useState(faqItems);
 
   const toggleFAQ = (index: number) => {
-    setFaq(
-      Faq.map((faq, i) => {
+    setFaqs(
+      faqs.map((faq, i) => {
         if (i === index) {
           faq.toggledOpen = !faq.toggledOpen;
+        } else {
+          faq.toggledOpen = false;
         }
         return faq;
       })
     );
   };
 
+  // TODO: Style me!
   return (
     <div className="divide-y bg-gradient-to-r from-cyan-500 to-blue-500">
-      {Faq.map((faq, index) => (
+      {faqs.map((faq, index) => (
         <div key={index} className="">
           <div className="">{faq.questionText}</div>
           <div className="">{faq.answerText}</div>

@@ -16,7 +16,7 @@ const Home: NextPageWithLayout = () => {
       <HowItWorks />
       <ForOrganizations />
       <Testimonials />
-      <FAQS sampleTextProp="FAQ TODO" />
+      <FAQS />
       <Contact sampleTextProp="CONTACT TODO" />
     </div>
   );
