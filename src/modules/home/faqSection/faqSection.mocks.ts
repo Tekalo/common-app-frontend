@@ -1,4 +1,4 @@
-import { IFaqSection } from './FaqSectionection';
+import { IFaqSection } from './faqSection';
 
 const base: IFaqSection = {};
 
