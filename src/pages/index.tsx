@@ -17,7 +17,7 @@ const Home: NextPageWithLayout = () => {
       <OrgSection />
       <TestimonialSection />
       <FaqSection />
-      <ContactSection sampleTextProp="CONTACT TODO" />
+      <ContactSection />
     </div>
   );
 };
