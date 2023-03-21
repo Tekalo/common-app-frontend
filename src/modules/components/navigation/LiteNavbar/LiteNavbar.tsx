@@ -25,15 +25,15 @@ const LiteNavbar: React.FC<IMainNavbar> = ({
     <nav className="fixed z-10 w-screen bg-white">
       <div className="mx-auto h-auto max-w-screen-xl xs:px-1 sm:px-4 md:px-10 lg:px-20">
         <div className="space-y-50 flex justify-around sm:justify-between">
-          <div className="flex flex-row justify-center py-4 align-middle">
+          <div className="flex flex-row justify-center py-5 align-middle">
             {/* Logo */}
             <Link
               href="/"
-              className="flex flex-row space-x-4 px-4 py-1 text-component-large text-black-text md:py-3 md:px-8"
+              className="flex flex-row space-x-4 px-4 text-component-large text-black-text md:px-8"
             >
-              LOGO TBD
+              <div className="flex flex-row items-center py-3">LOGO TBD</div>
             </Link>
-            <div className="flex flex-row space-x-4 py-1 text-p2-desktop md:py-3 md:px-8">
+            <div className="flex flex-row space-x-4 py-3 text-p2-desktop md:py-3 md:px-8">
               {title}
             </div>
           </div>
