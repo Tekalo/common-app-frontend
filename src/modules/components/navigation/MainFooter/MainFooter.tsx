@@ -1,13 +1,7 @@
-export interface IMainFooter {
-  sampleTextProp: string;
-}
+export interface IMainFooter {}
 
-const MainFooter: React.FC<IMainFooter> = ({ sampleTextProp }) => {
-  return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-500">
-      {sampleTextProp}
-    </div>
-  );
+const MainFooter: React.FC<IMainFooter> = () => {
+  return <div className="from-cyan-500 to-blue-500 bg-gradient-to-r">TODO</div>;
 };
 
 export default MainFooter;
