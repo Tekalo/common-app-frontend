@@ -9,12 +9,10 @@ const FaqSection: React.FC<IFaqSection> = () => {
 
   const orgFAQS: Array<IFaqItem> = [
     {
-      toggledOpen: false,
       questionText: 'OrgHello',
       answerText: 'OrgWorld',
     },
     {
-      toggledOpen: true,
       questionText: 'OrgZar',
       answerText: 'OrgDoz',
     },
@@ -22,12 +20,11 @@ const FaqSection: React.FC<IFaqSection> = () => {
 
   const candidateFAQS: Array<IFaqItem> = [
     {
-      toggledOpen: false,
-      questionText: 'CanHello',
-      answerText: 'CanWorld',
+      questionText: 'Is it free to use?',
+      answerText:
+        'Yes! <Name> is a free platform for job-seekers and organizations. We will never ask you a payment or credit card information.',
     },
     {
-      toggledOpen: true,
       questionText: 'CanZar',
       answerText: 'CanDoz',
     },

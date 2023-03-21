@@ -15,7 +15,6 @@ export interface ITimelineItem {
 }
 
 export interface IFaqItem {
-  toggledOpen: boolean;
   questionText: string;
   answerText: string;
   className?: string;
