@@ -17,10 +17,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/modules/*": ["src/components/modules/*"],
-      "@/layouts/*": ["src/components/layouts/*"],
-      "@/templates/*": ["./src/templates/*"],
+      "@/components/*": ["src/modules/components/*"],
+      "@/sections/*": ["src/modules/sections/*"],
+      "@/modules/*": ["src/modules/sections/*"],
+      "@/layouts/*": ["src/modules/layouts/*"],
+      "@/templates/*": ["src/modules/templates/*"],
       "@/api/*": ["./src/api/*"],
       "@/lib/*": ["./src/lib/*"]
     },
