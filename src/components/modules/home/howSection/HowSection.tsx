@@ -2,9 +2,9 @@ import Timeline from '@/components/timeline/Timeline';
 import { ITimelineItem } from '@/lib/types';
 import { useState } from 'react';
 
-export interface IHowItWorks {}
+export interface IHowSection {}
 
-const HowItWorks: React.FC<IHowItWorks> = () => {
+const HowSection: React.FC<IHowSection> = () => {
   const [forOrgs, setForOrgs] = useState(false);
 
   // Store the titems that the component should conditionally render
@@ -82,4 +82,4 @@ const HowItWorks: React.FC<IHowItWorks> = () => {
   );
 };
 
-export default HowItWorks;
+export default HowSection;

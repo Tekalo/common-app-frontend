@@ -1,8 +1,8 @@
 import Testimonial from '@/components/testimonial/Testimonial';
 
-export interface ITestimonials {}
+export interface ITestimonialSection {}
 
-const Testimonials: React.FC<ITestimonials> = () => {
+const TestimonialSection: React.FC<ITestimonialSection> = () => {
   return (
     <section className="bg-light-orange">
       {/* TITLE */}
@@ -19,7 +19,7 @@ const Testimonials: React.FC<ITestimonials> = () => {
       TODO: Wrap all images (star and swoop icon) in a testimonial 
       TODO: Plug them into this area 
 
-      testimonials = [
+      TestimonialSection = [
         {
           image: "/path/to/src",
           quote: "Some quote thing",
@@ -28,7 +28,7 @@ const Testimonials: React.FC<ITestimonials> = () => {
       ]
 
       <Carousel ...props>
-        { testimonials.map((props, i) => (<Testimonial ...props />))}
+        { TestimonialSection.map((props, i) => (<Testimonial ...props />))}
       <Carousel />
       ~~~
 
@@ -59,4 +59,4 @@ const Testimonials: React.FC<ITestimonials> = () => {
   );
 };
 
-export default Testimonials;
+export default TestimonialSection;

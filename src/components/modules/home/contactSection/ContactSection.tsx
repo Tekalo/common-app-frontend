@@ -1,8 +1,8 @@
-export interface IContact {
+export interface IContactSection {
   sampleTextProp: string;
 }
 
-const Contact: React.FC<IContact> = ({ sampleTextProp }) => {
+const ContactSection: React.FC<IContactSection> = ({ sampleTextProp }) => {
   return (
     <div className="from-cyan-500 to-blue-500 bg-gradient-to-r">
       {sampleTextProp}
@@ -10,4 +10,4 @@ const Contact: React.FC<IContact> = ({ sampleTextProp }) => {
   );
 };
 
-export default Contact;
+export default ContactSection;
