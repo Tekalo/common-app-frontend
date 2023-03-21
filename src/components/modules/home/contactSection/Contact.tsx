@@ -4,7 +4,7 @@ export interface IContact {
 
 const Contact: React.FC<IContact> = ({ sampleTextProp }) => {
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-500">
+    <div className="from-cyan-500 to-blue-500 bg-gradient-to-r">
       {sampleTextProp}
     </div>
   );

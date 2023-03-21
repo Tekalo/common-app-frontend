@@ -1,5 +1,5 @@
-import FaqSection from './FaqSectionection';
-import { mockFaqSectionProps } from './FaqSectionection.mocks';
+import FaqSection from './FaqSection';
+import { mockFaqSectionProps } from './FaqSection.mocks';
 
 export default { component: FaqSection };
 

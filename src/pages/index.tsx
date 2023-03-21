@@ -1,12 +1,12 @@
-import HomeLayout from '@/layouts/home/HomeLayout';
+import HomeLayout from '@/components/layouts/home/HomeLayout';
+import AboutSection from '@/components/modules/home/aboutSection/AboutSection';
+import Contact from '@/components/modules/home/contactSection/Contact';
+import FAQS from '@/components/modules/home/faqSection/faqSection';
+import Hero from '@/components/modules/home/heroSection/HeroSection';
+import HowItWorks from '@/components/modules/home/howSection/HowItWorks';
+import ForOrganizations from '@/components/modules/home/orgSection/forOrganizations';
+import Testimonials from '@/components/modules/home/testimonialSection/Testimonials';
 import { NextPageWithLayout } from '@/lib/types';
-import AboutSection from '@/modules/home/aboutSection/AboutSection';
-import Contact from '@/modules/home/contactSection/Contact';
-import FAQS from '@/modules/home/faqSection/faqSection';
-import Hero from '@/modules/home/heroSection/HeroSection';
-import HowItWorks from '@/modules/home/howSection/HowItWorks';
-import ForOrganizations from '@/modules/home/orgSection/forOrganizations';
-import Testimonials from '@/modules/home/testimonialSection/Testimonials';
 
 const Home: NextPageWithLayout = () => {
   return (
