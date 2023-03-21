@@ -23,15 +23,29 @@ This repository contains the code to run the Common App Next.js frontend applica
 
 Configuration folders and files are at the root of the project and everything concerning the actual app is contained in the `src` directory.
 
-In general, this project conforms to standard Next.js project structure. We do not currently make use of the experimental App directory that Next.js 13 provides.
+In general, this project conforms to a standard Next.js project structure. We do not currently make use of the experimental App directory that Next.js 13 provides due to restrictions in our deployment environment (Cloudflare Pages).
 
-### `components`
+### `modules`
 
-Contains all re-usable components that can be dropped into a page.
+#### `components`
+
+Contains all re-usable components that can be dropped into a page. All components follow the same structure based off the baseTemplate
+
+#### `layouts`
+
+Contains common layouts shared across pages. [NextJS Layouts](https://nextjs.org/docs/basic-features/layouts) allow for precise re-rendering while preserving the layout of a particular page or components shared across pages.
+
+#### `sections`
+
+Contains sections which can be considered compound components. These are usually single use and mostly in place as an organizational tool. They provide no functional benefit save for code isolation.
+
+#### `templates`
+
+All components, layouts, sections should be based off of these templates. They provide a solid base for a consistent project structure.
 
 To create a new component do the following:
 
-1. Copy the `templates/base` folder to the desired component folder (e.g. `utility/search`)
+1. Copy the `templates/base` folder to the desired target folder (e.g. `components/utility/search`)
 
 2. Rename each of the three files to the new component name (e.g. `BaseTemplate.tsx` --> `Search.tsx`)
 
@@ -44,6 +58,10 @@ To create a new component do the following:
 ### `lib`
 
 This for shared infrastructure across the application. You can think of it literally as a library to store business logic, reusable routes, and anything else that multiple pages or components might need to use.
+
+### `middleware`
+
+Useful for implementing NextJS middleware. This is currently unused.
 
 ### `pages`
 
@@ -61,7 +79,7 @@ export const config = {
 
 ### `styles`
 
-Since we are using tailwind, you won't have to mess around in here very much. Tailwind expects styles to be applied in-line on the component or pages themselves.
+Since we are using tailwind, you won't have to mess around in here very much. Tailwind expects styles to be applied in-line on the component or pages themselves. Currently this folder contains a globals.css that references tailwind and ports some custom conts into the tailwind project.
 
 ## Infrastructure & Deployment
 
