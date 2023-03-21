@@ -14,6 +14,12 @@ export interface ITimelineItem {
   className?: string;
 }
 
+export interface IFaqItem {
+  questionText: string;
+  answerText: string;
+  className?: string;
+}
+
 // Types
 export type IconType = (_props: IconTypeProps) => React.ReactNode;
 

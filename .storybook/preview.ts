@@ -3,9 +3,9 @@ import '../src/styles/globals.css';
 
 const BREAKPOINTS_INT = {
   xs: 320,
-  mobile: 360,
-  tablet: 768,
-  desktop: 1280,
+  sm: 360,
+  md: 768,
+  lg: 1280,
 };
 
 const customViewports = Object.fromEntries(

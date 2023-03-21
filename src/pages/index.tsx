@@ -1,23 +1,23 @@
 import HomeLayout from '@/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import AboutSection from '@/modules/home/aboutSection/AboutSection';
-import Contact from '@/modules/home/contactSection/Contact';
-import FAQS from '@/modules/home/faqSection/FAQS';
-import Hero from '@/modules/home/heroSection/HeroSection';
-import HowItWorks from '@/modules/home/howSection/HowItWorks';
-import ForOrganizations from '@/modules/home/orgSection/forOrganizations';
-import Testimonials from '@/modules/home/testimonialSection/Testimonials';
+import AboutSection from '@/sections/home/aboutSection/AboutSection';
+import ContactSection from '@/sections/home/contactSection/ContactSection';
+import FaqSection from '@/sections/home/faqSection/FaqSection';
+import HeroSection from '@/sections/home/heroSection/HeroSection';
+import HowSection from '@/sections/home/howSection/HowSection';
+import OrgSection from '@/sections/home/orgSection/OrgSection';
+import TestimonialSection from '@/sections/home/testimonialSection/TestimonialSection';
 
 const Home: NextPageWithLayout = () => {
   return (
     <div>
-      <Hero />
+      <HeroSection />
       <AboutSection />
-      <HowItWorks />
-      <ForOrganizations />
-      <Testimonials />
-      <FAQS sampleTextProp="FAQ TODO" />
-      <Contact sampleTextProp="CONTACT TODO" />
+      <HowSection />
+      <OrgSection />
+      <TestimonialSection />
+      <FaqSection />
+      <ContactSection sampleTextProp="CONTACT TODO" />
     </div>
   );
 };

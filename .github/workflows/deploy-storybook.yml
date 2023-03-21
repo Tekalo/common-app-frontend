@@ -1,7 +1,7 @@
 name: Build and Deploy Storybook
 on:
   pull_request:
-    paths: ['src/components/**', 'src/modules/**']
+    paths: ['src/modules/**/*']
 
 jobs:
   build-and-deploy:
