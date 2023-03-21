@@ -8,8 +8,6 @@ export interface IFaq {
 
 // TODO: Evaluate use of Headless UI in greater detail and determine if we should just implement this functionality ourselves.
 
-// TODO: Mirror styling from design
-
 const Faq: React.FC<IFaq> = ({ faqItems }) => {
   return (
     <div className="mx-auto max-w-7xl">
