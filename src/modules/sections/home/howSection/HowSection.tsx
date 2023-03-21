@@ -5,7 +5,7 @@ import { useState } from 'react';
 export interface IHowSection {}
 
 const HowSection: React.FC<IHowSection> = () => {
-  const [forOrgs, setForOrgs] = useState(false);
+  const [forOrgz, setForOrgz] = useState(false);
 
   // Store the titems that the component should conditionally render
   const orgItems: Array<ITimelineItem> = [
@@ -26,6 +26,7 @@ const HowSection: React.FC<IHowSection> = () => {
       text: 'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
     },
   ];
+
   const candidateItems: Array<ITimelineItem> = [
     {
       title: 'Submit a single application',
@@ -53,30 +54,31 @@ const HowSection: React.FC<IHowSection> = () => {
           How it works
         </div>
         {/* Toggle Menu */}
+        {/* TODO: Move the toggle menu into its own component */}
         <div className="flex flex-row justify-center space-x-10 pt-12">
           <div
             className={`cursor-pointer text-h4-desktop transition-all ${
-              forOrgs
+              forOrgz
                 ? 'text-gray-2'
                 : 'text-blue-1 underline underline-offset-8'
             }`}
-            onClick={() => setForOrgs(false)}
+            onClick={() => setForOrgz(false)}
           >
             For candidates
           </div>
           <div
             className={`cursor-pointer text-h4-desktop transition-all ${
-              forOrgs
+              forOrgz
                 ? 'text-blue-1 underline underline-offset-8'
                 : 'text-gray-2'
             }`}
-            onClick={() => setForOrgs(true)}
+            onClick={() => setForOrgz(true)}
           >
             For organizations
           </div>
         </div>
         {/* Timeline Component */}
-        <Timeline timelineItems={forOrgs ? orgItems : candidateItems} />
+        <Timeline timelineItems={forOrgz ? orgItems : candidateItems} />
       </div>
     </section>
   );
