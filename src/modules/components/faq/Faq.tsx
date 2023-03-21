@@ -6,10 +6,14 @@ export interface IFaq {
   faqItems: Array<IFaqItem>;
 }
 
+// TODO: Evaluate use of Headless UI in greater detail and determine if we should just implement this functionality ourselves.
+
+// TODO: Mirror styling from design
+
 const Faq: React.FC<IFaq> = ({ faqItems }) => {
   return (
     <div className="mx-auto max-w-7xl">
-      <dl className="mt-10 space-y-6 divide-y divide-gray-1">
+      <dl className="mt-10 space-y-6 divide-y divide-gray-3 border-b border-b-gray-3 pb-8">
         {faqItems.map((faq, i) => (
           <Disclosure
             as="div"
@@ -20,10 +24,12 @@ const Faq: React.FC<IFaq> = ({ faqItems }) => {
             {({ open }) => (
               <>
                 <dt>
-                  <Disclosure.Button className="text-gray-900 flex w-full items-start justify-between text-left">
-                    <span className="text-base font-semibold leading-7">
-                      {faq.questionText}
-                    </span>
+                  <Disclosure.Button
+                    className={`${
+                      open ? 'text-blue-1' : `text-black-text`
+                    } flex w-full items-start justify-between text-left`}
+                  >
+                    <span className="text-h4-desktop">{faq.questionText}</span>
                     <span className="ml-6 flex h-7 items-center">
                       {open ? (
                         <ChevronUpIcon className="h-6 w-6" aria-hidden="true" />

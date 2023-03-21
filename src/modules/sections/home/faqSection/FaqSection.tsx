@@ -25,20 +25,36 @@ const FaqSection: React.FC<IFaqSection> = () => {
         'Yes! <Name> is a free platform for job-seekers and organizations. We will never ask you a payment or credit card information.',
     },
     {
-      questionText: 'CanZar',
-      answerText: 'CanDoz',
+      questionText: 'What skills do I need to apply?',
+      answerText:
+        'Yes! <Name> is a free platform for job-seekers and organizations. We will never ask you a payment or credit card information.',
+    },
+    {
+      questionText: 'What type of impact opportunities are on [Name TBD]?',
+      answerText:
+        'Yes! <Name> is a free platform for job-seekers and organizations. We will never ask you a payment or credit card information.',
+    },
+    {
+      questionText: 'What are the salary ranges for impact careers?',
+      answerText:
+        'Yes! <Name> is a free platform for job-seekers and organizations. We will never ask you a payment or credit card information.',
+    },
+    {
+      questionText: 'How will my data be used?',
+      answerText:
+        'Yes! <Name> is a free platform for job-seekers and organizations. We will never ask you a payment or credit card information.',
     },
   ];
 
   return (
     <section className="grid w-full place-items-center">
-      <div className="bg-light-blue pt-10-desktop lg:h-[1086px] lg:w-[1440px]">
+      <div className="bg-light-blue pt-10-desktop pb-11-desktop lg:w-[1440px]">
         {/* TITLE */}
         <div className="text-center font-display text-h3-desktop text-black-text">
           Frequently Asked Questions
         </div>
         {/* TOGGLE */}
-        {/* TODO: Move the toggle menu into its own component */}
+        {/* TODO: Consider moving toggle menu to own component */}
         <div className="flex flex-row justify-center space-x-10 pt-2-desktop">
           <div
             className={`cursor-pointer text-h4-desktop transition-all ${
