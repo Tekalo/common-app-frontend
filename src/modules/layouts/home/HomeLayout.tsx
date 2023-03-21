@@ -17,7 +17,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
         <MainNavbar />
         <main>{children}</main>
         <div className="m-auto" />
-        <MainFooter sampleTextProp="FOOTER TODO" />
+        <MainFooter />
       </div>
     </>
   );
