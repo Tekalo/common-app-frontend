@@ -1,8 +1,6 @@
 import { IContactSection } from './ContactSection';
 
-const base: IContactSection = {
-  sampleTextProp: 'Hello world!',
-};
+const base: IContactSection = {};
 
 export const mockContactSectionProps = {
   base,
