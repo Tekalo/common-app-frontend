@@ -5,11 +5,11 @@ import { Bars3Icon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { SyntheticEvent } from 'react';
 
-export interface IMainNavbar extends React.ComponentPropsWithoutRef<'header'> {
+export interface ILiteNavbar extends React.ComponentPropsWithoutRef<'header'> {
   title?: string;
 }
 
-const LiteNavbar: React.FC<IMainNavbar> = ({
+const LiteNavbar: React.FC<ILiteNavbar> = ({
   className,
   title,
   ...headerProps

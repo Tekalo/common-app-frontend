@@ -1,8 +1,6 @@
 import { ILiteNavbar } from './LiteNavbar';
 
-const base: ILiteNavbar = {
-  sampleTextProp: 'Hello world!',
-};
+const base: ILiteNavbar = {};
 
 export const mockLiteNavbarProps = {
   base,
