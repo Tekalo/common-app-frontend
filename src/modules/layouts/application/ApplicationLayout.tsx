@@ -18,7 +18,7 @@ const Layout: React.FC<ILayout> = ({ children, ...divProps }) => {
         <LiteNavbar />
         <main className="px-5">{children}</main>
         <div className="m-auto" />
-        <LiteFooter sampleTextProp="foo" />
+        <LiteFooter />
       </div>
     </>
   );
