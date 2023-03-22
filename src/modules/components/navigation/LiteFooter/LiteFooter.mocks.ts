@@ -1,8 +1,6 @@
 import { ILiteFooter } from './LiteFooter';
 
-const base: ILiteFooter = {
-  sampleTextProp: 'Hello world!',
-};
+const base: ILiteFooter = {};
 
 export const mockLiteFooterProps = {
   base,
