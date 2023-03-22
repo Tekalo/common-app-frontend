@@ -1,4 +1,4 @@
-import Layout from './ApplciationLayout';
+import Layout from './ApplicationLayout';
 import { mockLayoutProps } from './ApplicationLayout.mocks';
 
 export default { component: Layout };

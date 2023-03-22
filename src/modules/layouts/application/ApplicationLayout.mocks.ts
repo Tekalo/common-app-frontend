@@ -1,4 +1,4 @@
-import { ILayout } from './ApplciationLayout';
+import { ILayout } from './ApplicationLayout';
 
 const base: ILayout = {
   children: '{{children components}}',
