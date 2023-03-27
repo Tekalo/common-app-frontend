@@ -54,11 +54,13 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                       My account
                     </div>
                   ) : (
-                    <Button
-                      className="px-4 py-2 font-normal md:py-3 md:px-8"
-                      label="Get started"
-                      onClick={() => {}}
-                    />
+                    <Link href={'/sign-up/applicants'}>
+                      <Button
+                        className="px-4 py-2 font-normal md:py-3 md:px-8"
+                        label="Get started"
+                        onClick={() => {}}
+                      />
+                    </Link>
                   )}
                 </Link>
                 {/* Mobile Button */}

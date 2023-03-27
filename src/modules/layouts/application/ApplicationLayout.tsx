@@ -16,11 +16,11 @@ const ApplicationLayout: React.FC<IApplicationLayout> = ({
       </Head>
       <div
         {...divProps}
-        className={`flex min-h-screen min-w-full max-w-screen-xl flex-col items-stretch`}
+        className="flex min-h-screen min-w-full max-w-screen-xl flex-col items-center"
       >
         {/* TODO: Figure out how to pass the text to the navbar */}
         <LiteNavbar />
-        <main className="relative top-24 px-5">{children}</main>
+        <main className="relative top-20 flex">{children}</main>
         <div className="m-auto" />
         <LiteFooter />
       </div>

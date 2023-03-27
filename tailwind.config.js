@@ -201,23 +201,23 @@ module.exports = {
         },
       ],
       'h3-mobile': [
-        '32px',
+        '28px',
         {
-          lineHeight: '46px',
+          lineHeight: '40px',
           fontWeight: '500',
         },
       ],
       'h2-mobile': [
-        '40px',
+        '36px',
         {
           lineHeight: '52px',
           fontWeight: '500',
         },
       ],
       'h1-mobile': [
-        '56px',
+        '46px',
         {
-          lineHeight: '72px',
+          lineHeight: '62px',
           fontWeight: '500',
         },
       ],

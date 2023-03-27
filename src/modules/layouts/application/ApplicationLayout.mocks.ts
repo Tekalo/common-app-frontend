@@ -1,6 +1,6 @@
-import { ILayout } from './ApplicationLayout';
+import { IApplicationLayout } from './ApplicationLayout';
 
-const base: ILayout = {
+const base: IApplicationLayout = {
   children: '{{children components}}',
 };
 
