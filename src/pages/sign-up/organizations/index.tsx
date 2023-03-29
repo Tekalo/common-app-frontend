@@ -1,22 +1,34 @@
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import { Field, Form } from 'houseform';
+import { z } from 'zod';
 
 const OrganizationSignup: NextPageWithLayout = () => {
   return (
-    <Form onSubmit={(values) => alert(values)}>
-      {({ submit }) => (
+    <Form onSubmit={(values) => alert(JSON.stringify(values))}>
+      {({ isValid, submit, errors }) => (
         <div>
-          <Field name="username" initialValue={''}>
+          <Field
+            name="username"
+            initialValue={''}
+            onSubmitValidate={z.literal('hello')}
+          >
             {({ value, setValue, onBlur }) => (
-              <input
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onBlur={onBlur}
-              />
+              <>
+                <input
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  onBlur={onBlur}
+                />
+                {errors.map((error) => (
+                  <p key={error}>{error}</p>
+                ))}
+              </>
             )}
           </Field>
-          <button onClick={submit}>Submit</button>
+          <button disabled={!isValid} onClick={submit}>
+            Submit
+          </button>
         </div>
       )}
     </Form>

@@ -7,30 +7,35 @@ import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   return (
-    <div className="grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
+    <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
       {/* Title */}
       <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
         Join a network with over XX00 organizations to find your match.
       </div>
-      {/* Navaway have an account*/}
+      {/* Navaway has an account*/}
       <div className="col-span-4 col-start-5">
-        Already have an account?{' '}
+        {'Already have an account? '}
         <span className="text-blue-1 underline underline-offset-4">
           <Link href="/sign-in">Sign in</Link>
         </span>
       </div>
       <div className="col-span-4 col-start-5">
+        {/* The form */}
         <Form
           onSubmit={(values) => {
             alert('Form was submitted with: ' + JSON.stringify(values));
           }}
         >
-          {({ isValid, submit }) => (
+          {({ isValid, isSubmitted, submit }) => (
             <>
               {/* Name */}
               <Field<string>
                 name="name"
                 onSubmitValidate={z.string({
+                  required_error: 'Name is required',
+                  invalid_type_error: 'Name must be a string',
+                })}
+                onChangeValidate={z.string({
                   required_error: 'Name is required',
                   invalid_type_error: 'Name must be a string',
                 })}
@@ -52,9 +57,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
                         onChange={(e) => setValue(e.target.value)}
                         placeholder={'Full name'}
                       />
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
@@ -63,6 +67,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
               <Field<string>
                 name="email"
                 onSubmitValidate={z
+                  .string()
+                  .email('Must be a valid email address')}
+                onChangeValidate={z
                   .string()
                   .email('Must be a valid email address')}
               >
@@ -84,15 +91,18 @@ const ApplicantSignup: NextPageWithLayout = () => {
                         placeholder={'Your email address'}
                         type="email"
                       />
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
               </Field>
               {/* Pronouns */}
-              <Field<string> name="pronouns" onSubmitValidate={z.string()}>
+              <Field<string>
+                name="pronouns"
+                onSubmitValidate={z.string()}
+                onChangeValidate={z.string()}
+              >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="space-y-2 pt-8 text-left">
@@ -111,9 +121,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
                         placeholder={'E.g. she/her/hers'}
                         type="string"
                       />
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
@@ -125,8 +134,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
                   .literal('active')
                   .or(z.literal('passive'))
                   .or(z.literal('future'))}
+                onChangeValidate={z
+                  .literal('active')
+                  .or(z.literal('passive'))
+                  .or(z.literal('future'))}
               >
-                {({ value, setValue, onBlur, errors }) => {
+                {({ value, setValue, errors }) => {
                   return (
                     <div className="space-y-2 pt-8 text-left">
                       {/* TODO: Refactor this fieldset into component */}
@@ -194,9 +207,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
                           </label>
                         </div>
                       </fieldset>
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
@@ -204,6 +216,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
               {/* Contact Method */}
               <Field<string>
                 name="preferredContact"
+                onSubmitValidate={z.union(
+                  [z.literal('sms'), z.literal('whatsapp'), z.literal('email')],
+                  {
+                    errorMap: () => ({
+                      message: 'Something is incorrect',
+                    }),
+                  }
+                )}
                 onChangeValidate={z.union(
                   [z.literal('sms'), z.literal('whatsapp'), z.literal('email')],
                   {
@@ -235,15 +255,18 @@ const ApplicantSignup: NextPageWithLayout = () => {
                         <option value="sms">Text message</option>
                         <option value="whatsapp">WhatsApp message</option>
                       </select>
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
               </Field>
               {/* Phone Number */}
-              <Field<string> name="phone" onSubmitValidate={z.string()}>
+              <Field<string>
+                name="phone"
+                onSubmitValidate={z.string()}
+                onChangeValidate={z.string()}
+              >
                 {/* This componenent should be broken out
                   TODO: Chain zod validator for mobile numbers 
                   TODO: Break this into its own component using library for ui formatting + country flags
@@ -262,9 +285,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
                         placeholder={'+1 (555) 555-5555'}
                         type="tel"
                       />
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
@@ -274,6 +296,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 name="acceptedPrivacy"
                 initialValue={false}
                 onSubmitValidate={z.literal(true, {
+                  errorMap: () => ({
+                    message: 'You must accept the privacy policy',
+                  }),
+                })}
+                onChangeValidate={z.literal(true, {
                   errorMap: () => ({
                     message: 'You must accept the privacy policy',
                   }),
@@ -304,9 +331,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
                           </label>
                         </div>
                       </fieldset>
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
@@ -316,6 +342,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 name="acceptedTerms"
                 initialValue={false}
                 onSubmitValidate={z.literal(true, {
+                  errorMap: () => ({
+                    message: 'You must accept the terms of service',
+                  }),
+                })}
+                onChangeValidate={z.literal(true, {
                   errorMap: () => ({
                     message: 'You must accept the terms of service',
                   }),
@@ -346,9 +377,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
                           </label>
                         </div>
                       </fieldset>
-                      {errors.map((error) => (
-                        <p key={error}>{error}</p>
-                      ))}
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
                   );
                 }}
@@ -358,12 +388,19 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 className="mt-14 w-full"
                 label="Sign up"
                 type="submit"
-                disabled={!isValid}
+                disabled={isSubmitted && !isValid}
                 onClick={() => submit()}
               />
             </>
           )}
         </Form>
+      </div>
+      {/* Navaway for organizations */}
+      <div className="col-span-4 col-start-5">
+        {"If you're an organization, "}
+        <span className="text-blue-1 underline underline-offset-4">
+          <Link href="/sign-in">apply here</Link>
+        </span>
       </div>
     </div>
   );
