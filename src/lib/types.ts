@@ -9,9 +9,10 @@ interface IconTypeProps {
 }
 
 export interface ITimelineItem {
-  title: string;
+  title?: string;
   text: string;
   className?: string;
+  isActive?: boolean;
 }
 
 export interface IFaqItem {

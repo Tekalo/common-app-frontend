@@ -1,11 +1,23 @@
 import Button from '@/components/buttons/Button/Button';
+import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
-import { NextPageWithLayout } from '@/lib/types';
+import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  const timelineItems: Array<ITimelineItem> = [
+    {
+      text: 'Your experience',
+      isActive: true,
+    },
+    {
+      text: 'Your interests',
+      isActive: false,
+    },
+  ];
+
   return (
     <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
       {/* Title */}
@@ -14,6 +26,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
 
       {/* Breadcrum Timeline */}
+      <div className="col-span-4 col-start-5 mt-10 mb-12 flex content-center justify-center">
+        <Timeline timelineItems={timelineItems} horizontal={true} />
+      </div>
 
       <div className="col-span-4 col-start-5">
         {/* The form */}
@@ -381,7 +396,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
               </Field>
 
               <Button
-                className="mt-14 w-full"
+                className="mt-14 w-full text-component-large"
                 label="Save your progress"
                 type="submit"
                 outlined
@@ -390,7 +405,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
               />
 
               <Button
-                className="mt-4 w-full"
+                className="mt-4 w-full text-component-large"
                 label="Next"
                 type="submit"
                 disabled={isSubmitted && !isValid}

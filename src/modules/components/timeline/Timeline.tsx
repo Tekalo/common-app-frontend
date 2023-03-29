@@ -1,4 +1,5 @@
 import { ITimelineItem } from '@/lib/types';
+import { Fragment } from 'react';
 
 export interface ITimeline {
   timelineItems: Array<ITimelineItem>;
@@ -39,33 +40,48 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
    * between the items. There might be a better way to do this, but this works.
    */
   const horizontalTimeline = (
-    <div className="px-20 py-2">
+    <>
       <ol
         className={`flex-start flex items-center columns-${
           timelineItems.length * 2 - 1
         }`}
       >
         {timelineItems.map((item, i) => (
-          <>
+          <Fragment key={i}>
             <li key={i} className="flex flex-col items-center">
-              {/* Content */}
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-1 text-center font-display text-component-extra-large text-white">
+              {/* Bubble */}
+              <div
+                className={`flex h-10 w-10 items-center justify-center rounded-full ${
+                  item.isActive
+                    ? 'bg-blue-1 text-white'
+                    : 'bg-gray-4 text-gray-2'
+                } text-center font-display text-component-extra-large`}
+              >
                 {i + 1}
               </div>
+              {/* Label */}
               <div className="-mx-8 mt-4">
-                <p className="font-sans text-p3-desktop text-black-text">
+                <p
+                  className={`font-sans text-p3-desktop ${
+                    item.isActive ? 'text-black-text' : 'text-gray-2'
+                  }`}
+                >
                   {item.text}
                 </p>
               </div>
             </li>
-            {/* Do not add a div if we are the last item */}
+            {/* Do not add a separating div if we are the last item. If the next item has a property of isActive=true then change the bg-blue-2 for this div*/}
             {i !== timelineItems.length - 1 ? (
-              <div className="mb-8 h-[2px] w-[124px] rounded-full bg-gray-4" />
+              <div
+                className={`mb-8 h-[2px] w-[124px] rounded-full ${
+                  timelineItems[i + 1].isActive ? 'bg-blue-1' : 'bg-gray-4'
+                }`}
+              />
             ) : null}
-          </>
+          </Fragment>
         ))}
       </ol>
-    </div>
+    </>
   );
 
   return horizontal ? horizontalTimeline : regularTimeline;
