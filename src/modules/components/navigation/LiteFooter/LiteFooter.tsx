@@ -9,7 +9,7 @@ const LiteFooter: React.FC<ILiteFooter> = () => {
           <div>LOGO</div>
         </div>
         {/* Menu Col 1 */}
-        <div className="col-span-5 col-start-8 flex flex-row items-center justify-between text-center font-sans text-component-small text-black-text">
+        <div className="text-black-text= col-span-5 col-start-8 flex flex-row items-center justify-between text-center font-sans text-component-small">
           <div className="">Privacy Policy</div>
           <div className="">Terms of Service</div>
           <div className="">© All Rights Reserved</div>
