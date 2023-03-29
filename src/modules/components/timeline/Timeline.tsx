@@ -1,4 +1,5 @@
 import { ITimelineItem } from '@/lib/types';
+import { CheckIcon } from '@heroicons/react/24/solid';
 import { Fragment } from 'react';
 
 export interface ITimeline {
@@ -57,7 +58,12 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
                     : 'bg-gray-4 text-gray-2'
                 } text-center font-display text-component-extra-large`}
               >
-                {i + 1}
+                {/* If the next item in timelineItems has property of isActive=true then display heroicon checkmark otherwise display the current index plus 1 as a string*/}
+                {timelineItems[i + 1] && timelineItems[i + 1].isActive ? (
+                  <CheckIcon className="h-[18px] w-[18px] stroke-2" />
+                ) : (
+                  `${i + 1}`
+                )}
               </div>
               {/* Label */}
               <div className="-mx-8 mt-4">
