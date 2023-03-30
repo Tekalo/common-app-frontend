@@ -1,5 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
+import { PreferredContact, SearchStatus } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
@@ -130,14 +131,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
               {/* Search Status */}
               <Field<string>
                 name="searchStatus"
-                onSubmitValidate={z
-                  .literal('active')
-                  .or(z.literal('passive'))
-                  .or(z.literal('future'))}
-                onChangeValidate={z
-                  .literal('active')
-                  .or(z.literal('passive'))
-                  .or(z.literal('future'))}
+                onSubmitValidate={SearchStatus}
+                onChangeValidate={SearchStatus}
               >
                 {({ value, setValue, errors }) => {
                   return (
@@ -216,22 +211,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
               {/* Contact Method */}
               <Field<string>
                 name="preferredContact"
-                onSubmitValidate={z.union(
-                  [z.literal('sms'), z.literal('whatsapp'), z.literal('email')],
-                  {
-                    errorMap: () => ({
-                      message: 'Something is incorrect',
-                    }),
-                  }
-                )}
-                onChangeValidate={z.union(
-                  [z.literal('sms'), z.literal('whatsapp'), z.literal('email')],
-                  {
-                    errorMap: () => ({
-                      message: 'Something is incorrect',
-                    }),
-                  }
-                )}
+                onSubmitValidate={PreferredContact}
+                onChangeValidate={PreferredContact}
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
