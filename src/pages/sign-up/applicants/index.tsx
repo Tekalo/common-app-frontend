@@ -222,7 +222,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                   }),
                 })}
               >
-                {({ value, setValue, onBlur, errors }) => {
+                {({ value, setValue, errors }) => {
                   return (
                     <div className="space-y-2 pt-8 text-left">
                       <fieldset className="space-y-3">
@@ -268,7 +268,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                   }),
                 })}
               >
-                {({ value, setValue, onBlur, errors }) => {
+                {({ value, setValue, errors }) => {
                   return (
                     <div className="space-y-2 pt-3 text-left">
                       <fieldset className="space-y-3">

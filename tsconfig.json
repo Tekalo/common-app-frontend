@@ -19,9 +19,7 @@
       "@/*": ["./src/*"],
       "@/components/*": ["src/modules/components/*"],
       "@/sections/*": ["src/modules/sections/*"],
-      "@/modules/*": ["src/modules/sections/*"],
       "@/layouts/*": ["src/modules/layouts/*"],
-      "@/templates/*": ["src/templates/*"],
       "@/api/*": ["./src/api/*"],
       "@/lib/*": ["./src/lib/*"]
     },
