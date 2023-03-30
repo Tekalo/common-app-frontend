@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const PreferredContact = z.enum(['sms', 'whatsapp', 'email']);
 export const SearchStatus = z.enum(['active', 'passive', 'future']);
-const YOE = z.enum([
+export const YOE = z.enum([
   '< 1',
   '1',
   '2',
@@ -16,7 +16,7 @@ const YOE = z.enum([
   '10',
   '11+',
 ]);
-const Skills = z.enum([
+export const Skills = z.enum([
   'react',
   'javascript',
   'python',
