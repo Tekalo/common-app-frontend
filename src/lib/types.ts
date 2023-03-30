@@ -21,6 +21,11 @@ export interface IFaqItem {
   className?: string;
 }
 
+export interface IRadioItem {
+  value: string;
+  displayText: string;
+}
+
 // Types
 export type IconType = (_props: IconTypeProps) => React.ReactNode;
 

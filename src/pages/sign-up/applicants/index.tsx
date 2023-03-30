@@ -1,4 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
+import RadioInput from '@/components/input/radioInput/RadioInput';
+import TextInput from '@/components/input/textInput/TextInput';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { PreferredContact, SearchStatus } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
@@ -7,6 +9,21 @@ import Link from 'next/link';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  const searchStatusOptions = [
+    {
+      value: SearchStatus.Values.active,
+      displayText: "I'm actively looking for a new role",
+    },
+    {
+      value: SearchStatus.Values.passive,
+      displayText: "I'm flexible, casually looking for opportunities",
+    },
+    {
+      value: SearchStatus.Values.future,
+      displayText: 'I want to stay in touch for opportunities in the future',
+    },
+  ];
+
   return (
     <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
       {/* Title */}
@@ -43,20 +60,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    <div className="space-y-2 text-left">
-                      <label
-                        className="text-component-extra-small text-black-text"
-                        htmlFor="input-name"
-                      >
-                        Name
-                      </label>
-                      <input
+                    <div className="">
+                      <TextInput
                         name="input-name"
-                        className="w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2"
+                        placeholder="Full name"
                         value={value}
+                        setValue={setValue}
                         onBlur={onBlur}
-                        onChange={(e) => setValue(e.target.value)}
-                        placeholder={'Full name'}
                       />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
@@ -76,21 +86,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    <div className="space-y-2 pt-8 text-left">
-                      <label
-                        className="text-component-extra-small text-black-text"
-                        htmlFor="input-email"
-                      >
-                        Email
-                      </label>
-                      <input
+                    <div className="mt-8">
+                      <TextInput
                         name="input-email"
-                        className="w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2"
+                        placeholder="Your email address"
                         value={value}
+                        setValue={setValue}
                         onBlur={onBlur}
-                        onChange={(e) => setValue(e.target.value)}
-                        placeholder={'Your email address'}
-                        type="email"
                       />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
@@ -106,21 +108,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    <div className="space-y-2 pt-8 text-left">
-                      <label
-                        className="text-component-extra-small text-black-text"
-                        htmlFor="input-pronouns"
-                      >
-                        Pronouns (optional)
-                      </label>
-                      <input
+                    <div className="mt-8">
+                      <TextInput
                         name="input-pronouns"
-                        className="w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2"
+                        placeholder="E.g. she/her/hers"
                         value={value}
+                        setValue={setValue}
                         onBlur={onBlur}
-                        onChange={(e) => setValue(e.target.value)}
-                        placeholder={'E.g. she/her/hers'}
-                        type="string"
                       />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
@@ -136,72 +130,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, errors }) => {
                   return (
-                    <div className="space-y-2 pt-8 text-left">
-                      {/* TODO: Refactor this fieldset into component */}
-                      <fieldset className="space-y-3">
-                        <legend className="pb-1 text-component-extra-small text-black-text">
-                          Which describes you best?
-                        </legend>
-                        {/* RADIO OPTIONS */}
-                        <div className="space-x-2 align-middle">
-                          <input
-                            className="form-radio h-[10px] w-[10px] appearance-none align-middle checked:bg-blue-1 
-                            checked:bg-none checked:ring-1 checked:ring-blue-1 checked:ring-offset-2 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
-                            type="radio"
-                            id="active"
-                            name="searchStatus"
-                            value="active"
-                            checked={value === 'active'}
-                            onChange={(e) => setValue(e.target.value)}
-                          />
-                          <label
-                            htmlFor="active"
-                            className="align-middle text-component-medium text-black-text"
-                          >
-                            {'I’m actively looking for a new role'}
-                          </label>
-                        </div>
-
-                        <div className="space-x-2 align-middle">
-                          <input
-                            className="form-radio h-[10px] w-[10px] appearance-none align-middle checked:bg-blue-1 
-                            checked:bg-none checked:ring-1 checked:ring-blue-1 checked:ring-offset-2 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
-                            type="radio"
-                            id="passive"
-                            name="searchStatus"
-                            value="passive"
-                            checked={value === 'passive'}
-                            onChange={(e) => setValue(e.target.value)}
-                          />
-                          <label
-                            htmlFor="passive"
-                            className="align-middle text-component-medium text-black-text"
-                          >
-                            {'I’m flexible, casually looking for opportunities'}
-                          </label>
-                        </div>
-
-                        <div className="w-[115%] space-x-2 align-middle">
-                          <input
-                            className="form-radio h-[10px] w-[10px] appearance-none align-middle checked:bg-blue-1 
-                            checked:bg-none checked:ring-1 checked:ring-blue-1 checked:ring-offset-2 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
-                            type="radio"
-                            id="future"
-                            name="searchStatus"
-                            value="future"
-                            checked={value === 'future'}
-                            onChange={(e) => setValue(e.target.value)}
-                          />
-                          <label
-                            htmlFor="future"
-                            className="w-[115%] align-middle text-component-medium text-black-text"
-                          >
-                            {
-                              'I want to stay in touch for opportunities in the future'
-                            }
-                          </label>
-                        </div>
-                      </fieldset>
+                    <div className="mt-8">
+                      <RadioInput
+                        value={value}
+                        setValue={setValue}
+                        radioOptions={searchStatusOptions}
+                        legendText="Which describes you best?"
+                      />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
                     </div>
