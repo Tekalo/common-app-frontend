@@ -97,7 +97,7 @@ const ListboxInput: React.FC<IListboxInput> = ({
 
                         {selected ? (
                           <span
-                            className={`absolute inset-y-0 right-0 flex items-center pr-4 `}
+                            className={`absolute inset-y-0 right-0 flex items-center pr-2`}
                           >
                             <CheckIcon
                               className="h-3 w-3 stroke-[4px] text-blue-1"

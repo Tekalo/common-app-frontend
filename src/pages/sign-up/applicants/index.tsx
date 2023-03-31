@@ -195,6 +195,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {/* This componenent should be broken out
                   TODO: Chain zod validator for mobile numbers 
                   TODO: Break this into its own component using library for ui formatting + country flags
+                  
+                  This might be a good library to use:
+                  https://www.npmjs.com/package/react-telephone
                 */}
                 {({ value, setValue, onBlur, errors }) => {
                   return (

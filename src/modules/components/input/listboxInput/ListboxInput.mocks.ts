@@ -2,6 +2,7 @@ import { IListboxInput } from './ListboxInput';
 
 const base: IListboxInput = {
   name: 'test',
+  placeholder: 'test',
   value: 'test',
   labelText: 'Listbox Input',
   listOptions: [
