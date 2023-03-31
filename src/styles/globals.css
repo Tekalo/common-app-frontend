@@ -32,3 +32,20 @@
 :root {
   @apply font-sans antialiased;
 }
+
+@layer base {
+  /* stroke-width: 2 is a browser default and can be overridden with class="stroke-1" etc. */
+  svg {
+    stroke-width: 2;
+  }
+
+  path,
+  circle,
+  ellipse,
+  line,
+  polygon,
+  polyline,
+  rect {
+    stroke-width: inherit;
+  }
+}

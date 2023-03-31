@@ -1,7 +1,7 @@
-import Layout from './ApplicationLayout';
+import ApplicationLayout from './ApplicationLayout';
 import { mockLayoutProps } from './ApplicationLayout.mocks';
 
-export default { component: Layout };
+export default { component: ApplicationLayout };
 
 export const Default = {
   args: { ...mockLayoutProps.base },

@@ -9,15 +9,26 @@ interface IconTypeProps {
 }
 
 export interface ITimelineItem {
-  title: string;
+  title?: string;
   text: string;
   className?: string;
+  isActive?: boolean;
 }
 
 export interface IFaqItem {
   questionText: string;
   answerText: string;
   className?: string;
+}
+
+export interface IRadioItem {
+  value: string;
+  displayText: string;
+}
+
+export interface IListboxItem {
+  value: string;
+  displayText: string;
 }
 
 // Types

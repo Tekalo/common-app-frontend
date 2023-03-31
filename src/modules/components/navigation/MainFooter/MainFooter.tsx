@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export interface IMainFooter {}
 
 const MainFooter: React.FC<IMainFooter> = () => {
@@ -14,7 +16,9 @@ const MainFooter: React.FC<IMainFooter> = () => {
             Candidates
           </div>
           <div className="space-y-4 pt-6 text-component-large text-black-text">
-            <div className="">Get started</div>
+            <Link href={'/sign-up/applicants'}>
+              <div className="">Get started</div>
+            </Link>
             <div className="">Log in</div>
           </div>
         </div>

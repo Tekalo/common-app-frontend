@@ -2,21 +2,25 @@ import LiteFooter from '@/components/navigation/LiteFooter/LiteFooter';
 import LiteNavbar from '@/components/navigation/LiteNavbar/LiteNavbar';
 import Head from 'next/head';
 
-export interface ILayout extends React.ComponentPropsWithoutRef<'div'> {}
+export interface IApplicationLayout
+  extends React.ComponentPropsWithoutRef<'div'> {}
 
-const Layout: React.FC<ILayout> = ({ children, ...divProps }) => {
+const ApplicationLayout: React.FC<IApplicationLayout> = ({
+  children,
+  ...divProps
+}) => {
   return (
     <>
       <Head>
-        <title>Application Layout</title>
+        <title>Application</title>
       </Head>
       <div
         {...divProps}
-        className={`flex min-h-screen min-w-full max-w-screen-xl flex-col items-stretch`}
+        className="flex min-h-screen min-w-full max-w-screen-xl flex-col items-center"
       >
         {/* TODO: Figure out how to pass the text to the navbar */}
         <LiteNavbar />
-        <main className="px-5">{children}</main>
+        <main className="relative top-20 flex">{children}</main>
         <div className="m-auto" />
         <LiteFooter />
       </div>
@@ -24,4 +28,4 @@ const Layout: React.FC<ILayout> = ({ children, ...divProps }) => {
   );
 };
 
-export default Layout;
+export default ApplicationLayout;
