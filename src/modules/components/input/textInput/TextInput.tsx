@@ -1,6 +1,7 @@
 export interface ITextInput {
   name: string;
   value: string;
+  label?: string;
   setValue: (_val: string) => void;
   onBlur: () => void;
   placeholder?: string;
@@ -10,6 +11,7 @@ export interface ITextInput {
 
 const TextInput: React.FC<ITextInput> = ({
   name,
+  label,
   value,
   setValue,
   onBlur,
@@ -23,7 +25,7 @@ const TextInput: React.FC<ITextInput> = ({
         className={`text-component-extra-small text-black-text ${labelClassName}}`}
         htmlFor={name}
       >
-        Name
+        {label}
       </label>
       <input
         name={name}

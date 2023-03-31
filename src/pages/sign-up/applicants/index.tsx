@@ -4,6 +4,7 @@ import TextInput from '@/components/input/textInput/TextInput';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { PreferredContact, SearchStatus } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
+import ListboxInput from '@/modules/components/input/listboxInput/ListboxInput';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import { z } from 'zod';
@@ -21,6 +22,21 @@ const ApplicantSignup: NextPageWithLayout = () => {
     {
       value: SearchStatus.Values.future,
       displayText: 'I want to stay in touch for opportunities in the future',
+    },
+  ];
+
+  const preferredContactOptions = [
+    {
+      value: PreferredContact.Values.email,
+      displayText: 'Email',
+    },
+    {
+      value: PreferredContact.Values.sms,
+      displayText: 'Text message',
+    },
+    {
+      value: PreferredContact.Values.whatsapp,
+      displayText: 'Whatsapp message',
     },
   ];
 
@@ -63,6 +79,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                     <div className="">
                       <TextInput
                         name="input-name"
+                        label="Name"
                         placeholder="Full name"
                         value={value}
                         setValue={setValue}
@@ -89,6 +106,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                     <div className="mt-8">
                       <TextInput
                         name="input-email"
+                        label="Email"
                         placeholder="Your email address"
                         value={value}
                         setValue={setValue}
@@ -111,6 +129,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                     <div className="mt-8">
                       <TextInput
                         name="input-pronouns"
+                        label="Pronouns (optional)"
                         placeholder="E.g. she/her/hers"
                         value={value}
                         setValue={setValue}
@@ -151,26 +170,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    // TODO: To style this we need to use headless UI or something similar. You cannot style native options
-                    <div className="space-y-2 pt-8 text-left">
-                      <label htmlFor="input-contactMethod">
-                        Preferred contact method to receive matches
-                      </label>
-                      <select
-                        name="input-contactMethod"
-                        id="input-contactMethod"
+                    <div className="mt-8">
+                      <ListboxInput
+                        name="input-preferredContact"
+                        placeholder="Choose one"
+                        labelText="Preferred contact method to receive matches"
                         value={value}
-                        onChange={(e) => setValue(e.target.value)}
+                        setValue={setValue}
                         onBlur={onBlur}
-                        className="ring-black right-0 z-10  mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-opacity-5 focus:outline-none"
-                      >
-                        <option value="" className="text-gray-2" disabled>
-                          Choose one
-                        </option>
-                        <option value="email">Email</option>
-                        <option value="sms">Text message</option>
-                        <option value="whatsapp">WhatsApp message</option>
-                      </select>
+                        listOptions={preferredContactOptions}
+                      />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
                     </div>

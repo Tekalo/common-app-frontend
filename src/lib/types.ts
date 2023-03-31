@@ -26,6 +26,11 @@ export interface IRadioItem {
   displayText: string;
 }
 
+export interface IListboxItem {
+  value: string;
+  displayText: string;
+}
+
 // Types
 export type IconType = (_props: IconTypeProps) => React.ReactNode;
 
