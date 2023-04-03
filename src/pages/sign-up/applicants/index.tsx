@@ -4,7 +4,7 @@ import TextInput from '@/components/input/textInput/TextInput';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { PreferredContact, SearchStatus } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
-import ListboxInput from '@/modules/components/input/listboxInput/ListboxInput';
+import ListBox from '@/modules/components/input/listbox/ListBox';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import { z } from 'zod';
@@ -171,7 +171,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="mt-8">
-                      <ListboxInput
+                      <ListBox
                         name="input-preferredContact"
                         placeholder="Choose one"
                         labelText="Preferred contact method to receive matches"

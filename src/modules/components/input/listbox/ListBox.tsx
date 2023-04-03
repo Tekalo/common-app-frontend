@@ -6,7 +6,7 @@ import {
   ChevronUpIcon,
 } from '@heroicons/react/24/outline';
 
-export interface IListboxInput {
+export interface IListBox {
   name: string;
   value: string;
   labelText: string;
@@ -19,7 +19,7 @@ export interface IListboxInput {
   onBlur?: () => void;
 }
 
-const ListboxInput: React.FC<IListboxInput> = ({
+const ListBox: React.FC<IListBox> = ({
   name,
   value,
   placeholder,
@@ -118,4 +118,4 @@ const ListboxInput: React.FC<IListboxInput> = ({
   );
 };
 
-export default ListboxInput;
+export default ListBox;

@@ -3,7 +3,7 @@ import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { Skills, YOE } from '@/lib/schemas';
 import { IListboxItem, ITimelineItem, NextPageWithLayout } from '@/lib/types';
-import ListboxInput from '@/modules/components/input/listboxInput/ListboxInput';
+import ListBox from '@/modules/components/input/listbox/ListBox';
 import { Field, Form } from 'houseform';
 import { z } from 'zod';
 
@@ -139,7 +139,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="mt-8">
-                      <ListboxInput
+                      <ListBox
                         name="input-yoe"
                         labelText="Years of relevant experience"
                         placeholder="Choose one"
