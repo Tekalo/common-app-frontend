@@ -1,10 +1,6 @@
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from '@heroicons/react/24/outline';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 export interface IMultiSelect {
   name: string;
@@ -85,32 +81,33 @@ const MultiSelect: React.FC<IMultiSelect> = ({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="z-10 mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
+              <Listbox.Options className="z-10 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none">
                 {selectOptions.map((option) => (
                   <Listbox.Option
                     key={option.value}
                     className={({ active }) =>
-                      `flex cursor-default select-none flex-row justify-between rounded-sm px-1 align-middle ${
+                      `flex cursor-default select-none flex-row rounded-[3px] align-middle ${
                         active ? 'bg-light-blue' : ''
                       }`
                     }
                     value={option.value}
                   >
                     {({ selected }) => (
-                      <>
-                        <span className="">{option.displayText}</span>
-
-                        {selected ? (
-                          <span
-                            className={`inset-y-0 right-0 flex items-center pr-2`}
-                          >
-                            <CheckIcon
-                              className="h-3 w-3 stroke-[4px] text-blue-1"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        ) : null}
-                      </>
+                      <div className="flex flex-row space-x-2 px-2 py-2 align-middle">
+                        <input
+                          name={option.value}
+                          className="form-checkbox appearance-none rounded-[3px] align-middle checked:bg-blue-1 
+                             checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
+                          type="checkbox"
+                          checked={selected}
+                        />
+                        <label
+                          htmlFor={option.value}
+                          className="text-component-small text-black-text"
+                        >
+                          {option.displayText}
+                        </label>
+                      </div>
                     )}
                   </Listbox.Option>
                 ))}
