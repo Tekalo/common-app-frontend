@@ -2,7 +2,8 @@ import Button from '@/components/buttons/Button/Button';
 import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { Skills, YOE } from '@/lib/schemas';
-import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
+import { IListboxItem, ITimelineItem, NextPageWithLayout } from '@/lib/types';
+import ListboxInput from '@/modules/components/input/listboxInput/ListboxInput';
 import { Field, Form } from 'houseform';
 import { z } from 'zod';
 
@@ -18,6 +19,24 @@ const ApplicantSignup: NextPageWithLayout = () => {
     },
   ];
 
+  const YoEOptions: Array<IListboxItem> = [
+    {
+      value: '< 1',
+      displayText: 'Less than 1',
+    },
+
+    // Generate objects from 1 to 10
+    ...Array.from(Array(10).keys()).map((i) => ({
+      value: `${i + 1}`,
+      displayText: `${i + 1}`,
+    })),
+
+    {
+      value: '11+',
+      displayText: '11+',
+    },
+  ];
+
   return (
     <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
       {/* Title */}
@@ -26,7 +45,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
 
       {/* Breadcrum Timeline */}
-      <div className="col-span-4 col-start-5 mt-10 mb-12 flex content-center justify-center">
+      <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
         <Timeline timelineItems={timelineItems} horizontal={true} />
       </div>
 
@@ -119,35 +138,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    // TODO: To style this we need to use headless UI or something similar. You cannot style native options
-                    <div className="space-y-2 pt-8 text-left">
-                      <label htmlFor="input-yoe">
-                        Years of relevant experience
-                      </label>
-                      <select
+                    <div className="mt-8">
+                      <ListboxInput
                         name="input-yoe"
-                        id="input-yoe"
+                        labelText="Years of relevant experience"
+                        placeholder="Choose one"
                         value={value}
-                        onChange={(e) => setValue(e.target.value)}
+                        setValue={setValue}
                         onBlur={onBlur}
-                        className="ring-black right-0 z-10  mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-opacity-5 focus:outline-none"
-                      >
-                        <option value="" className="text-gray-2" disabled>
-                          Choose one
-                        </option>
-                        <option value="< 1">{'< 1'}</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11+">11+</option>
-                      </select>
+                        listOptions={YoEOptions}
+                      />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
                     </div>

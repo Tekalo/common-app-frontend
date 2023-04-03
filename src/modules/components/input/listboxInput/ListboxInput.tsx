@@ -4,7 +4,7 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-} from '@heroicons/react/20/solid';
+} from '@heroicons/react/24/outline';
 
 export interface IListboxInput {
   name: string;
@@ -58,14 +58,14 @@ const ListboxInput: React.FC<IListboxInput> = ({
               {open ? (
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpIcon
-                    className="h-5 w-5 text-blue-1"
+                    className="h-3 w-3 fill-blue-1 stroke-2 text-blue-1"
                     aria-hidden="true"
                   />
                 </span>
               ) : (
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <ChevronDownIcon
-                    className="h-5 w-5 text-gray-2 "
+                    className="h-3 w-3 fill-black-text text-black-text"
                     aria-hidden="true"
                   />
                 </span>
@@ -86,7 +86,7 @@ const ListboxInput: React.FC<IListboxInput> = ({
                     key={option.value}
                     className={({ active }) =>
                       `relative cursor-default select-none rounded-sm px-1 ${
-                        active ? 'bg-[#F3F9FF]' : ''
+                        active ? 'bg-gray-4' : ''
                       }`
                     }
                     value={option.value}
