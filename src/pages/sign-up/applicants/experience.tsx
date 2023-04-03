@@ -3,7 +3,9 @@ import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { Skills, YOE } from '@/lib/schemas';
 import { IListboxItem, ITimelineItem, NextPageWithLayout } from '@/lib/types';
+import FreeText from '@/modules/components/input/freeText/FreeText';
 import ListBox from '@/modules/components/input/listbox/ListBox';
+import MultiSelect from '@/modules/components/input/multiSelect/MultiSelect';
 import { Field, Form } from 'houseform';
 import { z } from 'zod';
 
@@ -50,7 +52,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
 
       {/* The form */}
-      <div className="col-span-4 col-start-5">
+      <div className="col-span-4 col-start-5 space-y-8">
         <Form
           onSubmit={(values) => {
             alert('Form was submitted with: ' + JSON.stringify(values));
@@ -72,24 +74,18 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    <div className="space-y-2 text-left">
-                      <label
-                        className="text-component-extra-small text-black-text"
-                        htmlFor="input-role"
-                      >
-                        {'Current or most recent role'}
-                      </label>
-                      <input
+                    <>
+                      <FreeText
                         name="input-role"
-                        className="w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2"
+                        label="Current or most recent role"
+                        placeholder="Role"
                         value={value}
+                        setValue={setValue}
                         onBlur={onBlur}
-                        onChange={(e) => setValue(e.target.value)}
-                        placeholder={'Role'}
                       />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
-                    </div>
+                    </>
                   );
                 }}
               </Field>
@@ -108,24 +104,18 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    <div className="mt-8 space-y-2 text-left">
-                      <label
-                        className="text-component-extra-small text-black-text"
-                        htmlFor="input-org"
-                      >
-                        {'Current or most recent organization'}
-                      </label>
-                      <input
+                    <>
+                      <FreeText
                         name="input-org"
-                        className="w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2"
+                        label="Current or most recent organization"
+                        placeholder="Name of organization"
                         value={value}
+                        setValue={setValue}
                         onBlur={onBlur}
-                        onChange={(e) => setValue(e.target.value)}
-                        placeholder={'Name of organization'}
                       />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
-                    </div>
+                    </>
                   );
                 }}
               </Field>
@@ -138,7 +128,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    <div className="mt-8">
+                    <>
                       <ListBox
                         name="input-yoe"
                         labelText="Years of relevant experience"
@@ -150,28 +140,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
                       />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
-                    </div>
+                    </>
                   );
                 }}
               </Field>
 
               {/* Skills */}
-              {/* TODO: Figure out how best to use the multi select
-
-              Most likely need to do something like this ... 
-
-              <Field<string[]> 
-                onSubmitValidate={zod.string().array().nonempty()}
-              >
-                {({ value, setValue }) => (
-                  <MultiSelect value={value} onChange={setValue} />
-                )}
-              </Field>
-              
-              SO -- may need to make my own multi select component.
-              Then set its value into the HouseForm Field.
-              
-              */}
               <Field<string[]>
                 name="yoe"
                 onSubmitValidate={Skills}
@@ -179,30 +153,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    // TODO: To style this we need to use headless UI or something similar. You cannot style native options
-                    <div className="space-y-2 pt-8 text-left">
-                      <label htmlFor="input-yoe">
-                        Which of these skills apply to you? (optional)
-                      </label>
-                      <select
-                        multiple
-                        name="input-yoe"
-                        id="input-yoe"
-                        value={value}
-                        onChange={(e) => setValue([...value, e.target.value])}
-                        onBlur={onBlur}
-                        className="ring-black right-0 z-10  mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-opacity-5 focus:outline-none"
-                      >
-                        <option value="" className="text-gray-2" disabled>
-                          Choose all that apply
-                        </option>
-                        <option value="react">React</option>
-                        <option value="javascript">Javascript</option>
-                        <option value="python">Python</option>
-                      </select>
+                    <>
+                      <MultiSelect sampleTextProp="TODO" />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
-                    </div>
+                    </>
                   );
                 }}
               </Field>
