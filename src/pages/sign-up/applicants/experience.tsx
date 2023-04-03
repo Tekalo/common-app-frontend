@@ -203,8 +203,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
               {/* Skills */}
               <Field<string[]>
                 name="skills"
-                onSubmitValidate={Skills}
-                onChangeValidate={Skills}
+                onSubmitValidate={z.array(Skills)}
+                onChangeValidate={z.array(Skills)}
                 initialValue={[]}
               >
                 {({ value, setValue, onBlur, errors }) => {
@@ -226,6 +226,203 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 }}
               </Field>
 
+              {/* Other Skills
+               TODO: Make this into a nicer component (comma pills?)
+               */}
+              <Field<string>
+                name="otherSkills"
+                onSubmitValidate={z.string({
+                  invalid_type_error: 'Skills must be a string',
+                })}
+                onChangeValidate={z.string({
+                  invalid_type_error: 'Skills must be a string',
+                })}
+              >
+                {({ value, setValue, onBlur, errors }) => {
+                  return (
+                    <>
+                      <FreeText
+                        name="input-otherSkills"
+                        label="Other skills (optional)"
+                        placeholder="Skills separated by commas"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                      />
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
+                    </>
+                  );
+                }}
+              </Field>
+
+              {/* LinkedIn */}
+              <Field<string>
+                name="linkedin"
+                onSubmitValidate={z.string({
+                  invalid_type_error: 'LinkedIn must be a string',
+                })}
+                onChangeValidate={z.string({
+                  invalid_type_error: 'LinkedIn must be a string',
+                })}
+              >
+                {({ value, setValue, onBlur, errors }) => {
+                  return (
+                    <>
+                      <FreeText
+                        name="input-linkedin"
+                        label="LinkedIn (optional)"
+                        placeholder="LinkedIn URL"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                      />
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
+                    </>
+                  );
+                }}
+              </Field>
+
+              {/* Portfolio */}
+              <Field<string>
+                name="Portfolio"
+                onSubmitValidate={z.string({
+                  invalid_type_error: 'Portfolio must be a string',
+                })}
+                onChangeValidate={z.string({
+                  invalid_type_error: 'Portfolio must be a string',
+                })}
+              >
+                {({ value, setValue, onBlur, errors }) => {
+                  return (
+                    <>
+                      <FreeText
+                        name="input-portfolio"
+                        label="Portfolio (optional)"
+                        placeholder="Portfolio URL"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                      />
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
+                    </>
+                  );
+                }}
+              </Field>
+
+              {/* Portfolio Password */}
+              <Field<string>
+                name="portfolioPassword"
+                onSubmitValidate={z.string({
+                  invalid_type_error: 'Password must be a string',
+                })}
+                onChangeValidate={z.string({
+                  invalid_type_error: 'Password must be a string',
+                })}
+              >
+                {({ value, setValue, onBlur, errors }) => {
+                  return (
+                    <>
+                      <FreeText
+                        name="input-portfolioPassword"
+                        label="Portfolio password (optional)"
+                        placeholder="Password to view website"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                      />
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
+                    </>
+                  );
+                }}
+              </Field>
+
+              {/* Github */}
+              <Field<string>
+                name="github"
+                onSubmitValidate={z.string({
+                  invalid_type_error: 'Github must be a string',
+                })}
+                onChangeValidate={z.string({
+                  invalid_type_error: 'Github must be a string',
+                })}
+              >
+                {({ value, setValue, onBlur, errors }) => {
+                  return (
+                    <>
+                      <FreeText
+                        name="input-github"
+                        label="Github (optional)"
+                        placeholder="Github URL"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                      />
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
+                    </>
+                  );
+                }}
+              </Field>
+
+              {/* Resume */}
+              <Field<string>
+                name="resume"
+                onSubmitValidate={z.string({
+                  invalid_type_error: 'Resume must be a string',
+                })}
+                onChangeValidate={z.string({
+                  invalid_type_error: 'Resume must be a string',
+                })}
+              >
+                {({ value, setValue, onBlur, errors }) => {
+                  return (
+                    <>
+                      <FreeText
+                        name="input-resume"
+                        label="Link to resume (optional)"
+                        placeholder="Resume URL"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                      />
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
+                    </>
+                  );
+                }}
+              </Field>
+
+              {/* Resume Password */}
+              <Field<string>
+                name="resumePassword"
+                onSubmitValidate={z.string({
+                  invalid_type_error: 'Password must be a string',
+                })}
+                onChangeValidate={z.string({
+                  invalid_type_error: 'Password must be a string',
+                })}
+              >
+                {({ value, setValue, onBlur, errors }) => {
+                  return (
+                    <>
+                      <FreeText
+                        name="input-resumePassword"
+                        label="Resume password (optional)"
+                        placeholder="Password to view resume"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                      />
+                      {isSubmitted &&
+                        errors.map((error) => <p key={error}>{error}</p>)}
+                    </>
+                  );
+                }}
+              </Field>
               <Button
                 className="mt-14 w-full text-component-large"
                 label="Save your progress"

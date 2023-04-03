@@ -80,7 +80,7 @@ const SingleSelect: React.FC<ISingleSelect> = ({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="z-10 mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
+              <Listbox.Options className="absolute z-10 mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
                 {listOptions.map((option) => (
                   <Listbox.Option
                     key={option.value}
