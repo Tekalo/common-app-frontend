@@ -86,7 +86,7 @@ const ListboxInput: React.FC<IListboxInput> = ({
                     key={option.value}
                     className={({ active }) =>
                       `relative cursor-default select-none rounded-sm px-1 ${
-                        active ? 'bg-gray-4' : ''
+                        active ? 'bg-light-blue' : ''
                       }`
                     }
                     value={option.value}
