@@ -39,6 +39,61 @@ const ApplicantSignup: NextPageWithLayout = () => {
     },
   ];
 
+  const SkillOptions: Array<ISelectItem> = [
+    {
+      value: 'react',
+      displayText: 'React',
+    },
+    {
+      value: 'javascript',
+      displayText: 'JavaScript',
+    },
+    {
+      value: 'python',
+      displayText: 'Python',
+    },
+    {
+      value: 'java',
+      displayText: 'Java',
+    },
+    {
+      value: 'sql',
+      displayText: 'SQL',
+    },
+    {
+      value: 'privacy',
+      displayText: 'Privacy',
+    },
+    {
+      value: 'security',
+      displayText: 'Security',
+    },
+    {
+      value: 'devops',
+      displayText: 'DevOps',
+    },
+    {
+      value: 'figma/sketch',
+      displayText: 'Figma/Sketch',
+    },
+    {
+      value: 'prototyping',
+      displayText: 'Prototyping',
+    },
+    {
+      value: 'user research',
+      displayText: 'User research',
+    },
+    {
+      value: 'product development',
+      displayText: 'Product development',
+    },
+    {
+      value: 'project management',
+      displayText: 'Project management',
+    },
+  ];
+
   return (
     <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
       {/* Title */}
@@ -162,7 +217,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                         value={value}
                         setValue={setValue}
                         onBlur={onBlur}
-                        selectOptions={YoEOptions}
+                        selectOptions={SkillOptions}
                       />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}

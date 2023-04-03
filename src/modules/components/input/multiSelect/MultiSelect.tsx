@@ -44,7 +44,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
           <div className="mt-2">
             <Listbox.Button
               name={name}
-              className={`w-full rounded-[3px] border ${
+              className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${
                 open ? 'border-blue-1' : 'border-gray-2'
               } p-2 text-left font-sans text-component-medium placeholder:text-gray-2 ${buttonStyles}`}
             >
@@ -61,14 +61,14 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                 <span className="text-gray-2">{placeholder}</span>
               )}
               {open ? (
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpIcon
                     className="h-3 w-3 fill-blue-1 stroke-2 text-blue-1"
                     aria-hidden="true"
                   />
                 </span>
               ) : (
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
                   <ChevronDownIcon
                     className="h-3 w-3 fill-black-text text-black-text"
                     aria-hidden="true"
@@ -85,12 +85,12 @@ const MultiSelect: React.FC<IMultiSelect> = ({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
+              <Listbox.Options className="z-10 mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
                 {selectOptions.map((option) => (
                   <Listbox.Option
                     key={option.value}
                     className={({ active }) =>
-                      `cursor-default select-none rounded-sm px-1 ${
+                      `flex cursor-default select-none flex-row justify-between rounded-sm px-1 align-middle ${
                         active ? 'bg-light-blue' : ''
                       }`
                     }
@@ -102,7 +102,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
 
                         {selected ? (
                           <span
-                            className={`absolute inset-y-0 right-0 flex items-center pr-2`}
+                            className={`inset-y-0 right-0 flex items-center pr-2`}
                           >
                             <CheckIcon
                               className="h-3 w-3 stroke-[4px] text-blue-1"
