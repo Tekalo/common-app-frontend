@@ -1,12 +1,125 @@
+import { ISelectItem } from '@/lib/types';
+import { Listbox, Transition } from '@headlessui/react';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from '@heroicons/react/24/outline';
+
 export interface IMultiSelect {
-  sampleTextProp: string;
+  name: string;
+  value: string[];
+  label: string;
+  placeholder?: string;
+  labelStyles?: string;
+  buttonStyles?: string;
+  optionStyles?: string;
+  selectOptions: ISelectItem[];
+  setValue: (_val: string[]) => void;
+  onBlur?: () => void;
 }
 
-const MultiSelect: React.FC<IMultiSelect> = ({ sampleTextProp }) => {
+const MultiSelect: React.FC<IMultiSelect> = ({
+  name,
+  value,
+  placeholder,
+  label,
+  selectOptions,
+  labelStyles,
+  optionStyles,
+  buttonStyles,
+  setValue,
+  onBlur,
+}) => {
   return (
-    <div className="from-cyan-500 to-blue-500 bg-gradient-to-r">
-      {sampleTextProp}
-    </div>
+    <Listbox value={value} onChange={setValue} name={name} multiple={true}>
+      {({ open }) => (
+        <div className="text-left">
+          <Listbox.Label
+            className={`text-component-extra-small text-black-text ${labelStyles}}`}
+            htmlFor={name}
+          >
+            {label}
+          </Listbox.Label>
+          <div className="mt-2">
+            <Listbox.Button
+              name={name}
+              className={`w-full rounded-[3px] border ${
+                open ? 'border-blue-1' : 'border-gray-2'
+              } p-2 text-left font-sans text-component-medium placeholder:text-gray-2 ${buttonStyles}`}
+            >
+              {value.length > 0 ? (
+                <div className="flex flex-row">
+                  <div className="rounded bg-light-blue px-1">
+                    {`${value.length} x `}
+                  </div>
+                  <span className="ml-1 block truncate">
+                    {' Skills selected'}
+                  </span>
+                </div>
+              ) : (
+                <span className="text-gray-2">{placeholder}</span>
+              )}
+              {open ? (
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                  <ChevronUpIcon
+                    className="h-3 w-3 fill-blue-1 stroke-2 text-blue-1"
+                    aria-hidden="true"
+                  />
+                </span>
+              ) : (
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                  <ChevronDownIcon
+                    className="h-3 w-3 fill-black-text text-black-text"
+                    aria-hidden="true"
+                  />
+                </span>
+              )}
+            </Listbox.Button>
+
+            <Transition
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-100 ease-out"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
+            >
+              <Listbox.Options className="absolute z-10 mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
+                {selectOptions.map((option) => (
+                  <Listbox.Option
+                    key={option.value}
+                    className={({ active }) =>
+                      `cursor-default select-none rounded-sm px-1 ${
+                        active ? 'bg-light-blue' : ''
+                      }`
+                    }
+                    value={option.value}
+                  >
+                    {({ selected }) => (
+                      <>
+                        <span className="">{option.displayText}</span>
+
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 right-0 flex items-center pr-2`}
+                          >
+                            <CheckIcon
+                              className="h-3 w-3 stroke-[4px] text-blue-1"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        ) : null}
+                      </>
+                    )}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </Transition>
+          </div>
+        </div>
+      )}
+    </Listbox>
   );
 };
 

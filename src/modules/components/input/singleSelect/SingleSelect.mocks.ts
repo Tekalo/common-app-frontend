@@ -1,6 +1,6 @@
-import { IListBox } from './ListBox';
+import { ISingleSelect } from './SingleSelect';
 
-const base: IListBox = {
+const base: ISingleSelect = {
   name: 'test',
   placeholder: 'test',
   value: 'test',
@@ -18,6 +18,6 @@ const base: IListBox = {
   setValue: () => {},
 };
 
-export const mockListBoxProps = {
+export const mockSingleSelectProps = {
   base,
 };

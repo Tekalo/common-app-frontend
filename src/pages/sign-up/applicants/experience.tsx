@@ -1,11 +1,11 @@
 import Button from '@/components/buttons/Button/Button';
+import FreeText from '@/components/input/freeText/FreeText';
+import MultiSelect from '@/components/input/multiSelect/MultiSelect';
+import SingleSelect from '@/components/input/singleSelect/SingleSelect';
 import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { Skills, YOE } from '@/lib/schemas';
-import { IListboxItem, ITimelineItem, NextPageWithLayout } from '@/lib/types';
-import FreeText from '@/modules/components/input/freeText/FreeText';
-import ListBox from '@/modules/components/input/listbox/ListBox';
-import MultiSelect from '@/modules/components/input/multiSelect/MultiSelect';
+import { ISelectItem, ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import { Field, Form } from 'houseform';
 import { z } from 'zod';
 
@@ -21,7 +21,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
     },
   ];
 
-  const YoEOptions: Array<IListboxItem> = [
+  const YoEOptions: Array<ISelectItem> = [
     {
       value: '< 1',
       displayText: 'Less than 1',
@@ -129,7 +129,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <>
-                      <ListBox
+                      <SingleSelect
                         name="input-yoe"
                         labelText="Years of relevant experience"
                         placeholder="Choose one"
@@ -147,14 +147,23 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
               {/* Skills */}
               <Field<string[]>
-                name="yoe"
+                name="skills"
                 onSubmitValidate={Skills}
                 onChangeValidate={Skills}
+                initialValue={[]}
               >
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <>
-                      <MultiSelect sampleTextProp="TODO" />
+                      <MultiSelect
+                        name="input-skills"
+                        label="Which of these skills apply to you? (optional)"
+                        placeholder="Choose all that apply"
+                        value={value}
+                        setValue={setValue}
+                        onBlur={onBlur}
+                        selectOptions={YoEOptions}
+                      />
                       {isSubmitted &&
                         errors.map((error) => <p key={error}>{error}</p>)}
                     </>

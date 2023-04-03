@@ -26,7 +26,7 @@ export interface IRadioItem {
   displayText: string;
 }
 
-export interface IListboxItem {
+export interface ISelectItem {
   value: string;
   displayText: string;
 }
