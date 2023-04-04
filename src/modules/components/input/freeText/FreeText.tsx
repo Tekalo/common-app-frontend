@@ -1,4 +1,4 @@
-export interface ITextInput {
+export interface IFreeText {
   name: string;
   value: string;
   label?: string;
@@ -9,7 +9,7 @@ export interface ITextInput {
   inputClassName?: string;
 }
 
-const TextInput: React.FC<ITextInput> = ({
+const FreeText: React.FC<IFreeText> = ({
   name,
   label,
   value,
@@ -39,4 +39,4 @@ const TextInput: React.FC<ITextInput> = ({
   );
 };
 
-export default TextInput;
+export default FreeText;

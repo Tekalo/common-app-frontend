@@ -1,6 +1,6 @@
-import { IRadioInput } from './RadioInput';
+import { IRadioGroup } from './RadioGroup';
 
-const base: IRadioInput = {
+const base: IRadioGroup = {
   value: 'test',
   setValue: () => {},
   radioOptions: [
@@ -11,6 +11,6 @@ const base: IRadioInput = {
   ],
 };
 
-export const mockRadioInputProps = {
+export const mockRadioGroupProps = {
   base,
 };

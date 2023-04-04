@@ -1,10 +1,10 @@
 import Button from '@/components/buttons/Button/Button';
-import RadioInput from '@/components/input/radioInput/RadioInput';
-import TextInput from '@/components/input/textInput/TextInput';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { PreferredContact, SearchStatus } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
-import ListboxInput from '@/modules/components/input/listboxInput/ListboxInput';
+import FreeText from '@/modules/components/input/freeText/FreeText';
+import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
+import ListBox from '@/modules/components/input/singleSelect/SingleSelect';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import { z } from 'zod';
@@ -77,7 +77,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="">
-                      <TextInput
+                      <FreeText
                         name="input-name"
                         label="Name"
                         placeholder="Full name"
@@ -104,7 +104,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="mt-8">
-                      <TextInput
+                      <FreeText
                         name="input-email"
                         label="Email"
                         placeholder="Your email address"
@@ -127,7 +127,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="mt-8">
-                      <TextInput
+                      <FreeText
                         name="input-pronouns"
                         label="Pronouns (optional)"
                         placeholder="E.g. she/her/hers"
@@ -150,7 +150,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, errors }) => {
                   return (
                     <div className="mt-8">
-                      <RadioInput
+                      <RadioGroup
                         value={value}
                         setValue={setValue}
                         radioOptions={searchStatusOptions}
@@ -171,7 +171,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="mt-8">
-                      <ListboxInput
+                      <ListBox
                         name="input-preferredContact"
                         placeholder="Choose one"
                         labelText="Preferred contact method to receive matches"

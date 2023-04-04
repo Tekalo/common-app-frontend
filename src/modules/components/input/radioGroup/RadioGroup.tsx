@@ -1,6 +1,6 @@
 import { IRadioItem } from '@/lib/types';
 
-export interface IRadioInput {
+export interface IRadioGroup {
   value: string;
   setValue: (_val: string) => void;
   radioOptions: IRadioItem[];
@@ -13,7 +13,7 @@ export interface IRadioInput {
   labelClassName?: string;
 }
 
-const RadioInput: React.FC<IRadioInput> = ({
+const RadioGroup: React.FC<IRadioGroup> = ({
   value,
   setValue,
   radioOptions,
@@ -55,4 +55,4 @@ const RadioInput: React.FC<IRadioInput> = ({
   );
 };
 
-export default RadioInput;
+export default RadioGroup;
