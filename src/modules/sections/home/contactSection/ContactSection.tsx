@@ -4,13 +4,13 @@ export interface IContactSection {}
 
 const ContactSection: React.FC<IContactSection> = () => {
   return (
-    <section className="grid w-full place-items-center justify-center bg-blue-1 text-center align-middle">
-      <div className="py-16 font-display text-white">
-        <div className="text-h2-desktop">Get in touch</div>
-        <div className="pt-4 text-h3-desktop">
+    <section className="grid w-full place-items-center justify-center bg-blue-1 px-10 py-20 text-center align-middle">
+      <div className="font-display text-white">
+        <div className="mb-4 text-h2-mobile">Get in touch</div>
+        <div className="mb-6 text-h4-mobile md:mb-10 md:text-h3-mobile">
           We want to hear from you and answer your questions
         </div>
-        <div className="flex justify-center pt-10">
+        <div className="flex justify-center">
           <Button
             label="Contact us"
             outlined={true}
