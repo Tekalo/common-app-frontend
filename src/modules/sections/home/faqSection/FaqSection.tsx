@@ -5,7 +5,7 @@ import { useState } from 'react';
 export interface IFaqSection {}
 
 const FaqSection: React.FC<IFaqSection> = () => {
-  const [forOrgs, setForOrgs] = useState(false);
+  const [isForOrgsSelected, setForOrgs] = useState(false);
 
   const orgFAQS: Array<IFaqItem> = [
     {
@@ -46,41 +46,38 @@ const FaqSection: React.FC<IFaqSection> = () => {
     },
   ];
 
+  const toggleHeaders = ['For candidates', 'For organizations'];
+
   return (
     <section className="grid w-full place-items-center">
-      <div className="bg-light-blue pt-10-desktop pb-11-desktop lg:w-[1440px]">
+      <div className="bg-light-blue px-10 py-20 md:px-4 md:py-14 lg:w-[1440px] lg:px-5 lg:py-16">
         {/* TITLE */}
-        <div className="text-center font-display text-h3-desktop text-black-text">
+        <div className="text-black-text: text-center font-display text-h2-mobile md:text-h1-mobile lg:text-h1-desktop">
           Frequently Asked Questions
         </div>
         {/* TOGGLE */}
         {/* TODO: Consider moving toggle menu to own component */}
-        <div className="flex flex-row justify-center space-x-10 pt-2-desktop">
-          <div
-            className={`cursor-pointer text-h4-desktop transition-all ${
-              forOrgs
-                ? 'text-gray-2'
-                : 'text-blue-1 underline underline-offset-8'
-            }`}
-            onClick={() => setForOrgs(false)}
-          >
-            For candidates
-          </div>
-          <div
-            className={`cursor-pointer text-h4-desktop transition-all ${
-              forOrgs
-                ? 'text-blue-1 underline underline-offset-8'
-                : 'text-gray-2'
-            }`}
-            onClick={() => setForOrgs(true)}
-          >
-            For organizations
-          </div>
+        <div className="mt-2-mobile flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-2-tablet lg:mt-2-desktop">
+          {toggleHeaders.map((header, i) => {
+            return (
+              <div
+                key={i}
+                className={`cursor-pointer text-component-small transition-all sm:text-component-large md:text-h4-mobile lg:text-h4-desktop ${
+                  (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
+                    ? 'text-gray-2'
+                    : 'text-blue-1 underline underline-offset-8'
+                }`}
+                onClick={() => setForOrgs(header.includes('organizations'))}
+              >
+                {header}
+              </div>
+            );
+          })}
         </div>
         {/* FAQS */}
         <Faq
-          key={forOrgs ? 'orgFAQS' : 'candidateFAQS'}
-          faqItems={forOrgs ? orgFAQS : candidateFAQS}
+          key={isForOrgsSelected ? 'orgFAQS' : 'candidateFAQS'}
+          faqItems={isForOrgsSelected ? orgFAQS : candidateFAQS}
         />
       </div>
     </section>
