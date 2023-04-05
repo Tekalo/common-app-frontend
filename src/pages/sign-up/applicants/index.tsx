@@ -312,6 +312,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 }}
               </Field>
 
+              {/* OnClick run submit against our API endpoint*/}
               <Button
                 className="mt-14 w-full"
                 label="Sign up"
