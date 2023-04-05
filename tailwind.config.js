@@ -210,7 +210,7 @@ module.exports = {
       'h2-mobile': [
         '36px',
         {
-          lineHeight: '52px',
+          lineHeight: '42px',
           fontWeight: '500',
         },
       ],
