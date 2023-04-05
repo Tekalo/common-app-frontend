@@ -223,6 +223,9 @@ module.exports = {
       ],
     },
 
+    maxWidth: {
+      'content-area': '1120px',
+    },
     extend: {
       spacing: {
         px: '1px',
