@@ -217,7 +217,7 @@ module.exports = {
       'h1-mobile': [
         '46px',
         {
-          lineHeight: '62px',
+          lineHeight: '52px',
           fontWeight: '500',
         },
       ],

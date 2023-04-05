@@ -10,13 +10,13 @@ export interface IFaq {
 
 const Faq: React.FC<IFaq> = ({ faqItems }) => {
   return (
-    <div className="mx-auto max-w-7xl">
-      <dl className="mt-10 space-y-6 divide-y divide-gray-3 border-b border-b-gray-3 pb-8">
+    <div className="max-w-7xl mx-auto mt-2-mobile md:mt-2-tablet lg:mt-2-desktop">
+      <dl className="space-y-3 divide-y divide-gray-3 border-b border-b-gray-3 pb-8 md:space-y-8">
         {faqItems.map((faq, i) => (
           <Disclosure
             as="div"
             key={i}
-            className="pt-6"
+            className="pt-3 md:pt-8"
             defaultOpen={i == 0 ? true : false}
           >
             {({ open }) => (
@@ -27,7 +27,9 @@ const Faq: React.FC<IFaq> = ({ faqItems }) => {
                       open ? 'text-blue-1' : `text-black-text`
                     } flex w-full items-start justify-between text-left`}
                   >
-                    <span className="text-h4-desktop">{faq.questionText}</span>
+                    <span className="text-h4-mobile lg:text-h4-desktop">
+                      {faq.questionText}
+                    </span>
                     <span className="ml-6 flex h-7 items-center">
                       {open ? (
                         <ChevronUpIcon className="h-6 w-6" aria-hidden="true" />
@@ -40,8 +42,8 @@ const Faq: React.FC<IFaq> = ({ faqItems }) => {
                     </span>
                   </Disclosure.Button>
                 </dt>
-                <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                  <p className="text-base text-gray-600 leading-7">
+                <Disclosure.Panel as="dd" className="mt-6">
+                  <p className="text-gray-600 text-p2-mobile lg:text-p1-mobile">
                     {faq.answerText}
                   </p>
                 </Disclosure.Panel>
