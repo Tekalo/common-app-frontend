@@ -23,7 +23,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
 
   return (
     <nav className="fixed z-10 w-screen bg-white">
-      <div className="mx-auto h-20 max-w-screen-xl xs:px-1 sm:px-4 md:px-10 lg:px-20">
+      <div className="mx-auto h-20 xs:px-1 sm:px-4 md:px-10 lg:px-20">
         <div className="flex justify-around sm:justify-between">
           <div className="flex flex-row justify-center py-5 align-middle">
             {/* Logo */}
@@ -33,7 +33,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
             >
               <div className="flex flex-row items-center py-3">LOGO TBD</div>
             </Link>
-            <div className="flex flex-row space-x-4 py-3 text-p2-desktop md:py-3 md:px-8">
+            <div className="flex flex-row space-x-4 py-3 text-p2-desktop md:px-8 md:py-3">
               {title}
             </div>
           </div>
