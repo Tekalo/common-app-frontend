@@ -51,7 +51,7 @@ jobs:
           pnpm build:for-edge
         env:
           CI: true
-          NODE_ENV: true
+          NODE_ENV: 'staging'
 
   deploy:
     name: Deploy
@@ -94,7 +94,7 @@ jobs:
           pnpm build:for-edge
         env:
           CI: true
-          NODE_ENV: staging
+          NODE_ENV: 'staging'
 
       - name: Publish to Cloudflare Pages
         id: deploy
