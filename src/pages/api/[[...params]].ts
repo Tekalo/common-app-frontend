@@ -8,7 +8,7 @@ export const config = {
 const BASE_URL = (() => {
   switch (process.env.NODE_ENV) {
     case 'production':
-      return 'https://api.example.com';
+      return 'https://capp-api.dev.apps.futurestech.cloud';
     case 'test':
       return 'https://capp-api.dev.apps.futurestech.cloud';
     case 'development':
