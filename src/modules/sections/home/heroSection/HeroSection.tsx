@@ -6,7 +6,7 @@ export interface IHeroSection {}
 
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
-    <div className="relative top-20 bg-light-blue px-6 pb-8 pt-4 md:pb-20 md:pl-8 md:pr-0 md:pt-16">
+    <div className="bg-light-blue px-6 pb-8 pt-4 md:pb-20 md:pl-8 md:pr-0 md:pt-16">
       <div className="mx-auto max-w-content-area md:grid md:grid-cols-12 md:items-center">
         {/* CONTENT */}
         <div className="col-span-7">
