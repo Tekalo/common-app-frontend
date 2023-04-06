@@ -47,7 +47,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "github:cloudflare/next-on-pages#14f07ec8b3eff2aa8d98afc5a61b27da22e34b48",
+    "@cloudflare/next-on-pages": "^0.7.0",
     "@cloudflare/workers-types": "^4.20230321.0",
     "@commitlint/cli": "^17.5.1",
     "@commitlint/config-conventional": "^17.4.4",
