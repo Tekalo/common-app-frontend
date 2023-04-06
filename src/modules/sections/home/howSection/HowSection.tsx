@@ -49,8 +49,8 @@ const HowSection: React.FC<IHowSection> = () => {
   const toggleHeaders = ['For candidates', 'For organizations'];
 
   return (
-    <section className="grid w-full place-items-center">
-      <div className="bg-light-blue px-6 py-14 md:px-24 md:py-16 lg:py-24">
+    <section className="grid w-full place-items-center bg-light-blue">
+      <div className="px-6 py-14 md:px-24 md:py-16 lg:py-24">
         {/* Title */}
         <div className="text-center font-display text-h3-mobile text-black-text lg:text-h2-desktop">
           How it works

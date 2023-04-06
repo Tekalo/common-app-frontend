@@ -31,8 +31,8 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
 
   return (
     <div>
-      <nav className="fixed z-10 w-screen bg-white">
-        <div className="max-w-screen-xl mx-auto h-auto xs:px-1 sm:px-4 md:px-10 lg:px-20">
+      <nav className="fixed z-50 w-screen bg-white">
+        <div className="mx-auto h-auto xs:px-1 sm:px-4 md:px-10 lg:px-20">
           <div className="space-y-50 flex justify-around sm:justify-between">
             <div className="flex py-4">
               {/* Logo */}
@@ -101,7 +101,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
           ></div>
           {/* Mobile Menu */}
           <div
-            className="relative z-30 bg-white px-6 py-4 cursor-pointer"
+            className="relative z-30 cursor-pointer bg-white px-6 py-4"
             onClick={(e) => handleAuthentication(e)}
           >
             <div className="text-p2-desktop">{logInOutLabel}</div>
