@@ -19,6 +19,7 @@ const BASE_URL = () => {
 };
 
 const fetchResponse = async (req: NextRequest, params: string[]) => {
+  console.log(BASE_URL);
   const url = `${BASE_URL}/${params.join('/')}`;
   const response = await fetch(url, {
     method: req.method,
@@ -26,8 +27,11 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
     body: req.body,
   });
 
-  const data = await response.json();
-  return data;
+  if (!response.ok) {
+    throw new Error('Unexpected HTTP Response');
+  }
+
+  return await response.json();
 };
 
 export default async function handler(req: NextRequest): Promise<Response> {
