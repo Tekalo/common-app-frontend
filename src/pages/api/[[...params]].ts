@@ -61,6 +61,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
 };
 
 export default async function handler(req: NextRequest): Promise<Response> {
+  console.log(process.env.NODE_ENV);
   const params = req.nextUrl.searchParams.getAll('params');
 
   // If params is empty return proxy health
