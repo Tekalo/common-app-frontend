@@ -101,7 +101,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
           ></div>
           {/* Mobile Menu */}
           <div
-            className="relative z-30 bg-white px-6 py-4"
+            className="relative z-30 bg-white px-6 py-4 cursor-pointer"
             onClick={(e) => handleAuthentication(e)}
           >
             <div className="text-p2-desktop">{logInOutLabel}</div>
