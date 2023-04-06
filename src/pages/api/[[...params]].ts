@@ -53,7 +53,7 @@ export default async function handler(req: NextRequest): Promise<Response> {
   }
 
   // If params is not empty, pass the request directly the 3rd party API
-  const result = await fetchResponse(req, params);
+  const result = () => fetchResponse(req, params);
 
   return new Response(JSON.stringify(result), {
     status: 200,
