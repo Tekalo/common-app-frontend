@@ -5,21 +5,22 @@ export const config = {
   runtime: 'edge',
 };
 
-const BASE_URL = (() => {
-  switch (process.env.NODE_ENV) {
-    case 'production':
-      return 'https://api.example.com';
-    case 'test':
-      return 'https://capp-api.dev.apps.futurestech.cloud';
-    case 'development':
-      return 'http://localhost:3000';
-    default:
-      return 'http://localhost:3000';
-  }
-})();
+// const BASE_URL = (() => {
+//   switch (process.env.NODE_ENV) {
+//     case 'production':
+//       return 'https://api.example.com';
+//     case 'test':
+//       return 'https://capp-api.dev.apps.futurestech.cloud';
+//     case 'development':
+//       return 'http://localhost:3000';
+//     default:
+//       return 'http://localhost:3000';
+//   }
+// })();
 
 const fetchResponse = async (req: NextRequest, params: string[]) => {
-  const url = `${BASE_URL}/${params.join('/')}`;
+  const url = `https://capp-api.dev.apps.futurestech.cloud/${params.join('/')}`;
+  // const url = `${BASE_URL}/${params.join('/')}`;
 
   switch (req.method) {
     case 'POST':
