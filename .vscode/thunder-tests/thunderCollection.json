@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "69454aaa-16c4-44f9-8ca0-21561544bbd4",
+    "colName": "common-app",
+    "created": "2023-04-06T13:42:48.992Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "bb18904b-2f3a-4746-9d6f-db1356188d30",
+        "name": "localhost",
+        "containerId": "",
+        "created": "2023-04-06T13:42:54.184Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "2fb3b29e-f3a3-421f-a830-3aa6e97f995b",
+        "name": "cloudflare",
+        "containerId": "",
+        "created": "2023-04-06T13:43:00.960Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "2e6a37e0-ab78-426d-8415-248aafaf5ed5",
+        "name": "backend",
+        "containerId": "",
+        "created": "2023-04-06T13:43:06.017Z",
+        "sortNum": 30000
+      }
+    ]
+  }
+]

@@ -5,7 +5,8 @@ export const config = {
   runtime: 'edge',
 };
 
-const url = `http://localhost:3000/applicants`;
+const port = process.env.PORT || 3000;
+const url = `http://localhost:${port}/applicants`;
 
 // TODO: Accept a typed body for a new applicant
 // TODO: Return a typed response for the new applicant
