@@ -96,7 +96,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
         <div className={`md:hidden ${!mobileMenuIsOpen ? 'hidden' : ''}`}>
           {/* Mobile Overlay */}
           <div
-            className="fixed bottom-0 left-0 right-0 top-32 z-20 bg-black-text bg-opacity-75"
+            className="fixed bottom-0 left-0 right-0 top-[7.75rem] z-20 bg-black-text bg-opacity-75"
             onClick={() => hideMobileMenu()}
           ></div>
           {/* Mobile Menu */}
