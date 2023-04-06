@@ -56,7 +56,7 @@ const FaqSection: React.FC<IFaqSection> = () => {
           Frequently Asked Questions
         </div>
         {/* TOGGLE */}
-        {/* TODO: Consider moving toggle menu to own component */}
+        {/* TODO: Consider moving toggle menu to own component, this is identical to FAQ */}
         <div className="mt-2-mobile flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-2-tablet lg:mt-2-desktop">
           {toggleHeaders.map((header, i) => {
             return (
