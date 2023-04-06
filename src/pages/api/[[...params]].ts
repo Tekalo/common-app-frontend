@@ -20,7 +20,7 @@ const BASE_URL = (() => {
 
 const fetchResponse = async (req: NextRequest, params: string[]) => {
   const url = `${BASE_URL}/${params.join('/')}`;
-
+  console.log(url);
   switch (req.method) {
     case 'POST':
       return await fetch(url, {
@@ -64,7 +64,7 @@ export default async function handler(req: NextRequest): Promise<Response> {
   const params = req.nextUrl.searchParams.getAll('params');
 
   // If params is empty return proxy health
-  if (params[0] === 'undefined') {
+  if (params.length === 0 || params[0] === 'undefined') {
     return new Response(
       JSON.stringify({
         proxy: 'OK',
