@@ -20,14 +20,44 @@ const BASE_URL = (() => {
 
 const fetchResponse = async (req: NextRequest, params: string[]) => {
   const url = `${BASE_URL}/${params.join('/')}`;
-  const response = await fetch(url, {
-    method: req.method,
-    headers: req.headers,
-    body: req.body,
-  });
 
-  const data = await response.json();
-  return data;
+  switch (req.method) {
+    case 'POST':
+      return await fetch(url, {
+        method: 'POST',
+        body: req.body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    case 'PUT':
+      return await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(req.body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    case 'PATCH':
+      return await fetch(url, {
+        method: 'PATCH',
+        body: JSON.stringify(req.body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    case 'DELETE':
+      return await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    default:
+      return await fetch(url, {
+        method: 'GET',
+      });
+  }
 };
 
 export default async function handler(req: NextRequest): Promise<Response> {
@@ -50,8 +80,9 @@ export default async function handler(req: NextRequest): Promise<Response> {
 
   // If params is not empty, pass the request directly the 3rd party API
   const result = await fetchResponse(req, params);
+  const data = await result.json();
 
-  return new Response(JSON.stringify(result), {
+  return new Response(JSON.stringify(data), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',

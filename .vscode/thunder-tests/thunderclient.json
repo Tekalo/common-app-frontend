@@ -50,12 +50,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-04-06T13:45:01.412Z",
-    "modified": "2023-04-06T14:50:47.056Z",
+    "modified": "2023-04-06T20:00:31.420Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"string\",\n  \"email\": \"foo@bar.com\",\n  \"pronoun\": \"string\",\n  \"preferredContact\": \"sms\",\n  \"searchStatus\": \"active\",\n  \"acceptedTerms\": true,\n  \"acceptedPrivacy\": true\n}",
+      "raw": "{\n  \"name\": \"string\",\n  \"email\": \"foozball@bar.com\",\n  \"pronoun\": \"string\",\n  \"preferredContact\": \"sms\",\n  \"searchStatus\": \"active\",\n  \"acceptedTerms\": true,\n  \"acceptedPrivacy\": true\n}",
       "form": []
     },
     "tests": []
@@ -84,20 +84,6 @@
     "sortNum": 5000,
     "created": "2023-04-06T13:45:05.852Z",
     "modified": "2023-04-06T13:45:16.737Z",
-    "headers": [],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "0cc9b7d2-8375-46bf-ba29-6b78faaf51aa",
-    "colId": "69454aaa-16c4-44f9-8ca0-21561544bbd4",
-    "containerId": "bb18904b-2f3a-4746-9d6f-db1356188d30",
-    "name": "[localhost] api health",
-    "url": "localhost:3001/api/health",
-    "method": "GET",
-    "sortNum": 7500,
-    "created": "2023-04-06T14:44:55.618Z",
-    "modified": "2023-04-06T14:45:16.104Z",
     "headers": [],
     "params": [],
     "tests": []
