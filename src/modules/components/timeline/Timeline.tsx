@@ -9,7 +9,7 @@ export interface ITimeline {
 
 const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
   const regularTimeline = (
-    <div className="mt-10 md:mt-14">
+    <div className="mt-10 max-w-content-area md:mt-14">
       <ol className="">
         {timelineItems.map((item, i) => (
           <li key={i} className="relative mb-4 md:mb-6">
