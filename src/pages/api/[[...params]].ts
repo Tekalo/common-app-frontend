@@ -64,11 +64,8 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
 export default async function handler(req: NextRequest): Promise<Response> {
   const params = req.nextUrl.searchParams.getAll('params');
 
-  console.log('THE PARAMS ARE:', params);
   // If params is empty return proxy health
-  if (params.length === 0) {
-    console.log('PARAMS LENGTH IS ZERO!');
-    console.log('PARAMS LENGTH IS ZERO!');
+  if (params[0] === 'undefined') {
     return new Response(
       JSON.stringify({
         proxy: 'OK',
@@ -81,7 +78,6 @@ export default async function handler(req: NextRequest): Promise<Response> {
       }
     );
   } else {
-    console.log('PARAMS LENGTH IS NOT ZERO!');
     // If params is not empty, pass the request directly the 3rd party API
     const result = await fetchResponse(req, params);
     const data = await result.json();
