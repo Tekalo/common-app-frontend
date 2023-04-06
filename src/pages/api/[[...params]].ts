@@ -64,6 +64,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
 export default async function handler(req: NextRequest): Promise<Response> {
   const params = req.nextUrl.searchParams.getAll('params');
 
+  console.log('THE PARAMS ARE:', params);
   // If params is empty return proxy health
   if (params.length === 0) {
     console.log('PARAMS LENGTH IS ZERO!');
