@@ -31,14 +31,19 @@
     "_id": "04b6511f-313e-4329-a7ac-7c794903a312",
     "colId": "69454aaa-16c4-44f9-8ca0-21561544bbd4",
     "containerId": "2fb3b29e-f3a3-421f-a830-3aa6e97f995b",
-    "name": "[cloudflare] applicants Copy",
-    "url": "https://capp-api.dev.apps.futurestech.cloud/applicants",
+    "name": "[cloudflare] applicants",
+    "url": "https://5b5e9168.common-app-frontend.pages.dev/api/applicants",
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-04-06T13:44:58.285Z",
-    "modified": "2023-04-06T13:44:59.918Z",
+    "modified": "2023-04-06T21:38:53.913Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"string\",\n  \"email\": \"foozball@bar.com\",\n  \"pronoun\": \"string\",\n  \"preferredContact\": \"sms\",\n  \"searchStatus\": \"active\",\n  \"acceptedTerms\": true,\n  \"acceptedPrivacy\": true\n}",
+      "form": []
+    },
     "tests": []
   },
   {
@@ -78,7 +83,7 @@
     "_id": "aaf54ea5-552b-4075-8bf6-94fa489b3bd4",
     "colId": "69454aaa-16c4-44f9-8ca0-21561544bbd4",
     "containerId": "2fb3b29e-f3a3-421f-a830-3aa6e97f995b",
-    "name": "[cloudflare] health Copy",
+    "name": "[cloudflare] health",
     "url": "https://capp-api.dev.apps.futurestech.cloud/health",
     "method": "GET",
     "sortNum": 5000,
