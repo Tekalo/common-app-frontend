@@ -65,6 +65,10 @@ export default async function handler(req: NextRequest): Promise<Response> {
   console.log('LOGGING FROM THE HANDLER!');
   const params = req.nextUrl.searchParams.getAll('params');
   console.log('PARAMS', params);
+
+  const url = new URL(req.url);
+  console.log('OTHER PARAMS: ', url.searchParams.get('params'));
+  console.log('SLUG PARAMS: ', url.searchParams.get('slug'));
   // If params is empty return proxy health
   if (params.length === 0) {
     console.log('PARAMS LENGTH IS ZERO!');
