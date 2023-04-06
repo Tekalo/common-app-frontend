@@ -5,21 +5,20 @@ export const config = {
   runtime: 'edge',
 };
 
-const BASE_URL = () => {
+const BASE_URL = (() => {
   switch (process.env.NODE_ENV) {
     case 'production':
       return 'https://api.example.com';
     case 'test':
-      return 'https://staging-api.example.com';
-    case 'development':
       return 'https://capp-api.dev.apps.futurestech.cloud';
+    case 'development':
+      return 'http://localhost:3000';
     default:
       return 'http://localhost:3000';
   }
-};
+})();
 
 const fetchResponse = async (req: NextRequest, params: string[]) => {
-  console.log(BASE_URL);
   const url = `${BASE_URL}/${params.join('/')}`;
   const response = await fetch(url, {
     method: req.method,
@@ -27,11 +26,8 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
     body: req.body,
   });
 
-  if (!response.ok) {
-    throw new Error('Unexpected HTTP Response');
-  }
-
-  return await response.json();
+  const data = await response.json();
+  return data;
 };
 
 export default async function handler(req: NextRequest): Promise<Response> {
@@ -53,7 +49,7 @@ export default async function handler(req: NextRequest): Promise<Response> {
   }
 
   // If params is not empty, pass the request directly the 3rd party API
-  const result = () => fetchResponse(req, params);
+  const result = await fetchResponse(req, params);
 
   return new Response(JSON.stringify(result), {
     status: 200,
