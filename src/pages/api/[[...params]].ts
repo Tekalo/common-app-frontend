@@ -6,10 +6,10 @@ export const config = {
 };
 
 const BASE_URL = (() => {
-  switch (process.env.NODE_ENV) {
+  switch (process.env.ENVIRONMENT) {
     case 'production':
       return 'https://capp-api.prod.apps.futurestech.cloud';
-    case 'test':
+    case 'staging':
       return 'https://capp-api.dev.apps.futurestech.cloud';
     case 'development':
       return 'http://localhost:3000';
