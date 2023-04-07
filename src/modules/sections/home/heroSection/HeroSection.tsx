@@ -25,7 +25,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
               mission-driven organizations.
             </div>
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-x-1 sm:gap-x-4 md:justify-start md:gap-x-6">
+            <div className="flex justify-center gap-x-1 sm:gap-x-4 md:justify-start md:gap-x-6">
               <Button
                 label="For candidates"
                 className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:px-7 md:py-3 lg:px-8"
