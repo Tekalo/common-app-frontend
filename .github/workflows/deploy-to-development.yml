@@ -1,12 +1,26 @@
-name: Build & Deploy
+name: Build & Deploy to Development
+
+# This workflow is triggered on a pull request against the develop branch.
+# This workflow is triggered on pushes to branches starting with test/
+## It builds setting the ENVIRONMENT variable to 'develop'
+## It deploys to Cloudflare Pages as a preview deployment
 
 on:
+  # Trigger the workflow on a push to a branch that starts with `test/`
   push:
     branches:
-      - main
-      - staging
       - test/*
-  pull_request:
+
+  # OR #
+
+  # Trigger the workflow on pull requests
+  pull_request_target:
+    # whenever a PR is opened, edited, or synchronized
+    types: [opened, edited, synchronize]
+    # on develop
+    branches:
+      - develop
+
   workflow_dispatch:
 
 jobs:
@@ -15,6 +29,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    environment: development
 
     strategy:
       matrix:
@@ -45,10 +60,11 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
       - name: Install dependencies and Build (regular)
+
         env:
           CI: true
-          ENVIRONMENT: 'staging'
 
         run: |
           pnpm install
@@ -57,6 +73,8 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    environment: development
+
     needs: [build]
 
     strategy:
@@ -93,7 +111,6 @@ jobs:
 
         env:
           CI: true
-          ENVIRONMENT: 'staging'
 
         run: |
           pnpm install
