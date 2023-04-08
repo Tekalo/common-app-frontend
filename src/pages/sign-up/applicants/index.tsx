@@ -56,8 +56,20 @@ const ApplicantSignup: NextPageWithLayout = () => {
       <div className="col-span-4 col-start-5">
         {/* The form */}
         <Form
-          onSubmit={(values) => {
-            alert('Form was submitted with: ' + JSON.stringify(values));
+          onSubmit={async (values) => {
+            // Make a POST request to your Next.js API
+            const res = await fetch('/api/applicants', {
+              method: 'POST',
+              body: JSON.stringify(values),
+            });
+
+            if (res.ok) {
+              // handle success
+              console.log(res);
+            } else {
+              // handle errors
+              console.log(res);
+            }
           }}
         >
           {({ isValid, isSubmitted, submit }) => (

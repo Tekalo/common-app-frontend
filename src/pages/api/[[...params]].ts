@@ -79,6 +79,7 @@ export default async function handler(req: NextRequest): Promise<Response> {
   } else {
     // If params is not empty, pass the request directly the 3rd party API
     const result = await fetchResponse(req, params);
+    console.log(result.text());
     const data = await result.json();
     // TODO: Fixme if the response is not JSON the worker segfaults
     return new Response(JSON.stringify(data), {
