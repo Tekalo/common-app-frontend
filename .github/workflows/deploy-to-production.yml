@@ -1,17 +1,11 @@
-name: Build & Deploy
+name: Build & Deploy to Development
 
-# This workflow is triggered on a pull request against the develop branch.
-## It builds setting the ENVIRONMENT variable to 'develop'
-## It deploys to Cloudflare Pages as a preview deployment
+# This workflow triggers when a push happens on on main
 
 on:
-  # Trigger the workflow on a pull request
-  pull_request_target:
-    # Only when the PR is opened, edited, or synchronized
-    types: [opened, edited, synchronize]
-    # Only for PRs against develop
+  push:
     branches:
-      - develop
+      - main
 
   workflow_dispatch:
 
@@ -21,7 +15,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     strategy:
       matrix:
@@ -52,7 +46,9 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
       - name: Install dependencies and Build (regular)
+
         env:
           CI: true
 
@@ -63,6 +59,8 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    environment: production
+
     needs: [build]
 
     strategy:
@@ -123,6 +121,7 @@ jobs:
       deployment_id: ${{ steps.deploy.outputs.id }}
 
   comment:
+    name: Comment on PR
     if: ${{ github.event_name == 'pull_request' }}
     uses: raisedadead/portfolio/.github/workflows/comment.yml@main
     needs: [deploy]

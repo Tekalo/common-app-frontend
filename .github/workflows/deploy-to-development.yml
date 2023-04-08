@@ -135,6 +135,7 @@ jobs:
       deployment_id: ${{ steps.deploy.outputs.id }}
 
   comment:
+    name: Comment on PR
     if: ${{ github.event_name == 'pull_request' }}
     uses: raisedadead/portfolio/.github/workflows/comment.yml@main
     needs: [deploy]

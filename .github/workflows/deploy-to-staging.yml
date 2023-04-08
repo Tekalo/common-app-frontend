@@ -1,9 +1,13 @@
-name: Build & Deploy to Stagubg
+name: Build & Deploy to Development
+
+# This workflow triggers when a push happens on on staging
 
 on:
   push:
     branches:
       - staging
+
+  workflow_dispatch:
 
 jobs:
   # This job is a quick sanity check to ensure that the build is working.
@@ -11,7 +15,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     strategy:
       matrix:
@@ -42,13 +46,11 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
       - name: Install dependencies and Build (regular)
+
         env:
           CI: true
-<<<<<<< HEAD:.github/workflows/build-and-deploy.yml
-          ENVIRONMENT: 'staging'
-=======
->>>>>>> 4f2225932181ee05641376bebbfd2d291eb257bd:.github/workflows/deploy-to-staging.yml
 
         run: |
           pnpm install
@@ -57,7 +59,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: staging
+    environment: production
 
     needs: [build]
 
@@ -95,10 +97,6 @@ jobs:
 
         env:
           CI: true
-<<<<<<< HEAD:.github/workflows/build-and-deploy.yml
-          ENVIRONMENT: 'staging'
-=======
->>>>>>> 4f2225932181ee05641376bebbfd2d291eb257bd:.github/workflows/deploy-to-staging.yml
 
         run: |
           pnpm install
@@ -123,6 +121,7 @@ jobs:
       deployment_id: ${{ steps.deploy.outputs.id }}
 
   comment:
+    name: Comment on PR
     if: ${{ github.event_name == 'pull_request' }}
     uses: raisedadead/portfolio/.github/workflows/comment.yml@main
     needs: [deploy]
