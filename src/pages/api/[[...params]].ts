@@ -5,20 +5,20 @@ export const config = {
   runtime: 'edge',
 };
 
-const BASE_URL = (() => {
-  switch (process.env.ENVIRONMENT) {
-    case 'production':
-      return 'https://capp-api.prod.apps.futurestech.cloud';
-    case 'staging':
-      return 'https://capp-api.dev.apps.futurestech.cloud';
-    case 'development':
-      return 'https://localhost:3000';
-    default:
-      return 'http://localhost:3000';
-  }
-})();
-
 const fetchResponse = async (req: NextRequest, params: string[]) => {
+  const BASE_URL = (() => {
+    switch (process.env.ENVIRONMENT) {
+      case 'production':
+        return 'https://capp-api.prod.apps.futurestech.cloud';
+      case 'staging':
+        return 'https://capp-api.dev.apps.futurestech.cloud';
+      case 'development':
+        return 'https://localhost:3000';
+      default:
+        return 'http://localhost:3000';
+    }
+  })();
+
   const url = `${BASE_URL}/${params.join('/')}`;
   console.log(url);
   switch (req.method) {
@@ -62,6 +62,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
 
 export default async function handler(req: NextRequest): Promise<Response> {
   console.log('FULL ENV DUMP: ', process.env);
+  console.log('ENVIRONMENT: ', process.env.ENVIRONMENT);
   const params = req.nextUrl.searchParams.getAll('params');
 
   // If params is empty return proxy health
