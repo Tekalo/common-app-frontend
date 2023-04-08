@@ -64,7 +64,7 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo ENVIRONMENT=${{ vars.ENVIRONMENT }} >> .env
+          echo ENVIRONMENT=${{ vars.ENVIRONMENT }} >> .env.local
 
       - name: Install dependencies and Build (regular)
 
@@ -115,7 +115,7 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo ENVIRONMENT=${{ vars.ENVIRONMENT }} >> .env
+          echo ENVIRONMENT=${{ vars.ENVIRONMENT }} >> .env.local
 
       - name: Install dependencies and Build (for Cloudflare Pages)
 
