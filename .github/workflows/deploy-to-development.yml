@@ -14,7 +14,7 @@ on:
   # OR #
 
   # Trigger the workflow on pull requests
-  pull_request_target:
+  pull_request:
     # whenever a PR is opened, edited, or synchronized
     types: [opened, edited, synchronize]
     # on develop
