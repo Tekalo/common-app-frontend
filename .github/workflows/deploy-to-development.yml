@@ -61,11 +61,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-      - name: Create env file
-        run: |
-          touch .env
-          echo ENVIRONMENT=${{ vars.ENVIRONMENT }} >> .env.local
-
       - name: Install dependencies and Build (regular)
 
         env:
@@ -111,11 +106,6 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
-      - name: Create env file
-        run: |
-          touch .env
-          echo ENVIRONMENT=${{ vars.ENVIRONMENT }} >> .env.local
 
       - name: Install dependencies and Build (for Cloudflare Pages)
 

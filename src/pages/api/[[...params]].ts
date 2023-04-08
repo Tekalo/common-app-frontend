@@ -10,9 +10,9 @@ const BASE_URL = (() => {
     case 'production':
       return 'https://capp-api.prod.apps.futurestech.cloud';
     case 'staging':
-      return 'https://capp-api.staging.apps.futurestech.cloud';
-    case 'development':
       return 'https://capp-api.dev.apps.futurestech.cloud';
+    case 'development':
+      return 'https://localhost:3000';
     default:
       return 'http://localhost:3000';
   }
@@ -61,7 +61,6 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
 };
 
 export default async function handler(req: NextRequest): Promise<Response> {
-  console.log('FULL ENV: ', process.env);
   const params = req.nextUrl.searchParams.getAll('params');
 
   // If params is empty return proxy health
