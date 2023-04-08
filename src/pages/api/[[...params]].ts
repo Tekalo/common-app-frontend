@@ -10,9 +10,9 @@ const BASE_URL = (() => {
     case 'production':
       return 'https://capp-api.prod.apps.futurestech.cloud';
     case 'staging':
-      return 'https://capp-api.dev.apps.futurestech.cloud';
+      return 'https://capp-api.staging.apps.futurestech.cloud';
     case 'development':
-      return 'http://localhost:3000';
+      return 'https://capp-api.dev.apps.futurestech.cloud';
     default:
       return 'http://localhost:3000';
   }
