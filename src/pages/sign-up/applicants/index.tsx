@@ -41,19 +41,19 @@ const ApplicantSignup: NextPageWithLayout = () => {
   ];
 
   return (
-    <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
+    <div className="px-6 pb-28 pt-10 md:px-24">
       {/* Title */}
-      <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
+      <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
         Join a network with over XX00 organizations to find your match.
       </div>
       {/* Navaway has an account*/}
-      <div className="col-span-4 col-start-5">
+      <div className="text-center text-component-medium">
         {'Already have an account? '}
         <span className="text-blue-1 underline underline-offset-4">
           <Link href="/sign-in">Sign in</Link>
         </span>
       </div>
-      <div className="col-span-4 col-start-5">
+      <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
         {/* The form */}
         <Form
           onSubmit={(values) => {
@@ -149,7 +149,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, errors }) => {
                   return (
-                    <div className="mt-8">
+                    <div className="mt-8 md:w-[120%]">
                       <RadioGroup
                         value={value}
                         setValue={setValue}
@@ -201,7 +201,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 */}
                 {({ value, setValue, onBlur, errors }) => {
                   return (
-                    <div className="space-y-2 pt-8">
+                    <div className="mt-8 space-y-2">
                       <div className="text-left text-component-extra-small text-black-text">
                         {'Phone number (optional)'}
                       </div>
@@ -220,6 +220,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 }}
               </Field>
               {/* TODO Privacy Info */}
+              {/* TODO: Templatize these */}
               <Field<boolean>
                 name="acceptedPrivacy"
                 initialValue={false}
@@ -236,9 +237,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, errors }) => {
                   return (
-                    <div className="space-y-2 pt-8 text-left">
+                    <div className="mt-8 space-y-2 text-left">
                       <fieldset className="space-y-3">
-                        <div className="space-x-2 align-middle">
+                        <div className="flex space-x-2 align-middle">
                           <input
                             className="form-checkbox h-4 w-4 appearance-none align-middle checked:bg-blue-1 
                              checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
@@ -282,9 +283,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
               >
                 {({ value, setValue, errors }) => {
                   return (
-                    <div className="space-y-2 pt-3 text-left">
+                    <div className="mt-4 space-y-2 text-left">
                       <fieldset className="space-y-3">
-                        <div className="space-x-2 align-middle">
+                        <div className="flex space-x-2 align-middle">
                           <input
                             className="form-checkbox h-4 w-4 appearance-none align-middle checked:bg-blue-1 
                              checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
@@ -313,7 +314,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
               </Field>
 
               <Button
-                className="mt-14 w-full"
+                className="mt-10 w-full lg:mt-14"
                 label="Sign up"
                 type="submit"
                 disabled={isSubmitted && !isValid}
@@ -324,7 +325,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </Form>
       </div>
       {/* Navaway for organizations */}
-      <div className="col-span-4 col-start-5">
+      <div className="mt-6 text-center">
         {"If you're an organization, "}
         <span className="text-blue-1 underline underline-offset-4">
           <Link href="/sign-in">apply here</Link>
