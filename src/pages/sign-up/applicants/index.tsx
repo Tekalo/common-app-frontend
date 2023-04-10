@@ -1,6 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
-import { PreferredContact, SearchStatus } from '@/lib/schemas';
+import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
 import FreeText from '@/modules/components/input/freeText/FreeText';
 import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
@@ -11,11 +11,6 @@ import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const errMsgClasses = 'mt-1 text-left text-component-small text-red-error';
-  const errorMessages = {
-    required: 'This is a required field',
-    invalidEmail: 'This must be a valid email address',
-  };
-
   const searchStatusOptions = [
     {
       value: SearchStatus.Values.active,
@@ -45,41 +40,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
       displayText: 'Whatsapp message',
     },
   ];
-
-  {
-    /* TODO: Maybe move this to schemas? */
-  }
-  const validations = {
-    email: z
-      .string()
-      .nonempty(errorMessages.required)
-      .email(errorMessages.invalidEmail),
-    phoneNumber: z
-      .string()
-      .superRefine((phoneNumber: string, ctx: z.RefinementCtx) => {
-        const phoneRegex = new RegExp(
-          /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-        );
-
-        if (phoneNumber.length > 0 && !phoneRegex.test(phoneNumber)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'This must be a valid phone number',
-          });
-        }
-      }),
-    privacyPolicy: z.literal(true, {
-      errorMap: () => ({
-        message: 'You must accept the privacy policy',
-      }),
-    }),
-    requiredString: z.string().nonempty(errorMessages.required),
-    termsOfService: z.literal(true, {
-      errorMap: () => ({
-        message: 'You must accept the terms of service',
-      }),
-    }),
-  };
 
   const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
     const errorMessage =

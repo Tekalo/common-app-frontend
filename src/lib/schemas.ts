@@ -1,11 +1,55 @@
 import { z } from 'zod';
 
+const errorMessages = {
+  invalidEmail: 'This must be a valid email address',
+  invalidPhone: 'This must be a valid phone number',
+  privacyRequired: 'You must accept the privacy policy',
+  required: 'This is a required field',
+  termsRequired: 'You must accept the terms of service',
+  unknownError: 'An unknown error has occurred',
+};
+
+export const validations = {
+  email: z
+    .string()
+    .nonempty(errorMessages.required)
+    .email(errorMessages.invalidEmail),
+  phoneNumber: z
+    .string()
+    .superRefine((phoneNumber: string, ctx: z.RefinementCtx) => {
+      const phoneRegex = new RegExp(
+        /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
+      );
+
+      if (phoneNumber.length > 0 && !phoneRegex.test(phoneNumber)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: errorMessages.invalidPhone,
+        });
+      }
+    }),
+  privacyPolicy: z.literal(true, {
+    errorMap: () => ({
+      message: errorMessages.privacyRequired,
+    }),
+  }),
+  requiredString: z.string().nonempty(errorMessages.required),
+  termsOfService: z.literal(true, {
+    errorMap: () => ({
+      message: errorMessages.termsRequired,
+    }),
+  }),
+};
+
 const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
   const errorMsg =
-    err.code === 'invalid_enum_value' ? 'This is a required field' : 'Error';
+    err.code === 'invalid_enum_value'
+      ? errorMessages.required
+      : errorMessages.unknownError;
 
   return { message: errorMsg };
 };
+
 export const PreferredContact = z.enum(['sms', 'whatsapp', 'email'], {
   errorMap: defaultEnumErrorMap,
 });
