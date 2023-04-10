@@ -5,6 +5,8 @@ export const config = {
   runtime: 'edge',
 };
 
+type HeadersInit = [string, string][] | Record<string, string> | Headers;
+
 const fetchResponse = async (req: NextRequest, params: string[]) => {
   const BASE_URL = (() => {
     switch (process.env.ENVIRONMENT) {
@@ -21,6 +23,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
 
   const url = `${BASE_URL}/${params.join('/')}`;
   console.log(url);
+
   switch (req.method) {
     case 'POST':
       return await fetch(url, {
@@ -28,7 +31,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
         body: req.body,
         headers: {
           'Content-Type': 'application/json',
-        },
+        } as HeadersInit,
       });
     case 'PUT':
       return await fetch(url, {
@@ -36,7 +39,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
         body: JSON.stringify(req.body),
         headers: {
           'Content-Type': 'application/json',
-        },
+        } as HeadersInit,
       });
     case 'PATCH':
       return await fetch(url, {
@@ -44,14 +47,14 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
         body: JSON.stringify(req.body),
         headers: {
           'Content-Type': 'application/json',
-        },
+        } as HeadersInit,
       });
     case 'DELETE':
       return await fetch(url, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-        },
+        } as HeadersInit,
       });
     default:
       return await fetch(url, {
@@ -73,20 +76,17 @@ export default async function handler(req: NextRequest): Promise<Response> {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-        },
+        } as HeadersInit,
       }
     );
   } else {
     // If params is not empty, pass the request directly the 3rd party API
     const result = await fetchResponse(req, params);
-    console.log(result.text());
-    const data = await result.json();
-    // TODO: Fixme if the response is not JSON the worker segfaults
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+
+    return new Response(JSON.stringify(result), {
+      status: result.status,
+      statusText: result.statusText,
+      headers: result.headers as HeadersInit,
     });
   }
 }
