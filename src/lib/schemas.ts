@@ -1,7 +1,18 @@
 import { z } from 'zod';
 
-export const PreferredContact = z.enum(['sms', 'whatsapp', 'email']);
-export const SearchStatus = z.enum(['active', 'passive', 'future']);
+const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
+  const errorMsg =
+    err.code === 'invalid_enum_value' ? 'This is a required field' : 'Error';
+
+  return { message: errorMsg };
+};
+export const PreferredContact = z.enum(['sms', 'whatsapp', 'email'], {
+  errorMap: defaultEnumErrorMap,
+});
+export const SearchStatus = z.enum(['active', 'passive', 'future'], {
+  errorMap: defaultEnumErrorMap,
+});
+
 export const YOE = z.enum([
   '< 1',
   '1',
