@@ -66,8 +66,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
             if (res.ok) {
               // handle success
               console.log(res);
+              alert('Success! Response in console:');
+              console.log(res);
             } else {
               // handle errors
+              alert('Fail! Errors as in console:');
               console.log(res);
             }
           }}
