@@ -3,16 +3,18 @@ export interface ILiteFooter {}
 const LiteFooter: React.FC<ILiteFooter> = () => {
   return (
     <section className="w-full bg-gray-4">
-      <div className="m-auto grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8  pt-20 pb-20 text-center">
-        {/* Logo */}
-        <div className="col-span-2 col-start-1 items-center rounded-lg bg-gray-3 py-3 px-16 text-white">
-          <div>LOGO</div>
-        </div>
-        {/* Menu Col 1 */}
-        <div className="text-black-text= col-span-5 col-start-8 flex flex-row items-center justify-between text-center font-sans text-component-small">
-          <div className="">Privacy Policy</div>
-          <div className="">Terms of Service</div>
-          <div className="">© All Rights Reserved</div>
+      <div className="px-8 pb-10 pt-8 md:px-20 md:pb-24 md:pt-12 lg:px-0">
+        <div className="m-auto flex max-w-content-area flex-row flex-wrap items-start gap-x-14 gap-y-8 md:items-center md:justify-between">
+          {/* Logo */}
+          <div className="items-center rounded-lg bg-gray-3 px-16 py-3 text-white">
+            <div>LOGO</div>
+          </div>
+          {/* Menu Col 1 */}
+          <div className="flex flex-col justify-between space-y-4 font-sans text-component-small text-black-text md:flex-row md:space-x-6 md:space-y-0">
+            <div className="flex-none">Privacy Policy</div>
+            <div className="flex-none">Terms of Service</div>
+            <div className="flex-none">© All Rights Reserved</div>
+          </div>
         </div>
       </div>
     </section>
