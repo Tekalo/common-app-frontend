@@ -5,11 +5,15 @@ import { NextPageWithLayout } from '@/lib/types';
 import FreeText from '@/modules/components/input/freeText/FreeText';
 import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
 import ListBox from '@/modules/components/input/singleSelect/SingleSelect';
+import PrivacyModal from '@/modules/components/modal/PrivacyModal';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
+import { useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  let [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
   const errMsgClasses = 'mt-1 text-left text-component-small text-red-error';
   const searchStatusOptions = [
     {
@@ -242,8 +246,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
                             className="align-middle text-component-small text-black-text"
                           >
                             By signing up, you acknowledge the{' '}
-                            <span className="text-blue-1 underline underline-offset-4">
-                              <Link href="/sign-in">Privacy info</Link>
+                            <span
+                              className="text-blue-1 underline underline-offset-4"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setShowPrivacyModal(true);
+                              }}
+                            >
+                              Privacy info
                             </span>
                           </label>
                         </div>
@@ -309,6 +319,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <Link href="/sign-in">apply here</Link>
         </span>
       </div>
+      <PrivacyModal
+        isOpen={showPrivacyModal}
+        closeModal={() => {
+          setShowPrivacyModal(false);
+        }}
+      />
     </div>
   );
 };
