@@ -1,12 +1,12 @@
-name: Build & Deploy
+name: Production - Build & Deploy
+
+# This workflow triggers when a push happens on on main
 
 on:
   push:
     branches:
       - main
-      - staging
-      - test/*
-  pull_request:
+
   workflow_dispatch:
 
 jobs:
@@ -15,6 +15,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    environment: production
 
     strategy:
       matrix:
@@ -45,16 +46,21 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
       - name: Install dependencies and Build (regular)
+
+        env:
+          CI: true
+
         run: |
           pnpm install
           pnpm build:for-edge
-        env:
-          CI: true
 
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    environment: production
+
     needs: [build]
 
     strategy:
@@ -86,12 +92,15 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
       - name: Install dependencies and Build (for Cloudflare Pages)
+
+        env:
+          CI: true
+
         run: |
           pnpm install
           pnpm build:for-edge
-        env:
-          CI: true
 
       - name: Publish to Cloudflare Pages
         id: deploy
@@ -112,6 +121,7 @@ jobs:
       deployment_id: ${{ steps.deploy.outputs.id }}
 
   comment:
+    name: Comment on PR
     if: ${{ github.event_name == 'pull_request' }}
     uses: raisedadead/portfolio/.github/workflows/comment.yml@main
     needs: [deploy]
