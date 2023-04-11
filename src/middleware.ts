@@ -1,7 +1,7 @@
 import sentryPlugin from '@cloudflare/pages-plugin-sentry';
 
 const SENTRY_DSN = process.env.SENTRY_DSN;
-const SENTRY_ENVIRONMENT = process.env.SENTRY_ENVIRONMENT;
+const SENTRY_ENVIRONMENT = process.env.ENVIRONMENT;
 
 // Cloudflare requires a different configuration than that recommended
 // in the Sentry nextjs documentation.
