@@ -19,7 +19,7 @@ import type { ErrorProps } from 'next/error';
 import NextErrorComponent from 'next/error';
 
 export const config = {
-  runtime: 'edge',
+  runtime: 'experimental-edge',
 };
 
 const CustomErrorComponent: NextPage<ErrorProps> = (props) => {
