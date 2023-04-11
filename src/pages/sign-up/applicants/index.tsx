@@ -8,11 +8,40 @@ import ListBox from '@/modules/components/input/singleSelect/SingleSelect';
 import PrivacyModal from '@/modules/components/modal/PrivacyModal';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
+import router from 'next/router';
 import { useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   let [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const handleSubmit = async (values: unknown) => {
+    try {
+      const response = await fetch('/api/applicants', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      console.log(response);
+
+      if (response.ok) {
+        // Success -- Move them to the next page
+        router.push('/sign-up/applicants/experience-and-interests');
+        // TODO: Use iron-session or similar to authenticate the user
+      } else {
+        // Handle error response
+        // TODO -- Show error modal
+        console.error('Failed to submit form data');
+        alert(await response.text());
+      }
+    } catch (error) {
+      // Handle fetch error
+      console.error('Failed to fetch', error);
+      alert('Failed to submit form data!');
+    }
+  };
 
   const errMsgClasses = 'mt-1 text-left text-component-small text-red-error';
   const searchStatusOptions = [
@@ -72,13 +101,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
       <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
         {/* The form */}
-        <Form
-          onSubmit={(values) => {
-            alert('Form was submitted with: ' + JSON.stringify(values));
-          }}
-        >
+        <Form onSubmit={(values) => handleSubmit(values)}>
           {({ isValid, isSubmitted, submit }) => (
-            <>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               {/* Name */}
               <Field<string>
                 name="name"
@@ -301,6 +330,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 }}
               </Field>
 
+              {/* OnClick run submit against our API endpoint*/}
               <Button
                 className="mt-10 w-full lg:mt-14"
                 label="Sign up"
@@ -308,7 +338,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 disabled={isSubmitted && !isValid}
                 onClick={() => submit()}
               />
-            </>
+            </form>
           )}
         </Form>
       </div>
