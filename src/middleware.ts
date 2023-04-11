@@ -11,3 +11,7 @@ export const onRequest: PagesFunction = sentryPlugin({
   dsn: SENTRY_DSN,
   environment: SENTRY_ENVIRONMENT,
 });
+
+async function middleware() {}
+
+export default middleware;
