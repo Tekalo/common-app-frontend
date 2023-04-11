@@ -37,6 +37,7 @@
   "homepage": "https://github.com/schmidtfutures/common-app-frontend#readme",
   "dependencies": {
     "@auth0/auth0-react": "^2.0.1",
+    "@cloudflare/pages-plugin-sentry": "^1.1.1",
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.17",
     "common-app-frontend": "link:",
