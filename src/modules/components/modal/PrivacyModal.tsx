@@ -1,6 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
+import { useRef } from 'react';
 import Button from '../buttons/Button/Button';
 
 export interface IPrivacyModal {
@@ -12,6 +13,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
   closeModal,
   isOpen: showModal,
 }) => {
+  let headerRef = useRef(null);
   const tableData = {
     headers: [
       {
@@ -74,7 +76,11 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
 
   return (
     <>
-      <Dialog className="" open={showModal} onClose={() => closeModal()}>
+      <Dialog
+        initialFocus={headerRef}
+        open={showModal}
+        onClose={() => closeModal()}
+      >
         <div
           className={`fixed bottom-0 left-0 right-0 top-0 z-40 bg-black-text opacity-70 ${
             !showModal ? 'hidden' : ''
@@ -90,7 +96,9 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
             />
             <div className="absolute bottom-4 left-2 right-0 top-10 flex flex-1 flex-col justify-stretch md:left-6 md:right-6">
               <div className="overflow-y-scroll md:overflow-y-auto">
-                <div className="mb-6 pr-2 text-h4-desktop">Privacy Info</div>
+                <div ref={headerRef} className="mb-6 mt-2 pr-2 text-h4-desktop">
+                  Privacy Info
+                </div>
                 <div className="max-w-[560px] pr-2 text-p2-desktop">
                   This Privacy Info is meant to help you understand what
                   information we collect, why we collect it, and how you can
