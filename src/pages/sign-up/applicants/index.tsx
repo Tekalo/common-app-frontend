@@ -7,9 +7,39 @@ import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
 import ListBox from '@/modules/components/input/singleSelect/SingleSelect';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
+import router from 'next/router';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  const handleSubmit = async (values: unknown) => {
+    try {
+      const response = await fetch('/api/applicants', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      console.log(response);
+
+      if (response.ok) {
+        // Success -- Move them to the next page
+        router.push('/sign-up/applicants/experience-and-interests');
+        // TODO: Use iron-session or similar to authenticate the user
+      } else {
+        // Handle error response
+        // TODO -- Show error modal
+        console.error('Failed to submit form data');
+        alert(await response.text());
+      }
+    } catch (error) {
+      // Handle fetch error
+      console.error('Failed to fetch', error);
+      alert('Failed to submit form data!');
+    }
+  };
+
   const searchStatusOptions = [
     {
       value: SearchStatus.Values.active,
@@ -55,28 +85,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
       <div className="col-span-4 col-start-5">
         {/* The form */}
-        <Form
-          onSubmit={async (values) => {
-            // Make a POST request to your Next.js API
-            const res = await fetch('/api/applicants', {
-              method: 'POST',
-              body: JSON.stringify(values),
-            });
-
-            if (res.ok) {
-              // handle success
-              console.log(res);
-              alert('Success! Response in console:');
-              console.log(res);
-            } else {
-              // handle errors
-              alert('Fail! Errors as in console:');
-              console.log(res);
-            }
-          }}
-        >
+        <Form onSubmit={(values) => handleSubmit(values)}>
           {({ isValid, isSubmitted, submit }) => (
-            <>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               {/* Name */}
               <Field<string>
                 name="name"
@@ -335,7 +350,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 disabled={isSubmitted && !isValid}
                 onClick={() => submit()}
               />
-            </>
+            </form>
           )}
         </Form>
       </div>

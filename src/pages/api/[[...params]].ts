@@ -22,7 +22,6 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
   })();
 
   const url = `${BASE_URL}/${params.join('/')}`;
-  console.log(url);
 
   switch (req.method) {
     case 'POST':
@@ -82,10 +81,11 @@ export default async function handler(req: NextRequest): Promise<Response> {
   } else {
     // If params is not empty, pass the request directly the 3rd party API
     const result = await fetchResponse(req, params);
+    const data: any = await result.json();
 
     // TODO: Handle the various status codes
 
-    return new Response(JSON.stringify(result), {
+    return new Response(JSON.stringify(data), {
       status: result.status,
       statusText: result.statusText,
       headers: result.headers as HeadersInit,

@@ -13,6 +13,9 @@ dependencies:
   '@heroicons/react':
     specifier: ^2.0.17
     version: 2.0.17(react@18.2.0)
+  common-app-frontend:
+    specifier: 'link:'
+    version: 'link:'
   houseform:
     specifier: ^1.10.0
     version: 1.10.0(react@18.2.0)(zod@3.21.4)
