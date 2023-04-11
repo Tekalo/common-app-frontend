@@ -6,40 +6,47 @@ export interface IHeroSection {}
 
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
-    <div className="relative top-20 bg-light-blue">
-      <div className="mx-auto max-w-screen-xl md:grid md:grid-cols-12">
+    <div className="bg-light-blue px-6 pb-8 pt-4 md:pb-20 md:pl-8 md:pr-0 md:pt-16">
+      <div className="mx-auto max-w-content-area md:grid md:grid-cols-12 md:items-center">
         {/* CONTENT */}
-        <div className="col-span-6 pt-24 pl-40">
-          <div className="mx-auto max-w-2xl md:mx-0">
-            <div className="w-[640px] text-h1-desktop text-black-text">
+        <div className="col-span-7">
+          <div className="max-w-2xl mx-auto md:mx-0">
+            <div className="mb-6 text-center text-h2-mobile text-black-text md:mb-4 md:text-left md:text-h1-mobile lg:pb-12 lg:text-h1-desktop">
               Where technical talent and impact connect.
             </div>
-            <div className="w-[525px] pt-8 font-sans text-h4-desktop font-normal">
+            {/* TODO: Wiaiting for final images, so this will change */}
+            <img
+              src="/images/HeroImage.png"
+              alt="Mobile Hero Image"
+              className="mb-11 md:hidden"
+            />
+            <div className="mb-4 text-center text-p2-desktop md:mb-8 md:text-left lg:mb-10 lg:pr-12 lg:text-p1-desktop">
               A platform for matchmaking between technical talent and
               mission-driven organizations.
             </div>
             {/* CTA Buttons */}
-            <div className="flex items-start gap-x-6 pt-10">
+            <div className="flex justify-center gap-x-1 sm:gap-x-4 md:justify-start md:gap-x-6">
               <Button
                 label="For candidates"
-                className="px-8 py-3"
+                className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:px-7 md:py-3 lg:px-8"
                 onClick={() => {}}
               />
               <Button
                 outlined
                 label="For organizations"
-                className="px-8 py-3"
+                className="flex-none flex-nowrap p-1 sm:p-3 md:px-5 md:py-3 lg:px-8"
                 onClick={() => {}}
               />
             </div>
           </div>
         </div>
         {/* IMAGE */}
-        <div className="col-start-7 col-end-13 flex justify-end">
+        <div className="col-start-8 col-end-13 flex items-center justify-end">
+          {/* TODO: Wiaiting for final images, so this will change */}
           <img
             src="/images/HeroImage.png"
             alt="Hero Image"
-            className="max-h-[516px]"
+            className="hidden h-auto md:block"
           />
         </div>
       </div>

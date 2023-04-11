@@ -10,7 +10,7 @@ import TestimonialSection from '@/sections/home/testimonialSection/TestimonialSe
 
 const Home: NextPageWithLayout = () => {
   return (
-    <div>
+    <div className="pt-16">
       <HeroSection />
       <AboutSection />
       <HowSection />

@@ -5,7 +5,7 @@ import { useState } from 'react';
 export interface IHowSection {}
 
 const HowSection: React.FC<IHowSection> = () => {
-  const [forOrgz, setForOrgz] = useState(false);
+  const [isForOrgsSelected, setForOrgs] = useState(false);
 
   // Store the titems that the component should conditionally render
   const orgItems: Array<ITimelineItem> = [
@@ -46,39 +46,36 @@ const HowSection: React.FC<IHowSection> = () => {
     },
   ];
 
+  const toggleHeaders = ['For candidates', 'For organizations'];
+
   return (
-    <section className="grid w-full place-items-center">
-      <div className="bg-light-blue lg:h-[1086px] lg:w-[1440px]">
+    <section className="grid w-full place-items-center bg-light-blue">
+      <div className="px-6 py-14 md:px-24 md:py-16 lg:py-24">
         {/* Title */}
-        <div className="pt-24 text-center font-display text-h3-desktop text-black-text">
+        <div className="text-center font-display text-h3-mobile text-black-text lg:text-h2-desktop">
           How it works
         </div>
         {/* Toggle Menu */}
-        {/* TODO: Move the toggle menu into its own component */}
-        <div className="flex flex-row justify-center space-x-10 pt-12">
-          <div
-            className={`cursor-pointer text-h4-desktop transition-all ${
-              forOrgz
-                ? 'text-gray-2'
-                : 'text-blue-1 underline underline-offset-8'
-            }`}
-            onClick={() => setForOrgz(false)}
-          >
-            For candidates
-          </div>
-          <div
-            className={`cursor-pointer text-h4-desktop transition-all ${
-              forOrgz
-                ? 'text-blue-1 underline underline-offset-8'
-                : 'text-gray-2'
-            }`}
-            onClick={() => setForOrgz(true)}
-          >
-            For organizations
-          </div>
+        {/* TODO: Move the toggle menu into its own component, this is identical to FAQ */}
+        <div className="mt-6 flex flex-row justify-center space-x-6 md:space-x-8 lg:mt-12 lg:space-x-12">
+          {toggleHeaders.map((header, i) => (
+            <div
+              key={i}
+              className={`cursor-pointer text-component-large transition-all md:text-h4-mobile lg:text-h4-desktop ${
+                (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
+                  ? 'text-gray-2'
+                  : 'text-blue-1 underline underline-offset-8'
+              }`}
+              onClick={() => setForOrgs(header.includes('organizations'))}
+            >
+              {header}
+            </div>
+          ))}
         </div>
         {/* Timeline Component */}
-        <Timeline timelineItems={forOrgz ? orgItems : candidateItems} />
+        <Timeline
+          timelineItems={isForOrgsSelected ? orgItems : candidateItems}
+        />
       </div>
     </section>
   );

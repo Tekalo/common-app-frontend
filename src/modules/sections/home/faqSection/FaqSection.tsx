@@ -49,36 +49,38 @@ const FaqSection: React.FC<IFaqSection> = () => {
   const toggleHeaders = ['For candidates', 'For organizations'];
 
   return (
-    <section className="grid w-full place-items-center">
-      <div className="bg-light-blue px-10 py-20 md:px-4 md:py-14 lg:w-[1440px] lg:px-5 lg:py-16">
+    <section className="grid w-full place-items-center bg-light-blue">
+      <div className="px-10 py-20 md:px-4 md:py-14 lg:px-5 lg:py-16">
         {/* TITLE */}
-        <div className="text-black-text: text-center font-display text-h2-mobile md:text-h1-mobile lg:text-h1-desktop">
-          Frequently Asked Questions
+        <div className="mx-auto max-w-content-area">
+          <div className="text-black-text: text-center font-display text-h2-mobile md:text-h1-mobile lg:text-h1-desktop">
+            Frequently Asked Questions
+          </div>
+          {/* TOGGLE */}
+          {/* TODO: Consider moving toggle menu to own component, this is identical to FAQ */}
+          <div className="mt-2-mobile flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-2-tablet lg:mt-2-desktop">
+            {toggleHeaders.map((header, i) => {
+              return (
+                <div
+                  key={i}
+                  className={`cursor-pointer text-component-small transition-all sm:text-component-large md:text-h4-mobile lg:text-h4-desktop ${
+                    (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
+                      ? 'text-gray-2'
+                      : 'text-blue-1 underline underline-offset-8'
+                  }`}
+                  onClick={() => setForOrgs(header.includes('organizations'))}
+                >
+                  {header}
+                </div>
+              );
+            })}
+          </div>
+          {/* FAQS */}
+          <Faq
+            key={isForOrgsSelected ? 'orgFAQS' : 'candidateFAQS'}
+            faqItems={isForOrgsSelected ? orgFAQS : candidateFAQS}
+          />
         </div>
-        {/* TOGGLE */}
-        {/* TODO: Consider moving toggle menu to own component */}
-        <div className="mt-2-mobile flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-2-tablet lg:mt-2-desktop">
-          {toggleHeaders.map((header, i) => {
-            return (
-              <div
-                key={i}
-                className={`cursor-pointer text-component-small transition-all sm:text-component-large md:text-h4-mobile lg:text-h4-desktop ${
-                  (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
-                    ? 'text-gray-2'
-                    : 'text-blue-1 underline underline-offset-8'
-                }`}
-                onClick={() => setForOrgs(header.includes('organizations'))}
-              >
-                {header}
-              </div>
-            );
-          })}
-        </div>
-        {/* FAQS */}
-        <Faq
-          key={isForOrgsSelected ? 'orgFAQS' : 'candidateFAQS'}
-          faqItems={isForOrgsSelected ? orgFAQS : candidateFAQS}
-        />
       </div>
     </section>
   );
