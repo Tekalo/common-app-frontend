@@ -48,7 +48,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </span>
       </div>
       <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
-        {/* The form */}
+        {/* New user form */}
         <SignupForm handleSubmit={handleSubmit} />
       </div>
       {/* Navaway for organizations */}
