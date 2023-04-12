@@ -37,8 +37,6 @@ next-env.d.ts
 
 # storbook
 /.storybook/build/*
-# Sentry
-.sentryclirc
 
 # Sentry
-next.config.original.js
+.sentryclirc
