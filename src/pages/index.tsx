@@ -12,6 +12,14 @@ const Home: NextPageWithLayout = () => {
   return (
     <div className="pt-16">
       <HeroSection />
+      <button
+        type="button"
+        onClick={() => {
+          throw new Error('Sentry Frontend Error');
+        }}
+      >
+        Throw error
+      </button>
       <AboutSection />
       <HowSection />
       <OrgSection />
