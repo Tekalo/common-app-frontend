@@ -13,6 +13,10 @@ export const onRequest: PagesFunction = sentryPlugin({
   environment: SENTRY_ENVIRONMENT,
 });
 
+export const config = {
+  runtime: 'edge',
+};
+
 async function middleware(req: NextRequest, res: NextResponse) {
   return NextResponse.next();
 }
