@@ -1,7 +1,7 @@
 import { IExperienceInterestForm } from './ExperienceInterestForm';
 
 const base: IExperienceInterestForm = {
-  sampleTextProp: 'Hello world!',
+  handleSubmit: () => {},
 };
 
 export const mockExperienceInterestFormProps = {

@@ -1,7 +1,7 @@
 import { ISignupForm } from './SignupForm';
 
 const base: ISignupForm = {
-  sampleTextProp: 'Hello world!',
+  handleSubmit: () => {},
 };
 
 export const mockSignupFormProps = {
