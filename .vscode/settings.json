@@ -4,6 +4,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
+<<<<<<< HEAD
   },
   "files.associations": {
     "*.css": "tailwindcss"
@@ -32,4 +33,7 @@
     "titleBar.inactiveForeground": "#15202b99"
   },
   "peacock.color": "#61dafb"
+=======
+  }
+>>>>>>> main
 }

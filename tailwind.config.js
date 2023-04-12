@@ -268,5 +268,6 @@ module.exports = {
         '13-desktop': '160px',
       },
     },
+
   },
 };
