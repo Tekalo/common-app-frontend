@@ -9,7 +9,7 @@ const Home = () => {
       <div
         className={`flex min-h-screen min-w-full flex-col items-center text-center`}
       >
-        <div className="text-black-text sm:w-[342px] md:w-[462px] lg:w-[544px] w-[320px]">
+        <div className="sm:w-[342px] md:w-[462px] lg:w-[544px] w-[320px] text-black-text">
           {/* Logo */}
           <div className="mt-8">
             <img
@@ -39,7 +39,7 @@ const Home = () => {
             <button
               onClick={() => {}}
               className={
-                'h-12 bg-blue-1 font-sans text-component-large text-white hover:bg-blue-2 active:border-blue-3 active:bg-blue-3 disabled:border-blue-4 disabled:bg-blue-4 disabled:text-white md:w-[296px] lg:w-[352px] group group flex w-[294px] min-w-[118px] flex-row content-center items-center justify-center rounded transition-colors focus-visible:ring-2 focus-visible:ring-[#A7C4DB]'
+                'h-12 bg-blue-1 font-sans text-component-large hover:bg-blue-2 active:border-blue-3 active:bg-blue-3 disabled:border-blue-4 disabled:bg-blue-4 md:w-[296px] lg:w-[352px] group group flex w-[294px] min-w-[118px] flex-row content-center items-center justify-center rounded text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#A7C4DB] disabled:text-white'
               }
             >
               <div className="flex items-center justify-center">
