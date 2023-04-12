@@ -12,6 +12,8 @@ export const onRequest: PagesFunction = sentryPlugin({
   environment: SENTRY_ENVIRONMENT,
 });
 
-async function middleware() {}
+async function middleware() {
+  return Promise.resolve();
+}
 
 export default middleware;
