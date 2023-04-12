@@ -15,7 +15,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
         className={`flex min-h-screen min-w-full flex-col items-stretch`}
       >
         <MainNavbar />
-        <main className="pt-16">{children}</main>
+        <main className="pt-16 md:pt-20">{children}</main>
         <div className="m-auto" />
         <MainFooter />
       </div>
