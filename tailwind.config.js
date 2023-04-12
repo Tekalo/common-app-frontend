@@ -1,55 +1,57 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     // Mirroring: https://www.figma.com/file/CCE0TsuhSMnDb2X0287IXX/%F0%9F%8E%A8-Common-App-Components?node-id=22%3A404&t=KfRuKN24GmEy0KBa-0
-    extend: {
-      colors: {
-        'black-text': '#272929',
-        'gray-1-darkest': '#6B7281',
-        'gray-2-darker': '#9FA4AE',
-        'gray-3-dark': '#DBDDE2',
-        'gray-4-light': '#EFF0F2',
-        'white-global': '#FFFFF',
-        'blue-1-primary': '#317BB5',
-        'blue-2-hover': '#2B6796',
-        'blue-3-pressed': '#245277',
-        'blue-4-disabled': '#D0E3F2',
-        'light-blue-bg': '#F3F9FF',
-        'light-organge-bg': '#FFFAF5',
-        'red-error': '#D50000',
-        'green-success': '#00A870',
-        'orange-warn': '#EB9D00',
-      },
-    },
-    screens: {
-      xs: '320px',
-      mobile: '360px',
-      tablet: '768px',
-      desktop: '1280px',
+    colors: {
+      white: '#FFFFFF',
+      'black-text': '#272929',
+      'gray-1': '#6B7281',
+      'gray-2': '#9FA4AE',
+      'gray-3': '#DBDDE2',
+      'gray-4': '#EFF0F2',
+      'blue-1': '#317BB5',
+      'blue-2': '#2B6796',
+      'blue-3': '#245277',
+      'blue-4': '#D0E3F2',
+      'light-blue': '#F3F9FF',
+      'light-orange': '#FFFAF5',
+      'red-error': '#D50000',
+      'green-success': '#00A870',
+      'illustration-black': '#363D3F',
+      'illustration-beige': '#FFEACE',
+      'illustration-orange': '#FFBC03',
+      'illustration-blue': '#16A4F0',
+      'illustration-light-blue': '#98D7F8',
+      'illustration-green': '#3BB98F',
+      'illustration-light-green': '#9ADFC8',
+      'illustration-blue-green': '#00A0CC',
+      'illustration-mint': '#C4E6F0',
     },
     fontFamily: {
       display: ['Graphik'],
+      sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+    },
+    screens: {
+      xs: '320px',
+      sm: '360px',
+      md: '768px',
+      lg: '1280px',
+      xl: '1880px',
     },
     fontSize: {
-      // Component Typography
-      'component-lg': [
+      // components
+      'component-extra-large': [
         '18px',
         {
-          lineHeight: '22px',
-          letterSpacing: '0.005em',
+          lineHeight: '24px',
           fontWeight: '600',
+          letterSpacing: '0.001em',
         },
       ],
-      'component-md-header': [
-        '18px',
-        {
-          lineHeight: '22px',
-          letterSpacing: '0.005em',
-          fontWeight: '500',
-        },
-      ],
-      'component-md-list': [
+      'component-large': [
         '16px',
         {
           lineHeight: '24px',
@@ -57,54 +59,64 @@ module.exports = {
           fontWeight: '600',
         },
       ],
-      'component-md': [
+      'component-medium': [
         '16px',
         {
-          lineHeight: '24px',
-          letterSpacing: '0.005em',
+          lineHeight: '16px',
+          letterSpacing: '0.001em',
           fontWeight: '400',
         },
       ],
-      'component-sm': [
+      'component-small': [
         '14px',
         {
           lineHeight: '18px',
-          letterSpacing: '0.005em',
+          letterSpacing: '0.001em',
           fontWeight: '500',
         },
       ],
-      // Desktop Typography
-      'desktop-sm-copy': [
-        '16px',
+      'component-extra-small': [
+        '14px',
         {
-          lineHeight: '20px',
-          letterSpacing: '0.005em',
-          fontWeight: '500',
-        },
-      ],
-      'desktop-md-copy': [
-        '18px',
-        {
-          lineHeight: '24px',
+          lineHeight: '18px',
+          letterSpacing: '0.001em',
           fontWeight: '400',
         },
       ],
-      'desktop-lg-copy': [
+      // desktop
+      'p3-desktop': [
+        '14px',
+        {
+          lineHeight: '18px',
+          letterSpacing: '0.001em',
+          fontWeight: '400',
+        },
+      ],
+      'p2-desktop': [
+        '18px',
+        {
+          lineHeight: '26px',
+          fontWeight: '400',
+          letterSpacing: '0.001em',
+        },
+      ],
+      'p1-desktop': [
         '24px',
         {
-          lineHeight: '30px',
-          fontWeight: '500',
+          lineHeight: '32px',
+          fontWeight: '400',
+          letterSpacing: '0.001em',
         },
       ],
-      'desktop-sm-caption': [
+      'small-caption-desktop': [
         '14px',
         {
           lineHeight: '18px',
-          letterSpacing: '0.006em',
+          letterSpacing: '0.005em',
           fontWeight: '500',
         },
       ],
-      'desktop-lg-caption': [
+      'large-caption-desktop': [
         '18px',
         {
           lineHeight: '24px',
@@ -112,59 +124,60 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'desktop-h5': [
-        '18px',
-        {
-          lineHeight: '24px',
-          letterSpacing: '0.005em',
-          fontWeight: '500',
-        },
-      ],
-      'desktop-h4': [
+      'h4-desktop': [
         '24px',
         {
           lineHeight: '32px',
           fontWeight: '500',
         },
       ],
-      'desktop-h3': [
+      'h3-desktop': [
         '32px',
         {
           lineHeight: '42px',
           fontWeight: '500',
         },
       ],
-      'desktop-h2': [
+      'h2-desktop': [
         '40px',
         {
           lineHeight: '52px',
           fontWeight: '500',
         },
       ],
-      'desktop-h1': [
+      'h1-desktop': [
         '58px',
         {
           lineHeight: '72px',
           fontWeight: '500',
         },
       ],
-      // Mobile/Tablet Typography
-      'mobile-md-copy': [
-        '16px',
+      // mobile
+      'p3-mobile': [
+        '14px',
         {
-          lineHeight: '26px',
-          letterSpacing: '0.005em',
-          fontWeight: '500',
+          lineHeight: '18px',
+          letterSpacing: '0.001em',
+          fontWeight: '400',
         },
       ],
-      'mobile-lg-copy': [
+      'p2-mobile': [
+        '16px',
+        {
+          lineHeight: '24px',
+          fontWeight: '400',
+          letterSpacing: '0.001em',
+        },
+      ],
+      'p1-mobile': [
         '18px',
         {
           lineHeight: '26px',
           fontWeight: '400',
+          letterSpacing: '0.001em',
         },
       ],
-      'mobile-sm-caption': [
+      'small-caption-mobile': [
         '12px',
         {
           lineHeight: '16px',
@@ -172,15 +185,7 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'mobile-lg-caption': [
-        '16px',
-        {
-          lineHeight: '22px',
-          letterSpacing: '0.08em',
-          fontWeight: '500',
-        },
-      ],
-      'mobile-h5': [
+      'large-caption-mobile': [
         '16px',
         {
           lineHeight: '22px',
@@ -188,75 +193,83 @@ module.exports = {
           fontWeight: '500',
         },
       ],
-      'mobile-h4': [
+      'h4-mobile': [
         '20px',
         {
           lineHeight: '28px',
-          letterSpacing: '0.005em',
           fontWeight: '500',
         },
       ],
-      'mobile-h3': [
-        '32px',
+      'h3-mobile': [
+        '28px',
         {
-          lineHeight: '46px',
+          lineHeight: '40px',
           fontWeight: '500',
         },
       ],
-      'mobile-h2': [
-        '40px',
+      'h2-mobile': [
+        '36px',
         {
-          lineHeight: '48px',
+          lineHeight: '42px',
           fontWeight: '500',
         },
       ],
-      'mobile-h1': [
-        '56px',
+      'h1-mobile': [
+        '46px',
         {
-          lineHeight: '72px',
+          lineHeight: '52px',
           fontWeight: '500',
         },
       ],
-    },
-    spacing: {
-      // mobile Spacing
-      '1-mobile': '24px',
-      '2-mobile': '32px',
-      '3-mobile': '48px',
-      '4-mobile': '56px',
-      '5-mobile': '64px',
-      '6-mobile': '72px',
-      '7-mobile': '80px',
-      '8-mobile': '88px',
-      '9-mobile': '96px',
-      '10-mobile': '104px',
-      '11-mobile': '112px',
-      // tablet Spacing
-      '1-tablet': '32px',
-      '2-tablet': '40px',
-      '3-tablet': '56px',
-      '4-tablet': '64px',
-      '5-tablet': '72px',
-      '6-tablet': '80px',
-      '7-tablet': '88px',
-      '8-tablet': '96px',
-      '9-tablet': '112px',
-      '10-tablet': '120px',
-      '11-tablet': '128px',
-      // desktop Spacing
-      '1-desktop': '40px',
-      '2-desktop': '64px',
-      '3-desktop': '80px',
-      '4-desktop': '96px',
-      '5-desktop': '104px',
-      '6-desktop': '112px',
-      '7-desktop': '120px',
-      '8-desktop': '128px',
-      '9-desktop': '144px',
-      '10-desktop': '152px',
-      '11-desktop': '160px',
     },
 
+    maxWidth: {
+      'content-area': '1120px',
+    },
+    extend: {
+      spacing: {
+        px: '1px',
+        0: '0px',
+        // mobile Spacing
+        '1-mobile': '24px',
+        '2-mobile': '32px',
+        '3-mobile': '40px',
+        '4-mobile': '48px',
+        '5-mobile': '56px',
+        '6-mobile': '64px',
+        '7-mobile': '72px',
+        '8-mobile': '80px',
+        '9-mobile': '88px',
+        '10-mobile': '96px',
+        '11-mobile': '104px',
+        '12-mobile': '112px',
+        // tablet Spacing
+        '1-tablet': '32px',
+        '2-tablet': '40px',
+        '3-tablet': '56px',
+        '4-tablet': '64px',
+        '5-tablet': '72px',
+        '6-tablet': '80px',
+        '7-tablet': '88px',
+        '8-tablet': '96px',
+        '9-tablet': '112px',
+        '10-tablet': '120px',
+        '11-tablet': '128px',
+        // lg Spacing
+        '1-desktop': '40px',
+        '2-desktop': '48px',
+        '3-desktop': '56px',
+        '4-desktop': '64px',
+        '5-desktop': '80px',
+        '6-desktop': '96px',
+        '7-desktop': '104px',
+        '8-desktop': '112px',
+        '9-desktop': '120px',
+        '10-desktop': '128px',
+        '11-desktop': '144px',
+        '12-desktop': '152px',
+        '13-desktop': '160px',
+      },
+    },
   },
-  plugins: [],
-};
+ };
