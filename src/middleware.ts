@@ -14,7 +14,7 @@ export const onRequest: PagesFunction = sentryPlugin({
 });
 
 export const config = {
-  runtime: 'edge',
+  runtime: 'experimental-edge',
 };
 
 async function middleware(req: NextRequest, res: NextResponse) {
