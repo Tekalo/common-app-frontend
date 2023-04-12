@@ -194,6 +194,33 @@ This folder contains github workflows that execute when code is pushed to github
 1. `pre-commit` runs our `lint-staged` command prettifying staged files
 2. `commit-msg` enforces standardized commit messages using [CommitLint](https://commitlint.js.org/#/) and will reject non-standard commits.
 3. `pre-push` validates that pushed code successfully builds by running a local build using the `pnpm build:for-edge` command
+    - Note: If you encounter an issue in the pre-push command that resembles:
+
+        ```bash
+            C:\Users\...\...\project>npx @cloudflare/next-on-pages  
+            @cloudflare/next-to-pages CLI
+            ⚡️
+            ⚡️ Installing 'vercel' CLI...
+            ⚡️
+            node:events:368
+                  throw er; // Unhandled 'error' event
+                  ^
+        
+            Error: spawn npm ENOENT
+                at Process.ChildProcess._handle.onexit (node:internal/child_process:282:19)
+                at onErrorNT (node:internal/child_process:477:16)
+                at processTicksAndRejections (node:internal/process/task_queues:83:21)
+            Emitted 'error' event on ChildProcess instance at:
+                at Process.ChildProcess._handle.onexit (node:internal/child_process:288:12)
+                at onErrorNT (node:internal/child_process:477:16)
+                at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+              errno: -4058,
+              code: 'ENOENT',
+              syscall: 'spawn npm',
+              path: 'npm',
+              spawnargs: [ 'install', '-D', 'vercel' ]
+            }
+        ```
 
 #### `.next` && `.vercel`
 
