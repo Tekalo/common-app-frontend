@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>CommonApp</title>
+        <title>Tekalo | Do Good</title>
       </Head>
       <div
         className={`flex min-h-screen min-w-full flex-col items-center text-center`}
