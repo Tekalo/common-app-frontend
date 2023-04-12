@@ -248,7 +248,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
                   );
                 }}
               </Field>
-              {/* TODO Privacy Info */}
               {/* TODO: Templatize these */}
               <Field<boolean>
                 name="acceptedPrivacy"

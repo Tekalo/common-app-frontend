@@ -50,7 +50,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
                 <div className="text-p3-desktop">
                   See our&nbsp;
                   <span className="text-blue-1 underline underline-offset-4">
-                    <Link href="#">Privacy FAQ</Link>
+                    <Link href="/privacy-info">Privacy FAQ</Link>
                   </span>
                   &nbsp;for more information
                 </div>
