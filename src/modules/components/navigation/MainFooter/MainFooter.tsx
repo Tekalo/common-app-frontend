@@ -20,7 +20,7 @@ const MainFooter: React.FC<IMainFooter> = () => {
       links: [
         { title: 'Contact Us', href: '#' },
         { title: 'Privacy Info', href: '/privacy-info' },
-        { title: 'Terms of Use', href: '#' },
+        { title: 'Terms of Use', href: '/terms-and-conditions' },
       ],
     },
   ];

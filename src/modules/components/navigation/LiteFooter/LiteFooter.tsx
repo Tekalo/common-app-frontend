@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export interface ILiteFooter {}
 
 const LiteFooter: React.FC<ILiteFooter> = () => {
@@ -11,8 +13,12 @@ const LiteFooter: React.FC<ILiteFooter> = () => {
           </div>
           {/* Menu Col 1 */}
           <div className="flex flex-col justify-between space-y-4 font-sans text-component-small text-black-text md:flex-row md:space-x-6 md:space-y-0">
-            <div className="flex-none">Privacy Policy</div>
-            <div className="flex-none">Terms of Service</div>
+            <div className="flex-none">
+              <Link href="/privacy-info">Privacy Policy</Link>
+            </div>
+            <div className="flex-none">
+              <Link href="/terms-and-conditions">Terms of Service</Link>
+            </div>
             <div className="flex-none">© All Rights Reserved</div>
           </div>
         </div>

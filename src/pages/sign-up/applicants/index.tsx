@@ -318,7 +318,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
                           >
                             {'By signing up, you agree to the '}
                             <span className="text-blue-1 underline underline-offset-4">
-                              <Link href="/sign-in">Terms of Service</Link>
+                              <Link
+                                target="_blank"
+                                href="/terms-and-conditions"
+                              >
+                                Terms of Service
+                              </Link>
                             </span>
                           </label>
                         </div>
