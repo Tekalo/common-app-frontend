@@ -7,10 +7,12 @@ const SENTRY_ENVIRONMENT = process.env.ENVIRONMENT;
 // in the Sentry nextjs documentation.
 // https://developers.cloudflare.com/pages/platform/functions/plugins/sentry/
 // eslint-disable-next-line no-undef
-export const onRequest: PagesFunction = sentryPlugin({
-  dsn: SENTRY_DSN,
-  environment: SENTRY_ENVIRONMENT,
-});
+export const onRequest: PagesFunction<{ SENTRY_DSN: string }> = (context) => {
+  return sentryPlugin({
+    dsn: context.env.SENTRY_DSN,
+    environment: SENTRY_ENVIRONMENT,
+  })(context);
+};
 
 async function middleware() {}
 
