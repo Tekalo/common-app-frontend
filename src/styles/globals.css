@@ -2,3 +2,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Variable Fonts */
+@font-face {
+  src: url(/fonts/Figtree-VariableFont_wght.woff2) format('woff2');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  font-named-instance: 'Regular';
+}
+@font-face {
+  src: url(/fonts/Figtree-Italic-VariableFont_wght.woff2) format('woff2');
+  font-family: 'Figtree';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: optional;
+  font-named-instance: 'Regular';
+}
+
+/* Static Fonts */
+@font-face {
+  font-named-instance: 'Regular';
+  font-display: optional;
+  font-family: 'Graphik';
+  src: url(/fonts/GraphikMedium.woff2) format('woff2');
+}
+
+:root {
+  @apply font-sans antialiased;
+}
+
+@layer base {
+  /* stroke-width: 2 is a browser default and can be overridden with class="stroke-1" etc. */
+  svg {
+    stroke-width: 2;
+  }
+
+  path,
+  circle,
+  ellipse,
+  line,
+  polygon,
+  polyline,
+  rect {
+    stroke-width: inherit;
+  }
+}
