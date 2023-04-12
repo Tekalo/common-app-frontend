@@ -3,6 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRef } from 'react';
 import Button from '../buttons/Button/Button';
+import PrivacyTable from '../content/PrivacyTable';
 
 export interface IPrivacyModal {
   isOpen: boolean;
@@ -14,65 +15,6 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
   isOpen: showModal,
 }) => {
   let headerRef = useRef(null);
-  const tableData = {
-    headers: [
-      {
-        heading: '',
-        subheading: '',
-      },
-      {
-        heading: 'Data Type',
-        subheading: 'What info we collect',
-      },
-      {
-        heading: 'Uses',
-        subheading: 'How we use the info',
-      },
-      {
-        heading: 'Third Parties',
-        subheading: 'Who can see the info',
-      },
-    ],
-    content: [
-      {
-        heading: 'Info You provide',
-        bullets: [
-          ['Personal Info', 'Professional Info', 'Communications', 'Surveys'],
-          [
-            'Identify you and Operate [Name]',
-            'Conduct Research and improve [Name]',
-          ],
-          ['Users', 'Other Matchmakers and Organziations', 'Service Providers'],
-        ],
-      },
-      {
-        heading: 'Info we observe',
-        bullets: [
-          [
-            'Technical info (eg; browser device, IP, trackers, server logs)',
-            'Usage and outcomes',
-          ],
-          [
-            'Quality of Service',
-            'Security',
-            'Conduct Research and improve [Name]',
-          ],
-          ['Service Providers'],
-        ],
-      },
-      {
-        heading: 'Other sources',
-        bullets: [
-          [
-            'Programs from Third-Party organizations',
-            'Other Schmidt Futures Programs',
-          ],
-          ['Enable applicants to other programs to utilize [Name]'],
-          ['Users', 'Matchmakers', 'Organizations', 'Service Providers'],
-        ],
-      },
-    ],
-  };
 
   return (
     <>
@@ -86,7 +28,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
             !showModal ? 'hidden' : ''
           }`}
         ></div>
-        <div className="fixed bottom-0 left-4 right-4 top-0 z-50 mx-auto  mb-12 mt-14 max-h-[728px] max-w-[722px] rounded-md bg-white">
+        <div className="fixed bottom-0 left-4 right-4 top-0 z-50 mx-auto  mb-12 mt-14 max-h-[750px] max-w-[722px] rounded-md bg-white">
           <Dialog.Panel>
             <XMarkIcon
               className="absolute right-2 top-4 z-50 h-6 w-6 cursor-pointer stroke-2 text-black-text md:top-6"
@@ -104,45 +46,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
                   information we collect, why we collect it, and how you can
                   manage and delete your information lorem.
                 </div>
-                <div className="mt-8 w-full overflow-x-scroll pr-2 md:mt-3">
-                  <table className="mb-4 w-[664px] border-separate border-spacing-x-0 border-spacing-y-[1px] rounded-md border-x border-gray-3 bg-gray-3">
-                    <thead>
-                      <tr className="bg-gray-4">
-                        {tableData.headers.map((header, i) => (
-                          <th key={i} className="py-4 text-left">
-                            <div className="text-small-caption-mobile uppercase text-gray-1">
-                              {header.heading}
-                            </div>
-                            <div className="text-component-small">
-                              {header.subheading}
-                            </div>
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tableData.content.map((contentRow, i) => (
-                        <tr key={i} className="bg-white">
-                          <td className="px-4 py-3 align-top text-small-caption-mobile uppercase text-gray-1">
-                            {contentRow.heading}
-                          </td>
-                          {contentRow.bullets.map((bulletList, i) => (
-                            <td
-                              key={i}
-                              className="px-4 py-3 align-top text-component-extra-small"
-                            >
-                              <ul className="list-disc pl-2 leading-6">
-                                {bulletList.map((bp, i) => (
-                                  <li key={i}>{bp}</li>
-                                ))}
-                              </ul>
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <PrivacyTable padding="0px" />
                 <div className="text-p3-desktop">
                   See our&nbsp;
                   <span className="text-blue-1 underline underline-offset-4">

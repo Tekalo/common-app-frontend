@@ -18,6 +18,7 @@ export interface ITimelineItem {
 export interface IFaqItem {
   questionText: string;
   answerText: string;
+  extras?: ReactElement;
   className?: string;
 }
 
