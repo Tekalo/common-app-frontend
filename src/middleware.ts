@@ -1,4 +1,5 @@
 import sentryPlugin from '@cloudflare/pages-plugin-sentry';
+import { NextRequest, NextResponse } from 'next/server';
 
 const SENTRY_DSN = process.env.SENTRY_DSN;
 const SENTRY_ENVIRONMENT = process.env.ENVIRONMENT;
@@ -12,8 +13,8 @@ export const onRequest: PagesFunction = sentryPlugin({
   environment: SENTRY_ENVIRONMENT,
 });
 
-async function middleware() {
-  return Promise.resolve();
+async function middleware(req: NextRequest, res: NextResponse) {
+  return NextResponse.next();
 }
 
 export default middleware;
