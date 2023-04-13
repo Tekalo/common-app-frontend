@@ -19,7 +19,9 @@ else
   echo "\n🚀 No changes found in src/modules, skipping Storybook build."
 fi
 
-echo "\n🛠️  Building for edge..."
+echo '\n#################
+🛠️  Building for edge...
+#################'
 
 pnpm build:for-edge
 
