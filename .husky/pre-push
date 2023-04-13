@@ -1,24 +1,29 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 echo "\n 🚀 Running pre-push hook...\n"
 
-echo "🔎  Checking for storybook changes..."
+echo '\n${GREEN}########################
+🔎  Checking for storybook changes...
+########################${NC}'
 
 # Get the name of the current branch
 current_branch=$(git symbolic-ref --short HEAD)
 
 # Run git diff-tree to check if any files were changed in src/modules in the current commit
 if git diff-tree --no-commit-id --name-only -r HEAD | grep -q '^src/modules/'; then
-  echo "🎨 Changes found in src/modules, building Storybook..."
+  echo "  🎨 Changes found in src/modules, building Storybook..."
   pnpm build-storybook
 else
-  echo "🚀 No changes found in src/modules, skipping Storybook build."
+  echo "  🚀 No changes found in src/modules, skipping Storybook build."
 fi
 
-echo '\n#####################
+echo '\n${GREEN}########################
 🛠️  Building for edge...
-#####################\n'
+########################${NC}'
 
 pnpm build:for-edge
 
