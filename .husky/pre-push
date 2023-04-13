@@ -9,22 +9,25 @@ echo "\n 🚀 Running pre-push hook...\n"
 echo "\n${GREEN}#
 ##${NC}
 🔎  Checking for storybook changes...
-${GREEN}########################${NC}"
+${GREEN}##
+#${NC}"
 
 # Get the name of the current branch
 current_branch=$(git symbolic-ref --short HEAD)
 
 # Run git diff-tree to check if any files were changed in src/modules in the current commit
 if git diff-tree --no-commit-id --name-only -r HEAD | grep -q '^src/modules/'; then
-  echo "  🎨 Changes found in src/modules, building Storybook..."
+  echo "\n🎨 Changes found in src/modules, building Storybook..."
   pnpm build-storybook
 else
-  echo "  🚀 No changes found in src/modules, skipping Storybook build."
+  echo "\n🚀 No changes found in src/modules, skipping Storybook build."
 fi
 
-echo -e '\n${GREEN}########################
+echo "\n${GREEN}#
+##${NC}
 🛠️  Building for edge...
-########################${NC}'
+${GREEN}##
+#${NC}"
 
 pnpm build:for-edge
 
