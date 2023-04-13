@@ -1,10 +1,11 @@
 import HomeLayout from '@/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
+import PrivacyInfo from '@/modules/sections/privacy/PrivacyInfo';
 
-const PrivacyInfo: NextPageWithLayout = () => <PrivacyInfo />;
+const PrivacyInfoPage: NextPageWithLayout = () => <PrivacyInfo />;
 
-export default PrivacyInfo;
+export default PrivacyInfoPage;
 
-PrivacyInfo.getLayout = (page) => {
+PrivacyInfoPage.getLayout = (page) => {
   return <HomeLayout>{page}</HomeLayout>;
 };
