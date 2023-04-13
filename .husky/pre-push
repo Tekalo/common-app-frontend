@@ -6,7 +6,7 @@ NC='\033[0m' # No Color
 
 echo "\n 🚀 Running pre-push hook...\n"
 
-echo '\n${GREEN}########################
+echo -e '\n${GREEN}########################
 🔎  Checking for storybook changes...
 ########################${NC}'
 
@@ -21,7 +21,7 @@ else
   echo "  🚀 No changes found in src/modules, skipping Storybook build."
 fi
 
-echo '\n${GREEN}########################
+echo -e '\n${GREEN}########################
 🛠️  Building for edge...
 ########################${NC}'
 
