@@ -1,28 +1,19 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Disable automatic exit on non-zero status
-set +e
+echo "\n 🚀 Running pre-push hook...\n"
 
-echo "\n 🚀 Running pre-push hook..."
-
-echo "\n🔎  Checking for storybook changes..."
+echo "🔎  Checking for storybook changes..."
 
 # Get the name of the current branch
 current_branch=$(git symbolic-ref --short HEAD)
 
 # Run git diff to check if any files were changed in src/modules
-git diff --name-only HEAD | grep '^src/modules/' > /dev/null || true
-
-# Re-enable automatic exit on non-zero status
-set -e
-
-# If exit status is 0, it means changes were found in src/modules
-if [ $? -eq 0 ]; then
-  echo "\n🎨 Changes found in src/modules, building Storybook..."
+if git diff --name-only HEAD | grep -q '^src/modules/'; then
+  echo "🎨 Changes found in src/modules, building Storybook..."
   pnpm build-storybook
 else
-  echo "\n🚀 No changes found in src/modules, skipping Storybook build."
+  echo "🚀 No changes found in src/modules, skipping Storybook build."
 fi
 
 echo '#############
