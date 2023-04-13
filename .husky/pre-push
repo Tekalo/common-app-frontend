@@ -8,11 +8,8 @@ echo "🔎  Checking for storybook changes..."
 # Get the name of the current branch
 current_branch=$(git symbolic-ref --short HEAD)
 
-# Run git diff to check if any files were changed in src/modules
-git diff --name-only HEAD | grep '^src/modules/' > /dev/null
-
-# If exit status is 0, it means changes were found in src/modules
-if [ $? -eq 0 ]; then
+# Run git diff-tree to check if any files were changed in src/modules in the current commit
+if git diff-tree --no-commit-id --name-only -r HEAD | grep -q '^src/modules/'; then
   echo "🎨 Changes found in src/modules, building Storybook..."
   pnpm build-storybook
 else
