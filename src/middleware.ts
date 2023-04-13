@@ -1,9 +1,8 @@
 import sentryPlugin from '@cloudflare/pages-plugin-sentry';
+import { NextRequest, NextResponse } from 'next/server';
 
 const SENTRY_DSN = process.env.SENTRY_DSN;
 const SENTRY_ENVIRONMENT = process.env.ENVIRONMENT;
-
-export const config = { runtime: 'experimental-edge' };
 
 // Cloudflare requires a different configuration than that recommended
 // in the Sentry nextjs documentation.
@@ -16,4 +15,15 @@ export const onRequest: PagesFunction<{ SENTRY_DSN: string }> = (context) => {
   })(context);
 };
 
-export default function middleware() {}
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+
+  return response;
+}
+
+// See "Matching Paths" below to learn more
+// Only set edge runtime for middleware, otherwise typewriter effect will break due to nodejs requirement
+export const config = {
+  runtime: 'experimental-edge',
+  matcher: '/',
+};
