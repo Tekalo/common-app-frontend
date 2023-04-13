@@ -46,7 +46,7 @@ export enum TablePadding {
   SIX = 'w-[calc(100%+24px)]',
 }
 
-export type TableData = {
+export type ContentTableData = {
   headers: {
     heading: string;
     subheading: string;
@@ -54,5 +54,13 @@ export type TableData = {
   content: {
     heading: string;
     bullets: string[][];
+  }[];
+};
+
+export type BasisTableData = {
+  headers: string[];
+  content: {
+    activity: string;
+    basis: string | JSX.Element;
   }[];
 };

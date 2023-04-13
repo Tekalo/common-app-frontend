@@ -1,6 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
-import PrivacyTable from '@/components/content/PrivacyTable';
-import { TableData, TablePadding } from '@/lib/types';
+import { ContentTableData, TablePadding } from '@/lib/types';
+import ContentTable from '@/modules/components/tables/ContentTable/ContentTable';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
 }) => {
   let headerRef = useRef(null);
 
-  const tableData: TableData = {
+  const tableData: ContentTableData = {
     headers: [
       {
         heading: '',
@@ -107,7 +107,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
                   information we collect, why we collect it, and how you can
                   manage and delete your information lorem.
                 </div>
-                <PrivacyTable
+                <ContentTable
                   padding={TablePadding.ZERO}
                   tableData={tableData}
                 />

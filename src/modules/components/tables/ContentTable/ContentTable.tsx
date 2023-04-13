@@ -1,13 +1,13 @@
-import { TableData, TablePadding } from '@/lib/types';
+import { ContentTableData, TablePadding } from '@/lib/types';
 
-export interface IPrivacyTable {
+export interface IContentTable {
   // We need to know the padding on the right side
   // of the table so we can make it flush to the screen side
   padding: TablePadding;
-  tableData: TableData;
+  tableData: ContentTableData;
 }
 
-const PrivacyTable: React.FC<IPrivacyTable> = ({ padding, tableData }) => {
+const ContentTable: React.FC<IContentTable> = ({ padding, tableData }) => {
   return (
     <div
       className={`mt-8 overflow-x-scroll ${padding} pr-2 md:mt-3 md:overflow-x-hidden`}
@@ -51,4 +51,4 @@ const PrivacyTable: React.FC<IPrivacyTable> = ({ padding, tableData }) => {
   );
 };
 
-export default PrivacyTable;
+export default ContentTable;

@@ -1,13 +1,171 @@
-import PrivacyTable from '@/components/content/PrivacyTable';
-import ProcessingTable from '@/components/content/ProcessingTable';
 import Faq from '@/components/faq/Faq';
-import { IFaqItem, TableData, TablePadding } from '@/lib/types';
+import {
+  BasisTableData,
+  ContentTableData,
+  IFaqItem,
+  TablePadding,
+} from '@/lib/types';
+import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
+import ContentTable from '@/modules/components/tables/ContentTable/ContentTable';
 import { useState } from 'react';
 
 export interface IPrivacyInfo {}
 
 const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
   const [isForOrgsSelected, setForOrgs] = useState(false);
+
+  const basisTableData: BasisTableData = {
+    headers: ['Data processing activity', 'Lawful Basis'],
+    content: [
+      {
+        activity: 'Identify you and operate [Name]',
+        basis: (
+          <>
+            Contractual necessity
+            <br />
+            (You agree to our Terms of Service, whereby we collect your info,
+            review it, and connect you with the opportunities you&apos;ve
+            requested.)
+          </>
+        ),
+      },
+      {
+        activity: 'Conduct Research and Improve [Name]',
+        basis: (
+          <>
+            Legitimate Interests
+            <br />
+            (We collect feedback and analyze metrics and outcomes so that we can
+            show our impact and improve Name.),
+          </>
+        ),
+      },
+      {
+        activity: 'Maintain Quality of Service and Security',
+        basis: (
+          <>
+            Legitimate Interests
+            <br />
+            (We use data to help provide a secure and well-running service.),
+          </>
+        ),
+      },
+      {
+        activity: 'Target and Measure Ads Promoting [Name]',
+        basis: (
+          <>
+            Legitimate Interests
+            <br />
+            (We may use data to help target ads promoting Name and to measure
+            the effectiveness of those ads.),
+          </>
+        ),
+      },
+      {
+        activity: 'Send Marketing Emails',
+        basis: (
+          <>
+            Consent
+            <br />
+            (We&apos;ll only send you emails about other stuff if you opt in.),
+          </>
+        ),
+      },
+      {
+        activity: 'Share Your Info with Matchmakers and Service Providers',
+        basis: (
+          <>
+            Legitimate Interests
+            <br />
+            (We share your info with vetted matchmaking organizations and
+            vendors, with whom we have appropriate written agreements, to help
+            us operate Name.),
+          </>
+        ),
+      },
+      {
+        activity: 'Share Your Info with Organizations',
+        basis: (
+          <>
+            Consent
+            <br />
+            (We ask for your permission to share your info with Organizations so
+            that you&apos;re only contacted by ones you&apos;re actually
+            interested in.),
+          </>
+        ),
+      },
+      {
+        activity: 'Others',
+        basis: (
+          <>
+            We can&apos;t imagine every possible scenario, so if we need to use
+            your data for another purpose, we&apos;ll let you know!
+          </>
+        ),
+      },
+    ],
+  };
+
+  const contentTableData: ContentTableData = {
+    headers: [
+      {
+        heading: '',
+        subheading: '',
+      },
+      {
+        heading: 'Data Type',
+        subheading: 'What info we collect',
+      },
+      {
+        heading: 'Uses',
+        subheading: 'How we use the info',
+      },
+      {
+        heading: 'Third Parties',
+        subheading: 'Who can see the info',
+      },
+    ],
+    content: [
+      {
+        heading: 'Info You provide',
+        bullets: [
+          ['Personal Info', 'Professional Info', 'Communications', 'Surveys'],
+          [
+            'Identify you and Operate [Name]',
+            'Conduct Research and improve [Name]',
+          ],
+          ['Users', 'Other Matchmakers and Organziations', 'Service Providers'],
+        ],
+      },
+      {
+        heading: 'Info we observe',
+        bullets: [
+          [
+            'Technical info (eg; browser device, IP, trackers, server logs)',
+            'Usage and outcomes',
+          ],
+          [
+            'Quality of Service',
+            'Security',
+            'Conduct Research and improve [Name]',
+          ],
+          ['Service Providers'],
+        ],
+      },
+      {
+        heading: 'Other sources',
+        bullets: [
+          [
+            'Programs from Third-Party organizations',
+            'Other Schmidt Futures Programs',
+          ],
+          ['Enable applicants to other programs to utilize [Name]'],
+          ['Users', 'Matchmakers', 'Organizations', 'Service Providers'],
+        ],
+      },
+    ],
+  };
 
   const orgFAQS: Array<IFaqItem> = [
     {
@@ -70,69 +228,9 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       something that (i) we think is desirable to us or someone else
       (including you), (ii) reasonably expected given the nature of our
       services, and (iii) doesn't create any undue risk to you.`,
-      extras: <ProcessingTable />,
+      extras: <BasisTable tableData={basisTableData} />,
     },
   ];
-
-  const tableData: TableData = {
-    headers: [
-      {
-        heading: '',
-        subheading: '',
-      },
-      {
-        heading: 'Data Type',
-        subheading: 'What info we collect',
-      },
-      {
-        heading: 'Uses',
-        subheading: 'How we use the info',
-      },
-      {
-        heading: 'Third Parties',
-        subheading: 'Who can see the info',
-      },
-    ],
-    content: [
-      {
-        heading: 'Info You provide',
-        bullets: [
-          ['Personal Info', 'Professional Info', 'Communications', 'Surveys'],
-          [
-            'Identify you and Operate [Name]',
-            'Conduct Research and improve [Name]',
-          ],
-          ['Users', 'Other Matchmakers and Organziations', 'Service Providers'],
-        ],
-      },
-      {
-        heading: 'Info we observe',
-        bullets: [
-          [
-            'Technical info (eg; browser device, IP, trackers, server logs)',
-            'Usage and outcomes',
-          ],
-          [
-            'Quality of Service',
-            'Security',
-            'Conduct Research and improve [Name]',
-          ],
-          ['Service Providers'],
-        ],
-      },
-      {
-        heading: 'Other sources',
-        bullets: [
-          [
-            'Programs from Third-Party organizations',
-            'Other Schmidt Futures Programs',
-          ],
-          ['Enable applicants to other programs to utilize [Name]'],
-          ['Users', 'Matchmakers', 'Organizations', 'Service Providers'],
-        ],
-      },
-    ],
-  };
 
   const toggleHeaders = ['For candidates', 'For organizations'];
 
@@ -166,7 +264,7 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           );
         })}
       </div>
-      <PrivacyTable padding={TablePadding.SIX} tableData={tableData} />
+      <ContentTable padding={TablePadding.SIX} tableData={contentTableData} />
       <div className="mt-16 text-center text-h3-mobile lg:text-h3-desktop">
         Frequently Asked Questions{' '}
       </div>
