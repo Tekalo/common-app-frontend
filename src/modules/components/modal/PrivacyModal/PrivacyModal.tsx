@@ -1,9 +1,9 @@
+import Button from '@/components/buttons/Button/Button';
+import PrivacyTable, { TablePadding } from '@/components/content/PrivacyTable';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRef } from 'react';
-import Button from '../../buttons/Button/Button';
-import PrivacyTable, { TablePadding } from '../../content/PrivacyTable';
 
 export interface IPrivacyModal {
   isOpen: boolean;

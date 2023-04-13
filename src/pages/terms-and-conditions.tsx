@@ -1,6 +1,6 @@
+import HomeLayout from '@/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import HomeLayout from '@/modules/layouts/home/HomeLayout';
-import TermsAndConditions from '@/modules/sections/terms/TermsAndConditions';
+import TermsAndConditions from '@/sections/terms/TermsAndConditions';
 
 const TermsConditionsPage: NextPageWithLayout = () => {
   return <TermsAndConditions />;

@@ -116,7 +116,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         Summary: You own your User Material, but you permit us to use it in
         connection with providing the Services. Your information is not
         confidential; it will be seen by Matchmakers and Organizations who post
-        opportunities on the Services. {/* TODO */}
+        opportunities on the Services.
         <a
           target="_blank"
           className="text-blue-1 underline underline-offset-4"

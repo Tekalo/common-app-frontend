@@ -1,5 +1,7 @@
 export enum TablePadding {
+  // eslint-disable-next-line no-unused-vars
   ZERO = 'w-[calc(100%)]',
+  // eslint-disable-next-line no-unused-vars
   SIX = 'w-[calc(100%+24px)]',
 }
 

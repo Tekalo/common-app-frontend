@@ -1,11 +1,11 @@
 import Button from '@/components/buttons/Button/Button';
+import FreeText from '@/components/input/freeText/FreeText';
+import RadioGroup from '@/components/input/radioGroup/RadioGroup';
+import ListBox from '@/components/input/singleSelect/SingleSelect';
+import PrivacyModal from '@/components/modal/PrivacyModal/PrivacyModal';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
-import FreeText from '@/modules/components/input/freeText/FreeText';
-import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
-import ListBox from '@/modules/components/input/singleSelect/SingleSelect';
-import PrivacyModal from '@/modules/components/modal/PrivacyModal/PrivacyModal';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import router from 'next/router';

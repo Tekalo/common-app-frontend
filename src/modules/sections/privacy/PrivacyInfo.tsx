@@ -1,9 +1,7 @@
+import PrivacyTable, { TablePadding } from '@/components/content/PrivacyTable';
+import ProcessingTable from '@/components/content/ProcessingTable';
+import Faq from '@/components/faq/Faq';
 import { IFaqItem } from '@/lib/types';
-import PrivacyTable, {
-  TablePadding,
-} from '@/modules/components/content/PrivacyTable';
-import ProcessingTable from '@/modules/components/content/ProcessingTable';
-import Faq from '@/modules/components/faq/Faq';
 import { useState } from 'react';
 
 export interface IPrivacyInfo {}
