@@ -12,7 +12,7 @@ echo "🔎  Checking for storybook changes..."
 current_branch=$(git symbolic-ref --short HEAD)
 
 # Run git diff to check if any files were changed in src/modules
-git diff --name-only HEAD..origin/$current_branch | grep '^src/modules/' > /dev/null
+git diff --name-only HEAD..origin/$current_branch | grep '^src/modules/' > /dev/null || true
 
 # If exit status is 0, it means changes were found in src/modules
 if [ $? -eq 0 ]; then
