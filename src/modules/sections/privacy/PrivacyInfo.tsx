@@ -1,7 +1,7 @@
-import PrivacyTable, { TablePadding } from '@/components/content/PrivacyTable';
+import PrivacyTable from '@/components/content/PrivacyTable';
 import ProcessingTable from '@/components/content/ProcessingTable';
 import Faq from '@/components/faq/Faq';
-import { IFaqItem } from '@/lib/types';
+import { IFaqItem, TableData, TablePadding } from '@/lib/types';
 import { useState } from 'react';
 
 export interface IPrivacyInfo {}
@@ -74,6 +74,66 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
     },
   ];
 
+  const tableData: TableData = {
+    headers: [
+      {
+        heading: '',
+        subheading: '',
+      },
+      {
+        heading: 'Data Type',
+        subheading: 'What info we collect',
+      },
+      {
+        heading: 'Uses',
+        subheading: 'How we use the info',
+      },
+      {
+        heading: 'Third Parties',
+        subheading: 'Who can see the info',
+      },
+    ],
+    content: [
+      {
+        heading: 'Info You provide',
+        bullets: [
+          ['Personal Info', 'Professional Info', 'Communications', 'Surveys'],
+          [
+            'Identify you and Operate [Name]',
+            'Conduct Research and improve [Name]',
+          ],
+          ['Users', 'Other Matchmakers and Organziations', 'Service Providers'],
+        ],
+      },
+      {
+        heading: 'Info we observe',
+        bullets: [
+          [
+            'Technical info (eg; browser device, IP, trackers, server logs)',
+            'Usage and outcomes',
+          ],
+          [
+            'Quality of Service',
+            'Security',
+            'Conduct Research and improve [Name]',
+          ],
+          ['Service Providers'],
+        ],
+      },
+      {
+        heading: 'Other sources',
+        bullets: [
+          [
+            'Programs from Third-Party organizations',
+            'Other Schmidt Futures Programs',
+          ],
+          ['Enable applicants to other programs to utilize [Name]'],
+          ['Users', 'Matchmakers', 'Organizations', 'Service Providers'],
+        ],
+      },
+    ],
+  };
+
   const toggleHeaders = ['For candidates', 'For organizations'];
 
   return (
@@ -106,7 +166,7 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           );
         })}
       </div>
-      <PrivacyTable padding={TablePadding.SIX} />
+      <PrivacyTable padding={TablePadding.SIX} tableData={tableData} />
       <div className="mt-16 text-center text-h3-mobile lg:text-h3-desktop">
         Frequently Asked Questions{' '}
       </div>

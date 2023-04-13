@@ -1,5 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
-import PrivacyTable, { TablePadding } from '@/components/content/PrivacyTable';
+import PrivacyTable from '@/components/content/PrivacyTable';
+import { TableData, TablePadding } from '@/lib/types';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
@@ -15,6 +16,66 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
   isOpen: showModal,
 }) => {
   let headerRef = useRef(null);
+
+  const tableData: TableData = {
+    headers: [
+      {
+        heading: '',
+        subheading: '',
+      },
+      {
+        heading: 'Data Type',
+        subheading: 'What info we collect',
+      },
+      {
+        heading: 'Uses',
+        subheading: 'How we use the info',
+      },
+      {
+        heading: 'Third Parties',
+        subheading: 'Who can see the info',
+      },
+    ],
+    content: [
+      {
+        heading: 'Info You provide',
+        bullets: [
+          ['Personal Info', 'Professional Info', 'Communications', 'Surveys'],
+          [
+            'Identify you and Operate [Name]',
+            'Conduct Research and improve [Name]',
+          ],
+          ['Users', 'Other Matchmakers and Organziations', 'Service Providers'],
+        ],
+      },
+      {
+        heading: 'Info we observe',
+        bullets: [
+          [
+            'Technical info (eg; browser device, IP, trackers, server logs)',
+            'Usage and outcomes',
+          ],
+          [
+            'Quality of Service',
+            'Security',
+            'Conduct Research and improve [Name]',
+          ],
+          ['Service Providers'],
+        ],
+      },
+      {
+        heading: 'Other sources',
+        bullets: [
+          [
+            'Programs from Third-Party organizations',
+            'Other Schmidt Futures Programs',
+          ],
+          ['Enable applicants to other programs to utilize [Name]'],
+          ['Users', 'Matchmakers', 'Organizations', 'Service Providers'],
+        ],
+      },
+    ],
+  };
 
   return (
     <>
@@ -46,7 +107,10 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
                   information we collect, why we collect it, and how you can
                   manage and delete your information lorem.
                 </div>
-                <PrivacyTable padding={TablePadding.ZERO} />
+                <PrivacyTable
+                  padding={TablePadding.ZERO}
+                  tableData={tableData}
+                />
                 <div className="text-p3-desktop">
                   See our&nbsp;
                   <span className="text-blue-1 underline underline-offset-4">
