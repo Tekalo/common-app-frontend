@@ -6,9 +6,10 @@ NC='\033[0m' # No Color
 
 echo "\n 🚀 Running pre-push hook...\n"
 
-echo "\n${GREEN}########################
+echo "\n${GREEN}#
+##${NC}
 🔎  Checking for storybook changes...
-########################${NC}"
+${GREEN}########################${NC}"
 
 # Get the name of the current branch
 current_branch=$(git symbolic-ref --short HEAD)
