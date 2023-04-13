@@ -1,12 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "\n 🚀 Running pre-push hook...\n"
-echo "🛠️  Building for edge..."
+echo "\n🚀 Running pre-push hook..."
 
-pnpm build:for-edge
-
-echo "🔎  Checking for storybook changes..."
+echo "\n🔎  Checking for storybook changes..."
 
 # Get the name of the current branch
 current_branch=$(git symbolic-ref --short HEAD)
@@ -16,8 +13,13 @@ git diff --name-only HEAD..origin/$current_branch | grep '^src/modules/' > /dev/
 
 # If exit status is 0, it means changes were found in src/modules
 if [ $? -eq 0 ]; then
-  echo "🎨 Changes found in src/modules, building Storybook..."
+  echo "\n🎨 Changes found in src/modules, building Storybook..."
   pnpm build-storybook
 else
-  echo "🚀 No changes found in src/modules, skipping Storybook build."
+  echo "\n🚀 No changes found in src/modules, skipping Storybook build."
 fi
+
+echo "\n🛠️  Building for edge..."
+
+pnpm build:for-edge
+
