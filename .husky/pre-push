@@ -9,7 +9,7 @@ pnpm build:for-edge
 echo "🔎  Checking for storybook changes..."
 
 # Run git diff to check if any files were changed in src/modules
-git diff --name-only HEAD..origin/master | grep '^src/modules/' > /dev/null
+git diff --name-only HEAD..origin/main | grep '^src/modules/' > /dev/null
 # If exit status is 0, it means changes were found in src/modules
 if [ $? -eq 0 ]; then
   echo "🎨 Changes found in src/modules, building Storybook..."
