@@ -31,5 +31,4 @@ echo '#############
 
 pnpm build:for-edge
 
-
 exit 0
