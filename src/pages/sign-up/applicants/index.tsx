@@ -2,10 +2,10 @@ import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import ListBox from '@/components/input/singleSelect/SingleSelect';
-import PrivacyModal from '@/components/modal/PrivacyModal/PrivacyModal';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
+import PrivacyModal from '@/modules/components/modal/Modal/Modal';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import router from 'next/router';
@@ -86,6 +86,21 @@ const ApplicantSignup: NextPageWithLayout = () => {
       );
     return errorMessage;
   };
+
+  const headerText = 'Privacy Info';
+
+  const bodyText =
+    'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.';
+
+  const extras = (
+    <div className="text-p3-desktop">
+      See our&nbsp;
+      <span className="text-blue-1 underline underline-offset-4">
+        <Link href="/privacy-info">Privacy FAQ</Link>
+      </span>
+      &nbsp;for more information
+    </div>
+  );
 
   return (
     <div className="px-6 pb-28 pt-10 md:px-24">
@@ -355,6 +370,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </span>
       </div>
       <PrivacyModal
+        headerText={headerText}
+        bodyText={bodyText}
+        extras={extras}
         isOpen={showPrivacyModal}
         closeModal={() => {
           setShowPrivacyModal(false);

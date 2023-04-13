@@ -3,17 +3,22 @@ import { ContentTableData, TablePadding } from '@/lib/types';
 import ContentTable from '@/modules/components/tables/ContentTable/ContentTable';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import Link from 'next/link';
-import { useRef } from 'react';
+import { ReactElement, useRef } from 'react';
 
-export interface IPrivacyModal {
+export interface IModal {
   isOpen: boolean;
   closeModal: () => void;
+  headerText: string;
+  bodyText: string;
+  extras?: ReactElement;
 }
 
-const PrivacyModal: React.FC<IPrivacyModal> = ({
+const Modal: React.FC<IModal> = ({
   closeModal,
   isOpen: showModal,
+  headerText,
+  bodyText,
+  extras,
 }) => {
   let headerRef = useRef(null);
 
@@ -88,7 +93,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
           className={`fixed bottom-0 left-0 right-0 top-0 z-40 bg-black-text opacity-70 ${
             !showModal ? 'hidden' : ''
           }`}
-        ></div>
+        />
         <div className="fixed bottom-0 left-[50%] right-4 top-[50%] z-50 mx-auto h-[calc(100%-20px)] max-h-[740px] w-[calc(100%-20px)] max-w-[722px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white">
           <Dialog.Panel>
             <XMarkIcon
@@ -100,24 +105,16 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
             <div className="absolute bottom-4 left-2 right-0 top-10 flex flex-1 flex-col justify-stretch md:left-6 md:right-6">
               <div className="overflow-y-scroll md:overflow-y-auto">
                 <div ref={headerRef} className="mb-6 pr-2 text-h4-desktop">
-                  Privacy Info
+                  {headerText}
                 </div>
                 <div className="max-w-[560px] pr-2 text-p2-desktop">
-                  This Privacy Info is meant to help you understand what
-                  information we collect, why we collect it, and how you can
-                  manage and delete your information lorem.
+                  {bodyText}
                 </div>
                 <ContentTable
                   padding={TablePadding.ZERO}
                   tableData={tableData}
                 />
-                <div className="text-p3-desktop">
-                  See our&nbsp;
-                  <span className="text-blue-1 underline underline-offset-4">
-                    <Link href="/privacy-info">Privacy FAQ</Link>
-                  </span>
-                  &nbsp;for more information
-                </div>
+                {extras}
                 <Button
                   className="float-right mr-2 mt-8 h-[40px] px-12 text-component-large font-normal"
                   label="Close"
@@ -134,4 +131,4 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
   );
 };
 
-export default PrivacyModal;
+export default Modal;
