@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "🚀 Running pre-push hook...\n"
+echo "\n 🚀 Running pre-push hook...\n"
 echo "🛠️  Building for edge..."
 
 pnpm build:for-edge
