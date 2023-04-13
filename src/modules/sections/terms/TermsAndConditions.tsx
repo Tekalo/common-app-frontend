@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export interface ITermsAndConditions {}
 
 const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
@@ -67,13 +65,13 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={h4Mobile}>Privacy Notice</div>
       <div className={p2Mobile}>
         Please view our{' '}
-        <Link
+        <a
           target="_blank"
           className="text-blue-1 underline underline-offset-4"
           href="./privacy-info"
         >
           Privacy Information
-        </Link>
+        </a>
         , which applies to personal information processed about you in
         connection with the Services.
       </div>
@@ -119,13 +117,13 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         connection with providing the Services. Your information is not
         confidential; it will be seen by Matchmakers and Organizations who post
         opportunities on the Services. {/* TODO */}
-        <Link
+        <a
           target="_blank"
           className="text-blue-1 underline underline-offset-4"
           href="#"
         >
           Read more
-        </Link>
+        </a>
         . We may remove User Material from CommonApp in our discretion. Submit
         your User Material at your own risk. If you give us any Feedback, we can
         use it for any purpose.{' '}
@@ -164,13 +162,13 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           the statement above regarding non-confidentiality apply to
           intellectual property only, and do not expand or alter our use or
           disclosure of your personal information as set forth in our{' '}
-          <Link
+          <a
             target="_blank"
             className="text-blue-1 underline underline-offset-4"
             href="./privacy-info"
           >
             Privacy Information
-          </Link>
+          </a>
           . While we may not review or monitor User Material, we reserve the
           right to block, refuse, delete, remove or edit, in whole or in part,
           any User Material that violates these Terms or is otherwise
@@ -568,13 +566,14 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           in the county where you reside by a single neutral arbitrator and in
           accordance with the then-current rules for resolution of disputes of
           the American Arbitration Association (AAA) (available online at{' '}
-          <Link
+          <a
+            rel="noreferrer"
             target="_blank"
             className="text-blue-1 underline underline-offset-4"
             href="http://www.adr.org"
           >
             www.adr.org
-          </Link>{' '}
+          </a>{' '}
           or by calling 1-800-778-7879). The parties are entitled to
           representation by an attorney or other representative of their
           choosing. The parties agree to abide by and perform any award rendered

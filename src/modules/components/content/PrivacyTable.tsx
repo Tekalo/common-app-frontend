@@ -1,7 +1,12 @@
+export enum TablePadding {
+  ZERO = 'w-[calc(100%)]',
+  SIX = 'w-[calc(100%+24px)]',
+}
+
 export interface IPrivacyTable {
   // We need to know the padding on the right side
   // of the table so we can make it flush to the screen side
-  padding: string;
+  padding: TablePadding;
 }
 
 const PrivacyTable: React.FC<IPrivacyTable> = ({ padding }) => {
@@ -67,8 +72,7 @@ const PrivacyTable: React.FC<IPrivacyTable> = ({ padding }) => {
 
   return (
     <div
-      className={`mt-8 overflow-x-scroll pr-2 md:mt-3 md:overflow-x-hidden`}
-      style={{ width: `calc(100% + ${padding})` }}
+      className={`mt-8 overflow-x-scroll ${padding} pr-2 md:mt-3 md:overflow-x-hidden`}
     >
       <table className="m-auto mb-4 w-[664px] border-separate border-spacing-x-0 border-spacing-y-[1px] rounded-md border-x border-gray-3 bg-gray-3">
         <thead>

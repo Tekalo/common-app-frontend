@@ -1,5 +1,7 @@
 import { IFaqItem } from '@/lib/types';
-import PrivacyTable from '@/modules/components/content/PrivacyTable';
+import PrivacyTable, {
+  TablePadding,
+} from '@/modules/components/content/PrivacyTable';
 import ProcessingTable from '@/modules/components/content/ProcessingTable';
 import Faq from '@/modules/components/faq/Faq';
 import { useState } from 'react';
@@ -106,7 +108,7 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           );
         })}
       </div>
-      <PrivacyTable padding="24px" />
+      <PrivacyTable padding={TablePadding.SIX} />
       <div className="mt-16 text-center text-h3-mobile lg:text-h3-desktop">
         Frequently Asked Questions{' '}
       </div>

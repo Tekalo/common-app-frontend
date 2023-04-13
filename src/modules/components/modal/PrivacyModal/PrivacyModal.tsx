@@ -3,7 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRef } from 'react';
 import Button from '../../buttons/Button/Button';
-import PrivacyTable from '../../content/PrivacyTable';
+import PrivacyTable, { TablePadding } from '../../content/PrivacyTable';
 
 export interface IPrivacyModal {
   isOpen: boolean;
@@ -28,15 +28,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
             !showModal ? 'hidden' : ''
           }`}
         ></div>
-        {/* mb-12 mt-14 */}
-        <div
-          className="fixed bottom-0 left-[50%] right-4 top-[50%] z-50 mx-auto max-h-[740px] max-w-[722px] rounded-md bg-white"
-          style={{
-            transform: 'translate(-50%,-50%)',
-            height: 'calc(100% - 20px)',
-            width: 'calc(100% - 20px)',
-          }}
-        >
+        <div className="fixed bottom-0 left-[50%] right-4 top-[50%] z-50 mx-auto h-[calc(100%-20px)] max-h-[740px] w-[calc(100%-20px)] max-w-[722px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white">
           <Dialog.Panel>
             <XMarkIcon
               className="absolute right-2 top-4 z-50 h-6 w-6 cursor-pointer stroke-2 text-black-text md:top-6"
@@ -54,7 +46,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
                   information we collect, why we collect it, and how you can
                   manage and delete your information lorem.
                 </div>
-                <PrivacyTable padding="0px" />
+                <PrivacyTable padding={TablePadding.ZERO} />
                 <div className="text-p3-desktop">
                   See our&nbsp;
                   <span className="text-blue-1 underline underline-offset-4">
