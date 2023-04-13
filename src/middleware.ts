@@ -1,5 +1,4 @@
 import sentryPlugin from '@cloudflare/pages-plugin-sentry';
-import { NextRequest } from 'next/server';
 
 const SENTRY_DSN = process.env.SENTRY_DSN;
 const SENTRY_ENVIRONMENT = process.env.ENVIRONMENT;
@@ -17,4 +16,4 @@ export const onRequest: PagesFunction<{ SENTRY_DSN: string }> = (context) => {
   })(context);
 };
 
-export default function middleware(request: NextRequest, context) {}
+export default function middleware() {}
