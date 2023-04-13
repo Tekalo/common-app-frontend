@@ -6,6 +6,7 @@ import { Skills, YOE } from '@/lib/schemas';
 import { ISelectItem, ITimelineItem } from '@/lib/types';
 import Timeline from '@/modules/components/timeline/Timeline';
 import { Field, Form } from 'houseform';
+import { useState } from 'react';
 import { z } from 'zod';
 
 export interface IExperienceInterestForm {
@@ -85,29 +86,29 @@ const SkillOptions: Array<ISelectItem> = [
   },
 ];
 
-const timelineItems: Array<ITimelineItem> = [
-  {
-    text: 'Your experience',
-    isActive: true,
-  },
-  {
-    text: 'Your interests',
-    isActive: false,
-  },
-];
-
-// TODO: Add state that allows someone to toggle which of the two Fieldsets are displayed (experience or interests)
-
-// TODO: Submit the entire form to the backend or save it all at once
-
-// TODO: Conditionally disable breadcrumbs based on which fieldset is displayed
+// TODO: Save button sends form data to save endpoint
+// TODO: Submit button sends form data to submit endpoint
+// TODO: Update timeline to be clickable
 
 const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
   handleSubmit,
 }) => {
+  const [isLastPage, setisLastPage] = useState(false);
+
+  const timelineItems: Array<ITimelineItem> = [
+    {
+      text: 'Your experience',
+      isActive: true,
+    },
+    {
+      text: 'Your interests',
+      isActive: isLastPage,
+    },
+  ];
+
   return (
     <>
-      {/* Breadcrum Timeline */}
+      {/* Breadcrumb Timeline */}
       <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
         <Timeline timelineItems={timelineItems} horizontal={true} />
       </div>
@@ -120,7 +121,7 @@ const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
             }}
           >
             {/* EXPERIENCE FORM FIELDS */}
-            <div className="">
+            <div className={`${isLastPage ? 'hidden' : null}`}>
               {/* Current Role */}
               <Field<string>
                 name="lastRole"
@@ -431,24 +432,34 @@ const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
               </Field>
             </div>
             {/* TODO: INTERESTS FORM FIELDS*/}
-            <div className=""></div>
+            <div className={`${isLastPage ? null : 'hidden'}`}>
+              Interest Page!
+            </div>
 
             <Button
               className="mt-14 w-full text-component-large"
               label="Save your progress"
-              type="submit"
+              type="button"
               outlined
-              disabled={isSubmitted && !isValid}
               onClick={() => submit()}
             />
 
-            <Button
-              className="mt-4 w-full text-component-large"
-              label="Next"
-              type="submit"
-              disabled={isSubmitted && !isValid}
-              onClick={() => submit()}
-            />
+            {isLastPage ? (
+              <Button
+                className="mt-4 w-full text-component-large"
+                label="Submit"
+                type="submit"
+                disabled={isSubmitted && !isValid}
+                onClick={() => submit()}
+              />
+            ) : (
+              <Button
+                className="mt-4 w-full text-component-large"
+                label="Next"
+                type="button"
+                onClick={() => setisLastPage(true)}
+              />
+            )}
           </form>
         )}
       </Form>
