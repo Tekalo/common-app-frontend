@@ -5,7 +5,7 @@ import { NextPageWithLayout } from '@/lib/types';
 import FreeText from '@/modules/components/input/freeText/FreeText';
 import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
 import ListBox from '@/modules/components/input/singleSelect/SingleSelect';
-import PrivacyModal from '@/modules/components/modal/PrivacyModal';
+import PrivacyModal from '@/modules/components/modal/PrivacyModal/PrivacyModal';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import router from 'next/router';
@@ -14,6 +14,7 @@ import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   let [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
   const handleSubmit = async (values: unknown) => {
     try {
       const response = await fetch('/api/applicants', {

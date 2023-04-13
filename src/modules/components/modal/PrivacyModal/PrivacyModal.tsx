@@ -2,8 +2,8 @@ import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRef } from 'react';
-import Button from '../buttons/Button/Button';
-import PrivacyTable from '../content/PrivacyTable';
+import Button from '../../buttons/Button/Button';
+import PrivacyTable from '../../content/PrivacyTable';
 
 export interface IPrivacyModal {
   isOpen: boolean;
@@ -28,7 +28,15 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
             !showModal ? 'hidden' : ''
           }`}
         ></div>
-        <div className="fixed bottom-0 left-4 right-4 top-0 z-50 mx-auto  mb-12 mt-14 max-h-[750px] max-w-[722px] rounded-md bg-white">
+        {/* mb-12 mt-14 */}
+        <div
+          className="fixed bottom-0 left-[50%] right-4 top-[50%] z-50 mx-auto max-h-[740px] max-w-[722px] rounded-md bg-white"
+          style={{
+            transform: 'translate(-50%,-50%)',
+            height: 'calc(100% - 20px)',
+            width: 'calc(100% - 20px)',
+          }}
+        >
           <Dialog.Panel>
             <XMarkIcon
               className="absolute right-2 top-4 z-50 h-6 w-6 cursor-pointer stroke-2 text-black-text md:top-6"
@@ -38,7 +46,7 @@ const PrivacyModal: React.FC<IPrivacyModal> = ({
             />
             <div className="absolute bottom-4 left-2 right-0 top-10 flex flex-1 flex-col justify-stretch md:left-6 md:right-6">
               <div className="overflow-y-scroll md:overflow-y-auto">
-                <div ref={headerRef} className="mb-6 mt-2 pr-2 text-h4-desktop">
+                <div ref={headerRef} className="mb-6 pr-2 text-h4-desktop">
                   Privacy Info
                 </div>
                 <div className="max-w-[560px] pr-2 text-p2-desktop">
