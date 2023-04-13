@@ -4,9 +4,9 @@
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-echo "\n 🚀 Running pre-push hook...\n"
+echo "\n${GREEN}###${NC} 🚀 Running pre-push hook... ${GREEN}###${NC}"
 
-echo "\n${GREEN}###${NC}🔎  Checking for storybook changes...${GREEN}###${NC}"
+echo "\n${GREEN}###${NC} 🔎  Checking for storybook changes... ${GREEN}###${NC}"
 
 # Get the name of the current branch
 current_branch=$(git symbolic-ref --short HEAD)
@@ -19,7 +19,7 @@ else
   echo "\n🚀 No changes found in src/modules, skipping Storybook build."
 fi
 
-echo "\n${GREEN}###${NC}🛠️  Building for edge...${GREEN}###${NC}"
+echo "\n${GREEN}###${NC} 🛠️  Building for edge... ${GREEN}###${NC}"
 
 pnpm build:for-edge
 
