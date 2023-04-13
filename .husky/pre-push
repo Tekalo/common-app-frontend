@@ -4,9 +4,7 @@
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-echo "\n${GREEN}###${NC} 
-🚀 Running pre-push hook...
-${GREEN}###${NC}"
+echo "\n${GREEN}###${NC} 🚀 Running pre-push hook... ${GREEN}###${NC}"
 
 echo "\n${GREEN}###${NC} 🔎  Checking for storybook changes... ${GREEN}###${NC}"
 
