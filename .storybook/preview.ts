@@ -26,9 +26,12 @@ const customViewports = Object.fromEntries(
 
 const preview: Preview = {
   parameters: {
+    // Notifies Chromatic to pause the animations when they finish for the specific story.
+    chromatic: { pauseAnimationAtEnd: true, delay: 300 },
     backgrounds: {
       default: 'light',
     },
+    layout: 'centered',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
@@ -37,7 +40,6 @@ const preview: Preview = {
       },
     },
     viewport: { viewports: customViewports },
-    layout: 'fullscreen',
   },
 };
 
