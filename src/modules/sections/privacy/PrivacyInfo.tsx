@@ -1,12 +1,12 @@
 import Faq from '@/components/faq/Faq';
+import BasisTable from '@/components/tables/BasisTable/BasisTable';
+import ContentTable from '@/components/tables/ContentTable/ContentTable';
 import {
   BasisTableData,
   ContentTableData,
   IFaqItem,
   TablePadding,
 } from '@/lib/types';
-import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
-import ContentTable from '@/modules/components/tables/ContentTable/ContentTable';
 import { useState } from 'react';
 
 export interface IPrivacyInfo {}
