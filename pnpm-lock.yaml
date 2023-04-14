@@ -7,6 +7,9 @@ dependencies:
   '@auth0/auth0-react':
     specifier: ^2.0.1
     version: 2.0.1(react-dom@18.2.0)(react@18.2.0)
+  '@cloudflare/pages-plugin-sentry':
+    specifier: ^1.1.1
+    version: 1.1.1
   '@headlessui/react':
     specifier: ^1.7.14
     version: 1.7.14(react-dom@18.2.0)(react@18.2.0)
@@ -1636,6 +1639,12 @@ packages:
       zodcli: 0.0.4(zod@3.21.4)
     dev: true
 
+  /@cloudflare/pages-plugin-sentry@1.1.1:
+    resolution: {integrity: sha512-GrqUSBNuJIA4JdlJmG+T+PpednuLcijxFUF0nd+m+B2OY0ZOlz1KKMxurN80dXmxYyq5jzM8LW5EiE1WNOPg5w==}
+    dependencies:
+      toucan-js: 3.1.0
+    dev: false
+
   /@cloudflare/workers-types@4.20230404.0:
     resolution: {integrity: sha512-fG3oaJX1icfsGV74nhx1+AC6opvZsGqnpx6FvrcVqQaBmCNkjKNqDRFrpasXWFiOIvysBXHKQAzsAJkBZgnM+A==}
     dev: true
@@ -3138,6 +3147,15 @@ packages:
       tslib: 1.14.1
     dev: false
 
+  /@sentry/core@7.28.1:
+    resolution: {integrity: sha512-7wvnuvn/mrAfcugWoCG/3pqDIrUgH5t+HisMJMGw0h9Tc33KqrmqMDCQVvjlrr2pWrw/vuUCFdm8CbUHJ832oQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.28.1
+      '@sentry/utils': 7.28.1
+      tslib: 1.14.1
+    dev: false
+
   /@sentry/core@7.48.0:
     resolution: {integrity: sha512-8FYuJTMpyuxRZvlen3gQ3rpOtVInSDmSyXqWEhCLuG/w34AtWoTiW7G516rsAAh6Hy1TP91GooMWbonP3XQNTQ==}
     engines: {node: '>=8'}
@@ -3177,9 +3195,22 @@ packages:
       '@sentry-internal/tracing': 7.48.0
     dev: false
 
+  /@sentry/types@7.28.1:
+    resolution: {integrity: sha512-DvSplMVrVEmOzR2M161V5+B8Up3vR71xMqJOpWTzE9TqtFJRGPtqT/5OBsNJJw1+/j2ssMcnKwbEo9Q2EGeS6g==}
+    engines: {node: '>=8'}
+    dev: false
+
   /@sentry/types@7.48.0:
     resolution: {integrity: sha512-kkAszZwQ5/v4n7Yyw/DPNRWx7h724mVNRGZIJa9ggUMvTgMe7UKCZZ5wfQmYiKVlGbwd9pxXAcP8Oq15EbByFQ==}
     engines: {node: '>=8'}
+    dev: false
+
+  /@sentry/utils@7.28.1:
+    resolution: {integrity: sha512-75/jzLUO9HH09iC9TslNimGbxOP3jgn89P+q7uR+rp2fJfRExHVeKJZQdK0Ij4/SmE7TJ3Uh2r154N0INZEx1g==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.28.1
+      tslib: 1.14.1
     dev: false
 
   /@sentry/utils@7.48.0:
@@ -14650,6 +14681,14 @@ packages:
   /toml@3.0.0:
     resolution: {integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==}
     dev: true
+
+  /toucan-js@3.1.0:
+    resolution: {integrity: sha512-bRbq/HB+aSfwbsSoCNI6qyPXx2bhsscxSYxnAY63xXv9lIeOLUYfvYdOIBWfAVj9QHNST+X83GQ0lj/llvHpVg==}
+    dependencies:
+      '@sentry/core': 7.28.1
+      '@sentry/types': 7.28.1
+      '@sentry/utils': 7.28.1
+    dev: false
 
   /tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
