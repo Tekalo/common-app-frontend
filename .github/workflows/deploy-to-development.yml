@@ -11,6 +11,16 @@ on:
     branches:
       - test/*
 
+    # OR #
+
+  # Trigger the workflow on pull requests
+  pull_request:
+    # whenever a PR is opened, edited, or synchronized
+    types: [opened, edited, synchronize]
+    # on develop
+    branches:
+      - develop
+
   workflow_dispatch:
 
 jobs:
@@ -126,7 +136,6 @@ jobs:
 
   comment:
     name: Comment on PR
-    if: ${{ github.event_name == 'pull_request' }}
     uses: raisedadead/portfolio/.github/workflows/comment.yml@main
     needs: [deploy]
     with:

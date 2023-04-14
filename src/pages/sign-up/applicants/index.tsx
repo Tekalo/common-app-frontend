@@ -1,10 +1,14 @@
+import Modal from '@/components/modal/Modal/Modal';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import SignupForm from '@/modules/sections/sign-up/applicants/signupForm/SignupForm';
+import SignupForm from '@/sections/sign-up/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
+import { useState } from 'react';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  let [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
   const handleSubmit = async (values: unknown) => {
     try {
       const response = await fetch('/api/applicants', {
@@ -23,7 +27,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
         // TODO: Use iron-session or similar to authenticate the user
       } else {
         // Handle error response
-        // TODO -- Show error modal
         console.error('Failed to submit form data');
         alert(await response.text());
       }
@@ -33,6 +36,23 @@ const ApplicantSignup: NextPageWithLayout = () => {
       alert('Failed to submit form data!');
     }
   };
+
+  const headerText = 'Privacy Info';
+
+  const bodyText =
+    'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.';
+
+  const extras = (
+    <div className="text-p3-desktop">
+      See our&nbsp;
+      <span className="text-blue-1 underline underline-offset-4">
+        <Link target="_blank" href="/privacy-info">
+          Privacy FAQ
+        </Link>
+      </span>
+      &nbsp;for more information
+    </div>
+  );
 
   return (
     <div className="px-6 pb-28 pt-10 md:px-24">
@@ -49,7 +69,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
       <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
         {/* New user form */}
-        <SignupForm handleSubmit={handleSubmit} />
+        <SignupForm
+          handleSubmit={handleSubmit}
+          setShowPrivacyModal={setShowPrivacyModal}
+        />
       </div>
       {/* Navaway for organizations */}
       <div className="mt-6 text-center">
@@ -58,6 +81,15 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <Link href="/sign-in">apply here</Link>
         </span>
       </div>
+      <Modal
+        headerText={headerText}
+        bodyText={bodyText}
+        extras={extras}
+        isOpen={showPrivacyModal}
+        closeModal={() => {
+          setShowPrivacyModal(false);
+        }}
+      />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 export interface ISignupForm {
   handleSubmit: (_values: unknown) => void;
+  setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
 }
 
 const searchStatusOptions = [
@@ -56,7 +57,10 @@ const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
   return errorMessage;
 };
 
-const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
+const SignupForm: React.FC<ISignupForm> = ({
+  handleSubmit,
+  setShowPrivacyModal,
+}) => {
   return (
     <Form onSubmit={(values) => handleSubmit(values)}>
       {({ isValid, isSubmitted, submit }) => (
@@ -230,9 +234,16 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
                         htmlFor="input-acceptedPrivacy"
                         className="align-middle text-component-small text-black-text"
                       >
-                        By signing up, you acknowledge the{' '}
-                        <span className="text-blue-1 underline underline-offset-4">
-                          <Link href="/sign-in">Privacy info</Link>
+                        {'By signing up, you acknowledge the '}
+
+                        <span
+                          className="cursor-pointer text-blue-1 underline underline-offset-4"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setShowPrivacyModal(true);
+                          }}
+                        >
+                          Privacy info
                         </span>
                       </label>
                     </div>
@@ -269,7 +280,9 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
                       >
                         {'By signing up, you agree to the '}
                         <span className="text-blue-1 underline underline-offset-4">
-                          <Link href="/sign-in">Terms of Service</Link>
+                          <Link target="_blank" href="/terms-and-conditions">
+                            Terms of Service
+                          </Link>
                         </span>
                       </label>
                     </div>
