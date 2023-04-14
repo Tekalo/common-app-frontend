@@ -30,7 +30,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
     >
-      <Sentry.ErrorBoundary // Wrap your component with ErrorBoundary
+      <Sentry.ErrorBoundary // Enable Sentry by wrapping component with ErrorBoundary
         fallback={({ error }) => (
           <>
             {
