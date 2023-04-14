@@ -31,7 +31,7 @@ const preview: Preview = {
     backgrounds: {
       default: 'light',
     },
-    layout: 'centered',
+    layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
