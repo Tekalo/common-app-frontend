@@ -1,4 +1,7 @@
 import Button from '@/components/buttons/Button/Button';
+import FreeText from '@/components/input/freeText/FreeText';
+import RadioGroup from '@/components/input/radioGroup/RadioGroup';
+import ListBox from '@/components/input/singleSelect/SingleSelect';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import {
   PreferredContact,
@@ -7,15 +10,16 @@ import {
   validations,
 } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
-import FreeText from '@/modules/components/input/freeText/FreeText';
-import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
-import ListBox from '@/modules/components/input/singleSelect/SingleSelect';
+import PrivacyModal from '@/modules/components/modal/Modal/Modal';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import router from 'next/router';
+import { useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  let [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
   const handleSubmit = async (values: unknown) => {
     try {
       const response = await fetch('/api/applicants', {
@@ -87,6 +91,21 @@ const ApplicantSignup: NextPageWithLayout = () => {
       );
     return errorMessage;
   };
+
+  const headerText = 'Privacy Info';
+
+  const bodyText =
+    'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.';
+
+  const extras = (
+    <div className="text-p3-desktop">
+      See our&nbsp;
+      <span className="text-blue-1 underline underline-offset-4">
+        <Link href="/privacy-info">Privacy FAQ</Link>
+      </span>
+      &nbsp;for more information
+    </div>
+  );
 
   return (
     <div className="px-6 pb-28 pt-10 md:px-24">
@@ -251,7 +270,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
                   );
                 }}
               </Field>
-              {/* TODO Privacy Info */}
               {/* TODO: Templatize these */}
               <Field<boolean>
                 name="acceptedPrivacy"
@@ -278,8 +296,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
                             className="align-middle text-component-small text-black-text"
                           >
                             By signing up, you acknowledge the{' '}
-                            <span className="text-blue-1 underline underline-offset-4">
-                              <Link href="/sign-in">Privacy info</Link>
+                            <span
+                              className="text-blue-1 underline underline-offset-4"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setShowPrivacyModal(true);
+                              }}
+                            >
+                              Privacy info
                             </span>
                           </label>
                         </div>
@@ -316,7 +340,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
                           >
                             {'By signing up, you agree to the '}
                             <span className="text-blue-1 underline underline-offset-4">
-                              <Link href="/sign-in">Terms of Service</Link>
+                              <Link
+                                target="_blank"
+                                href="/terms-and-conditions"
+                              >
+                                Terms of Service
+                              </Link>
                             </span>
                           </label>
                         </div>
@@ -346,6 +375,15 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <Link href="/sign-in">apply here</Link>
         </span>
       </div>
+      <PrivacyModal
+        headerText={headerText}
+        bodyText={bodyText}
+        extras={extras}
+        isOpen={showPrivacyModal}
+        closeModal={() => {
+          setShowPrivacyModal(false);
+        }}
+      />
     </div>
   );
 };

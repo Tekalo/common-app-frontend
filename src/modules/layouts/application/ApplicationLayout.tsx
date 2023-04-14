@@ -20,7 +20,7 @@ const ApplicationLayout: React.FC<IApplicationLayout> = ({
       >
         {/* TODO: Figure out how to pass the text to the navbar */}
         <LiteNavbar />
-        <main className="relative top-20 flex">{children}</main>
+        <main className="flex pt-16 md:pt-20">{children}</main>
         <div className="m-auto" />
         <LiteFooter />
       </div>

@@ -31,7 +31,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
 
   return (
     <div>
-      <nav className="fixed z-50 w-screen bg-white">
+      <nav className="fixed z-30 w-screen bg-white">
         <div className="mx-auto h-auto xs:px-1 sm:px-4 md:px-10 lg:px-20">
           <div className="space-y-50 flex justify-around sm:justify-between">
             <div className="flex py-4">
