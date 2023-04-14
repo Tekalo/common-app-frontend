@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
-import * as Sentry from '@sentry/nextjs';
+import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 
 interface AppPropsWithLayout extends AppProps {
@@ -9,7 +9,6 @@ interface AppPropsWithLayout extends AppProps {
 }
 
 const SENTRY_DSN =
-  process.env.SENTRY_DSN ||
   'https://957fb85e991e41e1b624969dec7932ef@o4504962952724480.ingest.sentry.io/4504991639928833';
 
 Sentry.init({
@@ -35,7 +34,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         fallback={({ error }) => (
           <>
             {
-              'An error occurred. Please try again later or contact support.Error:'
+              'An error occurred. Please try again later or contact support. Error:'
             }
             {error}
           </>

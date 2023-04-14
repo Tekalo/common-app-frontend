@@ -14,7 +14,7 @@ const Home: NextPageWithLayout = () => {
       <button
         type="button"
         onClick={() => {
-          throw new Error('Sentry Frontend Error');
+          throw new Error('An error unlike all the previous errors');
         }}
       >
         Throw error
