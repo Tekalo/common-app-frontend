@@ -16,11 +16,9 @@ export const validations = {
     .nonempty(errorMessages.required)
     .email(errorMessages.invalidEmail),
   phoneNumber: z.string().refine((phoneNumber: string) => {
-    const phoneRegex = new RegExp(
+    return new RegExp(
       /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-    );
-
-    return phoneRegex.test(phoneNumber);
+    ).test(phoneNumber);
   }),
   privacyPolicy: z.literal(true, {
     errorMap: () => ({
