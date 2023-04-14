@@ -8,12 +8,12 @@ interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
-const SENTRY_DSN =
-  process.env.SENTRY_DSN ||
-  'https://957fb85e991e41e1b624969dec7932ef@o4504962952724480.ingest.sentry.io/4504991639928833';
+const SENTRY_DSN = process.env.SENTRY_DSN;
+const SENTRY_ENV = process.env.ENVIRONMENT;
 
 Sentry.init({
   dsn: SENTRY_DSN,
+  environment: SENTRY_ENV,
   tracesSampleRate: 1.0,
 });
 
@@ -31,11 +31,11 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
     >
-      <Sentry.ErrorBoundary // Wrap your component with ErrorBoundary
+      <Sentry.ErrorBoundary // Adds Sentry telemetry support
         fallback={({ error }) => (
           <>
             {
-              'An error occurred. Please try again later or contact support.Error:'
+              'An error occurred. Please try again later or contact support. Error:'
             }
             {error}
           </>
