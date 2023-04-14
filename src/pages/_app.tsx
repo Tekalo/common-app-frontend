@@ -1,13 +1,22 @@
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
+import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+const SENTRY_DSN =
+  'https://957fb85e991e41e1b624969dec7932ef@o4504962952724480.ingest.sentry.io/4504991639928833';
+
+Sentry.init({
+  dsn: SENTRY_DSN,
+  tracesSampleRate: 1.0,
+});
+
+function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
@@ -21,7 +30,21 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
     >
-      {getLayout(<Component {...pageProps} />)}
+      <Sentry.ErrorBoundary // Enable Sentry by wrapping component with ErrorBoundary
+        fallback={({ error }) => (
+          <>
+            {
+              'An error occurred. Please try again later or contact support. Error:'
+            }
+            {error}
+          </>
+        )}
+        showDialog
+      >
+        {getLayout(<Component {...pageProps} />)}
+      </Sentry.ErrorBoundary>
     </Auth0Provider>
   );
 }
+
+export default App;
