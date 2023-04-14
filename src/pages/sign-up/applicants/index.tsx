@@ -1,6 +1,11 @@
 import Button from '@/components/buttons/Button/Button';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
-import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
+import {
+  PreferredContact,
+  SearchStatus,
+  contactPhoneLinkedValidation,
+  validations,
+} from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
 import FreeText from '@/modules/components/input/freeText/FreeText';
 import RadioGroup from '@/modules/components/input/radioGroup/RadioGroup';
@@ -216,9 +221,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
               </Field>
               {/* Phone Number */}
               <Field<string>
+                listenTo={['preferredContact']}
                 name="phone"
-                onSubmitValidate={validations.phoneNumber}
-                onChangeValidate={validations.phoneNumber}
+                onSubmitValidate={contactPhoneLinkedValidation}
+                onChangeValidate={contactPhoneLinkedValidation}
               >
                 {/* This componenent should be broken out
                   TODO: Break this into its own component using library for ui formatting + country flags
