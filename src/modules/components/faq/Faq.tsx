@@ -43,9 +43,10 @@ const Faq: React.FC<IFaq> = ({ faqItems }) => {
                   </Disclosure.Button>
                 </dt>
                 <Disclosure.Panel as="dd" className="mt-6">
-                  <p className="text-gray-600 text-p2-mobile lg:text-p1-mobile">
+                  <p className="text-gray-600 max-w-[822px] text-p2-mobile lg:text-p1-mobile">
                     {faq.answerText}
                   </p>
+                  {faq.extras ? <div>{faq.extras}</div> : ''}
                 </Disclosure.Panel>
               </>
             )}
