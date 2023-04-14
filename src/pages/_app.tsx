@@ -7,7 +7,9 @@ import type { AppProps } from 'next/app';
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
-const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
+const SENTRY_DSN =
+  process.env.SENTRY_DSN ||
+  'envelope://957fb85e991e41e1b624969dec7932ef@o4504962952724480.ingest.sentry.io/4504991639928833';
 
 Sentry.init({
   dsn: SENTRY_DSN,
