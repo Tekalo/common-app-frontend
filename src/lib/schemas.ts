@@ -1,3 +1,4 @@
+import { FormInstance } from 'houseform';
 import { z } from 'zod';
 
 const errorMessages = {
@@ -14,20 +15,11 @@ export const validations = {
     .string()
     .nonempty(errorMessages.required)
     .email(errorMessages.invalidEmail),
-  phoneNumber: z
-    .string()
-    .superRefine((phoneNumber: string, ctx: z.RefinementCtx) => {
-      const phoneRegex = new RegExp(
-        /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-      );
-
-      if (phoneNumber.length > 0 && !phoneRegex.test(phoneNumber)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: errorMessages.invalidPhone,
-        });
-      }
-    }),
+  phoneNumber: z.string().refine((phoneNumber: string) => {
+    return new RegExp(
+      /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
+    ).test(phoneNumber);
+  }),
   privacyPolicy: z.literal(true, {
     errorMap: () => ({
       message: errorMessages.privacyRequired,
@@ -39,6 +31,29 @@ export const validations = {
       message: errorMessages.termsRequired,
     }),
   }),
+};
+
+{
+  /* This makes phone number required if sms or whatsapp are selected in preferredContact */
+}
+export const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
+  const isValid = Promise.resolve(true);
+  const preferredContactVal = f.getFieldValue('preferredContact')?.value;
+  const hasValue = v.length > 0;
+
+  if (
+    hasValue ||
+    preferredContactVal === 'sms' ||
+    preferredContactVal === 'whatsapp'
+  ) {
+    return validations.phoneNumber.safeParse(v).success
+      ? isValid
+      : Promise.reject(
+          hasValue ? errorMessages.invalidPhone : errorMessages.required
+        );
+  }
+
+  return isValid;
 };
 
 const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
@@ -53,6 +68,7 @@ const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
 export const PreferredContact = z.enum(['sms', 'whatsapp', 'email'], {
   errorMap: defaultEnumErrorMap,
 });
+
 export const SearchStatus = z.enum(['active', 'passive', 'future'], {
   errorMap: defaultEnumErrorMap,
 });

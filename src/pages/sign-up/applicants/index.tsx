@@ -3,7 +3,12 @@ import FreeText from '@/components/input/freeText/FreeText';
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import ListBox from '@/components/input/singleSelect/SingleSelect';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
-import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
+import {
+  PreferredContact,
+  SearchStatus,
+  contactPhoneLinkedValidation,
+  validations,
+} from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
 import PrivacyModal from '@/modules/components/modal/Modal/Modal';
 import { Field, Form } from 'houseform';
@@ -235,9 +240,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
               </Field>
               {/* Phone Number */}
               <Field<string>
+                listenTo={['preferredContact']}
                 name="phone"
-                onSubmitValidate={validations.phoneNumber}
-                onChangeValidate={validations.phoneNumber}
+                onSubmitValidate={contactPhoneLinkedValidation}
+                onChangeValidate={contactPhoneLinkedValidation}
               >
                 {/* This componenent should be broken out
                   TODO: Break this into its own component using library for ui formatting + country flags
