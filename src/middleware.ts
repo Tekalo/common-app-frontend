@@ -1,7 +1,7 @@
 import sentryPlugin from '@cloudflare/pages-plugin-sentry';
 import { NextResponse } from 'next/server';
 
-export const config = { runtime: 'edge' };
+export const config = { runtime: 'experimental-edge' };
 
 // Sentry plugin for capturing server-side errors
 // https://developers.cloudflare.com/pages/platform/functions/plugins/sentry/
