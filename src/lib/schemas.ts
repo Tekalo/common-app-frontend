@@ -1,7 +1,7 @@
 import { FormInstance } from 'houseform';
 import { z } from 'zod';
 
-export const errorMessages = {
+const errorMessages = {
   invalidEmail: 'This must be a valid email address',
   invalidPhone: 'This must be a valid phone number',
   privacyRequired: 'You must accept the privacy policy',
