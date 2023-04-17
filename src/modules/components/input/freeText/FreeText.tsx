@@ -34,7 +34,10 @@ const FreeText: React.FC<IFreeText> = ({
       </label>
       <input
         name={name}
-        className={`w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2 ${inputClassName}}`}
+        className={`box-border h-[32px] w-full rounded-[3px]
+                    border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2
+                    focus:border-2 focus:border-blue-1 focus:p-[7px]
+                    active:border active:border-blue-1 active:p-2 ${inputClassName}}`}
         value={value}
         onBlur={onBlur}
         onChange={(e) => setValue(e.target.value)}
