@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export const config = {
   runtime: 'experimental-edge',
-  matcher: ['/((?!.*\\.).*)'],
+  matcher: ['/pages/:path*', '/api/:path*'],
 };
 
 // Sentry plugin for capturing server-side errors
