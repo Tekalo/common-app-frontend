@@ -16,6 +16,7 @@ const Button: React.FC<IButton> = ({
   outlined,
   className,
 }) => {
+  // TODO: Consider changing this for clarity
   const BASE = `group min-w-[118px] flex h-12 flex-row content-center
                 items-center justify-center rounded font-sans
                 text-component-large transition-colors hover:bg-blue-2
