@@ -29,7 +29,7 @@ const LongText: React.FC<ILongText> = ({
       </label>
       <textarea
         name={name}
-        className={`min-h-[194px] w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2 ${inputClassName}}`}
+        className={`min-h-[194px] w-full resize-y rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2 ${inputClassName}}`}
         value={value}
         onBlur={onBlur}
         onChange={(e) => setValue(e.target.value)}
