@@ -119,7 +119,7 @@ const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
       <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
         <Timeline timelineItems={timelineItems} horizontal={true} />
       </div>
-
+      {/* Experience & Interests Form */}
       <Form onSubmit={(values) => handleSubmit(values)}>
         {({ isValid, isSubmitted, submit }) => (
           <form

@@ -69,13 +69,13 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
               </div>
               {/* Label */}
               <div className="-mx-8 mt-4">
-                <p
+                <div
                   className={`font-sans text-p3-desktop ${
                     item.isActive ? 'text-black-text' : 'text-gray-2'
                   }`}
                 >
                   {item.content}
-                </p>
+                </div>
               </div>
             </li>
             {/* Do not add a separating div if we are the last item. If the

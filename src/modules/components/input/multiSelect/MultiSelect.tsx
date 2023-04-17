@@ -100,6 +100,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                              checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
                           type="checkbox"
                           checked={selected}
+                          readOnly
                         />
                         <label
                           htmlFor={option.value}
