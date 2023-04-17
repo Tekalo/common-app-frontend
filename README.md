@@ -4,6 +4,8 @@ This repository contains the code to run the Common App Next.js frontend applica
 
 ## Getting Started
 
+This guide should get you started.
+
 ### Pre-Requisites
 
 - Install [nvm](https://github.com/nvm-sh/nvm)
