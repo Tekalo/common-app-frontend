@@ -24,6 +24,6 @@ export const onRequest: PagesFunction<{
   SENTRY_DSN: string;
 }> = (context) => {
   return sentryPlugin({
-    dsn: context.env.SENTRY_DSN,
+    dsn: 'https://957fb85e991e41e1b624969dec7932ef@o4504962952724480.ingest.sentry.io/4504991639928833',
   })(context);
 };
