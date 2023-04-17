@@ -3,6 +3,9 @@ import { NextPageWithLayout } from '@/lib/types';
 import ExperienceInterestForm from '@/modules/sections/sign-up/applicants/experienceInterestForm/ExperienceInterestForm';
 import router from 'next/router';
 
+// TODO: Create state to house combined form data
+// TODO: Handle save and submission at this level
+
 const handleSubmit = async (values: unknown) => {
   try {
     const response = await fetch('/api/applicants', {
