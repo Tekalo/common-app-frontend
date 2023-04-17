@@ -2,7 +2,7 @@ import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import ListBox from '@/components/input/singleSelect/SingleSelect';
-import PrivacyModal from '@/components/modal/Modal/Modal';
+import Modal from '@/components/modal/Modal/Modal';
 import Tooltip from '@/components/tooltip/Tooltip';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import {
@@ -390,7 +390,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <Link href="/sign-in">apply here</Link>
         </span>
       </div>
-      <PrivacyModal
+      <Modal
         headerText={headerText}
         bodyText={bodyText}
         extras={extras}
