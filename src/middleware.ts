@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export const config = {
   runtime: 'experimental-edge',
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!.*\\.).*)'],
 };
 
 // Sentry plugin for capturing server-side errors
