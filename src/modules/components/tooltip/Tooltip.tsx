@@ -11,14 +11,18 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
 
   return (
     <>
-      <div
-        className="flex items-center align-text-top"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={() => setIsHovered(true)}
-      >
-        <div className="relative z-10 ml-1 h-[14px] w-[14px]">
-          {isHovered ? <FilledInfoCircle /> : <InformationCircleIcon />}
+      <div className="flex items-center align-text-top">
+        <div
+          className="ml-1 h-[14px] w-[14px]"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={() => setIsHovered(true)}
+        >
+          {isHovered ? (
+            <FilledInfoCircle className="relative z-10" />
+          ) : (
+            <InformationCircleIcon className="relative z-10" />
+          )}
         </div>
         <div
           className={`${
