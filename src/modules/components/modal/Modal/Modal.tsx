@@ -1,6 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
+import ContentTable from '@/components/tables/ContentTable/ContentTable';
 import { ContentTableData, TablePadding } from '@/lib/types';
-import ContentTable from '@/modules/components/tables/ContentTable/ContentTable';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { ReactElement, useRef } from 'react';

@@ -2,6 +2,8 @@ import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import ListBox from '@/components/input/singleSelect/SingleSelect';
+import Modal from '@/components/modal/Modal/Modal';
+import Tooltip from '@/components/tooltip/Tooltip';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import {
   PreferredContact,
@@ -10,7 +12,6 @@ import {
   validations,
 } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
-import PrivacyModal from '@/modules/components/modal/Modal/Modal';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
 import router from 'next/router';
@@ -79,6 +80,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
       displayText: 'Whatsapp message',
     },
   ];
+
+  const tooltips = {
+    email: `Your email will be used to contact you about your application.
+            It won't be used for marketing.`,
+    phone: `If you prefer not to share your phone number, choose email as 
+            your preferred contact method. If provided, your number will be 
+            used to contact you about your application. It won't be used for marketing.`,
+  };
 
   const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
     const errorMessage =
@@ -167,6 +176,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                         value={value}
                         setValue={setValue}
                         onBlur={onBlur}
+                        tooltipText={tooltips.email}
                       />
                       {printErrorMessages(isSubmitted, errors)}
                     </div>
@@ -254,8 +264,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 {({ value, setValue, onBlur, errors }) => {
                   return (
                     <div className="mt-8 space-y-2">
-                      <div className="text-left text-component-extra-small text-black-text">
-                        {'Phone number (optional)'}
+                      <div className="flex items-center text-left text-component-extra-small text-black-text">
+                        {
+                          <>
+                            Phone number (optional){' '}
+                            <Tooltip text={tooltips.phone} />
+                          </>
+                        }
                       </div>
                       <input
                         className="w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2"
@@ -375,7 +390,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <Link href="/sign-in">apply here</Link>
         </span>
       </div>
-      <PrivacyModal
+      <Modal
         headerText={headerText}
         bodyText={bodyText}
         extras={extras}

@@ -1,3 +1,5 @@
+import Tooltip from '@/components/tooltip/Tooltip';
+
 export interface IFreeText {
   name: string;
   value: string;
@@ -7,6 +9,7 @@ export interface IFreeText {
   placeholder?: string;
   labelClassName?: string;
   inputClassName?: string;
+  tooltipText?: string;
 }
 
 const FreeText: React.FC<IFreeText> = ({
@@ -18,14 +21,16 @@ const FreeText: React.FC<IFreeText> = ({
   placeholder,
   labelClassName,
   inputClassName,
+  tooltipText,
 }) => {
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`text-component-extra-small text-black-text ${labelClassName}}`}
+        className={`relative flex items-center text-component-extra-small text-black-text ${labelClassName}}`}
         htmlFor={name}
       >
         {label}
+        {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
       <input
         name={name}
