@@ -17,7 +17,7 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsHovered(true)}
       >
-        <div className="ml-1 h-[14px] w-[14px]">
+        <div className="relative z-10 ml-1 h-[14px] w-[14px]">
           {isHovered ? <FilledInfoCircle /> : <InformationCircleIcon />}
         </div>
         <div
@@ -32,8 +32,11 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
       <div
         className={`${
           isHovered ? '' : 'hidden'
-        } fixed bottom-0 left-0 right-0 top-0`}
+        } fixed bottom-0 left-0 right-0 top-0 z-0`}
         onClick={() => {
+          setIsHovered(false);
+        }}
+        onMouseEnter={() => {
           setIsHovered(false);
         }}
       ></div>
