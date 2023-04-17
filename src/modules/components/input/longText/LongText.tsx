@@ -1,6 +1,4 @@
-import Tooltip from '@/components/tooltip/Tooltip';
-
-export interface IFreeText {
+export interface ILongText {
   name: string;
   value: string;
   label?: string;
@@ -9,10 +7,9 @@ export interface IFreeText {
   placeholder?: string;
   labelClassName?: string;
   inputClassName?: string;
-  tooltipText?: string;
 }
 
-const FreeText: React.FC<IFreeText> = ({
+const LongText: React.FC<ILongText> = ({
   name,
   label,
   value,
@@ -21,20 +18,18 @@ const FreeText: React.FC<IFreeText> = ({
   placeholder,
   labelClassName,
   inputClassName,
-  tooltipText,
 }) => {
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`relative flex items-center text-component-extra-small text-black-text ${labelClassName}}`}
+        className={`text-component-extra-small text-black-text ${labelClassName}}`}
         htmlFor={name}
       >
         {label}
-        {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
-      <input
+      <textarea
         name={name}
-        className={`w-full rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2 ${inputClassName}}`}
+        className={`min-h-[194px] w-full resize-y rounded-[3px] border border-gray-2 p-2 text-component-medium placeholder:text-gray-2 ${inputClassName}}`}
         value={value}
         onBlur={onBlur}
         onChange={(e) => setValue(e.target.value)}
@@ -44,4 +39,4 @@ const FreeText: React.FC<IFreeText> = ({
   );
 };
 
-export default FreeText;
+export default LongText;
