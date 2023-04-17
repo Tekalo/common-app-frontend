@@ -86,9 +86,9 @@ const SkillOptions: Array<ISelectItem> = [
   },
 ];
 
-// TODO: Save button sends form data to save endpoint
-// TODO: Submit button sends form data to submit endpoint
-// TODO: Update timeline to be clickable
+// TODO: Save should save the entire form to the proper endpoint
+// TODO: Save should display a modal with save status
+// TODO: Submit should run validation on the form and display errors
 
 const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
   handleSubmit,
@@ -438,11 +438,26 @@ const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
                 }}
               </Field>
             </div>
-            {/* TODO: INTERESTS FORM FIELDS*/}
+            {/* INTERESTS FORM FIELDS*/}
             <div className={`${isLastPage ? null : 'hidden'}`}>
-              Interest Page!
+              {/* TODO: Opportunity type */}
+              {/* TODO: Hours per week */}
+              {/* TODO: Roles interested in */}
+              {/* TODO: Current Location*/}
+              {/* TODO: Open to relocation */}
+              {/* TODO: Open to remote */}
+              {/* TODO: Desired salary */}
+              {/* TODO: Causes */}
+              {/* TODO: Cause Rank */}
+              {/* TODO: Other Causes */}
+              {/* TODO: Work Authorization */}
+              {/* TODO: State Interest */}
+              {/* TODO: Previous Experience */}
+              {/* TODO: Long Form Response */}
+              {/* TODO: HOw did you hear about us */}
             </div>
 
+            {/* Save button */}
             <Button
               className="mt-14 w-full text-component-large"
               label="Save your progress"
@@ -451,6 +466,7 @@ const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
               onClick={() => submit()}
             />
 
+            {/* Submit / Next Button */}
             {isLastPage ? (
               <Button
                 className="mt-4 w-full text-component-large"
