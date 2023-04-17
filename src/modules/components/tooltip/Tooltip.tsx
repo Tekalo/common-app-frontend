@@ -11,7 +11,7 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
     <>
       <div className="flex items-center align-text-top">
         <div
-          className="ml-1 h-[16px] w-[16px]"
+          className="ml-1 h-[16px] w-[16px] cursor-pointer"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => setIsHovered(true)}
