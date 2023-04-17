@@ -1,4 +1,5 @@
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { InformationCircleIcon as FilledInfoCircle } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 
 export interface ITooltip {
@@ -16,7 +17,7 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
       onClick={() => setIsHovered(true)}
     >
       <div className="ml-1 h-[14px] w-[14px]">
-        <InformationCircleIcon />
+        {isHovered ? <FilledInfoCircle /> : <InformationCircleIcon />}
       </div>
       <div
         className={`${
