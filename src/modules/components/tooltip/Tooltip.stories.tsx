@@ -16,8 +16,8 @@ const ToolTipExample: React.FC<ITooltip> = ({ text }) => {
           <div className="mt-52 p-4">
             <FreeText
               name="input-pronouns"
-              label="Phone Number (optional)"
-              placeholder="E.g. she/her/hers"
+              label="Phone number (optional)"
+              placeholder=""
               value={value}
               setValue={setValue}
               onBlur={onBlur}
