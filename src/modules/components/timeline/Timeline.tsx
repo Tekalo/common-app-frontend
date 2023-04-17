@@ -28,7 +28,7 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
             </div>
             <div className="ml-14 mt-4 md:ml-16 md:mt-3 lg:ml-20 lg:mt-0">
               <p className="font-sans text-p2-desktop text-black-text">
-                {item.text}
+                {item.content}
               </p>
             </div>
           </li>
@@ -74,7 +74,7 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
                     item.isActive ? 'text-black-text' : 'text-gray-2'
                   }`}
                 >
-                  {item.text}
+                  {item.content}
                 </p>
               </div>
             </li>

@@ -2,8 +2,8 @@ import { ITimeline } from './Timeline';
 
 const base: ITimeline = {
   timelineItems: [
-    { title: 'Hello', text: 'World' },
-    { title: 'Zardoz', text: 'Foobar' },
+    { title: 'Hello', content: 'World' },
+    { title: 'Zardoz', content: 'Foobar' },
   ],
 };
 

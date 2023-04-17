@@ -97,11 +97,18 @@ const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
 
   const timelineItems: Array<ITimelineItem> = [
     {
-      text: 'Your experience',
+      content: (
+        <div
+          className={isLastPage ? `cursor-pointer text-blue-1` : ''}
+          onClick={() => setisLastPage(false)}
+        >
+          {'Your experience'}
+        </div>
+      ),
       isActive: true,
     },
     {
-      text: 'Your interests',
+      content: 'Your interests',
       isActive: isLastPage,
     },
   ];

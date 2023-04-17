@@ -10,7 +10,7 @@ interface IconTypeProps {
 
 export interface ITimelineItem {
   title?: string;
-  text: string;
+  content: string | ReactElement;
   className?: string;
   isActive?: boolean;
 }
