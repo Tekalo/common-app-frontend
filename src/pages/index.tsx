@@ -11,6 +11,14 @@ import TestimonialSection from '@/sections/home/testimonialSection/TestimonialSe
 const Home: NextPageWithLayout = () => {
   return (
     <div>
+      <button
+        type="button"
+        onClick={() => {
+          throw new Error('An error unlike all the previous errors');
+        }}
+      >
+        Throw error
+      </button>{' '}
       <HeroSection />
       <AboutSection />
       <HowSection />
