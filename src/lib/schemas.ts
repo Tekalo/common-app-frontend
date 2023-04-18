@@ -100,6 +100,18 @@ export const Skills = z.enum([
   'product development',
   'project management',
 ]);
+
+export const Roles = z.enum([
+  'data analyst',
+  'product manager',
+  'software engineer',
+  'software engineeer backend',
+  'software engineer frontend',
+  'product designer',
+  'ux/ui designer',
+  'ux researcher',
+]);
+
 export const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
 export const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure']);
 const WorkAuthorization = z.enum(['authorized', 'sponsorship']);
@@ -155,7 +167,7 @@ const ApplicantSubmissionRequestBodySchema = z.object({
   resumePassword: z.string().nullable().optional(),
   hoursPerWeek: z.string().nullable().optional(),
   interestEmploymentType: z.array(EmploymentType),
-  interestRoles: z.array(z.string()), // keep this as non-zod-enum?
+  interestRoles: Roles, // keep this as non-zod-enum?
   currentLocation: z.string(),
   openToRelocate: OpenToRelocate,
   openToRemote: OpenToRemote,
