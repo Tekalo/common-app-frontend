@@ -1,10 +1,15 @@
 import { HandleSvg } from '@/modules/constants/svgs';
-import { Identifier, XYCoord } from 'dnd-core';
+import type { Identifier, XYCoord } from 'dnd-core';
+import type { FC } from 'react';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { PreviewGenerator } from 'react-dnd-preview';
 
-interface IChoiceCard {
+const ItemTypes = {
+  CARD: 'card',
+};
+
+export interface CardProps {
   index: number;
   text: string;
   value: string;
@@ -13,17 +18,7 @@ interface IChoiceCard {
   setIsDragging: (_isDragging: boolean) => void;
 }
 
-interface DragItem {
-  index: number;
-  id: string;
-  type: string;
-}
-
-const ItemTypes = {
-  CARD: 'card',
-};
-
-export const generatePreview: PreviewGenerator<IChoiceCard, Element> = ({
+export const generatePreview: PreviewGenerator<CardProps, Element> = ({
   itemType,
   item,
   style,
@@ -39,14 +34,16 @@ export const generatePreview: PreviewGenerator<IChoiceCard, Element> = ({
   );
 };
 
-/* 
-  Reference Code w comments:
-  https://codesandbox.io/embed/github/react-dnd/react-dnd/tree/gh-pages/examples_ts/04-sortable/simple?fontsize=14
-*/
-const RankChoiceCard: React.FC<IChoiceCard> = ({
-  index,
-  text,
+interface DragItem {
+  index: number;
+  id: string;
+  type: string;
+}
+
+const RankChoiceCard: FC<CardProps> = ({
   value,
+  text,
+  index,
   otherIsDragging,
   moveCard,
   setIsDragging,
@@ -56,54 +53,73 @@ const RankChoiceCard: React.FC<IChoiceCard> = ({
     DragItem,
     void,
     { handlerId: Identifier | null }
-  >(
-    {
-      accept: ItemTypes.CARD,
-      collect(monitor) {
-        return {
-          handlerId: monitor.getHandlerId(),
-        };
-      },
-      hover(item: DragItem, monitor) {
-        console.log(item);
-        setIsDragging(true);
-
-        if (!ref.current || item.index === index) {
-          return;
-        }
-        const dragIndex = item.index;
-        const hoverIndex = index;
-        const hoverBoundingRect = ref.current?.getBoundingClientRect();
-        const hoverMiddleY =
-          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        const clientOffset = monitor.getClientOffset();
-        const hoverClientY =
-          (clientOffset as XYCoord).y - hoverBoundingRect.top;
-
-        if (
-          (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) ||
-          (dragIndex > hoverIndex && hoverClientY > hoverMiddleY)
-        ) {
-          return;
-        }
-
-        moveCard(dragIndex, hoverIndex);
-        item.index = hoverIndex;
-      },
+  >({
+    accept: ItemTypes.CARD,
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
     },
-    [index, value]
-  );
+    hover(item: DragItem, monitor) {
+      if (!ref.current) {
+        return;
+      }
+
+      setIsDragging(true);
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+
+      // Get vertical middle
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset();
+
+      // Get pixels to the top
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+
+      // Time to actually perform the action
+      moveCard(dragIndex, hoverIndex);
+
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex;
+    },
+  });
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
     item: () => {
-      return { id: value, index };
+      return { value, index, text };
     },
-    collect: (monitor: any) => {
-      return {
-        isDragging: monitor.isDragging(),
-      };
-    },
+    collect: (monitor: any) => ({
+      isDragging: monitor.isDragging(),
+    }),
     end: () => {
       setIsDragging(false);
     },
@@ -125,16 +141,15 @@ const RankChoiceCard: React.FC<IChoiceCard> = ({
       className={`flex space-y-2`}
       data-handler-id={handlerId}
     >
-      {isDragging ? '1' : '0'}
       <div
         className={`w-[24px] flex-initial px-2 pb-1 pt-4 text-component-small ${numberStateClasses}`}
       >
         {index + 1}
       </div>
       <div
-        className={`text-black flex flex-auto justify-between border text-component-medium active:cursor-grabbing ${textStateClasses} ${draggingClasses} ${
-          isDragging ? 'opacity-0' : ''
-        }`}
+        className={`text-black flex flex-auto justify-between border text-component-medium active:cursor-grabbing ${textStateClasses} ${draggingClasses}
+        ${isDragging ? 'opacity-0' : ''}
+        `}
       >
         {text}
         <div>{HandleSvg}</div>

@@ -1,3 +1,4 @@
+import update from 'immutability-helper';
 import { useCallback, useState } from 'react';
 import RankChoiceCard from './RankChoiceCard';
 
@@ -11,39 +12,37 @@ export interface RankChoiceItem {
   text: string;
   value: string;
 }
-
 const RankChoice: React.FC<IRankChoice> = ({ label, name, items }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [cards, setCards] = useState([...items]);
+  const [cards, setCards] = useState(items);
 
-  const renderCard = useCallback((card: RankChoiceItem, i: number) => {
-    return (
-      <RankChoiceCard
-        key={i}
-        index={i}
-        text={card.text}
-        value={card.value}
-        moveCard={moveCard}
-        setIsDragging={setIsDragging}
-        otherIsDragging={isDragging}
-      />
+  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+    setCards((prevCards: RankChoiceItem[]) =>
+      update(prevCards, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevCards[dragIndex] as RankChoiceItem],
+        ],
+      })
     );
   }, []);
 
-  // Actually moves the card
-  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-    setCards((prevCards: RankChoiceItem[]) => {
-      console.log(`drag: ${dragIndex} hover: ${hoverIndex}`);
-      const newCards = [...prevCards];
-
-      // This just moves the item from dragIndex to hoverIndex in the array
-      newCards.splice(hoverIndex, 0, newCards.splice(dragIndex, 1)[0]);
-
-      console.log(newCards);
-
-      return newCards;
-    });
-  }, []);
+  const renderCard = useCallback(
+    (card: { value: string; text: string }, index: number) => {
+      return (
+        <RankChoiceCard
+          key={card.value}
+          index={index}
+          value={card.value}
+          text={card.text}
+          moveCard={moveCard}
+          setIsDragging={setIsDragging}
+          otherIsDragging={isDragging}
+        />
+      );
+    },
+    [cards, isDragging]
+  );
 
   const disabledColor = cards.length > 1 ? 'text-black' : 'text-gray-2';
 
