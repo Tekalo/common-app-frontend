@@ -1,7 +1,8 @@
 import { ISelectGroup } from './SelectGroup';
 
 const base: ISelectGroup = {
-  value: 'test',
+  name: 'test',
+  value: ['test'],
   setValue: () => {},
   selectOptions: [
     {
