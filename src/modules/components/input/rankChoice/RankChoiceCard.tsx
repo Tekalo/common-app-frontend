@@ -19,14 +19,13 @@ export interface CardProps {
 }
 
 export const generatePreview: PreviewGenerator<CardProps, Element> = ({
-  itemType,
   item,
   style,
 }) => {
   return (
     <div
       style={style}
-      className={`text-black z-10 flex w-[500px] flex-auto cursor-grabbing justify-between border border-solid border-gray-2 bg-white p-[7px] text-component-medium`}
+      className={`text-black z-10 flex w-[500px] flex-auto cursor-grabbing justify-between rounded border border-solid border-gray-2 bg-white p-[7px] text-component-medium shadow-md`}
     >
       {item.text}
       <div>{HandleSvg}</div>
@@ -69,45 +68,24 @@ const RankChoiceCard: FC<CardProps> = ({
       const dragIndex = item.index;
       const hoverIndex = index;
 
-      // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return;
       }
 
-      // Determine rectangle on screen
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
-      // Get vertical middle
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-      // Determine mouse position
       const clientOffset = monitor.getClientOffset();
-
-      // Get pixels to the top
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      if (
+        (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) ||
+        (dragIndex > hoverIndex && hoverClientY > hoverMiddleY)
+      ) {
         return;
       }
 
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-
-      // Time to actually perform the action
       moveCard(dragIndex, hoverIndex);
-
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
       item.index = hoverIndex;
     },
   });
@@ -147,7 +125,8 @@ const RankChoiceCard: FC<CardProps> = ({
         {index + 1}
       </div>
       <div
-        className={`text-black flex flex-auto justify-between border text-component-medium active:cursor-grabbing ${textStateClasses} ${draggingClasses}
+        // TODO: Need to pull the base styles out to use in preview
+        className={`text-black flex flex-auto justify-between rounded border bg-white text-component-medium active:cursor-grabbing ${textStateClasses} ${draggingClasses}
         ${isDragging ? 'opacity-0' : ''}
         `}
       >
