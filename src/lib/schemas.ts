@@ -113,7 +113,8 @@ const ReferenceAttribution = z.enum([
   'career fair',
   'other',
 ]);
-const EmploymentType = z.enum(['full', 'part']);
+
+export const EmploymentType = z.enum(['full', 'part']);
 
 const ApplicantRequestBodySchema = z.object({
   name: z.string(),

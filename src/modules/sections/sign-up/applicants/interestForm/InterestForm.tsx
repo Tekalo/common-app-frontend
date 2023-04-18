@@ -1,12 +1,21 @@
 import Button from '@/components/buttons/Button/Button';
-import { Form, FormInstance } from 'houseform';
+import SelectGroup from '@/components/input/selectGroup/SelectGroup';
+import { EmploymentType } from '@/lib/schemas';
+import { ISelectItem } from '@/lib/types';
+import { Field, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
+import { z } from 'zod';
 
 export interface IInterestForm {
   handleSubmit: (_values: unknown) => void;
   handleSave: (_values: unknown) => void;
   savedForm: any;
 }
+
+const EmploymentTypeOptions: Array<ISelectItem> = [
+  { value: 'full', displayText: 'Full-time employment' },
+  { value: 'part', displayText: 'Part-time/short term opportunities' },
+];
 
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,
@@ -30,8 +39,36 @@ const InterestForm: React.FC<IInterestForm> = ({
             submit();
           }}
         >
-          {/* EXPERIENCE FORM FIELDS */}
-          {/* TODO: Employment */}
+          {/* INTEREST FORM FIELDS */}
+          {/* Employment */}
+          <Field<string[]>
+            name="interestEmploymentType"
+            initialValue={(savedForm && savedForm.employment) || []}
+            onSubmitValidate={z.array(EmploymentType)}
+            onChangeValidate={z.array(EmploymentType)}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <SelectGroup
+                    name="input-interestEmploymentType"
+                    legendText="What type(s) of opportunities are you interested in? Choose all that apply"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    selectOptions={EmploymentTypeOptions}
+                  />
+                  <div className="mt-2 text-left text-component-extra-small-helper-text">
+                    {
+                      'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
+                    }
+                  </div>
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Hours per week */}
           {/* TODO: Roles */}
           {/* TODO: Location */}
