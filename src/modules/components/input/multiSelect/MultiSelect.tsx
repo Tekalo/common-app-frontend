@@ -7,6 +7,8 @@ export interface IMultiSelect {
   value: string[];
   label: string;
   placeholder?: string;
+  selectionLabelSingle?: string;
+  selectionLabelMulti?: string;
   labelStyles?: string;
   buttonStyles?: string;
   optionStyles?: string;
@@ -19,6 +21,8 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   name,
   value,
   placeholder,
+  selectionLabelSingle,
+  selectionLabelMulti,
   label,
   selectOptions,
   labelStyles,
@@ -50,7 +54,9 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                     {`${value.length} x `}
                   </div>
                   <span className="ml-1 block truncate">
-                    {' Skills selected'}
+                    {value.length > 1
+                      ? selectionLabelMulti
+                      : selectionLabelSingle}
                   </span>
                 </div>
               ) : (

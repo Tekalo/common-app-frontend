@@ -1,5 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
+import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import { EmploymentType } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
@@ -16,6 +17,42 @@ export interface IInterestForm {
 const EmploymentTypeOptions: Array<ISelectItem> = [
   { value: 'full', displayText: 'Full-time employment' },
   { value: 'part', displayText: 'Part-time/short term opportunities' },
+];
+
+const RoleOptions: Array<ISelectItem> = [
+  {
+    value: 'data analyst',
+    displayText: 'Data analyst',
+  },
+  {
+    value: 'product manager',
+    displayText: 'Product manager',
+  },
+  {
+    value: 'software engineer',
+    displayText: 'Software engineer',
+  },
+  {
+    value: 'software engineeer backend',
+    displayText: 'Software engineer - backend',
+  },
+  {
+    value: 'software engineer frontend',
+    displayText: 'Software engineer - frontend',
+  },
+  {
+    value: 'product designer',
+    displayText: 'Product designer',
+  },
+
+  {
+    value: 'ux/ui designer',
+    displayText: 'UX/UI designer',
+  },
+  {
+    value: 'ux researcher',
+    displayText: 'UX researcher',
+  },
 ];
 
 const InterestForm: React.FC<IInterestForm> = ({
@@ -74,7 +111,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             }}
           </Field>
 
-          {/* TODO: Hours per week */}
+          {/* Hours per week */}
           <Field<string>
             name="hoursPerWeek"
             listenTo={['interestEmploymentType']}
@@ -116,7 +153,33 @@ const InterestForm: React.FC<IInterestForm> = ({
             }}
           </Field>
 
-          {/* TODO: Roles */}
+          {/* Roles */}
+          <Field<string[]>
+            name="interestRoles"
+            initialValue={(savedForm && savedForm.interestRoles) || []}
+            onSubmitValidate={z.array(z.string())}
+            onChangeValidate={z.array(z.string())}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <MultiSelect
+                    name="input-interestRoles"
+                    label="What role(s) are you interested in?"
+                    placeholder="Choose all that apply"
+                    selectionLabelSingle=" Role selected"
+                    selectionLabelMulti=" Roles selected"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    selectOptions={RoleOptions}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Location */}
           {/* TODO: Reloaction*/}
           {/* TODO: Remote */}
