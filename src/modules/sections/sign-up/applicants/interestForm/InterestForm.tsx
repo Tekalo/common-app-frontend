@@ -43,7 +43,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Employment */}
           <Field<string[]>
             name="interestEmploymentType"
-            initialValue={(savedForm && savedForm.employment) || []}
+            initialValue={(savedForm && savedForm.interestEmploymentType) || []}
             onSubmitValidate={z.array(EmploymentType)}
             onChangeValidate={z.array(EmploymentType)}
           >
@@ -69,7 +69,12 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Hours per week */}
+          {/* TODO: Hours per week
+          <Field<string>
+            
+          >
+
+          </Field> */}
           {/* TODO: Roles */}
           {/* TODO: Location */}
           {/* TODO: Reloaction*/}

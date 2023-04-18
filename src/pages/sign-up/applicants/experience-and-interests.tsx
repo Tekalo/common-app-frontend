@@ -60,13 +60,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   // Saves form responses to parent state
   const handleNext = (values: any) => {
-    setFormValues(values);
+    handleSave(values);
     setIsInterestFormVisible(true);
   };
 
   // Saves form responses to parent state without submission
   const handleSave = (values: any) => {
-    setFormValues(values);
+    setFormValues({ ...formValues, ...values });
   };
 
   return (
