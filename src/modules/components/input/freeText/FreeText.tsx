@@ -10,6 +10,7 @@ export interface IFreeText {
   labelClassName?: string;
   inputClassName?: string;
   tooltipText?: string;
+  disabled?: boolean;
 }
 
 const FreeText: React.FC<IFreeText> = ({
@@ -22,17 +23,19 @@ const FreeText: React.FC<IFreeText> = ({
   labelClassName,
   inputClassName,
   tooltipText,
+  disabled,
 }) => {
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`relative flex items-center text-component-extra-small text-black-text ${labelClassName}}`}
+        className={`${labelClassName} text-black-text} relative flex items-center text-component-extra-small`}
         htmlFor={name}
       >
         {label}
         {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
       <input
+        disabled={disabled}
         name={name}
         className={`box-border h-[32px] w-full rounded-[3px]
                     border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2

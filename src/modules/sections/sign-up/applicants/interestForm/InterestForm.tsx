@@ -1,8 +1,9 @@
 import Button from '@/components/buttons/Button/Button';
+import FreeText from '@/components/input/freeText/FreeText';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import { EmploymentType } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
-import { Field, Form, FormInstance } from 'houseform';
+import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
 
@@ -23,6 +24,7 @@ const InterestForm: React.FC<IInterestForm> = ({
   savedForm,
 }) => {
   const formRef = useRef<FormInstance<Record<string, any>>>(null);
+  const employmentTypeRef = useRef<FieldInstance<string[], any>>(null);
 
   const doSave = () => {
     if (formRef.current) {
@@ -38,11 +40,13 @@ const InterestForm: React.FC<IInterestForm> = ({
             e.preventDefault();
             submit();
           }}
+          className="space-y-8"
         >
           {/* INTEREST FORM FIELDS */}
           {/* Employment */}
           <Field<string[]>
             name="interestEmploymentType"
+            ref={employmentTypeRef}
             initialValue={(savedForm && savedForm.interestEmploymentType) || []}
             onSubmitValidate={z.array(EmploymentType)}
             onChangeValidate={z.array(EmploymentType)}
@@ -69,12 +73,49 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Hours per week
-          <Field<string>
-            
-          >
 
-          </Field> */}
+          {/* TODO: Hours per week */}
+          <Field<string>
+            name="hoursPerWeek"
+            listenTo={['interestEmploymentType']}
+            initialValue={savedForm && savedForm.hoursPerWeek}
+            onSubmitValidate={z.string({
+              required_error: 'Hours per week is required',
+              invalid_type_error: 'Hours must be a string',
+            })}
+            onChangeValidate={z.string({
+              required_error: 'Hours is required',
+              invalid_type_error: 'Hours must be a string',
+            })}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <FreeText
+                    disabled={
+                      employmentTypeRef.current?.value.length === 1 &&
+                      employmentTypeRef.current?.value[0] === 'full'
+                    }
+                    labelClassName={
+                      employmentTypeRef.current?.value.length === 1 &&
+                      employmentTypeRef.current?.value[0] === 'full'
+                        ? 'text-gray-2'
+                        : ''
+                    }
+                    name="input-hoursPerWeek"
+                    label="Hours per week you are able to commit (optional)"
+                    placeholder="Approximate number of hours"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
+
           {/* TODO: Roles */}
           {/* TODO: Location */}
           {/* TODO: Reloaction*/}

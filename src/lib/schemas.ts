@@ -33,9 +33,7 @@ export const validations = {
   }),
 };
 
-{
-  /* This makes phone number required if sms or whatsapp are selected in preferredContact */
-}
+/* This makes phone number required if sms or whatsapp are selected in preferredContact */
 export const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
   const isValid = Promise.resolve(true);
   const preferredContactVal = f.getFieldValue('preferredContact')?.value;
