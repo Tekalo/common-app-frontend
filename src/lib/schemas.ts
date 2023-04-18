@@ -100,8 +100,8 @@ export const Skills = z.enum([
   'product development',
   'project management',
 ]);
-const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
-const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure']);
+export const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
+export const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure']);
 const WorkAuthorization = z.enum(['authorized', 'sponsorship']);
 const ReferenceAttribution = z.enum([
   'website',
@@ -112,7 +112,10 @@ const ReferenceAttribution = z.enum([
   'other',
 ]);
 
-export const EmploymentType = z.enum(['full', 'part']);
+export const EmploymentType = z.enum([
+  'full-time employment',
+  'part-time/short term opportunities',
+]);
 
 const ApplicantRequestBodySchema = z.object({
   name: z.string(),

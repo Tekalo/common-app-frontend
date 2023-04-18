@@ -2,7 +2,8 @@ import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
-import { EmploymentType } from '@/lib/schemas';
+import SingleSelect from '@/components/input/singleSelect/SingleSelect';
+import { EmploymentType, OpenToRelocate } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
@@ -13,11 +14,6 @@ export interface IInterestForm {
   handleSave: (_values: unknown) => void;
   savedForm: any;
 }
-
-const EmploymentTypeOptions: Array<ISelectItem> = [
-  { value: 'full', displayText: 'Full-time employment' },
-  { value: 'part', displayText: 'Part-time/short term opportunities' },
-];
 
 const RoleOptions: Array<ISelectItem> = [
   {
@@ -54,6 +50,14 @@ const RoleOptions: Array<ISelectItem> = [
     displayText: 'UX researcher',
   },
 ];
+
+// write a function creatOptionList that accepts a zod enum array and returns an array of ISelectItem
+const createOptionList = (enumOptions: Array<string>): Array<ISelectItem> => {
+  return enumOptions.map((option: string) => ({
+    value: option,
+    displayText: option[0].toUpperCase() + option.slice(1),
+  }));
+};
 
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,
@@ -97,7 +101,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}
-                    selectOptions={EmploymentTypeOptions}
+                    selectOptions={createOptionList(EmploymentType.options)}
                   />
                   <div className="mt-2 text-left text-component-extra-small-helper-text">
                     {
@@ -209,7 +213,31 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Reloaction*/}
+          {/* Reloaction*/}
+          <Field<string>
+            name="openToRelocate"
+            initialValue={savedForm && savedForm.openToRelocate}
+            onSubmitValidate={OpenToRelocate}
+            onChangeValidate={OpenToRelocate}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <SingleSelect
+                    name="input-openToRelocate"
+                    labelText="Open to relocating?"
+                    placeholder="Choose one"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    listOptions={createOptionList(OpenToRelocate.options)}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Remote */}
           {/* TODO: Salary*/}
           {/* TODO: Causes */}
