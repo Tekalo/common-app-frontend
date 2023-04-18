@@ -9,7 +9,7 @@ import { Field, Form } from 'houseform';
 import { useState } from 'react';
 import { z } from 'zod';
 
-export interface IExperienceInterestForm {
+export interface IInterestForm {
   handleSubmit: (_values: unknown) => void;
 }
 
@@ -90,9 +90,7 @@ const SkillOptions: Array<ISelectItem> = [
 // TODO: Save should display a modal with save status
 // TODO: Submit should run validation on the form and display errors
 
-const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
-  handleSubmit,
-}) => {
+const InterestForm: React.FC<IInterestForm> = ({ handleSubmit }) => {
   const [isLastPage, setisLastPage] = useState(false);
 
   const timelineItems: Array<ITimelineItem> = [
@@ -490,4 +488,4 @@ const ExperienceInterestForm: React.FC<IExperienceInterestForm> = ({
   );
 };
 
-export default ExperienceInterestForm;
+export default InterestForm;
