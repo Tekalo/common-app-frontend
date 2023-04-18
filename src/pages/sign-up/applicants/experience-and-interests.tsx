@@ -2,6 +2,7 @@ import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/applicants/experienceForm/ExperienceForm';
+import InterestForm from '@/sections/sign-up/applicants/interestForm/InterestForm';
 import router from 'next/router';
 import { useState } from 'react';
 
@@ -83,8 +84,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
       {/* Form Area */}
       <div className="col-span-4 col-start-5 space-y-8">
         {isInterestFormVisible ? (
-          // <InterestForm handleSubmit={handleNext} />
-          <div className="">Hello there!</div>
+          <InterestForm
+            savedForm={formValues}
+            handleSubmit={handleNext}
+            handleSave={handleSave}
+          />
         ) : (
           <ExperienceForm
             savedForm={formValues}
