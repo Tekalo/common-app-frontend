@@ -10,7 +10,6 @@ export interface IRankChoice {
 export interface RankChoiceItem {
   text: string;
   value: string;
-  index: number;
 }
 
 const RankChoice: React.FC<IRankChoice> = ({ label, name, items }) => {
