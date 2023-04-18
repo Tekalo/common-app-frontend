@@ -5,7 +5,8 @@ export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   label: string;
   disabled?: boolean;
   outlined?: boolean;
-  onClick(): void;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button: React.FC<IButton> = ({
@@ -15,6 +16,7 @@ const Button: React.FC<IButton> = ({
   disabled,
   outlined,
   className,
+  type,
 }) => {
   const BASE = `group min-w-[118px] flex h-12 flex-row content-center
                 items-center justify-center rounded font-sans
@@ -29,6 +31,7 @@ const Button: React.FC<IButton> = ({
 
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={outlined ? OUTLINED : DEFAULT}

@@ -64,7 +64,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // Saves form responses to parent state without submission
-  const handleSave = () => {};
+  const handleSave = (values: any) => {
+    setFormValues(values);
+  };
 
   return (
     <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
@@ -85,7 +87,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <div className="">Hello there!</div>
         ) : (
           <ExperienceForm
-            values={formValues}
+            savedForm={formValues}
             handleSubmit={handleNext}
             handleSave={handleSave}
           />
