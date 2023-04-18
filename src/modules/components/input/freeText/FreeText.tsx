@@ -28,7 +28,7 @@ const FreeText: React.FC<IFreeText> = ({
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`${labelClassName} text-black-text} relative flex items-center text-component-extra-small`}
+        className={`${labelClassName} flex items-center text-component-extra-small text-black-text`}
         htmlFor={name}
       >
         {label}

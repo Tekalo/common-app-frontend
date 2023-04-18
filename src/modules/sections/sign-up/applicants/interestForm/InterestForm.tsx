@@ -110,7 +110,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-
           {/* Hours per week */}
           <Field<string>
             name="hoursPerWeek"
@@ -152,7 +151,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-
           {/* Roles */}
           <Field<string[]>
             name="interestRoles"
@@ -180,7 +178,37 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Location */}
+
+          {/* Location */}
+          <Field<string>
+            name="currentLocation"
+            initialValue={savedForm && savedForm.currentLocation}
+            onSubmitValidate={z.string({
+              required_error: 'Current location is required',
+              invalid_type_error: 'Current location must be a string',
+            })}
+            onChangeValidate={z.string({
+              required_error: 'Current location is required',
+              invalid_type_error: 'Current location must be a string',
+            })}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <FreeText
+                    name="input-currentLocation"
+                    label="Current location"
+                    placeholder="City, state and/or country"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Reloaction*/}
           {/* TODO: Remote */}
           {/* TODO: Salary*/}
@@ -193,20 +221,20 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* TODO: Previous XP*/}
           {/* TODO: Unlimited Resources*/}
           {/* TODO: Reference*/}
-
-          <Button
-            className="mt-14 w-full text-component-large"
-            label="Save your progress"
-            type="button"
-            outlined
-            onClick={doSave}
-          />
-
-          <Button
-            className="mt-4 w-full text-component-large"
-            label="Submit"
-            type="submit"
-          />
+          <div className="pt-2">
+            <Button
+              className="mt-14 w-full text-component-large"
+              label="Save your progress"
+              type="button"
+              outlined
+              onClick={doSave}
+            />
+            <Button
+              className="mt-4 w-full text-component-large"
+              label="Submit"
+              type="submit"
+            />
+          </div>
         </form>
       )}
     </Form>

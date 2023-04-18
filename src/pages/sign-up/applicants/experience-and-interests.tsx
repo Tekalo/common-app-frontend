@@ -66,6 +66,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   // Saves form responses to parent state without submission
   const handleSave = (values: any) => {
+    // TODO: Open a modal to confirm save
     setFormValues({ ...formValues, ...values });
   };
 

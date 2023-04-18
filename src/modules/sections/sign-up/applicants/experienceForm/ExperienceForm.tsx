@@ -108,6 +108,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             e.preventDefault();
             submit();
           }}
+          className="space-y-8"
         >
           {/* EXPERIENCE FORM FIELDS */}
           {/* Current Role */}
@@ -420,19 +421,21 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               );
             }}
           </Field>
-          <Button
-            className="mt-14 w-full text-component-large"
-            label="Save your progress"
-            type="button"
-            outlined
-            onClick={doSave}
-          />
+          <div className="pt-2">
+            <Button
+              className="w-full text-component-large"
+              label="Save your progress"
+              type="button"
+              outlined
+              onClick={doSave}
+            />
 
-          <Button
-            className="mt-4 w-full text-component-large"
-            label="Next"
-            type="submit"
-          />
+            <Button
+              className="mt-4 w-full text-component-large"
+              label="Next"
+              type="submit"
+            />
+          </div>
         </form>
       )}
     </Form>
