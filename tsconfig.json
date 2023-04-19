@@ -18,6 +18,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["src/modules/components/*"],
+      "@/constants/*": ["src/modules/constants/*"],
       "@/sections/*": ["src/modules/sections/*"],
       "@/layouts/*": ["src/modules/layouts/*"],
       "@/api/*": ["./src/api/*"],

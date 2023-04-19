@@ -1,9 +1,12 @@
+import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
-
+import { DndProvider } from 'react-dnd';
+import { Preview } from 'react-dnd-preview';
+import { TouchBackend } from 'react-dnd-touch-backend';
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
@@ -41,7 +44,13 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         )}
         showDialog
       >
-        {getLayout(<Component {...pageProps} />)}
+        <DndProvider
+          backend={TouchBackend}
+          options={{ enableMouseEvents: true }}
+        >
+          {getLayout(<Component {...pageProps} />)}
+          <Preview generator={RankChoiceCard.generatePreview} />
+        </DndProvider>
       </Sentry.ErrorBoundary>
     </Auth0Provider>
   );
