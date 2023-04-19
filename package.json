@@ -37,6 +37,7 @@
   "homepage": "https://github.com/schmidtfutures/common-app-frontend#readme",
   "dependencies": {
     "@auth0/auth0-react": "^2.0.1",
+    "@cloudflare/next-on-pages": "^0.8.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@sentry/react": "^7.48.0",
@@ -50,7 +51,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^0.8.0",
     "@cloudflare/workers-types": "^4.20230404.0",
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
