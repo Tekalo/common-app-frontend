@@ -8,10 +8,10 @@ const base: IRankChoice = {
   label,
   name,
   rankOptions: [
-    { text: 'Climate Change', value: 'climate' },
-    { text: 'Environment', value: 'environment' },
-    { text: 'Human rights & social equality', value: 'humanRights' },
-    { text: 'International Development', value: 'intDev' },
+    { displayText: 'Climate Change', value: 'climate' },
+    { displayText: 'Environment', value: 'environment' },
+    { displayText: 'Human rights & social equality', value: 'humanRights' },
+    { displayText: 'International Development', value: 'intDev' },
   ],
 };
 
@@ -22,14 +22,14 @@ const empty: IRankChoice = {
 
 const one: IRankChoice = {
   ...base,
-  rankOptions: [{ text: 'Climate Change', value: 'climate' }],
+  rankOptions: [{ displayText: 'Climate Change', value: 'climate' }],
 };
 
 const two: IRankChoice = {
   ...base,
   rankOptions: [
-    { text: 'Climate Change', value: 'climate' },
-    { text: 'Environment', value: 'environment' },
+    { displayText: 'Climate Change', value: 'climate' },
+    { displayText: 'Environment', value: 'environment' },
   ],
 };
 
