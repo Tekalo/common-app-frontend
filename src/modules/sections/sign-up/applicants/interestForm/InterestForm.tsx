@@ -62,6 +62,45 @@ const RoleOptions: Array<ISelectItem> = [
   },
 ];
 
+const CauseOptions: Array<ISelectItem> = [
+  {
+    value: 'climate change',
+    displayText: 'Climate change',
+  },
+  {
+    value: 'environment',
+    displayText: 'Environment',
+  },
+  {
+    value: 'human rights & social equality',
+    displayText: 'Human rights & social equality',
+  },
+  {
+    value: 'international development',
+    displayText: 'International development',
+  },
+  {
+    value: 'education',
+    displayText: 'Education',
+  },
+  {
+    value: 'health & well being',
+    displayText: 'Health & well-being',
+  },
+  {
+    value: 'government tech',
+    displayText: 'Government tech',
+  },
+  {
+    value: 'tech policy',
+    displayText: 'Tech policy',
+  },
+  {
+    value: 'trust & safety',
+    displayText: 'Trust & safety',
+  },
+];
+
 // Helper to create option selects
 const createOptionList = (enumOptions: Array<string>): Array<ISelectItem> => {
   return enumOptions.map((option: string) => ({
@@ -303,8 +342,35 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Causes */}
+          {/* Causes */}
+          <Field<string[]>
+            name="interestCauses"
+            initialValue={(savedForm && savedForm.interestCauses) || []}
+            onSubmitValidate={z.array(z.string())}
+            onChangeValidate={z.array(z.string())}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <MultiSelect
+                    name="input-interestCauses"
+                    label="Which causes are you interested in hearing opportunities for?"
+                    placeholder="Choose all that apply"
+                    selectionLabelSingle=" Cause selected"
+                    selectionLabelMulti=" Causes selected"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    selectOptions={CauseOptions}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Cause Rank*/}
+          <div>TODO: Cause Rank Component</div>
           {/* TODO: Other Causes*/}
           {/* TODO: Work Auth*/}
           {/* TODO: Gov Opps*/}
