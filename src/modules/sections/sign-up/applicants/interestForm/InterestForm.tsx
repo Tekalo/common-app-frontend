@@ -3,7 +3,7 @@ import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
-import { EmploymentType, OpenToRelocate, Roles } from '@/lib/schemas';
+import { EmploymentType, OpenToRelocate } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
@@ -14,6 +14,53 @@ export interface IInterestForm {
   handleSave: (_values: unknown) => void;
   savedForm: any;
 }
+
+const EmploymentOptions: Array<ISelectItem> = [
+  {
+    value: 'full',
+    displayText: 'Full-time employment',
+  },
+  {
+    value: 'part',
+    displayText: 'Part-time/short term opportunities',
+  },
+];
+
+const RoleOptions: Array<ISelectItem> = [
+  {
+    value: 'data analyst',
+    displayText: 'Data analyst',
+  },
+  {
+    value: 'product manager',
+    displayText: 'Product manager',
+  },
+  {
+    value: 'software engineer',
+    displayText: 'Software engineer',
+  },
+  {
+    value: 'software engineeer backend',
+    displayText: 'Software engineer - backend',
+  },
+  {
+    value: 'software engineer frontend',
+    displayText: 'Software engineer - frontend',
+  },
+  {
+    value: 'product designer',
+    displayText: 'Product designer',
+  },
+
+  {
+    value: 'ux/ui designer',
+    displayText: 'UX/UI designer',
+  },
+  {
+    value: 'ux researcher',
+    displayText: 'UX researcher',
+  },
+];
 
 // write a function creatOptionList that accepts a zod enum array and returns an array of ISelectItem
 const createOptionList = (enumOptions: Array<string>): Array<ISelectItem> => {
@@ -65,7 +112,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}
-                    selectOptions={createOptionList(EmploymentType.options)}
+                    selectOptions={EmploymentOptions}
                   />
                   <div className="mt-2 text-left text-component-extra-small-helper-text">
                     {
@@ -123,8 +170,8 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<string[]>
             name="interestRoles"
             initialValue={(savedForm && savedForm.interestRoles) || []}
-            onSubmitValidate={Roles}
-            onChangeValidate={Roles}
+            onSubmitValidate={z.array(z.string())}
+            onChangeValidate={z.array(z.string())}
           >
             {({ value, setValue, onBlur, errors }) => {
               return (
@@ -138,7 +185,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}
-                    selectOptions={createOptionList(Roles.options)}
+                    selectOptions={RoleOptions}
                   />
                   {isSubmitted &&
                     errors.map((error) => <p key={error}>{error}</p>)}
