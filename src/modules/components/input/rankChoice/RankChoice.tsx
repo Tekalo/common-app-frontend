@@ -1,4 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
+import { RankChoiceItem } from '@/lib/types';
 import update from 'immutability-helper';
 import { useCallback, useState } from 'react';
 
@@ -8,14 +9,10 @@ export interface IRankChoice {
   items: RankChoiceItem[];
 }
 
-export interface RankChoiceItem {
-  text: string;
-  value: string;
-}
 const RankChoice: React.FC<IRankChoice> = ({ label, name, items }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [cards, setCards] = useState(
-    items.length ? items : Array(3).fill({ text: '', value: '' })
+    items.length ? items : Array(3).fill({ displayText: '', value: '' })
   );
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -30,14 +27,14 @@ const RankChoice: React.FC<IRankChoice> = ({ label, name, items }) => {
   }, []);
 
   const renderCard = useCallback(
-    (card: { value: string; text: string }, index: number) => {
+    (card: { value: string; displayText: string }, index: number) => {
       return (
         <RankChoiceCard
           disabled={items.length < 2}
           key={card.value}
           index={index}
           value={card.value}
-          text={card.text}
+          text={card.displayText}
           moveCard={moveCard}
           setIsDragging={setIsDragging}
           otherIsDragging={isDragging}

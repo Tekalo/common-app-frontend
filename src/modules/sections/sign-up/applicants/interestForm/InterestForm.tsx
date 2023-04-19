@@ -411,7 +411,29 @@ const InterestForm: React.FC<IInterestForm> = ({
             }}
           </Field>
           {/* TODO: Cause Rank*/}
-          <div>TODO: Cause Rank Component</div>
+          {/* <Field<string[]>
+            name="interestCauses"
+            initialValue={(savedForm && savedForm.interestCauses) || []}
+            onSubmitValidate={z.array(z.string())}
+            onChangeValidate={z.array(z.string())}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <RankChoice
+                    name="input-interestCauses"
+                    label="Which causes are you interested in hearing opportunities for?"
+                    items={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    selectOptions={CauseOptions}
+                  />
+                  {printErrorMessages(isSubmitted, errors)}
+                </>
+              );
+            }}
+          </Field> */}
+
           {/* Other Causes*/}
           <Field<string>
             name="otherCauses"
