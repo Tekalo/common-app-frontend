@@ -43,8 +43,8 @@ dependencies:
 
 devDependencies:
   '@cloudflare/next-on-pages':
-    specifier: ^0.7.0
-    version: 0.7.0(vercel@28.19.0)
+    specifier: ^0.8.0
+    version: 0.8.0(vercel@28.19.0)
   '@cloudflare/workers-types':
     specifier: ^4.20230404.0
     version: 4.20230404.0
@@ -1619,8 +1619,8 @@ packages:
       mime: 3.0.0
     dev: false
 
-  /@cloudflare/next-on-pages@0.7.0(vercel@28.19.0):
-    resolution: {integrity: sha512-AhsBexY9+UjoJDa6XxFjxdSEbPUAl8yXbRWJUc8+KTZBo2kd4ti4aJ50H+Zl1XF9JOjHPwdPYnnxHBF2zXLhww==}
+  /@cloudflare/next-on-pages@0.8.0(vercel@28.19.0):
+    resolution: {integrity: sha512-louT+EtC8i+x0F+iGk7BYm7GIWerqf4f3Uq9QHkH16TivY+07YYXa/4gidUmnSUxmoM3NZbRFPrmu/YGzdpRiw==}
     hasBin: true
     peerDependencies:
       vercel: ^28.0.2
@@ -2670,7 +2670,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.3.8
+      semver: 7.5.0
       tar: 6.1.13
     transitivePeerDependencies:
       - encoding
@@ -3016,7 +3016,7 @@ packages:
     resolution: {integrity: sha512-8KG5RD0GVP4ydEzRn/I4BNDuxDtqVbOdm8675T49OIG/NGhaK0pjPX7ZcDlvKYbA+ulvVK3ztfcF4uBdOxuJbQ==}
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.3.8
+      semver: 7.5.0
     dev: true
 
   /@npmcli/move-file@1.1.2:
@@ -5663,7 +5663,7 @@ packages:
       recast: 0.21.5
       remark-frontmatter: 4.0.1
       remark-mdx-frontmatter: 1.1.1
-      semver: 7.3.8
+      semver: 7.5.0
       sort-package-json: 1.57.0
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
@@ -9584,7 +9584,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.2.12
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
@@ -15300,7 +15300,7 @@ packages:
         optional: true
     dependencies:
       '@types/node': 18.13.0
-      esbuild: 0.17.6
+      esbuild: 0.17.17
       postcss: 8.4.22
       resolve: 1.22.2
       rollup: 3.20.6
