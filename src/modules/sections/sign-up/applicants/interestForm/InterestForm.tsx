@@ -3,7 +3,12 @@ import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
-import { EmploymentType, OpenToRelocate, OpenToRemote } from '@/lib/schemas';
+import {
+  EmploymentType,
+  OpenToRelocate,
+  OpenToRemote,
+  WorkAuthorization,
+} from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
@@ -98,6 +103,18 @@ const CauseOptions: Array<ISelectItem> = [
   {
     value: 'trust & safety',
     displayText: 'Trust & safety',
+  },
+];
+
+const AuthorizationOptions: Array<ISelectItem> = [
+  {
+    value: 'authorized',
+    displayText: 'I am authorized to work in the U.S.',
+  },
+  {
+    value: 'sponsorship',
+    displayText:
+      'I will now or in the future require sponsorship to work in the U.S.',
   },
 ];
 
@@ -371,8 +388,59 @@ const InterestForm: React.FC<IInterestForm> = ({
           </Field>
           {/* TODO: Cause Rank*/}
           <div>TODO: Cause Rank Component</div>
-          {/* TODO: Other Causes*/}
+          {/* Other Causes*/}
+          <Field<string>
+            name="otherCauses"
+            initialValue={savedForm && savedForm.otherCauses}
+            onSubmitValidate={z.string({
+              invalid_type_error: 'Other causes must be a string',
+            })}
+            onChangeValidate={z.string({
+              invalid_type_error: 'Other causes must be a string',
+            })}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <FreeText
+                    name="input-otherCauses"
+                    label="Other causes (optional)"
+                    placeholder="Additional causes separated by commas"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Work Auth*/}
+          <Field<string>
+            name="workAuthorization"
+            initialValue={savedForm && savedForm.workAuthorization}
+            onSubmitValidate={WorkAuthorization}
+            onChangeValidate={WorkAuthorization}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <SingleSelect
+                    name="input-workAuthorization"
+                    labelText="Work authorization (optional)"
+                    placeholder="Choose one"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    listOptions={AuthorizationOptions}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Gov Opps*/}
           {/* TODO: What Gov*/}
           {/* TODO: Previous XP*/}
