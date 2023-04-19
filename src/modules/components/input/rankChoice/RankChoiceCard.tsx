@@ -9,7 +9,7 @@ const ItemTypes = {
   CARD: 'card',
 };
 
-export interface CardProps {
+export interface IRankChoiceCard {
   index: number;
   text: string;
   value: string;
@@ -22,30 +22,13 @@ const baseCardStyles =
   'text-black flex flex-auto justify-between rounded border bg-white p-[7px] text-component-medium';
 const previewStyles = `${baseCardStyles} self-stretch border-blue-4 border-dashed`;
 
-export const generatePreview: PreviewGenerator<CardProps, Element> = ({
-  item,
-  style,
-}) => {
-  return (
-    <div
-      style={style}
-      className={`${baseCardStyles} ml-4 w-[80vw] max-w-[320px] cursor-grabbing border-gray-2 shadow-md`}
-    >
-      <div className="flex-auto self-stretch">
-        {item.text ? item.text : ' '}
-      </div>
-      <div>{HandleSvg}</div>
-    </div>
-  );
-};
-
 interface DragItem {
   index: number;
   id: string;
   type: string;
 }
 
-const RankChoiceCard: FC<CardProps> = ({
+let RankChoiceCard: FC<IRankChoiceCard> = ({
   value,
   text,
   index,
@@ -109,12 +92,12 @@ const RankChoiceCard: FC<CardProps> = ({
     },
   });
 
+  drag(drop(ref));
+
   const numberStateClasses = value ? 'text-gray-1' : 'text-gray-2';
   const draggingClasses = `${
     isDragging || otherIsDragging ? 'cursor-grabbing' : 'cursor-grab'
   } active:cursor-grabbing`;
-
-  drag(drop(ref));
 
   return (
     <div
@@ -148,4 +131,23 @@ const RankChoiceCard: FC<CardProps> = ({
   );
 };
 
-export default RankChoiceCard;
+const generatePreview: PreviewGenerator<IRankChoiceCard, Element> = ({
+  item,
+  style,
+}) => {
+  return (
+    <div
+      style={style}
+      className={`${baseCardStyles} ml-4 w-[80vw] max-w-[320px] cursor-grabbing border-gray-2 shadow-md`}
+    >
+      <div className="flex-auto self-stretch">
+        {item.text ? item.text : ' '}
+      </div>
+      <div>{HandleSvg}</div>
+    </div>
+  );
+};
+
+export default RankChoiceCard = Object.assign(RankChoiceCard, {
+  generatePreview,
+});

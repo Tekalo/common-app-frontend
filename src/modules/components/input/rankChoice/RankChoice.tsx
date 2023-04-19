@@ -1,6 +1,6 @@
+import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
 import update from 'immutability-helper';
 import { useCallback, useState } from 'react';
-import RankChoiceCard from './RankChoiceCard';
 
 export interface IRankChoice {
   label: string;

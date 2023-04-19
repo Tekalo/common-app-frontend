@@ -1,4 +1,4 @@
-import { generatePreview } from '@/components/input/rankChoice/RankChoiceCard';
+import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -49,7 +49,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           options={{ enableMouseEvents: true }}
         >
           {getLayout(<Component {...pageProps} />)}
-          <Preview generator={generatePreview} />
+          <Preview generator={RankChoiceCard.generatePreview} />
         </DndProvider>
       </Sentry.ErrorBoundary>
     </Auth0Provider>
