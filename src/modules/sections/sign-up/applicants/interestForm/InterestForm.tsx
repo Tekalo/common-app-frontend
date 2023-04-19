@@ -3,7 +3,7 @@ import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
-import { EmploymentType, OpenToRelocate } from '@/lib/schemas';
+import { EmploymentType, OpenToRelocate, OpenToRemote } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
@@ -193,7 +193,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-
           {/* Location */}
           <Field<string>
             name="currentLocation"
@@ -249,7 +248,31 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Remote */}
+          {/* Remote */}
+          <Field<string>
+            name="openToRemote"
+            initialValue={savedForm && savedForm.openToRemote}
+            onSubmitValidate={OpenToRemote}
+            onChangeValidate={OpenToRemote}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <SingleSelect
+                    name="input-openToRemote"
+                    labelText="Open to remote?"
+                    placeholder="Choose one"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    listOptions={createOptionList(OpenToRemote.options)}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Salary*/}
           {/* TODO: Causes */}
           {/* TODO: Cause Rank*/}
