@@ -33,6 +33,7 @@ const RankChoice: React.FC<IRankChoice> = ({ label, name, items }) => {
     (card: { value: string; text: string }, index: number) => {
       return (
         <RankChoiceCard
+          disabled={items.length < 2}
           key={card.value}
           index={index}
           value={card.value}

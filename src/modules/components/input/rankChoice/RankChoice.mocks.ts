@@ -20,7 +20,22 @@ const empty: IRankChoice = {
   items: [],
 };
 
+const one: IRankChoice = {
+  ...base,
+  items: [{ text: 'Climate Change', value: 'climate' }],
+};
+
+const two: IRankChoice = {
+  ...base,
+  items: [
+    { text: 'Climate Change', value: 'climate' },
+    { text: 'Environment', value: 'environment' },
+  ],
+};
+
 export const mockRankChoiceProps = {
   base,
   empty,
+  one,
+  two,
 };

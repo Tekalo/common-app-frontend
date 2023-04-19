@@ -10,10 +10,11 @@ const ItemTypes = {
 };
 
 export interface IRankChoiceCard {
+  disabled: boolean;
   index: number;
+  otherIsDragging: boolean;
   text: string;
   value: string;
-  otherIsDragging: boolean;
   moveCard: (_dragIndex: number, _hoverIndex: number) => void;
   setIsDragging: (_isDragging: boolean) => void;
 }
@@ -29,10 +30,11 @@ interface DragItem {
 }
 
 let RankChoiceCard: FC<IRankChoiceCard> = ({
-  value,
-  text,
+  disabled,
   index,
   otherIsDragging,
+  text,
+  value,
   moveCard,
   setIsDragging,
 }) => {
@@ -101,7 +103,7 @@ let RankChoiceCard: FC<IRankChoiceCard> = ({
 
   return (
     <div
-      ref={value ? ref : null}
+      ref={disabled ? null : ref}
       data-value={value}
       className={`flex space-y-2`}
       data-handler-id={handlerId}
@@ -116,7 +118,7 @@ let RankChoiceCard: FC<IRankChoiceCard> = ({
       <div
         className={`${value && !isDragging ? baseCardStyles : previewStyles} ${
           value ? '' : 'border-blue-4'
-        } ${value ? draggingClasses : 'cursor-default'}
+        } ${value && !disabled ? draggingClasses : 'cursor-default'}
         `}
       >
         {/* Text container */}

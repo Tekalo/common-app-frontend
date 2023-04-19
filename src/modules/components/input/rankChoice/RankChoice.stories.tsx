@@ -28,3 +28,9 @@ export const Default = {
 export const Empty = {
   args: { ...mockRankChoiceProps.empty },
 };
+export const One = {
+  args: { ...mockRankChoiceProps.one },
+};
+export const Two = {
+  args: { ...mockRankChoiceProps.two },
+};
