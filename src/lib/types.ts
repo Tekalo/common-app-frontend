@@ -32,6 +32,11 @@ export interface ISelectItem {
   displayText: string;
 }
 
+export interface RankChoiceItem {
+  displayText: string;
+  value: string;
+}
+
 // Types
 export type IconType = (_props: IconTypeProps) => React.ReactNode;
 
