@@ -62,7 +62,7 @@ const RoleOptions: Array<ISelectItem> = [
   },
 ];
 
-// write a function creatOptionList that accepts a zod enum array and returns an array of ISelectItem
+// Helper to create option selects
 const createOptionList = (enumOptions: Array<string>): Array<ISelectItem> => {
   return enumOptions.map((option: string) => ({
     value: option,
@@ -273,7 +273,36 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Salary*/}
+          {/* Salary*/}
+          <Field<string>
+            name="desiredSalary"
+            initialValue={savedForm && savedForm.desiredSalary}
+            onSubmitValidate={z.string({
+              required_error: 'Salary is required',
+              invalid_type_error: 'Salary must be a string',
+            })}
+            onChangeValidate={z.string({
+              required_error: 'Salary is required',
+              invalid_type_error: 'Salary must be a string',
+            })}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <FreeText
+                    name="input-desiredSalary"
+                    label="Desired salary (optional)"
+                    placeholder="Enter a range"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                  />
+                  {isSubmitted &&
+                    errors.map((error) => <p key={error}>{error}</p>)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Causes */}
           {/* TODO: Cause Rank*/}
           {/* TODO: Other Causes*/}
