@@ -15,9 +15,11 @@ export interface IMultiSelect {
   selectOptions: ISelectItem[];
   setValue: (_val: string[]) => void;
   onBlur?: () => void;
+  disabled?: boolean;
 }
 
 const MultiSelect: React.FC<IMultiSelect> = ({
+  disabled,
   name,
   value,
   placeholder,
@@ -32,16 +34,24 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   onBlur,
 }) => {
   return (
-    <Listbox value={value} onChange={setValue} name={name} multiple={true}>
+    <Listbox
+      disabled={disabled}
+      value={value}
+      onChange={setValue}
+      name={name}
+      multiple={true}
+    >
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label
-            className={`text-component-extra-small text-black-text ${labelStyles}}`}
+            className={`text-component-extra-small ${
+              disabled ? 'text-gray-2' : 'text-black-text'
+            } ${labelStyles}}`}
             htmlFor={name}
           >
             {label}
           </Listbox.Label>
-          <div className="mt-2">
+          <div className={`mt-2 ${disabled ? 'bg-gray-4' : ''}`}>
             <Listbox.Button
               name={name}
               className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${

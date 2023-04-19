@@ -2,6 +2,7 @@ import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import ListBox from '@/components/input/singleSelect/SingleSelect';
+import { printErrorMessages } from '@/lib/helpers';
 import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
 import { Field, Form } from 'houseform';
 import Link from 'next/link';
@@ -41,21 +42,6 @@ const preferredContactOptions = [
     displayText: 'Whatsapp message',
   },
 ];
-
-const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
-  const errorMessage =
-    isSubmitted && errors.length ? (
-      <p
-        className={'mt-1 text-left text-component-small text-red-error'}
-        key={errors[0]}
-      >
-        {errors[0]}
-      </p>
-    ) : (
-      ''
-    );
-  return errorMessage;
-};
 
 const SignupForm: React.FC<ISignupForm> = ({
   handleSubmit,
@@ -146,9 +132,10 @@ const SignupForm: React.FC<ISignupForm> = ({
                 <div className="mt-8 md:w-[120%]">
                   <RadioGroup
                     value={value}
-                    setValue={setValue}
+                    onChange={setValue}
                     radioOptions={searchStatusOptions}
                     legendText="Which describes you best?"
+                    fieldSetClassName="space-y-3"
                   />
                   {printErrorMessages(isSubmitted, errors)}
                 </div>

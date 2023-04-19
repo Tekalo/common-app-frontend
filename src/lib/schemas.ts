@@ -71,6 +71,8 @@ export const SearchStatus = z.enum(['active', 'passive', 'future'], {
   errorMap: defaultEnumErrorMap,
 });
 
+export const InterestGovtEmplTypes = z.enum(['paid', 'unpaid']);
+
 export const YOE = z.enum([
   '< 1',
   '1',
@@ -173,6 +175,7 @@ const ApplicantSubmissionRequestBodySchema = z.object({
   otherCauses: z.string().nullable().optional(),
   workAuthorization: WorkAuthorization,
   interestGovt: z.boolean(),
+  interestGovtEmplTypes: z.array(InterestGovtEmplTypes).optional(),
   previousImpactExperience: z.boolean(),
   essayResponse: z.string(),
   referenceAttribution: ReferenceAttribution.nullable().optional(),

@@ -1,8 +1,9 @@
 import { IRadioItem } from '@/lib/types';
 
 export interface IRadioGroup {
+  name?: string;
   value: string;
-  setValue: (_val: string) => void;
+  onChange: (_val: string) => void;
   radioOptions: IRadioItem[];
   onBlur?: () => void;
   legendText?: string;
@@ -14,8 +15,9 @@ export interface IRadioGroup {
 }
 
 const RadioGroup: React.FC<IRadioGroup> = ({
+  name,
   value,
-  setValue,
+  onChange,
   radioOptions,
   legendText,
   fieldSetClassName,
@@ -25,7 +27,7 @@ const RadioGroup: React.FC<IRadioGroup> = ({
   labelClassName,
 }) => {
   return (
-    <fieldset className={`space-y-3 text-left ${fieldSetClassName}`}>
+    <fieldset className={`text-left ${fieldSetClassName}`}>
       <legend
         className={`pb-1 text-component-extra-small text-black-text ${legendClassName}`}
       >
@@ -33,7 +35,7 @@ const RadioGroup: React.FC<IRadioGroup> = ({
       </legend>
       {/* RADIO OPTIONS */}
       {radioOptions.map((option, idx) => (
-        <div className={`flex items-start gap-x-2 ${radioClassName}`} key={idx}>
+        <div className={`flex gap-x-2 ${radioClassName}`} key={idx}>
           <div className="flex h-[16px] w-[16px] items-center justify-center">
             <input
               className={`form-radio h-[16px] w-[16px] 
@@ -43,10 +45,10 @@ const RadioGroup: React.FC<IRadioGroup> = ({
                           checked:focus:bg-blue-2 checked:focus:ring-blue-2 ${inputClassName}`}
               type="radio"
               id={option.value}
-              name="searchStatus"
+              name={`${name}-${option.value}`}
               value={option.value}
               checked={value === option.value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => onChange(e.target.value)}
             />
           </div>
           <label

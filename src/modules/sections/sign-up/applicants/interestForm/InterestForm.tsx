@@ -1,10 +1,13 @@
 import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
+import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
+import { createOptionList, printErrorMessages } from '@/lib/helpers';
 import {
   EmploymentType,
+  InterestGovtEmplTypes,
   OpenToRelocate,
   OpenToRemote,
   WorkAuthorization,
@@ -106,6 +109,40 @@ const CauseOptions: Array<ISelectItem> = [
   },
 ];
 
+const YesNoOptions: Array<ISelectItem> = [
+  {
+    value: 'false',
+    displayText: 'No',
+  },
+  {
+    value: 'true',
+    displayText: 'Yes',
+  },
+];
+
+const YesNoOptions2: Array<ISelectItem> = [
+  {
+    value: 'false',
+    displayText: 'No',
+  },
+  {
+    value: 'true',
+    displayText: 'Yes',
+  },
+];
+
+const USDROptions: Array<ISelectItem> = [
+  {
+    value: 'paid',
+    displayText: 'Paid government jobs with local & state governments',
+  },
+  {
+    value: 'unpaid',
+    displayText:
+      'Volunteer (unpaid) roles with USDR to support government partners',
+  },
+];
+
 const AuthorizationOptions: Array<ISelectItem> = [
   {
     value: 'authorized',
@@ -118,14 +155,6 @@ const AuthorizationOptions: Array<ISelectItem> = [
   },
 ];
 
-// Helper to create option selects
-const createOptionList = (enumOptions: Array<string>): Array<ISelectItem> => {
-  return enumOptions.map((option: string) => ({
-    value: option,
-    displayText: option[0].toUpperCase() + option.slice(1),
-  }));
-};
-
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,
   handleSave,
@@ -133,6 +162,7 @@ const InterestForm: React.FC<IInterestForm> = ({
 }) => {
   const formRef = useRef<FormInstance<Record<string, any>>>(null);
   const employmentTypeRef = useRef<FieldInstance<string[], any>>(null);
+  const govRef = useRef<FieldInstance<string, any>>(null);
 
   const doSave = () => {
     if (formRef.current) {
@@ -175,8 +205,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                       'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
                     }
                   </div>
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -216,8 +245,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -243,8 +271,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     onBlur={onBlur}
                     selectOptions={RoleOptions}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -273,8 +300,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -298,8 +324,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     onBlur={onBlur}
                     listOptions={createOptionList(OpenToRelocate.options)}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -323,8 +348,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     onBlur={onBlur}
                     listOptions={createOptionList(OpenToRemote.options)}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -353,8 +377,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -380,8 +403,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     onBlur={onBlur}
                     selectOptions={CauseOptions}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -410,13 +432,12 @@ const InterestForm: React.FC<IInterestForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
           </Field>
-          {/* TODO: Work Auth*/}
+          {/* Work Auth*/}
           <Field<string>
             name="workAuthorization"
             initialValue={savedForm && savedForm.workAuthorization}
@@ -435,15 +456,106 @@ const InterestForm: React.FC<IInterestForm> = ({
                     onBlur={onBlur}
                     listOptions={AuthorizationOptions}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
           </Field>
-          {/* TODO: Gov Opps*/}
-          {/* TODO: What Gov*/}
+          {/* Gov Interest*/}
+          <Field<string>
+            name="interestGovt"
+            ref={govRef}
+            initialValue={savedForm && savedForm.interestGovt}
+            onSubmitValidate={z.boolean()}
+            onChangeValidate={z.boolean()}
+          >
+            {({ value, setValue, errors }) => {
+              return (
+                <div className="space-y-2">
+                  <div className="text-left text-component-extra-small text-black-text">
+                    {
+                      'Are you interested in U.S. state or local government opportunities?'
+                    }
+                  </div>
+                  <div className="w-[103%] text-left text-p3-mobile text-black-text">
+                    {'By choosing “yes,” you consent to '}
+                    <a
+                      href="https://www.usdigitalresponse.org/about"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline underline-offset-4"
+                    >
+                      {'U.S. Digital Response'}
+                    </a>
+                    {
+                      ' saving a copy of your CommonApp profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.'
+                    }
+                  </div>
+                  <RadioGroup
+                    name="input-interestGovt"
+                    value={govRef.current?.value || ''}
+                    onChange={(val: string) => govRef.current?.setValue(val)}
+                    radioOptions={YesNoOptions}
+                    fieldSetClassName="flex flex-row"
+                    radioClassName="w-[88px]"
+                  />
+                  {printErrorMessages(isSubmitted, errors)}
+                </div>
+              );
+            }}
+          </Field>
+          {/* Gov Opp Type*/}
+          <Field<string[]>
+            name="interestGovtEmplTypes"
+            listenTo={['interestGovt']}
+            initialValue={(savedForm && savedForm.interestGovtEmplTypes) || []}
+            onSubmitValidate={InterestGovtEmplTypes}
+            onChangeValidate={InterestGovtEmplTypes}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <MultiSelect
+                    disabled={govRef.current?.value === 'false' ? true : false}
+                    name="input-interestGovtEmplTypes"
+                    label="Which opportunities from USDR are you interested in?"
+                    placeholder="Choose all that apply"
+                    selectionLabelSingle=" Opportunity selected"
+                    selectionLabelMulti=" Opportunities selected"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    selectOptions={USDROptions}
+                  />
+                  {printErrorMessages(isSubmitted, errors)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Previous XP*/}
+          <Field<string>
+            name="previousImpactExperience"
+            initialValue={savedForm && savedForm.previousImpactExperience}
+            onSubmitValidate={z.boolean()}
+            onChangeValidate={z.boolean()}
+          >
+            {({ value, setValue, errors }) => {
+              return (
+                <>
+                  <RadioGroup
+                    name="input-previousImpactExperience"
+                    value={value}
+                    onChange={(val: string) => setValue(val)}
+                    radioOptions={YesNoOptions2}
+                    legendText="Do you have previous experience working at a non-profit or a public service organization?"
+                    fieldSetClassName="flex flex-row space-y-2"
+                    radioClassName="w-[88px]"
+                  />
+                  {printErrorMessages(isSubmitted, errors)}
+                </>
+              );
+            }}
+          </Field>
           {/* TODO: Unlimited Resources*/}
           {/* TODO: Reference*/}
           <div className="pt-2">
