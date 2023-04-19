@@ -7,7 +7,7 @@ const name = 'causes';
 const base: IRankChoice = {
   label,
   name,
-  items: [
+  rankOptions: [
     { text: 'Climate Change', value: 'climate' },
     { text: 'Environment', value: 'environment' },
     { text: 'Human rights & social equality', value: 'humanRights' },
@@ -17,17 +17,17 @@ const base: IRankChoice = {
 
 const empty: IRankChoice = {
   ...base,
-  items: [],
+  rankOptions: [],
 };
 
 const one: IRankChoice = {
   ...base,
-  items: [{ text: 'Climate Change', value: 'climate' }],
+  rankOptions: [{ text: 'Climate Change', value: 'climate' }],
 };
 
 const two: IRankChoice = {
   ...base,
-  items: [
+  rankOptions: [
     { text: 'Climate Change', value: 'climate' },
     { text: 'Environment', value: 'environment' },
   ],

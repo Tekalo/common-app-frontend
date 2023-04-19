@@ -8,12 +8,12 @@ import { mockRankChoiceProps } from './RankChoice.mocks';
 const DefaultComponent: React.FC<IRankChoice> = ({
   label,
   name,
-  items: options,
+  rankOptions: options,
 }) => {
   return (
     <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
       <div className="m-auto max-w-[351px]">
-        <RankChoice label={label} name={name} items={options} />
+        <RankChoice label={label} name={name} rankOptions={options} />
       </div>
       <Preview generator={RankChoiceCard.generatePreview} />
     </DndProvider>

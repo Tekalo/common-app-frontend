@@ -6,10 +6,16 @@ import { useCallback, useState } from 'react';
 export interface IRankChoice {
   label: string;
   name: string;
-  items: RankChoiceItem[];
+  rankOptions: RankChoiceItem[];
+  value: string[];
+  setValue: (_val: string[]) => void;
 }
 
-const RankChoice: React.FC<IRankChoice> = ({ label, name, items }) => {
+const RankChoice: React.FC<IRankChoice> = ({
+  label,
+  name,
+  rankOptions: items,
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [cards, setCards] = useState(
     items.length ? items : Array(3).fill({ displayText: '', value: '' })
@@ -25,6 +31,10 @@ const RankChoice: React.FC<IRankChoice> = ({ label, name, items }) => {
       })
     );
   }, []);
+
+  // A function at this level that setsValue once the card has finished moving
+  // We update rankChoiceCard to accept that function as a value
+  // and call it when the card is dropped and then use this level's state to get the order of the cards
 
   const renderCard = useCallback(
     (card: { value: string; displayText: string }, index: number) => {

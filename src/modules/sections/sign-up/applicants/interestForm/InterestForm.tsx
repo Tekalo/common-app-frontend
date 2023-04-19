@@ -1,5 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
+import LongText from '@/components/input/longText/LongText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
@@ -14,7 +15,6 @@ import {
   WorkAuthorization,
 } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
-import LongText from '@/modules/components/input/longText/LongText';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
@@ -411,6 +411,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             }}
           </Field>
           {/* TODO: Cause Rank*/}
+          <div>TODO: Implement Rank Choice Component</div>
           {/* <Field<string[]>
             name="interestCauses"
             initialValue={(savedForm && savedForm.interestCauses) || []}
@@ -423,10 +424,9 @@ const InterestForm: React.FC<IInterestForm> = ({
                   <RankChoice
                     name="input-interestCauses"
                     label="Which causes are you interested in hearing opportunities for?"
-                    items={value}
+                    value={value}
                     setValue={setValue}
-                    onBlur={onBlur}
-                    selectOptions={CauseOptions}
+                    rankOptions={CauseOptions}
                   />
                   {printErrorMessages(isSubmitted, errors)}
                 </>
