@@ -117,7 +117,7 @@ export const Roles = z.enum([
 export const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
 export const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure']);
 export const WorkAuthorization = z.enum(['authorized', 'sponsorship']);
-const ReferenceAttribution = z.enum([
+export const ReferenceAttribution = z.enum([
   'website',
   'linkedin',
   'social media',

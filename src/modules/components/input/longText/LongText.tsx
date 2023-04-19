@@ -22,7 +22,7 @@ const LongText: React.FC<ILongText> = ({
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`text-component-extra-small text-black-text ${labelClassName}}`}
+        className={`${labelClassName} flex items-center text-component-extra-small text-black-text`}
         htmlFor={name}
       >
         {label}

@@ -10,9 +10,11 @@ import {
   InterestGovtEmplTypes,
   OpenToRelocate,
   OpenToRemote,
+  ReferenceAttribution,
   WorkAuthorization,
 } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
+import LongText from '@/modules/components/input/longText/LongText';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
@@ -532,7 +534,7 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Previous XP*/}
+          {/* Previous XP*/}
           <Field<string>
             name="previousImpactExperience"
             initialValue={savedForm && savedForm.previousImpactExperience}
@@ -556,8 +558,58 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* TODO: Unlimited Resources*/}
-          {/* TODO: Reference*/}
+          {/* Unlimited Resources*/}
+          <Field<string>
+            name="essayResponse"
+            initialValue={savedForm && savedForm.essayResponse}
+            onSubmitValidate={z.string({
+              invalid_type_error: 'Other causes must be a string',
+            })}
+            onChangeValidate={z.string({
+              invalid_type_error: 'Other causes must be a string',
+            })}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <LongText
+                    name="input-essayResponse"
+                    label="If you had unlimited resources, what problem would you choose to solve and why?"
+                    placeholder="Write as much as you’d like, suggested up to 250 words."
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                  />
+                  {printErrorMessages(isSubmitted, errors)}
+                </>
+              );
+            }}
+          </Field>
+          {/* Reference*/}
+          <Field<string>
+            name="referenceAttribution"
+            initialValue={savedForm && savedForm.referenceAttribution}
+            onSubmitValidate={ReferenceAttribution}
+            onChangeValidate={ReferenceAttribution}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <>
+                  <SingleSelect
+                    name="input-referenceAttribution"
+                    labelText="How did you hear about Tekalo?"
+                    placeholder="Choose one"
+                    value={value}
+                    setValue={setValue}
+                    onBlur={onBlur}
+                    listOptions={createOptionList(ReferenceAttribution.options)}
+                  />
+                  {printErrorMessages(isSubmitted, errors)}
+                </>
+              );
+            }}
+          </Field>
+
           <div className="pt-2">
             <Button
               className="mt-14 w-full text-component-large"
