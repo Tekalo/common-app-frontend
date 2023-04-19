@@ -1,4 +1,4 @@
-import { HandleSvg } from '@/modules/constants/svgs';
+import { HandleSvg } from '@/constants/svgs';
 import type { Identifier, XYCoord } from 'dnd-core';
 import type { FC } from 'react';
 import { useRef } from 'react';
@@ -18,6 +18,10 @@ export interface CardProps {
   setIsDragging: (_isDragging: boolean) => void;
 }
 
+const baseCardStyles =
+  'text-black flex flex-auto justify-between rounded border bg-white p-[7px] text-component-medium';
+const previewStyles = `${baseCardStyles} self-stretch border-blue-4 border-dashed`;
+
 export const generatePreview: PreviewGenerator<CardProps, Element> = ({
   item,
   style,
@@ -25,9 +29,11 @@ export const generatePreview: PreviewGenerator<CardProps, Element> = ({
   return (
     <div
       style={style}
-      className={`text-black z-10 flex w-[500px] flex-auto cursor-grabbing justify-between rounded border border-solid border-gray-2 bg-white p-[7px] text-component-medium shadow-md`}
+      className={`${baseCardStyles} ml-4 w-[80vw] max-w-[320px] cursor-grabbing border-gray-2 shadow-md`}
     >
-      {item.text}
+      <div className="flex-auto self-stretch">
+        {item.text ? item.text : ' '}
+      </div>
       <div>{HandleSvg}</div>
     </div>
   );
@@ -104,33 +110,38 @@ const RankChoiceCard: FC<CardProps> = ({
   });
 
   const numberStateClasses = value ? 'text-gray-1' : 'text-gray-2';
-  const textStateClasses = value
-    ? 'border-solid border-gray-2 p-[7px]'
-    : 'border-dashed border-blue-4';
-  const draggingClasses =
-    isDragging || otherIsDragging ? 'cursor-grabbing' : 'cursor-grab';
+  const draggingClasses = `${
+    isDragging || otherIsDragging ? 'cursor-grabbing' : 'cursor-grab'
+  } active:cursor-grabbing`;
 
   drag(drop(ref));
 
   return (
     <div
-      ref={ref}
+      ref={value ? ref : null}
       data-value={value}
       className={`flex space-y-2`}
       data-handler-id={handlerId}
     >
+      {/* The list number */}
       <div
-        className={`w-[24px] flex-initial px-2 pb-1 pt-4 text-component-small ${numberStateClasses}`}
+        className={`w-[24px] flex-initial px-2 pb-1 pt-4 text-p3-desktop ${numberStateClasses}`}
       >
         {index + 1}
       </div>
+      {/* The card containing the text */}
       <div
-        // TODO: Need to pull the base styles out to use in preview
-        className={`text-black flex flex-auto justify-between rounded border bg-white text-component-medium active:cursor-grabbing ${textStateClasses} ${draggingClasses}
-        ${isDragging ? 'opacity-0' : ''}
+        className={`${value && !isDragging ? baseCardStyles : previewStyles} ${
+          value ? '' : 'border-blue-4'
+        } ${value ? draggingClasses : 'cursor-default'}
         `}
       >
-        {text}
+        {/* Text container */}
+        <div className={`flex-auto self-stretch`}>
+          <span className={`${isDragging ? 'hidden' : ''}`}>{text}</span>
+          <span className={`${!isDragging ? 'hidden' : ''}`}> </span>
+        </div>
+        {/* Drag Handle */}
         <div>{HandleSvg}</div>
       </div>
     </div>

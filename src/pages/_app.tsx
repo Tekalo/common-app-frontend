@@ -44,7 +44,10 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         )}
         showDialog
       >
-        <DndProvider backend={TouchBackend}>
+        <DndProvider
+          backend={TouchBackend}
+          options={{ enableMouseEvents: true }}
+        >
           {getLayout(<Component {...pageProps} />)}
           <Preview generator={generatePreview} />
         </DndProvider>
