@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
@@ -427,7 +427,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 className="mt-14 w-full text-component-large"
                 label="Save your progress"
                 type="submit"
-                outlined
+                variant={ButtonVariant.OUTLINED}
                 disabled={isSubmitted && !isValid}
                 onClick={() => submit()}
               />

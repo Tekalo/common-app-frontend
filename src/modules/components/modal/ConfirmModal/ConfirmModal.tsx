@@ -1,13 +1,13 @@
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useRef } from 'react';
 
 export interface IConfirmModal {
   bodyText: string;
-  confirmButtonColor?: string;
-  confirmHoverColor?: string;
-  cancelButtonText: string;
-  confirmButtonText: string;
+  cancelBtnText: string;
+  confirmBtnText: string;
+  confirmBtnVariant?: ButtonVariant;
   headline: string;
   isOpen: boolean;
   closeModal: () => void;
@@ -17,10 +17,9 @@ export interface IConfirmModal {
 
 const ConfirmModal: React.FC<IConfirmModal> = ({
   bodyText,
-  confirmButtonColor,
-  cancelButtonText,
-  confirmButtonText,
-  confirmHoverColor,
+  cancelBtnText,
+  confirmBtnText,
+  confirmBtnVariant,
   headline,
   isOpen,
   closeModal,
@@ -28,8 +27,6 @@ const ConfirmModal: React.FC<IConfirmModal> = ({
   onCancel,
 }) => {
   let headerRef = useRef(null);
-  confirmButtonColor = confirmButtonColor ? confirmButtonColor : 'bg-blue-1';
-  confirmHoverColor = confirmHoverColor ? confirmHoverColor : 'bg-blue-2';
 
   return (
     <Dialog
@@ -59,16 +56,14 @@ const ConfirmModal: React.FC<IConfirmModal> = ({
                 className="cursor-pointer text-component-extra-large"
                 onClick={() => onCancel()}
               >
-                {cancelButtonText}
+                {cancelBtnText}
               </div>
-              <button
-                className={`${confirmButtonColor} group flex h-12 min-w-[118px] flex-row
-                content-center items-center justify-center rounded px-2 font-sans
-                text-component-large text-white transition-colors ${`hover:${confirmHoverColor}`} focus-visible:ring-2 focus-visible:ring-[#A7C4DB] md:px-[33px]`}
+              <Button
+                className="px-2 md:px-[33px]"
+                label={confirmBtnText}
                 onClick={() => onConfirm()}
-              >
-                {confirmButtonText}
-              </button>
+                variant={confirmBtnVariant}
+              />
             </div>
           </div>
         </Dialog.Panel>

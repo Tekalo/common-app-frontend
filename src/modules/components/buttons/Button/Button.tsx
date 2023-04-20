@@ -1,10 +1,16 @@
 import { IconType } from '@/lib/types';
 
+// TODO: We should update our eslint config so we don't get
+// False warnings like this
+export enum ButtonVariant {
+  OUTLINED,
+  RED,
+}
 export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   icon?: IconType;
   label: string;
   disabled?: boolean;
-  outlined?: boolean;
+  variant?: ButtonVariant;
   onClick(): void;
 }
 
@@ -13,7 +19,7 @@ const Button: React.FC<IButton> = ({
   label,
   icon,
   disabled,
-  outlined,
+  variant,
   className,
 }) => {
   const BASE = `group min-w-[118px] flex h-12 flex-row content-center
@@ -27,12 +33,23 @@ const Button: React.FC<IButton> = ({
 
   const OUTLINED = `${BASE} bg-white text-blue-1 border-2 border-blue-1 hover:border-blue-2 hover:text-white`;
 
+  const RED = `${BASE} bg-red-error text-white hover:bg-red-hover`;
+
+  const getButtonVariantStyles = () => {
+    switch (variant) {
+      case ButtonVariant.OUTLINED:
+        return OUTLINED;
+      case ButtonVariant.RED:
+        return RED;
+      default:
+        return DEFAULT;
+    }
+  };
+
+  const btnStyles = getButtonVariantStyles();
+
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={outlined ? OUTLINED : DEFAULT}
-    >
+    <button onClick={onClick} disabled={disabled} className={btnStyles}>
       <div className="flex items-center justify-center space-x-0">
         {label}
         {icon ? <>{icon}</> : null}

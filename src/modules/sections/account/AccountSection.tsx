@@ -1,4 +1,5 @@
-import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
+import { ButtonVariant } from '@/components/buttons/Button/Button';
+import ConfirmModal from '@/components/modal/ConfirmModal/ConfirmModal';
 import { GreenCheckSvg, IOutlineSVG } from '@/constants/svgs';
 import { NextPageWithLayout } from '@/lib/types';
 import Link from 'next/link';
@@ -37,7 +38,8 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
     setShowPauseModal(false);
   };
 
-  const deleteModalHeadline = 'Delete account';
+  const deleteModalConfirm = 'Delete account';
+  const deleteModalHeadline = 'Permanently delete your account and data';
   const deleteModalText = `Are you sure you want to permanently delete you
                             account and data? This may take up to 30 days. Choose
                             “delete account” to start deletion.`;
@@ -133,11 +135,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
       </div>
       <ConfirmModal
         bodyText={deleteModalText}
-        confirmButtonColor="bg-red-error"
-        confirmHoverColor="bg-red-hover"
-        cancelButtonText="Cancel"
-        confirmButtonText={deleteModalHeadline}
-        headline="Permanently delete your account and data"
+        confirmBtnVariant={ButtonVariant.RED}
+        cancelBtnText="Cancel"
+        confirmBtnText={deleteModalConfirm}
+        headline={deleteModalHeadline}
         isOpen={showDeleteModal}
         closeModal={closeDeleteModal}
         onConfirm={onDeleteConfirm}
@@ -145,8 +146,8 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
       />
       <ConfirmModal
         bodyText={pauseModalText}
-        cancelButtonText="Cancel"
-        confirmButtonText="Pause matches"
+        cancelBtnText="Cancel"
+        confirmBtnText="Pause matches"
         headline={pauseModalHeadline}
         isOpen={showPauseModal}
         closeModal={closePauseModal}
