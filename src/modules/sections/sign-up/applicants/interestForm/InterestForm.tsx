@@ -540,7 +540,7 @@ const InterestForm: React.FC<IInterestForm> = ({
               return (
                 <>
                   <MultiSelect
-                    disabled={govRef.current?.value}
+                    disabled={!govRef.current?.value}
                     name="input-interestGovtEmplTypes"
                     label="Which opportunities from USDR are you interested in?"
                     placeholder="Choose all that apply"

@@ -1,27 +1,43 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
-import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import {
   ApplicantDraftSubmission,
   ApplicantExperience,
-  ApplicantSubmission,
+  ApplicantInterests,
 } from '@/lib/schemas';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/applicants/interestForm/InterestForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
 
+  const [submissionCount, setSubmissionCount] = useState(0);
   const [draftFormValues, setDraftFormValues] = useState<
     z.infer<typeof ApplicantDraftSubmission>
   >({});
+  const [applicantExperience, setApplicantExperience] =
+    useState<z.infer<typeof ApplicantExperience>>();
+  const [applicantInterests, setApplicantInterests] =
+    useState<z.infer<typeof ApplicantInterests>>();
 
-  const [finalFormValues, setFinalFormValues] =
-    useState<z.infer<typeof ApplicantSubmission>>();
+  useEffect(() => {
+    if (submissionCount === 1) {
+      doSubmit();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submissionCount]);
+
+  const doSubmit = () => {
+    const finalFormValues = {
+      ...applicantExperience,
+      ...applicantInterests,
+    };
+    console.log(finalFormValues);
+  };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
   const handleSave = (values: z.infer<typeof ApplicantDraftSubmission>) => {
@@ -32,17 +48,15 @@ const ApplicantSignup: NextPageWithLayout = () => {
   // FUNCTION: Saves form responses to parent state
   const handleNext = (values: z.infer<typeof ApplicantExperience>) => {
     setDraftFormValues({ ...draftFormValues, ...values });
+    setApplicantExperience(values);
     setIsInterestFormVisible(true);
   };
 
   // FUNCTION: Saves form responses to parent state and generates final form
-  const handleSubmit = async (values: any) => {
-    // Preserve the raw form state
-    const rawFormState = { ...draftFormValues, ...values };
-    setDraftFormValues(rawFormState);
-
-    // Update state to trigger form submission
-    // setFinalFormValues(submissionFormValue);
+  const handleSubmit = (values: z.infer<typeof ApplicantInterests>) => {
+    setDraftFormValues({ ...draftFormValues, ...values });
+    setApplicantInterests(values);
+    setSubmissionCount(submissionCount + 1);
   };
 
   const timelineItems: Array<ITimelineItem> = [
@@ -108,7 +122,3 @@ const ApplicantSignup: NextPageWithLayout = () => {
 };
 
 export default ApplicantSignup;
-
-ApplicantSignup.getLayout = (page) => {
-  return <ApplicationLayout>{page}</ApplicationLayout>;
-};

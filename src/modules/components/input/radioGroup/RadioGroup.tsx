@@ -46,7 +46,7 @@ const RadioGroup: React.FC<IRadioGroup> = ({
               type="radio"
               id={option.displayText}
               name={`${name}-${option.value}`}
-              value={option.displayText}
+              value={option.value}
               checked={value === option.value}
               onChange={(e) => onChange(e.target.value)}
             />
