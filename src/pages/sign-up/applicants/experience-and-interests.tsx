@@ -25,7 +25,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
   const handleSave = (values: z.infer<typeof ApplicantDraftSubmission>) => {
-    setDraftFormValues(values);
+    setDraftFormValues({ ...draftFormValues, ...values });
     setShowSaveModal(true);
   };
 

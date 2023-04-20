@@ -16,7 +16,7 @@ import {
   ReferenceAttribution,
   WorkAuthorization,
 } from '@/lib/schemas';
-import { ISelectItem } from '@/lib/types';
+import { IRadioItem, ISelectItem } from '@/lib/types';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
@@ -116,7 +116,7 @@ const CauseOptions: Array<ISelectItem> = [
   },
 ];
 
-const YesNoOptions: Array<ISelectItem> = [
+const YesNoOptions: Array<IRadioItem> = [
   {
     value: 'false',
     displayText: 'No',
@@ -255,7 +255,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Roles */}
           <Field<string[]>
             name="interestRoles"
-            initialValue={savedForm.interestRoles}
+            initialValue={savedForm.interestRoles || []}
             onSubmitValidate={z.array(z.string())}
             onChangeValidate={z.array(z.string())}
           >
@@ -517,8 +517,8 @@ const InterestForm: React.FC<IInterestForm> = ({
                   </div>
                   <RadioGroup
                     name="input-interestGovt"
-                    value={govRef.current?.value || ''}
-                    onChange={(val) => govRef.current?.setValue(val as boolean)}
+                    value={String(value)}
+                    onChange={(val) => setValue(val === 'true')}
                     radioOptions={YesNoOptions}
                     fieldSetClassName="flex flex-row"
                     radioClassName="w-[88px]"
@@ -532,7 +532,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<string[]>
             name="interestGovtEmplTypes"
             listenTo={['interestGovt']}
-            initialValue={savedForm.interestGovtEmplTypes}
+            initialValue={savedForm.interestGovtEmplTypes || []}
             onSubmitValidate={z.array(InterestGovtEmplTypes).optional()}
             onChangeValidate={z.array(InterestGovtEmplTypes).optional()}
           >
@@ -560,16 +560,16 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<boolean>
             name="previousImpactExperience"
             initialValue={savedForm.previousImpactExperience}
-            onSubmitValidate={z.enum(['true', 'false'])}
-            onChangeValidate={z.enum(['true', 'false'])}
+            onSubmitValidate={z.boolean()}
+            onChangeValidate={z.boolean()}
           >
             {({ value, setValue, errors }) => {
               return (
                 <>
                   <RadioGroup
                     name="input-previousImpactExperience"
-                    value={value}
-                    onChange={(val) => setValue(val as boolean)}
+                    value={String(value)}
+                    onChange={(val) => setValue(val === 'true')}
                     radioOptions={YesNoOptions}
                     legendText="Do you have previous experience working at a non-profit or a public service organization?"
                     fieldSetClassName="flex flex-row space-y-2"

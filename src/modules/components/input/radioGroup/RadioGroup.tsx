@@ -2,8 +2,8 @@ import { IRadioItem } from '@/lib/types';
 
 export interface IRadioGroup {
   name?: string;
-  value: string | boolean;
-  onChange: (_val: string | boolean) => void;
+  value: string;
+  onChange: (_val: string) => void;
   radioOptions: IRadioItem[];
   onBlur?: () => void;
   legendText?: string;

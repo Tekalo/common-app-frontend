@@ -23,12 +23,17 @@ export interface IFaqItem {
 }
 
 export interface IRadioItem {
-  value: string | boolean;
+  value: string;
   displayText: string;
 }
 
 export interface ISelectItem {
   value: string;
+  displayText: string;
+}
+
+export interface ISelectBoolean {
+  value: boolean;
   displayText: string;
 }
 

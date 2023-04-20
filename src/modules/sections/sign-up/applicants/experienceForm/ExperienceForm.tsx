@@ -2,6 +2,7 @@ import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
+import { printErrorMessages } from '@/lib/helpers';
 import {
   ApplicantDraftSubmission,
   ApplicantExperience,
@@ -148,8 +149,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -178,8 +178,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -203,8 +202,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     onBlur={onBlur}
                     listOptions={YoEOptions}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -212,7 +210,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Skills */}
           <Field<string[]>
             name="skills"
-            initialValue={savedForm.skills}
+            initialValue={savedForm.skills || []}
             onSubmitValidate={z.array(Skills)}
             onChangeValidate={z.array(Skills)}
           >
@@ -230,24 +228,17 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     onBlur={onBlur}
                     selectOptions={SkillOptions}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
           </Field>
-          {/* Other Skills
-               TODO: Make this into a nicer component (comma pills?)
-               */}
+          {/* Other Skills */}
           <Field<string[]>
             name="otherSkills"
             initialValue={savedForm.otherSkills}
-            onSubmitValidate={z.string({
-              invalid_type_error: 'Skills must be a string',
-            })}
-            onChangeValidate={z.string({
-              invalid_type_error: 'Skills must be a string',
-            })}
+            onSubmitValidate={z.array(z.string())}
+            onChangeValidate={z.array(z.string())}
           >
             {({ value, setValue, errors }) => {
               return (
@@ -259,8 +250,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     value={value}
                     setValue={setValue}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -287,8 +277,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -315,8 +304,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -343,8 +331,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -371,8 +358,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -399,8 +385,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
@@ -427,8 +412,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
                     setValue={setValue}
                     onBlur={onBlur}
                   />
-                  {isSubmitted &&
-                    errors.map((error) => <p key={error}>{error}</p>)}
+                  {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
