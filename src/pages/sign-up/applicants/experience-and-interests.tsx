@@ -4,12 +4,13 @@ import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/applicants/interestForm/InterestForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [formValues, setFormValues] = useState({});
+  const [finalFormValues, setFinalFormValues] = useState({});
 
   const timelineItems: Array<ITimelineItem> = [
     {
@@ -29,40 +30,18 @@ const ApplicantSignup: NextPageWithLayout = () => {
     },
   ];
 
+  // Whenever finalFormValues gets set, we will submit the form
+  useEffect(() => {
+    console.log('SUBMIT THE FORM!', finalFormValues);
+  }, [finalFormValues]);
+
   // Submits the full form data from this state to the API
   const handleSubmit = async (values: any) => {
     // Update form state
     setFormValues({ ...formValues, ...values });
 
-    console.log('Submitting form data', formValues);
-
-    // TODO: Uncomment this when the API is ready
-    // try {
-    //   const response = await fetch('/api/applicants', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(values),
-    //   });
-
-    //   console.log(response);
-
-    //   if (response.ok) {
-    //     // Success -- Move them to the next page
-    //     router.push('/sign-up/applicants/experience-and-interests');
-    //     // TODO: Use iron-session or similar to authenticate the user
-    //   } else {
-    //     // Handle error response
-    //     // TODO -- Show error modal
-    //     console.error('Failed to submit form data');
-    //     alert(await response.text());
-    //   }
-    // } catch (error) {
-    //   // Handle fetch error
-    //   console.error('Failed to fetch', error);
-    //   alert('Failed to submit form data!');
-    // }
+    // TODO: Augment the form values to conform to the API
+    setFinalFormValues({ ...formValues, ...values });
   };
 
   // Saves form responses to parent state

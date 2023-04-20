@@ -176,7 +176,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<string[]>
             name="interestEmploymentType"
             ref={employmentTypeRef}
-            initialValue={(savedForm && savedForm.interestEmploymentType) || []}
+            initialValue={savedForm && savedForm.interestEmploymentType}
             onSubmitValidate={z.array(EmploymentType)}
             onChangeValidate={z.array(EmploymentType)}
           >
@@ -482,8 +482,8 @@ const InterestForm: React.FC<IInterestForm> = ({
             name="interestGovt"
             ref={govRef}
             initialValue={savedForm && savedForm.interestGovt}
-            onSubmitValidate={z.boolean()}
-            onChangeValidate={z.boolean()}
+            onSubmitValidate={z.enum(['true', 'false'])}
+            onChangeValidate={z.enum(['true', 'false'])}
           >
             {({ value, setValue, errors }) => {
               return (
@@ -525,8 +525,8 @@ const InterestForm: React.FC<IInterestForm> = ({
             name="interestGovtEmplTypes"
             listenTo={['interestGovt']}
             initialValue={(savedForm && savedForm.interestGovtEmplTypes) || []}
-            onSubmitValidate={InterestGovtEmplTypes}
-            onChangeValidate={InterestGovtEmplTypes}
+            onSubmitValidate={z.array(InterestGovtEmplTypes).optional()}
+            onChangeValidate={z.array(InterestGovtEmplTypes).optional()}
           >
             {({ value, setValue, onBlur, errors }) => {
               return (
@@ -552,8 +552,8 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<string>
             name="previousImpactExperience"
             initialValue={savedForm && savedForm.previousImpactExperience}
-            onSubmitValidate={z.boolean()}
-            onChangeValidate={z.boolean()}
+            onSubmitValidate={z.enum(['true', 'false'])}
+            onChangeValidate={z.enum(['true', 'false'])}
           >
             {({ value, setValue, errors }) => {
               return (

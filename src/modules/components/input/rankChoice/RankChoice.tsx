@@ -7,8 +7,8 @@ export interface IRankChoice {
   label: string;
   name: string;
   rankOptions: RankChoiceItem[];
-  value: string[];
-  setValue: (_val: string[]) => void;
+  // value: string[];
+  // setValue: (_val: string[]) => void;
 }
 
 const RankChoice: React.FC<IRankChoice> = ({
