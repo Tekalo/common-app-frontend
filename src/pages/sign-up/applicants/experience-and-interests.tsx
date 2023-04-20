@@ -15,7 +15,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
 
-  const [submissionCount, setSubmissionCount] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [draftFormValues, setDraftFormValues] = useState<
     z.infer<typeof ApplicantDraftSubmission>
   >({});
@@ -25,11 +25,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
     useState<z.infer<typeof ApplicantInterests>>();
 
   useEffect(() => {
-    if (submissionCount === 1) {
+    if (!isSubmitted) {
       doSubmit();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submissionCount]);
+  }, [isSubmitted]);
 
   const doSubmit = () => {
     const finalFormValues = {
@@ -56,7 +56,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const handleSubmit = (values: z.infer<typeof ApplicantInterests>) => {
     setDraftFormValues({ ...draftFormValues, ...values });
     setApplicantInterests(values);
-    setSubmissionCount(submissionCount + 1);
+    setIsSubmitted(true);
   };
 
   const timelineItems: Array<ITimelineItem> = [

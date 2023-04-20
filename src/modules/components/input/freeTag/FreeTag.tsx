@@ -1,6 +1,6 @@
 import Tooltip from '@/components/tooltip/Tooltip';
 
-export interface IFreeText {
+export interface IFreeTag {
   name: string;
   value: string[];
   label?: string;
@@ -13,7 +13,7 @@ export interface IFreeText {
   disabled?: boolean;
 }
 
-const FreeText: React.FC<IFreeText> = ({
+const FreeText: React.FC<IFreeTag> = ({
   name,
   label,
   value,
