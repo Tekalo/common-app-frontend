@@ -15,7 +15,6 @@ import {
   WorkAuthorization,
 } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
-import RankChoice from '@/modules/components/input/rankChoice/RankChoice';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
@@ -123,17 +122,6 @@ const YesNoOptions: Array<ISelectItem> = [
   },
 ];
 
-const YesNoOptions2: Array<ISelectItem> = [
-  {
-    value: 'false',
-    displayText: 'No',
-  },
-  {
-    value: 'true',
-    displayText: 'Yes',
-  },
-];
-
 const USDROptions: Array<ISelectItem> = [
   {
     value: 'paid',
@@ -194,22 +182,25 @@ const InterestForm: React.FC<IInterestForm> = ({
           >
             {({ value, setValue, onBlur, errors }) => {
               return (
-                <>
+                <div>
                   <SelectGroup
                     name="input-interestEmploymentType"
                     legendText="What type(s) of opportunities are you interested in? Choose all that apply"
+                    legendClassName="text-component-extra-small text-black-text"
+                    labelClassName="text-component-medium text-black-text"
+                    fieldSetClassName="space-y-3 text-left"
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}
                     selectOptions={EmploymentOptions}
                   />
-                  <div className="mt-2 text-left text-component-extra-small-helper-text">
+                  <div className="mt-3 text-left text-component-extra-small-helper-text">
                     {
                       'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
                     }
                   </div>
                   {printErrorMessages(isSubmitted, errors)}
-                </>
+                </div>
               );
             }}
           </Field>
@@ -412,10 +403,11 @@ const InterestForm: React.FC<IInterestForm> = ({
             }}
           </Field>
           {/* TODO: Cause Rank*/}
-          <div>TODO: Implement Rank Choice Component</div>
-          <Field<string[]>
-            name="interestCauses"
-            initialValue={(savedForm && savedForm.interestCauses) || []}
+          <div>TODO: Cause Rank</div>
+          {/* <Field<string[]>
+            name="rankedInterestCauses"
+            listenTo={['interestCauses']}
+            initialValue={(savedForm && savedForm.rankedInterestCauses) || []}
             onSubmitValidate={z.array(z.string())}
             onChangeValidate={z.array(z.string())}
           >
@@ -427,14 +419,13 @@ const InterestForm: React.FC<IInterestForm> = ({
                     label="Which causes are you interested in hearing opportunities for?"
                     value={value}
                     setValue={setValue}
-                    rankOptions={CauseOptions}
+                    rankOptions={(savedForm && savedForm.interestCauses) || []}
                   />
                   {printErrorMessages(isSubmitted, errors)}
                 </>
               );
             }}
-          </Field>
-
+          </Field> */}
           {/* Other Causes*/}
           <Field<string>
             name="otherCauses"
@@ -519,7 +510,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                   <RadioGroup
                     name="input-interestGovt"
                     value={govRef.current?.value || ''}
-                    onChange={(val: string) => govRef.current?.setValue(val)}
+                    onChange={(val) => govRef.current?.setValue(val)}
                     radioOptions={YesNoOptions}
                     fieldSetClassName="flex flex-row"
                     radioClassName="w-[88px]"
@@ -570,8 +561,8 @@ const InterestForm: React.FC<IInterestForm> = ({
                   <RadioGroup
                     name="input-previousImpactExperience"
                     value={value}
-                    onChange={(val: string) => setValue(val)}
-                    radioOptions={YesNoOptions2}
+                    onChange={(val) => setValue(val)}
+                    radioOptions={YesNoOptions}
                     legendText="Do you have previous experience working at a non-profit or a public service organization?"
                     fieldSetClassName="flex flex-row space-y-2"
                     radioClassName="w-[88px]"

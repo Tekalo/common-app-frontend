@@ -80,14 +80,18 @@ module.exports = {
       'component-extra-small': [
         '14px',
         {
-          lineHeight: '18px',
+          lineHeight: '16px',
           letterSpacing: '0.001em',
-          fontWeight: '400',
+          fontWeight: '500',
         },
       ],
       'component-extra-small-helper-text': [
         '14px',
-        { lineHeight: '16px', letterSpacing: '0.001em', fontWeight: '500' },
+        {
+          lineHeight: '18px',
+          letterSpacing: '0.001em',
+          fontWeight: '400',
+        },
       ],
       // desktop
       'p3-desktop': [

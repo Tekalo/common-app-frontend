@@ -27,11 +27,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
 }) => {
   return (
     <fieldset className={`space-y-2 text-left ${fieldSetClassName}`}>
-      <legend
-        className={`pb-1 text-component-extra-small text-black-text ${legendClassName}`}
-      >
-        {legendText}
-      </legend>
+      <legend className={legendClassName}>{legendText}</legend>
       {/* Select OPTIONS */}
       {selectOptions.map((option, idx) => (
         <div
@@ -54,7 +50,9 @@ const SelectGroup: React.FC<ISelectGroup> = ({
                              checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
             />
           </>
-          <label htmlFor={option.value}>{option.displayText}</label>
+          <label className={labelClassName} htmlFor={option.value}>
+            {option.displayText}
+          </label>
         </div>
       ))}
     </fieldset>

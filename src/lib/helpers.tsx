@@ -1,4 +1,4 @@
-import { IRadioItem, ISelectItem } from './types';
+import { ISelectItem } from './types';
 
 // Helper taht prints error messages from Houseforms consistently
 export const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
@@ -17,7 +17,7 @@ export const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
 // Helper to create option selects given supporting Zod enums
 export const createOptionList = (
   enumOptions: Array<string>
-): Array<ISelectItem> | Array<IRadioItem> => {
+): Array<ISelectItem> => {
   return enumOptions.map((option: string) => ({
     value: option,
     displayText: option[0].toUpperCase() + option.slice(1),
