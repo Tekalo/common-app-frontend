@@ -33,7 +33,7 @@ const Button: React.FC<IButton> = ({
 
   const OUTLINED = `${BASE} bg-white text-blue-1 border-2 border-blue-1 hover:border-blue-2 hover:text-white`;
 
-  const RED = `${BASE} bg-red-error text-white hover:bg-red-hover`;
+  const RED = `${BASE} bg-red-error text-white hover:bg-red-hover active:bg-red-active`;
 
   const getButtonVariantStyles = () => {
     switch (variant) {
