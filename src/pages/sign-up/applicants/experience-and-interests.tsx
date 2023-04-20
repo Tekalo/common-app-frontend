@@ -1,15 +1,17 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
+import { ApplicantDraftSubmission, ApplicantSubmission } from '@/lib/schemas';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/applicants/interestForm/InterestForm';
 import { useEffect, useState } from 'react';
+import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
-  const [formValues, setFormValues] = useState({});
+  const [rawFormValues, setRawFormValues] = useState({});
   const [finalFormValues, setFinalFormValues] = useState({});
 
   const timelineItems: Array<ITimelineItem> = [
@@ -30,29 +32,49 @@ const ApplicantSignup: NextPageWithLayout = () => {
     },
   ];
 
-  // Whenever finalFormValues gets set, we will submit the form
+  // FUNCTION: When finalFormValues updates submit the form
   useEffect(() => {
     console.log('SUBMIT THE FORM!', finalFormValues);
   }, [finalFormValues]);
 
-  // Submits the full form data from this state to the API
+  // FUNCTION: Saves form responses to parent state and generates final form
   const handleSubmit = async (values: any) => {
-    // Update form state
-    setFormValues({ ...formValues, ...values });
+    // Preserve the raw form state
+    const rawFormState = { ...rawFormValues, ...values };
+    setRawFormValues(rawFormState);
 
-    // TODO: Augment the form values to conform to the API
-    setFinalFormValues({ ...formValues, ...values });
+    // Update rawFormState to conform to ApplicationSubmission type
+    const submissionFormValue: z.infer<typeof ApplicantSubmission> = {
+      ...rawFormState,
+      interestGovt: rawFormState.interestGovt === 'true',
+      previousImpactExperience:
+        rawFormState.previousImpactExperience === 'true',
+    };
+
+    // Update state to trigger form submission
+    setFinalFormValues(submissionFormValue);
   };
 
-  // Saves form responses to parent state
+  // FUNCTION: Saves form responses to parent state
   const handleNext = (values: any) => {
-    setFormValues({ ...formValues, ...values });
+    setRawFormValues({ ...rawFormValues, ...values });
     setIsInterestFormVisible(true);
   };
 
-  // Saves form responses to parent state without submission
+  // FUNCTION: Saves form responses to parent state and submits to save endpoint
   const handleSave = (values: any) => {
-    setFormValues({ ...formValues, ...values });
+    const rawFormState = { ...rawFormValues, ...values };
+    setRawFormValues(rawFormState);
+
+    const submissionFormValue: z.infer<typeof ApplicantDraftSubmission> = {
+      ...rawFormState,
+      interestGovt: rawFormState.interestGovt === 'true',
+      previousImpactExperience:
+        rawFormState.previousImpactExperience === 'true',
+    };
+
+    // TODO: Call the API with the partial form values
+
     setShowSaveModal(true);
   };
 
@@ -74,13 +96,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
         <div className="col-span-4 col-start-5 space-y-8">
           {isInterestFormVisible ? (
             <InterestForm
-              savedForm={formValues}
+              savedForm={rawFormValues}
               handleSubmit={handleSubmit}
               handleSave={handleSave}
             />
           ) : (
             <ExperienceForm
-              savedForm={formValues}
+              savedForm={rawFormValues}
               handleSubmit={handleNext}
               handleSave={handleSave}
             />

@@ -150,7 +150,7 @@ const ApplicantQueryParamsSchema = z.object({
     .refine((val) => val === undefined || val === 'true' || val === 'false'),
 });
 
-const ApplicantSubmissionRequestBodySchema = z.object({
+export const ApplicantSubmission = z.object({
   // TODO re name these they are way 2 long
   originTag: z.string(),
   lastRole: z.string(),
@@ -181,9 +181,4 @@ const ApplicantSubmissionRequestBodySchema = z.object({
   referenceAttribution: ReferenceAttribution.nullable().optional(),
 });
 
-export {
-  ApplicantRequestBodySchema,
-  ApplicantResponseBodySchema,
-  ApplicantQueryParamsSchema,
-  ApplicantSubmissionRequestBodySchema,
-};
+export const ApplicantDraftSubmission = ApplicantSubmission.partial();
