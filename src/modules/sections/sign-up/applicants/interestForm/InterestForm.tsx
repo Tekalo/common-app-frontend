@@ -7,6 +7,8 @@ import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
 import { createOptionList, printErrorMessages } from '@/lib/helpers';
 import {
+  ApplicantDraftSubmission,
+  ApplicantInterests,
   EmploymentType,
   InterestGovtEmplTypes,
   OpenToRelocate,
@@ -20,10 +22,13 @@ import { useRef } from 'react';
 import { z } from 'zod';
 
 export interface IInterestForm {
-  handleSubmit: (_values: unknown) => void;
-  handleSave: (_values: unknown) => void;
-  savedForm: any;
+  handleSubmit: (_values: z.infer<typeof ApplicantInterests>) => void;
+  handleSave: (_values: z.infer<typeof ApplicantDraftSubmission>) => void;
+  savedForm: z.infer<typeof ApplicantDraftSubmission>;
 }
+
+type InterestFormType = z.infer<typeof ApplicantInterests>;
+type FormRefType = FormInstance<InterestFormType>;
 
 const EmploymentOptions: Array<ISelectItem> = [
   {
@@ -151,18 +156,21 @@ const InterestForm: React.FC<IInterestForm> = ({
   handleSave,
   savedForm,
 }) => {
-  const formRef = useRef<FormInstance<Record<string, any>>>(null);
+  const formRef = useRef<FormRefType>(null);
   const employmentTypeRef = useRef<FieldInstance<string[], any>>(null);
-  const govRef = useRef<FieldInstance<string, any>>(null);
+  const govRef = useRef<FieldInstance<boolean, any>>(null);
 
   const doSave = () => {
     if (formRef.current) {
-      handleSave(formRef.current.value);
+      handleSave({ ...savedForm, ...formRef.current });
     }
   };
 
   return (
-    <Form onSubmit={(values) => handleSubmit(values)} ref={formRef}>
+    <Form<InterestFormType>
+      onSubmit={(values) => handleSubmit(values)}
+      ref={formRef}
+    >
       {({ isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
@@ -176,7 +184,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<string[]>
             name="interestEmploymentType"
             ref={employmentTypeRef}
-            initialValue={savedForm && savedForm.interestEmploymentType}
+            initialValue={savedForm.interestEmploymentType}
             onSubmitValidate={z.array(EmploymentType)}
             onChangeValidate={z.array(EmploymentType)}
           >
@@ -208,7 +216,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<string>
             name="hoursPerWeek"
             listenTo={['interestEmploymentType']}
-            initialValue={savedForm && savedForm.hoursPerWeek}
+            initialValue={savedForm.hoursPerWeek || ''}
             onSubmitValidate={z.string({
               required_error: 'Hours per week is required',
               invalid_type_error: 'Hours must be a string',
@@ -247,7 +255,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Roles */}
           <Field<string[]>
             name="interestRoles"
-            initialValue={(savedForm && savedForm.interestRoles) || []}
+            initialValue={savedForm.interestRoles}
             onSubmitValidate={z.array(z.string())}
             onChangeValidate={z.array(z.string())}
           >
@@ -273,7 +281,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Location */}
           <Field<string>
             name="currentLocation"
-            initialValue={savedForm && savedForm.currentLocation}
+            initialValue={savedForm.currentLocation}
             onSubmitValidate={z.string({
               required_error: 'Current location is required',
               invalid_type_error: 'Current location must be a string',
@@ -302,7 +310,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Reloaction*/}
           <Field<string>
             name="openToRelocate"
-            initialValue={savedForm && savedForm.openToRelocate}
+            initialValue={savedForm.openToRelocate}
             onSubmitValidate={OpenToRelocate}
             onChangeValidate={OpenToRelocate}
           >
@@ -326,7 +334,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Remote */}
           <Field<string>
             name="openToRemote"
-            initialValue={savedForm && savedForm.openToRemote}
+            initialValue={savedForm.openToRemote}
             onSubmitValidate={OpenToRemote}
             onChangeValidate={OpenToRemote}
           >
@@ -350,7 +358,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Salary*/}
           <Field<string>
             name="desiredSalary"
-            initialValue={savedForm && savedForm.desiredSalary}
+            initialValue={savedForm.desiredSalary || ''}
             onSubmitValidate={z.string({
               required_error: 'Salary is required',
               invalid_type_error: 'Salary must be a string',
@@ -429,7 +437,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Other Causes*/}
           <Field<string>
             name="otherCauses"
-            initialValue={savedForm && savedForm.otherCauses}
+            initialValue={savedForm.otherCauses || ''}
             onSubmitValidate={z.string({
               invalid_type_error: 'Other causes must be a string',
             })}
@@ -456,7 +464,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Work Auth*/}
           <Field<string>
             name="workAuthorization"
-            initialValue={savedForm && savedForm.workAuthorization}
+            initialValue={savedForm.workAuthorization}
             onSubmitValidate={WorkAuthorization}
             onChangeValidate={WorkAuthorization}
           >
@@ -478,12 +486,12 @@ const InterestForm: React.FC<IInterestForm> = ({
             }}
           </Field>
           {/* Gov Interest*/}
-          <Field<string>
+          <Field<boolean>
             name="interestGovt"
             ref={govRef}
-            initialValue={savedForm && savedForm.interestGovt}
-            onSubmitValidate={z.enum(['true', 'false'])}
-            onChangeValidate={z.enum(['true', 'false'])}
+            initialValue={savedForm.interestGovt}
+            onSubmitValidate={z.boolean()}
+            onChangeValidate={z.boolean()}
           >
             {({ value, setValue, errors }) => {
               return (
@@ -510,7 +518,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                   <RadioGroup
                     name="input-interestGovt"
                     value={govRef.current?.value || ''}
-                    onChange={(val) => govRef.current?.setValue(val)}
+                    onChange={(val) => govRef.current?.setValue(val as boolean)}
                     radioOptions={YesNoOptions}
                     fieldSetClassName="flex flex-row"
                     radioClassName="w-[88px]"
@@ -524,7 +532,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           <Field<string[]>
             name="interestGovtEmplTypes"
             listenTo={['interestGovt']}
-            initialValue={(savedForm && savedForm.interestGovtEmplTypes) || []}
+            initialValue={savedForm.interestGovtEmplTypes}
             onSubmitValidate={z.array(InterestGovtEmplTypes).optional()}
             onChangeValidate={z.array(InterestGovtEmplTypes).optional()}
           >
@@ -532,7 +540,7 @@ const InterestForm: React.FC<IInterestForm> = ({
               return (
                 <>
                   <MultiSelect
-                    disabled={govRef.current?.value === 'false' ? true : false}
+                    disabled={govRef.current?.value}
                     name="input-interestGovtEmplTypes"
                     label="Which opportunities from USDR are you interested in?"
                     placeholder="Choose all that apply"
@@ -549,9 +557,9 @@ const InterestForm: React.FC<IInterestForm> = ({
             }}
           </Field>
           {/* Previous XP*/}
-          <Field<string>
+          <Field<boolean>
             name="previousImpactExperience"
-            initialValue={savedForm && savedForm.previousImpactExperience}
+            initialValue={savedForm.previousImpactExperience}
             onSubmitValidate={z.enum(['true', 'false'])}
             onChangeValidate={z.enum(['true', 'false'])}
           >
@@ -561,7 +569,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                   <RadioGroup
                     name="input-previousImpactExperience"
                     value={value}
-                    onChange={(val) => setValue(val)}
+                    onChange={(val) => setValue(val as boolean)}
                     radioOptions={YesNoOptions}
                     legendText="Do you have previous experience working at a non-profit or a public service organization?"
                     fieldSetClassName="flex flex-row space-y-2"
@@ -575,7 +583,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Unlimited Resources*/}
           <Field<string>
             name="essayResponse"
-            initialValue={savedForm && savedForm.essayResponse}
+            initialValue={savedForm.essayResponse}
             onSubmitValidate={z.string({
               invalid_type_error: 'Other causes must be a string',
             })}
@@ -602,7 +610,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Reference*/}
           <Field<string>
             name="referenceAttribution"
-            initialValue={savedForm && savedForm.referenceAttribution}
+            initialValue={savedForm.referenceAttribution || ''}
             onSubmitValidate={ReferenceAttribution}
             onChangeValidate={ReferenceAttribution}
           >

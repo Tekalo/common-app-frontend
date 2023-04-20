@@ -2,8 +2,8 @@ import { IRadioItem } from '@/lib/types';
 
 export interface IRadioGroup {
   name?: string;
-  value: string;
-  onChange: (_val: string) => void;
+  value: string | boolean;
+  onChange: (_val: string | boolean) => void;
   radioOptions: IRadioItem[];
   onBlur?: () => void;
   legendText?: string;
@@ -44,15 +44,15 @@ const RadioGroup: React.FC<IRadioGroup> = ({
                           checked:hover:bg-blue-2 focus:ring-1 focus:ring-blue-2
                           checked:focus:bg-blue-2 checked:focus:ring-blue-2 ${inputClassName}`}
               type="radio"
-              id={option.value}
+              id={option.displayText}
               name={`${name}-${option.value}`}
-              value={option.value}
+              value={option.displayText}
               checked={value === option.value}
               onChange={(e) => onChange(e.target.value)}
             />
           </div>
           <label
-            htmlFor={option.value}
+            htmlFor={option.displayText}
             className={`text-component-medium text-black-text ${labelClassName}`}
           >
             {option.displayText}

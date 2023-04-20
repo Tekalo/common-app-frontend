@@ -26,7 +26,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
   labelClassName,
 }) => {
   return (
-    <fieldset className={`space-y-2 text-left ${fieldSetClassName}`}>
+    <fieldset className={fieldSetClassName}>
       <legend className={legendClassName}>{legendText}</legend>
       {/* Select OPTIONS */}
       {selectOptions.map((option, idx) => (

@@ -150,9 +150,7 @@ const ApplicantQueryParamsSchema = z.object({
     .refine((val) => val === undefined || val === 'true' || val === 'false'),
 });
 
-export const ApplicantSubmission = z.object({
-  // TODO re name these they are way 2 long
-  originTag: z.string(),
+export const ApplicantExperience = z.object({
   lastRole: z.string(),
   lastOrg: z.string(),
   yoe: YOE,
@@ -164,9 +162,12 @@ export const ApplicantSubmission = z.object({
   portfolioPassword: z.string().nullable().optional(),
   resumeUrl: z.string(),
   resumePassword: z.string().nullable().optional(),
+});
+
+export const ApplicantInterests = z.object({
   hoursPerWeek: z.string().nullable().optional(),
   interestEmploymentType: z.array(EmploymentType),
-  interestRoles: Roles, // keep this as non-zod-enum?
+  interestRoles: z.array(Roles), // keep this as non-zod-enum?
   currentLocation: z.string(),
   openToRelocate: OpenToRelocate,
   openToRemote: OpenToRemote,
@@ -180,5 +181,12 @@ export const ApplicantSubmission = z.object({
   essayResponse: z.string(),
   referenceAttribution: ReferenceAttribution.nullable().optional(),
 });
+
+export const ApplicantExtras = z.object({
+  originTag: z.string(),
+});
+
+export const ApplicantSubmission =
+  ApplicantExtras.merge(ApplicantExperience).merge(ApplicantInterests);
 
 export const ApplicantDraftSubmission = ApplicantSubmission.partial();

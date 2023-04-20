@@ -1,18 +1,49 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
-import { ApplicantDraftSubmission, ApplicantSubmission } from '@/lib/schemas';
+import {
+  ApplicantDraftSubmission,
+  ApplicantExperience,
+  ApplicantSubmission,
+} from '@/lib/schemas';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/applicants/interestForm/InterestForm';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
-  const [rawFormValues, setRawFormValues] = useState({});
-  const [finalFormValues, setFinalFormValues] = useState({});
+
+  const [draftFormValues, setDraftFormValues] = useState<
+    z.infer<typeof ApplicantDraftSubmission>
+  >({});
+
+  const [finalFormValues, setFinalFormValues] =
+    useState<z.infer<typeof ApplicantSubmission>>();
+
+  // FUNCTION: Saves form responses to parent state and submits to save endpoint
+  const handleSave = (values: z.infer<typeof ApplicantDraftSubmission>) => {
+    setDraftFormValues(values);
+    setShowSaveModal(true);
+  };
+
+  // FUNCTION: Saves form responses to parent state
+  const handleNext = (values: z.infer<typeof ApplicantExperience>) => {
+    setDraftFormValues({ ...draftFormValues, ...values });
+    setIsInterestFormVisible(true);
+  };
+
+  // FUNCTION: Saves form responses to parent state and generates final form
+  const handleSubmit = async (values: any) => {
+    // Preserve the raw form state
+    const rawFormState = { ...draftFormValues, ...values };
+    setDraftFormValues(rawFormState);
+
+    // Update state to trigger form submission
+    // setFinalFormValues(submissionFormValue);
+  };
 
   const timelineItems: Array<ITimelineItem> = [
     {
@@ -32,52 +63,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
     },
   ];
 
-  // FUNCTION: When finalFormValues updates submit the form
-  useEffect(() => {
-    console.log('SUBMIT THE FORM!', finalFormValues);
-  }, [finalFormValues]);
-
-  // FUNCTION: Saves form responses to parent state and generates final form
-  const handleSubmit = async (values: any) => {
-    // Preserve the raw form state
-    const rawFormState = { ...rawFormValues, ...values };
-    setRawFormValues(rawFormState);
-
-    // Update rawFormState to conform to ApplicationSubmission type
-    const submissionFormValue: z.infer<typeof ApplicantSubmission> = {
-      ...rawFormState,
-      interestGovt: rawFormState.interestGovt === 'true',
-      previousImpactExperience:
-        rawFormState.previousImpactExperience === 'true',
-    };
-
-    // Update state to trigger form submission
-    setFinalFormValues(submissionFormValue);
-  };
-
-  // FUNCTION: Saves form responses to parent state
-  const handleNext = (values: any) => {
-    setRawFormValues({ ...rawFormValues, ...values });
-    setIsInterestFormVisible(true);
-  };
-
-  // FUNCTION: Saves form responses to parent state and submits to save endpoint
-  const handleSave = (values: any) => {
-    const rawFormState = { ...rawFormValues, ...values };
-    setRawFormValues(rawFormState);
-
-    const submissionFormValue: z.infer<typeof ApplicantDraftSubmission> = {
-      ...rawFormState,
-      interestGovt: rawFormState.interestGovt === 'true',
-      previousImpactExperience:
-        rawFormState.previousImpactExperience === 'true',
-    };
-
-    // TODO: Call the API with the partial form values
-
-    setShowSaveModal(true);
-  };
-
   return (
     <>
       {/* Form Content */}
@@ -96,13 +81,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
         <div className="col-span-4 col-start-5 space-y-8">
           {isInterestFormVisible ? (
             <InterestForm
-              savedForm={rawFormValues}
+              savedForm={draftFormValues}
               handleSubmit={handleSubmit}
               handleSave={handleSave}
             />
           ) : (
             <ExperienceForm
-              savedForm={rawFormValues}
+              savedForm={draftFormValues}
               handleSubmit={handleNext}
               handleSave={handleSave}
             />

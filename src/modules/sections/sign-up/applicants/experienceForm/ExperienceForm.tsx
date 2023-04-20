@@ -2,17 +2,27 @@ import Button from '@/components/buttons/Button/Button';
 import FreeText from '@/components/input/freeText/FreeText';
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
-import { Skills, YOE } from '@/lib/schemas';
+import {
+  ApplicantDraftSubmission,
+  ApplicantExperience,
+  Skills,
+  YOE,
+} from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
-import { Field, Form, FormInstance } from 'houseform';
+import FreeTag from '@/modules/components/input/freeTag/FreeTag';
+import { Field, Form } from 'houseform';
+import { FormInstance } from 'houseform/dist/form/types';
 import { useRef } from 'react';
 import { z } from 'zod';
 
 export interface IExperienceForm {
-  handleSubmit: (_values: unknown) => void;
-  handleSave: (_values: unknown) => void;
-  savedForm: any;
+  handleSubmit: (_values: z.infer<typeof ApplicantExperience>) => void;
+  handleSave: (_values: z.infer<typeof ApplicantDraftSubmission>) => void;
+  savedForm: z.infer<typeof ApplicantDraftSubmission>;
 }
+
+type ExperienceFormType = z.infer<typeof ApplicantExperience>;
+type FormRefType = FormInstance<ExperienceFormType>;
 
 const YoEOptions: Array<ISelectItem> = [
   {
@@ -92,16 +102,19 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   handleSave,
   savedForm,
 }) => {
-  const formRef = useRef<FormInstance<Record<string, any>>>(null);
+  const formRef = useRef<FormRefType>(null);
 
   const doSave = () => {
     if (formRef.current) {
-      handleSave(formRef.current.value);
+      handleSave({ ...savedForm, ...formRef.current });
     }
   };
 
   return (
-    <Form onSubmit={(values) => handleSubmit(values)} ref={formRef}>
+    <Form<ExperienceFormType>
+      onSubmit={(values) => handleSubmit(values)}
+      ref={formRef}
+    >
       {({ isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
@@ -114,7 +127,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Current Role */}
           <Field<string>
             name="lastRole"
-            initialValue={savedForm && savedForm.lastRole}
+            initialValue={savedForm.lastRole}
             onSubmitValidate={z.string({
               required_error: 'Role is required',
               invalid_type_error: 'Role must be a string',
@@ -144,7 +157,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Current Org */}
           <Field<string>
             name="lastOrg"
-            initialValue={savedForm && savedForm.lastOrg}
+            initialValue={savedForm.lastOrg}
             onSubmitValidate={z.string({
               required_error: 'Org is required',
               invalid_type_error: 'Org must be a string',
@@ -174,7 +187,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* YOE */}
           <Field<string>
             name="yoe"
-            initialValue={savedForm && savedForm.yoe}
+            initialValue={savedForm.yoe}
             onSubmitValidate={YOE}
             onChangeValidate={YOE}
           >
@@ -199,7 +212,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Skills */}
           <Field<string[]>
             name="skills"
-            initialValue={(savedForm && savedForm.skills) || []}
+            initialValue={savedForm.skills}
             onSubmitValidate={z.array(Skills)}
             onChangeValidate={z.array(Skills)}
           >
@@ -226,9 +239,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Other Skills
                TODO: Make this into a nicer component (comma pills?)
                */}
-          <Field<string>
+          <Field<string[]>
             name="otherSkills"
-            initialValue={savedForm && savedForm.otherSkills}
+            initialValue={savedForm.otherSkills}
             onSubmitValidate={z.string({
               invalid_type_error: 'Skills must be a string',
             })}
@@ -236,16 +249,15 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               invalid_type_error: 'Skills must be a string',
             })}
           >
-            {({ value, setValue, onBlur, errors }) => {
+            {({ value, setValue, errors }) => {
               return (
                 <>
-                  <FreeText
+                  <FreeTag
                     name="input-otherSkills"
                     label="Other skills (optional)"
                     placeholder="Skills separated by commas"
                     value={value}
                     setValue={setValue}
-                    onBlur={onBlur}
                   />
                   {isSubmitted &&
                     errors.map((error) => <p key={error}>{error}</p>)}
@@ -255,8 +267,8 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           </Field>
           {/* LinkedIn */}
           <Field<string>
-            name="linkedin"
-            initialValue={savedForm && savedForm.linkedin}
+            name="linkedInUrl"
+            initialValue={savedForm.linkedInUrl || ''}
             onSubmitValidate={z.string({
               invalid_type_error: 'LinkedIn must be a string',
             })}
@@ -283,8 +295,8 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           </Field>
           {/* Portfolio */}
           <Field<string>
-            name="Portfolio"
-            initialValue={savedForm && savedForm.portfolio}
+            name="portfolioUrl"
+            initialValue={savedForm.portfolioUrl || ''}
             onSubmitValidate={z.string({
               invalid_type_error: 'Portfolio must be a string',
             })}
@@ -312,7 +324,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Portfolio Password */}
           <Field<string>
             name="portfolioPassword"
-            initialValue={savedForm && savedForm.portfolioPassword}
+            initialValue={savedForm.portfolioPassword || ''}
             onSubmitValidate={z.string({
               invalid_type_error: 'Password must be a string',
             })}
@@ -339,8 +351,8 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           </Field>
           {/* Github */}
           <Field<string>
-            name="github"
-            initialValue={savedForm && savedForm.github}
+            name="githubUrl"
+            initialValue={savedForm.githubUrl || ''}
             onSubmitValidate={z.string({
               invalid_type_error: 'Github must be a string',
             })}
@@ -367,8 +379,8 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           </Field>
           {/* Resume */}
           <Field<string>
-            name="resume"
-            initialValue={savedForm && savedForm.resume}
+            name="resumeUrl"
+            initialValue={savedForm.resumeUrl || ''}
             onSubmitValidate={z.string({
               invalid_type_error: 'Resume must be a string',
             })}
@@ -396,7 +408,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Resume Password */}
           <Field<string>
             name="resumePassword"
-            initialValue={savedForm && savedForm.resumePassword}
+            initialValue={savedForm.resumePassword || ''}
             onSubmitValidate={z.string({
               invalid_type_error: 'Password must be a string',
             })}
@@ -421,6 +433,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               );
             }}
           </Field>
+
           <div className="pt-2">
             <Button
               className="w-full text-component-large"
