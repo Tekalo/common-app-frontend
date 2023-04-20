@@ -8,6 +8,7 @@ module.exports = {
     colors: {
       white: '#FFFFFF',
       'black-text': '#272929',
+      'black-transparent': 'rgba(39, 41, 41, 0.7)',
       'gray-1': '#6B7281',
       'gray-2': '#9FA4AE',
       'gray-3': '#DBDDE2',
@@ -19,6 +20,7 @@ module.exports = {
       'light-blue': '#F3F9FF',
       'light-orange': '#FFFAF5',
       'red-error': '#D50000',
+      'red-hover': '#A80000',
       'green-success': '#00A870',
       'illustration-black': '#363D3F',
       'illustration-beige': '#FFEACE',
@@ -78,18 +80,14 @@ module.exports = {
       'component-extra-small': [
         '14px',
         {
-          lineHeight: '16px',
-          letterSpacing: '0.001em',
-          fontWeight: '500',
-        },
-      ],
-      'component-extra-small-helper-text': [
-        '14px',
-        {
           lineHeight: '18px',
           letterSpacing: '0.001em',
           fontWeight: '400',
         },
+      ],
+      'component-extra-small-helper-text': [
+        '14px',
+        { lineHeight: '16px', letterSpacing: '0.001em', fontWeight: '500' },
       ],
       // desktop
       'p3-desktop': [

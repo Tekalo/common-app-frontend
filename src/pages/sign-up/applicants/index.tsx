@@ -1,6 +1,6 @@
-import Modal from '@/components/modal/Modal/Modal';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
+import TableModal from '@/modules/components/modal/Modal/TableModal/TableModal';
 import SignupForm from '@/sections/sign-up/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
@@ -81,7 +81,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <Link href="/sign-in">apply here</Link>
         </span>
       </div>
-      <Modal
+      <TableModal
         headerText={headerText}
         bodyText={bodyText}
         extras={extras}

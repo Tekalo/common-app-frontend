@@ -1,3 +1,4 @@
+import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
@@ -9,6 +10,8 @@ import { useState } from 'react';
 const ApplicantSignup: NextPageWithLayout = () => {
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [formValues, setFormValues] = useState({});
+
+  const [showSaveModal, setShowSaveModal] = useState(false);
 
   const timelineItems: Array<ITimelineItem> = [
     {
@@ -66,39 +69,50 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   // Saves form responses to parent state without submission
   const handleSave = (values: any) => {
-    // TODO: Open a modal to confirm save
     setFormValues({ ...formValues, ...values });
+    // TODO: Open a modal to confirm save
+    setShowSaveModal(true);
   };
 
   return (
-    <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
-      {/* Title */}
-      <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
-        {'Join a network with over XX00 organizations to find your match.'}
-      </div>
+    <>
+      <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
+        {/* Title */}
+        <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
+          {'Join a network with over XX00 organizations to find your match.'}
+        </div>
 
-      {/* Breadcrumb Timeline */}
-      <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
-        <Timeline timelineItems={timelineItems} horizontal={true} />
-      </div>
+        {/* Breadcrumb Timeline */}
+        <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
+          <Timeline timelineItems={timelineItems} horizontal={true} />
+        </div>
 
-      {/* Form Area */}
-      <div className="col-span-4 col-start-5 space-y-8">
-        {isInterestFormVisible ? (
-          <InterestForm
-            savedForm={formValues}
-            handleSubmit={handleNext}
-            handleSave={handleSave}
-          />
-        ) : (
-          <ExperienceForm
-            savedForm={formValues}
-            handleSubmit={handleNext}
-            handleSave={handleSave}
-          />
-        )}
+        {/* Form Area */}
+        <div className="col-span-4 col-start-5 space-y-8">
+          {isInterestFormVisible ? (
+            <InterestForm
+              savedForm={formValues}
+              handleSubmit={handleNext}
+              handleSave={handleSave}
+            />
+          ) : (
+            <ExperienceForm
+              savedForm={formValues}
+              handleSubmit={handleNext}
+              handleSave={handleSave}
+            />
+          )}
+        </div>
       </div>
-    </div>
+      <Modal
+        headline="Your progress has been saved!"
+        bodyText="If you need to leave, you can click “Sign in” from the homepage, then return to the application."
+        buttonText="Ok"
+        isOpen={showSaveModal}
+        closeModal={() => setShowSaveModal(false)}
+        onConfirm={() => setShowSaveModal(false)}
+      />
+    </>
   );
 };
 
