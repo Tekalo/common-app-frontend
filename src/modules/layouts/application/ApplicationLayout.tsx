@@ -2,8 +2,7 @@ import LiteFooter from '@/components/navigation/LiteFooter/LiteFooter';
 import LiteNavbar from '@/components/navigation/LiteNavbar/LiteNavbar';
 import Head from 'next/head';
 
-export interface IApplicationLayout
-  extends React.ComponentPropsWithoutRef<'div'> {}
+export type IApplicationLayout = React.ComponentPropsWithoutRef<'div'>
 
 const ApplicationLayout: React.FC<IApplicationLayout> = ({
   children,

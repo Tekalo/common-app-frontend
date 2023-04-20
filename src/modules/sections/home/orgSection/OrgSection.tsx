@@ -80,7 +80,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
               outlined={true}
               label="Apply as an organization"
               className="mt-6 w-full max-w-[228px]"
-              onClick={() => {}}
+              onClick={() => null}
             />
           </div>
         </div>

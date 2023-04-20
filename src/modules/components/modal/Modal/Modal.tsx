@@ -20,7 +20,7 @@ const Modal: React.FC<IModal> = ({
   bodyText,
   extras,
 }) => {
-  let headerRef = useRef(null);
+  const headerRef = useRef(null);
 
   const tableData: ContentTableData = {
     headers: [

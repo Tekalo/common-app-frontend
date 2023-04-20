@@ -14,7 +14,7 @@ const ContactSection: React.FC<IContactSection> = () => {
           <Button
             label="Contact us"
             outlined={true}
-            onClick={() => {}}
+            onClick={() => null}
             className="px-8 py-3"
           />
         </div>

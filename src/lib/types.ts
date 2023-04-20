@@ -35,7 +35,7 @@ export interface ISelectItem {
 // Types
 export type IconType = (_props: IconTypeProps) => React.ReactNode;
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (_page: ReactElement) => ReactNode;
 };
 

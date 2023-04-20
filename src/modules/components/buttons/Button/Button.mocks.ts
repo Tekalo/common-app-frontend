@@ -4,7 +4,7 @@ const base: IButton = {
   label: 'Placeholder',
   outlined: false,
   disabled: false,
-  onClick: () => {},
+  onClick: () => null,
   className: 'px-8 py-3',
 };
 

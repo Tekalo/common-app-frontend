@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  let [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   const handleSubmit = async (values: unknown) => {
     try {
