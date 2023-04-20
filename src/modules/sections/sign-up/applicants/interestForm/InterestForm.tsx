@@ -15,6 +15,7 @@ import {
   WorkAuthorization,
 } from '@/lib/schemas';
 import { ISelectItem } from '@/lib/types';
+import RankChoice from '@/modules/components/input/rankChoice/RankChoice';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
@@ -412,7 +413,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           </Field>
           {/* TODO: Cause Rank*/}
           <div>TODO: Implement Rank Choice Component</div>
-          {/* <Field<string[]>
+          <Field<string[]>
             name="interestCauses"
             initialValue={(savedForm && savedForm.interestCauses) || []}
             onSubmitValidate={z.array(z.string())}
@@ -432,7 +433,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                 </>
               );
             }}
-          </Field> */}
+          </Field>
 
           {/* Other Causes*/}
           <Field<string>
