@@ -18,7 +18,7 @@ interface IconTypeProps {
 
 export interface ITimelineItem {
   title?: string;
-  text: string;
+  content: string | ReactElement;
   className?: string;
   isActive?: boolean;
 }
@@ -38,6 +38,16 @@ export interface IRadioItem {
 export interface ISelectItem {
   value: string;
   displayText: string;
+}
+
+export interface ISelectBoolean {
+  value: boolean;
+  displayText: string;
+}
+
+export interface RankChoiceItem {
+  displayText: string;
+  value: string;
 }
 
 // Types

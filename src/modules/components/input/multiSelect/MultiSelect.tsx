@@ -7,20 +7,26 @@ export interface IMultiSelect {
   value: string[];
   label: string;
   placeholder?: string;
+  selectionLabelSingle?: string;
+  selectionLabelMulti?: string;
   labelStyles?: string;
   buttonStyles?: string;
   optionStyles?: string;
-  selectOptions: ISelectItem[];
+  listOptions: ISelectItem[];
   setValue: (_val: string[]) => void;
   onBlur?: () => void;
+  disabled?: boolean;
 }
 
 const MultiSelect: React.FC<IMultiSelect> = ({
+  disabled,
   name,
   value,
   placeholder,
+  selectionLabelSingle,
+  selectionLabelMulti,
   label,
-  selectOptions,
+  listOptions: selectOptions,
   labelStyles,
   optionStyles,
   buttonStyles,
@@ -28,16 +34,24 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   onBlur,
 }) => {
   return (
-    <Listbox value={value} onChange={setValue} name={name} multiple={true}>
+    <Listbox
+      disabled={disabled}
+      value={value}
+      onChange={setValue}
+      name={name}
+      multiple={true}
+    >
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label
-            className={`text-component-extra-small text-black-text ${labelStyles}}`}
+            className={`text-component-extra-small ${
+              disabled ? 'text-gray-2' : 'text-black-text'
+            } ${labelStyles}}`}
             htmlFor={name}
           >
             {label}
           </Listbox.Label>
-          <div className="mt-2">
+          <div className={`mt-2 ${disabled ? 'bg-gray-4' : ''}`}>
             <Listbox.Button
               name={name}
               className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${
@@ -50,7 +64,9 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                     {`${value.length} x `}
                   </div>
                   <span className="ml-1 block truncate">
-                    {' Skills selected'}
+                    {value.length > 1
+                      ? selectionLabelMulti
+                      : selectionLabelSingle}
                   </span>
                 </div>
               ) : (
@@ -100,6 +116,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                              checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
                           type="checkbox"
                           checked={selected}
+                          readOnly
                         />
                         <label
                           htmlFor={option.value}

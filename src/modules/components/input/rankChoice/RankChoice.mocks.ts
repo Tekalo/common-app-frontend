@@ -7,29 +7,29 @@ const name = 'causes';
 const base: IRankChoice = {
   label,
   name,
-  items: [
-    { text: 'Climate Change', value: 'climate' },
-    { text: 'Environment', value: 'environment' },
-    { text: 'Human rights & social equality', value: 'humanRights' },
-    { text: 'International Development', value: 'intDev' },
+  rankOptions: [
+    { displayText: 'Climate Change', value: 'climate' },
+    { displayText: 'Environment', value: 'environment' },
+    { displayText: 'Human rights & social equality', value: 'humanRights' },
+    { displayText: 'International Development', value: 'intDev' },
   ],
 };
 
 const empty: IRankChoice = {
   ...base,
-  items: [],
+  rankOptions: [],
 };
 
 const one: IRankChoice = {
   ...base,
-  items: [{ text: 'Climate Change', value: 'climate' }],
+  rankOptions: [{ displayText: 'Climate Change', value: 'climate' }],
 };
 
 const two: IRankChoice = {
   ...base,
-  items: [
-    { text: 'Climate Change', value: 'climate' },
-    { text: 'Environment', value: 'environment' },
+  rankOptions: [
+    { displayText: 'Climate Change', value: 'climate' },
+    { displayText: 'Environment', value: 'environment' },
   ],
 };
 

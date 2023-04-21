@@ -1,12 +1,16 @@
-// build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-// ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-// docs: Documentation only changes
-// feat: A new feature
-// fix: A bug fix
+// build: Changes that affect the build system or external dependencies
+// ci: Changes to our CI configuration files and scripts
+// docs: Documentation or comment updates
+// feat: Work on new features
+// fix: Work on bug fixes
 // perf: A code change that improves performance
-// refactor: A code change that neither fixes a bug nor adds a feature
-// style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+// refactor: Changing code that neither fixes a bug nor adds a feature
+// design: Changes that affect the design or user experience
+// style: Changes that affect the style of the code base
 // test: Adding missing tests or correcting existing tests
+// revert: Reverts code to something previous
+// merge: Merges something
+// security: Changes that affect the security of the code base
 
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -30,20 +34,19 @@ module.exports = {
       2,
       'always',
       [
-        'build',
-        'chore',
-        'ci',
-        'docs',
+        'design',
         'feat',
         'fix',
         'perf',
         'refactor',
+        'docs',
+        'merge',
+        'ci',
+        'build',
         'revert',
         'style',
         'test',
-        'translation',
         'security',
-        'changeset',
       ],
     ],
   },

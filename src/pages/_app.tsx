@@ -16,6 +16,7 @@ const SENTRY_DSN =
 
 Sentry.init({
   dsn: SENTRY_DSN,
+  environment: process.env.NEXT_PUBLIC_SENTRY_ENV,
   tracesSampleRate: 1.0,
 });
 

@@ -1,8 +1,8 @@
-import { IModal } from './Modal';
+import { ITableModal } from './TableModal';
 
 let isOpen = true;
 
-const base: IModal = {
+const base: ITableModal = {
   headerText: 'Header',
   bodyText: 'Body',
   isOpen,
@@ -11,6 +11,6 @@ const base: IModal = {
   },
 };
 
-export const mockModalProps = {
+export const mockTableModalProps = {
   base,
 };
