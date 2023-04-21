@@ -12,7 +12,7 @@ export interface ISelectGroup {
 const SelectGroup: React.FC<ISelectGroup> = ({
   value,
   setValue,
-  listOptions: selectOptions,
+  listOptions,
   label,
 }) => {
   return (
@@ -20,7 +20,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
       <legend className="text-component-extra-small text-black-text">
         {label}
       </legend>
-      {selectOptions.map((option, idx) => (
+      {listOptions.map((option, idx) => (
         <div
           key={idx}
           className="flex flex-row items-center space-x-2 align-middle"
@@ -30,7 +30,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
               type="checkbox"
               id={option.value}
               value={option.value}
-              checked={value.includes(option.value)}
+              checked={value && value.includes(option.value)}
               onChange={(e) => {
                 const newValue = [...value];
                 if (e.target.checked) newValue.push(e.target.value);

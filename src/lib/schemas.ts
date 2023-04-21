@@ -15,11 +15,14 @@ export const validations = {
     .string()
     .nonempty(errorMessages.required)
     .email(errorMessages.invalidEmail),
-  phoneNumber: z.string().refine((phoneNumber: string) => {
-    return new RegExp(
-      /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-    ).test(phoneNumber);
-  }),
+  phoneNumber: z
+    .string()
+    .refine((phoneNumber: string) => {
+      return new RegExp(
+        /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
+      ).test(phoneNumber);
+    })
+    .optional(),
   privacyPolicy: z.literal(true, {
     errorMap: () => ({
       message: errorMessages.privacyRequired,

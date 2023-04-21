@@ -19,13 +19,18 @@ const RadioGroup: React.FC<IRadioGroup> = ({
   listOptions,
 }) => {
   return (
-    <fieldset className={`text-left ${rowAlign ? 'flex flex-row' : ''}`}>
+    <fieldset
+      className={`text-left ${rowAlign ? 'flex flex-row' : 'space-y-2'}`}
+    >
       <legend className={`pb-2 text-component-extra-small text-black-text`}>
         {label}
       </legend>
       {/* RADIO OPTIONS */}
       {listOptions.map((option, idx) => (
-        <div className={`flex w-[88px] gap-x-2`} key={idx}>
+        <div
+          className={`flex gap-x-2 ${rowAlign ? 'w-20' : 'w-[125%]'}`}
+          key={idx}
+        >
           <div className="flex h-[16px] w-[16px] items-center justify-center">
             <input
               className={`form-radio h-[16px] w-[16px] 

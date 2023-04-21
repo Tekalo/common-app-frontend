@@ -1,3 +1,4 @@
+import { PreferredContact, SearchStatus } from '@/lib/schemas';
 import { IRadioItem, ISelectItem } from '@/lib/types';
 
 const YoEOptions: Array<ISelectItem> = [
@@ -194,6 +195,36 @@ const AuthorizationOptions: Array<ISelectItem> = [
   },
 ];
 
+const SearchStatusOptions = [
+  {
+    value: SearchStatus.Values.active,
+    displayText: "I'm actively looking for a new role",
+  },
+  {
+    value: SearchStatus.Values.passive,
+    displayText: "I'm flexible, casually looking for opportunities",
+  },
+  {
+    value: SearchStatus.Values.future,
+    displayText: 'I want to stay in touch for opportunities in the future',
+  },
+];
+
+const PreferredContactOptions = [
+  {
+    value: PreferredContact.Values.email,
+    displayText: 'Email',
+  },
+  {
+    value: PreferredContact.Values.sms,
+    displayText: 'Text message',
+  },
+  {
+    value: PreferredContact.Values.whatsapp,
+    displayText: 'Whatsapp message',
+  },
+];
+
 export {
   YoEOptions,
   SkillOptions,
@@ -203,4 +234,6 @@ export {
   YesNoOptions,
   USDROptions,
   AuthorizationOptions,
+  SearchStatusOptions as searchStatusOptions,
+  PreferredContactOptions,
 };

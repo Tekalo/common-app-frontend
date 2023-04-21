@@ -1,4 +1,9 @@
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
+import {
+  PRIVACY_MODAL_BODY_TEXT,
+  PRIVACY_MODAL_EXTRAS,
+  PRIVACY_MODAL_HEADER_TEXT,
+} from '@/lib/constants/text';
 import { NextPageWithLayout } from '@/lib/types';
 import TableModal from '@/modules/components/modal/Modal/TableModal/TableModal';
 import SignupForm from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
@@ -37,28 +42,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
     }
   };
 
-  const headerText = 'Privacy Info';
-
-  const bodyText =
-    'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.';
-
-  const extras = (
-    <div className="text-p3-desktop">
-      See our&nbsp;
-      <span className="text-blue-1 underline underline-offset-4">
-        <Link target="_blank" href="/privacy-info">
-          Privacy FAQ
-        </Link>
-      </span>
-      &nbsp;for more information
-    </div>
-  );
-
   return (
     <div className="px-6 pb-28 pt-10 md:px-24">
       {/* Title */}
       <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
-        Join a network with over XX00 organizations to find your match.
+        {'Join a network with over XX00 organizations to find your match.'}
       </div>
       {/* Navaway has an account*/}
       <div className="text-center text-component-medium">
@@ -78,13 +66,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
       <div className="mt-6 text-center">
         {"If you're an organization, "}
         <span className="text-blue-1 underline underline-offset-4">
-          <Link href="/sign-in">apply here</Link>
+          <Link href="/sign-in">{'apply here'}</Link>
         </span>
       </div>
       <TableModal
-        headerText={headerText}
-        bodyText={bodyText}
-        extras={extras}
+        headerText={PRIVACY_MODAL_HEADER_TEXT}
+        bodyText={PRIVACY_MODAL_BODY_TEXT}
+        extras={PRIVACY_MODAL_EXTRAS}
         isOpen={showPrivacyModal}
         closeModal={() => {
           setShowPrivacyModal(false);
