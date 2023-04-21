@@ -1,6 +1,6 @@
-import { ISelectItem } from '@/lib/types';
+import { IRadioItem, ISelectItem } from '@/lib/types';
 
-export const YoEOptions: Array<ISelectItem> = [
+const YoEOptions: Array<ISelectItem> = [
   {
     value: '< 1',
     displayText: 'Less than 1',
@@ -18,7 +18,7 @@ export const YoEOptions: Array<ISelectItem> = [
   },
 ];
 
-export const SkillOptions: Array<ISelectItem> = [
+const SkillOptions: Array<ISelectItem> = [
   {
     value: 'react',
     displayText: 'React',
@@ -72,3 +72,135 @@ export const SkillOptions: Array<ISelectItem> = [
     displayText: 'Project management',
   },
 ];
+
+const EmploymentOptions: Array<ISelectItem> = [
+  {
+    value: 'full',
+    displayText: 'Full-time employment',
+  },
+  {
+    value: 'part',
+    displayText: 'Part-time/short term opportunities',
+  },
+];
+
+const RoleOptions: Array<ISelectItem> = [
+  {
+    value: 'data analyst',
+    displayText: 'Data analyst',
+  },
+  {
+    value: 'product manager',
+    displayText: 'Product manager',
+  },
+  {
+    value: 'software engineer',
+    displayText: 'Software engineer',
+  },
+  {
+    value: 'software engineeer backend',
+    displayText: 'Software engineer - backend',
+  },
+  {
+    value: 'software engineer frontend',
+    displayText: 'Software engineer - frontend',
+  },
+  {
+    value: 'product designer',
+    displayText: 'Product designer',
+  },
+
+  {
+    value: 'ux/ui designer',
+    displayText: 'UX/UI designer',
+  },
+  {
+    value: 'ux researcher',
+    displayText: 'UX researcher',
+  },
+];
+
+const CauseOptions: Array<ISelectItem> = [
+  {
+    value: 'climate change',
+    displayText: 'Climate change',
+  },
+  {
+    value: 'environment',
+    displayText: 'Environment',
+  },
+  {
+    value: 'human rights & social equality',
+    displayText: 'Human rights & social equality',
+  },
+  {
+    value: 'international development',
+    displayText: 'International development',
+  },
+  {
+    value: 'education',
+    displayText: 'Education',
+  },
+  {
+    value: 'health & well being',
+    displayText: 'Health & well-being',
+  },
+  {
+    value: 'government tech',
+    displayText: 'Government tech',
+  },
+  {
+    value: 'tech policy',
+    displayText: 'Tech policy',
+  },
+  {
+    value: 'trust & safety',
+    displayText: 'Trust & safety',
+  },
+];
+
+const YesNoOptions: Array<IRadioItem> = [
+  {
+    value: 'false',
+    displayText: 'No',
+  },
+  {
+    value: 'true',
+    displayText: 'Yes',
+  },
+];
+
+const USDROptions: Array<ISelectItem> = [
+  {
+    value: 'paid',
+    displayText: 'Paid government jobs with local & state governments',
+  },
+  {
+    value: 'unpaid',
+    displayText:
+      'Volunteer (unpaid) roles with USDR to support government partners',
+  },
+];
+
+const AuthorizationOptions: Array<ISelectItem> = [
+  {
+    value: 'authorized',
+    displayText: 'I am authorized to work in the U.S.',
+  },
+  {
+    value: 'sponsorship',
+    displayText:
+      'I will now or in the future require sponsorship to work in the U.S.',
+  },
+];
+
+export {
+  YoEOptions,
+  SkillOptions,
+  EmploymentOptions,
+  RoleOptions,
+  CauseOptions,
+  YesNoOptions,
+  USDROptions,
+  AuthorizationOptions,
+};

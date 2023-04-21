@@ -1,6 +1,14 @@
 import Button from '@/components/buttons/Button/Button';
-import RadioGroup from '@/components/input/radioGroup/RadioGroup';
-import { createOptionList, printErrorMessages } from '@/lib/helpers';
+import {
+  AuthorizationOptions,
+  CauseOptions,
+  EmploymentOptions,
+  RoleOptions,
+  USDROptions,
+  YesNoOptions,
+} from '@/lib/constants/selects';
+import { USDR_DISCLAIMER } from '@/lib/constants/text';
+import { createOptionList } from '@/lib/helpers';
 import {
   ApplicantDraftSubmission,
   ApplicantInterests,
@@ -11,7 +19,6 @@ import {
   ReferenceAttribution,
   Roles,
 } from '@/lib/schemas';
-import { IRadioItem, ISelectItem } from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
@@ -21,7 +28,7 @@ import {
   SelectGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
-import { Field, FieldInstance, Form, FormInstance } from 'houseform';
+import { FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
 
@@ -33,127 +40,6 @@ export interface IInterestForm {
 
 type InterestFormType = z.infer<typeof ApplicantInterests>;
 type FormRefType = FormInstance<InterestFormType>;
-
-const EmploymentOptions: Array<ISelectItem> = [
-  {
-    value: 'full',
-    displayText: 'Full-time employment',
-  },
-  {
-    value: 'part',
-    displayText: 'Part-time/short term opportunities',
-  },
-];
-
-const RoleOptions: Array<ISelectItem> = [
-  {
-    value: 'data analyst',
-    displayText: 'Data analyst',
-  },
-  {
-    value: 'product manager',
-    displayText: 'Product manager',
-  },
-  {
-    value: 'software engineer',
-    displayText: 'Software engineer',
-  },
-  {
-    value: 'software engineeer backend',
-    displayText: 'Software engineer - backend',
-  },
-  {
-    value: 'software engineer frontend',
-    displayText: 'Software engineer - frontend',
-  },
-  {
-    value: 'product designer',
-    displayText: 'Product designer',
-  },
-
-  {
-    value: 'ux/ui designer',
-    displayText: 'UX/UI designer',
-  },
-  {
-    value: 'ux researcher',
-    displayText: 'UX researcher',
-  },
-];
-
-const CauseOptions: Array<ISelectItem> = [
-  {
-    value: 'climate change',
-    displayText: 'Climate change',
-  },
-  {
-    value: 'environment',
-    displayText: 'Environment',
-  },
-  {
-    value: 'human rights & social equality',
-    displayText: 'Human rights & social equality',
-  },
-  {
-    value: 'international development',
-    displayText: 'International development',
-  },
-  {
-    value: 'education',
-    displayText: 'Education',
-  },
-  {
-    value: 'health & well being',
-    displayText: 'Health & well-being',
-  },
-  {
-    value: 'government tech',
-    displayText: 'Government tech',
-  },
-  {
-    value: 'tech policy',
-    displayText: 'Tech policy',
-  },
-  {
-    value: 'trust & safety',
-    displayText: 'Trust & safety',
-  },
-];
-
-const YesNoOptions: Array<IRadioItem> = [
-  {
-    value: 'false',
-    displayText: 'No',
-  },
-  {
-    value: 'true',
-    displayText: 'Yes',
-  },
-];
-
-const USDROptions: Array<ISelectItem> = [
-  {
-    value: 'paid',
-    displayText: 'Paid government jobs with local & state governments',
-  },
-  {
-    value: 'unpaid',
-    displayText:
-      'Volunteer (unpaid) roles with USDR to support government partners',
-  },
-];
-
-const AuthorizationOptions: Array<ISelectItem> = [
-  {
-    value: 'authorized',
-    displayText: 'I am authorized to work in the U.S.',
-  },
-  {
-    value: 'sponsorship',
-    displayText:
-      'I will now or in the future require sponsorship to work in the U.S.',
-  },
-];
 
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,
@@ -192,6 +78,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             helperText={
               'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
             }
+            fieldRef={employmentTypeRef}
             listOptions={EmploymentOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm.interestEmploymentType}
@@ -203,8 +90,13 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Hours per week */}
           <FreeTextField
             fieldName="hoursPerWeek"
+            listenTo={['interestEmploymentType']}
             label="Hours per week you are able to commit (optional)"
             placeholder="Approximate number of hours"
+            disabled={
+              employmentTypeRef.current?.value.length === 1 &&
+              employmentTypeRef.current?.value[0] === 'full'
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm.hoursPerWeek || ''}
             validator={z.string().optional()}
@@ -312,55 +204,14 @@ const InterestForm: React.FC<IInterestForm> = ({
           <RadioSelectField
             fieldName="interestGovt"
             label="Are you interested in U.S. state or local government opportunities?"
-            helperText={<></>}
+            helperText={USDR_DISCLAIMER}
+            fieldRef={govRef}
+            rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm.interestGovt}
             validator={z.boolean()}
           />
-
-          <Field<boolean>
-            name="interestGovt"
-            ref={govRef}
-            initialValue={savedForm.interestGovt}
-            onSubmitValidate={z.boolean()}
-            onChangeValidate={z.boolean()}
-          >
-            {({ value, setValue, errors }) => {
-              return (
-                <div className="space-y-2">
-                  <div className="text-left text-component-extra-small text-black-text">
-                    {
-                      'Are you interested in U.S. state or local government opportunities?'
-                    }
-                  </div>
-                  <div className="w-[103%] text-left text-p3-mobile text-black-text">
-                    {'By choosing “yes,” you consent to '}
-                    <a
-                      href="https://www.usdigitalresponse.org/about"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline underline-offset-4"
-                    >
-                      {'U.S. Digital Response'}
-                    </a>
-                    {
-                      ' saving a copy of your CommonApp profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.'
-                    }
-                  </div>
-                  <RadioGroup
-                    name="input-interestGovt"
-                    value={String(value)}
-                    onChange={(val) => setValue(val === 'true')}
-                    radioOptions={YesNoOptions}
-                    fieldSetClassName="flex flex-row"
-                    radioClassName="w-[88px]"
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </div>
-              );
-            }}
-          </Field>
 
           {/* Gov Opp Type*/}
           <MultiSelectField
@@ -378,29 +229,15 @@ const InterestForm: React.FC<IInterestForm> = ({
           />
 
           {/* Previous XP*/}
-          <Field<boolean>
-            name="previousImpactExperience"
+          <RadioSelectField
+            fieldName="previousImpactExperience"
+            label="Do you have previous experience working at a non-profit or a public service organization?"
+            rowAlign={true}
+            listOptions={YesNoOptions}
+            isSubmitted={isSubmitted}
             initialValue={savedForm.previousImpactExperience}
-            onSubmitValidate={z.boolean()}
-            onChangeValidate={z.boolean()}
-          >
-            {({ value, setValue, errors }) => {
-              return (
-                <>
-                  <RadioGroup
-                    name="input-previousImpactExperience"
-                    value={String(value)}
-                    onChange={(val) => setValue(val === 'true')}
-                    radioOptions={YesNoOptions}
-                    legendText="Do you have previous experience working at a non-profit or a public service organization?"
-                    fieldSetClassName="flex flex-row space-y-2"
-                    radioClassName="w-[88px]"
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={z.boolean()}
+          />
 
           {/* Essay */}
           <LongTextField
@@ -425,6 +262,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={ReferenceAttribution}
           />
 
+          {/* Form Control Buttons */}
           <div className="pt-2">
             <Button
               className="mt-14 w-full text-component-large"

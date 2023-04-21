@@ -7,8 +7,6 @@ export interface IFreeText {
   setValue: (_val: string) => void;
   onBlur: () => void;
   placeholder?: string;
-  labelClassName?: string;
-  inputClassName?: string;
   tooltipText?: string;
   disabled?: boolean;
 }
@@ -20,15 +18,15 @@ const FreeText: React.FC<IFreeText> = ({
   setValue,
   onBlur,
   placeholder,
-  labelClassName,
-  inputClassName,
   tooltipText,
   disabled,
 }) => {
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`${labelClassName} flex items-center text-component-extra-small text-black-text`}
+        className={`flex items-center text-component-extra-small ${
+          disabled ? 'text-gray-2' : 'text-black-text'
+        }}`}
         htmlFor={name}
       >
         {label}
@@ -37,10 +35,8 @@ const FreeText: React.FC<IFreeText> = ({
       <input
         disabled={disabled}
         name={name}
-        className={`box-border h-[32px] w-full rounded-[3px]
-                    border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2
-                    focus:border-2 focus:border-blue-1 focus:p-[7px]
-                    active:border active:border-blue-1 active:p-2 ${inputClassName}}`}
+        className={`active:p-2} box-border h-[32px] w-full
+                    rounded-[3px] border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2 focus:border-2 focus:border-blue-1 focus:p-[7px] active:border active:border-blue-1`}
         value={value}
         onBlur={onBlur}
         onChange={(e) => setValue(e.target.value)}

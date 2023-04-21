@@ -5,11 +5,13 @@ import { z } from 'zod';
 
 export interface IFreeTextField {
   fieldName: string;
+  listenTo?: string[];
   label: string;
   placeholder: string;
   isSubmitted: boolean;
   initialValue: string | undefined;
   validator?: z.ZodSchema;
+  disabled?: boolean;
 }
 
 const FreeTextField: React.FC<IFreeTextField> = ({
@@ -19,6 +21,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
   isSubmitted,
   initialValue,
   validator,
+  disabled = false,
 }) => {
   return (
     <Field<string>
@@ -32,6 +35,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
           <>
             <FreeText
               name={`input-${fieldName}`}
+              disabled={disabled}
               label={label}
               placeholder={placeholder}
               value={value}

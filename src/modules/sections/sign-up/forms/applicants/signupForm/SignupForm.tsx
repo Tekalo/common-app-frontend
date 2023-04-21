@@ -133,8 +133,8 @@ const SignupForm: React.FC<ISignupForm> = ({
                   <RadioGroup
                     value={value}
                     onChange={setValue}
-                    radioOptions={searchStatusOptions}
-                    legendText="Which describes you best?"
+                    listOptions={searchStatusOptions}
+                    label="Which describes you best?"
                     fieldSetClassName="space-y-3"
                   />
                   {printErrorMessages(isSubmitted, errors)}
