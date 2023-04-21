@@ -17,35 +17,34 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
-
-  const hideAppNotSubmitted = applicationSubmitted;
-  const hideAppSubmitted = !hideAppNotSubmitted;
-  const hidePauseMatches = !applicationSubmitted || matchesPaused;
-  const hideMatchesPaused = !matchesPaused;
+  const [showResumeModal, setShowResumeModal] = useState(false);
 
   const onDeleteConfirm = (): void => {
     // TODO: Do the delete
     console.log('DELETE');
   };
+
   const onPauseConfirm = (): void => {
     // TODO: Do the pause
     console.log('PAUSE');
   };
-  const closeDeleteModal = (): void => {
-    setShowDeleteModal(false);
-  };
-  const closePauseModal = (): void => {
-    setShowPauseModal(false);
+
+  const onResumeConfirm = (): void => {
+    // TODO: Do the pause
+    console.log('PAUSE');
   };
 
   const deleteModalConfirm = 'Delete account';
   const deleteModalHeadline = 'Permanently delete your account and data';
-  const deleteModalText = `Are you sure you want to permanently delete you
-                            account and data? This may take up to 30 days. Choose
-                            “delete account” to start deletion.`;
+  const deleteModalText = `Are you sure you want to permanently delete you account and data? This may take up to 30 days. Choose “delete account” to start deletion.`;
+
+  const pauseModalConfirm = 'Pause matches';
   const pauseModalHeadline = 'Pause your matches';
-  const pauseModalText =
-    'Are you sure you want to pause your matches? Lorem ipsum';
+  const pauseModalText = 'Are you sure you want to pause your matches?';
+
+  const resumeModalConfirm = 'Resume matches';
+  const resumeModalHeadline = 'Resume your matches';
+  const resumeModalText = 'Are you sure you want to resume your matches?';
 
   return (
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
@@ -53,72 +52,118 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
         {`Welcome Back, [Name]`}
       </div>
       <div className="mb-6 font-display text-h4-desktop text-black-text">
-        Manage your settings
+        {`Manage your settings`}
       </div>
-      {/* Bordered Settings BOx */}
+      {/* Bordered Settings Box */}
       <div className="border border-gray-3 p-10">
         <div className="mb-6 font-display text-small-caption-desktop text-gray-1">
-          Your Account
+          {`Your Account`}
         </div>
-        {/* Application Status */}
+
         <div className="space-y-5">
-          {/* App Not Submitted */}
-          <div className={`${hideAppNotSubmitted ? 'hidden' : ''} space-y-2`}>
-            <div className="text-component-medium text-blue-1">
-              <Link href="/sign-up/applicants">
-                {'Continue my application >'}
-              </Link>
-            </div>
-            <div className="text-p3-desktop text-gray-1">
-              Your application has not been submitted yet.
-            </div>
-          </div>
-          {/* Application Submitted */}
+          {/* Application Status Section */}
           <div
-            className={`${
-              hideAppSubmitted ? 'hidden' : ''
-            } space-y-2 border-b border-gray-3 pb-9`}
+            className={`space-y-2 ${
+              applicationSubmitted ? 'border-b border-gray-3 pb-9' : ''
+            }`}
           >
-            <div className="flex items-baseline">
-              <div className="mr-1 h-[16px] w-[16px] p-1">
-                {<GreenCheckSvg height="12px" width="12px" color="#00A870" />}
-              </div>{' '}
-              <div className=""> Application submitted</div>
-            </div>
-            <div className="text-p3-desktop text-gray-1">
-              {"You're all set. We'll contact you via your preferred method."}
-            </div>
-          </div>
-          <div className="space-y-5">
-            {/* Pause Matches */}
-            <div className={`space-y-2 ${hidePauseMatches ? 'hidden' : ''}`}>
-              <div
-                className="cursor-pointer text-component-medium text-blue-1"
-                onClick={() => setShowPauseModal(true)}
-              >
-                {'Pause my matches >'}
-              </div>
-              <div className="text-p3-desktop text-gray-1">
-                {
-                  "If you're not looking for matches now, we'll stop contacting you until you opt back in."
-                }
-              </div>
-            </div>
-            {/* Matches Paused */}
-            <div className={`space-y-2 ${hideMatchesPaused ? 'hidden' : ''}`}>
-              <div
-                className="cursor-pointer text-component-medium text-blue-1"
-                onClick={() => {}}
-              >
-                <div className="flex">
-                  {<IOutlineSVG height="16px" width="16px" color="#317BB5" />}
-                  <div className="ml-1">{'Opt back in for matches >'}</div>
+            {applicationSubmitted ? (
+              <>
+                <div className="flex items-baseline">
+                  <div className="mr-1 h-[16px] w-[16px] p-1">
+                    {
+                      <GreenCheckSvg
+                        height="12px"
+                        width="12px"
+                        color="#00A870"
+                      />
+                    }
+                  </div>
+                  <div className="">{' Application submitted'}</div>
                 </div>
-              </div>
-              <div className="text-p3-desktop text-gray-1">
-                Your matches are paused until you opt back in.
-              </div>
+                <div className="text-p3-desktop text-gray-1">
+                  {
+                    "You're all set. We'll contact you via your preferred method."
+                  }
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-component-medium text-blue-1">
+                  <Link href="/sign-up/applicants">
+                    {'Continue my application >'}
+                  </Link>
+                </div>
+                <div className="text-p3-desktop text-gray-1">
+                  Your application has not been submitted yet.
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Data Control Section */}
+          <div className="space-y-5">
+            {/* Pause Status */}
+            <div className="space-y-2">
+              {matchesPaused ? (
+                <>
+                  <div
+                    className="cursor-pointer text-component-medium text-blue-1"
+                    onClick={() => setShowResumeModal(true)}
+                  >
+                    <div className="flex">
+                      {
+                        <IOutlineSVG
+                          height="16px"
+                          width="16px"
+                          color="#317BB5"
+                        />
+                      }
+                      <div className="ml-1">{'Opt back in for matches >'}</div>
+                    </div>
+                  </div>
+                  <div className="text-p3-desktop text-gray-1">
+                    {'Your matches are paused until you opt back in.'}
+                  </div>
+                  <ConfirmModal
+                    bodyText={resumeModalText}
+                    cancelBtnText={'Cancel'}
+                    confirmBtnText={resumeModalConfirm}
+                    headline={resumeModalHeadline}
+                    isOpen={showResumeModal}
+                    closeModal={() => setShowResumeModal(false)}
+                    onCancel={() => setShowResumeModal(false)}
+                    onConfirm={onResumeConfirm}
+                  />
+                </>
+              ) : (
+                <>
+                  <div
+                    className="cursor-pointer text-component-medium text-blue-1"
+                    onClick={() => setShowPauseModal(true)}
+                  >
+                    {' Pause my matches >'}
+                  </div>
+                  <div className="text-p3-desktop text-gray-1">
+                    {
+                      "If you're not looking for matches now, we'll stop contacting you until you opt back in."
+                    }
+                  </div>
+                  <ConfirmModal
+                    bodyText={pauseModalText}
+                    cancelBtnText={'Cancel'}
+                    confirmBtnText={pauseModalConfirm}
+                    headline={pauseModalHeadline}
+                    isOpen={showPauseModal}
+                    closeModal={() => setShowPauseModal(false)}
+                    onCancel={() => setShowPauseModal(false)}
+                    onConfirm={onPauseConfirm}
+                  />
+                </>
+              )}
             </div>
+
+            {/* Data Control */}
             <div className="space-y-2">
               <div
                 className="cursor-pointer text-component-medium text-blue-1"
@@ -127,33 +172,23 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
                 {'Delete my account and data >'}
               </div>
               <div className="text-p3-desktop text-gray-1">
-                Permanently delete your account and saved data.
+                {'Permanently delete your account and saved data.'}
               </div>
             </div>
+            <ConfirmModal
+              bodyText={deleteModalText}
+              confirmBtnVariant={ButtonVariant.RED}
+              cancelBtnText={'Cancel'}
+              confirmBtnText={deleteModalConfirm}
+              headline={deleteModalHeadline}
+              isOpen={showDeleteModal}
+              closeModal={() => setShowDeleteModal(false)}
+              onCancel={() => setShowDeleteModal(false)}
+              onConfirm={onDeleteConfirm}
+            />
           </div>
         </div>
       </div>
-      <ConfirmModal
-        bodyText={deleteModalText}
-        confirmBtnVariant={ButtonVariant.RED}
-        cancelBtnText="Cancel"
-        confirmBtnText={deleteModalConfirm}
-        headline={deleteModalHeadline}
-        isOpen={showDeleteModal}
-        closeModal={closeDeleteModal}
-        onConfirm={onDeleteConfirm}
-        onCancel={closeDeleteModal}
-      />
-      <ConfirmModal
-        bodyText={pauseModalText}
-        cancelBtnText="Cancel"
-        confirmBtnText="Pause matches"
-        headline={pauseModalHeadline}
-        isOpen={showPauseModal}
-        closeModal={closePauseModal}
-        onConfirm={onPauseConfirm}
-        onCancel={closePauseModal}
-      />
     </div>
   );
 };
