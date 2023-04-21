@@ -26,12 +26,6 @@
     },
     "types": ["@cloudflare/workers-types"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/modules/sections/sign-up/fields/ff",
-    "src/modules/sections/sign-up/fields/ff"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
