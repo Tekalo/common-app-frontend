@@ -11,7 +11,7 @@ export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   label: string;
   disabled?: boolean;
   variant?: ButtonVariant;
-  onClick(): void;
+  onClick?: () => void;
 }
 
 const Button: React.FC<IButton> = ({

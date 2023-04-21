@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YoEOptions } from '@/lib/constants/selects';
 import {
   ApplicantDraftSubmission,
@@ -165,7 +165,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               className="w-full text-component-large"
               label="Save your progress"
               type="button"
-              outlined
+              variant={ButtonVariant.OUTLINED}
               onClick={doSave}
             />
 
