@@ -154,7 +154,7 @@ const SignupForm: React.FC<ISignupForm> = ({
                   <ListBox
                     name="input-preferredContact"
                     placeholder="Choose one"
-                    labelText="Preferred contact method to receive matches"
+                    label="Preferred contact method to receive matches"
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}

@@ -1,4 +1,4 @@
-import { HandleSvg } from '@/constants/svgs';
+import { HandleSvg } from '@/lib/constants/svgs';
 import type { Identifier, XYCoord } from 'dnd-core';
 import type { FC } from 'react';
 import { useRef } from 'react';

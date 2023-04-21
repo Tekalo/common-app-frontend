@@ -12,7 +12,7 @@ export interface IMultiSelect {
   labelStyles?: string;
   buttonStyles?: string;
   optionStyles?: string;
-  selectOptions: ISelectItem[];
+  listOptions: ISelectItem[];
   setValue: (_val: string[]) => void;
   onBlur?: () => void;
   disabled?: boolean;
@@ -26,7 +26,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   selectionLabelSingle,
   selectionLabelMulti,
   label,
-  selectOptions,
+  listOptions: selectOptions,
   labelStyles,
   optionStyles,
   buttonStyles,

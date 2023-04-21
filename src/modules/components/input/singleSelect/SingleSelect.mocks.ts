@@ -4,7 +4,7 @@ const base: ISingleSelect = {
   name: 'test',
   placeholder: 'test',
   value: 'test',
-  labelText: 'Listbox Input',
+  label: 'Listbox Input',
   listOptions: [
     {
       value: '1',

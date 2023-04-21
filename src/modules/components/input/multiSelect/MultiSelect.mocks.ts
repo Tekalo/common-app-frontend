@@ -6,7 +6,7 @@ const base: IMultiSelect = {
   placeholder: 'Hello!',
   setValue: () => {},
   onBlur: () => {},
-  selectOptions: [
+  listOptions: [
     { displayText: 'Option 1', value: 'option1' },
     { displayText: 'Option 2', value: 'option2' },
     { displayText: 'Option 3', value: 'option3' },

@@ -271,7 +271,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}
-                    selectOptions={RoleOptions}
+                    listOptions={RoleOptions}
                   />
                   {printErrorMessages(isSubmitted, errors)}
                 </>
@@ -319,7 +319,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                 <>
                   <SingleSelect
                     name="input-openToRelocate"
-                    labelText="Open to relocating?"
+                    label="Open to relocating?"
                     placeholder="Choose one"
                     value={value}
                     setValue={setValue}
@@ -343,7 +343,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                 <>
                   <SingleSelect
                     name="input-openToRemote"
-                    labelText="Open to remote?"
+                    label="Open to remote?"
                     placeholder="Choose one"
                     value={value}
                     setValue={setValue}
@@ -403,7 +403,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}
-                    selectOptions={CauseOptions}
+                    listOptions={CauseOptions}
                   />
                   {printErrorMessages(isSubmitted, errors)}
                 </>
@@ -473,7 +473,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                 <>
                   <SingleSelect
                     name="input-workAuthorization"
-                    labelText="Work authorization (optional)"
+                    label="Work authorization (optional)"
                     placeholder="Choose one"
                     value={value}
                     setValue={setValue}
@@ -549,7 +549,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                     value={value}
                     setValue={setValue}
                     onBlur={onBlur}
-                    selectOptions={USDROptions}
+                    listOptions={USDROptions}
                   />
                   {printErrorMessages(isSubmitted, errors)}
                 </>
@@ -619,7 +619,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                 <>
                   <SingleSelect
                     name="input-referenceAttribution"
-                    labelText="How did you hear about Tekalo?"
+                    label="How did you hear about Tekalo?"
                     placeholder="Choose one"
                     value={value}
                     setValue={setValue}
