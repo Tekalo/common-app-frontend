@@ -40,7 +40,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                 href="/"
                 className="flex flex-row space-x-4 px-4 py-1 text-component-large text-black-text md:px-8 md:py-3"
               >
-                LOGO TBD
+                {'LOGO TBD'}
               </Link>
             </div>
             <div className="flex items-center space-x-2 md:space-x-6 lg:space-x-10">
@@ -53,12 +53,12 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                 </div>
               ) : (
                 <>
-                  <a
+                  <div
                     className="hidden cursor-pointer px-6 py-3 text-component-extra-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:block"
                     onClick={(e) => handleAuthentication(e)}
                   >
                     {logInOutLabel}
-                  </a>
+                  </div>
                   <Link href={isAuthenticated ? '/dashboard' : '/sign-up'}>
                     {isAuthenticated ? (
                       <div className="cursor-pointer px-3 py-3 text-component-extra-large font-normal text-black-text md:px-6">

@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 
 export interface IOrganizationSection {}
 
@@ -77,7 +77,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
             </div>
             {/* Button */}
             <Button
-              outlined={true}
+              variant={ButtonVariant.OUTLINED}
               label="Apply as an organization"
               className="mt-6 w-full max-w-[228px]"
               onClick={() => null}
