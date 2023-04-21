@@ -5,8 +5,6 @@ const label =
 const name = 'causes';
 
 const base: IRankChoice = {
-  // value: ['climate', 'environment', 'humanRights', 'intDev'],
-  // setValue: () => {},
   label,
   name,
   rankOptions: [
