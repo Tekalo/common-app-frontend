@@ -51,7 +51,7 @@ jobs:
 
         env:
           CI: true
-          NEXT_PUBLIC_SENTRY_ENV: production
+          NEXT_PUBLIC_SENTRY_ENV: staging
 
         run: |
           pnpm install
