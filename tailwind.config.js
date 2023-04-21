@@ -21,6 +21,7 @@ module.exports = {
       'light-orange': '#FFFAF5',
       'red-error': '#D50000',
       'red-hover': '#A80000',
+      'red-active': '#7B0000',
       'green-success': '#00A870',
       'illustration-black': '#363D3F',
       'illustration-beige': '#FFEACE',

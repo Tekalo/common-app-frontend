@@ -17,7 +17,11 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => setIsHovered(true)}
         >
-          {isHovered ? IFilledSVG : IOutlineSVG}
+          {isHovered ? (
+            IFilledSVG
+          ) : (
+            <IOutlineSVG height="16px" width="16px" color="#272929" />
+          )}
         </div>
         <div
           className={`${
