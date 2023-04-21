@@ -12,18 +12,14 @@ import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  const [showSaveModal, setShowSaveModal] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
-
+  const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
   const [draftFormValues, setDraftFormValues] = useState<
     z.infer<typeof ApplicantDraftSubmission>
   >({});
-
   const [applicantExperience, setApplicantExperience] =
     useState<z.infer<typeof ApplicantExperience>>();
-
   const [applicantInterests, setApplicantInterests] =
     useState<z.infer<typeof ApplicantInterests>>();
 
