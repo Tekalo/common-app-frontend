@@ -1,10 +1,5 @@
 import Button from '@/components/buttons/Button/Button';
-import FreeText from '@/components/input/freeText/FreeText';
-import LongText from '@/components/input/longText/LongText';
-import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
-import SelectGroup from '@/components/input/selectGroup/SelectGroup';
-import SingleSelect from '@/components/input/singleSelect/SingleSelect';
 import { createOptionList, printErrorMessages } from '@/lib/helpers';
 import {
   ApplicantDraftSubmission,
@@ -14,9 +9,18 @@ import {
   OpenToRelocate,
   OpenToRemote,
   ReferenceAttribution,
-  WorkAuthorization,
+  Roles,
 } from '@/lib/schemas';
 import { IRadioItem, ISelectItem } from '@/lib/types';
+import {
+  FreeTagField,
+  FreeTextField,
+  LongTextField,
+  MultiSelectField,
+  RadioSelectField,
+  SelectGroupField,
+  SingleSelectField,
+} from '@/sections/sign-up/fields';
 import { Field, FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
@@ -179,313 +183,142 @@ const InterestForm: React.FC<IInterestForm> = ({
           }}
           className="space-y-8"
         >
-          {/* INTEREST FORM FIELDS */}
           {/* Employment */}
-          <Field<string[]>
-            name="interestEmploymentType"
-            ref={employmentTypeRef}
+          <SelectGroupField
+            fieldName="interestEmploymentType"
+            label={
+              'What type(s) of opportunities are you interested in? Choose all that apply'
+            }
+            helperText={
+              'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
+            }
+            listOptions={EmploymentOptions}
+            isSubmitted={isSubmitted}
             initialValue={savedForm.interestEmploymentType}
-            onSubmitValidate={z.array(EmploymentType)}
-            onChangeValidate={z.array(EmploymentType)}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <div>
-                  <SelectGroup
-                    name="input-interestEmploymentType"
-                    legendText="What type(s) of opportunities are you interested in? Choose all that apply"
-                    legendClassName="text-component-extra-small text-black-text"
-                    labelClassName="text-component-medium text-black-text"
-                    fieldSetClassName="space-y-3 text-left"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    selectOptions={EmploymentOptions}
-                  />
-                  <div className="mt-3 text-left text-component-extra-small-helper-text">
-                    {
-                      'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
-                    }
-                  </div>
-                  {printErrorMessages(isSubmitted, errors)}
-                </div>
-              );
-            }}
-          </Field>
+            validator={z
+              .array(EmploymentType)
+              .nonempty('You must select at least one option')}
+          />
+
           {/* Hours per week */}
-          <Field<string>
-            name="hoursPerWeek"
-            listenTo={['interestEmploymentType']}
+          <FreeTextField
+            fieldName="hoursPerWeek"
+            label="Hours per week you are able to commit (optional)"
+            placeholder="Approximate number of hours"
+            isSubmitted={isSubmitted}
             initialValue={savedForm.hoursPerWeek || ''}
-            onSubmitValidate={z.string({
-              required_error: 'Hours per week is required',
-              invalid_type_error: 'Hours must be a string',
-            })}
-            onChangeValidate={z.string({
-              required_error: 'Hours is required',
-              invalid_type_error: 'Hours must be a string',
-            })}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <FreeText
-                    disabled={
-                      employmentTypeRef.current?.value.length === 1 &&
-                      employmentTypeRef.current?.value[0] === 'full'
-                    }
-                    labelClassName={
-                      employmentTypeRef.current?.value.length === 1 &&
-                      employmentTypeRef.current?.value[0] === 'full'
-                        ? 'text-gray-2'
-                        : ''
-                    }
-                    name="input-hoursPerWeek"
-                    label="Hours per week you are able to commit (optional)"
-                    placeholder="Approximate number of hours"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={z.string().optional()}
+          />
+
           {/* Roles */}
-          <Field<string[]>
-            name="interestRoles"
-            initialValue={savedForm.interestRoles || []}
-            onSubmitValidate={z.array(z.string())}
-            onChangeValidate={z.array(z.string())}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <MultiSelect
-                    name="input-interestRoles"
-                    label="What role(s) are you interested in?"
-                    placeholder="Choose all that apply"
-                    selectionLabelSingle=" Role selected"
-                    selectionLabelMulti=" Roles selected"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    listOptions={RoleOptions}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+          <MultiSelectField
+            fieldName="interestRoles"
+            label="What role(s) are you interested in?"
+            placeholder="Choose all that apply"
+            selectionLabelMulti=" Role selected"
+            selectionLabelSingle=" Roles selected"
+            listOptions={RoleOptions}
+            isSubmitted={isSubmitted}
+            initialValue={savedForm.interestRoles}
+            validator={z
+              .array(Roles)
+              .nonempty('You must select at least one role')}
+          />
+
           {/* Location */}
-          <Field<string>
-            name="currentLocation"
+          <FreeTextField
+            fieldName="currentLocation"
+            label="Current location"
+            placeholder="City, state and/or country"
+            isSubmitted={isSubmitted}
             initialValue={savedForm.currentLocation}
-            onSubmitValidate={z.string({
-              required_error: 'Current location is required',
-              invalid_type_error: 'Current location must be a string',
-            })}
-            onChangeValidate={z.string({
-              required_error: 'Current location is required',
-              invalid_type_error: 'Current location must be a string',
-            })}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <FreeText
-                    name="input-currentLocation"
-                    label="Current location"
-                    placeholder="City, state and/or country"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={z.string().nonempty('Current location is required')}
+          />
+
           {/* Reloaction*/}
-          <Field<string>
-            name="openToRelocate"
+          <SingleSelectField
+            fieldName="openToRelocate"
+            label="Open to relocating?"
+            placeholder="Choose one"
+            listOptions={createOptionList(OpenToRelocate.options)}
+            isSubmitted={isSubmitted}
             initialValue={savedForm.openToRelocate}
-            onSubmitValidate={OpenToRelocate}
-            onChangeValidate={OpenToRelocate}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <SingleSelect
-                    name="input-openToRelocate"
-                    label="Open to relocating?"
-                    placeholder="Choose one"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    listOptions={createOptionList(OpenToRelocate.options)}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={OpenToRelocate}
+          />
+
           {/* Remote */}
-          <Field<string>
-            name="openToRemote"
+          <SingleSelectField
+            fieldName="openToRemote"
+            label="Open to remote?"
+            placeholder="Choose one"
+            listOptions={createOptionList(OpenToRemote.options)}
+            isSubmitted={isSubmitted}
             initialValue={savedForm.openToRemote}
-            onSubmitValidate={OpenToRemote}
-            onChangeValidate={OpenToRemote}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <SingleSelect
-                    name="input-openToRemote"
-                    label="Open to remote?"
-                    placeholder="Choose one"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    listOptions={createOptionList(OpenToRemote.options)}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={OpenToRemote}
+          />
+
           {/* Salary*/}
-          <Field<string>
-            name="desiredSalary"
+          <FreeTextField
+            fieldName="desiredSalary"
+            label="Desired salary (optional)"
+            placeholder="Enter a range"
+            isSubmitted={isSubmitted}
             initialValue={savedForm.desiredSalary || ''}
-            onSubmitValidate={z.string({
-              required_error: 'Salary is required',
-              invalid_type_error: 'Salary must be a string',
-            })}
-            onChangeValidate={z.string({
-              required_error: 'Salary is required',
-              invalid_type_error: 'Salary must be a string',
-            })}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <FreeText
-                    name="input-desiredSalary"
-                    label="Desired salary (optional)"
-                    placeholder="Enter a range"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={z.string().optional()}
+          />
+
           {/* Causes */}
-          <Field<string[]>
-            name="interestCauses"
-            initialValue={(savedForm && savedForm.interestCauses) || []}
-            onSubmitValidate={z.array(z.string())}
-            onChangeValidate={z.array(z.string())}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <MultiSelect
-                    name="input-interestCauses"
-                    label="Which causes are you interested in hearing opportunities for?"
-                    placeholder="Choose all that apply"
-                    selectionLabelSingle=" Cause selected"
-                    selectionLabelMulti=" Causes selected"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    listOptions={CauseOptions}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+          <MultiSelectField
+            fieldName="interestCauses"
+            label={
+              'Which causes are you interested in hearing opportunities for?'
+            }
+            placeholder="Choose all that apply"
+            selectionLabelMulti=" Cause selected"
+            selectionLabelSingle=" Causes selected"
+            listOptions={CauseOptions}
+            isSubmitted={isSubmitted}
+            initialValue={savedForm.interestCauses || []}
+            validator={z
+              .array(z.string())
+              .nonempty('You must select at least one cause')}
+          />
+
           {/* TODO: Cause Rank*/}
           <div>TODO: Cause Rank</div>
-          {/* <Field<string[]>
-            name="rankedInterestCauses"
-            listenTo={['interestCauses']}
-            initialValue={(savedForm && savedForm.rankedInterestCauses) || []}
-            onSubmitValidate={z.array(z.string())}
-            onChangeValidate={z.array(z.string())}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <RankChoice
-                    name="input-interestCauses"
-                    label="Which causes are you interested in hearing opportunities for?"
-                    value={value}
-                    setValue={setValue}
-                    rankOptions={(savedForm && savedForm.interestCauses) || []}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field> */}
+
           {/* Other Causes*/}
-          <Field<string>
-            name="otherCauses"
-            initialValue={savedForm.otherCauses || ''}
-            onSubmitValidate={z.string({
-              invalid_type_error: 'Other causes must be a string',
-            })}
-            onChangeValidate={z.string({
-              invalid_type_error: 'Other causes must be a string',
-            })}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <FreeText
-                    name="input-otherCauses"
-                    label="Other causes (optional)"
-                    placeholder="Additional causes separated by commas"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+          <FreeTagField
+            fieldName="otherCauses"
+            label="Other causes (optional)"
+            placeholder="Additional causes separated by commas"
+            isSubmitted={isSubmitted}
+            initialValue={savedForm.otherCauses || []}
+            validator={z.array(z.string()).nullable().optional()}
+          />
+
           {/* Work Auth*/}
-          <Field<string>
-            name="workAuthorization"
+          <SingleSelectField
+            fieldName="workAuthorization"
+            label="Work authorization (optional)"
+            placeholder="Choose one"
+            listOptions={AuthorizationOptions}
+            isSubmitted={isSubmitted}
             initialValue={savedForm.workAuthorization}
-            onSubmitValidate={WorkAuthorization}
-            onChangeValidate={WorkAuthorization}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <SingleSelect
-                    name="input-workAuthorization"
-                    label="Work authorization (optional)"
-                    placeholder="Choose one"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    listOptions={AuthorizationOptions}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={z.boolean()}
+          />
+
           {/* Gov Interest*/}
+          <RadioSelectField
+            fieldName="interestGovt"
+            label="Are you interested in U.S. state or local government opportunities?"
+            helperText={<></>}
+            listOptions={YesNoOptions}
+            isSubmitted={isSubmitted}
+            initialValue={savedForm.interestGovt}
+            validator={z.boolean()}
+          />
+
           <Field<boolean>
             name="interestGovt"
             ref={govRef}
@@ -528,34 +361,22 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
+
           {/* Gov Opp Type*/}
-          <Field<string[]>
-            name="interestGovtEmplTypes"
+          <MultiSelectField
+            fieldName="interestGovtEmplTypes"
             listenTo={['interestGovt']}
+            label="Which opportunities from USDR are you interested in?"
+            placeholder="Choose all that apply"
+            selectionLabelMulti=" Opportunity selected"
+            selectionLabelSingle=" Opportunities selected"
+            listOptions={USDROptions}
+            isSubmitted={isSubmitted}
             initialValue={savedForm.interestGovtEmplTypes || []}
-            onSubmitValidate={z.array(InterestGovtEmplTypes).optional()}
-            onChangeValidate={z.array(InterestGovtEmplTypes).optional()}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <MultiSelect
-                    disabled={!govRef.current?.value}
-                    name="input-interestGovtEmplTypes"
-                    label="Which opportunities from USDR are you interested in?"
-                    placeholder="Choose all that apply"
-                    selectionLabelSingle=" Opportunity selected"
-                    selectionLabelMulti=" Opportunities selected"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    listOptions={USDROptions}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+            validator={z.array(InterestGovtEmplTypes).optional()}
+            disabled={!govRef.current?.value}
+          />
+
           {/* Previous XP*/}
           <Field<boolean>
             name="previousImpactExperience"
@@ -580,57 +401,29 @@ const InterestForm: React.FC<IInterestForm> = ({
               );
             }}
           </Field>
-          {/* Unlimited Resources*/}
-          <Field<string>
-            name="essayResponse"
-            initialValue={savedForm.essayResponse}
-            onSubmitValidate={z.string({
-              invalid_type_error: 'Other causes must be a string',
-            })}
-            onChangeValidate={z.string({
-              invalid_type_error: 'Other causes must be a string',
-            })}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <LongText
-                    name="input-essayResponse"
-                    label="If you had unlimited resources, what problem would you choose to solve and why?"
-                    placeholder="Write as much as you’d like, suggested up to 250 words."
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
-          {/* Reference*/}
-          <Field<string>
-            name="referenceAttribution"
-            initialValue={savedForm.referenceAttribution || ''}
-            onSubmitValidate={ReferenceAttribution}
-            onChangeValidate={ReferenceAttribution}
-          >
-            {({ value, setValue, onBlur, errors }) => {
-              return (
-                <>
-                  <SingleSelect
-                    name="input-referenceAttribution"
-                    label="How did you hear about Tekalo?"
-                    placeholder="Choose one"
-                    value={value}
-                    setValue={setValue}
-                    onBlur={onBlur}
-                    listOptions={createOptionList(ReferenceAttribution.options)}
-                  />
-                  {printErrorMessages(isSubmitted, errors)}
-                </>
-              );
-            }}
-          </Field>
+
+          {/* Essay */}
+          <LongTextField
+            fieldName="essayResponse"
+            label="If you had unlimited resources, what problem would you choose to solve and why?"
+            placeholder="Write as much as you’d like, suggested up to 250 words."
+            isSubmitted={isSubmitted}
+            initialValue={savedForm.essayResponse || ''}
+            validator={z
+              .string()
+              .nonempty({ message: 'This field is required' })}
+          />
+
+          {/* Reference */}
+          <SingleSelectField
+            fieldName="referenceAttribution"
+            label="How did you hear about Tekalo?"
+            placeholder="Choose one"
+            listOptions={createOptionList(ReferenceAttribution.options)}
+            isSubmitted={isSubmitted}
+            initialValue={savedForm.yoe}
+            validator={ReferenceAttribution}
+          />
 
           <div className="pt-2">
             <Button

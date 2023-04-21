@@ -173,7 +173,7 @@ export const ApplicantInterests = z.object({
   openToRemote: OpenToRemote,
   desiredSalary: z.string().nullable().optional(),
   interestCauses: z.array(z.string()), // order matters
-  otherCauses: z.string().nullable().optional(),
+  otherCauses: z.array(z.string()).nullable().optional(),
   workAuthorization: WorkAuthorization,
   interestGovt: z.boolean(),
   interestGovtEmplTypes: z.array(InterestGovtEmplTypes).optional(),

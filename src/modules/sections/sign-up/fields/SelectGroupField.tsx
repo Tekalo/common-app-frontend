@@ -1,34 +1,27 @@
-import MultiSelect from '@/components/input/multiSelect/MultiSelect';
+import SelectGroup from '@/components/input/selectGroup/SelectGroup';
 import { printErrorMessages } from '@/lib/helpers';
 import { ISelectItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
-export interface IMultiSelectField {
+export interface ISelectGroupField {
   fieldName: string;
-  listenTo?: string[];
   label: string;
-  placeholder: string;
-  selectionLabelMulti: string;
-  selectionLabelSingle: string;
+  helperText?: string;
   listOptions: ISelectItem[];
   isSubmitted: boolean;
   initialValue: string[] | undefined;
   validator?: z.ZodSchema;
-  disabled?: boolean;
 }
 
-const MultiSelectField: React.FC<IMultiSelectField> = ({
+const SelectGroupField: React.FC<ISelectGroupField> = ({
   fieldName,
   label,
-  placeholder,
-  selectionLabelMulti,
-  selectionLabelSingle,
+  helperText,
   listOptions,
   isSubmitted,
   initialValue,
   validator,
-  disabled = false,
 }) => {
   return (
     <Field<string[]>
@@ -39,25 +32,26 @@ const MultiSelectField: React.FC<IMultiSelectField> = ({
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
-          <>
-            <MultiSelect
-              disabled={disabled}
+          <div>
+            <SelectGroup
               name={`input-${fieldName}`}
               label={label}
-              placeholder={placeholder}
-              selectionLabelMulti={selectionLabelMulti}
-              selectionLabelSingle={selectionLabelSingle}
               value={value}
               setValue={setValue}
               onBlur={onBlur}
               listOptions={listOptions}
             />
+            {helperText ? (
+              <div className="mt-2 text-left text-component-extra-small-helper-text">
+                {helperText}
+              </div>
+            ) : null}
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>
   );
 };
 
-export default MultiSelectField;
+export default SelectGroupField;

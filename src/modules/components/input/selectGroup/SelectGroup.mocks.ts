@@ -4,7 +4,7 @@ const base: ISelectGroup = {
   name: 'test',
   value: ['test'],
   setValue: () => {},
-  selectOptions: [
+  listOptions: [
     {
       value: 'test',
       displayText: 'Test',

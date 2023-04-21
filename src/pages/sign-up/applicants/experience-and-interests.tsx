@@ -16,11 +16,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [draftFormValues, setDraftFormValues] = useState<
     z.infer<typeof ApplicantDraftSubmission>
   >({});
+
   const [applicantExperience, setApplicantExperience] =
     useState<z.infer<typeof ApplicantExperience>>();
+
   const [applicantInterests, setApplicantInterests] =
     useState<z.infer<typeof ApplicantInterests>>();
 
@@ -35,13 +38,21 @@ const ApplicantSignup: NextPageWithLayout = () => {
     const finalFormValues = {
       ...applicantExperience,
       ...applicantInterests,
+      originTag: '',
     };
+
+    // TODO: Send to API
+
     console.log(finalFormValues);
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
   const handleSave = (values: z.infer<typeof ApplicantDraftSubmission>) => {
-    setDraftFormValues({ ...draftFormValues, ...values });
+    const newFormState = { ...draftFormValues, ...values };
+    setDraftFormValues(newFormState);
+
+    // TODO: Send to API
+
     setShowSaveModal(true);
   };
 
@@ -54,7 +65,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   // FUNCTION: Saves form responses to parent state and generates final form
   const handleSubmit = (values: z.infer<typeof ApplicantInterests>) => {
-    setDraftFormValues({ ...draftFormValues, ...values });
+    const newFormState = { ...draftFormValues, ...values };
+    setDraftFormValues(newFormState);
     setApplicantInterests(values);
     setIsSubmitted(true);
   };
