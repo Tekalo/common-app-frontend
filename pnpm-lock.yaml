@@ -182,7 +182,7 @@ devDependencies:
     version: 3.3.2(webpack@5.80.0)
   tailwindcss:
     specifier: ^3.3.1
-    version: 3.3.1(postcss@8.4.22)(ts-node@10.9.1)
+    version: link:node_modules/tailwindcss
   typescript:
     specifier: 4.9.5
     version: 4.9.5

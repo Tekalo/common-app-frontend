@@ -1,5 +1,13 @@
+import Button from '@/components/buttons/Button/Button';
 import Faq from '@/components/faq/Faq';
+import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import { EditSVG } from '@/constants/svgs';
+import {
+  PRIVACY_DISCLAIMER,
+  PRIVACY_MODAL_BODY_TEXT,
+  PRIVACY_MODAL_EXTRAS,
+  PRIVACY_MODAL_HEADER_TEXT,
+} from '@/lib/constants/text';
 import {
   EmploymentType,
   OrgSize,
@@ -15,9 +23,10 @@ import {
   ISubmission,
   NextPageWithLayout,
 } from '@/lib/types';
-import { Field } from 'houseform';
+import { Form } from 'houseform';
 import Link from 'next/link';
 import { useState } from 'react';
+import { BooleanField } from '../sign-up/fields';
 
 // TODO: Add privacy modal once PR is merged
 
@@ -133,10 +142,12 @@ const OrganizationReview: NextPageWithLayout = () => {
 
   const renderRow = (label: string, value: string, col?: boolean) => (
     <div className={`flex gap-x-1 ${col ? 'flex-col' : 'flex-row'}`}>
-      <span className={`text-component-large ${col ? 'mb-2' : ''}`}>
+      <span
+        className={`flex-initial text-component-large ${col ? 'mb-2' : ''}`}
+      >
         {label}:
       </span>
-      <span className="">{value}</span>
+      <span className="flex-1">{value}</span>
     </div>
   );
 
@@ -222,7 +233,7 @@ const OrganizationReview: NextPageWithLayout = () => {
   });
 
   return (
-    <div className="w-full">
+    <div className="m-auto w-full max-w-content-area px-6 pt-20">
       <div className="border-b border-gray-3 pb-8">
         <div className="mb-6">
           <div className="mb-12 font-display text-h3-desktop text-black-text">
@@ -249,49 +260,43 @@ const OrganizationReview: NextPageWithLayout = () => {
       <div className="mb-16">
         <Faq faqItems={roles} />
       </div>
-      <div className="">
-        <Field<boolean>
-          name="acceptedPrivacy"
-          initialValue={false}
-          onSubmitValidate={validations.privacyPolicy}
-          onChangeValidate={validations.privacyPolicy}
-        >
-          {({ value, setValue, errors }) => {
-            return (
-              <div className="mt-8 space-y-2 text-left">
-                <fieldset className="space-y-3">
-                  <div className="flex space-x-2 align-middle">
-                    <input
-                      className="form-checkbox h-4 w-4 appearance-none align-middle checked:bg-blue-1 
-                             checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
-                      type="checkbox"
-                      id="active"
-                      name="input-acceptedPrivacy"
-                      checked={value}
-                      onChange={(e) => setValue(e.target.checked)}
-                    />
-                    <label
-                      htmlFor="input-acceptedPrivacy"
-                      className="align-middle text-component-small text-black-text"
-                    >
-                      I confirm that I have reviewed the{' '}
-                      <span
-                        className="text-blue-1 underline underline-offset-4"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setShowPrivacyModal(true);
-                        }}
-                      >
-                        Privacy info
-                      </span>
-                    </label>
-                  </div>
-                </fieldset>
-                {/* {printErrorMessages(isSubmitted, errors)} */}
-              </div>
-            );
+      <div className="mb-16">
+        <Form onSubmit={(values) => null}>
+          {({ isValid, isSubmitted, submit }) => (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              className="space-y-8"
+            >
+              {/* TODO Privacy Info */}
+              <BooleanField
+                fieldName="acceptedPrivacy"
+                label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
+                isSubmitted={isSubmitted}
+                initialValue={false}
+                validator={validations.privacyPolicy}
+              />
+              {/* Form Cotnrol Button*/}
+              <Button
+                className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
+                label="Sign up"
+                type="submit"
+                disabled={isSubmitted && !isValid}
+                onClick={() => submit()}
+              />
+            </form>
+          )}
+        </Form>
+        <TableModal
+          headerText={PRIVACY_MODAL_HEADER_TEXT}
+          bodyText={PRIVACY_MODAL_BODY_TEXT}
+          extras={PRIVACY_MODAL_EXTRAS}
+          isOpen={showPrivacyModal}
+          closeModal={() => {
+            setShowPrivacyModal(false);
           }}
-        </Field>
+        />
       </div>
     </div>
   );
