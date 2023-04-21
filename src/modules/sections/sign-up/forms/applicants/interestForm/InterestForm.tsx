@@ -268,7 +268,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               className="mt-14 w-full text-component-large"
               label="Save your progress"
               type="button"
-              outlined
               onClick={doSave}
             />
             <Button
