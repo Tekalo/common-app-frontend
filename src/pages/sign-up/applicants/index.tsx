@@ -1,3 +1,4 @@
+import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import {
   PRIVACY_MODAL_BODY_TEXT,
@@ -5,8 +6,7 @@ import {
   PRIVACY_MODAL_HEADER_TEXT,
 } from '@/lib/constants/text';
 import { NextPageWithLayout } from '@/lib/types';
-import TableModal from '@/modules/components/modal/Modal/TableModal/TableModal';
-import SignupForm from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import SignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
