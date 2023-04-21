@@ -9,7 +9,7 @@ import {
 export interface ISingleSelect {
   name: string;
   value: string;
-  labelText: string;
+  label: string;
   placeholder?: string;
   labelClassName?: string;
   buttonClassName?: string;
@@ -24,7 +24,7 @@ const SingleSelect: React.FC<ISingleSelect> = ({
   value,
   placeholder,
   setValue,
-  labelText,
+  label: labelText,
   listOptions,
   labelClassName,
   optionsClassName,

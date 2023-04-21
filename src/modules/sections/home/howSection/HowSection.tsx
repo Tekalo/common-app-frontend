@@ -11,38 +11,46 @@ const HowSection: React.FC<IHowSection> = () => {
   const orgItems: Array<ITimelineItem> = [
     {
       title: 'Lorem ipsum dolor',
-      text: 'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
+      content:
+        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
     },
     {
       title: 'Lorem ipsum dolor',
-      text: 'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
+      content:
+        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
     },
     {
       title: 'Lorem ipsum dolor',
-      text: 'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
+      content:
+        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
     },
     {
       title: 'Lorem ipsum dolor',
-      text: 'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
+      content:
+        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
     },
   ];
 
   const candidateItems: Array<ITimelineItem> = [
     {
       title: 'Submit a single application',
-      text: 'Your application will be viewed by a matchmaker from the team to be considered for opportunities by over XX,000 employers and organizations. In the application, we can learn more about what causes you’re interested in, and your preferences in the organizations that fit you best.',
+      content:
+        'Your application will be viewed by a matchmaker from the team to be considered for opportunities by over XX,000 employers and organizations. In the application, we can learn more about what causes you’re interested in, and your preferences in the organizations that fit you best.',
     },
     {
       title: 'Receive your matches',
-      text: 'After 3-5 weeks, your assigned matchmaker send you the right opportunities that fit your interests and experience. This is a rolling process and we’ll send you matches until you opt-out or get hired!',
+      content:
+        'After 3-5 weeks, your assigned matchmaker send you the right opportunities that fit your interests and experience. This is a rolling process and we’ll send you matches until you opt-out or get hired!',
     },
     {
       title: 'Screening and info call',
-      text: 'Connect with your matchmaker for a screening and info call. This is an introductory call that usually takes less than 20 minutes to get on the same page and answer questions.',
+      content:
+        'Connect with your matchmaker for a screening and info call. This is an introductory call that usually takes less than 20 minutes to get on the same page and answer questions.',
     },
     {
       title: 'Connect to your matched organizations',
-      text: 'Tell us the matches that looks good to you, and we’ll connect you.  Your matchmaker will only introduce you to the organizations that you decide you’re interested in.',
+      content:
+        'Tell us the matches that looks good to you, and we’ll connect you.  Your matchmaker will only introduce you to the organizations that you decide you’re interested in.',
     },
   ];
 

@@ -15,11 +15,14 @@ export const validations = {
     .string()
     .nonempty(errorMessages.required)
     .email(errorMessages.invalidEmail),
-  phoneNumber: z.string().refine((phoneNumber: string) => {
-    return new RegExp(
-      /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-    ).test(phoneNumber);
-  }),
+  phoneNumber: z
+    .string()
+    .refine((phoneNumber: string) => {
+      return new RegExp(
+        /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
+      ).test(phoneNumber);
+    })
+    .optional(),
   privacyPolicy: z.literal(true, {
     errorMap: () => ({
       message: errorMessages.privacyRequired,
@@ -33,9 +36,7 @@ export const validations = {
   }),
 };
 
-{
-  /* This makes phone number required if sms or whatsapp are selected in preferredContact */
-}
+/* This makes phone number required if sms or whatsapp are selected in preferredContact */
 export const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
   const isValid = Promise.resolve(true);
   const preferredContactVal = f.getFieldValue('preferredContact')?.value;
@@ -73,6 +74,8 @@ export const SearchStatus = z.enum(['active', 'passive', 'future'], {
   errorMap: defaultEnumErrorMap,
 });
 
+export const InterestGovtEmplTypes = z.enum(['paid', 'unpaid']);
+
 export const YOE = z.enum([
   '< 1',
   '1',
@@ -102,10 +105,22 @@ export const Skills = z.enum([
   'product development',
   'project management',
 ]);
-const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
-const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure']);
-const WorkAuthorization = z.enum(['authorized', 'sponsorship']);
-const ReferenceAttribution = z.enum([
+
+export const Roles = z.enum([
+  'data analyst',
+  'product manager',
+  'software engineer',
+  'software engineeer backend',
+  'software engineer frontend',
+  'product designer',
+  'ux/ui designer',
+  'ux researcher',
+]);
+
+export const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
+export const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure']);
+export const WorkAuthorization = z.enum(['authorized', 'sponsorship']);
+export const ReferenceAttribution = z.enum([
   'website',
   'linkedin',
   'social media',
@@ -113,7 +128,8 @@ const ReferenceAttribution = z.enum([
   'career fair',
   'other',
 ]);
-const EmploymentType = z.enum(['full', 'part']);
+
+export const EmploymentType = z.enum(['full', 'part']);
 
 const ApplicantRequestBodySchema = z.object({
   name: z.string(),
@@ -137,9 +153,7 @@ const ApplicantQueryParamsSchema = z.object({
     .refine((val) => val === undefined || val === 'true' || val === 'false'),
 });
 
-const ApplicantSubmissionRequestBodySchema = z.object({
-  // TODO re name these they are way 2 long
-  originTag: z.string(),
+export const ApplicantExperience = z.object({
   lastRole: z.string(),
   lastOrg: z.string(),
   yoe: YOE,
@@ -151,25 +165,31 @@ const ApplicantSubmissionRequestBodySchema = z.object({
   portfolioPassword: z.string().nullable().optional(),
   resumeUrl: z.string(),
   resumePassword: z.string().nullable().optional(),
+});
+
+export const ApplicantInterests = z.object({
   hoursPerWeek: z.string().nullable().optional(),
   interestEmploymentType: z.array(EmploymentType),
-  interestRoles: z.array(z.string()), // keep this as non-zod-enum?
+  interestRoles: z.array(Roles), // keep this as non-zod-enum?
   currentLocation: z.string(),
   openToRelocate: OpenToRelocate,
   openToRemote: OpenToRemote,
   desiredSalary: z.string().nullable().optional(),
   interestCauses: z.array(z.string()), // order matters
-  otherCauses: z.string().nullable().optional(),
+  otherCauses: z.array(z.string()).nullable().optional(),
   workAuthorization: WorkAuthorization,
   interestGovt: z.boolean(),
+  interestGovtEmplTypes: z.array(InterestGovtEmplTypes).optional(),
   previousImpactExperience: z.boolean(),
   essayResponse: z.string(),
   referenceAttribution: ReferenceAttribution.nullable().optional(),
 });
 
-export {
-  ApplicantRequestBodySchema,
-  ApplicantResponseBodySchema,
-  ApplicantQueryParamsSchema,
-  ApplicantSubmissionRequestBodySchema,
-};
+export const ApplicantExtras = z.object({
+  originTag: z.string(),
+});
+
+export const ApplicantSubmission =
+  ApplicantExtras.merge(ApplicantExperience).merge(ApplicantInterests);
+
+export const ApplicantDraftSubmission = ApplicantSubmission.partial();

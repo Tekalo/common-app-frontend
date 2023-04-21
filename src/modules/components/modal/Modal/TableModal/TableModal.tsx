@@ -5,7 +5,9 @@ import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { ReactElement, useRef } from 'react';
 
-export interface IModal {
+// TODO: Generalize this modal to be used for all modals
+
+export interface ITableModal {
   isOpen: boolean;
   closeModal: () => void;
   headerText: string;
@@ -13,9 +15,9 @@ export interface IModal {
   extras?: ReactElement;
 }
 
-const Modal: React.FC<IModal> = ({
-  closeModal,
-  isOpen: showModal,
+const TableModal: React.FC<ITableModal> = ({
+  closeModal: closeTableModal,
+  isOpen: showTableModal,
   headerText,
   bodyText,
   extras,
@@ -86,12 +88,12 @@ const Modal: React.FC<IModal> = ({
     <>
       <Dialog
         initialFocus={headerRef}
-        open={showModal}
-        onClose={() => closeModal()}
+        open={showTableModal}
+        onClose={() => closeTableModal()}
       >
         <div
           className={`fixed bottom-0 left-0 right-0 top-0 z-40 bg-black-text opacity-70 ${
-            !showModal ? 'hidden' : ''
+            !showTableModal ? 'hidden' : ''
           }`}
         />
         <div className="fixed bottom-0 left-[50%] right-4 top-[50%] z-50 mx-auto h-[calc(100%-20px)] max-h-[740px] w-[calc(100%-20px)] max-w-[722px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white">
@@ -99,7 +101,7 @@ const Modal: React.FC<IModal> = ({
             <XMarkIcon
               className="absolute right-2 top-4 z-50 h-6 w-6 cursor-pointer stroke-2 text-black-text md:top-6"
               onClick={() => {
-                closeModal();
+                closeTableModal();
               }}
             />
             <div className="absolute bottom-4 left-2 right-0 top-10 flex flex-1 flex-col justify-stretch md:left-6 md:right-6">
@@ -119,7 +121,7 @@ const Modal: React.FC<IModal> = ({
                   className="float-right mr-2 mt-8 h-[40px] px-12 text-component-large font-normal"
                   label="Close"
                   onClick={() => {
-                    closeModal();
+                    closeTableModal();
                   }}
                 />
               </div>
@@ -131,4 +133,4 @@ const Modal: React.FC<IModal> = ({
   );
 };
 
-export default Modal;
+export default TableModal;

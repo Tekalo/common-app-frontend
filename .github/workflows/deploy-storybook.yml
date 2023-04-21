@@ -47,8 +47,19 @@ jobs:
           pnpm install
           pnpm build-storybook
 
-      - name: 🚀 Deploy
+        # 👇 Checks if the branch is not develop and runs Chromatic
+      - name: 🚀 Deploy Branch to Chromatic
+        if: github.ref != 'refs/heads/develop'
         uses: chromaui/action@v1
         with:
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+        # 👇 Checks if the branch is develop and accepts baselines
+      - name: 🚀 Deploy Chromatic Develop
+        if: github.ref == 'refs/heads/develop'
+        uses: chromaui/action@v1
+        with:
+          exitOnceUploaded: true
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          autoAcceptChanges: true # 👈 Option to accept all changes

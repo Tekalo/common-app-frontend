@@ -1,4 +1,4 @@
-import { IFilledSVG, IOutlineSVG } from '@/constants/svgs';
+import { IFilledSVG, IOutlineSVG } from '@/lib/constants/svgs';
 import { useState } from 'react';
 
 export interface ITooltip {

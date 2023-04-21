@@ -1,57 +1,54 @@
 import { IRadioItem } from '@/lib/types';
 
 export interface IRadioGroup {
+  name?: string;
+  label?: string;
   value: string;
-  setValue: (_val: string) => void;
-  radioOptions: IRadioItem[];
+  onChange: (_val: string) => void;
   onBlur?: () => void;
-  legendText?: string;
-  fieldSetClassName?: string;
-  legendClassName?: string;
-  radioClassName?: string;
-  inputClassName?: string;
-  labelClassName?: string;
+  rowAlign?: boolean;
+  listOptions: IRadioItem[];
 }
 
 const RadioGroup: React.FC<IRadioGroup> = ({
+  name,
   value,
-  setValue,
-  radioOptions,
-  legendText,
-  fieldSetClassName,
-  legendClassName,
-  radioClassName,
-  inputClassName,
-  labelClassName,
+  label,
+  onChange,
+  rowAlign = false,
+  listOptions,
 }) => {
   return (
-    <fieldset className={`space-y-3 text-left ${fieldSetClassName}`}>
-      <legend
-        className={`pb-1 text-component-extra-small text-black-text ${legendClassName}`}
-      >
-        {legendText}
+    <fieldset
+      className={`text-left ${rowAlign ? 'flex flex-row' : 'space-y-2'}`}
+    >
+      <legend className={`pb-2 text-component-extra-small text-black-text`}>
+        {label}
       </legend>
       {/* RADIO OPTIONS */}
-      {radioOptions.map((option, idx) => (
-        <div className={`flex items-start gap-x-2 ${radioClassName}`} key={idx}>
+      {listOptions.map((option, idx) => (
+        <div
+          className={`flex gap-x-2 ${rowAlign ? 'w-20' : 'w-[125%]'}`}
+          key={idx}
+        >
           <div className="flex h-[16px] w-[16px] items-center justify-center">
             <input
               className={`form-radio h-[16px] w-[16px] 
                           appearance-none align-middle checked:m-1 checked:h-[10px] checked:w-[10px]
                           checked:bg-blue-1 checked:bg-none checked:ring-1 checked:ring-blue-1 checked:ring-offset-2
                           checked:hover:bg-blue-2 focus:ring-1 focus:ring-blue-2
-                          checked:focus:bg-blue-2 checked:focus:ring-blue-2 ${inputClassName}`}
+                          checked:focus:bg-blue-2 checked:focus:ring-blue-2`}
               type="radio"
-              id={option.value}
-              name="searchStatus"
+              id={option.displayText}
+              name={`${name}-${option.value}`}
               value={option.value}
               checked={value === option.value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => onChange(e.target.value)}
             />
           </div>
           <label
-            htmlFor={option.value}
-            className={`text-component-medium text-black-text ${labelClassName}`}
+            htmlFor={option.displayText}
+            className={`text-component-medium text-black-text`}
           >
             {option.displayText}
           </label>

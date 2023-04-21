@@ -1,454 +1,132 @@
-import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import FreeText from '@/components/input/freeText/FreeText';
-import MultiSelect from '@/components/input/multiSelect/MultiSelect';
-import SingleSelect from '@/components/input/singleSelect/SingleSelect';
+import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
-import ApplicationLayout from '@/layouts/application/ApplicationLayout';
-import { Skills, YOE } from '@/lib/schemas';
-import { ISelectItem, ITimelineItem, NextPageWithLayout } from '@/lib/types';
-import { Field, Form } from 'houseform';
+import {
+  ApplicantDraftSubmission,
+  ApplicantExperience,
+  ApplicantInterests,
+} from '@/lib/schemas';
+import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
+import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
+import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [draftFormValues, setDraftFormValues] = useState<
+    z.infer<typeof ApplicantDraftSubmission>
+  >({});
+  const [applicantExperience, setApplicantExperience] =
+    useState<z.infer<typeof ApplicantExperience>>();
+  const [applicantInterests, setApplicantInterests] =
+    useState<z.infer<typeof ApplicantInterests>>();
+
+  useEffect(() => {
+    if (!isSubmitted) {
+      doSubmit();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitted]);
+
+  const doSubmit = () => {
+    const finalFormValues = {
+      ...applicantExperience,
+      ...applicantInterests,
+      originTag: '',
+    };
+
+    // TODO: Send to API
+
+    console.log(finalFormValues);
+  };
+
+  // FUNCTION: Saves form responses to parent state and submits to save endpoint
+  const handleSave = (values: z.infer<typeof ApplicantDraftSubmission>) => {
+    const newFormState = { ...draftFormValues, ...values };
+    setDraftFormValues(newFormState);
+
+    // TODO: Send to API
+
+    setShowSaveModal(true);
+  };
+
+  // FUNCTION: Saves form responses to parent state
+  const handleNext = (values: z.infer<typeof ApplicantExperience>) => {
+    setDraftFormValues({ ...draftFormValues, ...values });
+    setApplicantExperience(values);
+    setIsInterestFormVisible(true);
+  };
+
+  // FUNCTION: Saves form responses to parent state and generates final form
+  const handleSubmit = (values: z.infer<typeof ApplicantInterests>) => {
+    const newFormState = { ...draftFormValues, ...values };
+    setDraftFormValues(newFormState);
+    setApplicantInterests(values);
+    setIsSubmitted(true);
+  };
+
   const timelineItems: Array<ITimelineItem> = [
     {
-      text: 'Your experience',
+      content: (
+        <div
+          className={isInterestFormVisible ? `cursor-pointer text-blue-1` : ''}
+          onClick={() => setIsInterestFormVisible(false)}
+        >
+          {'Your experience'}
+        </div>
+      ),
       isActive: true,
     },
     {
-      text: 'Your interests',
-      isActive: false,
-    },
-  ];
-
-  const YoEOptions: Array<ISelectItem> = [
-    {
-      value: '< 1',
-      displayText: 'Less than 1',
-    },
-
-    // Generate objects from 1 to 10
-    ...Array.from(Array(10).keys()).map((i) => ({
-      value: `${i + 1}`,
-      displayText: `${i + 1}`,
-    })),
-
-    {
-      value: '11+',
-      displayText: '11+',
-    },
-  ];
-
-  const SkillOptions: Array<ISelectItem> = [
-    {
-      value: 'react',
-      displayText: 'React',
-    },
-    {
-      value: 'javascript',
-      displayText: 'JavaScript',
-    },
-    {
-      value: 'python',
-      displayText: 'Python',
-    },
-    {
-      value: 'java',
-      displayText: 'Java',
-    },
-    {
-      value: 'sql',
-      displayText: 'SQL',
-    },
-    {
-      value: 'privacy',
-      displayText: 'Privacy',
-    },
-    {
-      value: 'security',
-      displayText: 'Security',
-    },
-    {
-      value: 'devops',
-      displayText: 'DevOps',
-    },
-    {
-      value: 'figma/sketch',
-      displayText: 'Figma/Sketch',
-    },
-    {
-      value: 'prototyping',
-      displayText: 'Prototyping',
-    },
-    {
-      value: 'user research',
-      displayText: 'User research',
-    },
-    {
-      value: 'product development',
-      displayText: 'Product development',
-    },
-    {
-      value: 'project management',
-      displayText: 'Project management',
+      content: 'Your interests',
+      isActive: isInterestFormVisible,
     },
   ];
 
   return (
-    <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
-      {/* Title */}
-      <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
-        Join a network with over XX00 organizations to find your match.
-      </div>
+    <>
+      {/* Form Content */}
+      <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
+        {/* Title */}
+        <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
+          {'Join a network with over XX00 organizations to find your match.'}
+        </div>
 
-      {/* Breadcrum Timeline */}
-      <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
-        <Timeline timelineItems={timelineItems} horizontal={true} />
-      </div>
+        {/* Breadcrumb Timeline */}
+        <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
+          <Timeline timelineItems={timelineItems} horizontal={true} />
+        </div>
 
-      {/* The form */}
-      <div className="col-span-4 col-start-5 space-y-8">
-        <Form
-          onSubmit={(values) => {
-            alert('Form was submitted with: ' + JSON.stringify(values));
-          }}
-        >
-          {({ isValid, isSubmitted, submit }) => (
-            <>
-              {/* Current Role */}
-              <Field<string>
-                name="lastRole"
-                onSubmitValidate={z.string({
-                  required_error: 'Role is required',
-                  invalid_type_error: 'Role must be a string',
-                })}
-                onChangeValidate={z.string({
-                  required_error: 'Role is required',
-                  invalid_type_error: 'Role must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-role"
-                        label="Current or most recent role"
-                        placeholder="Role"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Current Org */}
-              <Field<string>
-                name="lastOrg"
-                onSubmitValidate={z.string({
-                  required_error: 'Org is required',
-                  invalid_type_error: 'Org must be a string',
-                })}
-                onChangeValidate={z.string({
-                  required_error: 'Org is required',
-                  invalid_type_error: 'Org must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-org"
-                        label="Current or most recent organization"
-                        placeholder="Name of organization"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* YOE */}
-              <Field<string>
-                name="yoe"
-                onSubmitValidate={YOE}
-                onChangeValidate={YOE}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <SingleSelect
-                        name="input-yoe"
-                        labelText="Years of relevant experience"
-                        placeholder="Choose one"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                        listOptions={YoEOptions}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Skills */}
-              <Field<string[]>
-                name="skills"
-                onSubmitValidate={z.array(Skills)}
-                onChangeValidate={z.array(Skills)}
-                initialValue={[]}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <MultiSelect
-                        name="input-skills"
-                        label="Which of these skills apply to you? (optional)"
-                        placeholder="Choose all that apply"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                        selectOptions={SkillOptions}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Other Skills
-               TODO: Make this into a nicer component (comma pills?)
-               */}
-              <Field<string>
-                name="otherSkills"
-                onSubmitValidate={z.string({
-                  invalid_type_error: 'Skills must be a string',
-                })}
-                onChangeValidate={z.string({
-                  invalid_type_error: 'Skills must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-otherSkills"
-                        label="Other skills (optional)"
-                        placeholder="Skills separated by commas"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* LinkedIn */}
-              <Field<string>
-                name="linkedin"
-                onSubmitValidate={z.string({
-                  invalid_type_error: 'LinkedIn must be a string',
-                })}
-                onChangeValidate={z.string({
-                  invalid_type_error: 'LinkedIn must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-linkedin"
-                        label="LinkedIn (optional)"
-                        placeholder="LinkedIn URL"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Portfolio */}
-              <Field<string>
-                name="Portfolio"
-                onSubmitValidate={z.string({
-                  invalid_type_error: 'Portfolio must be a string',
-                })}
-                onChangeValidate={z.string({
-                  invalid_type_error: 'Portfolio must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-portfolio"
-                        label="Portfolio (optional)"
-                        placeholder="Portfolio URL"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Portfolio Password */}
-              <Field<string>
-                name="portfolioPassword"
-                onSubmitValidate={z.string({
-                  invalid_type_error: 'Password must be a string',
-                })}
-                onChangeValidate={z.string({
-                  invalid_type_error: 'Password must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-portfolioPassword"
-                        label="Portfolio password (optional)"
-                        placeholder="Password to view website"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Github */}
-              <Field<string>
-                name="github"
-                onSubmitValidate={z.string({
-                  invalid_type_error: 'Github must be a string',
-                })}
-                onChangeValidate={z.string({
-                  invalid_type_error: 'Github must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-github"
-                        label="Github (optional)"
-                        placeholder="Github URL"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Resume */}
-              <Field<string>
-                name="resume"
-                onSubmitValidate={z.string({
-                  invalid_type_error: 'Resume must be a string',
-                })}
-                onChangeValidate={z.string({
-                  invalid_type_error: 'Resume must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-resume"
-                        label="Link to resume (optional)"
-                        placeholder="Resume URL"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-
-              {/* Resume Password */}
-              <Field<string>
-                name="resumePassword"
-                onSubmitValidate={z.string({
-                  invalid_type_error: 'Password must be a string',
-                })}
-                onChangeValidate={z.string({
-                  invalid_type_error: 'Password must be a string',
-                })}
-              >
-                {({ value, setValue, onBlur, errors }) => {
-                  return (
-                    <>
-                      <FreeText
-                        name="input-resumePassword"
-                        label="Resume password (optional)"
-                        placeholder="Password to view resume"
-                        value={value}
-                        setValue={setValue}
-                        onBlur={onBlur}
-                      />
-                      {isSubmitted &&
-                        errors.map((error) => <p key={error}>{error}</p>)}
-                    </>
-                  );
-                }}
-              </Field>
-              <Button
-                className="mt-14 w-full text-component-large"
-                label="Save your progress"
-                type="submit"
-                variant={ButtonVariant.OUTLINED}
-                disabled={isSubmitted && !isValid}
-                onClick={() => submit()}
-              />
-
-              <Button
-                className="mt-4 w-full text-component-large"
-                label="Next"
-                type="submit"
-                disabled={isSubmitted && !isValid}
-                onClick={() => submit()}
-              />
-            </>
+        {/* Form Area */}
+        <div className="col-span-4 col-start-5 space-y-8">
+          {isInterestFormVisible ? (
+            <InterestForm
+              savedForm={draftFormValues}
+              handleSubmit={handleSubmit}
+              handleSave={handleSave}
+            />
+          ) : (
+            <ExperienceForm
+              savedForm={draftFormValues}
+              handleSubmit={handleNext}
+              handleSave={handleSave}
+            />
           )}
-        </Form>
+        </div>
       </div>
-    </div>
+      {/* Save Modal */}
+      <Modal
+        headline="Your progress has been saved!"
+        bodyText="If you need to leave, you can click “Sign in” from the homepage, then return to the application."
+        buttonText="Ok"
+        isOpen={showSaveModal}
+        closeModal={() => setShowSaveModal(false)}
+        onConfirm={() => setShowSaveModal(false)}
+      />
+    </>
   );
 };
 
 export default ApplicantSignup;
-
-ApplicantSignup.getLayout = (page) => {
-  return <ApplicationLayout>{page}</ApplicationLayout>;
-};
