@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 
 export interface IContactSection {}
 
@@ -13,7 +13,7 @@ const ContactSection: React.FC<IContactSection> = () => {
         <div className="flex justify-center">
           <Button
             label="Contact us"
-            outlined={true}
+            variant={ButtonVariant.OUTLINED}
             onClick={() => {}}
             className="px-8 py-3"
           />

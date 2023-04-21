@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 
 export interface IHeroSection {}
 
@@ -32,7 +32,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
                 onClick={() => {}}
               />
               <Button
-                outlined
+                variant={ButtonVariant.OUTLINED}
                 label="For organizations"
                 className="flex-none flex-nowrap p-1 sm:p-3 md:px-5 md:py-3 lg:px-8"
                 onClick={() => {}}

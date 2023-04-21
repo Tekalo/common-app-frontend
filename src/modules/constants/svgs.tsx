@@ -1,3 +1,33 @@
+// TODO: Make all of these FCs so we can customize them
+
+export interface ISVGProps {
+  color: string;
+  height: string;
+  width: string;
+}
+
+export const GreenCheckSvg: React.FC<ISVGProps> = ({
+  color,
+  height,
+  width,
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 12 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1 6.5L5 10.5L11 1.5"
+      stroke={color}
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export const HandleSvg = (
   <svg
     width="16"
@@ -86,11 +116,11 @@ export const IFilledSVG = (
   </svg>
 );
 
-export const IOutlineSVG = (
+export const IOutlineSVG: React.FC<ISVGProps> = ({ color, height, width }) => (
   <svg
     className="relative z-10"
-    width="16"
-    height="16"
+    width={width}
+    height={height}
     viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -99,17 +129,17 @@ export const IOutlineSVG = (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M7.99992 13.6666C11.1295 13.6666 13.6666 11.1296 13.6666 7.99998C13.6666 4.87037 11.1295 2.33331 7.99992 2.33331C4.8703 2.33331 2.33325 4.87037 2.33325 7.99998C2.33325 11.1296 4.8703 13.6666 7.99992 13.6666ZM7.99992 14.6666C11.6818 14.6666 14.6666 11.6819 14.6666 7.99998C14.6666 4.31808 11.6818 1.33331 7.99992 1.33331C4.31802 1.33331 1.33325 4.31808 1.33325 7.99998C1.33325 11.6819 4.31802 14.6666 7.99992 14.6666Z"
-      fill="#272929"
+      fill={color}
       shapeRendering="geometricPrecision"
     />
     <path
       d="M8.66659 5.33329C8.66659 5.70148 8.36811 5.99996 7.99992 5.99996C7.63173 5.99996 7.33325 5.70148 7.33325 5.33329C7.33325 4.9651 7.63173 4.66663 7.99992 4.66663C8.36811 4.66663 8.66659 4.9651 8.66659 5.33329Z"
-      fill="#272929"
+      fill={color}
       shapeRendering="geometricPrecision"
     />
     <path
       d="M7.33325 7.99998C7.33325 7.72384 7.63173 7.33331 7.99992 7.33331C8.36811 7.33331 8.66659 7.72384 8.66659 7.99998V10.6666C8.66659 10.9428 8.36811 11.3333 7.99992 11.3333C7.63173 11.3333 7.33325 10.9428 7.33325 10.6666V7.99998Z"
-      fill="#272929"
+      fill={color}
       shapeRendering="geometricPrecision"
     />
   </svg>
