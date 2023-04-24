@@ -13,7 +13,6 @@ const OrganizationSignup: NextPageWithLayout = () => {
 
   const handleOrgSignup = (values: NewOrg) => {
     setOrgContactInfo(values);
-    // TODO If OrgContact Info defined, show org opp breadcrumb!
   };
 
   return (
@@ -32,7 +31,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
         </div>
 
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
-          {/* TODO: New org form */}
+          {/* New org form */}
           <OrgSignupForm handleSubmit={handleOrgSignup} />
         </div>
       </div>
