@@ -28,10 +28,10 @@ import {
   SelectGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
+import RankChoiceField from '@/sections/sign-up/fields/RankChoiceField';
 import { FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
-import RankChoiceField from '../../../fields/RankChoiceField';
 
 export interface IInterestForm {
   handleSubmit: (_values: z.infer<typeof ApplicantInterests>) => void;
