@@ -27,7 +27,7 @@ const Modal: React.FC<IModal> = ({
   onConfirm,
   onCancel,
 }) => {
-  let headerRef = useRef(null);
+  const headerRef = useRef(null);
   buttonColor = buttonColor || 'bg-blue-1';
   buttonHoverColor = buttonHoverColor || 'bg-blue-2';
 

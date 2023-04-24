@@ -1,8 +1,8 @@
 import { IInterestForm } from './InterestForm';
 
 const base: IInterestForm = {
-  handleSave: () => {},
-  handleSubmit: () => {},
+  handleSave: () => void {},
+  handleSubmit: () => void {},
   savedForm: {},
 };
 
