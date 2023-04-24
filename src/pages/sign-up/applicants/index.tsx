@@ -1,10 +1,10 @@
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
-import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import {
   PRIVACY_MODAL_BODY_TEXT,
   PRIVACY_MODAL_EXTRAS,
   PRIVACY_MODAL_HEADER_TEXT,
 } from '@/lib/constants/text';
+import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';

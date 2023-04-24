@@ -20,7 +20,7 @@
       "@/components/*": ["src/modules/components/*"],
       "@/constants/*": ["src/lib/constants/*"],
       "@/sections/*": ["src/modules/sections/*"],
-      "@/layouts/*": ["src/modules/layouts/*"],
+      "@/layouts/*": ["src/lib/layouts/*"],
       "@/api/*": ["./src/api/*"],
       "@/lib/*": ["./src/lib/*"]
     },
