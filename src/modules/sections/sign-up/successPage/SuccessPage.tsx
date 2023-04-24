@@ -34,7 +34,7 @@ const SuccessPage: React.FC<ISuccessPage> = ({
               cx="50%"
               cy="50%"
               r="35"
-              stroke-width="20"
+              strokeWidth="20"
             />
           </svg>
         </div>

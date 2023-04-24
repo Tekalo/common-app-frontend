@@ -31,6 +31,7 @@ import {
 import { FieldInstance, Form, FormInstance } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
+import RankChoiceField from '../../../fields/RankChoiceField';
 
 export interface IInterestForm {
   handleSubmit: (_values: z.infer<typeof ApplicantInterests>) => void;
@@ -86,7 +87,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               .array(EmploymentType)
               .nonempty('You must select at least one option')}
           />
-
           {/* Hours per week */}
           <FreeTextField
             fieldName="hoursPerWeek"
@@ -101,7 +101,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.hoursPerWeek || ''}
             validator={z.string().optional()}
           />
-
           {/* Roles */}
           <MultiSelectField
             fieldName="interestRoles"
@@ -116,7 +115,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               .array(Roles)
               .nonempty('You must select at least one role')}
           />
-
           {/* Location */}
           <FreeTextField
             fieldName="currentLocation"
@@ -126,7 +124,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.currentLocation}
             validator={z.string().nonempty('Current location is required')}
           />
-
           {/* Reloaction*/}
           <SingleSelectField
             fieldName="openToRelocate"
@@ -137,7 +134,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.openToRelocate}
             validator={OpenToRelocate}
           />
-
           {/* Remote */}
           <SingleSelectField
             fieldName="openToRemote"
@@ -148,7 +144,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.openToRemote}
             validator={OpenToRemote}
           />
-
           {/* Salary*/}
           <FreeTextField
             fieldName="desiredSalary"
@@ -158,16 +153,15 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.desiredSalary || ''}
             validator={z.string().optional()}
           />
-
           {/* Causes */}
-          <MultiSelectField
+          <RankChoiceField
             fieldName="interestCauses"
             label={
               'Which causes are you interested in hearing opportunities for?'
             }
             placeholder="Choose all that apply"
-            selectionLabelMulti=" Cause selected"
-            selectionLabelSingle=" Causes selected"
+            selectionLabelMulti=" Causes selected"
+            selectionLabelSingle=" Cause selected"
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm.interestCauses || []}
@@ -175,10 +169,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               .array(z.string())
               .nonempty('You must select at least one cause')}
           />
-
-          {/* TODO: Cause Rank*/}
-          <div>TODO: Cause Rank</div>
-
           {/* Other Causes*/}
           <FreeTagField
             fieldName="otherCauses"
@@ -188,7 +178,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.otherCauses || []}
             validator={z.array(z.string()).nullable().optional()}
           />
-
           {/* Work Auth*/}
           <SingleSelectField
             fieldName="workAuthorization"
@@ -199,7 +188,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.workAuthorization}
             validator={z.boolean()}
           />
-
           {/* Gov Interest*/}
           <RadioSelectField
             fieldName="interestGovt"
@@ -212,7 +200,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.interestGovt}
             validator={z.boolean()}
           />
-
           {/* Gov Opp Type*/}
           <MultiSelectField
             fieldName="interestGovtEmplTypes"
@@ -227,7 +214,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={z.array(InterestGovtEmplTypes).optional()}
             disabled={!govRef.current?.value}
           />
-
           {/* Previous XP*/}
           <RadioSelectField
             fieldName="previousImpactExperience"
@@ -238,7 +224,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.previousImpactExperience}
             validator={z.boolean()}
           />
-
           {/* Essay */}
           <LongTextField
             fieldName="essayResponse"
@@ -250,7 +235,6 @@ const InterestForm: React.FC<IInterestForm> = ({
               .string()
               .nonempty({ message: 'This field is required' })}
           />
-
           {/* Reference */}
           <SingleSelectField
             fieldName="referenceAttribution"
@@ -261,7 +245,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={savedForm.yoe}
             validator={ReferenceAttribution}
           />
-
           {/* Form Control Buttons */}
           <div className="pt-2">
             <Button
