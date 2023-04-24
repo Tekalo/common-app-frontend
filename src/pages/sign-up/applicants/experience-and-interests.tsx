@@ -8,6 +8,7 @@ import {
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
+import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
@@ -39,7 +40,34 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
     // TODO: Send to API
 
-    console.log(finalFormValues);
+    try {
+      // const response = await fetch('/api/applicants', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(values),
+      // });
+
+      // console.log(response);
+
+      console.log(finalFormValues);
+
+      // if response.ok
+      if (finalFormValues) {
+        // Success -- Move them to the next page
+        router.push('/sign-up/applicants/success');
+        // TODO: Use iron-session or similar to authenticate the user
+      } else {
+        // Handle error response
+        console.error('Failed to submit form data');
+        // alert(await response.text());
+      }
+    } catch (error) {
+      // Handle fetch error
+      console.error('Failed to fetch', error);
+      alert('Failed to submit form data!');
+    }
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
