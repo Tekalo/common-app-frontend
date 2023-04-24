@@ -49,10 +49,6 @@ const RankChoice: React.FC<IRankChoice> = ({
     );
   }, []);
 
-  // A function at this level that setsValue once the card has finished moving
-  // We update rankChoiceCard to accept that function as a value
-  // and call it when the card is dropped and then use this level's state to get the order of the cards
-
   const renderCard = useCallback(
     (card: { value: string; displayText: string }, index: number) => {
       return (
@@ -76,7 +72,7 @@ const RankChoice: React.FC<IRankChoice> = ({
   const dragStyles = `${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`;
 
   return (
-    <div className="max-w-[500px]">
+    <div className="max-w-[500px] text-left">
       <div className="mb-4 text-component-extra-small" id={name}>
         {label}
       </div>

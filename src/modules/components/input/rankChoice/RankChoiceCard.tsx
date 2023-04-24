@@ -144,7 +144,7 @@ const generatePreview: PreviewGenerator<IRankChoiceCard, Element> = ({
   return (
     <div
       style={style}
-      className={`${baseCardStyles} ml-4 w-[80vw] max-w-[320px] cursor-grabbing border-gray-2 shadow-md`}
+      className={`${baseCardStyles} ml-4 w-[80vw] max-w-[320px] cursor-grabbing border-blue-1 shadow-md`}
     >
       <div className="flex-auto self-stretch">
         {item.text ? item.text : ' '}
