@@ -6,8 +6,8 @@ import {
   ApplicantInterests,
 } from '@/lib/schemas';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
-import ExperienceForm from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
-import InterestForm from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
+import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
+import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
