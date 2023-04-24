@@ -1,6 +1,6 @@
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import OrganizationReview from '@/sections/sign-up/organizations/reviewForm/OrganizationReview';
+import OrganizationReview from '@/sections/sign-up/forms/organizations/reviewForm/OrganizationReview';
 
 const OrganizationReviewPage: NextPageWithLayout = () => <OrganizationReview />;
 
