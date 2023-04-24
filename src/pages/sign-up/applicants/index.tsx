@@ -1,12 +1,12 @@
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
-import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import {
   PRIVACY_MODAL_BODY_TEXT,
   PRIVACY_MODAL_EXTRAS,
   PRIVACY_MODAL_HEADER_TEXT,
 } from '@/lib/constants/text';
+import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import SignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import ApplicantSignupForm from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
@@ -58,7 +58,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </div>
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
           {/* New user form */}
-          <SignupForm
+          <ApplicantSignupForm
             handleSubmit={handleSubmit}
             setShowPrivacyModal={setShowPrivacyModal}
           />

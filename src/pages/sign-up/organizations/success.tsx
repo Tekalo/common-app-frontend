@@ -1,4 +1,4 @@
-import ApplicationLayout from '@/layouts/application/ApplicationLayout';
+import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import SuccessPage from '@/sections/sign-up/successPage/SuccessPage';
 

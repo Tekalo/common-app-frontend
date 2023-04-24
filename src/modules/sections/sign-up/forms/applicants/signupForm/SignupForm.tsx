@@ -88,7 +88,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           <FreeTextField
             fieldName="phone"
             label="Phone number (optional)"
-            placeholder="'+1 (555) 555-5555'"
+            placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={''}
             validator={validations.phoneNumber}

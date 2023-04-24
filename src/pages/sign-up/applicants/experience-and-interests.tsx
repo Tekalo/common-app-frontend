@@ -25,7 +25,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
     useState<z.infer<typeof ApplicantInterests>>();
 
   useEffect(() => {
-    if (!isSubmitted) {
+    if (isSubmitted) {
       doSubmit();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

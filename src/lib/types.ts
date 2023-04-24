@@ -40,7 +40,7 @@ export interface ISelectItem {
   displayText: string;
 }
 
-export interface ISelectBoolean {
+export interface IBoolItem {
   value: boolean;
   displayText: string;
 }

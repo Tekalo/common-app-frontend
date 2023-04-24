@@ -5,6 +5,7 @@ import LongTextField from './LongTextField';
 import MultiSelectField from './MultiSelectField';
 import RadioGroupField from './RadioGroupField';
 import RadioSelectField from './RadioSelectField';
+import SelectBooleanField from './SelectBooleanField';
 import SelectGroupField from './SelectGroupField';
 import SingleSelectField from './SingleSelectField';
 
@@ -19,4 +20,5 @@ export {
   RadioSelectField,
   RadioGroupField,
   BooleanField,
+  SelectBooleanField,
 };
