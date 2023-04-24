@@ -38,7 +38,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
         handleSubmit(values);
       }}
     >
-      {({ isValid, isSubmitted, submit }) => (
+      {({ isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
