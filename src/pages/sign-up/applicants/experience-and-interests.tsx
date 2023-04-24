@@ -25,7 +25,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
     useState<z.infer<typeof ApplicantInterests>>();
 
   useEffect(() => {
-    if (!isSubmitted) {
+    if (isSubmitted) {
       doSubmit();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +114,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   ];
 
   return (
-  <div className="flex min-h-screen min-w-full flex-col items-center">
+    <div className="flex min-h-screen min-w-full flex-col items-center">
       {/* Form Content */}
       <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
         {/* Title */}
@@ -153,7 +153,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         closeModal={() => setShowSaveModal(false)}
         onConfirm={() => setShowSaveModal(false)}
       />
-  </div>
+    </div>
   );
 };
 
