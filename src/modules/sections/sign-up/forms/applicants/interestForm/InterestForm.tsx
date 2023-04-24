@@ -156,8 +156,11 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Causes */}
           <RankChoiceField
             fieldName="interestCauses"
-            label={
+            selectLabel={
               'Which causes are you interested in hearing opportunities for?'
+            }
+            rankLabel={
+              'Rank the causes you would be interested in working on with 1 being the highest.'
             }
             placeholder="Choose all that apply"
             selectionLabelMulti=" Causes selected"

@@ -9,7 +9,8 @@ import { z } from 'zod';
 export interface IRankChoiceField {
   fieldName: string;
   listenTo?: string[];
-  label: string;
+  selectLabel: string;
+  rankLabel: string;
   placeholder: string;
   selectionLabelMulti: string;
   selectionLabelSingle: string;
@@ -22,7 +23,8 @@ export interface IRankChoiceField {
 
 const RankChoiceField: React.FC<IRankChoiceField> = ({
   fieldName,
-  label,
+  selectLabel,
+  rankLabel,
   placeholder,
   selectionLabelMulti,
   selectionLabelSingle,
@@ -60,7 +62,7 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
             <MultiSelect
               disabled={disabled}
               name={`input-${fieldName}`}
-              label={label}
+              label={selectLabel}
               placeholder={placeholder}
               selectionLabelMulti={selectionLabelMulti}
               selectionLabelSingle={selectionLabelSingle}
@@ -72,13 +74,11 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
             {printErrorMessages(isSubmitted, errors)}
 
             <RankChoice
-              label={
-                'Rank the causes you would be interested in working on with 1 being the highest.'
-              }
+              label={rankLabel}
               setValue={setValue}
               name="interestRank"
               rankOptions={items}
-            ></RankChoice>
+            />
           </>
         );
       }}
