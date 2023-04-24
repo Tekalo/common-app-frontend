@@ -140,16 +140,20 @@ const OrganizationReview: NextPageWithLayout = () => {
       : '';
   };
 
-  const renderRow = (label: string, value: string, col?: boolean) => (
-    <div className={`flex gap-x-1 ${col ? 'flex-col' : 'flex-row'}`}>
-      <span
-        className={`flex-initial text-component-large ${col ? 'mb-2' : ''}`}
-      >
-        {label}:
-      </span>
-      <span className="flex-1">{value}</span>
-    </div>
-  );
+  const renderRow = (label: string, value: string, col?: boolean) => {
+    const flex = col ? 'lg:flex-col' : 'lg:flex-row';
+
+    return (
+      <div className={`flex flex-col gap-x-1 gap-y-3 ${flex}`}>
+        <span
+          className={`flex-initial text-component-large ${col ? 'mb-2' : ''}`}
+        >
+          {label}:
+        </span>
+        <span className="flex-1">{value}</span>
+      </div>
+    );
+  };
 
   const renderOrganization = () => (
     <div className="space-y-2">
@@ -212,7 +216,7 @@ const OrganizationReview: NextPageWithLayout = () => {
       <div className="mt-6 text-component-small text-blue-1">
         <Link
           className="flex items-baseline gap-x-1"
-          // TODO
+          // TODO: Link?
           href="/sign-up/organizations"
         >
           {`Edit Role ${index}`}
@@ -233,13 +237,13 @@ const OrganizationReview: NextPageWithLayout = () => {
   });
 
   return (
-    <div className="m-auto w-full max-w-content-area px-6 pt-20">
+    <div className="m-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:px-0 lg:pb-16 lg:pt-20">
       <div className="border-b border-gray-3 pb-8">
         <div className="mb-6">
-          <div className="mb-12 font-display text-h3-desktop text-black-text">
+          <div className="mb-8 text-center font-display text-h3-mobile text-black-text lg:mb-12 lg:text-h3-desktop">
             Review your intake form
           </div>
-          <div className="mb-6 font-display text-h4-desktop">
+          <div className="mb-4 font-display text-h4-mobile lg:mb-6 lg:text-h4-desktop">
             Contact and organization
           </div>
           <div className="space-y-4">
@@ -250,6 +254,7 @@ const OrganizationReview: NextPageWithLayout = () => {
         <div className="text-component-small text-blue-1">
           <Link
             className="flex items-baseline gap-x-1"
+            // TODO: Link?
             href="/sign-up/organizations"
           >
             {'Edit contact and organization '}
@@ -257,10 +262,10 @@ const OrganizationReview: NextPageWithLayout = () => {
           </Link>
         </div>
       </div>
-      <div className="mb-16">
+      <div className="mb-6 lg:mb-16">
         <Faq faqItems={roles} />
       </div>
-      <div className="mb-16">
+      <div className="">
         <Form onSubmit={(values) => null}>
           {({ isValid, isSubmitted, submit }) => (
             <form
