@@ -24,7 +24,7 @@
     "no-restricted-imports": [
       "error",
       {
-        "patterns": [".*"]
+        "patterns": ["../*"]
       }
     ]
   },
