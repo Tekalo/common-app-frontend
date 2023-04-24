@@ -8,7 +8,7 @@ const ApplicantSuccess: NextPageWithLayout = () => {
       title="Your intake form was submitted!"
       body="You will receive a confirmation email shortly. Your assigned Tekalo recruiting liaison will review your application and contact you. This process may take up to 6 weeks. Thank you for applying to Tekalo."
       buttonText="Done"
-      buttonHandler={() => {}}
+      buttonHandler={() => void {}}
     />
   );
 };

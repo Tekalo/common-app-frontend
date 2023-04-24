@@ -1,124 +1,133 @@
 import Button from '@/components/buttons/Button/Button';
+import { CauseOptions } from '@/lib/constants/selects';
+import { createOptionList } from '@/lib/helpers';
 import {
-  PreferredContactOptions,
-  searchStatusOptions,
-} from '@/lib/constants/selects';
-import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
-import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
+  Causes,
+  OrgSchema,
+  OrgSize,
+  OrgType,
+  validations,
+} from '@/lib/schemas';
 import {
-  BooleanField,
   FreeTextField,
-  RadioGroupField,
+  MultiSelectField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { z } from 'zod';
 
 export interface ISignupForm {
-  handleSubmit: (_values: unknown) => void;
-  setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
+  handleSubmit: (values: z.infer<typeof OrgSchema>) => void;
 }
 
-const SignupForm: React.FC<ISignupForm> = ({
-  handleSubmit,
-  setShowPrivacyModal,
-}) => {
+type NewOrgForm = z.infer<typeof OrgSchema>;
+
+const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
   return (
-    <Form onSubmit={(values) => handleSubmit(values)}>
+    <Form<NewOrgForm>
+      onSubmit={(values) => {
+        console.log(values);
+        handleSubmit(values);
+      }}
+    >
       {({ isValid, isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            submit();
           }}
           className="flex flex-col space-y-8"
         >
-          {/* Name */}
+          {/* Org Name */}
           <FreeTextField
-            fieldName="name"
-            label="Name"
+            fieldName="organization.name"
+            label="Organization name"
+            placeholder="Organization's legal name"
+            isSubmitted={isSubmitted}
+            initialValue={''}
+            validator={validations.requiredString}
+          />
+
+          {/* Org Type */}
+          <SingleSelectField
+            fieldName="organization.impactAreas"
+            label="Organization type"
+            placeholder="Choose one"
+            listOptions={createOptionList(OrgType.options)}
+            isSubmitted={isSubmitted}
+            initialValue={''}
+            validator={OrgType}
+          />
+
+          {/* Org Size */}
+          <SingleSelectField
+            fieldName="organization.size"
+            label="Organization size"
+            placeholder="Choose one"
+            listOptions={createOptionList(OrgSize.options).map((option) => {
+              return {
+                value: option.value,
+                displayText: option.displayText + ' employees',
+              };
+            })}
+            isSubmitted={isSubmitted}
+            initialValue={''}
+            validator={OrgSize}
+          />
+
+          {/* Org Impact Areas */}
+          <MultiSelectField
+            fieldName="organization.impactAreas"
+            label="Impact area(s) the organization works on"
+            placeholder="Choose all that apply"
+            selectionLabelMulti=" Areas selected"
+            selectionLabelSingle=" Area selected"
+            listOptions={CauseOptions.concat({
+              value: 'other',
+              displayText: 'Other',
+            })}
+            isSubmitted={isSubmitted}
+            initialValue={[]}
+            validator={z
+              .array(Causes)
+              .nonempty('You must select at least one impact area')}
+          />
+
+          {/* Contact name */}
+          <FreeTextField
+            fieldName="contact.name"
+            label="Contact name"
             placeholder="Full name"
             isSubmitted={isSubmitted}
             initialValue={''}
             validator={validations.requiredString}
           />
 
-          {/* Email */}
+          {/* Contact email */}
           <FreeTextField
-            fieldName="email"
-            label="Email"
-            placeholder="Your email address"
+            fieldName="contact.email"
+            label="Contact email"
+            placeholder="Email address"
             isSubmitted={isSubmitted}
             initialValue={''}
             validator={validations.email}
           />
 
-          {/* Pronouns */}
+          {/* Contact number */}
           <FreeTextField
-            fieldName="pronouns"
-            label="Pronouns (optional)"
-            placeholder="E.g. she/her/hers"
+            fieldName="contact.phone"
+            label="Contact phone (optional)"
+            placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={''}
             validator={z.string().optional()}
           />
 
-          {/* Search Status */}
-          <RadioGroupField
-            fieldName="searchStatus"
-            label="Which describes you best?"
-            listOptions={searchStatusOptions}
-            isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={SearchStatus}
-          />
-
-          {/* Contact Method */}
-          <SingleSelectField
-            fieldName="preferredContact"
-            label="Preferred contact method to receive matches"
-            placeholder="Choose one"
-            listOptions={PreferredContactOptions}
-            isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={PreferredContact}
-          />
-
-          {/* Phone Number */}
-          {/* Email */}
-          <FreeTextField
-            fieldName="phone"
-            label="Phone number (optional)"
-            placeholder="'+1 (555) 555-5555'"
-            isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={validations.phoneNumber}
-          />
-
-          {/* TODO Privacy Info */}
-          <BooleanField
-            fieldName="acceptedPrivacy"
-            label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
-            isSubmitted={isSubmitted}
-            initialValue={false}
-            validator={validations.privacyPolicy}
-          />
-
-          {/* Terms of Service */}
-          <BooleanField
-            fieldName="acceptedTerms"
-            label={TERMS_DISCLAIMER}
-            isSubmitted={isSubmitted}
-            initialValue={false}
-            validator={validations.termsOfService}
-          />
-
-          {/* Form Cotnrol Button*/}
+          {/* Form Control Button*/}
           <Button
-            className="mt-10 w-full lg:mt-14"
-            label="Sign up"
+            className="mt-4 w-full text-component-large"
+            label="Next"
             type="submit"
-            disabled={isSubmitted && !isValid}
-            onClick={() => submit()}
           />
         </form>
       )}

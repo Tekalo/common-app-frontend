@@ -1,12 +1,19 @@
-import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import OrgSignupForm from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import Link from 'next/link';
 import { useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
+  // const [orgContactInfo, setOrgContactInfo] =
+  //   useState<z.infer<typeof OrgSchema>>();
   const [orgContactInfo, setOrgContactInfo] = useState({});
   const [orgOpportunities, setOrgOpportunities] = useState([]);
+
+  const handleOrgSignup = (values: any) => {
+    console.log(values);
+    const newFormState = { ...orgContactInfo, orgOpportunities, ...values };
+    setOrgContactInfo(values);
+  };
 
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center">
@@ -25,7 +32,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
 
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
           {/* TODO: New org form */}
-          <OrgSignupForm />
+          <OrgSignupForm handleSubmit={handleOrgSignup} />
         </div>
       </div>
     </div>
@@ -33,7 +40,3 @@ const OrganizationSignup: NextPageWithLayout = () => {
 };
 
 export default OrganizationSignup;
-
-OrganizationSignup.getLayout = (page) => {
-  return <ApplicationLayout>{page}</ApplicationLayout>;
-};
