@@ -23,10 +23,10 @@ import {
   ISubmission,
   NextPageWithLayout,
 } from '@/lib/types';
+import { BooleanField } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
 import Link from 'next/link';
 import { useState } from 'react';
-import { BooleanField } from '../../../fields';
 
 // TODO: Add privacy modal once PR is merged
 
