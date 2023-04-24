@@ -1,8 +1,8 @@
 import { IExperienceForm } from './ExperienceForm';
 
 const base: IExperienceForm = {
-  handleSave: () => null,
-  handleSubmit: () => null,
+  handleSave: () => void {},
+  handleSubmit: () => void {},
   savedForm: {},
 };
 

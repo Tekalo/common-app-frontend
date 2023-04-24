@@ -7,9 +7,9 @@ const base: IConfirmModal = {
   confirmBtnText: 'Pause Matches',
   headline: 'Pause your matches',
   isOpen: true,
-  closeModal: () => null,
+  closeModal: () => void {},
   onConfirm: () => alert('Matches Paused'),
-  onCancel: () => null,
+  onCancel: () => void {},
 };
 
 const deleteContent: IConfirmModal = {
@@ -21,9 +21,9 @@ const deleteContent: IConfirmModal = {
   confirmBtnText: 'Delete account',
   headline: 'Permanently delete your account and data',
   isOpen: true,
-  closeModal: () => null,
+  closeModal: () => void {},
   onConfirm: () => alert('Account deleted'),
-  onCancel: () => null,
+  onCancel: () => void {},
 };
 
 export const mockConfirmModalProps = {

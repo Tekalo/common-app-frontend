@@ -69,7 +69,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                         <Button
                           className="px-4 py-2 font-normal md:px-8 md:py-3"
                           label="Get started"
-                          onClick={() => null}
+                          onClick={() => void {}}
                         />
                       </Link>
                     )}

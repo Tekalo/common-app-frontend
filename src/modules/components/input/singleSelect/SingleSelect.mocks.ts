@@ -15,7 +15,7 @@ const base: ISingleSelect = {
       displayText: 'World',
     },
   ],
-  setValue: () => null,
+  setValue: () => void {},
 };
 
 export const mockSingleSelectProps = {

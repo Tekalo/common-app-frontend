@@ -1,8 +1,8 @@
 import { ISignupForm } from './SignupForm';
 
 const base: ISignupForm = {
-  handleSubmit: () => null,
-  setShowPrivacyModal: () => null,
+  handleSubmit: () => void {},
+  setShowPrivacyModal: () => void {},
 };
 
 export const mockSignupFormProps = {
