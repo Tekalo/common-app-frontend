@@ -3,9 +3,9 @@ import { IModal } from './Modal';
 const base: IModal = {
   buttonText: 'Test',
   isOpen: true,
-  closeModal: () => {},
-  onConfirm: () => {},
-  onCancel: () => {},
+  closeModal: () => void {},
+  onConfirm: () => void {},
+  onCancel: () => void {},
 };
 
 export const mockModalProps = {

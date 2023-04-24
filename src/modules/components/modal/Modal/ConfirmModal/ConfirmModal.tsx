@@ -26,7 +26,7 @@ const ConfirmModal: React.FC<IConfirmModal> = ({
   onConfirm,
   onCancel,
 }) => {
-  let headerRef = useRef(null);
+  const headerRef = useRef(null);
 
   return (
     <Dialog

@@ -3,7 +3,7 @@ import { ISelectGroup } from './SelectGroup';
 const base: ISelectGroup = {
   name: 'test',
   value: ['test'],
-  setValue: () => {},
+  setValue: () => void {},
   listOptions: [
     {
       value: 'test',

@@ -1,3 +1,11 @@
+import {
+  EmploymentType,
+  OrgSize,
+  OrgType,
+  Skills,
+  VisaSponsorship,
+  YearsOfExperience,
+} from '@/lib/enums';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 
@@ -45,7 +53,7 @@ export interface RankChoiceItem {
 // Types
 export type IconType = (_props: IconTypeProps) => React.ReactNode;
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (_page: ReactElement) => ReactNode;
 };
 
@@ -74,3 +82,49 @@ export type BasisTableData = {
     basis: string | JSX.Element;
   }[];
 };
+
+// TODO: Check naming
+// ORG REVIEW
+export interface IOpportunity {
+  organization: IOrganization;
+  contact: IContact;
+  submissions: ISubmission[];
+}
+
+export interface IContact {
+  name: string;
+  email: string;
+  phone: string;
+}
+
+export interface ISubmission {
+  roleType: string;
+  positionTitle: string;
+  fullyRemote: boolean;
+  location: string;
+  paid: boolean;
+  pitchEssay: string;
+  source: string;
+  employmentType: EmploymentType;
+  salaryRange: string;
+  desiredHoursPerWeek?: string;
+  desiredStartDate?: Date;
+  desiredEndDate?: Date;
+  jdUrl: string;
+  desiredYoe: YearsOfExperience;
+  desiredSkills: Skills[];
+  desiredOtherSkills: string;
+  visaSponsorship: VisaSponsorship;
+  similarStaffed: boolean;
+  desiredImpactExp: string;
+}
+
+export interface IOrganization {
+  name: string;
+  type: OrgType;
+  size: OrgSize;
+  impactAreas: string;
+  eoe: boolean;
+}
+
+// END ORG REVIEW

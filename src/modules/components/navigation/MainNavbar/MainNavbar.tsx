@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { SyntheticEvent, useState } from 'react';
 
-export interface IMainNavbar extends React.ComponentPropsWithoutRef<'header'> {}
+export type IMainNavbar = React.ComponentPropsWithoutRef<'header'>;
 
 const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -69,7 +69,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                         <Button
                           className="px-4 py-2 font-normal md:px-8 md:py-3"
                           label="Get started"
-                          onClick={() => {}}
+                          onClick={() => void {}}
                         />
                       </Link>
                     )}

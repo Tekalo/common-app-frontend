@@ -12,7 +12,7 @@ import router from 'next/router';
 import { useState } from 'react';
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  let [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   const handleSubmit = async (values: unknown) => {
     try {
@@ -43,41 +43,43 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   return (
-    <div className="px-6 pb-28 pt-10 md:px-24">
-      {/* Title */}
-      <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
-        {'Join a network with over XX00 organizations to find your match.'}
-      </div>
-      {/* Navaway has an account*/}
-      <div className="text-center text-component-medium">
-        {'Already have an account? '}
-        <span className="text-blue-1 underline underline-offset-4">
-          <Link href="/sign-in">Sign in</Link>
-        </span>
-      </div>
-      <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
-        {/* New user form */}
-        <SignupForm
-          handleSubmit={handleSubmit}
-          setShowPrivacyModal={setShowPrivacyModal}
+    <div className="flex min-h-screen min-w-full flex-col items-center">
+      <div className="px-6 pb-28 pt-10 md:px-24">
+        {/* Title */}
+        <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
+          {'Join a network with over XX00 organizations to find your match.'}
+        </div>
+        {/* Navaway has an account*/}
+        <div className="text-center text-component-medium">
+          {'Already have an account? '}
+          <span className="text-blue-1 underline underline-offset-4">
+            <Link href="/sign-in">Sign in</Link>
+          </span>
+        </div>
+        <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
+          {/* New user form */}
+          <SignupForm
+            handleSubmit={handleSubmit}
+            setShowPrivacyModal={setShowPrivacyModal}
+          />
+        </div>
+        {/* Navaway for organizations */}
+        <div className="mt-6 text-center">
+          {"If you're an organization, "}
+          <span className="text-blue-1 underline underline-offset-4">
+            <Link href="/sign-in">{'apply here'}</Link>
+          </span>
+        </div>
+        <TableModal
+          headerText={PRIVACY_MODAL_HEADER_TEXT}
+          bodyText={PRIVACY_MODAL_BODY_TEXT}
+          extras={PRIVACY_MODAL_EXTRAS}
+          isOpen={showPrivacyModal}
+          closeModal={() => {
+            setShowPrivacyModal(false);
+          }}
         />
       </div>
-      {/* Navaway for organizations */}
-      <div className="mt-6 text-center">
-        {"If you're an organization, "}
-        <span className="text-blue-1 underline underline-offset-4">
-          <Link href="/sign-in">{'apply here'}</Link>
-        </span>
-      </div>
-      <TableModal
-        headerText={PRIVACY_MODAL_HEADER_TEXT}
-        bodyText={PRIVACY_MODAL_BODY_TEXT}
-        extras={PRIVACY_MODAL_EXTRAS}
-        isOpen={showPrivacyModal}
-        closeModal={() => {
-          setShowPrivacyModal(false);
-        }}
-      />
     </div>
   );
 };

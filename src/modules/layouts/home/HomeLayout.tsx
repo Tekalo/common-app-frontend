@@ -2,7 +2,7 @@ import MainFooter from '@/components/navigation/MainFooter/MainFooter';
 import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
 import Head from 'next/head';
 
-export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {}
+export type IHomeLayout = React.ComponentPropsWithoutRef<'div'>
 
 const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
   return (

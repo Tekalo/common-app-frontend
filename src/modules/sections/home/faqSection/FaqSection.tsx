@@ -76,10 +76,12 @@ const FaqSection: React.FC<IFaqSection> = () => {
             })}
           </div>
           {/* FAQS */}
+          <div className="mt-2-mobile md:mt-2-tablet lg:mt-2-desktop">
           <Faq
             key={isForOrgsSelected ? 'orgFAQS' : 'candidateFAQS'}
             faqItems={isForOrgsSelected ? orgFAQS : candidateFAQS}
           />
+          </div>
         </div>
       </div>
     </section>
