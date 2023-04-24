@@ -17,8 +17,8 @@ export interface IRankChoiceCard {
   value: string;
   moveCard: (_dragIndex: number, _hoverIndex: number) => void;
   setIsDragging: (_isDragging: boolean) => void;
+  valueUpdated: () => void;
 }
-
 const baseCardStyles =
   'text-black flex flex-auto justify-between rounded border bg-white p-[7px] text-component-medium';
 const previewStyles = `${baseCardStyles} self-stretch border-blue-4 border-dashed`;
@@ -37,7 +37,10 @@ let RankChoiceCard: FC<IRankChoiceCard> = ({
   value,
   moveCard,
   setIsDragging,
+  valueUpdated,
 }) => {
+  value = value === 'e0' || value === 'e1' || value === 'e2' ? '' : value;
+
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -91,6 +94,7 @@ let RankChoiceCard: FC<IRankChoiceCard> = ({
     }),
     end: () => {
       setIsDragging(false);
+      valueUpdated();
     },
   });
 
