@@ -25,12 +25,8 @@ export interface IRoleForm {
   handleEditRole: () => void;
 }
 
-const RoleForm: React.FC<IRoleForm> = ({ sampleTextProp }) => {
-  return (
-    <div className="from-cyan-500 to-blue-500 bg-gradient-to-r">
-      {sampleTextProp}
-    </div>
-  );
+const RoleForm: React.FC<IRoleForm> = ({ ...props }) => {
+  return <div className="from-cyan-500 to-blue-500 bg-gradient-to-r">TODO</div>;
 };
 
 export default RoleForm;

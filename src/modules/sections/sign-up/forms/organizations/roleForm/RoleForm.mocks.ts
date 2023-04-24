@@ -1,7 +1,10 @@
 import { IRoleForm } from './RoleForm';
 
 const base: IRoleForm = {
-  sampleTextProp: 'Hello world!',
+  formList: [],
+  formType: 'string',
+  handleNewRole: () => void {},
+  handleEditRole: () => void {},
 };
 
 export const mockRoleFormProps = {

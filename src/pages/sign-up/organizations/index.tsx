@@ -1,6 +1,5 @@
 import { OrgSchema, SubmissionSchema } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
-import RoleForm from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -46,12 +45,12 @@ const OrganizationSignup: NextPageWithLayout = () => {
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
           {/* New org form */}
           <OrgSignupForm handleSubmit={handleOrgSignup} />
-          <RoleForm
+          {/* <RoleForm
             formList={orgRoles}
             formType={'part-time'}
             handleNewRole={handleNewOpportunity}
             handleEditRole={handleEditOpportunity}
-          />
+          /> */}
         </div>
       </div>
     </div>
