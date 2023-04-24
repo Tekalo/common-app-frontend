@@ -1,18 +1,31 @@
-import { OrgSchema } from '@/lib/schemas';
+import { OrgSchema, SubmissionSchema } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
+import RoleForm from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import Link from 'next/link';
 import { useState } from 'react';
 import { z } from 'zod';
 
 type NewOrg = z.infer<typeof OrgSchema>;
+type NewRole = z.infer<typeof SubmissionSchema>;
 
 const OrganizationSignup: NextPageWithLayout = () => {
-  const [orgContactInfo, setOrgContactInfo] = useState<NewOrg>();
-  const [orgOpportunities, setOrgOpportunities] = useState([]);
+  const [orgInfo, setOrgInfo] = useState<NewOrg>();
+  const [orgRoles, setOrgRoles] = useState<NewRole[]>([]);
 
   const handleOrgSignup = (values: NewOrg) => {
-    setOrgContactInfo(values);
+    setOrgInfo(values);
+  };
+
+  const handleNewOpportunity = (newRole: NewRole) => {
+    const newOpportunityList = [...orgRoles, newRole];
+    setOrgRoles(newOpportunityList);
+  };
+
+  const handleEditOpportunity = (editedRole: NewRole, index: number) => {
+    const newOpportunityList = [...orgRoles];
+    newOpportunityList[index] = editedRole;
+    setOrgRoles(newOpportunityList);
   };
 
   return (
@@ -33,6 +46,12 @@ const OrganizationSignup: NextPageWithLayout = () => {
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
           {/* New org form */}
           <OrgSignupForm handleSubmit={handleOrgSignup} />
+          <RoleForm
+            formList={orgRoles}
+            formType={'part-time'}
+            handleNewRole={handleNewOpportunity}
+            handleEditRole={handleEditOpportunity}
+          />
         </div>
       </div>
     </div>
