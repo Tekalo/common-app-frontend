@@ -29,13 +29,13 @@ const HeroSection: React.FC<IHeroSection> = () => {
               <Button
                 label="For candidates"
                 className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:px-7 md:py-3 lg:px-8"
-                onClick={() => {}}
+                onClick={() => void {}}
               />
               <Button
                 variant={ButtonVariant.OUTLINED}
                 label="For organizations"
                 className="flex-none flex-nowrap p-1 sm:p-3 md:px-5 md:py-3 lg:px-8"
-                onClick={() => {}}
+                onClick={() => void {}}
               />
             </div>
           </div>

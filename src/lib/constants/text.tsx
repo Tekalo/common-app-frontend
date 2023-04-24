@@ -26,7 +26,7 @@ export const PRIVACY_DISCLAIMER = (
     <>
       By signing up, you acknowledge the{' '}
       <span
-        className="cursor-pointer text-blue-1 underline underline-offset-4"
+        className="cursor-pointer whitespace-nowrap text-blue-1 underline underline-offset-4"
         onClick={(e) => {
           e.preventDefault();
           setShowPrivacyModal(true);

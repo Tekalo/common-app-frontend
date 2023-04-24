@@ -268,7 +268,7 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       <div className="mt-16 text-center text-h3-mobile lg:text-h3-desktop">
         Frequently Asked Questions{' '}
       </div>
-      <div className="m-auto max-w-content-area">
+      <div className="m-auto max-w-content-area mt-2-mobile md:mt-2-tablet lg:mt-2-desktop">
         <Faq
           key={isForOrgsSelected ? 'orgFAQS' : 'candidateFAQS'}
           faqItems={isForOrgsSelected ? orgFAQS : candidateFAQS}
