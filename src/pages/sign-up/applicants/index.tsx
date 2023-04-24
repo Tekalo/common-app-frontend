@@ -6,7 +6,7 @@ import {
   PRIVACY_MODAL_HEADER_TEXT,
 } from '@/lib/constants/text';
 import { NextPageWithLayout } from '@/lib/types';
-import SignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import SignupForm from '@/modules/sections/sign-up/successPage/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
