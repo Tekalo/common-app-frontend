@@ -1,5 +1,5 @@
 import { PreferredContact, SearchStatus } from '@/lib/schemas';
-import { IRadioItem, ISelectItem } from '@/lib/types';
+import { IRadioItem, ISelectBoolean, ISelectItem } from '@/lib/types';
 
 const YoEOptions: Array<ISelectItem> = [
   {
@@ -171,6 +171,17 @@ const YesNoOptions: Array<IRadioItem> = [
   },
 ];
 
+const TrueFalseOptions: Array<ISelectBoolean> = [
+  {
+    value: false,
+    displayText: 'No',
+  },
+  {
+    value: true,
+    displayText: 'Yes',
+  },
+];
+
 const USDROptions: Array<ISelectItem> = [
   {
     value: 'paid',
@@ -226,6 +237,7 @@ const PreferredContactOptions = [
 ];
 
 export {
+  TrueFalseOptions,
   YoEOptions,
   SkillOptions,
   EmploymentOptions,

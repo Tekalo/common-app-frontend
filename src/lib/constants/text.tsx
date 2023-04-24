@@ -49,6 +49,24 @@ export const TERMS_DISCLAIMER = (
   </>
 );
 
+export const EEOC_LABEL = (
+  <div className="space-y-2">
+    <div className="w-[103%] text-left text-p3-mobile text-black-text">
+      {
+        'Please confirm that you are an Equal Opportunity Employer as defined by the '
+      }
+      <a
+        href="https://www.eeoc.gov/employers"
+        target="_blank"
+        rel="noreferrer"
+        className="underline underline-offset-4"
+      >
+        {'EEOC'}
+      </a>
+    </div>
+  </div>
+);
+
 export const PRIVACY_MODAL_HEADER_TEXT = 'Privacy Info';
 export const PRIVACY_MODAL_BODY_TEXT =
   'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.';

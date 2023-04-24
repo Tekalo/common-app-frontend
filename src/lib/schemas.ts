@@ -207,7 +207,7 @@ export const ApplicantSubmission =
 
 export const ApplicantDraftSubmission = ApplicantSubmission.partial();
 
-export const OrgType = z.enum(['501c(3)', '501c(4)', 'other']);
+export const OrgType = z.enum(['501c(3)', '501c(4)', 'LLC', 'other']);
 
 export const OrgSize = z.enum([
   '<20',
@@ -223,7 +223,7 @@ const VisaSponsorship = z.enum(['yes', 'no', 'sometimes']);
 export const OrgSchema = z.object({
   organization: z.object({
     name: z.string().max(255),
-    opportunityTypes: z.array(EmploymentType),
+    employmentTypes: z.array(EmploymentType),
     type: OrgType,
     size: OrgSize,
     impactAreas: z.array(z.string().max(255)),

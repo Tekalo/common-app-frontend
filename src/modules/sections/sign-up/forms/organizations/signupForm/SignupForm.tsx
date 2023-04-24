@@ -1,8 +1,14 @@
 import Button from '@/components/buttons/Button/Button';
-import { CauseOptions } from '@/lib/constants/selects';
+import {
+  CauseOptions,
+  EmploymentOptions,
+  TrueFalseOptions,
+} from '@/lib/constants/selects';
+import { EEOC_LABEL } from '@/lib/constants/text';
 import { createOptionList } from '@/lib/helpers';
 import {
   Causes,
+  EmploymentType,
   OrgSchema,
   OrgSize,
   OrgType,
@@ -11,6 +17,8 @@ import {
 import {
   FreeTextField,
   MultiSelectField,
+  SelectBooleanField,
+  SelectGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
@@ -121,6 +129,37 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             isSubmitted={isSubmitted}
             initialValue={''}
             validator={z.string().optional()}
+          />
+
+          {/* Org Employment Types */}
+          <SelectGroupField
+            fieldName="organization.employmentTypes"
+            label={
+              'What type(s) of positions are you looking to fill? Choose all that apply.'
+            }
+            helperText={
+              'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
+            }
+            listOptions={EmploymentOptions}
+            isSubmitted={isSubmitted}
+            initialValue={[]}
+            validator={z
+              .array(EmploymentType)
+              .nonempty('You must select at least one option')}
+          />
+
+          {/* Org EOE */}
+          <SelectBooleanField
+            fieldName="organization.eoe"
+            label={EEOC_LABEL}
+            placeholder="Choose one"
+            listOptions={TrueFalseOptions}
+            isSubmitted={isSubmitted}
+            initialValue={undefined}
+            validator={z.boolean().refine((value) => value === true, {
+              message:
+                'Tekalo only works with Equal Opportunity Employers as defined by the EEOC.',
+            })}
           />
 
           {/* Form Control Button*/}
