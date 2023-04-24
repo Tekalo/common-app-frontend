@@ -22,7 +22,7 @@ const TableModal: React.FC<ITableModal> = ({
   bodyText,
   extras,
 }) => {
-  let headerRef = useRef(null);
+  const headerRef = useRef(null);
 
   const tableData: ContentTableData = {
     headers: [

@@ -2,7 +2,7 @@ import { IRadioGroup } from './RadioGroup';
 
 const base: IRadioGroup = {
   value: 'test',
-  onChange: () => {},
+  onChange: () => void {},
   listOptions: [
     {
       value: 'test',

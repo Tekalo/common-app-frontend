@@ -4,6 +4,9 @@ import { Field, Form } from 'houseform';
 import { z } from 'zod';
 
 const OrganizationSignup: NextPageWithLayout = () => {
+  // State for org contact info
+  // State array for org opportunities
+
   return (
     <Form onSubmit={(values) => alert(JSON.stringify(values))}>
       {({ isValid, submit, errors }) => (
