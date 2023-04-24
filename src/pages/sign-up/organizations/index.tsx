@@ -1,18 +1,20 @@
+import { OrgSchema } from '@/lib/schemas';
 import { NextPageWithLayout } from '@/lib/types';
 import OrgSignupForm from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import Link from 'next/link';
+import router from 'next/router';
 import { useState } from 'react';
+import { z } from 'zod';
+
+type NewOrg = z.infer<typeof OrgSchema>;
 
 const OrganizationSignup: NextPageWithLayout = () => {
-  // const [orgContactInfo, setOrgContactInfo] =
-  //   useState<z.infer<typeof OrgSchema>>();
-  const [orgContactInfo, setOrgContactInfo] = useState({});
+  const [orgContactInfo, setOrgContactInfo] = useState<NewOrg>();
   const [orgOpportunities, setOrgOpportunities] = useState([]);
 
-  const handleOrgSignup = (values: any) => {
-    console.log(values);
-    const newFormState = { ...orgContactInfo, orgOpportunities, ...values };
+  const handleOrgSignup = (values: NewOrg) => {
     setOrgContactInfo(values);
+    router.push('/sign-up/organizations/roles');
   };
 
   return (
