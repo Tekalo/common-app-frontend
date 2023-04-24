@@ -26,7 +26,7 @@ import {
 import { Form } from 'houseform';
 import Link from 'next/link';
 import { useState } from 'react';
-import { BooleanField } from '../sign-up/fields';
+import { BooleanField } from '../../../fields';
 
 // TODO: Add privacy modal once PR is merged
 

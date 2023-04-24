@@ -6,8 +6,8 @@ import {
   ApplicantInterests,
 } from '@/lib/schemas';
 import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
-import ExperienceForm from '@/modules/sections/sign-up/successPage/forms/applicants/experienceForm/ExperienceForm';
-import InterestForm from '@/modules/sections/sign-up/successPage/forms/applicants/interestForm/InterestForm';
+import ExperienceForm from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
+import InterestForm from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
@@ -114,7 +114,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   ];
 
   return (
-  <div className="flex min-h-screen min-w-full flex-col items-center">
+    <div className="flex min-h-screen min-w-full flex-col items-center">
       {/* Form Content */}
       <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
         {/* Title */}
@@ -153,7 +153,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         closeModal={() => setShowSaveModal(false)}
         onConfirm={() => setShowSaveModal(false)}
       />
-  </div>
+    </div>
   );
 };
 

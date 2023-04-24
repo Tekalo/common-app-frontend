@@ -6,7 +6,7 @@ import {
   PRIVACY_MODAL_HEADER_TEXT,
 } from '@/lib/constants/text';
 import { NextPageWithLayout } from '@/lib/types';
-import SignupForm from '@/modules/sections/sign-up/successPage/forms/applicants/signupForm/SignupForm';
+import ApplicantSignupForm from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
@@ -58,7 +58,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </div>
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
           {/* New user form */}
-          <SignupForm
+          <ApplicantSignupForm
             handleSubmit={handleSubmit}
             setShowPrivacyModal={setShowPrivacyModal}
           />

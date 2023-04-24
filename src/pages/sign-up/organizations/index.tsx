@@ -1,40 +1,34 @@
 import ApplicationLayout from '@/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import { Field, Form } from 'houseform';
-import { z } from 'zod';
+import OrgSignupForm from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
+import Link from 'next/link';
+import { useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
-  // State for org contact info
-  // State array for org opportunities
+  const [orgContactInfo, setOrgContactInfo] = useState({});
+  const [orgOpportunities, setOrgOpportunities] = useState([]);
 
   return (
-    <Form onSubmit={(values) => alert(JSON.stringify(values))}>
-      {({ isValid, submit, errors }) => (
-        <div>
-          <Field
-            name="username"
-            initialValue={''}
-            onSubmitValidate={z.literal('hello')}
-          >
-            {({ value, setValue, onBlur }) => (
-              <>
-                <input
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  onBlur={onBlur}
-                />
-                {errors.map((error) => (
-                  <p key={error}>{error}</p>
-                ))}
-              </>
-            )}
-          </Field>
-          <button disabled={!isValid} onClick={submit}>
-            Submit
-          </button>
+    <div className="flex min-h-screen min-w-full flex-col items-center">
+      <div className="px-6 pb-28 pt-10 md:px-24">
+        {/* Title */}
+        <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
+          {'Recruit qualified candidates from the Tekalo network'}
         </div>
-      )}
-    </Form>
+        {/* Navaway is an applicant*/}
+        <div className="text-center text-component-medium">
+          {'If you’re a candidate looking for opportunities, '}
+          <span className="text-blue-1 underline underline-offset-4">
+            <Link href="/sign-up/applicants">{'sign up here'}</Link>
+          </span>
+        </div>
+
+        <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
+          {/* TODO: New org form */}
+          <OrgSignupForm />
+        </div>
+      </div>
+    </div>
   );
 };
 
