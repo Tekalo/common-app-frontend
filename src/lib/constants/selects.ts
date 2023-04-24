@@ -1,5 +1,5 @@
 import { PreferredContact, SearchStatus } from '@/lib/schemas';
-import { IRadioItem, ISelectBoolean, ISelectItem } from '@/lib/types';
+import { IBoolItem, IRadioItem, ISelectItem } from '@/lib/types';
 
 const YoEOptions: Array<ISelectItem> = [
   {
@@ -171,7 +171,7 @@ const YesNoOptions: Array<IRadioItem> = [
   },
 ];
 
-const TrueFalseOptions: Array<ISelectBoolean> = [
+const TrueFalseOptions: Array<IBoolItem> = [
   {
     value: false,
     displayText: 'No',
