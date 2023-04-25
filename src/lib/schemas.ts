@@ -90,6 +90,7 @@ export const YOE = z.enum([
   '10',
   '11+',
 ]);
+
 export const Skills = z.enum([
   'react',
   'javascript',
@@ -144,9 +145,10 @@ export const ReferenceAttribution = z.enum([
 
 export const EmploymentType = z.enum(['full', 'part']);
 
-const ApplicantRequestBodySchema = z.object({
-  name: z.string(),
+export const NewApplicant = z.object({
+  name: z.string().max(255),
   email: z.string().email(),
+  pronoun: z.string().max(255).optional(),
   preferredContact: PreferredContact,
   searchStatus: SearchStatus,
   acceptedTerms: z.literal(true),
