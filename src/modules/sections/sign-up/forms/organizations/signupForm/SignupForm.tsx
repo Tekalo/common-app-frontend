@@ -9,11 +9,11 @@ import { createOptionList } from '@/lib/helpers';
 import {
   Causes,
   EmploymentType,
-  OrgSchema,
   OrgSize,
   OrgType,
   validations,
 } from '@/lib/schemas';
+import { NewOrg } from '@/lib/types';
 import {
   FreeTextField,
   MultiSelectField,
@@ -25,14 +25,12 @@ import { Form } from 'houseform';
 import { z } from 'zod';
 
 export interface ISignupForm {
-  handleSubmit: (values: z.infer<typeof OrgSchema>) => void;
+  handleSubmit: (values: NewOrg) => void;
 }
-
-type NewOrgForm = z.infer<typeof OrgSchema>;
 
 const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
   return (
-    <Form<NewOrgForm>
+    <Form<NewOrg>
       onSubmit={(values) => {
         console.log(values);
         handleSubmit(values);
