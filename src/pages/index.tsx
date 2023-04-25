@@ -17,7 +17,7 @@ const Home = () => {
       <div
         className={`flex max-h-screen min-h-screen min-w-full flex-col items-center text-center align-middle`}
       >
-        <div className="m-auto w-[312px] text-black-text sm:w-[342px] md:w-[462px] lg:w-[544px]">
+        <div className="mt-8 w-[312px] text-black-text sm:w-[342px] md:w-[462px] lg:w-[544px]">
           {/* Logo Stuff */}
           <div className="space-y-2">
             {/* Logo */}
