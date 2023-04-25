@@ -1,7 +1,6 @@
 import { HandleSvg } from '@/lib/constants/svgs';
 import type { Identifier, XYCoord } from 'dnd-core';
-import type { FC } from 'react';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { PreviewGenerator } from 'react-dnd-preview';
 
