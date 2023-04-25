@@ -18,15 +18,49 @@
  * You just wrote the aprent handleNewOpportunity function and needed to update this component props... then render the form...
  */
 
+import Button from '@/components/buttons/Button/Button';
+import { RoleType } from '@/lib/enums';
+import { NewRole } from '@/lib/types';
+import { Form } from 'houseform';
+
 export interface IRoleForm {
   formList: [];
-  formType: string;
-  handleNewRole: () => void;
-  handleEditRole: () => void;
+  formType: RoleType;
+  handleNewRole: (values: NewRole) => void;
+  handleEditRole: (values: NewRole) => void;
 }
 
-const RoleForm: React.FC<IRoleForm> = ({ ...props }) => {
-  return <div className="from-cyan-500 to-blue-500 bg-gradient-to-r">TODO</div>;
+const RoleForm: React.FC<IRoleForm> = ({
+  formList,
+  formType,
+  handleNewRole,
+  handleEditRole,
+}) => {
+  return (
+    <Form<NewRole>
+      onSubmit={(values) => {
+        console.log(values);
+        handleNewRole(values);
+      }}
+    >
+      {({ isSubmitted, submit }) => (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            submit();
+          }}
+          className="flex flex-col space-y-8"
+        >
+          {/* Form Control Button*/}
+          <Button
+            className="mt-4 w-full text-component-large"
+            label="Next"
+            type="submit"
+          />
+        </form>
+      )}
+    </Form>
+  );
 };
 
 export default RoleForm;
