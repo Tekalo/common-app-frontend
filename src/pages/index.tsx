@@ -15,9 +15,9 @@ const Home = () => {
         <title>Tekalo | Do Good</title>
       </Head>
       <div
-        className={`flex min-h-screen min-w-full flex-col items-center text-center`}
+        className={`flex max-h-screen min-h-screen min-w-full flex-col items-center text-center align-middle`}
       >
-        <div className="mx-auto mt-2 mb-2 w-[320px] space-y-8 text-black-text sm:mt-6 sm:mb-6 sm:w-[342px] md:mt-12 md:mb-12 md:w-[462px] lg:w-[544px]">
+        <div className="m-auto w-[320px] space-y-8 text-black-text sm:w-[342px] md:w-[462px] lg:w-[544px]">
           {/* Logo */}
           <div className="">
             <img
