@@ -8,6 +8,16 @@ import {
 } from '@/lib/enums';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
+import { z } from 'zod';
+import {
+  ApplicantDraftSubmission,
+  ApplicantExperience,
+  ApplicantInterests,
+} from './schemas';
+
+export type DraftSubmission = z.infer<typeof ApplicantDraftSubmission>;
+export type ExperienceFields = z.infer<typeof ApplicantExperience>;
+export type InterestFields = z.infer<typeof ApplicantInterests>;
 
 // Interfaces
 interface IconTypeProps {
