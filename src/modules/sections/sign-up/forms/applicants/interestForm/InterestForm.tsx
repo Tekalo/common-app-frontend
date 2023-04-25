@@ -94,7 +94,7 @@ const InterestForm: React.FC<IInterestForm> = ({
               employmentTypeRef.current?.value[0] === 'full'
             }
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.hoursPerWeek) || ''}
+            initialValue={savedForm?.hoursPerWeek || ''}
             validator={z.string().optional()}
           />
 
@@ -119,7 +119,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="Current location"
             placeholder="City, state and/or country"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.currentLocation) || ''}
+            initialValue={savedForm?.currentLocation || ''}
             validator={z.string().nonempty('Current location is required')}
           />
 
@@ -151,7 +151,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="Desired salary (optional)"
             placeholder="Enter a range"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.desiredSalary) || ''}
+            initialValue={savedForm?.desiredSalary || ''}
             validator={z.string().optional()}
           />
 
@@ -181,7 +181,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="Other causes (optional)"
             placeholder="Additional causes separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.otherCauses) || []}
+            initialValue={savedForm?.otherCauses || []}
             validator={z.array(z.string()).nullable().optional()}
           />
 

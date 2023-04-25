@@ -105,7 +105,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="LinkedIn (optional)"
             placeholder="LinkedIn URL"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.linkedInUrl) || ''}
+            initialValue={savedForm?.linkedInUrl || ''}
           />
 
           {/* Portfolio */}
@@ -114,7 +114,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Portfolio (optional)"
             placeholder="Portfolio URL"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.portfolioUrl) || ''}
+            initialValue={savedForm?.portfolioUrl || ''}
           />
 
           {/* Portfolio Password */}
@@ -123,7 +123,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="portfolioPassword (optional)"
             placeholder="Password to view website"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.portfolioPassword) || ''}
+            initialValue={savedForm?.portfolioPassword || ''}
           />
 
           {/* Github */}
@@ -132,7 +132,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Github (optional)"
             placeholder="Github URL"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.githubUrl) || ''}
+            initialValue={savedForm?.githubUrl || ''}
           />
 
           {/* Resume */}
@@ -141,7 +141,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Resume (optional)"
             placeholder="Resume URL"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.resumeUrl) || ''}
+            initialValue={savedForm?.resumeUrl || ''}
           />
 
           {/* Resume Password */}
@@ -150,7 +150,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Resume password (optional)"
             placeholder="Password to view resume"
             isSubmitted={isSubmitted}
-            initialValue={(savedForm && savedForm.resumePassword) || ''}
+            initialValue={savedForm?.resumePassword || ''}
           />
 
           {/* Form Buttons */}
