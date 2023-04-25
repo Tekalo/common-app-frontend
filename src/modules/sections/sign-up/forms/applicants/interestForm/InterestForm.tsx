@@ -77,7 +77,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             fieldRef={employmentTypeRef}
             listOptions={EmploymentOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.interestEmploymentType}
+            initialValue={savedForm?.interestEmploymentType}
             validator={z
               .array(EmploymentType)
               .nonempty('You must select at least one option')}
@@ -107,7 +107,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             selectionLabelSingle=" Roles selected"
             listOptions={RoleOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.interestRoles}
+            initialValue={savedForm?.interestRoles}
             validator={z
               .array(Roles)
               .nonempty('You must select at least one role')}
@@ -130,7 +130,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Choose one"
             listOptions={createOptionList(OpenToRelocate.options)}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.openToRelocate}
+            initialValue={savedForm?.openToRelocate}
             validator={OpenToRelocate}
           />
 
@@ -141,7 +141,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Choose one"
             listOptions={createOptionList(OpenToRemote.options)}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.openToRemote}
+            initialValue={savedForm?.openToRemote}
             validator={OpenToRemote}
           />
 
@@ -166,7 +166,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             selectionLabelSingle=" Causes selected"
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.interestCauses}
+            initialValue={savedForm?.interestCauses}
             validator={z
               .array(z.string())
               .nonempty('You must select at least one cause')}
@@ -205,7 +205,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.interestGovt}
+            initialValue={savedForm?.interestGovt}
             validator={z.boolean()}
           />
 

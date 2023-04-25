@@ -51,7 +51,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Current or most recent role"
             placeholder="Role"
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.lastRole}
+            initialValue={savedForm?.lastRole}
             validator={z.string().nonempty({ message: 'Role is Required' })}
           />
 
@@ -61,7 +61,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Current or most recent organization"
             placeholder="Name of organization"
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.lastOrg}
+            initialValue={savedForm?.lastOrg}
             validator={z.string().optional()}
           />
 
@@ -72,7 +72,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Choose one"
             listOptions={YoEOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.yoe}
+            initialValue={savedForm?.yoe}
             validator={YOE}
           />
 
@@ -85,7 +85,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             selectionLabelSingle=" Skill selected"
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.skills}
+            initialValue={savedForm?.skills}
             validator={z.array(Skills).optional()}
           />
 
@@ -95,7 +95,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Other skills (optional)"
             placeholder="Skills separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={savedForm && savedForm.otherSkills}
+            initialValue={savedForm?.otherSkills}
             validator={z.array(z.string()).optional()}
           />
 
