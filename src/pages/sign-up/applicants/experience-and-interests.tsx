@@ -1,28 +1,25 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import {
-  ApplicantDraftSubmission,
-  ApplicantExperience,
-  ApplicantInterests,
-} from '@/lib/schemas';
-import { ITimelineItem, NextPageWithLayout } from '@/lib/types';
+  DraftSubmission,
+  ExperienceFields,
+  InterestFields,
+  ITimelineItem,
+  NextPageWithLayout,
+} from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
-import { z } from 'zod';
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [draftFormValues, setDraftFormValues] = useState<
-    z.infer<typeof ApplicantDraftSubmission>
-  >({});
-  const [applicantExperience, setApplicantExperience] =
-    useState<z.infer<typeof ApplicantExperience>>();
-  const [applicantInterests, setApplicantInterests] =
-    useState<z.infer<typeof ApplicantInterests>>();
+
+  const [draftFormValues, setDraftFormValues] = useState<DraftSubmission>();
+  const [experienceFields, setExperienceFIelds] = useState<ExperienceFields>();
+  const [interestFields, setInterestFields] = useState<InterestFields>();
 
   useEffect(() => {
     if (isSubmitted) {
@@ -33,8 +30,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   const doSubmit = () => {
     const finalFormValues = {
-      ...applicantExperience,
-      ...applicantInterests,
+      ...experienceFields,
+      ...interestFields,
       originTag: '',
     };
 
@@ -71,7 +68,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
-  const handleSave = (values: z.infer<typeof ApplicantDraftSubmission>) => {
+  const handleSave = (values: DraftSubmission) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
@@ -81,17 +78,17 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // FUNCTION: Saves form responses to parent state
-  const handleNext = (values: z.infer<typeof ApplicantExperience>) => {
+  const handleNext = (values: ExperienceFields) => {
     setDraftFormValues({ ...draftFormValues, ...values });
-    setApplicantExperience(values);
+    setExperienceFIelds(values);
     setIsInterestFormVisible(true);
   };
 
   // FUNCTION: Saves form responses to parent state and generates final form
-  const handleSubmit = (values: z.infer<typeof ApplicantInterests>) => {
+  const handleSubmit = (values: InterestFields) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
-    setApplicantInterests(values);
+    setInterestFields(values);
     setIsSubmitted(true);
   };
 

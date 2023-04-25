@@ -10,6 +10,7 @@ import {
   contactPhoneLinkedValidation,
   validations,
 } from '@/lib/schemas';
+import { NewApplicant } from '@/lib/types';
 import {
   BooleanField,
   FreeTextField,
@@ -20,7 +21,7 @@ import { Form } from 'houseform';
 import { z } from 'zod';
 
 export interface ISignupForm {
-  handleSubmit: (_values: unknown) => void;
+  handleSubmit: (_values: NewApplicant) => void;
   setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
 }
 
@@ -29,7 +30,7 @@ const SignupForm: React.FC<ISignupForm> = ({
   setShowPrivacyModal,
 }) => {
   return (
-    <Form onSubmit={(values) => handleSubmit(values)}>
+    <Form<NewApplicant> onSubmit={(values) => handleSubmit(values)}>
       {({ isValid, isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
@@ -89,7 +90,6 @@ const SignupForm: React.FC<ISignupForm> = ({
           />
 
           {/* Phone Number */}
-          {/* Email */}
           <FreeTextField
             listenTo={['preferredContact']}
             fieldName="phone"
