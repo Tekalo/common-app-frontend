@@ -13,12 +13,13 @@ import {
   ApplicantDraftSubmission,
   ApplicantExperience,
   ApplicantInterests,
+  NewApplicant,
 } from './schemas';
 
 export type DraftSubmission = z.infer<typeof ApplicantDraftSubmission>;
 export type ExperienceFields = z.infer<typeof ApplicantExperience>;
 export type InterestFields = z.infer<typeof ApplicantInterests>;
-
+export type NewApplicant = z.infer<typeof NewApplicant>;
 // Interfaces
 interface IconTypeProps {
   width: number;
