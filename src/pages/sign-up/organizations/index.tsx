@@ -19,12 +19,12 @@ const OrganizationSignup: NextPageWithLayout = () => {
   };
 
   const handleNewOpportunity = (newRole: NewRole) => {
-    const newOpportunityList = [...orgRoles, newRole];
+    const newOpportunityList = [...(orgRoles || []), newRole];
     setOrgRoles(newOpportunityList);
   };
 
   const handleEditOpportunity = (editedRole: NewRole, index: number) => {
-    const newOpportunityList = [...orgRoles];
+    const newOpportunityList = [...(orgRoles || [])];
     newOpportunityList[index] = editedRole;
     setOrgRoles(newOpportunityList);
   };
