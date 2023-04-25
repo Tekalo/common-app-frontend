@@ -35,7 +35,7 @@ const Home = () => {
             {'Coming soon!'}
           </div>
           {/* Paragraph */}
-          <div className="space-y-8 px-2 text-p2-mobile md:text-p1-mobile lg:text-p1-desktop">
+          <div className="space-y-8 px-2 text-p3-mobile sm:text-p3-mobile md:text-p2-mobile lg:text-p1-desktop">
             <div>
               {
                 'Tekalo is an initiative that matches technical talent with impact-driven organizations.'
@@ -46,7 +46,7 @@ const Home = () => {
                 "Now more than ever, impact-driven organizations need technical talent that is passionate about solving some of the world's biggest, most pressing problems."
               }
             </div>
-            <div className="text-p1-mobile lg:text-p1-desktop">
+            <div>
               {
                 'If you are an impact-driven organization looking to recruit full-time or part-time technical talent, you can submit opportunities for consideration using this early sign-up form:'
               }
