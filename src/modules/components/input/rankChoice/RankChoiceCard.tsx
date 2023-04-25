@@ -1,7 +1,6 @@
 import { HandleSvg } from '@/lib/constants/svgs';
 import type { Identifier, XYCoord } from 'dnd-core';
-import type { FC } from 'react';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { PreviewGenerator } from 'react-dnd-preview';
 
@@ -17,8 +16,8 @@ export interface IRankChoiceCard {
   value: string;
   moveCard: (_dragIndex: number, _hoverIndex: number) => void;
   setIsDragging: (_isDragging: boolean) => void;
+  valueUpdated: () => void;
 }
-
 const baseCardStyles =
   'text-black flex flex-auto justify-between rounded border bg-white p-[7px] text-component-medium';
 const previewStyles = `${baseCardStyles} self-stretch border-blue-4 border-dashed`;
@@ -37,7 +36,10 @@ let RankChoiceCard: FC<IRankChoiceCard> = ({
   value,
   moveCard,
   setIsDragging,
+  valueUpdated,
 }) => {
+  value = value === 'e0' || value === 'e1' || value === 'e2' ? '' : value;
+
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -91,6 +93,7 @@ let RankChoiceCard: FC<IRankChoiceCard> = ({
     }),
     end: () => {
       setIsDragging(false);
+      valueUpdated();
     },
   });
 
@@ -122,7 +125,7 @@ let RankChoiceCard: FC<IRankChoiceCard> = ({
         `}
       >
         {/* Text container */}
-        <div className={`flex-auto self-stretch`}>
+        <div className={`flex-auto select-none self-stretch`}>
           <span className={`${isDragging ? 'hidden' : ''}`}>{text}</span>
           <span className={`${!isDragging ? 'hidden' : ''}`}> </span>
         </div>
@@ -140,7 +143,7 @@ const generatePreview: PreviewGenerator<IRankChoiceCard, Element> = ({
   return (
     <div
       style={style}
-      className={`${baseCardStyles} ml-4 w-[80vw] max-w-[320px] cursor-grabbing border-gray-2 shadow-md`}
+      className={`${baseCardStyles} ml-4 w-[80vw] max-w-[320px] cursor-grabbing border-blue-1 shadow-md`}
     >
       <div className="flex-auto self-stretch">
         {item.text ? item.text : ' '}

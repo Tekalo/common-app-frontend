@@ -1,6 +1,6 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
-import { GreenCheckSvg, IOutlineSVG } from '@/constants/svgs';
+import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
 import { NextPageWithLayout } from '@/lib/types';
 import Link from 'next/link';
 import { useState } from 'react';

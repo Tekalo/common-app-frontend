@@ -9,11 +9,17 @@ const DefaultComponent: React.FC<IRankChoice> = ({
   label,
   name,
   rankOptions: options,
+  setValue,
 }) => {
   return (
     <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
       <div className="m-auto max-w-[351px]">
-        <RankChoice label={label} name={name} rankOptions={options} />
+        <RankChoice
+          setValue={setValue}
+          label={label}
+          name={name}
+          rankOptions={options}
+        />
       </div>
       <Preview generator={RankChoiceCard.generatePreview} />
     </DndProvider>

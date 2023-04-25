@@ -13,6 +13,7 @@ const base: IRankChoice = {
     { displayText: 'Human rights & social equality', value: 'humanRights' },
     { displayText: 'International Development', value: 'intDev' },
   ],
+  setValue: () => void {},
 };
 
 const empty: IRankChoice = {
