@@ -19,13 +19,12 @@
  */
 
 import Button from '@/components/buttons/Button/Button';
-import { RoleType } from '@/lib/enums';
-import { NewRole } from '@/lib/types';
+import { NewRole, OrgRoles } from '@/lib/types';
 import { Form } from 'houseform';
 
 export interface IRoleForm {
   // formList: [];
-  formType: RoleType;
+  formType: OrgRoles ;
   handleNewRole: (values: NewRole) => void;
   // handleEditRole: (values: NewRole) => void;
 }

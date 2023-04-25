@@ -4,7 +4,7 @@ import {
   OrgType,
   Skills,
   VisaSponsorship,
-  YearsOfExperience,
+  YearsOfExperience
 } from '@/lib/enums';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
@@ -15,7 +15,7 @@ import {
   ApplicantInterests,
   NewApplicant,
   OrgSchema,
-  SubmissionSchema,
+  SubmissionSchema
 } from './schemas';
 
 export type DraftSubmission = z.infer<typeof ApplicantDraftSubmission>;
@@ -24,6 +24,7 @@ export type InterestFields = z.infer<typeof ApplicantInterests>;
 export type NewApplicant = z.infer<typeof NewApplicant>;
 export type NewOrg = z.infer<typeof OrgSchema>;
 export type NewRole = z.infer<typeof SubmissionSchema>;
+export type OrgRoles = z.infer<typeof OrgSchema.shape.organization.shape.employmentTypes>;
 
 // Interfaces
 interface IconTypeProps {
