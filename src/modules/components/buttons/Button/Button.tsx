@@ -1,7 +1,5 @@
 import { IconType } from '@/lib/types';
 
-// TODO: We should update our eslint config so we don't get
-// False warnings like this
 export enum ButtonVariant {
   OUTLINED,
   RED,

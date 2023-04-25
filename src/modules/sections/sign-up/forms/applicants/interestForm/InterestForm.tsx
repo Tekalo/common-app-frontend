@@ -48,8 +48,9 @@ const InterestForm: React.FC<IInterestForm> = ({
   savedForm,
 }) => {
   const formRef = useRef<FormRefType>(null);
-  const employmentTypeRef = useRef<FieldInstance<string[], any>>(null);
-  const govRef = useRef<FieldInstance<boolean, any>>(null);
+  const employmentTypeRef =
+    useRef<FieldInstance<string[], InterestFormType>>(null);
+  const govRef = useRef<FieldInstance<boolean, InterestFormType>>(null);
 
   const doSave = () => {
     if (formRef.current) {

@@ -1,5 +1,3 @@
-// TODO: Make all of these FCs so we can customize them
-
 export interface ISVGProps {
   color: string;
   height: string;
