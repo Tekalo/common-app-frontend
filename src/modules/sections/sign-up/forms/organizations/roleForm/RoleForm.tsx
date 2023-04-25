@@ -21,6 +21,7 @@
 import Button from '@/components/buttons/Button/Button';
 import { NewRole, OrgRoles } from '@/lib/types';
 import { Form } from 'houseform';
+import { DescriptionSection, PaySection, LocationSection, DateSection, RequirementSection, EssaySection } from './subsection';
 
 export interface IRoleForm {
   // formList: [];
@@ -50,6 +51,13 @@ const RoleForm: React.FC<IRoleForm> = ({
           }}
           className="flex flex-col space-y-8"
         >
+          <DescriptionSection sampleTextProp={'todo'}/>
+          <PaySection sampleTextProp={'todo'}/>
+          <LocationSection sampleTextProp={'todo'}/>
+          <DateSection sampleTextProp={'todo'}/>
+          <RequirementSection sampleTextProp={'todo'}/>
+          <EssaySection sampleTextProp={'todo'}/>
+
           {/* Form Control Button*/}
           <Button
             className="mt-4 w-full text-component-large"
