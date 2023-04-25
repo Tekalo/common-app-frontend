@@ -51,10 +51,14 @@ const RankChoice: React.FC<IRankChoice> = ({
 
   const renderCard = useCallback(
     (card: { value: string; displayText: string }, index: number) => {
+      const disabled = items.length < 2;
+      const disabledKey = disabled ? 'd' : 'e';
+      const cardKey = `${card.value}${disabledKey}`;
+
       return (
         <RankChoiceCard
-          disabled={items.length < 2}
-          key={card.value}
+          disabled={disabled}
+          key={cardKey}
           index={index}
           value={card.value}
           text={card.displayText}
