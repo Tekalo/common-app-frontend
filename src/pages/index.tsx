@@ -37,7 +37,17 @@ const Home = () => {
           {/* Paragraph */}
           <div className="mt-8 text-p1-mobile lg:text-p1-desktop">
             {
+              'Tekalo is an initiative that matches technical talent with impact-driven organizations.'
+            }
+          </div>
+          <div className="mt-8 text-p1-mobile lg:text-p1-desktop">
+            {
               'If you are an impact-driven organization looking to recruit full-time or part-time technical talent, you can submit opportunities for consideration using this early sign-up form:'
+            }
+          </div>
+          <div className="mt-8 text-p1-mobile lg:text-p1-desktop">
+            {
+              'Tekalo is an initiative that matches technical talent with impact-driven organizations.'
             }
           </div>
           {/* Button */}
