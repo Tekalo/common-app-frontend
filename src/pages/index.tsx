@@ -17,9 +17,9 @@ const Home = () => {
       <div
         className={`flex min-h-screen min-w-full flex-col items-center text-center`}
       >
-        <div className="w-[320px] text-black-text sm:w-[342px] md:w-[462px] lg:w-[544px]">
+        <div className="mx-auto mt-2 mb-2 w-[320px] space-y-8 text-black-text sm:mt-6 sm:mb-6 sm:w-[342px] md:mt-12 md:mb-12 md:w-[462px] lg:w-[544px]">
           {/* Logo */}
-          <div className="mt-8">
+          <div className="">
             <img
               src="/images/logos/TekaloLogo.png"
               alt="Logo"
@@ -27,31 +27,34 @@ const Home = () => {
             />
           </div>
           {/* Tagline */}
-          <div className="mt-4 text-component-small">
+          <div className="text-component-small">
             {'Match to what matters; build a better world.'}
           </div>
           {/* Header */}
-          <div className="mt-20 text-h2-mobile sm:text-h1-mobile lg:text-h1-desktop">
+          <div className="text-h2-mobile sm:text-h2-mobile  md:text-h1-mobile lg:text-h1-desktop">
             {'Coming soon!'}
           </div>
           {/* Paragraph */}
-          <div className="mt-8 text-p1-mobile lg:text-p1-desktop">
-            {
-              'Tekalo is an initiative that matches technical talent with impact-driven organizations.'
-            }
+          <div className="space-y-8 px-2 text-p2-mobile md:text-p1-mobile lg:text-p1-desktop">
+            <div>
+              {
+                'Tekalo is an initiative that matches technical talent with impact-driven organizations.'
+              }
+            </div>
+            <div>
+              {
+                "Now more than ever, impact-driven organizations need technical talent that is passionate about solving some of the world's biggest, most pressing problems."
+              }
+            </div>
+            <div className="text-p1-mobile lg:text-p1-desktop">
+              {
+                'If you are an impact-driven organization looking to recruit full-time or part-time technical talent, you can submit opportunities for consideration using this early sign-up form:'
+              }
+            </div>
           </div>
-          <div className="mt-8 text-p1-mobile lg:text-p1-desktop">
-            {
-              "Now more than ever, impact-driven organizations need technical talent that is passionate about solving some of the world's biggest, most pressing problems."
-            }
-          </div>
-          <div className="mt-8 text-p1-mobile lg:text-p1-desktop">
-            {
-              'If you are an impact-driven organization looking to recruit full-time or part-time technical talent, you can submit opportunities for consideration using this early sign-up form:'
-            }
-          </div>
+
           {/* Button */}
-          <div className="mt-10 flex w-full justify-center">
+          <div className="flex w-full justify-center">
             {' '}
             {/* Add mx-auto class for centering */}
             <button
