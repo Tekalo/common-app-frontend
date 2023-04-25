@@ -24,17 +24,17 @@ import { NewRole } from '@/lib/types';
 import { Form } from 'houseform';
 
 export interface IRoleForm {
-  formList: [];
+  // formList: [];
   formType: RoleType;
   handleNewRole: (values: NewRole) => void;
-  handleEditRole: (values: NewRole) => void;
+  // handleEditRole: (values: NewRole) => void;
 }
 
 const RoleForm: React.FC<IRoleForm> = ({
-  formList,
+  // formList,
   formType,
   handleNewRole,
-  handleEditRole,
+  // handleEditRole,
 }) => {
   return (
     <Form<NewRole>
