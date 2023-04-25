@@ -10,7 +10,7 @@ import {
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { FormInstance } from 'houseform/dist/form/types';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IExperienceForm {
@@ -26,9 +26,23 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
 }) => {
   const formRef = useRef<FormInstance<ExperienceFields>>(null);
 
+  useEffect(() => void {}, [savedForm]);
+
   const doSave = () => {
     if (formRef.current) {
       handleSave({ ...savedForm, ...formRef.current.value });
+    }
+  };
+
+  const doNext = () => {
+    if (formRef.current && formRef.current.isValid) {
+      console.log(formRef.current.value);
+
+      const experienceFields: ExperienceFields = {
+        ...(formRef.current.value as ExperienceFields),
+      };
+
+      handleSubmit(experienceFields);
     }
   };
 
@@ -85,7 +99,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             selectionLabelSingle=" Skill selected"
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.skills}
+            initialValue={savedForm?.skills || []}
             validator={z.array(Skills).optional()}
           />
 
@@ -95,7 +109,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Other skills (optional)"
             placeholder="Skills separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.otherSkills}
+            initialValue={savedForm?.otherSkills || []}
             validator={z.array(z.string()).optional()}
           />
 
@@ -167,6 +181,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               className="mt-4 w-full text-component-large"
               label="Next"
               type="submit"
+              onClick={doNext}
             />
           </div>
         </form>

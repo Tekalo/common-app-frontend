@@ -8,7 +8,7 @@ import {
   YesNoOptions,
 } from '@/lib/constants/selects';
 import { USDR_DISCLAIMER } from '@/lib/constants/text';
-import { createOptionList } from '@/lib/helpers';
+import { createOptionList } from '@/lib/helpers/formHelpers';
 import {
   EmploymentType,
   InterestGovtEmplTypes,

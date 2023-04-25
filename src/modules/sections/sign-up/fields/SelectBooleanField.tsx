@@ -1,5 +1,5 @@
 import SelectBoolean from '@/components/input/selectBoolean/SelectBoolean';
-import { printErrorMessages } from '@/lib/helpers';
+import { printErrorMessages } from '@/lib/helpers/formHelpers';
 import { IBoolItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { ReactElement } from 'react';

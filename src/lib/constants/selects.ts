@@ -53,8 +53,12 @@ const SkillOptions: Array<ISelectItem> = [
     displayText: 'DevOps',
   },
   {
-    value: 'figma/sketch',
-    displayText: 'Figma/Sketch',
+    value: 'figma',
+    displayText: 'Figma',
+  },
+  {
+    value: 'sketch',
+    displayText: 'Sketch',
   },
   {
     value: 'prototyping',

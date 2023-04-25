@@ -1,5 +1,5 @@
 import FreeText from '@/components/input/freeText/FreeText';
-import { printErrorMessages } from '@/lib/helpers';
+import { printErrorMessages } from '@/lib/helpers/formHelpers';
 import { Field, FormInstance } from 'houseform';
 import { z } from 'zod';
 

@@ -1,6 +1,6 @@
-import { ISelectItem } from './types';
+import { ISelectItem } from '../types';
 
-// Helper taht prints error messages from Houseforms consistently
+// Helper that prints error messages from Houseforms consistently
 export const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
   const errorMessage =
     isSubmitted && errors.length ? (
@@ -22,4 +22,12 @@ export const createOptionList = (
     value: option,
     displayText: option[0].toUpperCase() + option.slice(1),
   }));
+};
+
+export const stripEmptyFields = (obj: any): any => {
+  const result = Object.fromEntries(
+    Object.entries(obj).filter(([_, v]) => v != null && v !== '')
+  );
+
+  return result;
 };
