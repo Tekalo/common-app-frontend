@@ -35,7 +35,7 @@ const Home = () => {
           {/* HeadLines */}
           <div className="mt-8 space-y-4 md:mt-16">
             {/* Header */}
-            <div className="text-h1-mobile md:text-h1-desktop">
+            <div className="text-h2-mobile md:text-h2-desktop">
               {'Coming soon!'}
             </div>
             {/* Sub Header */}
