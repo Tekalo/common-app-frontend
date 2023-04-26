@@ -24,7 +24,12 @@
     "no-restricted-imports": [
       "error",
       {
-        "patterns": ["^(?!\\.\\/)((?!.)[sS])*) ?$", "../.*"]
+        "patterns": [
+          {
+            "group": ["^(?!\\.\\/)((?!.)[sS])*) ?$", "../.*"],
+            "message": "Relative imports outside the current directory are not allowed. Please us the '@/{RESOURCE}' syntax specified in tsconfig.json"
+          }
+        ]
       }
     ]
   },
