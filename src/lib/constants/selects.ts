@@ -201,6 +201,17 @@ const YesNoOptions: Array<IRadioItem> = [
   },
 ];
 
+const PaidOptions: Array<IRadioItem> = [
+  {
+    value: 'true',
+    displayText: 'Paid',
+  },
+  {
+    value: 'false',
+    displayText: 'Unpaid',
+  },
+];
+
 const TrueFalseOptions: Array<IBoolItem> = [
   {
     value: false,
@@ -281,4 +292,5 @@ export {
   PreferredContactOptions,
   VisaSponsorshipOptions,
   RoleYoeOptions,
+  PaidOptions,
 };

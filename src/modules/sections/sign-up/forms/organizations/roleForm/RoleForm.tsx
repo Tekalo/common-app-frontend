@@ -1,26 +1,7 @@
-// TODO Breadcrumbs based on the number of submitted roles
-// TODO Aware of what "type" of role form to render
-// TODO On submit, add the current form to state, clear the form, move breadcrumb to the next form
-// TODO Should allow someone to click a breadcrumb to "navigate" to that form and edit it!
-
-/**
- * Therefore this component needs to know:
- * - How many forms have been submitted (to render breadcrumbs)
- * - Which form is currently being submitted
- * - Which type of form fields to render based on part time, full time, or both
- *
- * So the props need to be:
- * - formList: Array of forms that have been submitted
- * - currentForm: The form that is currently being submitted
- * - formType: The type of form to render (part time, full time, or both)
- *
- * GOOD MORNING! Current state is based on the previous commetns
- * You just wrote the aprent handleNewOpportunity function and needed to update this component props... then render the form...
- */
-
 import Button from '@/components/buttons/Button/Button';
 import {
   OpportunityOptions,
+  PaidOptions,
   RoleOptions,
   RoleYoeOptions,
   SkillOptions,
@@ -60,11 +41,12 @@ const RoleForm: React.FC<IRoleForm> = ({
         handleNewRole(values);
       }}
     >
-      {({ isSubmitted, submit }) => (
+      {({ isSubmitted, submit, reset }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
             submit();
+            reset();
           }}
           className="flex flex-col space-y-8"
         >
@@ -74,10 +56,10 @@ const RoleForm: React.FC<IRoleForm> = ({
             fieldName="paid"
             label="Is this role paid or unpaid?"
             rowAlign={true}
-            listOptions={YesNoOptions}
+            listOptions={PaidOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.boolean()}
+            validator={z.string(z.enum(['true', 'false']))}
           />
 
           <SingleSelectField
@@ -95,7 +77,7 @@ const RoleForm: React.FC<IRoleForm> = ({
 
           <FreeTextField
             fieldName="roleType"
-            label="If you chose other, please specify (optional"
+            label="If you chose other, please specify (optional)"
             placeholder="Type of role"
             isSubmitted={isSubmitted}
             initialValue={undefined}
@@ -160,7 +142,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.boolean()}
+            validator={z.string(z.enum(['true', 'false']))}
           />
 
           <FreeTextField
@@ -233,8 +215,11 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Other desired skills if not listed above (optional)"
             placeholder="Desired skills separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={z.string().max(255).optional()}
+            initialValue={[]}
+            validator={z
+              .array(z.string().max(255).optional().nullable())
+              .optional()
+              .nullable()}
           />
 
           <RadioSelectField
@@ -244,7 +229,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.boolean()}
+            validator={z.string(z.enum(['true', 'false']))}
           />
 
           {/* TODO: Essay Section */}
