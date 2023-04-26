@@ -3,7 +3,6 @@ import FreeTagField from './FreeTagField';
 import FreeTextField from './FreeTextField';
 import LongTextField from './LongTextField';
 import MultiSelectField from './MultiSelectField';
-import RadioBooleanField from './RadioBooleanField';
 import RadioGroupField from './RadioGroupField';
 import SelectBooleanField from './SelectBooleanField';
 import SelectGroupField from './SelectGroupField';
@@ -17,7 +16,6 @@ export {
   FreeTagField,
   SelectGroupField,
   LongTextField,
-  RadioBooleanField as RadioBooleanField,
   RadioGroupField,
   BooleanField,
   SelectBooleanField,

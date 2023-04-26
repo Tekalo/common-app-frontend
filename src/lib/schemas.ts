@@ -91,6 +91,8 @@ export const YOE = z.enum([
   '11+',
 ]);
 
+export const TrueFalseString = z.enum(['true', 'false']);
+
 export const Skills = z.enum([
   'react',
   'javascript',
@@ -133,7 +135,12 @@ export const Causes = z.enum([
 ]);
 
 export const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
-export const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure']);
+export const OpenToRemote = z.enum([
+  'only remote',
+  'no remote',
+  'both',
+  'not sure',
+]);
 export const WorkAuthorization = z.enum(['authorized', 'sponsorship']);
 export const ReferenceAttribution = z.enum([
   'website',

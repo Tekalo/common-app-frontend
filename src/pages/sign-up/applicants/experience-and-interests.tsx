@@ -3,7 +3,6 @@ import Timeline from '@/components/timeline/Timeline';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
-  applicantsEndpoint,
   get,
   post,
 } from '@/lib/helpers/apiHelpers';
@@ -21,8 +20,7 @@ import router from 'next/router';
 import { useEffect, useState } from 'react';
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  // TODO: UNDO
-  const [isInterestFormVisible, setIsInterestFormVisible] = useState(true);
+  const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -48,7 +46,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       originTag: '',
     };
 
-    post(applicantsEndpoint, finalFormValues)
+    post(applicantSubmissionsEndpoint, finalFormValues)
       .then((res) => {
         console.log(res);
         if (res.ok) {

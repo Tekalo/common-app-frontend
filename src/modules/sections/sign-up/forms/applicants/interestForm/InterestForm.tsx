@@ -16,6 +16,7 @@ import {
   OpenToRemote,
   ReferenceAttribution,
   Roles,
+  TrueFalseString,
   WorkAuthorization,
 } from '@/lib/schemas';
 import { DraftSubmission, InterestFields } from '@/lib/types';
@@ -24,7 +25,7 @@ import {
   FreeTextField,
   LongTextField,
   MultiSelectField,
-  RadioBooleanField,
+  RadioGroupField,
   SelectGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
@@ -52,24 +53,38 @@ const InterestForm: React.FC<IInterestForm> = ({
   useEffect(() => {
     // Need to use the inital value so we have to reset the form
     formRef.current?.reset();
-
-    // console.log(formRef.current?.formFieldsRef.);
-
     formRef.current?.recomputeErrors();
-    console.log(formRef.current?.value);
   }, [savedForm]);
+
+  const convertStringFieldsToBool = <T,>(value: T): T => {
+    const newVals = { ...savedForm, ...value };
+
+    // Bc of radio group weirdness, we need to convert the values here
+    if (typeof newVals.interestGovt === 'string') {
+      newVals.interestGovt = newVals.interestGovt === 'true';
+    }
+    if (typeof newVals.previousImpactExperience === 'string') {
+      newVals.previousImpactExperience =
+        newVals.previousImpactExperience === 'true';
+    }
+
+    return newVals as T;
+  };
 
   const doSave = () => {
     if (formRef.current) {
-      handleSave({ ...savedForm, ...formRef.current.value });
+      handleSave(convertStringFieldsToBool(formRef.current.value));
+    }
+  };
+
+  const doSubmit = (values: InterestFields) => {
+    if (formRef.current) {
+      handleSubmit(convertStringFieldsToBool(values));
     }
   };
 
   return (
-    <Form<InterestFields>
-      onSubmit={(values) => handleSubmit(values)}
-      ref={formRef}
-    >
+    <Form<InterestFields> onSubmit={(values) => doSubmit(values)} ref={formRef}>
       {({ isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
@@ -118,7 +133,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             selectionLabelSingle=" Roles selected"
             listOptions={RoleOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestRoles}
+            initialValue={savedForm?.interestRoles || []}
             validator={z
               .array(Roles)
               .nonempty('You must select at least one role')}
@@ -175,7 +190,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             selectionLabelSingle=" Cause selected"
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestCauses}
+            initialValue={savedForm?.interestCauses || []}
             validator={z
               .array(z.string())
               .nonempty('You must select at least one cause')}
@@ -200,7 +215,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={WorkAuthorization}
           />
           {/* Gov Interest*/}
-          <RadioBooleanField
+          <RadioGroupField
             fieldName="interestGovt"
             label="Are you interested in U.S. state or local government opportunities?"
             helperText={USDR_DISCLAIMER}
@@ -208,8 +223,8 @@ const InterestForm: React.FC<IInterestForm> = ({
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestGovt}
-            validator={z.boolean()}
+            initialValue={String(savedForm?.interestGovt)}
+            validator={TrueFalseString}
           />
           {/* Gov Opp Type*/}
           <MultiSelectField
@@ -221,19 +236,19 @@ const InterestForm: React.FC<IInterestForm> = ({
             selectionLabelSingle=" Opportunities selected"
             listOptions={USDROptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm ? savedForm.interestGovtEmplTypes : []}
+            initialValue={savedForm?.interestGovtEmplTypes || []}
             validator={z.array(InterestGovtEmplTypes).optional()}
-            disabled={!govRef.current?.value}
+            disabled={govRef.current?.value.toString() === 'false'}
           />
-          {/* Previous XP*/}
-          <RadioBooleanField
+          {/* Previous XP */}
+          <RadioGroupField
             fieldName="previousImpactExperience"
             label="Do you have previous experience working at a non-profit or a public service organization?"
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.previousImpactExperience}
-            validator={z.boolean()}
+            initialValue={String(savedForm?.previousImpactExperience)}
+            validator={TrueFalseString}
           />
           {/* Essay */}
           <LongTextField
