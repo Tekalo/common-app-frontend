@@ -39,6 +39,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted]);
 
+  // Hits the submission endpoint to submit the form
   const doSubmit = async () => {
     const finalFormValues = {
       ...experienceFields,
@@ -107,8 +108,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         } else {
           // TODO: Error Handling
           if (res.status === 401) {
-            //TODO: undo
-            // router.push('/');
+            router.push('/');
           } else {
             alert(res.statusText);
           }

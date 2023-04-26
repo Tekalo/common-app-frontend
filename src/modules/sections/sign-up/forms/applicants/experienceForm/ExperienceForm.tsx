@@ -27,7 +27,8 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   const formRef = useRef<FormInstance<ExperienceFields>>(null);
 
   useEffect(() => {
-    // Need to use the inital value so we have to reset the form
+    // Need to use the inital value once we get it,
+    // so we have to reset the form for it to initialize
     formRef.current?.reset();
     formRef.current?.recomputeErrors();
   }, [savedForm]);

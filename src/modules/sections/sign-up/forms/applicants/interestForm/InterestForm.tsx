@@ -51,7 +51,8 @@ const InterestForm: React.FC<IInterestForm> = ({
   const govRef = useRef<FieldInstance<boolean, IInterestForm>>(null);
 
   useEffect(() => {
-    // Need to use the inital value so we have to reset the form
+    // Need to use the inital value once we get it,
+    // so we have to reset the form for it to initialize
     formRef.current?.reset();
     formRef.current?.recomputeErrors();
   }, [savedForm]);
@@ -73,12 +74,16 @@ const InterestForm: React.FC<IInterestForm> = ({
 
   const doSave = () => {
     if (formRef.current) {
+      // We need to convert strings to booleans for specific fields
+      // because radio inputs need to have string values
       handleSave(convertStringFieldsToBool(formRef.current.value));
     }
   };
 
   const doSubmit = (values: InterestFields) => {
     if (formRef.current) {
+      // We need to convert strings to booleans for specific fields
+      // because radio inputs need to have string values
       handleSubmit(convertStringFieldsToBool(values));
     }
   };
