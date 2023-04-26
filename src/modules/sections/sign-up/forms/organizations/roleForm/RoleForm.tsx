@@ -8,8 +8,9 @@ import {
   VisaSponsorshipOptions,
   YesNoOptions,
 } from '@/lib/constants/selects';
+import { RoleType } from '@/lib/enums';
 import { ROLE_YOE, Skills } from '@/lib/schemas';
-import { NewRole, OrgRoles } from '@/lib/types';
+import { NewRole } from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
@@ -23,7 +24,7 @@ import { z } from 'zod';
 
 export interface IRoleForm {
   // formList: [];
-  formType: OrgRoles | undefined;
+  formType: RoleType.BOTH | RoleType.FULL_TIME | RoleType.PART_TIME | undefined;
   handleNewRole: (values: NewRole) => void;
   // handleEditRole: (values: NewRole) => void;
 }
@@ -41,7 +42,7 @@ const RoleForm: React.FC<IRoleForm> = ({
         handleNewRole(values);
       }}
     >
-      {({ isSubmitted, submit, reset }) => (
+      {({ isSubmitted, submit, reset, isValid }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();

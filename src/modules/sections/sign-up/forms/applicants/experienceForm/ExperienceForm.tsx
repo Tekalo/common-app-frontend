@@ -85,7 +85,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             selectionLabelSingle=" Skill selected"
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.skills}
+            initialValue={savedForm?.skills || []}
             validator={z.array(Skills).optional()}
           />
 

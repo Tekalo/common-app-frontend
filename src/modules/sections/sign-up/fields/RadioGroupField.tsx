@@ -17,48 +17,46 @@ interface IRadioGroupField {
   validator?: z.ZodSchema;
 }
 
-export default class RadioGroupField extends React.Component<IRadioGroupField> {
-  render() {
-    const {
-      fieldName,
-      label,
-      helperText,
-      fieldRef,
-      rowAlign,
-      listOptions,
-      isSubmitted,
-      initialValue,
-      validator,
-    } = this.props;
+const RadioGroupField: React.FC<IRadioGroupField> = ({
+  fieldName,
+  label,
+  helperText,
+  fieldRef,
+  rowAlign,
+  listOptions,
+  isSubmitted,
+  initialValue,
+  validator,
+}) => {
+  return (
+    <Field<string>
+      name={fieldName}
+      ref={fieldRef}
+      initialValue={initialValue}
+      onSubmitValidate={validator}
+      onChangeValidate={validator}
+    >
+      {({ value, setValue, onBlur, errors }) => {
+        return (
+          <div className="space-y-2">
+            <RadioGroup
+              name={`input-${fieldName}`}
+              label={label}
+              value={String(value)}
+              onChange={(val) => setValue(val)}
+              onBlur={onBlur}
+              rowAlign={rowAlign}
+              listOptions={listOptions}
+            />
 
-    return (
-      <Field<string>
-        name={fieldName}
-        ref={fieldRef}
-        initialValue={initialValue}
-        onSubmitValidate={validator}
-        onChangeValidate={validator}
-      >
-        {({ value, setValue, onBlur, errors }) => {
-          return (
-            <div className="space-y-2">
-              <RadioGroup
-                name={`input-${fieldName}`}
-                label={label}
-                value={String(value)}
-                onChange={(val) => setValue(val)}
-                onBlur={onBlur}
-                rowAlign={rowAlign}
-                listOptions={listOptions}
-              />
+            {helperText ? <>{helperText}</> : null}
 
-              {helperText ? <>{helperText}</> : null}
+            {printErrorMessages(isSubmitted, errors)}
+          </div>
+        );
+      }}
+    </Field>
+  );
+};
 
-              {printErrorMessages(isSubmitted, errors)}
-            </div>
-          );
-        }}
-      </Field>
-    );
-  }
-}
+export default RadioGroupField;

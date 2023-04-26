@@ -106,7 +106,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             selectionLabelSingle=" Roles selected"
             listOptions={RoleOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestRoles}
+            initialValue={savedForm?.interestRoles || []}
             validator={z
               .array(Roles)
               .nonempty('You must select at least one role')}

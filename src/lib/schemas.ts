@@ -1,5 +1,6 @@
 import { FormInstance } from 'houseform';
 import { z } from 'zod';
+import { RoleType } from './enums';
 
 const errorMessages = {
   invalidEmail: 'This must be a valid email address',
@@ -235,7 +236,11 @@ const VisaSponsorship = z.enum(['yes', 'no', 'sometimes']);
 export const OrgSchema = z.object({
   organization: z.object({
     name: z.string().max(255),
-    employmentTypes: z.array(EmploymentType),
+    employmentTypes: z.enum([
+      RoleType.BOTH,
+      RoleType.FULL_TIME,
+      RoleType.PART_TIME,
+    ]),
     type: OrgType,
     size: OrgSize,
     impactAreas: z.array(z.string().max(255)),
