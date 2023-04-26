@@ -71,7 +71,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
     post(applicantDraftSubmissionsEndpoint, stripEmptyFields(newFormState))
       .then((res) => {
-        console.log(newFormState, res);
         if (res.ok) {
           setShowSaveModal(true);
         } else {
@@ -108,7 +107,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
           setDraftFormValues(response.submission);
         } else {
           // TODO: Error Handling
-          alert(res.statusText);
+          if (res.status === 401) {
+            //TODO: undo
+            // router.push('/');
+          } else {
+            alert(res.statusText);
+          }
         }
       })
       .catch((error) => {
