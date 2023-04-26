@@ -53,3 +53,9 @@ export enum VisaSponsorship {
   NO = 'no',
   SOMETIMES = 'SOMETIMES',
 }
+
+export enum RoleType {
+  FULL_TIME = 'full-time',
+  PART_TIME = 'part-time',
+  BOTH = 'both',
+}

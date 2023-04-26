@@ -1,5 +1,6 @@
 import { FormInstance } from 'houseform';
 import { z } from 'zod';
+import { RoleType } from './enums';
 
 const errorMessages = {
   invalidEmail: 'This must be a valid email address',
@@ -91,6 +92,8 @@ export const YOE = z.enum([
   '11+',
 ]);
 
+export const ROLE_YOE = z.enum(['0-2', '2-4', '4-8', '8-12', '12-15', '15+']);
+
 export const Skills = z.enum([
   'react',
   'javascript',
@@ -144,7 +147,15 @@ export const ReferenceAttribution = z.enum([
   'other',
 ]);
 
-export const EmploymentType = z.enum(['full', 'part']);
+export const EmploymentType = z.enum([
+  'full-time employee',
+  'volunteer',
+  'contractor',
+  'consultant',
+  'advisor',
+  'internship',
+  'other',
+]);
 
 export const NewApplicant = z.object({
   name: z.string().max(255),
@@ -226,7 +237,11 @@ const VisaSponsorship = z.enum(['yes', 'no', 'sometimes']);
 export const OrgSchema = z.object({
   organization: z.object({
     name: z.string().max(255),
-    employmentTypes: z.array(EmploymentType),
+    employmentTypes: z.enum([
+      RoleType.BOTH,
+      RoleType.FULL_TIME,
+      RoleType.PART_TIME,
+    ]),
     type: OrgType,
     size: OrgSize,
     impactAreas: z.array(z.string().max(255)),
@@ -253,7 +268,7 @@ export const SubmissionSchema = z.object({
   desiredStartDate: z.coerce.date().optional(),
   desiredEndDate: z.coerce.date().optional(),
   jdUrl: z.string().max(500).optional(),
-  desiredYoe: z.array(YOE),
+  desiredYoe: z.array(ROLE_YOE),
   desiredSkills: z.array(Skills),
   desiredOtherSkills: z.string().max(255).optional(),
   visaSponsorship: VisaSponsorship,

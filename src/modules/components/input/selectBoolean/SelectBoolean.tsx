@@ -47,14 +47,10 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
                 open ? 'border-blue-1' : 'border-gray-2'
               } p-2 text-left font-sans text-component-medium placeholder:text-gray-2 ${buttonClassName}`}
             >
-              {value ? (
-                <span className="">
+              <span className="">
                   {(listOptions.find((option) => option.value == value) || {})
-                    .displayText || placeholder}
-                </span>
-              ) : (
-                <span className="text-gray-2">{placeholder}</span>
-              )}
+                    .displayText || 'placeholder'}
+              </span>
               {open ? (
                 <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpIcon

@@ -1,5 +1,11 @@
-import { PreferredContact, SearchStatus } from '@/lib/schemas';
+import {
+  EmploymentType,
+  PreferredContact,
+  ROLE_YOE,
+  SearchStatus,
+} from '@/lib/schemas';
 import { IBoolItem, IRadioItem, ISelectItem } from '@/lib/types';
+import { createOptionList } from '../helpers';
 
 const YoEOptions: Array<ISelectItem> = [
   {
@@ -16,6 +22,26 @@ const YoEOptions: Array<ISelectItem> = [
   {
     value: '11+',
     displayText: '11+',
+  },
+];
+
+const RoleYoeOptions: Array<ISelectItem> = ROLE_YOE.options.map((option) => ({
+  value: option,
+  displayText: option,
+}));
+
+const VisaSponsorshipOptions: Array<ISelectItem> = [
+  {
+    value: 'yes',
+    displayText: 'Yes, we sponsor U.S. visas',
+  },
+  {
+    value: 'no',
+    displayText: 'No, we do not sponsor U.S. visas',
+  },
+  {
+    value: 'sometimes',
+    displayText: 'We sponsor U.S. visas in some cases',
   },
 ];
 
@@ -88,6 +114,10 @@ const EmploymentOptions: Array<ISelectItem> = [
     displayText: 'Part-time/short term opportunities',
   },
 ];
+
+const OpportunityOptions: Array<ISelectItem> = createOptionList(
+  EmploymentType.options
+);
 
 const RoleOptions: Array<ISelectItem> = [
   {
@@ -175,6 +205,17 @@ const YesNoOptions: Array<IRadioItem> = [
   },
 ];
 
+const PaidOptions: Array<IRadioItem> = [
+  {
+    value: 'true',
+    displayText: 'Paid',
+  },
+  {
+    value: 'false',
+    displayText: 'Unpaid',
+  },
+];
+
 const TrueFalseOptions: Array<IBoolItem> = [
   {
     value: false,
@@ -245,6 +286,7 @@ export {
   YoEOptions,
   SkillOptions,
   EmploymentOptions,
+  OpportunityOptions,
   RoleOptions,
   CauseOptions,
   YesNoOptions,
@@ -252,4 +294,7 @@ export {
   AuthorizationOptions,
   SearchStatusOptions as searchStatusOptions,
   PreferredContactOptions,
+  VisaSponsorshipOptions,
+  RoleYoeOptions,
+  PaidOptions,
 };
