@@ -48,7 +48,12 @@ const Button: React.FC<IButton> = ({
   const btnStyles = getButtonVariantStyles();
 
   return (
-    <button onClick={onClick} disabled={disabled} className={btnStyles}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={btnStyles}
+    >
       <div className="flex items-center justify-center space-x-0">
         {label}
         {icon ? <>{icon}</> : null}

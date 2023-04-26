@@ -5,7 +5,7 @@ import { Field, FieldInstance } from 'houseform';
 import React, { ReactElement, RefObject } from 'react';
 import { z } from 'zod';
 
-interface IRadioGroupField {
+interface IRadioBooleanField {
   fieldName: string;
   label: string;
   helperText?: string | ReactElement;
@@ -13,11 +13,11 @@ interface IRadioGroupField {
   rowAlign?: boolean;
   listOptions: IRadioItem[];
   isSubmitted: boolean;
-  initialValue: string | undefined;
+  initialValue: boolean | undefined;
   validator?: z.ZodSchema;
 }
 
-const RadioGroupField: React.FC<IRadioGroupField> = ({
+const RadioBooleanField: React.FC<IRadioBooleanField> = ({
   fieldName,
   label,
   helperText,
@@ -29,7 +29,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
   validator,
 }) => {
   return (
-    <Field<string>
+    <Field<boolean>
       name={fieldName}
       ref={fieldRef}
       initialValue={initialValue}
@@ -37,13 +37,19 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
       onChangeValidate={validator}
     >
       {({ value, setValue, onBlur, errors }) => {
+        // console.log('value', label, value);
         return (
           <div className="space-y-2">
             <RadioGroup
               name={`input-${fieldName}`}
               label={label}
+              // This sets the radio group value (string)
               value={String(value)}
-              onChange={(val) => setValue(val)}
+              // This sets the form value (boolean)
+              onChange={(val) => {
+                // console.log('onChange', val);
+                setValue(val === 'true');
+              }}
               onBlur={onBlur}
               rowAlign={rowAlign}
               listOptions={listOptions}
@@ -59,4 +65,4 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
   );
 };
 
-export default RadioGroupField;
+export default RadioBooleanField;

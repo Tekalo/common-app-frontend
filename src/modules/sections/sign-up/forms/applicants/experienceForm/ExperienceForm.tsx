@@ -14,13 +14,13 @@ import { useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IExperienceForm {
-  handleSubmit: (_values: ExperienceFields) => void;
+  handleNext: (_values: ExperienceFields) => void;
   handleSave: (_values: DraftSubmission) => void;
   savedForm: DraftSubmission | undefined;
 }
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
-  handleSubmit,
+  handleNext,
   handleSave,
   savedForm,
 }) => {
@@ -29,6 +29,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   useEffect(() => {
     // Need to use the inital value so we have to reset the form
     formRef.current?.reset();
+    formRef.current?.recomputeErrors();
   }, [savedForm]);
 
   const doSave = () => {
@@ -37,21 +38,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
     }
   };
 
-  const doNext = () => {
-    if (formRef.current && formRef.current.isValid) {
-      console.log(formRef.current.value);
-
-      const experienceFields: ExperienceFields = {
-        ...(formRef.current.value as ExperienceFields),
-      };
-
-      handleSubmit(experienceFields);
-    }
-  };
-
   return (
     <Form<ExperienceFields>
-      onSubmit={(values) => handleSubmit(values)}
+      onSubmit={(values) => handleNext(values)}
       ref={formRef}
     >
       {({ isSubmitted, submit }) => (
@@ -180,12 +169,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               onClick={doSave}
             />
 
-            <Button
-              className="mt-4 w-full text-component-large"
-              label="Next"
-              type="submit"
-              onClick={doNext}
-            />
+            <Button className="mt-4 w-full text-component-large" label="Next" />
           </div>
         </form>
       )}

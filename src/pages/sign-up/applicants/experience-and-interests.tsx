@@ -21,7 +21,8 @@ import router from 'next/router';
 import { useEffect, useState } from 'react';
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
+  // TODO: UNDO
+  const [isInterestFormVisible, setIsInterestFormVisible] = useState(true);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -164,7 +165,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
           ) : (
             <ExperienceForm
               savedForm={draftFormValues}
-              handleSubmit={handleNext}
+              handleNext={handleNext}
               handleSave={handleSave}
             />
           )}

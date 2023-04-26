@@ -16,6 +16,11 @@ import {
   VisaSponsorship,
   YearsOfExperience,
 } from '@/lib/enums';
+import {
+  mapArrayToList,
+  mapBoolToYesNo,
+  mapDateToString,
+} from '@/lib/helpers/formHelpers';
 import { validations } from '@/lib/schemas';
 import {
   IFaqItem,
@@ -120,26 +125,6 @@ const OrganizationReview: NextPageWithLayout = () => {
     ],
   };
 
-  const mapArrayToList = (arr?: string[]): string => {
-    return arr ? arr.join(', ') : '';
-  };
-
-  const mapBoolToString = (bool: boolean): string => {
-    return bool ? 'Yes' : 'No';
-  };
-
-  const mapDateToString = (date?: Date): string => {
-    const formatNumber = (num: number): string => {
-      return num.toString().padStart(2, '0');
-    };
-
-    return date
-      ? `${formatNumber(date.getMonth() + 1)}/${formatNumber(
-          date.getDate()
-        )}/${date.getFullYear()}`
-      : '';
-  };
-
   const renderRow = (label: string, value: string, col?: boolean) => {
     const flex = col ? 'lg:flex-col' : 'lg:flex-row';
 
@@ -201,7 +186,7 @@ const OrganizationReview: NextPageWithLayout = () => {
           )}
           {renderRow(
             labels.submission.similarStaffed,
-            mapBoolToString(role.similarStaffed)
+            mapBoolToYesNo(role.similarStaffed)
           )}
         </div>
         <div className="space-y-4">

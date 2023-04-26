@@ -31,3 +31,23 @@ export const stripEmptyFields = (obj: any): any => {
 
   return result;
 };
+
+export const mapArrayToList = (arr?: string[]): string => {
+  return arr ? arr.join(', ') : '';
+};
+
+export const mapBoolToYesNo = (bool: boolean): string => {
+  return bool ? 'Yes' : 'No';
+};
+
+export const mapDateToString = (date?: Date): string => {
+  const formatNumber = (num: number): string => {
+    return num.toString().padStart(2, '0');
+  };
+
+  return date
+    ? `${formatNumber(date.getMonth() + 1)}/${formatNumber(
+        date.getDate()
+      )}/${date.getFullYear()}`
+    : '';
+};

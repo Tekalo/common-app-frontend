@@ -16,6 +16,7 @@ import {
   OpenToRemote,
   ReferenceAttribution,
   Roles,
+  WorkAuthorization,
 } from '@/lib/schemas';
 import { DraftSubmission, InterestFields } from '@/lib/types';
 import {
@@ -23,13 +24,13 @@ import {
   FreeTextField,
   LongTextField,
   MultiSelectField,
-  RadioSelectField,
+  RadioBooleanField,
   SelectGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import RankChoiceField from '@/sections/sign-up/fields/RankChoiceField';
 import { FieldInstance, Form, FormInstance } from 'houseform';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IInterestForm {
@@ -47,6 +48,16 @@ const InterestForm: React.FC<IInterestForm> = ({
   const employmentTypeRef =
     useRef<FieldInstance<string[], IInterestForm>>(null);
   const govRef = useRef<FieldInstance<boolean, IInterestForm>>(null);
+
+  useEffect(() => {
+    // Need to use the inital value so we have to reset the form
+    formRef.current?.reset();
+
+    // console.log(formRef.current?.formFieldsRef.);
+
+    formRef.current?.recomputeErrors();
+    console.log(formRef.current?.value);
+  }, [savedForm]);
 
   const doSave = () => {
     if (formRef.current) {
@@ -186,10 +197,10 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={AuthorizationOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm ? savedForm.workAuthorization : ''}
-            validator={z.boolean()}
+            validator={WorkAuthorization}
           />
           {/* Gov Interest*/}
-          <RadioSelectField
+          <RadioBooleanField
             fieldName="interestGovt"
             label="Are you interested in U.S. state or local government opportunities?"
             helperText={USDR_DISCLAIMER}
@@ -215,15 +226,13 @@ const InterestForm: React.FC<IInterestForm> = ({
             disabled={!govRef.current?.value}
           />
           {/* Previous XP*/}
-          <RadioSelectField
+          <RadioBooleanField
             fieldName="previousImpactExperience"
             label="Do you have previous experience working at a non-profit or a public service organization?"
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={
-              savedForm ? savedForm.previousImpactExperience : undefined
-            }
+            initialValue={savedForm?.previousImpactExperience}
             validator={z.boolean()}
           />
           {/* Essay */}
@@ -244,7 +253,9 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Choose one"
             listOptions={createOptionList(ReferenceAttribution.options)}
             isSubmitted={isSubmitted}
-            initialValue={savedForm ? savedForm.yoe : ''}
+            initialValue={
+              savedForm ? savedForm.referenceAttribution?.toString() : ''
+            }
             validator={ReferenceAttribution}
           />
           {/* Form Control Buttons */}
