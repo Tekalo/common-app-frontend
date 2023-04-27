@@ -3,7 +3,7 @@ import { IBoolItem, IRadioItem, ISelectItem } from '@/lib/types';
 
 const YoEOptions: Array<ISelectItem> = [
   {
-    value: '< 1',
+    value: '<1',
     displayText: 'Less than 1',
   },
 
@@ -14,7 +14,7 @@ const YoEOptions: Array<ISelectItem> = [
   })),
 
   {
-    value: '11+',
+    value: '>11',
     displayText: '11+',
   },
 ];

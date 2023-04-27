@@ -2,38 +2,18 @@ import { FormInstance } from 'houseform';
 import { z } from 'zod';
 
 const errorMessages = {
+  currentLocation: 'Current location is required',
+  interestCauses: 'You must select at least one cause',
+  interestRoles: 'You must select at least one role',
   invalidEmail: 'This must be a valid email address',
   invalidPhone: 'This must be a valid phone number',
+  orgRequired: 'Organization is required',
   privacyRequired: 'You must accept the privacy policy',
   required: 'This is a required field',
+  requiredSelectGroup: 'You must select at least one option',
+  roleRequired: 'Role is required',
   termsRequired: 'You must accept the terms of service',
   unknownError: 'An unknown error has occurred',
-};
-
-export const validations = {
-  email: z
-    .string()
-    .nonempty(errorMessages.required)
-    .email(errorMessages.invalidEmail),
-  phoneNumber: z
-    .string()
-    .refine((phoneNumber: string) => {
-      return new RegExp(
-        /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-      ).test(phoneNumber);
-    })
-    .optional(),
-  privacyPolicy: z.literal(true, {
-    errorMap: () => ({
-      message: errorMessages.privacyRequired,
-    }),
-  }),
-  requiredString: z.string().nonempty(errorMessages.required),
-  termsOfService: z.literal(true, {
-    errorMap: () => ({
-      message: errorMessages.termsRequired,
-    }),
-  }),
 };
 
 /* This makes phone number required if sms or whatsapp are selected in preferredContact */
@@ -76,22 +56,14 @@ export const SearchStatus = z.enum(['active', 'passive', 'future'], {
 
 export const InterestGovtEmplTypes = z.enum(['paid', 'unpaid']);
 
-export const YOE = z.enum([
-  '< 1',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11+',
-]);
+export const YOE = z.enum(
+  ['<1', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '>11'],
+  { errorMap: defaultEnumErrorMap }
+);
 
-export const TrueFalseString = z.enum(['true', 'false']);
+export const TrueFalseString = z.enum(['true', 'false'], {
+  errorMap: defaultEnumErrorMap,
+});
 
 export const Skills = z.enum([
   'react',
@@ -134,22 +106,29 @@ export const Causes = z.enum([
   'other',
 ]);
 
-export const OpenToRelocate = z.enum(['yes', 'no', 'not sure']);
-export const OpenToRemote = z.enum([
-  'only remote',
-  'no remote',
-  'both',
-  'not sure',
-]);
-export const WorkAuthorization = z.enum(['authorized', 'sponsorship']);
-export const ReferenceAttribution = z.enum([
-  'website',
-  'linkedin',
-  'social media',
-  'partner organization',
-  'career fair',
-  'other',
-]);
+export const OpenToRelocate = z.enum(['yes', 'no', 'not sure'], {
+  errorMap: defaultEnumErrorMap,
+});
+export const OpenToRemote = z.enum(
+  ['only remote', 'no remote', 'both', 'not sure'],
+  {
+    errorMap: defaultEnumErrorMap,
+  }
+);
+// This is optional and .optional() doesn't work with an enum
+// so we need to let it be empty string
+export const WorkAuthorization = z.enum(['authorized', 'sponsorship', '']);
+export const ReferenceAttribution = z.enum(
+  [
+    'website',
+    'linkedin',
+    'social media',
+    'partner organization',
+    'career fair',
+    'other',
+  ],
+  { errorMap: defaultEnumErrorMap }
+);
 
 export const EmploymentType = z.enum(['full', 'part']);
 
@@ -271,3 +250,40 @@ export const SubmissionSchema = z.object({
 export const OpportunityBatchRequestBodySchema = OrgSchema.merge(
   z.object({ submissions: z.array(SubmissionSchema) })
 );
+
+export const validations = {
+  email: z
+    .string()
+    .nonempty(errorMessages.required)
+    .email(errorMessages.invalidEmail),
+  phoneNumber: z
+    .string()
+    .refine((phoneNumber: string) => {
+      return new RegExp(
+        /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
+      ).test(phoneNumber);
+    })
+    .optional(),
+  privacyPolicy: z.literal(true, {
+    errorMap: () => ({
+      message: errorMessages.privacyRequired,
+    }),
+  }),
+  requiredString: z.string().nonempty(errorMessages.required),
+  optionalString: z.string().optional(),
+  termsOfService: z.literal(true, {
+    errorMap: () => ({
+      message: errorMessages.termsRequired,
+    }),
+  }),
+  lastRole: z.string().nonempty({ message: errorMessages.roleRequired }),
+  lastOrg: z.string().nonempty({ message: errorMessages.orgRequired }),
+  interestEmploymentType: z
+    .array(EmploymentType)
+    .nonempty(errorMessages.requiredSelectGroup),
+  interestRoles: z.array(Roles).nonempty(errorMessages.interestRoles),
+  currentLocation: z.string().nonempty(errorMessages.currentLocation),
+  interestCauses: z.array(z.string()).nonempty(errorMessages.interestCauses),
+  otherCauses: z.array(z.string()).nullable().optional(),
+  interestGovtEmplyTypes: z.array(InterestGovtEmplTypes).optional(),
+};

@@ -40,6 +40,28 @@ export const mapBoolToYesNo = (bool: boolean): string => {
   return bool ? 'Yes' : 'No';
 };
 
+export const mapBoolToString = (bool: boolean | undefined): string => {
+  if (bool === true) {
+    return 'true';
+  } else if (bool === false) {
+    return 'false';
+  } else {
+    return '';
+  }
+};
+
+export const mapStringToBool = (
+  string: string | undefined
+): boolean | undefined => {
+  if (string === 'true') {
+    return true;
+  } else if (string === 'false') {
+    return false;
+  } else {
+    return undefined;
+  }
+};
+
 export const mapDateToString = (date?: Date): string => {
   const formatNumber = (num: number): string => {
     return num.toString().padStart(2, '0');

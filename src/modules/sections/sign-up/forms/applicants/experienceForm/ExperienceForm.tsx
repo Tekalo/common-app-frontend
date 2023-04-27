@@ -1,6 +1,6 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YoEOptions } from '@/lib/constants/selects';
-import { Skills, YOE } from '@/lib/schemas';
+import { Skills, YOE, validations } from '@/lib/schemas';
 import { DraftSubmission, ExperienceFields } from '@/lib/types';
 import {
   FreeTagField,
@@ -59,7 +59,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Role"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastRole}
-            validator={z.string().nonempty({ message: 'Role is Required' })}
+            validator={validations.lastRole}
           />
 
           {/* Current Org */}
@@ -69,7 +69,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Name of organization"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastOrg}
-            validator={z.string().optional()}
+            validator={validations.lastOrg}
           />
 
           {/* Years Experience */}
