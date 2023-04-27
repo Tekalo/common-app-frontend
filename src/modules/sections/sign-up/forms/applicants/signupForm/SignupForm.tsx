@@ -4,7 +4,12 @@ import {
   searchStatusOptions,
 } from '@/lib/constants/selects';
 import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
-import { PreferredContact, SearchStatus, validations } from '@/lib/schemas';
+import {
+  PreferredContact,
+  SearchStatus,
+  contactPhoneLinkedValidation,
+  validations,
+} from '@/lib/schemas';
 import { NewApplicant } from '@/lib/types';
 import {
   BooleanField,
@@ -86,12 +91,13 @@ const SignupForm: React.FC<ISignupForm> = ({
 
           {/* Phone Number */}
           <FreeTextField
+            listenTo={['preferredContact']}
             fieldName="phone"
             label="Phone number (optional)"
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={''}
-            validator={validations.phoneNumber}
+            validator={contactPhoneLinkedValidation}
           />
 
           {/* TODO Privacy Info */}

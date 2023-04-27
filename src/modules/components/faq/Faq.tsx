@@ -6,8 +6,6 @@ export interface IFaq {
   faqItems: Array<IFaqItem>;
 }
 
-// TODO: Evaluate use of Headless UI in greater detail and determine if we should just implement this functionality ourselves.
-
 const Faq: React.FC<IFaq> = ({ faqItems }) => {
   return (
     <div className="max-w-7xl mx-auto">

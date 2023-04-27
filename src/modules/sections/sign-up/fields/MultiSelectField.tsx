@@ -1,5 +1,5 @@
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
-import { printErrorMessages } from '@/lib/helpers';
+import { printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { z } from 'zod';

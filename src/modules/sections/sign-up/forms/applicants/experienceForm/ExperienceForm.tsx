@@ -1,6 +1,7 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YoEOptions } from '@/lib/constants/selects';
-import { Skills, YOE } from '@/lib/schemas';
+import { resetForm } from '@/lib/helpers/formHelpers';
+import { Skills, YOE, validations } from '@/lib/schemas';
 import { DraftSubmission, ExperienceFields } from '@/lib/types';
 import {
   FreeTagField,
@@ -10,21 +11,27 @@ import {
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { FormInstance } from 'houseform/dist/form/types';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IExperienceForm {
-  handleSubmit: (_values: ExperienceFields) => void;
+  handleNext: (_values: ExperienceFields) => void;
   handleSave: (_values: DraftSubmission) => void;
   savedForm: DraftSubmission | undefined;
 }
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
-  handleSubmit,
+  handleNext,
   handleSave,
   savedForm,
 }) => {
   const formRef = useRef<FormInstance<ExperienceFields>>(null);
+
+  useEffect(() => {
+    // Need to use the inital value once we get it,
+    // so we have to reset the form for it to initialize
+    resetForm(formRef);
+  }, [savedForm]);
 
   const doSave = () => {
     if (formRef.current) {
@@ -34,7 +41,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
 
   return (
     <Form<ExperienceFields>
-      onSubmit={(values) => handleSubmit(values)}
+      onSubmit={(values) => handleNext(values)}
       ref={formRef}
     >
       {({ isSubmitted, submit }) => (
@@ -52,7 +59,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Role"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastRole}
-            validator={z.string().nonempty({ message: 'Role is Required' })}
+            validator={validations.lastRole}
           />
 
           {/* Current Org */}
@@ -62,7 +69,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Name of organization"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastOrg}
-            validator={z.string().optional()}
+            validator={validations.lastOrg}
           />
 
           {/* Years Experience */}
@@ -85,7 +92,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             selectionLabelSingle=" Skill selected"
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.skills}
+            initialValue={savedForm?.skills || []}
             validator={z.array(Skills).optional()}
           />
 
@@ -95,7 +102,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             label="Other skills (optional)"
             placeholder="Skills separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.otherSkills}
+            initialValue={savedForm?.otherSkills || []}
             validator={z.array(z.string()).optional()}
           />
 
@@ -164,9 +171,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             />
 
             <Button
+              type="submit"
               className="mt-4 w-full text-component-large"
               label="Next"
-              type="submit"
             />
           </div>
         </form>

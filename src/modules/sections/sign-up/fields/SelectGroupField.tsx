@@ -1,5 +1,5 @@
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
-import { printErrorMessages } from '@/lib/helpers';
+import { printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance } from 'houseform';
 import React, { RefObject } from 'react';
@@ -9,29 +9,29 @@ export interface ISelectGroupField {
   fieldName: string;
   label: string;
   helperText?: string;
-  fieldRef?: RefObject<FieldInstance>;
   listOptions: ISelectItem[];
   isSubmitted: boolean;
   initialValue: string[] | undefined;
   validator?: z.ZodSchema;
+  ref: RefObject<FieldInstance>;
 }
 
-export default class SelectGroupField extends React.Component<ISelectGroupField> {
-  render() {
+const SelectGroupField = React.forwardRef<FieldInstance, ISelectGroupField>(
+  (props, ref) => {
     const {
       fieldName,
       label,
       helperText,
-      fieldRef,
       listOptions,
       isSubmitted,
       initialValue,
       validator,
-    } = this.props;
+    } = props;
+
     return (
       <Field<string[]>
         name={fieldName}
-        ref={fieldRef}
+        ref={ref}
         initialValue={initialValue}
         onSubmitValidate={validator}
         onChangeValidate={validator}
@@ -59,4 +59,8 @@ export default class SelectGroupField extends React.Component<ISelectGroupField>
       </Field>
     );
   }
-}
+);
+
+SelectGroupField.displayName = 'SelectGroupField';
+
+export default SelectGroupField;

@@ -1,10 +1,17 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import {
+  applicantDraftSubmissionsEndpoint,
+  applicantSubmissionsEndpoint,
+  get,
+  post,
+} from '@/lib/helpers/apiHelpers';
+import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import {
   DraftSubmission,
   ExperienceFields,
-  InterestFields,
   ITimelineItem,
+  InterestFields,
   NextPageWithLayout,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
@@ -18,8 +25,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [draftFormValues, setDraftFormValues] = useState<DraftSubmission>();
-  const [experienceFields, setExperienceFIelds] = useState<ExperienceFields>();
+  const [experienceFields, setExperienceFields] = useState<ExperienceFields>();
   const [interestFields, setInterestFields] = useState<InterestFields>();
+
+  useEffect(() => {
+    getSubmissions();
+  }, []);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -28,43 +39,29 @@ const ApplicantSignup: NextPageWithLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted]);
 
-  const doSubmit = () => {
+  // Hits the submission endpoint to submit the form
+  const doSubmit = async () => {
     const finalFormValues = {
       ...experienceFields,
       ...interestFields,
       originTag: '',
     };
 
-    // TODO: Send to API
-
-    try {
-      // const response = await fetch('/api/applicants', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(values),
-      // });
-
-      // console.log(response);
-
-      console.log(finalFormValues);
-
-      // if response.ok
-      if (finalFormValues) {
-        // Success -- Move them to the next page
-        router.push('/sign-up/applicants/success');
-        // TODO: Use iron-session or similar to authenticate the user
-      } else {
-        // Handle error response
-        console.error('Failed to submit form data');
-        // alert(await response.text());
-      }
-    } catch (error) {
-      // Handle fetch error
-      console.error('Failed to fetch', error);
-      alert('Failed to submit form data!');
-    }
+    post(applicantSubmissionsEndpoint, finalFormValues)
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          router.push('/sign-up/applicants/success');
+        } else {
+          // TODO: Error handling, API
+          alert(res.statusText);
+        }
+      })
+      .catch((error) => {
+        // TODO: Error handling, FE
+        console.error('Failed to fetch', error);
+        alert('Failed to submit form data!');
+      });
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
@@ -72,15 +69,25 @@ const ApplicantSignup: NextPageWithLayout = () => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
-    // TODO: Send to API
-
-    setShowSaveModal(true);
+    post(applicantDraftSubmissionsEndpoint, stripEmptyFields(newFormState))
+      .then((res) => {
+        if (res.ok) {
+          setShowSaveModal(true);
+        } else {
+          // TODO: Error handling, API
+          alert(res.statusText);
+        }
+      })
+      .catch((error) => {
+        // TODO: Error handling, FE
+        alert(error);
+      });
   };
 
   // FUNCTION: Saves form responses to parent state
   const handleNext = (values: ExperienceFields) => {
     setDraftFormValues({ ...draftFormValues, ...values });
-    setExperienceFIelds(values);
+    setExperienceFields(values);
     setIsInterestFormVisible(true);
   };
 
@@ -91,6 +98,27 @@ const ApplicantSignup: NextPageWithLayout = () => {
     setInterestFields(values);
     setIsSubmitted(true);
   };
+
+  function getSubmissions(): void {
+    get(applicantSubmissionsEndpoint)
+      .then(async (res) => {
+        if (res.ok) {
+          const response: any = await res.json();
+          setDraftFormValues(response.submission);
+        } else {
+          // TODO: Error Handling
+          if (res.status === 401) {
+            router.push('/');
+          } else {
+            alert(res.statusText);
+          }
+        }
+      })
+      .catch((error) => {
+        // TODO: Error Handling
+        alert(error);
+      });
+  }
 
   const timelineItems: Array<ITimelineItem> = [
     {
@@ -135,7 +163,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
           ) : (
             <ExperienceForm
               savedForm={draftFormValues}
-              handleSubmit={handleNext}
+              handleNext={handleNext}
               handleSave={handleSave}
             />
           )}

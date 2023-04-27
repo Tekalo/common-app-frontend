@@ -5,7 +5,7 @@ import {
   TrueFalseOptions,
 } from '@/lib/constants/selects';
 import { EEOC_LABEL } from '@/lib/constants/text';
-import { createOptionList } from '@/lib/helpers';
+import { createOptionList } from '@/lib/helpers/formHelpers';
 import {
   Causes,
   EmploymentType,

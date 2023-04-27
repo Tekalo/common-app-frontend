@@ -1,5 +1,5 @@
 import FreeTag from '@/components/input/freeTag/FreeTag';
-import { printErrorMessages } from '@/lib/helpers';
+import { printErrorMessages } from '@/lib/helpers/formHelpers';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
