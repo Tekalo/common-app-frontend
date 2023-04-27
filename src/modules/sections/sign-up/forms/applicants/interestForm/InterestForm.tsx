@@ -12,6 +12,7 @@ import {
   createOptionList,
   mapBoolToString,
   mapStringToBool,
+  resetForm,
 } from '@/lib/helpers/formHelpers';
 import {
   OpenToRelocate,
@@ -54,8 +55,7 @@ const InterestForm: React.FC<IInterestForm> = ({
   useEffect(() => {
     // Need to use the inital value once we get it,
     // so we have to reset the form for it to initialize
-    formRef.current?.reset();
-    formRef.current?.recomputeErrors();
+    resetForm(formRef);
   }, [savedForm]);
 
   const convertStringFieldsToBool = <T,>(value: T): T => {
@@ -109,7 +109,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             helperText={
               'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
             }
-            fieldRef={employmentTypeRef}
+            ref={employmentTypeRef}
             listOptions={EmploymentOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestEmploymentType}

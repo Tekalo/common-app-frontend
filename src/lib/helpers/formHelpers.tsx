@@ -1,4 +1,6 @@
-import { ISelectItem } from '../types';
+import { ISelectItem } from '@/lib/types';
+import { FormInstance } from 'houseform';
+import { RefObject } from 'react';
 
 // Helper that prints error messages from Houseforms consistently
 export const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
@@ -72,4 +74,13 @@ export const mapDateToString = (date?: Date): string => {
         date.getDate()
       )}/${date.getFullYear()}`
     : '';
+};
+
+export const resetForm = (formRef: RefObject<FormInstance<any>>): void => {
+  if (formRef.current) {
+    formRef.current?.reset();
+    formRef.current?.setIsSubmitted(false);
+    formRef.current?.setIsDirty(false);
+    formRef.current?.setIsTouched(false);
+  }
 };

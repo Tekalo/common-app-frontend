@@ -1,5 +1,6 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YoEOptions } from '@/lib/constants/selects';
+import { resetForm } from '@/lib/helpers/formHelpers';
 import { Skills, YOE, validations } from '@/lib/schemas';
 import { DraftSubmission, ExperienceFields } from '@/lib/types';
 import {
@@ -29,8 +30,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   useEffect(() => {
     // Need to use the inital value once we get it,
     // so we have to reset the form for it to initialize
-    formRef.current?.reset();
-    formRef.current?.recomputeErrors();
+    resetForm(formRef);
   }, [savedForm]);
 
   const doSave = () => {
