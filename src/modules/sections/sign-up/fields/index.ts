@@ -17,9 +17,9 @@ export {
   FreeTagField,
   SelectGroupField,
   LongTextField,
-  RadioSelectField,
   RadioGroupField,
   BooleanField,
   SelectBooleanField,
   RankChoiceField,
+  RadioSelectField
 };

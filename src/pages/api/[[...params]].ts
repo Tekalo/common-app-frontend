@@ -22,6 +22,8 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
   })();
 
   const url = `${BASE_URL}/${params.join('/')}`;
+  const sessionCookie = req.cookies.get('connect.sid');
+  const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
 
   switch (req.method) {
     case 'POST':
@@ -30,6 +32,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
         body: req.body,
         headers: {
           'Content-Type': 'application/json',
+          Cookie: cookieHeader,
         } as HeadersInit,
       });
     case 'PUT':
@@ -38,6 +41,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
         body: JSON.stringify(req.body),
         headers: {
           'Content-Type': 'application/json',
+          Cookie: cookieHeader,
         } as HeadersInit,
       });
     case 'PATCH':
@@ -46,6 +50,7 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
         body: JSON.stringify(req.body),
         headers: {
           'Content-Type': 'application/json',
+          Cookie: cookieHeader,
         } as HeadersInit,
       });
     case 'DELETE':
@@ -53,11 +58,15 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          Cookie: cookieHeader,
         } as HeadersInit,
       });
     default:
       return await fetch(url, {
         method: 'GET',
+        headers: {
+          Cookie: cookieHeader,
+        },
       });
   }
 };

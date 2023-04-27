@@ -15,7 +15,7 @@ import {
   VisaSponsorship,
   WorkAuthorization,
   YOE,
-  YOE_RANGE,
+  YOE_RANGE
 } from '@/lib/enums';
 import { IBoolItem, ISelectItem } from '@/lib/types';
 
@@ -255,12 +255,12 @@ const RelocationOptions = OpenToRelocate.options.map((option) => ({
 }));
 
 const RemoteOptions = OpenToRemote.options.map((option) => {
-  if (option === 'yes') {
+  if (option === 'only remote') {
     return {
       value: option,
       displayText: 'Only open to remote',
     };
-  } else if (option === 'no') {
+  } else if (option === 'no remote') {
     return {
       value: option,
       displayText: 'Not open to remote',

@@ -4,6 +4,7 @@ import {
   PRIVACY_MODAL_EXTRAS,
   PRIVACY_MODAL_HEADER_TEXT,
 } from '@/lib/constants/text';
+import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
@@ -15,31 +16,21 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   const handleSubmit = async (values: unknown) => {
-    try {
-      const response = await fetch('/api/applicants', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
+    post(applicantsEndpoint, values)
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          router.push('/sign-up/applicants/experience-and-interests');
+        } else {
+          // TODO: Error handling, from API
+          alert(res.statusText);
+        }
+      })
+      .catch((error) => {
+        // TODO: Error handling, from FE
+        console.error('Failed to submit form data', error);
+        alert(error);
       });
-
-      console.log(response);
-
-      if (response.ok) {
-        // Success -- Move them to the next page
-        router.push('/sign-up/applicants/experience-and-interests');
-        // TODO: Use iron-session or similar to authenticate the user
-      } else {
-        // Handle error response
-        console.error('Failed to submit form data');
-        alert(await response.text());
-      }
-    } catch (error) {
-      // Handle fetch error
-      console.error('Failed to fetch', error);
-      alert('Failed to submit form data!');
-    }
   };
 
   return (

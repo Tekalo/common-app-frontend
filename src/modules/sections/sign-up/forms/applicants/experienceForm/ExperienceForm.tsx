@@ -1,31 +1,40 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
-import { OptionalString, RequiredString, Skills, YOE } from '@/lib/enums';
+import { OptionalString, RequiredString } from '@/lib/enums';
+import { resetForm } from '@/lib/helpers/formHelpers';
+import { Skills, YOE } from '@/lib/schemas';
 import {
+
   DraftSubmissionType,
   ExperienceFieldsType,
-  ExperienceRefType,
+  ExperienceRefType
 } from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
   MultiSelectField,
-  SingleSelectField,
+  SingleSelectField
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export interface IExperienceForm {
-  handleSubmit: (_values: ExperienceFieldsType) => void;
+  handleNext: (_values: ExperienceFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
   savedForm: DraftSubmissionType | undefined;
 }
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
-  handleSubmit,
+  handleNext,
   handleSave,
   savedForm,
 }) => {
+  useEffect(() => {
+    // Need to use the inital value once we get it,
+    // so we have to reset the form for it to initialize
+    resetForm(formRef);
+  }, [savedForm]);
+
   const formRef = useRef<ExperienceRefType>(null);
 
   const doSave = () => {
@@ -36,7 +45,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
 
   return (
     <Form<ExperienceFieldsType>
-      onSubmit={(values) => handleSubmit(values)}
+      onSubmit={(values) => handleNext(values)}
       ref={formRef}
     >
       {({ isSubmitted, submit }) => (
@@ -172,9 +181,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             />
 
             <Button
+              type="submit"
               className="mt-4 w-full text-component-large"
               label="Next"
-              type="submit"
             />
           </div>
         </form>

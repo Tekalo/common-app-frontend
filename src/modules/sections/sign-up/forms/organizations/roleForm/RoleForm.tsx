@@ -6,7 +6,7 @@ import {
   SkillOptions,
   VisaSponsorshipOptions,
   YesNoOptions,
-  YOERangeOptions,
+  YOERangeOptions
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -18,7 +18,7 @@ import {
   Roles,
   Skills,
   VisaSponsorship,
-  YOE_RANGE,
+  YOE_RANGE
 } from '@/lib/enums';
 import { CommitmentType, NewRoleType } from '@/lib/types';
 import {
@@ -27,7 +27,7 @@ import {
   LongTextField,
   MultiSelectField,
   RadioSelectField,
-  SingleSelectField,
+  SingleSelectField
 } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { z } from 'zod';

@@ -2,7 +2,7 @@ import { IExperienceForm } from './ExperienceForm';
 
 const base: IExperienceForm = {
   handleSave: () => void {},
-  handleSubmit: () => void {},
+  handleNext: () => void {},
   savedForm: {},
 };
 

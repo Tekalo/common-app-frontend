@@ -4,14 +4,21 @@ import { z } from 'zod';
 /** Helpers
  */
 const errorMessages = {
+  currentLocation: 'Current location is required',
+  interestCauses: 'You must select at least one cause',
+  interestRoles: 'You must select at least one role',
   invalidEmail: 'This must be a valid email address',
   invalidPhone: 'This must be a valid phone number',
+  orgRequired: 'Organization is required',
+
   privacyRequired: 'You must accept the privacy policy',
   required: 'This is a required field',
   termsRequired: 'You must accept the terms of service',
   eoeRequired:
     'Tekalo only works with Equal Opportunity Employers as defined by the EEOC.',
   unknownError: 'An unknown error has occurred',
+  requiredSelectGroup: 'You must select at least one option',
+  roleRequired: 'Role is required',
 };
 
 const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
@@ -30,14 +37,11 @@ const Email = z
   .nonempty(errorMessages.required)
   .email(errorMessages.invalidEmail);
 
-const PhoneNumber = z
-  .string()
-  .refine((phoneNumber: string) => {
-    return new RegExp(
-      /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-    ).test(phoneNumber);
-  })
-  .optional();
+const PhoneNumber = z.string().refine((phoneNumber: string) => {
+  return new RegExp(
+    /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
+  ).test(phoneNumber);
+});
 
 const PrivacyPolicy = z.literal(true, {
   errorMap: () => ({
@@ -117,6 +121,10 @@ const YOE_RANGE = z.enum(['0-2', '2-4', '4-8', '8-12', '12-15', '15+'], {
   errorMap: defaultEnumErrorMap,
 });
 
+export const TrueFalseString = z.enum(['true', 'false'], {
+  errorMap: defaultEnumErrorMap,
+});
+
 const Skills = z.enum(
   [
     'react',
@@ -127,7 +135,8 @@ const Skills = z.enum(
     'privacy',
     'security',
     'devops',
-    'figma/sketch',
+    'figma',
+    'sketch',
     'prototyping',
     'user research',
     'product development',
@@ -175,7 +184,7 @@ const OpenToRelocate = z.enum(['yes', 'no', 'not sure'], {
   errorMap: defaultEnumErrorMap,
 });
 
-const OpenToRemote = z.enum(['yes', 'no', 'both', 'not sure'], {
+const OpenToRemote = z.enum(['only remote', 'no remote', 'both', 'not sure'], {
   errorMap: defaultEnumErrorMap,
 });
 

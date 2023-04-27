@@ -6,20 +6,25 @@ import {
   PRIVACY_DISCLAIMER,
   PRIVACY_MODAL_BODY_TEXT,
   PRIVACY_MODAL_EXTRAS,
-  PRIVACY_MODAL_HEADER_TEXT,
+  PRIVACY_MODAL_HEADER_TEXT
 } from '@/lib/constants/text';
 import {
   EmploymentType,
   PrivacyPolicy,
   Skills,
   VisaSponsorship,
-  YOE_RANGE,
+  YOE_RANGE
 } from '@/lib/enums';
+import {
+  mapArrayToList,
+  mapBoolToYesNo,
+  mapDateToString
+} from '@/lib/helpers/formHelpers';
 import {
   IFaqItem,
   NewOrgOppFieldsType,
   NewRoleType,
-  NextPageWithLayout,
+  NextPageWithLayout
 } from '@/lib/types';
 import { BooleanField } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
@@ -116,26 +121,6 @@ const OrganizationReview: NextPageWithLayout = () => {
     ],
   };
 
-  const mapArrayToList = (arr?: string[]): string => {
-    return arr ? arr.join(', ') : '';
-  };
-
-  const mapBoolToString = (bool: boolean): string => {
-    return bool ? 'Yes' : 'No';
-  };
-
-  const mapDateToString = (date?: Date): string => {
-    const formatNumber = (num: number): string => {
-      return num.toString().padStart(2, '0');
-    };
-
-    return date
-      ? `${formatNumber(date.getMonth() + 1)}/${formatNumber(
-          date.getDate()
-        )}/${date.getFullYear()}`
-      : '';
-  };
-
   const renderRow = (label: string, value: string, col?: boolean) => {
     const flex = col ? 'lg:flex-col' : 'lg:flex-row';
 
@@ -197,7 +182,7 @@ const OrganizationReview: NextPageWithLayout = () => {
           )}
           {renderRow(
             labels.submission.similarStaffed,
-            mapBoolToString(role.similarStaffed)
+            mapBoolToYesNo(role.similarStaffed)
           )}
         </div>
         <div className="space-y-4">

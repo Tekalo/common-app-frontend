@@ -1,6 +1,6 @@
 import FreeText from '@/components/input/freeText/FreeText';
-import { printErrorMessages } from '@/lib/helpers';
-import { Field } from 'houseform';
+import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { Field, FormInstance } from 'houseform';
 import { z } from 'zod';
 
 export interface IFreeTextField {
@@ -10,12 +10,14 @@ export interface IFreeTextField {
   placeholder: string;
   isSubmitted: boolean;
   initialValue: string | undefined;
-  validator?: z.ZodSchema;
+  // TODO: If we need this more than once, we can make it a type
+  validator?: z.ZodSchema | ((v: string, f: FormInstance) => Promise<boolean>);
   disabled?: boolean;
 }
 
 const FreeTextField: React.FC<IFreeTextField> = ({
   fieldName,
+  listenTo,
   label,
   placeholder,
   isSubmitted,
@@ -25,6 +27,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
 }) => {
   return (
     <Field<string>
+      listenTo={listenTo}
       name={fieldName}
       initialValue={initialValue}
       onSubmitValidate={validator}

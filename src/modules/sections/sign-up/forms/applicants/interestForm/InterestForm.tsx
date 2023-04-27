@@ -8,7 +8,7 @@ import {
   RemoteOptions,
   RoleOptions,
   USDROptions,
-  YesNoOptions,
+  YesNoOptions
 } from '@/lib/constants/selects';
 import { USDR_DISCLAIMER } from '@/lib/constants/text';
 import {
@@ -21,27 +21,33 @@ import {
   RequiredEssay,
   RequiredString,
   Roles,
-  WorkAuthorization,
+  TrueFalseString,
+  WorkAuthorization
 } from '@/lib/enums';
+import {
+  mapBoolToString,
+  mapStringToBool,
+  resetForm
+} from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
   FieldBooleanType,
   FieldStringArrayType,
   InterestFieldsType,
-  InterestRefType,
+  InterestRefType
 } from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
   LongTextField,
   MultiSelectField,
-  RadioSelectField,
+  RadioGroupField,
   RankChoiceField,
   SelectGroupField,
-  SingleSelectField,
+  SingleSelectField
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IInterestForm {
@@ -59,9 +65,41 @@ const InterestForm: React.FC<IInterestForm> = ({
   const employmentTypeRef = useRef<FieldStringArrayType>(null);
   const govRef = useRef<FieldBooleanType>(null);
 
+  useEffect(() => {
+    // Need to use the inital value once we get it,
+    // so we have to reset the form for it to initialize
+    resetForm(formRef);
+  }, [savedForm]);
+
+  const convertStringFieldsToBool = <T,>(value: T): T => {
+    const newVals = { ...savedForm, ...value };
+
+    // Bc of radio group weirdness, we need to convert the values here
+    if (typeof newVals.interestGovt === 'string') {
+      newVals.interestGovt = mapStringToBool(newVals.interestGovt);
+    }
+    if (typeof newVals.previousImpactExperience === 'string') {
+      newVals.previousImpactExperience = mapStringToBool(
+        newVals.previousImpactExperience
+      );
+    }
+
+    return newVals as T;
+  };
+
   const doSave = () => {
     if (formRef.current) {
-      handleSave({ ...savedForm, ...formRef.current.value });
+      // We need to convert strings to booleans for specific fields
+      // because radio inputs need to have string values
+      handleSave(convertStringFieldsToBool(formRef.current.value));
+    }
+  };
+
+  const doSubmit = (values: InterestFieldsType) => {
+    if (formRef.current) {
+      // We need to convert strings to booleans for specific fields
+      // because radio inputs need to have string values
+      handleSubmit(convertStringFieldsToBool(values));
     }
   };
 
@@ -87,7 +125,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             helperText={
               'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
             }
-            fieldRef={employmentTypeRef}
+            ref={employmentTypeRef}
             listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestEmploymentType}
@@ -100,7 +138,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="Hours per week you are able to commit (optional)"
             placeholder="Approximate number of hours"
             disabled={
-              employmentTypeRef.current?.value.length === 1 &&
+              employmentTypeRef.current?.value?.length === 1 &&
               employmentTypeRef.current?.value[0] === 'full'
             }
             isSubmitted={isSubmitted}
@@ -194,7 +232,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={WorkAuthorization}
           />
           {/* Gov Interest*/}
-          <RadioSelectField
+          <RadioGroupField
             fieldName="interestGovt"
             label="Are you interested in U.S. state or local government opportunities?"
             helperText={USDR_DISCLAIMER}
@@ -202,8 +240,8 @@ const InterestForm: React.FC<IInterestForm> = ({
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestGovt}
-            validator={z.boolean()}
+            initialValue={mapBoolToString(savedForm?.interestGovt)}
+            validator={TrueFalseString}
           />
           {/* Gov Opp Type*/}
           <MultiSelectField
@@ -219,14 +257,14 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={GovtJobType.array().optional()}
             disabled={!govRef.current?.value}
           />
-          {/* Previous XP*/}
-          <RadioSelectField
+          {/* Previous XP */}
+          <RadioGroupField
             fieldName="previousImpactExperience"
             label="Do you have previous experience working at a non-profit or a public service organization?"
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.previousImpactExperience}
+            initialValue={mapBoolToString(savedForm?.previousImpactExperience)}
             validator={z.boolean()}
           />
           {/* Essay */}
@@ -245,7 +283,9 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Choose one"
             listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm ? savedForm.yoe : ''}
+            initialValue={
+              savedForm ? savedForm.referenceAttribution?.toString() : ''
+            }
             validator={ReferenceAttribution}
           />
           {/* Form Control Buttons */}

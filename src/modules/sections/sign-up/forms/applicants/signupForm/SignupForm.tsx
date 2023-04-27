@@ -1,7 +1,7 @@
 import Button from '@/components/buttons/Button/Button';
 import {
   PreferredContactOptions,
-  SearchStatusOptions,
+  SearchStatusOptions
 } from '@/lib/constants/selects';
 import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
 import {
@@ -12,14 +12,14 @@ import {
   PrivacyPolicy,
   RequiredString,
   SearchStatus,
-  ToS,
+  ToS
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {
   BooleanField,
   FreeTextField,
   RadioGroupField,
-  SingleSelectField,
+  SingleSelectField
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 
@@ -94,6 +94,7 @@ const SignupForm: React.FC<ISignupForm> = ({
 
           {/* Phone Number */}
           <FreeTextField
+            listenTo={['preferredContact']}
             fieldName="phone"
             label="Phone number (optional)"
             placeholder="+1 (555) 555-5555"
