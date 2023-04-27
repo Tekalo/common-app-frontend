@@ -170,7 +170,11 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               onClick={doSave}
             />
 
-            <Button className="mt-4 w-full text-component-large" label="Next" />
+            <Button
+              type="submit"
+              className="mt-4 w-full text-component-large"
+              label="Next"
+            />
           </div>
         </form>
       )}
