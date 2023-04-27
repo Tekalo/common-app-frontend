@@ -150,8 +150,8 @@ const InterestForm: React.FC<IInterestForm> = ({
             fieldName="interestRoles"
             label="What role(s) are you interested in?"
             placeholder="Choose all that apply"
-            selectionLabelMulti=" Role selected"
-            selectionLabelSingle=" Roles selected"
+            selectionLabelMulti=" Roles selected"
+            selectionLabelSingle=" Role selected"
             listOptions={RoleOptions.filter((role) => role.value !== 'other')}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestRoles || []}
