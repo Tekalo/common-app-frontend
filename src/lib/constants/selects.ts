@@ -1,196 +1,132 @@
 import {
+  Causes,
+  CommitmentType,
   EmploymentType,
+  GovtJobType,
+  OpenToRelocate,
+  OpenToRemote,
+  OrgSize,
+  OrgType,
   PreferredContact,
-  ROLE_YOE,
+  ReferenceAttribution,
+  Roles,
   SearchStatus,
-} from '@/lib/schemas';
-import { IBoolItem, IRadioItem, ISelectItem } from '@/lib/types';
-import { createOptionList } from '../helpers';
+  Skills,
+  VisaSponsorship,
+  WorkAuthorization,
+  YOE,
+  YOE_RANGE,
+} from '@/lib/enums';
+import { IBoolItem, ISelectItem } from '@/lib/types';
 
-const YoEOptions: Array<ISelectItem> = [
-  {
-    value: '< 1',
-    displayText: 'Less than 1',
-  },
+const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
+  if (option === '<1') {
+    return {
+      value: option,
+      displayText: 'Less than 1',
+    };
+  } else if (option === '>11') {
+    return {
+      value: option,
+      displayText: '11+',
+    };
+  } else {
+    return {
+      value: option,
+      displayText: option,
+    };
+  }
+});
 
-  // Generate objects from 1 to 10
-  ...Array.from(Array(10).keys()).map((i) => ({
-    value: `${i + 1}`,
-    displayText: `${i + 1}`,
-  })),
-
-  {
-    value: '11+',
-    displayText: '11+',
-  },
-];
-
-const RoleYoeOptions: Array<ISelectItem> = ROLE_YOE.options.map((option) => ({
+const YOERangeOptions: Array<ISelectItem> = YOE_RANGE.options.map((option) => ({
   value: option,
   displayText: option,
 }));
 
-const VisaSponsorshipOptions: Array<ISelectItem> = [
-  {
-    value: 'yes',
-    displayText: 'Yes, we sponsor U.S. visas',
-  },
-  {
-    value: 'no',
-    displayText: 'No, we do not sponsor U.S. visas',
-  },
-  {
-    value: 'sometimes',
-    displayText: 'We sponsor U.S. visas in some cases',
-  },
-];
-
-const SkillOptions: Array<ISelectItem> = [
-  {
-    value: 'react',
-    displayText: 'React',
-  },
-  {
-    value: 'javascript',
-    displayText: 'JavaScript',
-  },
-  {
-    value: 'python',
-    displayText: 'Python',
-  },
-  {
-    value: 'java',
-    displayText: 'Java',
-  },
-  {
-    value: 'sql',
-    displayText: 'SQL',
-  },
-  {
-    value: 'privacy',
-    displayText: 'Privacy',
-  },
-  {
-    value: 'security',
-    displayText: 'Security',
-  },
-  {
-    value: 'devops',
-    displayText: 'DevOps',
-  },
-  {
-    value: 'figma/sketch',
-    displayText: 'Figma/Sketch',
-  },
-  {
-    value: 'prototyping',
-    displayText: 'Prototyping',
-  },
-  {
-    value: 'user research',
-    displayText: 'User research',
-  },
-  {
-    value: 'product development',
-    displayText: 'Product development',
-  },
-  {
-    value: 'project management',
-    displayText: 'Project management',
-  },
-];
-
-const EmploymentOptions: Array<ISelectItem> = [
-  {
-    value: 'full',
-    displayText: 'Full-time employment',
-  },
-  {
-    value: 'part',
-    displayText: 'Part-time/short term opportunities',
-  },
-];
-
-const OpportunityOptions: Array<ISelectItem> = createOptionList(
-  EmploymentType.options
+const VisaSponsorshipOptions: Array<ISelectItem> = VisaSponsorship.options.map(
+  (option) => {
+    if (option === 'yes') {
+      return {
+        value: option,
+        displayText: 'Yes, we sponsor U.S. visas',
+      };
+    } else if (option === 'no') {
+      return {
+        value: option,
+        displayText: 'No, we do not sponsor U.S. visas',
+      };
+    } else if (option === 'sometimes') {
+      return {
+        value: option,
+        displayText: 'We sponsor U.S. visas in some cases',
+      };
+    } else {
+      return {
+        value: option,
+        displayText: option,
+      };
+    }
+  }
 );
 
-const RoleOptions: Array<ISelectItem> = [
-  {
-    value: 'data analyst',
-    displayText: 'Data analyst',
-  },
-  {
-    value: 'product manager',
-    displayText: 'Product manager',
-  },
-  {
-    value: 'software engineer',
-    displayText: 'Software engineer',
-  },
-  {
-    value: 'software engineeer backend',
-    displayText: 'Software engineer - backend',
-  },
-  {
-    value: 'software engineer frontend',
-    displayText: 'Software engineer - frontend',
-  },
-  {
-    value: 'product designer',
-    displayText: 'Product designer',
-  },
+const SkillOptions: Array<ISelectItem> = Skills.options.map((option) => ({
+  value: option,
+  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+}));
 
-  {
-    value: 'ux/ui designer',
-    displayText: 'UX/UI designer',
-  },
-  {
-    value: 'ux researcher',
-    displayText: 'UX researcher',
-  },
-];
+const CommitmentOptions: Array<ISelectItem> = CommitmentType.options.map(
+  (option) => {
+    if (option === 'full-time') {
+      return {
+        value: option,
+        displayText: 'Full-time employment',
+      };
+    } else if (option === 'part-time') {
+      return {
+        value: option,
+        displayText: 'Part-time/short term opportunities',
+      };
+    } else {
+      return {
+        value: option,
+        displayText: option,
+      };
+    }
+  }
+);
 
-const CauseOptions: Array<ISelectItem> = [
-  {
-    value: 'climate change',
-    displayText: 'Climate change',
-  },
-  {
-    value: 'environment',
-    displayText: 'Environment',
-  },
-  {
-    value: 'human rights & social equality',
-    displayText: 'Human rights & social equality',
-  },
-  {
-    value: 'international development',
-    displayText: 'International development',
-  },
-  {
-    value: 'education',
-    displayText: 'Education',
-  },
-  {
-    value: 'health & well being',
-    displayText: 'Health & well-being',
-  },
-  {
-    value: 'government tech',
-    displayText: 'Government tech',
-  },
-  {
-    value: 'tech policy',
-    displayText: 'Tech policy',
-  },
-  {
-    value: 'trust & safety',
-    displayText: 'Trust & safety',
-  },
-];
+const EmploymentOptions: Array<ISelectItem> = EmploymentType.options.map(
+  (option) => ({
+    value: option,
+    displayText: option.charAt(0).toUpperCase() + option.slice(1),
+  })
+);
 
-const YesNoOptions: Array<IRadioItem> = [
+const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
+  if (option === 'ux researcher') {
+    return {
+      value: option,
+      displayText: 'UX researcher',
+    };
+  } else if (option === 'ux/ui designer') {
+    return {
+      value: option,
+      displayText: 'UX/UI designer',
+    };
+  } else {
+    return {
+      value: option,
+      displayText: option.charAt(0).toUpperCase() + option.slice(1),
+    };
+  }
+});
+
+const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => ({
+  value: option,
+  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+}));
+
+const YesNoOptions: Array<ISelectItem> = [
   {
     value: 'false',
     displayText: 'No',
@@ -201,7 +137,7 @@ const YesNoOptions: Array<IRadioItem> = [
   },
 ];
 
-const PaidOptions: Array<IRadioItem> = [
+const PaidOptions: Array<ISelectItem> = [
   {
     value: 'true',
     displayText: 'Paid',
@@ -223,74 +159,159 @@ const TrueFalseOptions: Array<IBoolItem> = [
   },
 ];
 
-const USDROptions: Array<ISelectItem> = [
-  {
-    value: 'paid',
-    displayText: 'Paid government jobs with local & state governments',
-  },
-  {
-    value: 'unpaid',
-    displayText:
-      'Volunteer (unpaid) roles with USDR to support government partners',
-  },
-];
+const USDROptions: Array<ISelectItem> = GovtJobType.options.map((option) => {
+  if (option === 'paid') {
+    return {
+      value: option,
+      displayText: 'Paid government jobs with local & state governments',
+    };
+  } else if (option === 'unpaid') {
+    return {
+      value: option,
+      displayText:
+        'Volunteer (unpaid) roles with USDR to support government partners',
+    };
+  } else {
+    return {
+      value: option,
+      displayText: option,
+    };
+  }
+});
 
-const AuthorizationOptions: Array<ISelectItem> = [
-  {
-    value: 'authorized',
-    displayText: 'I am authorized to work in the U.S.',
-  },
-  {
-    value: 'sponsorship',
-    displayText:
-      'I will now or in the future require sponsorship to work in the U.S.',
-  },
-];
+const AuthorizationOptions: Array<ISelectItem> = WorkAuthorization.options.map(
+  (option) => {
+    if (option === 'authorized') {
+      return {
+        value: option,
+        displayText: 'I am authorized to work in the U.S.',
+      };
+    } else if (option === 'sponsorship') {
+      return {
+        value: option,
+        displayText:
+          'I will now or in the future require sponsorship to work in the U.S.',
+      };
+    } else {
+      return {
+        value: option,
+        displayText: option,
+      };
+    }
+  }
+);
 
-const SearchStatusOptions = [
-  {
-    value: SearchStatus.Values.active,
-    displayText: "I'm actively looking for a new role",
-  },
-  {
-    value: SearchStatus.Values.passive,
-    displayText: "I'm flexible, casually looking for opportunities",
-  },
-  {
-    value: SearchStatus.Values.future,
-    displayText: 'I want to stay in touch for opportunities in the future',
-  },
-];
+const SearchStatusOptions = SearchStatus.options.map((option) => {
+  if (option === 'active') {
+    return {
+      value: option,
+      displayText: "I'm actively looking for a new role",
+    };
+  } else if (option === 'passive') {
+    return {
+      value: option,
+      displayText: "I'm flexible, casually looking for opportunities",
+    };
+  } else if (option === 'future') {
+    return {
+      value: option,
+      displayText: 'I want to stay in touch for opportunities in the future',
+    };
+  } else {
+    return {
+      value: option,
+      displayText: option,
+    };
+  }
+});
 
-const PreferredContactOptions = [
-  {
-    value: PreferredContact.Values.email,
-    displayText: 'Email',
-  },
-  {
-    value: PreferredContact.Values.sms,
-    displayText: 'Text message',
-  },
-  {
-    value: PreferredContact.Values.whatsapp,
-    displayText: 'Whatsapp message',
-  },
-];
+const PreferredContactOptions = PreferredContact.options.map((option) => {
+  if (option === 'email') {
+    return {
+      value: option,
+      displayText: 'Email',
+    };
+  } else if (option === 'sms') {
+    return {
+      value: option,
+      displayText: 'Text message',
+    };
+  } else if (option === 'whatsapp') {
+    return {
+      value: option,
+      displayText: 'Whatsapp message',
+    };
+  } else {
+    return {
+      value: option,
+      displayText: option,
+    };
+  }
+});
+
+const RelocationOptions = OpenToRelocate.options.map((option) => ({
+  value: option,
+  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+}));
+
+const RemoteOptions = OpenToRemote.options.map((option) => {
+  if (option === 'yes') {
+    return {
+      value: option,
+      displayText: 'Only open to remote',
+    };
+  } else if (option === 'no') {
+    return {
+      value: option,
+      displayText: 'Not open to remote',
+    };
+  } else if (option === 'both') {
+    return {
+      value: option,
+      displayText: 'Open to in-person or remote',
+    };
+  } else {
+    return {
+      value: option,
+      displayText: option.charAt(0).toUpperCase() + option.slice(1),
+    };
+  }
+});
+
+const AttributionOtpions = ReferenceAttribution.options.map((option) => ({
+  value: option,
+  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+}));
+
+const OrgTypeOptions = OrgType.options.map((option) => ({
+  value: option,
+  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+}));
+
+const OrgSizeOptions = OrgSize.options.map((option) => ({
+  value: option,
+  displayText: option + ' employees',
+}));
 
 export {
-  TrueFalseOptions,
-  YoEOptions,
+  YOEOptions,
+  YOERangeOptions,
+  VisaSponsorshipOptions,
   SkillOptions,
+  CommitmentOptions,
   EmploymentOptions,
-  OpportunityOptions,
   RoleOptions,
   CauseOptions,
   YesNoOptions,
+  PaidOptions,
+  TrueFalseOptions,
   USDROptions,
   AuthorizationOptions,
-  SearchStatusOptions as searchStatusOptions,
+  SearchStatusOptions,
   PreferredContactOptions,
-  VisaSponsorshipOptions,
-  RoleYoeOptions,
-  PaidOptions,
+  RelocationOptions,
+  RemoteOptions,
+  AttributionOtpions,
+  OrgTypeOptions,
+  OrgSizeOptions,
 };

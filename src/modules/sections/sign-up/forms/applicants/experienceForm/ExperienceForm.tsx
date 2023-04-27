@@ -1,7 +1,11 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { SkillOptions, YoEOptions } from '@/lib/constants/selects';
-import { Skills, YOE } from '@/lib/schemas';
-import { DraftSubmission, ExperienceFields } from '@/lib/types';
+import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
+import { OptionalString, RequiredString, Skills, YOE } from '@/lib/enums';
+import {
+  DraftSubmissionType,
+  ExperienceFieldsType,
+  ExperienceRefType,
+} from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
@@ -9,14 +13,12 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { FormInstance } from 'houseform/dist/form/types';
 import { useRef } from 'react';
-import { z } from 'zod';
 
 export interface IExperienceForm {
-  handleSubmit: (_values: ExperienceFields) => void;
-  handleSave: (_values: DraftSubmission) => void;
-  savedForm: DraftSubmission | undefined;
+  handleSubmit: (_values: ExperienceFieldsType) => void;
+  handleSave: (_values: DraftSubmissionType) => void;
+  savedForm: DraftSubmissionType | undefined;
 }
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
@@ -24,7 +26,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   handleSave,
   savedForm,
 }) => {
-  const formRef = useRef<FormInstance<ExperienceFields>>(null);
+  const formRef = useRef<ExperienceRefType>(null);
 
   const doSave = () => {
     if (formRef.current) {
@@ -33,7 +35,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   };
 
   return (
-    <Form<ExperienceFields>
+    <Form<ExperienceFieldsType>
       onSubmit={(values) => handleSubmit(values)}
       ref={formRef}
     >
@@ -52,7 +54,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Role"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastRole}
-            validator={z.string().nonempty({ message: 'Role is Required' })}
+            validator={RequiredString}
           />
 
           {/* Current Org */}
@@ -62,7 +64,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Name of organization"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastOrg}
-            validator={z.string().optional()}
+            validator={OptionalString}
           />
 
           {/* Years Experience */}
@@ -70,7 +72,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             fieldName="yoe"
             label="Years of relevant experience"
             placeholder="Choose one"
-            listOptions={YoEOptions}
+            listOptions={YOEOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.yoe}
             validator={YOE}
@@ -86,7 +88,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.skills || []}
-            validator={z.array(Skills).optional()}
+            validator={Skills.array().optional()}
           />
 
           {/* Other Skills */}
@@ -96,7 +98,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Skills separated by commas"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.otherSkills}
-            validator={z.array(z.string()).optional()}
+            validator={OptionalString.array()}
           />
 
           {/* LinkedIn */}
@@ -106,6 +108,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="LinkedIn URL"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.linkedInUrl || ''}
+            validator={OptionalString}
           />
 
           {/* Portfolio */}
@@ -115,6 +118,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Portfolio URL"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.portfolioUrl || ''}
+            validator={OptionalString}
           />
 
           {/* Portfolio Password */}
@@ -124,6 +128,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Password to view website"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.portfolioPassword || ''}
+            validator={OptionalString}
           />
 
           {/* Github */}
@@ -133,6 +138,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Github URL"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.githubUrl || ''}
+            validator={OptionalString}
           />
 
           {/* Resume */}
@@ -142,6 +148,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Resume URL"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumeUrl || ''}
+            validator={OptionalString}
           />
 
           {/* Resume Password */}
@@ -151,6 +158,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Password to view resume"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumePassword || ''}
+            validator={OptionalString}
           />
 
           {/* Form Buttons */}

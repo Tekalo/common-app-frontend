@@ -1,6 +1,6 @@
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
 import { printErrorMessages } from '@/lib/helpers';
-import { IRadioItem } from '@/lib/types';
+import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance } from 'houseform';
 import React, { ReactElement, RefObject } from 'react';
 import { z } from 'zod';
@@ -11,7 +11,7 @@ interface IRadioSelectField {
   helperText?: string | ReactElement;
   fieldRef?: RefObject<FieldInstance>;
   rowAlign?: boolean;
-  listOptions: IRadioItem[];
+  listOptions: ISelectItem[];
   isSubmitted: boolean;
   initialValue: boolean | undefined;
   validator?: z.ZodSchema;

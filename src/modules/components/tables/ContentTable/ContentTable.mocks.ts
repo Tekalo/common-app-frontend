@@ -1,4 +1,4 @@
-import { ContentTableData, TablePadding } from '@/lib/types';
+import { ContentTableData } from '@/lib/types';
 import { IContentTable } from './ContentTable';
 
 const basisTableData: ContentTableData = {
@@ -17,7 +17,7 @@ const basisTableData: ContentTableData = {
 };
 
 const base: IContentTable = {
-  padding: TablePadding.SIX,
+  className: 'w-[calc(100%+24px)]',
   tableData: basisTableData,
 };
 

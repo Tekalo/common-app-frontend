@@ -10,17 +10,15 @@ import {
 } from '@/lib/constants/text';
 import {
   EmploymentType,
-  OrgSize,
-  OrgType,
+  PrivacyPolicy,
   Skills,
   VisaSponsorship,
-  YearsOfExperience,
+  YOE_RANGE,
 } from '@/lib/enums';
-import { validations } from '@/lib/schemas';
 import {
   IFaqItem,
-  IOpportunity,
-  ISubmission,
+  NewOrgOppFieldsType,
+  NewRoleType,
   NextPageWithLayout,
 } from '@/lib/types';
 import { BooleanField } from '@/modules/sections/sign-up/fields';
@@ -62,15 +60,13 @@ const OrganizationReview: NextPageWithLayout = () => {
     },
   };
 
-  type NewType = IOpportunity;
-
   // TODO: Tmp data, remove it when we hook this up
-  const opportunity: NewType = {
+  const opportunity: NewOrgOppFieldsType = {
     organization: {
       name: 'ABCD',
-      type: OrgType.C3,
-      size: OrgSize.TWO_HUNDRED,
-      impactAreas: 'Health, Tech policy',
+      type: '501c(3)',
+      size: '101-200',
+      impactAreas: ['climate change'],
       eoe: true,
     },
     contact: {
@@ -80,38 +76,38 @@ const OrganizationReview: NextPageWithLayout = () => {
     },
     submissions: [
       {
-        employmentType: EmploymentType.FULL,
-        roleType: 'Software engineer',
+        employmentType: EmploymentType.Enum['full-time employee'],
+        roleType: 'software engineer',
         positionTitle: 'Senior software engineer',
         jdUrl: 'www.jobpost.com/123',
         salaryRange: '90k-120k',
         desiredStartDate: new Date('09/09/2023'),
-        desiredYoe: YearsOfExperience.EIGHT,
-        desiredSkills: [Skills.DEVOPS, Skills.JAVASCRIPT],
+        desiredYoe: [YOE_RANGE.Enum['0-2']],
+        desiredSkills: [Skills.Enum.devops],
         desiredOtherSkills: 'N/A',
         similarStaffed: true,
         desiredImpactExp: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet est placerat in egestas erat imperdiet sed. Amet massa vitae tortor condimentum. In massa tempor nec feugiat nisl pretium fusce id velit. Purus faucibus ornare suspendisse sed nisi lacus sed viverra. Ullamcorper malesuada proin libero nunc consequat interdum varius sit. Quam id leo in vitae turpis massa sed elementum tempus.`,
         pitchEssay: `Over 10 years strong and fueled by 80 smart, passionate employees. ABCD is full of opportunities to grow. We are a nationally recognized, award-winning leader for a reason. The beating heart of our company is a wide range of employees from a diverse set of backgrounds-tech people, numbers people, even people people-working together to make communities better. If you are ready to join a thriving, mission-driven company where you can create your own opportunities and make a positive difference-it's time to make a healthy career move to ABCD.`,
-        visaSponsorship: VisaSponsorship.YES,
+        visaSponsorship: VisaSponsorship.Enum.yes,
         fullyRemote: false,
         location: 'New York, New York',
         paid: true,
         source: 'Source',
       },
       {
-        employmentType: EmploymentType.FULL,
-        roleType: 'Software engineer',
+        employmentType: EmploymentType.Enum['full-time employee'],
+        roleType: 'software engineer',
         positionTitle: 'Senior software engineer',
         jdUrl: 'www.jobpost.com/123',
         salaryRange: '90k-120k',
         desiredStartDate: new Date('09/09/2023'),
-        desiredYoe: YearsOfExperience.EIGHT,
-        desiredSkills: [Skills.DEVOPS, Skills.JAVASCRIPT],
+        desiredYoe: [YOE_RANGE.Enum['0-2']],
+        desiredSkills: [Skills.Enum.react],
         desiredOtherSkills: 'N/A',
         similarStaffed: true,
         desiredImpactExp: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet est placerat in egestas erat imperdiet sed. Amet massa vitae tortor condimentum. In massa tempor nec feugiat nisl pretium fusce id velit. Purus faucibus ornare suspendisse sed nisi lacus sed viverra. Ullamcorper malesuada proin libero nunc consequat interdum varius sit. Quam id leo in vitae turpis massa sed elementum tempus.`,
         pitchEssay: `Over 10 years strong and fueled by 80 smart, passionate employees. ABCD is full of opportunities to grow. We are a nationally recognized, award-winning leader for a reason. The beating heart of our company is a wide range of employees from a diverse set of backgrounds-tech people, numbers people, even people people-working together to make communities better. If you are ready to join a thriving, mission-driven company where you can create your own opportunities and make a positive difference-it's time to make a healthy career move to ABCD.`,
-        visaSponsorship: VisaSponsorship.YES,
+        visaSponsorship: VisaSponsorship.Enum.yes,
         fullyRemote: false,
         location: 'New York, New York',
         paid: true,
@@ -162,7 +158,7 @@ const OrganizationReview: NextPageWithLayout = () => {
       {renderRow(labels.organization.size, opportunity.organization.size)}
       {renderRow(
         labels.organization.impactAreas,
-        opportunity.organization.impactAreas
+        opportunity.organization.impactAreas[0]
       )}
     </div>
   );
@@ -170,19 +166,19 @@ const OrganizationReview: NextPageWithLayout = () => {
   const renderContact = () => (
     <div className="space-y-2">
       {renderRow(labels.contact.name, opportunity.contact.name)}
-      {renderRow(labels.contact.phone, opportunity.contact.phone)}
+      {renderRow(labels.contact.phone, opportunity.contact.phone || '')}
       {renderRow(labels.contact.email, opportunity.contact.email)}
     </div>
   );
 
-  const renderRole = (role: ISubmission, index: number) => (
+  const renderRole = (role: NewRoleType, index: number) => (
     <div>
       <div className="space-y-4">
         <div className="space-y-2">
           {renderRow(labels.submission.employmentType, role.employmentType)}
           {renderRow(labels.submission.roleType, role.roleType)}
           {renderRow(labels.submission.positionTitle, role.positionTitle)}
-          {renderRow(labels.submission.jdUrl, role.jdUrl)}
+          {renderRow(labels.submission.jdUrl, role.jdUrl || '')}
           {renderRow(labels.submission.salaryRange, role.salaryRange)}
         </div>
         <div className="space-y-2">
@@ -190,14 +186,14 @@ const OrganizationReview: NextPageWithLayout = () => {
             labels.submission.desiredStartDate,
             mapDateToString(role.desiredStartDate)
           )}
-          {renderRow(labels.submission.desiredYoe, role.desiredYoe)}
+          {renderRow(labels.submission.desiredYoe, role.desiredYoe[0])}
           {renderRow(
             labels.submission.desiredSkills,
             mapArrayToList(role.desiredSkills)
           )}
           {renderRow(
             labels.submission.desiredOtherSkills,
-            role.desiredOtherSkills
+            role.desiredOtherSkills || ''
           )}
           {renderRow(
             labels.submission.similarStaffed,
@@ -207,7 +203,7 @@ const OrganizationReview: NextPageWithLayout = () => {
         <div className="space-y-4">
           {renderRow(
             labels.submission.desiredImpactExp,
-            role.desiredImpactExp,
+            role.desiredImpactExp || '',
             true
           )}
           {renderRow(labels.submission.pitchEssay, role.pitchEssay, true)}
@@ -280,7 +276,7 @@ const OrganizationReview: NextPageWithLayout = () => {
                 label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
                 isSubmitted={isSubmitted}
                 initialValue={false}
-                validator={validations.privacyPolicy}
+                validator={PrivacyPolicy}
               />
               {/* Form Cotnrol Button*/}
               <Button

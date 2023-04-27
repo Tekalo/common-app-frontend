@@ -1,16 +1,26 @@
 import Button from '@/components/buttons/Button/Button';
 import {
-  OpportunityOptions,
+  EmploymentOptions,
   PaidOptions,
   RoleOptions,
-  RoleYoeOptions,
   SkillOptions,
   VisaSponsorshipOptions,
   YesNoOptions,
+  YOERangeOptions,
 } from '@/lib/constants/selects';
-import { RoleType } from '@/lib/enums';
-import { ROLE_YOE, Skills } from '@/lib/schemas';
-import { NewRole } from '@/lib/types';
+import {
+  EmploymentType,
+  OptionalDate,
+  OptionalEssay,
+  OptionalString,
+  RequiredEssay,
+  RequiredString,
+  Roles,
+  Skills,
+  VisaSponsorship,
+  YOE_RANGE,
+} from '@/lib/enums';
+import { CommitmentType, NewRoleType } from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
@@ -24,8 +34,8 @@ import { z } from 'zod';
 
 export interface IRoleForm {
   // formList: [];
-  formType: RoleType.BOTH | RoleType.FULL_TIME | RoleType.PART_TIME | undefined;
-  handleNewRole: (values: NewRole) => void;
+  formType: CommitmentType[] | undefined;
+  handleNewRole: (values: NewRoleType) => void;
   // handleEditRole: (values: NewRole) => void;
 }
 
@@ -36,18 +46,19 @@ const RoleForm: React.FC<IRoleForm> = ({
   // handleEditRole,
 }) => {
   return (
-    <Form<NewRole>
+    <Form<NewRoleType>
       onSubmit={(values) => {
         console.log(values);
         handleNewRole(values);
       }}
     >
-      {({ isSubmitted, submit, reset, isValid }) => (
+      {({ isSubmitted, submit, reset }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            submit();
-            reset();
+            submit().then(() => {
+              reset();
+            });
           }}
           className="flex flex-col space-y-8"
         >
@@ -60,29 +71,17 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={PaidOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string(z.enum(['true', 'false']))}
+            validator={z.boolean()}
           />
 
           <SingleSelectField
             fieldName="roleType"
             label="What type of role is this?"
             placeholder="Choose one"
-            listOptions={RoleOptions.concat({
-              value: 'other',
-              displayText: 'Other',
-            })}
+            listOptions={RoleOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255)}
-          />
-
-          <FreeTextField
-            fieldName="roleType"
-            label="If you chose other, please specify (optional)"
-            placeholder="Type of role"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={z.string().max(255).optional()}
+            validator={Roles}
           />
 
           {/* TODO: Conditionally render */}
@@ -90,10 +89,19 @@ const RoleForm: React.FC<IRoleForm> = ({
             fieldName="employmentType"
             label="What type of opportunity is this?"
             placeholder="Choose one"
-            listOptions={OpportunityOptions}
+            listOptions={EmploymentOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255)}
+            validator={EmploymentType}
+          />
+
+          <FreeTextField
+            fieldName="employmentType"
+            label="If you chose other, please specify (optional)"
+            placeholder="Type of opportunity"
+            isSubmitted={isSubmitted}
+            initialValue={undefined}
+            validator={OptionalString}
           />
 
           <FreeTextField
@@ -102,7 +110,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Position title"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255)}
+            validator={RequiredString}
           />
 
           <FreeTextField
@@ -111,7 +119,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Job description URL"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255).optional()}
+            validator={OptionalString}
           />
 
           {/* Pay Section */}
@@ -122,7 +130,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Eg: $40 - 60 / hour"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255)}
+            validator={RequiredString}
           />
 
           {/* TODO: Conditional Render */}
@@ -132,7 +140,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Approximate number of hours"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255).optional().nullable()}
+            validator={OptionalString}
           />
 
           {/* Location Section */}
@@ -143,7 +151,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string(z.enum(['true', 'false']))}
+            validator={z.boolean()}
           />
 
           <FreeTextField
@@ -152,7 +160,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="City, state"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255).optional()}
+            validator={OptionalString}
           />
 
           {/* TODO: Disable if Volunteer selected in oppType */}
@@ -163,7 +171,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={VisaSponsorshipOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255)}
+            validator={VisaSponsorship}
           />
 
           {/* Date Section */}
@@ -173,7 +181,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="mm/dd/yyyy"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255).optional()}
+            validator={OptionalDate}
           />
 
           {/* TODO: Conditionally render */}
@@ -183,7 +191,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="mm/dd/yyyy"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(255).optional()}
+            validator={OptionalDate}
           />
 
           {/* Requirement Section */}
@@ -193,10 +201,10 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Choose all that apply"
             selectionLabelMulti=" options selected"
             selectionLabelSingle=" option selected"
-            listOptions={RoleYoeOptions}
+            listOptions={YOERangeOptions}
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={z.array(ROLE_YOE)}
+            validator={YOE_RANGE}
           />
 
           <MultiSelectField
@@ -208,7 +216,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={z.array(Skills).optional()}
+            validator={Skills.optional()}
           />
 
           <FreeTagField
@@ -217,10 +225,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Desired skills separated by commas"
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={z
-              .array(z.string().max(255).optional().nullable())
-              .optional()
-              .nullable()}
+            validator={OptionalString.array()}
           />
 
           <RadioSelectField
@@ -230,7 +235,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string(z.enum(['true', 'false']))}
+            validator={z.boolean()}
           />
 
           {/* TODO: Essay Section */}
@@ -240,7 +245,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Your answer here. Maximum 200 words."
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(5000).optional()}
+            validator={OptionalEssay}
           />
 
           <LongTextField
@@ -249,7 +254,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Your answer here. Maximum 200 words."
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.string().max(5000).optional()}
+            validator={RequiredEssay}
           />
 
           {/* Form Control Button*/}

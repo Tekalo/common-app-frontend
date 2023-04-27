@@ -1,14 +1,9 @@
-import { OrgSchema, SubmissionSchema } from '@/lib/schemas';
-import { NextPageWithLayout } from '@/lib/types';
-import RoleForm from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
-import OrgSignupForm from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
+import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
+import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
+import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useState } from 'react';
-import { z } from 'zod';
-
-type NewOrg = z.infer<typeof OrgSchema>;
-type NewRole = z.infer<typeof SubmissionSchema>;
 
 const OrganizationSignup: NextPageWithLayout = () => {
   // If the index is -1, then we are on the org signup form
@@ -16,20 +11,20 @@ const OrganizationSignup: NextPageWithLayout = () => {
   // If the index is greater than the length of orgRoles, then we are on the last role form and appending a new role
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
-  const [orgInfo, setOrgInfo] = useState<NewOrg>();
-  const [orgRoles, setOrgRoles] = useState<NewRole[]>();
+  const [orgInfo, setOrgInfo] = useState<NewOrgType>();
+  const [orgRoles, setOrgRoles] = useState<NewRoleType[]>();
 
-  const handleOrgSignup = (values: NewOrg) => {
+  const handleOrgSignup = (values: NewOrgType) => {
     setOrgInfo(values);
     setActiveIndex(0);
   };
 
-  const handleNewOpportunity = (newRole: NewRole) => {
+  const handleNewOpportunity = (newRole: NewRoleType) => {
     const newOpportunityList = [...(orgRoles || []), newRole];
     setOrgRoles(newOpportunityList);
   };
 
-  const handleEditOpportunity = (editedRole: NewRole, index: number) => {
+  const handleEditOpportunity = (editedRole: NewRoleType, index: number) => {
     const newOpportunityList = [...(orgRoles || [])];
     newOpportunityList[index] = editedRole;
     setOrgRoles(newOpportunityList);
@@ -72,7 +67,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
           ) : (
             <RoleForm
               // formList={orgRoles}
-              formType={orgInfo?.organization.employmentTypes}
+              formType={orgInfo?.commitmentTypes}
               handleNewRole={handleNewOpportunity}
               // handleEditRole={handleEditOpportunity}
             />

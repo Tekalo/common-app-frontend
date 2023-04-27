@@ -1,41 +1,53 @@
 import Button from '@/components/buttons/Button/Button';
 import {
+  AttributionOtpions,
   AuthorizationOptions,
   CauseOptions,
-  EmploymentOptions,
+  CommitmentOptions,
+  RelocationOptions,
+  RemoteOptions,
   RoleOptions,
   USDROptions,
   YesNoOptions,
 } from '@/lib/constants/selects';
 import { USDR_DISCLAIMER } from '@/lib/constants/text';
-import { createOptionList } from '@/lib/helpers';
 import {
-  EmploymentType,
-  InterestGovtEmplTypes,
+  CommitmentType,
+  GovtJobType,
   OpenToRelocate,
   OpenToRemote,
+  OptionalString,
   ReferenceAttribution,
+  RequiredEssay,
+  RequiredString,
   Roles,
-} from '@/lib/schemas';
-import { DraftSubmission, InterestFields } from '@/lib/types';
+  WorkAuthorization,
+} from '@/lib/enums';
+import {
+  DraftSubmissionType,
+  FieldBooleanType,
+  FieldStringArrayType,
+  InterestFieldsType,
+  InterestRefType,
+} from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
   LongTextField,
   MultiSelectField,
   RadioSelectField,
+  RankChoiceField,
   SelectGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
-import RankChoiceField from '@/sections/sign-up/fields/RankChoiceField';
-import { FieldInstance, Form, FormInstance } from 'houseform';
+import { Form } from 'houseform';
 import { useRef } from 'react';
 import { z } from 'zod';
 
 export interface IInterestForm {
-  handleSubmit: (_values: InterestFields) => void;
-  handleSave: (_values: DraftSubmission) => void;
-  savedForm: DraftSubmission | undefined;
+  handleSubmit: (_values: InterestFieldsType) => void;
+  handleSave: (_values: DraftSubmissionType) => void;
+  savedForm: DraftSubmissionType | undefined;
 }
 
 const InterestForm: React.FC<IInterestForm> = ({
@@ -43,9 +55,9 @@ const InterestForm: React.FC<IInterestForm> = ({
   handleSave,
   savedForm,
 }) => {
-  const formRef = useRef<FormInstance<InterestFields>>(null);
-  const employmentTypeRef = useRef<FieldInstance<string[], unknown>>(null);
-  const govRef = useRef<FieldInstance<boolean, unknown>>(null);
+  const formRef = useRef<InterestRefType>(null);
+  const employmentTypeRef = useRef<FieldStringArrayType>(null);
+  const govRef = useRef<FieldBooleanType>(null);
 
   const doSave = () => {
     if (formRef.current) {
@@ -54,7 +66,7 @@ const InterestForm: React.FC<IInterestForm> = ({
   };
 
   return (
-    <Form<InterestFields>
+    <Form<InterestFieldsType>
       onSubmit={(values) => handleSubmit(values)}
       ref={formRef}
     >
@@ -76,12 +88,10 @@ const InterestForm: React.FC<IInterestForm> = ({
               'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
             }
             fieldRef={employmentTypeRef}
-            listOptions={EmploymentOptions}
+            listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestEmploymentType}
-            validator={z
-              .array(EmploymentType)
-              .nonempty('You must select at least one option')}
+            validator={CommitmentType}
           />
           {/* Hours per week */}
           <FreeTextField
@@ -95,7 +105,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.hoursPerWeek || ''}
-            validator={z.string().optional()}
+            validator={OptionalString}
           />
           {/* Roles */}
           <MultiSelectField
@@ -104,12 +114,10 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Choose all that apply"
             selectionLabelMulti=" Role selected"
             selectionLabelSingle=" Roles selected"
-            listOptions={RoleOptions}
+            listOptions={RoleOptions.filter((role) => role.value !== 'other')}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestRoles || []}
-            validator={z
-              .array(Roles)
-              .nonempty('You must select at least one role')}
+            validator={Roles}
           />
           {/* Location */}
           <FreeTextField
@@ -118,14 +126,14 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="City, state and/or country"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.currentLocation || ''}
-            validator={z.string().nonempty('Current location is required')}
+            validator={RequiredString}
           />
           {/* Reloaction*/}
           <SingleSelectField
             fieldName="openToRelocate"
             label="Open to relocating?"
             placeholder="Choose one"
-            listOptions={createOptionList(OpenToRelocate.options)}
+            listOptions={RelocationOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.openToRelocate}
             validator={OpenToRelocate}
@@ -135,7 +143,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             fieldName="openToRemote"
             label="Open to remote?"
             placeholder="Choose one"
-            listOptions={createOptionList(OpenToRemote.options)}
+            listOptions={RemoteOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.openToRemote}
             validator={OpenToRemote}
@@ -147,7 +155,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Enter a range"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.desiredSalary || ''}
-            validator={z.string().optional()}
+            validator={OptionalString}
           />
           {/* Causes */}
           <RankChoiceField
@@ -164,9 +172,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestCauses}
-            validator={z
-              .array(z.string())
-              .nonempty('You must select at least one cause')}
+            validator={RequiredString.array().min(1)}
           />
           {/* Other Causes*/}
           <FreeTagField
@@ -175,7 +181,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Additional causes separated by commas"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.otherCauses || []}
-            validator={z.array(z.string()).nullable().optional()}
+            validator={OptionalString.array()}
           />
           {/* Work Auth*/}
           <SingleSelectField
@@ -185,7 +191,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={AuthorizationOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm ? savedForm.workAuthorization : ''}
-            validator={z.boolean()}
+            validator={WorkAuthorization}
           />
           {/* Gov Interest*/}
           <RadioSelectField
@@ -210,7 +216,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={USDROptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm ? savedForm.interestGovtEmplTypes : []}
-            validator={z.array(InterestGovtEmplTypes).optional()}
+            validator={GovtJobType.array().optional()}
             disabled={!govRef.current?.value}
           />
           {/* Previous XP*/}
@@ -220,9 +226,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={
-              savedForm ? savedForm.previousImpactExperience : undefined
-            }
+            initialValue={savedForm?.previousImpactExperience}
             validator={z.boolean()}
           />
           {/* Essay */}
@@ -232,16 +236,14 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Write as much as you’d like, suggested up to 250 words."
             isSubmitted={isSubmitted}
             initialValue={savedForm ? savedForm.essayResponse : ''}
-            validator={z
-              .string()
-              .nonempty({ message: 'This field is required' })}
+            validator={RequiredEssay}
           />
           {/* Reference */}
           <SingleSelectField
             fieldName="referenceAttribution"
             label="How did you hear about Tekalo?"
             placeholder="Choose one"
-            listOptions={createOptionList(ReferenceAttribution.options)}
+            listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}
             initialValue={savedForm ? savedForm.yoe : ''}
             validator={ReferenceAttribution}

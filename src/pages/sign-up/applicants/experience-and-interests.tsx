@@ -1,9 +1,9 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import {
-  DraftSubmission,
-  ExperienceFields,
-  InterestFields,
+  DraftSubmissionType,
+  ExperienceFieldsType,
+  InterestFieldsType,
   ITimelineItem,
   NextPageWithLayout,
 } from '@/lib/types';
@@ -17,9 +17,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [draftFormValues, setDraftFormValues] = useState<DraftSubmission>();
-  const [experienceFields, setExperienceFIelds] = useState<ExperienceFields>();
-  const [interestFields, setInterestFields] = useState<InterestFields>();
+  const [draftFormValues, setDraftFormValues] = useState<DraftSubmissionType>();
+  const [experienceFields, setExperienceFIelds] =
+    useState<ExperienceFieldsType>();
+  const [interestFields, setInterestFields] = useState<InterestFieldsType>();
 
   useEffect(() => {
     if (isSubmitted) {
@@ -68,7 +69,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
-  const handleSave = (values: DraftSubmission) => {
+  const handleSave = (values: DraftSubmissionType) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
@@ -78,14 +79,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // FUNCTION: Saves form responses to parent state
-  const handleNext = (values: ExperienceFields) => {
+  const handleNext = (values: ExperienceFieldsType) => {
     setDraftFormValues({ ...draftFormValues, ...values });
     setExperienceFIelds(values);
     setIsInterestFormVisible(true);
   };
 
   // FUNCTION: Saves form responses to parent state and generates final form
-  const handleSubmit = (values: InterestFields) => {
+  const handleSubmit = (values: InterestFieldsType) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
     setInterestFields(values);

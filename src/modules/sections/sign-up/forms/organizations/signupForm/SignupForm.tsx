@@ -1,19 +1,24 @@
 import Button from '@/components/buttons/Button/Button';
 import {
   CauseOptions,
-  EmploymentOptions,
+  CommitmentOptions,
+  OrgSizeOptions,
+  OrgTypeOptions,
   TrueFalseOptions,
 } from '@/lib/constants/selects';
 import { EEOC_LABEL } from '@/lib/constants/text';
-import { createOptionList } from '@/lib/helpers';
 import {
   Causes,
-  EmploymentType,
+  CommitmentType,
+  Email,
+  EOE,
   OrgSize,
   OrgType,
-  validations,
-} from '@/lib/schemas';
-import { NewOrg } from '@/lib/types';
+  PhoneNumber,
+  RequiredString,
+} from '@/lib/enums';
+
+import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
   MultiSelectField,
@@ -22,15 +27,14 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { z } from 'zod';
 
 export interface ISignupForm {
-  handleSubmit: (values: NewOrg) => void;
+  handleSubmit: (values: NewOrgType) => void;
 }
 
 const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
   return (
-    <Form<NewOrg>
+    <Form<NewOrgType>
       onSubmit={(values) => {
         console.log(values);
         handleSubmit(values);
@@ -50,18 +54,18 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Organization name"
             placeholder="Organization's legal name"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={validations.requiredString}
+            initialValue={undefined}
+            validator={RequiredString}
           />
 
           {/* Org Type */}
           <SingleSelectField
-            fieldName="organization.impactAreas"
+            fieldName="organization.type"
             label="Organization type"
             placeholder="Choose one"
-            listOptions={createOptionList(OrgType.options)}
+            listOptions={OrgTypeOptions}
             isSubmitted={isSubmitted}
-            initialValue={''}
+            initialValue={undefined}
             validator={OrgType}
           />
 
@@ -70,14 +74,9 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             fieldName="organization.size"
             label="Organization size"
             placeholder="Choose one"
-            listOptions={createOptionList(OrgSize.options).map((option) => {
-              return {
-                value: option.value,
-                displayText: option.displayText + ' employees',
-              };
-            })}
+            listOptions={OrgSizeOptions}
             isSubmitted={isSubmitted}
-            initialValue={''}
+            initialValue={undefined}
             validator={OrgSize}
           />
 
@@ -88,15 +87,10 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             placeholder="Choose all that apply"
             selectionLabelMulti=" Areas selected"
             selectionLabelSingle=" Area selected"
-            listOptions={CauseOptions.concat({
-              value: 'other',
-              displayText: 'Other',
-            })}
+            listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={z
-              .array(Causes)
-              .nonempty('You must select at least one impact area')}
+            validator={Causes}
           />
 
           {/* Contact name */}
@@ -105,8 +99,8 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Contact name"
             placeholder="Full name"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={validations.requiredString}
+            initialValue={undefined}
+            validator={RequiredString}
           />
 
           {/* Contact email */}
@@ -115,8 +109,8 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Contact email"
             placeholder="Email address"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={validations.email}
+            initialValue={undefined}
+            validator={Email}
           />
 
           {/* Contact number */}
@@ -125,8 +119,8 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Contact phone (optional)"
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={z.string().optional()}
+            initialValue={undefined}
+            validator={PhoneNumber.optional()}
           />
 
           {/* Org Employment Types */}
@@ -138,12 +132,10 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             helperText={
               'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
             }
-            listOptions={EmploymentOptions}
+            listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={z
-              .array(EmploymentType)
-              .nonempty('You must select at least one option')}
+            validator={CommitmentType.array()}
           />
 
           {/* Org EOE */}
@@ -154,10 +146,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             listOptions={TrueFalseOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={z.boolean().refine((value) => value === true, {
-              message:
-                'Tekalo only works with Equal Opportunity Employers as defined by the EEOC.',
-            })}
+            validator={EOE}
           />
 
           {/* Form Control Button*/}
