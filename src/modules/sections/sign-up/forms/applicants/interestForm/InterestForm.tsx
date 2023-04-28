@@ -254,7 +254,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             isSubmitted={isSubmitted}
             initialValue={savedForm ? savedForm.interestGovtEmplTypes : []}
             validator={GovtJobType.array().optional()}
-            disabled={!govRef.current?.value}
+            disabled={govRef.current?.value.toString() !== 'true'}
           />
           {/* Previous XP */}
           <RadioGroupField
