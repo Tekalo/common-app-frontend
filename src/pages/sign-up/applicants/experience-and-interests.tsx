@@ -10,16 +10,18 @@ import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  InterestFieldsType,
   ITimelineItem,
+  InterestFieldsType,
   NextPageWithLayout,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
+import { useAuth0 } from '@auth0/auth0-react';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -38,7 +40,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   useEffect(() => {
     getSubmissions();
-  }, []);
+  }, [isAuthenticated, isLoading, getAccessTokenSilently]);
 
   // Hits the submission endpoint to submit the form
   const doSubmit = async () => {
@@ -48,7 +50,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
       originTag: '',
     };
 
-    post(applicantSubmissionsEndpoint, finalFormValues)
+    const token = await getAccessTokenSilently();
+    post(applicantSubmissionsEndpoint, finalFormValues, token)
       .then((res) => {
         console.log(res);
         if (res.ok) {
@@ -66,11 +69,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
-  const handleSave = (values: DraftSubmissionType) => {
+  const handleSave = async (values: DraftSubmissionType) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
-    post(applicantDraftSubmissionsEndpoint, stripEmptyFields(newFormState))
+    const token = await getAccessTokenSilently();
+    post(
+      applicantDraftSubmissionsEndpoint,
+      stripEmptyFields(newFormState),
+      token
+    )
       .then((res) => {
         if (res.ok) {
           setShowSaveModal(true);
@@ -100,8 +108,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
     setIsSubmitted(true);
   };
 
-  function getSubmissions(): void {
-    get(applicantSubmissionsEndpoint)
+  async function getSubmissions(): Promise<void> {
+    const token = await getAccessTokenSilently();
+
+    get(applicantSubmissionsEndpoint, token)
       .then(async (res) => {
         if (res.ok) {
           const response: any = await res.json();

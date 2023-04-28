@@ -1,7 +1,12 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
-import { applicantSubmissionsEndpoint, get } from '@/lib/helpers/apiHelpers';
+import {
+  applicantSubmissionsEndpoint,
+  deleteRequest,
+  existingApplicantEndpoint,
+  get,
+} from '@/lib/helpers/apiHelpers';
 import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
@@ -15,32 +20,39 @@ export interface ICandidateAccountSection {
 const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
   matchesPaused,
 }) => {
+  const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
+    useAuth0();
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
-  const { isAuthenticated, isLoading, logout } = useAuth0();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
 
   // User must be logged in to view this page, check for auth
   useEffect(() => {
-    if (!isLoading) {
-      if (isAuthenticated) {
-        // TOOD: Get auth Token and pass it
-        get(applicantSubmissionsEndpoint).then(async (res) => {
-          const submissionResponse =
-            (await res.json()) as SubmissionResponseType;
-          setApplicationSubmitted(submissionResponse.isFinal);
-        });
-      } else {
-        router.push('/');
-      }
-    }
-  }, [isAuthenticated, isLoading]);
+    const getSubmissions = async () => {
+      if (!isLoading) {
+        if (isAuthenticated) {
+          const token = await getAccessTokenSilently();
 
-  const onDeleteConfirm = (): void => {
-    // TODO: UNDO
-    // deleteRequest(existingApplicantEndpoint).then((res) => {
-    Promise.resolve({ ok: true }).then((res) => {
+          get(applicantSubmissionsEndpoint, token).then(async (res) => {
+            const submissionResponse =
+              (await res.json()) as SubmissionResponseType;
+            setApplicationSubmitted(submissionResponse.isFinal);
+          });
+        } else {
+          router.push('/');
+        }
+      }
+    };
+
+    getSubmissions();
+  }, [isAuthenticated, isLoading, getAccessTokenSilently]);
+
+  const onDeleteConfirm = async (): Promise<void> => {
+    const token = await getAccessTokenSilently();
+
+    deleteRequest(existingApplicantEndpoint, token).then((res) => {
+      // Promise.resolve({ ok: true }).then((res) => {
       if (res.ok) {
         setShowDeleteModal(false);
         logout({ logoutParams: { returnTo: window.location.origin } });
