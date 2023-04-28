@@ -2,7 +2,7 @@ import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import RankChoice from '@/components/input/rankChoice/RankChoice';
 import { CauseOptions } from '@/lib/constants/selects';
 import { printErrorMessages } from '@/lib/helpers/formHelpers';
-import { ISelectItem, RankChoiceItem } from '@/lib/types';
+import { ISelectItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
@@ -34,7 +34,7 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
   validator,
   disabled = false,
 }) => {
-  const mapValueToItems = (value: string[]): RankChoiceItem[] => {
+  const mapValueToItems = (value: string[]): ISelectItem[] => {
     if (value && value.length) {
       return value.map((s) => {
         return {
@@ -66,7 +66,7 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
               placeholder={placeholder}
               selectionLabelMulti={selectionLabelMulti}
               selectionLabelSingle={selectionLabelSingle}
-              value={value}
+              value={value || []}
               setValue={setValue}
               onBlur={onBlur}
               listOptions={listOptions}

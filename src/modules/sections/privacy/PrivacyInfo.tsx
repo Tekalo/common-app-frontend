@@ -1,12 +1,7 @@
 import Faq from '@/components/faq/Faq';
 import BasisTable from '@/components/tables/BasisTable/BasisTable';
 import ContentTable from '@/components/tables/ContentTable/ContentTable';
-import {
-  BasisTableData,
-  ContentTableData,
-  IFaqItem,
-  TablePadding,
-} from '@/lib/types';
+import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import { useState } from 'react';
 
 export interface IPrivacyInfo {}
@@ -264,11 +259,14 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           );
         })}
       </div>
-      <ContentTable padding={TablePadding.SIX} tableData={contentTableData} />
+      <ContentTable
+        className={'w-[calc(100%+24px)]'}
+        tableData={contentTableData}
+      />
       <div className="mt-16 text-center text-h3-mobile lg:text-h3-desktop">
         Frequently Asked Questions{' '}
       </div>
-      <div className="m-auto max-w-content-area mt-2-mobile md:mt-2-tablet lg:mt-2-desktop">
+      <div className="m-auto mt-2-mobile max-w-content-area md:mt-2-tablet lg:mt-2-desktop">
         <Faq
           key={isForOrgsSelected ? 'orgFAQS' : 'candidateFAQS'}
           faqItems={isForOrgsSelected ? orgFAQS : candidateFAQS}

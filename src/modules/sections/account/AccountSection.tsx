@@ -2,7 +2,7 @@ import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
 import { applicantSubmissionsEndpoint, get } from '@/lib/helpers/apiHelpers';
-import { NextPageWithLayout, SubmissionResponse } from '@/lib/types';
+import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import router from 'next/router';
@@ -27,7 +27,8 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
       if (isAuthenticated) {
         // TOOD: Get auth Token and pass it
         get(applicantSubmissionsEndpoint).then(async (res) => {
-          const submissionResponse = (await res.json()) as SubmissionResponse;
+          const submissionResponse =
+            (await res.json()) as SubmissionResponseType;
           setApplicationSubmitted(submissionResponse.isFinal);
         });
       } else {

@@ -1,6 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
 import ContentTable from '@/components/tables/ContentTable/ContentTable';
-import { ContentTableData, TablePadding } from '@/lib/types';
+import { ContentTableData } from '@/lib/types';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { ReactElement, useRef } from 'react';
@@ -113,7 +113,7 @@ const TableModal: React.FC<ITableModal> = ({
                   {bodyText}
                 </div>
                 <ContentTable
-                  padding={TablePadding.ZERO}
+                  className={'w-[calc(100%)]'}
                   tableData={tableData}
                 />
                 {extras}

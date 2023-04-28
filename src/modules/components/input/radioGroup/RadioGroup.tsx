@@ -1,4 +1,4 @@
-import { IRadioItem } from '@/lib/types';
+import { ISelectItem } from '@/lib/types';
 
 export interface IRadioGroup {
   name?: string;
@@ -7,7 +7,7 @@ export interface IRadioGroup {
   onChange: (_val: string) => void;
   onBlur?: () => void;
   rowAlign?: boolean;
-  listOptions: IRadioItem[];
+  listOptions: ISelectItem[];
 }
 
 const RadioGroup: React.FC<IRadioGroup> = ({
