@@ -3,7 +3,7 @@ import { IRoleForm } from './RoleForm';
 
 const base: IRoleForm = {
   // formList: [],
-  formType: [CommitmentType.Enum['full-time']],
+  formType: [CommitmentType.Enum['full']],
   handleNewRole: () => void {},
   // handleEditRole: () => void {},
 };

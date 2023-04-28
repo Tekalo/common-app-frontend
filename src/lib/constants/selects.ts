@@ -15,7 +15,7 @@ import {
   VisaSponsorship,
   WorkAuthorization,
   YOE,
-  YOE_RANGE
+  YOE_RANGE,
 } from '@/lib/enums';
 import { IBoolItem, ISelectItem } from '@/lib/types';
 
@@ -76,12 +76,12 @@ const SkillOptions: Array<ISelectItem> = Skills.options.map((option) => ({
 
 const CommitmentOptions: Array<ISelectItem> = CommitmentType.options.map(
   (option) => {
-    if (option === 'full-time') {
+    if (option === 'full') {
       return {
         value: option,
         displayText: 'Full-time employment',
       };
-    } else if (option === 'part-time') {
+    } else if (option === 'part') {
       return {
         value: option,
         displayText: 'Part-time/short term opportunities',

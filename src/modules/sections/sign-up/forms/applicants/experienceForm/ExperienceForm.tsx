@@ -1,19 +1,17 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
-import { OptionalString, RequiredString } from '@/lib/enums';
+import { OptionalString, RequiredString, Skills, YOE } from '@/lib/enums';
 import { resetForm } from '@/lib/helpers/formHelpers';
-import { Skills, YOE } from '@/lib/schemas';
 import {
-
   DraftSubmissionType,
   ExperienceFieldsType,
-  ExperienceRefType
+  ExperienceRefType,
 } from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
   MultiSelectField,
-  SingleSelectField
+  SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { useEffect, useRef } from 'react';
