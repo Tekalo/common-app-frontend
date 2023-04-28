@@ -104,7 +104,7 @@ const EmploymentType = z.enum(
   { errorMap: defaultEnumErrorMap }
 );
 
-const CommitmentType = z.enum(['full-time', 'part-time'], {
+const CommitmentType = z.enum(['full', 'part'], {
   errorMap: defaultEnumErrorMap,
 });
 

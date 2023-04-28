@@ -4,7 +4,7 @@ import {
   CommitmentOptions,
   OrgSizeOptions,
   OrgTypeOptions,
-  TrueFalseOptions,
+  TrueFalseOptions
 } from '@/lib/constants/selects';
 import { EEOC_LABEL } from '@/lib/constants/text';
 import {
@@ -15,7 +15,7 @@ import {
   OrgSize,
   OrgType,
   PhoneNumber,
-  RequiredString,
+  RequiredString
 } from '@/lib/enums';
 
 import { NewOrgType } from '@/lib/types';
@@ -24,7 +24,7 @@ import {
   MultiSelectField,
   SelectBooleanField,
   SelectGroupField,
-  SingleSelectField,
+  SingleSelectField
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 
@@ -90,7 +90,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={Causes}
+            validator={Causes.array().min(1, { message: 'You must choose at least one impact area' })}
           />
 
           {/* Contact name */}

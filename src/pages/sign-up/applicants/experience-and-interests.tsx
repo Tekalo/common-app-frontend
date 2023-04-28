@@ -4,7 +4,7 @@ import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
   get,
-  post
+  post,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import {
@@ -12,7 +12,7 @@ import {
   ExperienceFieldsType,
   InterestFieldsType,
   ITimelineItem,
-  NextPageWithLayout
+  NextPageWithLayout,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
@@ -35,6 +35,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted]);
+
+  useEffect(() => {
+    getSubmissions();
+  }, []);
 
   // Hits the submission endpoint to submit the form
   const doSubmit = async () => {

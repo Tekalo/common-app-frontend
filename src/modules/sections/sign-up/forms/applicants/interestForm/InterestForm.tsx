@@ -8,7 +8,7 @@ import {
   RemoteOptions,
   RoleOptions,
   USDROptions,
-  YesNoOptions
+  YesNoOptions,
 } from '@/lib/constants/selects';
 import { USDR_DISCLAIMER } from '@/lib/constants/text';
 import {
@@ -22,19 +22,19 @@ import {
   RequiredString,
   Roles,
   TrueFalseString,
-  WorkAuthorization
+  WorkAuthorization,
 } from '@/lib/enums';
 import {
   mapBoolToString,
   mapStringToBool,
-  resetForm
+  resetForm,
 } from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
   FieldBooleanType,
   FieldStringArrayType,
   InterestFieldsType,
-  InterestRefType
+  InterestRefType,
 } from '@/lib/types';
 import {
   FreeTagField,
@@ -44,11 +44,10 @@ import {
   RadioGroupField,
   RankChoiceField,
   SelectGroupField,
-  SingleSelectField
+  SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { useEffect, useRef } from 'react';
-import { z } from 'zod';
 
 export interface IInterestForm {
   handleSubmit: (_values: InterestFieldsType) => void;
@@ -105,7 +104,7 @@ const InterestForm: React.FC<IInterestForm> = ({
 
   return (
     <Form<InterestFieldsType>
-      onSubmit={(values) => handleSubmit(values)}
+      onSubmit={(values) => doSubmit(values)}
       ref={formRef}
     >
       {({ isSubmitted, submit }) => (
@@ -129,7 +128,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestEmploymentType}
-            validator={CommitmentType}
+            validator={CommitmentType.array()}
           />
           {/* Hours per week */}
           <FreeTextField
@@ -155,7 +154,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={RoleOptions.filter((role) => role.value !== 'other')}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestRoles || []}
-            validator={Roles}
+            validator={Roles.array()}
           />
           {/* Location */}
           <FreeTextField
@@ -265,7 +264,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
             initialValue={mapBoolToString(savedForm?.previousImpactExperience)}
-            validator={z.boolean()}
+            validator={TrueFalseString}
           />
           {/* Essay */}
           <LongTextField
