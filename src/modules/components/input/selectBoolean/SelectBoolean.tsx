@@ -48,8 +48,8 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
               } p-2 text-left font-sans text-component-medium placeholder:text-gray-2 ${buttonClassName}`}
             >
               <span className="">
-                  {(listOptions.find((option) => option.value == value) || {})
-                    .displayText || 'placeholder'}
+                {(listOptions.find((option) => option.value == value) || {})
+                  .displayText || placeholder}
               </span>
               {open ? (
                 <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
