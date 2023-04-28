@@ -4,10 +4,11 @@ import FreeTextField from './FreeTextField';
 import LongTextField from './LongTextField';
 import MultiSelectField from './MultiSelectField';
 import RadioGroupField from './RadioGroupField';
+import RadioSelectField from './RadioSelectField';
+import RankChoiceField from './RankChoiceField';
 import SelectBooleanField from './SelectBooleanField';
 import SelectGroupField from './SelectGroupField';
 import SingleSelectField from './SingleSelectField';
-
 // Barrel File
 export {
   FreeTextField,
@@ -19,4 +20,6 @@ export {
   RadioGroupField,
   BooleanField,
   SelectBooleanField,
+  RankChoiceField,
+  RadioSelectField
 };

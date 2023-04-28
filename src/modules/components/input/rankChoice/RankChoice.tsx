@@ -1,12 +1,12 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { RankChoiceItem } from '@/lib/types';
+import { ISelectItem } from '@/lib/types';
 import update from 'immutability-helper';
 import { useCallback, useEffect, useState } from 'react';
 
 export interface IRankChoice {
   label: string;
   name: string;
-  rankOptions: RankChoiceItem[];
+  rankOptions: ISelectItem[];
   setValue: (_val: string[]) => void;
 }
 
@@ -27,7 +27,7 @@ const RankChoice: React.FC<IRankChoice> = ({
     setValue(cards.map((c) => c.value));
   };
 
-  function mapItemsToCards(items: RankChoiceItem[]): RankChoiceItem[] {
+  function mapItemsToCards(items: ISelectItem[]): ISelectItem[] {
     return items.length
       ? items
       : Array(3)
@@ -39,11 +39,11 @@ const RankChoice: React.FC<IRankChoice> = ({
   }
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-    setCards((prevCards: RankChoiceItem[]) =>
+    setCards((prevCards: ISelectItem[]) =>
       update(prevCards, {
         $splice: [
           [dragIndex, 1],
-          [hoverIndex, 0, prevCards[dragIndex] as RankChoiceItem],
+          [hoverIndex, 0, prevCards[dragIndex] as ISelectItem],
         ],
       })
     );

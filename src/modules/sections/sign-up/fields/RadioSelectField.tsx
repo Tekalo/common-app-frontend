@@ -5,7 +5,7 @@ import { Field, FieldInstance } from 'houseform';
 import React, { ReactElement, RefObject } from 'react';
 import { z } from 'zod';
 
-interface IRadioGroupField {
+interface IRadioSelectField {
   fieldName: string;
   label: string;
   helperText?: string | ReactElement;
@@ -13,11 +13,11 @@ interface IRadioGroupField {
   rowAlign?: boolean;
   listOptions: ISelectItem[];
   isSubmitted: boolean;
-  initialValue: string | undefined;
+  initialValue: boolean | undefined;
   validator?: z.ZodSchema;
 }
 
-const RadioGroupField: React.FC<IRadioGroupField> = ({
+const RadioSelectField: React.FC<IRadioSelectField> = ({
   fieldName,
   label,
   helperText,
@@ -29,7 +29,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
   validator,
 }) => {
   return (
-    <Field<string>
+    <Field<boolean>
       name={fieldName}
       ref={fieldRef}
       initialValue={initialValue}
@@ -43,7 +43,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
               name={`input-${fieldName}`}
               label={label}
               value={String(value)}
-              onChange={(val) => setValue(val)}
+              onChange={(val) => setValue(val === 'true')}
               onBlur={onBlur}
               rowAlign={rowAlign}
               listOptions={listOptions}
@@ -59,4 +59,4 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
   );
 };
 
-export default RadioGroupField;
+export default RadioSelectField;

@@ -1,83 +1,36 @@
-import {
-  EmploymentType,
-  OrgSize,
-  OrgType,
-  Skills,
-  VisaSponsorship,
-  YearsOfExperience,
-} from '@/lib/enums';
+import { FieldInstance, FormInstance } from 'houseform';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { z } from 'zod';
+import { CommitmentType } from './enums';
+import { NewOrgOppSchema } from './schemas/apiSchemas';
 import {
-  ApplicantDraftSubmission,
-  ApplicantExperience,
-  ApplicantInterests,
-  NewApplicant,
-  OrgSchema,
-} from './schemas';
+  CandidateDraftSchema,
+  CandidateExperienceSchema,
+  CandidateInterestsSchema,
+  NewCandidateSchema,
+  NewOrgSchema,
+  NewRoleSchema,
+} from './schemas/clientSchemas';
 
-export type DraftSubmission = z.infer<typeof ApplicantDraftSubmission>;
-export type ExperienceFields = z.infer<typeof ApplicantExperience>;
-export type InterestFields = z.infer<typeof ApplicantInterests>;
-export type NewApplicant = z.infer<typeof NewApplicant>;
-export type NewOrg = z.infer<typeof OrgSchema>;
-
-// Interfaces
-interface IconTypeProps {
-  width: number;
-  height: number;
-  color: string;
-}
-
-export interface ITimelineItem {
-  title?: string;
-  content: string | ReactElement;
-  className?: string;
-  isActive?: boolean;
-}
-
-export interface IFaqItem {
-  questionText: string;
-  answerText: string;
-  extras?: ReactElement;
-  className?: string;
-}
-
-export interface IRadioItem {
-  value: string;
-  displayText: string;
-}
-
-export interface ISelectItem {
-  value: string;
-  displayText: string;
-}
-
-export interface IBoolItem {
-  value: boolean;
-  displayText: string;
-}
-
-export interface RankChoiceItem {
-  displayText: string;
-  value: string;
-}
-
-// Types
-export type IconType = (_props: IconTypeProps) => React.ReactNode;
-
+/** Types
+ */
+export type ExperienceRefType = FormInstance<ExperienceFieldsType>;
+export type InterestRefType = FormInstance<InterestFieldsType>;
+export type FieldStringArrayType = FieldInstance<string[], unknown>;
+export type FieldBooleanType = FieldInstance<boolean, unknown>;
+export type DraftSubmissionType = z.infer<typeof CandidateDraftSchema>;
+export type ExperienceFieldsType = z.infer<typeof CandidateExperienceSchema>;
+export type InterestFieldsType = z.infer<typeof CandidateInterestsSchema>;
+export type NewCandidateType = z.infer<typeof NewCandidateSchema>;
+export type NewOrgType = z.infer<typeof NewOrgSchema>;
+export type NewRoleType = z.infer<typeof NewRoleSchema>;
+export type CommitmentType = z.infer<typeof CommitmentType>;
+export type NewOrgOppFieldsType = z.infer<typeof NewOrgOppSchema>;
+export type IconType = (_props: IIconItem) => React.ReactNode;
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (_page: ReactElement) => ReactNode;
 };
-
-export enum TablePadding {
-  // eslint-disable-next-line no-unused-vars
-  ZERO = 'w-[calc(100%)]',
-  // eslint-disable-next-line no-unused-vars
-  SIX = 'w-[calc(100%+24px)]',
-}
-
 export type ContentTableData = {
   headers: {
     heading: string;
@@ -97,48 +50,31 @@ export type BasisTableData = {
   }[];
 };
 
-// TODO: Check naming
-// ORG REVIEW
-export interface IOpportunity {
-  organization: IOrganization;
-  contact: IContact;
-  submissions: ISubmission[];
+/**Interfaces
+ */
+interface IIconItem {
+  width: number;
+  height: number;
+  color: string;
+}
+export interface ITimelineItem {
+  title?: string;
+  content: string | ReactElement;
+  className?: string;
+  isActive?: boolean;
+}
+export interface IFaqItem {
+  questionText: string;
+  answerText: string;
+  extras?: ReactElement;
+  className?: string;
+}
+export interface ISelectItem {
+  value: string;
+  displayText: string;
 }
 
-export interface IContact {
-  name: string;
-  email: string;
-  phone: string;
+export interface IBoolItem {
+  value: boolean;
+  displayText: string;
 }
-
-export interface ISubmission {
-  roleType: string;
-  positionTitle: string;
-  fullyRemote: boolean;
-  location: string;
-  paid: boolean;
-  pitchEssay: string;
-  source: string;
-  employmentType: EmploymentType;
-  salaryRange: string;
-  desiredHoursPerWeek?: string;
-  desiredStartDate?: Date;
-  desiredEndDate?: Date;
-  jdUrl: string;
-  desiredYoe: YearsOfExperience;
-  desiredSkills: Skills[];
-  desiredOtherSkills: string;
-  visaSponsorship: VisaSponsorship;
-  similarStaffed: boolean;
-  desiredImpactExp: string;
-}
-
-export interface IOrganization {
-  name: string;
-  type: OrgType;
-  size: OrgSize;
-  impactAreas: string;
-  eoe: boolean;
-}
-
-// END ORG REVIEW

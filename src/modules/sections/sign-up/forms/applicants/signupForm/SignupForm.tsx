@@ -1,27 +1,30 @@
 import Button from '@/components/buttons/Button/Button';
 import {
   PreferredContactOptions,
-  searchStatusOptions,
+  SearchStatusOptions
 } from '@/lib/constants/selects';
 import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
 import {
+  Email,
+  OptionalString,
+  PhoneNumber,
   PreferredContact,
+  PrivacyPolicy,
+  RequiredString,
   SearchStatus,
-  contactPhoneLinkedValidation,
-  validations,
-} from '@/lib/schemas';
-import { NewApplicant } from '@/lib/types';
+  ToS
+} from '@/lib/enums';
+import { NewCandidateType } from '@/lib/types';
 import {
   BooleanField,
   FreeTextField,
   RadioGroupField,
-  SingleSelectField,
+  SingleSelectField
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { z } from 'zod';
 
 export interface ISignupForm {
-  handleSubmit: (_values: NewApplicant) => void;
+  handleSubmit: (_values: NewCandidateType) => void;
   setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
 }
 
@@ -30,7 +33,7 @@ const SignupForm: React.FC<ISignupForm> = ({
   setShowPrivacyModal,
 }) => {
   return (
-    <Form<NewApplicant> onSubmit={(values) => handleSubmit(values)}>
+    <Form<NewCandidateType> onSubmit={(values) => handleSubmit(values)}>
       {({ isValid, isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
@@ -44,8 +47,8 @@ const SignupForm: React.FC<ISignupForm> = ({
             label="Name"
             placeholder="Full name"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={validations.requiredString}
+            initialValue={undefined}
+            validator={RequiredString}
           />
 
           {/* Email */}
@@ -54,8 +57,8 @@ const SignupForm: React.FC<ISignupForm> = ({
             label="Email"
             placeholder="Your email address"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={validations.email}
+            initialValue={undefined}
+            validator={Email}
           />
 
           {/* Pronouns */}
@@ -64,17 +67,17 @@ const SignupForm: React.FC<ISignupForm> = ({
             label="Pronouns (optional)"
             placeholder="E.g. she/her/hers"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={z.string().optional()}
+            initialValue={undefined}
+            validator={OptionalString}
           />
 
           {/* Search Status */}
           <RadioGroupField
             fieldName="searchStatus"
             label="Which describes you best?"
-            listOptions={searchStatusOptions}
+            listOptions={SearchStatusOptions}
             isSubmitted={isSubmitted}
-            initialValue={''}
+            initialValue={undefined}
             validator={SearchStatus}
           />
 
@@ -85,7 +88,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             placeholder="Choose one"
             listOptions={PreferredContactOptions}
             isSubmitted={isSubmitted}
-            initialValue={''}
+            initialValue={undefined}
             validator={PreferredContact}
           />
 
@@ -96,8 +99,8 @@ const SignupForm: React.FC<ISignupForm> = ({
             label="Phone number (optional)"
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
-            initialValue={''}
-            validator={contactPhoneLinkedValidation}
+            initialValue={undefined}
+            validator={PhoneNumber}
           />
 
           {/* TODO Privacy Info */}
@@ -105,8 +108,8 @@ const SignupForm: React.FC<ISignupForm> = ({
             fieldName="acceptedPrivacy"
             label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
             isSubmitted={isSubmitted}
-            initialValue={false}
-            validator={validations.privacyPolicy}
+            initialValue={undefined}
+            validator={PrivacyPolicy}
           />
 
           {/* Terms of Service */}
@@ -114,8 +117,8 @@ const SignupForm: React.FC<ISignupForm> = ({
             fieldName="acceptedTerms"
             label={TERMS_DISCLAIMER}
             isSubmitted={isSubmitted}
-            initialValue={false}
-            validator={validations.termsOfService}
+            initialValue={undefined}
+            validator={ToS}
           />
 
           {/* Form Cotnrol Button*/}

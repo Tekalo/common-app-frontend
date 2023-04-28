@@ -8,10 +8,10 @@ import {
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import {
-  DraftSubmission,
-  ExperienceFields,
+  DraftSubmissionType,
+  ExperienceFieldsType,
+  InterestFieldsType,
   ITimelineItem,
-  InterestFields,
   NextPageWithLayout,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
@@ -24,13 +24,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [draftFormValues, setDraftFormValues] = useState<DraftSubmission>();
-  const [experienceFields, setExperienceFields] = useState<ExperienceFields>();
-  const [interestFields, setInterestFields] = useState<InterestFields>();
-
-  useEffect(() => {
-    getSubmissions();
-  }, []);
+  const [draftFormValues, setDraftFormValues] = useState<DraftSubmissionType>();
+  const [experienceFields, setExperienceFields] =
+    useState<ExperienceFieldsType>();
+  const [interestFields, setInterestFields] = useState<InterestFieldsType>();
 
   useEffect(() => {
     if (isSubmitted) {
@@ -38,6 +35,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted]);
+
+  useEffect(() => {
+    getSubmissions();
+  }, []);
 
   // Hits the submission endpoint to submit the form
   const doSubmit = async () => {
@@ -65,7 +66,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
-  const handleSave = (values: DraftSubmission) => {
+  const handleSave = (values: DraftSubmissionType) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
@@ -85,14 +86,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   // FUNCTION: Saves form responses to parent state
-  const handleNext = (values: ExperienceFields) => {
+  const handleNext = (values: ExperienceFieldsType) => {
     setDraftFormValues({ ...draftFormValues, ...values });
     setExperienceFields(values);
     setIsInterestFormVisible(true);
   };
 
   // FUNCTION: Saves form responses to parent state and generates final form
-  const handleSubmit = (values: InterestFields) => {
+  const handleSubmit = (values: InterestFieldsType) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
     setInterestFields(values);
