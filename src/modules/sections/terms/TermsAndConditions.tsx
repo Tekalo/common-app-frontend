@@ -68,7 +68,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         <a
           target="_blank"
           className="text-blue-1 underline underline-offset-4"
-          href="./privacy-info"
+          href="/privacy-info"
         >
           Privacy Information
         </a>
@@ -165,7 +165,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           <a
             target="_blank"
             className="text-blue-1 underline underline-offset-4"
-            href="./privacy-info"
+            href="/privacy-info"
           >
             Privacy Information
           </a>

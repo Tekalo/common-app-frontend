@@ -111,6 +111,11 @@ export interface IContact {
   phone: string;
 }
 
+export interface SubmissionResponse {
+  isFinal: boolean;
+  submission: ISubmission;
+}
+
 export interface ISubmission {
   roleType: string;
   positionTitle: string;

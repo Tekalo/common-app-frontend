@@ -3,7 +3,7 @@ import { NextPageWithLayout } from '@/lib/types';
 import AccountSection from '@/sections/account/AccountSection';
 
 const CandidateAccountPage: NextPageWithLayout = () => (
-  <AccountSection applicationSubmitted={false} matchesPaused={false} />
+  <AccountSection matchesPaused={false} />
 );
 
 export default CandidateAccountPage;

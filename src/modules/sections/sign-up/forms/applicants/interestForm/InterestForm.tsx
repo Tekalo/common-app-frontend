@@ -212,7 +212,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Choose one"
             listOptions={AuthorizationOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm ? savedForm.workAuthorization : ''}
+            initialValue={savedForm?.workAuthorization || ''}
             validator={WorkAuthorization}
           />
           {/* Gov Interest*/}

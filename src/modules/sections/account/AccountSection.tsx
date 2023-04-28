@@ -1,27 +1,50 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
-import { NextPageWithLayout } from '@/lib/types';
+import { applicantSubmissionsEndpoint, get } from '@/lib/helpers/apiHelpers';
+import { NextPageWithLayout, SubmissionResponse } from '@/lib/types';
+import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import router from 'next/router';
+import { useEffect, useState } from 'react';
 
 export interface ICandidateAccountSection {
-  applicationSubmitted: boolean;
   matchesPaused: boolean;
 }
 
 const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
-  // TODO: Hook these up to backend
-  applicationSubmitted,
   matchesPaused,
 }) => {
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const { isAuthenticated, isLoading, logout } = useAuth0();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
 
+  // User must be logged in to view this page, check for auth
+  useEffect(() => {
+    if (!isLoading) {
+      if (isAuthenticated) {
+        // TOOD: Get auth Token and pass it
+        get(applicantSubmissionsEndpoint).then(async (res) => {
+          const submissionResponse = (await res.json()) as SubmissionResponse;
+          setApplicationSubmitted(submissionResponse.isFinal);
+        });
+      } else {
+        router.push('/');
+      }
+    }
+  }, [isAuthenticated, isLoading]);
+
   const onDeleteConfirm = (): void => {
-    // TODO: Do the delete
-    console.log('DELETE');
+    // TODO: UNDO
+    // deleteRequest(existingApplicantEndpoint).then((res) => {
+    Promise.resolve({ ok: true }).then((res) => {
+      if (res.ok) {
+        setShowDeleteModal(false);
+        logout({ logoutParams: { returnTo: window.location.origin } });
+      }
+    });
   };
 
   const onPauseConfirm = (): void => {
@@ -30,8 +53,8 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
   };
 
   const onResumeConfirm = (): void => {
-    // TODO: Do the pause
-    console.log('PAUSE');
+    // TODO: Do the resume
+    console.log('RESUME');
   };
 
   const deleteModalConfirm = 'Delete account';
@@ -90,7 +113,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
             ) : (
               <>
                 <div className="text-component-medium text-blue-1">
-                  <Link href="/sign-up/applicants">
+                  <Link href="/sign-up/applicants/experience-and-interests">
                     {'Continue my application >'}
                   </Link>
                 </div>

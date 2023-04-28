@@ -19,3 +19,9 @@ export const post = async (url: string, values: any) => {
     body: JSON.stringify(values),
   });
 };
+
+export const deleteRequest = async (url: string) => {
+  return fetch(url, {
+    method: 'DELETE',
+  });
+};

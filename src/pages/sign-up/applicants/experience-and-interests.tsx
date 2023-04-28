@@ -42,8 +42,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
   // Hits the submission endpoint to submit the form
   const doSubmit = async () => {
     const finalFormValues = {
-      ...experienceFields,
-      ...interestFields,
+      ...stripEmptyFields(experienceFields),
+      ...stripEmptyFields(interestFields),
       originTag: '',
     };
 
