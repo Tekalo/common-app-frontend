@@ -1,7 +1,10 @@
 import { IBreadcrumb } from './Breadcrumb';
 
 const base: IBreadcrumb = {
-  sampleTextProp: 'Hello world!',
+  label: 'Wee',
+  items: ['Home', 'About', 'Contact'],
+  activeIndex: 1,
+  setActive: () => void {},
 };
 
 export const mockBreadcrumbProps = {
