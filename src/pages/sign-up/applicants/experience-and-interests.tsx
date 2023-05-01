@@ -42,6 +42,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
     getSubmissions();
   }, [isAuthenticated, isLoading, getAccessTokenSilently]);
 
+  const getAuthToken = async () => {
+    return isAuthenticated ? await getAccessTokenSilently() : '';
+  };
+
   // Hits the submission endpoint to submit the form
   const doSubmit = async () => {
     const finalFormValues = {
@@ -50,8 +54,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       originTag: '',
     };
 
-    const token = await getAccessTokenSilently();
-    post(applicantSubmissionsEndpoint, finalFormValues, token)
+    post(applicantSubmissionsEndpoint, finalFormValues, await getAuthToken())
       .then((res) => {
         console.log(res);
         if (res.ok) {
@@ -73,11 +76,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
-    const token = await getAccessTokenSilently();
     post(
       applicantDraftSubmissionsEndpoint,
       stripEmptyFields(newFormState),
-      token
+      await getAuthToken()
     )
       .then((res) => {
         if (res.ok) {
@@ -109,9 +111,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   };
 
   async function getSubmissions(): Promise<void> {
-    const token = await getAccessTokenSilently();
-
-    get(applicantSubmissionsEndpoint, token)
+    get(applicantSubmissionsEndpoint, await getAuthToken())
       .then(async (res) => {
         if (res.ok) {
           const response: any = await res.json();
