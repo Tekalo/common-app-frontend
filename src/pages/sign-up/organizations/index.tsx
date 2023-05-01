@@ -15,18 +15,23 @@ const OrganizationSignup: NextPageWithLayout = () => {
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
 
+  const scrollToTop = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleOrgSignup = (values: NewOrgType) => {
     setOrgInfo(values);
     setActiveIndex(0);
+    scrollToTop();
   };
 
   const handleNewOpportunity = (newRole: NewRoleType) => {
     const newOpportunityList = [...orgRoles, newRole];
     setOrgRoles(newOpportunityList);
     setActiveIndex(newOpportunityList.length);
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToTop();
   };
 
   const handleEditOpportunity = (editedRole: NewRoleType, index: number) => {
@@ -55,7 +60,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
       </div>
 
       <div className="m-auto max-w-[344px] md:mt-10 lg:mt-8">
-        {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm */}
+        {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm and breadcrum*/}
         {activeIndex === -1 ? (
           <OrgSignupForm handleSubmit={handleOrgSignup} />
         ) : (
@@ -69,29 +74,35 @@ const OrganizationSignup: NextPageWithLayout = () => {
               </div>
               {orgRoles.length > 0 ? (
                 <>
+                  {/* Map the existing roles if present */}
                   {orgRoles.map((role, index) => {
                     return (
                       <div key={index} className="flex flex-row">
                         <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
                         <div
                           key={index}
-                          className="cursor-pointer text-component-medium text-blue-1"
-                          onClick={() => setActiveIndex(index + 1)}
+                          className={`cursor-pointer text-component-medium ${
+                            index === activeIndex ? '' : 'text-blue-1'
+                          }`}
+                          onClick={() => setActiveIndex(index)}
                         >
                           {`Role ${index + 1}`}
                         </div>
                       </div>
                     );
                   })}
-                  <div
-                    className="flex cursor-pointer flex-row items-center space-x-2"
-                    onClick={() => setActiveIndex(0)}
-                  >
-                    <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
-                    <div className="text-component-medium">
-                      {`Role ${orgRoles.length + 1}`}
+                  {/* If the active index is at the end of the roles add the new placeholder role in breadcrumb, otherwise don't render it */}
+                  {activeIndex === orgRoles.length ? (
+                    <div
+                      className="flex cursor-pointer flex-row items-center space-x-2"
+                      onClick={() => setActiveIndex(0)}
+                    >
+                      <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
+                      <div className="text-component-medium">
+                        {`Role ${orgRoles.length + 1}`}
+                      </div>
                     </div>
-                  </div>
+                  ) : null}
                 </>
               ) : (
                 <div
