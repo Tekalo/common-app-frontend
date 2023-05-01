@@ -6,7 +6,7 @@ import {
   SkillOptions,
   VisaSponsorshipOptions,
   YesNoOptions,
-  YOERangeOptions
+  YOERangeOptions,
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -18,7 +18,7 @@ import {
   Roles,
   Skills,
   VisaSponsorship,
-  YOE_RANGE
+  YOE_RANGE,
 } from '@/lib/enums';
 import { CommitmentType, NewRoleType } from '@/lib/types';
 import {
@@ -27,7 +27,7 @@ import {
   LongTextField,
   MultiSelectField,
   RadioSelectField,
-  SingleSelectField
+  SingleSelectField,
 } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { z } from 'zod';
@@ -48,7 +48,6 @@ const RoleForm: React.FC<IRoleForm> = ({
   return (
     <Form<NewRoleType>
       onSubmit={(values) => {
-        console.log(values);
         handleNewRole(values);
       }}
     >
@@ -56,9 +55,7 @@ const RoleForm: React.FC<IRoleForm> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            submit().then(() => {
-              reset();
-            });
+            submit();
           }}
           className="flex flex-col space-y-8"
         >
@@ -204,7 +201,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={YOERangeOptions}
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={YOE_RANGE}
+            validator={YOE_RANGE.array()}
           />
 
           <MultiSelectField
@@ -216,7 +213,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
             initialValue={[]}
-            validator={Skills.optional()}
+            validator={Skills.array().optional()}
           />
 
           <FreeTagField
@@ -260,7 +257,7 @@ const RoleForm: React.FC<IRoleForm> = ({
           {/* Form Control Button*/}
           <Button
             className="mt-4 w-full text-component-large"
-            label="Next"
+            label="Add another role"
             type="submit"
           />
         </form>

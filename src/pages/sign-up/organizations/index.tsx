@@ -13,7 +13,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
-  const [orgRoles, setOrgRoles] = useState<NewRoleType[]>();
+  const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
 
   const handleOrgSignup = (values: NewOrgType) => {
     setOrgInfo(values);
@@ -21,8 +21,9 @@ const OrganizationSignup: NextPageWithLayout = () => {
   };
 
   const handleNewOpportunity = (newRole: NewRoleType) => {
-    const newOpportunityList = [...(orgRoles || []), newRole];
+    const newOpportunityList = [...orgRoles, newRole];
     setOrgRoles(newOpportunityList);
+    setActiveIndex(newOpportunityList.length);
   };
 
   const handleEditOpportunity = (editedRole: NewRoleType, index: number) => {
@@ -33,7 +34,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
 
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center">
-      <div className="px-6 pb-28 pt-10 md:px-24">
+      <div className="px-6 pt-10 md:px-24">
         {/* Title */}
         <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
           {'Recruit qualified candidates from the Tekalo network'}
@@ -45,35 +46,65 @@ const OrganizationSignup: NextPageWithLayout = () => {
             <Link href={APPLICANT_SIGNUP_LINK}>{'sign up here'}</Link>
           </span>
         </div>
+      </div>
 
-        {/* TODO: Map orgRoles into clickable breadcrumb */}
-        <div className="mt-8 flex flex-row justify-center space-x-2">
-          <div className="flex flex-row items-center space-x-2">
-            <div className="text-component-medium">{'Contact'}</div>
-          </div>
-          <div className="flex flex-row items-center space-x-2">
-            <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
-            <div className="text-component-medium">{'Role 1'}</div>
-          </div>
-          <div className="flex flex-row items-center space-x-2">
-            <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
-            <div className="text-component-medium">{'Role 2'}</div>
-          </div>
-        </div>
-
-        <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
-          {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm */}
-          {activeIndex === -1 ? (
-            <OrgSignupForm handleSubmit={handleOrgSignup} />
-          ) : (
+      <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
+        {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm */}
+        {activeIndex === -1 ? (
+          <OrgSignupForm handleSubmit={handleOrgSignup} />
+        ) : (
+          <>
+            <div className="mt-8 flex flex-row justify-center space-x-2">
+              <div
+                className="cursor-pointer text-component-medium text-blue-1"
+                onClick={() => setActiveIndex(-1)}
+              >
+                {'Contact'}
+              </div>
+              {orgRoles.length > 0 ? (
+                <>
+                  {orgRoles.map((role, index) => {
+                    return (
+                      <div key={index}>
+                        <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
+                        <div
+                          key={index}
+                          className="cursor-pointer text-component-medium text-blue-1"
+                          onClick={() => setActiveIndex(index + 1)}
+                        >
+                          {`Role ${index + 1}`}
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <div
+                    className="flex cursor-pointer flex-row items-center space-x-2"
+                    onClick={() => setActiveIndex(0)}
+                  >
+                    <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
+                    <div className="text-component-medium">
+                      {`Role ${orgRoles.length + 1}`}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div
+                  className="flex cursor-pointer flex-row items-center space-x-2"
+                  onClick={() => setActiveIndex(0)}
+                >
+                  <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
+                  <div className="text-component-medium">Role 1</div>
+                </div>
+              )}
+            </div>
             <RoleForm
               // formList={orgRoles}
               formType={orgInfo?.commitmentTypes}
               handleNewRole={handleNewOpportunity}
               // handleEditRole={handleEditOpportunity}
             />
-          )}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

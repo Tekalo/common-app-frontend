@@ -81,7 +81,14 @@ const OptionalString = z
   .optional();
 
 const RequiredDate = z.coerce.date();
-const OptionalDate = z.coerce.date().optional();
+const OptionalDate = z
+  .string()
+  .optional()
+  .refine((str) => {
+    if (!str) return true;
+    const date = new Date(str);
+    return !isNaN(date.getTime());
+  }, 'Invalid date');
 const OrgType = z.enum(['501c(3)', '501c(4)', 'LLC', 'other'], {
   errorMap: defaultEnumErrorMap,
 });
