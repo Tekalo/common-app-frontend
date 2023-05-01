@@ -34,6 +34,13 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
 
 export type SubmissionResponseType = z.infer<typeof DraftResponseSchema>;
 
+export type AccountResponseType = {
+  email: string;
+  id: number;
+  isPaused: boolean;
+  name: string;
+};
+
 export type ContentTableData = {
   headers: {
     heading: string;

@@ -9,7 +9,11 @@ import {
   get,
   put,
 } from '@/lib/helpers/apiHelpers';
-import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
+import {
+  AccountResponseType,
+  NextPageWithLayout,
+  SubmissionResponseType,
+} from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import router from 'next/router';
@@ -20,6 +24,7 @@ export interface ICandidateAccountSection {}
 const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
     useAuth0();
+  const [accountName, setAccountName] = useState('');
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   const [matchesPaused, setMatchesPaused] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -42,11 +47,13 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       );
     };
 
-    const getMatchesPaused = async () => {
+    const getAccountData = async () => {
       get(existingApplicantEndpoint, await getAccessTokenSilently())
-        .then((res) => {
+        .then(async (res) => {
           if (res.ok) {
-            // TODO: Nikki has to write this
+            const accountResponse = (await res.json()) as AccountResponseType;
+            setAccountName(accountResponse.name);
+            setMatchesPaused(accountResponse.isPaused);
           } else {
             console.error(res.statusText);
           }
@@ -56,7 +63,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
 
     if (!isLoading) {
       if (isAuthenticated) {
-        getMatchesPaused();
+        getAccountData();
         getSubmissions();
       } else {
         router.push('/');
@@ -66,8 +73,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
 
   const updateMatchStatus = async (pause: boolean): Promise<void> => {
     put(applicantStateEndpoint, { pause }, await getAccessTokenSilently())
-      .then((res) => {
+      .then(async (res) => {
         if (res.ok) {
+          const accountResponse: AccountResponseType = await res.json();
+          setMatchesPaused(accountResponse.isPaused);
           pause ? setShowPauseModal(false) : setShowResumeModal(false);
         } else {
           console.error(res.statusText);
@@ -81,7 +90,6 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       existingApplicantEndpoint,
       await getAccessTokenSilently()
     ).then((res) => {
-      // Promise.resolve({ ok: true }).then((res) => {
       if (res.ok) {
         setShowDeleteModal(false);
         logout({ logoutParams: { returnTo: window.location.origin } });
@@ -112,7 +120,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   return (
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
       <div className="mb-2 font-display text-h3-desktop text-black-text">
-        {`Welcome Back, [Name]`}
+        {`Welcome Back, ${accountName}`}
       </div>
       <div className="mb-6 font-display text-h4-desktop text-black-text">
         {`Manage your settings`}
