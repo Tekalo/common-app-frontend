@@ -4,12 +4,12 @@ import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
-  // If the index is -1, then we are on the org signup form
-  // Otherwise, we are on the role form athe specified index of orgRoles
-  // If the index is greater than the length of orgRoles, then we are on the last role form and appending a new role
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // -1 index = signup form, else index of current role
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
@@ -24,6 +24,9 @@ const OrganizationSignup: NextPageWithLayout = () => {
     const newOpportunityList = [...orgRoles, newRole];
     setOrgRoles(newOpportunityList);
     setActiveIndex(newOpportunityList.length);
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleEditOpportunity = (editedRole: NewRoleType, index: number) => {
@@ -33,7 +36,10 @@ const OrganizationSignup: NextPageWithLayout = () => {
   };
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col items-center">
+    <div
+      className="flex min-h-screen min-w-full flex-col items-center"
+      ref={scrollRef}
+    >
       <div className="px-6 pt-10 md:px-24">
         {/* Title */}
         <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
@@ -48,13 +54,13 @@ const OrganizationSignup: NextPageWithLayout = () => {
         </div>
       </div>
 
-      <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
+      <div className="m-auto max-w-[344px] md:mt-10 lg:mt-8">
         {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm */}
         {activeIndex === -1 ? (
           <OrgSignupForm handleSubmit={handleOrgSignup} />
         ) : (
           <>
-            <div className="mt-8 flex flex-row justify-center space-x-2">
+            <div className="mb-8 flex flex-row justify-center space-x-2">
               <div
                 className="cursor-pointer text-component-medium text-blue-1"
                 onClick={() => setActiveIndex(-1)}
@@ -65,7 +71,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
                 <>
                   {orgRoles.map((role, index) => {
                     return (
-                      <div key={index}>
+                      <div key={index} className="flex flex-row">
                         <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
                         <div
                           key={index}
