@@ -1,8 +1,8 @@
 import { APPLICANT_SIGNUP_LINK } from '@/lib/constants/text';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
+import Breadcrumb from '@/modules/components/navigation/Breadcrumb/Breadcrumb';
 import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
-import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 
@@ -72,47 +72,12 @@ const OrganizationSignup: NextPageWithLayout = () => {
               >
                 {'Contact'}
               </div>
-              {orgRoles.length > 0 ? (
-                <>
-                  {/* Map the existing roles if present */}
-                  {orgRoles.map((role, index) => {
-                    return (
-                      <div key={index} className="flex flex-row">
-                        <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
-                        <div
-                          key={index}
-                          className={`cursor-pointer text-component-medium ${
-                            index === activeIndex ? '' : 'text-blue-1'
-                          }`}
-                          onClick={() => setActiveIndex(index)}
-                        >
-                          {`Role ${index + 1}`}
-                        </div>
-                      </div>
-                    );
-                  })}
-                  {/* If the active index is at the end of the roles add the new placeholder role in breadcrumb, otherwise don't render it */}
-                  {activeIndex === orgRoles.length ? (
-                    <div
-                      className="flex cursor-pointer flex-row items-center space-x-2"
-                      onClick={() => setActiveIndex(0)}
-                    >
-                      <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
-                      <div className="text-component-medium">
-                        {`Role ${orgRoles.length + 1}`}
-                      </div>
-                    </div>
-                  ) : null}
-                </>
-              ) : (
-                <div
-                  className="flex cursor-pointer flex-row items-center space-x-2"
-                  onClick={() => setActiveIndex(0)}
-                >
-                  <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
-                  <div className="text-component-medium">Role 1</div>
-                </div>
-              )}
+              <Breadcrumb
+                label="Role"
+                items={orgRoles}
+                activeIndex={activeIndex}
+                setActive={setActiveIndex}
+              />
             </div>
             <RoleForm
               // formList={orgRoles}
