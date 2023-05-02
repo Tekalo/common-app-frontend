@@ -188,7 +188,7 @@ const OpenToRemote = z.enum(['only remote', 'no remote', 'both', 'not sure'], {
   errorMap: defaultEnumErrorMap,
 });
 
-const WorkAuthorization = z.enum(['authorized', 'sponsorship'], {
+const WorkAuthorization = z.enum(['authorized', 'sponsorship', ''], {
   errorMap: defaultEnumErrorMap,
 });
 

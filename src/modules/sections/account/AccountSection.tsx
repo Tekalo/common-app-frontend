@@ -1,37 +1,108 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
-import { NextPageWithLayout } from '@/lib/types';
+import {
+  applicantStateEndpoint,
+  applicantSubmissionsEndpoint,
+  deleteRequest,
+  existingApplicantEndpoint,
+  get,
+  put,
+} from '@/lib/helpers/apiHelpers';
+import {
+  AccountResponseType,
+  NextPageWithLayout,
+  SubmissionResponseType,
+} from '@/lib/types';
+import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import router from 'next/router';
+import { useEffect, useState } from 'react';
 
-export interface ICandidateAccountSection {
-  applicationSubmitted: boolean;
-  matchesPaused: boolean;
-}
+export interface ICandidateAccountSection {}
 
-const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
-  // TODO: Hook these up to backend
-  applicationSubmitted,
-  matchesPaused,
-}) => {
+const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
+  const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
+    useAuth0();
+  const [accountName, setAccountName] = useState('');
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const [matchesPaused, setMatchesPaused] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
 
-  const onDeleteConfirm = (): void => {
-    // TODO: Do the delete
-    console.log('DELETE');
+  // User must be logged in to view this page, check for auth
+  useEffect(() => {
+    const getSubmissions = async () => {
+      get(applicantSubmissionsEndpoint, await getAccessTokenSilently()).then(
+        async (res) => {
+          if (res.ok) {
+            const submissionResponse =
+              (await res.json()) as SubmissionResponseType;
+            setApplicationSubmitted(submissionResponse.isFinal);
+          } else {
+            console.error(res.statusText);
+          }
+        }
+      );
+    };
+
+    const getAccountData = async () => {
+      get(existingApplicantEndpoint, await getAccessTokenSilently())
+        .then(async (res) => {
+          if (res.ok) {
+            const accountResponse = (await res.json()) as AccountResponseType;
+            setAccountName(accountResponse.name);
+            setMatchesPaused(accountResponse.isPaused);
+          } else {
+            console.error(res.statusText);
+          }
+        })
+        .catch((err) => console.error(err));
+    };
+
+    if (!isLoading) {
+      if (isAuthenticated) {
+        getAccountData();
+        getSubmissions();
+      } else {
+        router.push('/');
+      }
+    }
+  }, [isAuthenticated, isLoading, getAccessTokenSilently]);
+
+  const updateMatchStatus = async (pause: boolean): Promise<void> => {
+    put(applicantStateEndpoint, { pause }, await getAccessTokenSilently())
+      .then(async (res) => {
+        if (res.ok) {
+          const accountResponse: AccountResponseType = await res.json();
+          setMatchesPaused(accountResponse.isPaused);
+          pause ? setShowPauseModal(false) : setShowResumeModal(false);
+        } else {
+          console.error(res.statusText);
+        }
+      })
+      .catch((err) => console.error(err));
   };
 
-  const onPauseConfirm = (): void => {
-    // TODO: Do the pause
-    console.log('PAUSE');
+  const onDeleteConfirm = async (): Promise<void> => {
+    deleteRequest(
+      existingApplicantEndpoint,
+      await getAccessTokenSilently()
+    ).then((res) => {
+      if (res.ok) {
+        setShowDeleteModal(false);
+        logout({ logoutParams: { returnTo: window.location.origin } });
+      }
+    });
   };
 
-  const onResumeConfirm = (): void => {
-    // TODO: Do the pause
-    console.log('PAUSE');
+  const onPauseConfirm = async (): Promise<void> => {
+    updateMatchStatus(true);
+  };
+
+  const onResumeConfirm = async (): Promise<void> => {
+    updateMatchStatus(false);
   };
 
   const deleteModalConfirm = 'Delete account';
@@ -49,7 +120,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
   return (
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
       <div className="mb-2 font-display text-h3-desktop text-black-text">
-        {`Welcome Back, [Name]`}
+        {`Welcome Back, ${accountName}`}
       </div>
       <div className="mb-6 font-display text-h4-desktop text-black-text">
         {`Manage your settings`}
@@ -90,7 +161,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = ({
             ) : (
               <>
                 <div className="text-component-medium text-blue-1">
-                  <Link href="/sign-up/applicants">
+                  <Link href="/sign-up/applicants/experience-and-interests">
                     {'Continue my application >'}
                   </Link>
                 </div>

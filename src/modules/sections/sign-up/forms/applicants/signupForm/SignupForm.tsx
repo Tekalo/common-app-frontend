@@ -1,25 +1,25 @@
 import Button from '@/components/buttons/Button/Button';
 import {
   PreferredContactOptions,
-  SearchStatusOptions
+  SearchStatusOptions,
 } from '@/lib/constants/selects';
 import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
 import {
   Email,
   OptionalString,
-  PhoneNumber,
   PreferredContact,
   PrivacyPolicy,
   RequiredString,
   SearchStatus,
-  ToS
+  ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {
   BooleanField,
   FreeTextField,
   RadioGroupField,
-  SingleSelectField
+  SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 
@@ -100,7 +100,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={PhoneNumber}
+            validator={contactPhoneLinkedValidation}
           />
 
           {/* TODO Privacy Info */}

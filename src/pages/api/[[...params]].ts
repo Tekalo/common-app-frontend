@@ -6,7 +6,6 @@ export const config = {
 };
 
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
-
 const fetchResponse = async (req: NextRequest, params: string[]) => {
   const BASE_URL = (() => {
     switch (process.env.ENVIRONMENT) {
@@ -24,49 +23,46 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
   const url = `${BASE_URL}/${params.join('/')}`;
   const sessionCookie = req.cookies.get('connect.sid');
   const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
+  const authToken = req.headers.get('Authorization');
+
+  const headers: any = {
+    'Content-Type': 'application/json',
+  };
+
+  if (authToken) {
+    headers.Authorization = authToken;
+  } else if (sessionCookie?.value) {
+    headers.Cookie = cookieHeader;
+  }
 
   switch (req.method) {
     case 'POST':
       return await fetch(url, {
         method: 'POST',
         body: req.body,
-        headers: {
-          'Content-Type': 'application/json',
-          Cookie: cookieHeader,
-        } as HeadersInit,
+        headers,
       });
     case 'PUT':
       return await fetch(url, {
         method: 'PUT',
-        body: JSON.stringify(req.body),
-        headers: {
-          'Content-Type': 'application/json',
-          Cookie: cookieHeader,
-        } as HeadersInit,
+        body: req.body,
+        headers,
       });
     case 'PATCH':
       return await fetch(url, {
         method: 'PATCH',
-        body: JSON.stringify(req.body),
-        headers: {
-          'Content-Type': 'application/json',
-          Cookie: cookieHeader,
-        } as HeadersInit,
+        body: req.body,
+        headers,
       });
     case 'DELETE':
       return await fetch(url, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Cookie: cookieHeader,
-        } as HeadersInit,
+        headers,
       });
     default:
       return await fetch(url, {
         method: 'GET',
-        headers: {
-          Cookie: cookieHeader,
-        },
+        headers,
       });
   }
 };

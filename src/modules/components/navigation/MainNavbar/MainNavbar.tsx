@@ -59,7 +59,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   >
                     {logInOutLabel}
                   </div>
-                  <Link href={isAuthenticated ? '/dashboard' : '/sign-up'}>
+                  <Link href={isAuthenticated ? '/account' : '/sign-up'}>
                     {isAuthenticated ? (
                       <div className="cursor-pointer px-3 py-3 text-component-extra-large font-normal text-black-text md:px-6">
                         My account

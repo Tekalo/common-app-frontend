@@ -221,13 +221,14 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={OptionalString.array()}
           />
           {/* Work Auth*/}
+          {/* TODO: This is not allowed to be optional for some reason */}
           <SingleSelectField
             fieldName="workAuthorization"
             label="Work authorization (optional)"
             placeholder="Choose one"
             listOptions={AuthorizationOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm ? savedForm.workAuthorization : ''}
+            initialValue={savedForm?.workAuthorization || undefined}
             validator={WorkAuthorization}
           />
           {/* Gov Interest*/}
@@ -243,6 +244,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={TrueFalseString}
           />
           {/* Gov Opp Type*/}
+          {/* TODO: This is not allowed to be optional if not required */}
           <MultiSelectField
             fieldName="interestGovtEmplTypes"
             listenTo={['interestGovt']}
@@ -252,7 +254,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             selectionLabelSingle=" Opportunities selected"
             listOptions={USDROptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm ? savedForm.interestGovtEmplTypes : []}
+            initialValue={savedForm?.interestGovtEmplTypes || []}
             validator={GovtJobType.array().optional()}
             disabled={govRef.current?.value.toString() !== 'true'}
           />

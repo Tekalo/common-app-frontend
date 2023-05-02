@@ -99,6 +99,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           />
 
           {/* Other Skills */}
+          {/* TODO: This is not allowed to be undefined for some reason */}
           <FreeTagField
             fieldName="otherSkills"
             label="Other skills (optional)"

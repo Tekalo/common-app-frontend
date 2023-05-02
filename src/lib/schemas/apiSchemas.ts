@@ -8,6 +8,28 @@ import {
 } from '@/lib/enums';
 import { z } from 'zod';
 
+const SubmissionResponseSchema = z.object({
+  roleType: Roles,
+  positionTitle: z.string().max(255),
+  fullyRemote: z.boolean(),
+  location: z.string(),
+  paid: z.boolean(),
+  pitchEssay: z.string().max(5000),
+  source: z.string(),
+  employmentType: z.string().max(255),
+  salaryRange: z.string().max(255),
+  desiredHoursPerWeek: z.string().max(255).nullable().optional(),
+  desiredStartDate: z.coerce.date().optional(),
+  desiredEndDate: z.coerce.date().optional(),
+  jdUrl: z.string().max(500).optional(),
+  desiredYoe: z.array(YOE_RANGE),
+  desiredSkills: z.array(Skills),
+  desiredOtherSkills: z.string().max(255).optional(),
+  visaSponsorship: VisaSponsorship,
+  similarStaffed: z.boolean(),
+  desiredImpactExp: z.string().max(5000).optional(),
+});
+
 const NewOrgOppSchema = z.object({
   organization: z.object({
     name: z.string().max(255),
@@ -21,29 +43,7 @@ const NewOrgOppSchema = z.object({
     email: z.string().max(255),
     phone: z.string().max(255).nullable().optional(),
   }),
-  submissions: z.array(
-    z.object({
-      roleType: Roles,
-      positionTitle: z.string().max(255),
-      fullyRemote: z.boolean(),
-      location: z.string(),
-      paid: z.boolean(),
-      pitchEssay: z.string().max(5000),
-      source: z.string(),
-      employmentType: z.string().max(255),
-      salaryRange: z.string().max(255),
-      desiredHoursPerWeek: z.string().max(255).nullable().optional(),
-      desiredStartDate: z.coerce.date().optional(),
-      desiredEndDate: z.coerce.date().optional(),
-      jdUrl: z.string().max(500).optional(),
-      desiredYoe: z.array(YOE_RANGE),
-      desiredSkills: z.array(Skills),
-      desiredOtherSkills: z.string().max(255).optional(),
-      visaSponsorship: VisaSponsorship,
-      similarStaffed: z.boolean(),
-      desiredImpactExp: z.string().max(5000).optional(),
-    })
-  ),
+  submissions: z.array(SubmissionResponseSchema),
 });
 
 const NewOrgOppResponseSchema = z.object({
@@ -57,4 +57,9 @@ const NewOrgOppResponseSchema = z.object({
   orgType: z.string(),
 });
 
-export { NewOrgOppSchema, NewOrgOppResponseSchema };
+const DraftResponseSchema = z.object({
+  submission: SubmissionResponseSchema,
+  isFinal: z.boolean(),
+});
+
+export { DraftResponseSchema, NewOrgOppSchema, NewOrgOppResponseSchema };
