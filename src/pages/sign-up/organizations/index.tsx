@@ -4,47 +4,34 @@ import Breadcrumb from '@/modules/components/navigation/Breadcrumb/Breadcrumb';
 import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   // -1 index = signup form, else index of current role
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
 
-  const scrollToTop = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleOrgSignup = (values: NewOrgType) => {
     setOrgInfo(values);
     setActiveIndex(0);
-    scrollToTop();
   };
 
-  const handleNewOpportunity = (newRole: NewRoleType) => {
+  const handleNewRole = (newRole: NewRoleType) => {
     const newOpportunityList = [...orgRoles, newRole];
     setOrgRoles(newOpportunityList);
     setActiveIndex(newOpportunityList.length);
-    scrollToTop();
   };
 
-  // TODO: Implement the edit role functionality
-  const handleEditOpportunity = (editedRole: NewRoleType, index: number) => {
-    const newOpportunityList = [...(orgRoles || [])];
-    newOpportunityList[index] = editedRole;
+  const handleEditRole = (editedRole: NewRoleType) => {
+    const newOpportunityList = [...orgRoles];
+    newOpportunityList[activeIndex] = editedRole;
     setOrgRoles(newOpportunityList);
+    setActiveIndex(activeIndex + 1);
   };
 
   return (
-    <div
-      className="flex min-h-screen min-w-full flex-col items-center"
-      ref={scrollRef}
-    >
+    <div className="flex min-h-screen min-w-full flex-col items-center">
       <div className="px-6 pt-10 md:px-24">
         {/* Title */}
         <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
@@ -84,7 +71,8 @@ const OrganizationSignup: NextPageWithLayout = () => {
             </div>
             <RoleForm
               formType={orgInfo?.commitmentTypes}
-              handleNewRole={handleNewOpportunity}
+              handleNewRole={handleNewRole}
+              handleEditRole={handleEditRole}
               previousForm={orgRoles[activeIndex]}
               activeIndex={activeIndex}
             />

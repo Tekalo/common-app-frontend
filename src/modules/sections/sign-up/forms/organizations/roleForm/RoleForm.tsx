@@ -30,34 +30,39 @@ import {
   SingleSelectField,
 } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { z } from 'zod';
 
 export interface IRoleForm {
   formType: CommitmentType[] | undefined;
   handleNewRole: (values: NewRoleType) => void;
+  handleEditRole: (values: NewRoleType) => void;
   previousForm: NewRoleType | undefined;
   activeIndex: number;
 }
 
+const useMountEffect = (fun: () => void) => useEffect(fun);
+
 const RoleForm: React.FC<IRoleForm> = ({
   formType,
   handleNewRole,
+  handleEditRole,
   previousForm,
   activeIndex,
 }) => {
-  const [activeIdx, setActiveIdx] = useState<number>();
-
-  useEffect(() => {
-    setActiveIdx(activeIndex);
-  }, [activeIndex]);
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  useMountEffect(executeScroll);
 
   return (
     <Form<NewRoleType>
       onSubmit={(values) => {
-        handleNewRole(values);
+        if (previousForm) {
+          handleEditRole(values);
+        } else {
+          handleNewRole(values);
+        }
       }}
-      key={activeIdx}
+      key={activeIndex}
     >
       {({ isSubmitted, submit, reset }) => (
         <form
@@ -265,7 +270,7 @@ const RoleForm: React.FC<IRoleForm> = ({
           {/* Form Control Button*/}
           <Button
             className="mt-4 w-full text-component-large"
-            label="Add another role"
+            label={previousForm ? 'Go to next role' : 'Add another role'}
             type="submit"
           />
         </form>
