@@ -20,7 +20,7 @@ import {
   VisaSponsorship,
   YOE_RANGE,
 } from '@/lib/enums';
-import { CommitmentType, NewRoleType } from '@/lib/types';
+import { CommitmentType, FieldBooleanType, NewRoleType } from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
@@ -30,7 +30,7 @@ import {
   SingleSelectField,
 } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IRoleForm {
@@ -51,6 +51,7 @@ const RoleForm: React.FC<IRoleForm> = ({
   isLastRole,
 }) => {
   const partTimeForm = !(formType?.length === 1 && formType?.includes('full'));
+  const isPaidRef = useRef<FieldBooleanType>(null);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   useEffect(executeScroll);
@@ -84,6 +85,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               isSubmitted={isSubmitted}
               initialValue={previousForm?.paid}
               validator={z.boolean()}
+              ref={isPaidRef}
             />
           )}
 
@@ -103,7 +105,13 @@ const RoleForm: React.FC<IRoleForm> = ({
                 fieldName="employmentType"
                 label="What type of opportunity is this?"
                 placeholder="Choose one"
-                listOptions={EmploymentOptions}
+                listOptions={
+                  isPaidRef.current?.value
+                    ? EmploymentOptions.filter(
+                        (option) => option.value !== 'volunteer'
+                      )
+                    : EmploymentOptions
+                }
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.employmentType}
                 validator={EmploymentType}
@@ -146,6 +154,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             isSubmitted={isSubmitted}
             initialValue={previousForm?.salaryRange}
             validator={RequiredString}
+            disabled={!isPaidRef.current?.value}
           />
 
           {partTimeForm && (
