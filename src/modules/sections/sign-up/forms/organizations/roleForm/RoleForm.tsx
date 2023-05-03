@@ -39,9 +39,8 @@ export interface IRoleForm {
   handleEditRole: (values: NewRoleType) => void;
   previousForm: NewRoleType | undefined;
   activeIndex: number;
+  isLastRole: boolean;
 }
-
-const useMountEffect = (fun: () => void) => useEffect(fun);
 
 const RoleForm: React.FC<IRoleForm> = ({
   formType,
@@ -49,9 +48,10 @@ const RoleForm: React.FC<IRoleForm> = ({
   handleEditRole,
   previousForm,
   activeIndex,
+  isLastRole,
 }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-  useMountEffect(executeScroll);
+  useEffect(executeScroll);
 
   return (
     <Form<NewRoleType>
@@ -270,7 +270,7 @@ const RoleForm: React.FC<IRoleForm> = ({
           {/* Form Control Button*/}
           <Button
             className="mt-4 w-full text-component-large"
-            label={previousForm ? 'Go to next role' : 'Add another role'}
+            label={isLastRole ? 'Add another role' : 'Go to next role'}
             type="submit"
           />
         </form>

@@ -75,6 +75,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
               handleEditRole={handleEditRole}
               previousForm={orgRoles[activeIndex]}
               activeIndex={activeIndex}
+              isLastRole={activeIndex === orgRoles.length - 1}
             />
           </>
         )}
