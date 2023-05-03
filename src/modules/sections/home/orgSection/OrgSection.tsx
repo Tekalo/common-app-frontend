@@ -37,11 +37,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
   ];
 
   return (
-    <section className="grid w-full place-items-center px-6 py-14">
+    <section className="grid w-full place-items-center px-6 pb-20 pt-16">
       <div className="">
         {/* Title */}
         <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 lg:mb-14 lg:text-large-caption-desktop">
-          Organizations that recruit though [name]
+          Organizations that recruit though Tekalo
         </div>
         {/* Logo Grid */}
         <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-4 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
@@ -56,7 +56,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
             );
           })}
         </div>
-        <div className="mt-6 text-center text-component-extra-large text-blue-1 transition-all lg:mt-8">
+        <div className="mt-6 text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large">
           <a href="#">See more</a>
         </div>
       </div>
