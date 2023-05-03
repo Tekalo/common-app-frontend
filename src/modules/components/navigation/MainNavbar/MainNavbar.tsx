@@ -24,19 +24,22 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   return (
     <div>
       <nav className="fixed z-30 w-screen bg-white">
-        <div className="mx-auto h-auto xs:px-1 sm:px-4 md:px-10 lg:px-20">
+        <div className="mx-auto h-auto xs:px-1 sm:px-4 md:px-14 lg:px-20">
           <div className="space-y-50 flex justify-around sm:justify-between">
-            <div className="flex py-4">
+            <div className="flex items-center py-4 md:gap-x-6 md:py-6">
               {/* Logo */}
               <Link href="/" className="">
                 <img
                   src="/images/logo_nav.png"
                   alt="Tekalo Logo"
-                  className="py-1"
+                  className="max-w-[96px] py-1 md:max-w-[none]"
                 />
               </Link>
+              <div className="hidden text-p3-mobile md:block md:pt-2">
+                Powered by Futures Engine
+              </div>
             </div>
-            <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-10">
+            <div className="flex items-center space-x-4 md:space-x-9 lg:space-x-10">
               {isLoading ? (
                 // Creates skeleton loader to handle waiting for auth check
                 <div className="flex flex-auto animate-pulse flex-row space-x-4">

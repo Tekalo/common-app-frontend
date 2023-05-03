@@ -49,11 +49,11 @@ const roleImages = [
 // TODO: Replace images with next/image --> figure out cloudflare + next/image
 const AboutSection: React.FC<IAboutSection> = () => {
   return (
-    <div className="flex flex-col items-center px-6 pb-12 pt-20 md:pt-16">
+    <div className="flex flex-col items-center px-6 pb-12 pt-20 md:pb-20 md:pt-16">
       <div className="w-full max-w-content-area">
         {/* Coalition Logos */}
-        <div className="mb-16 min-w-full lg:mb-28">
-          <p className="mb-6 text-center font-display text-large-caption-mobile uppercase text-gray-1 md:text-large-caption-mobile lg:mb-10 lg:text-large-caption-desktop">
+        <div className="mb-16 min-w-full md:mb-24 lg:mb-28">
+          <p className="mb-6 text-center font-display text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-10 lg:text-large-caption-desktop">
             TEKALO is supported by
           </p>
           <div className="mx-auto flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-9 gap-y-6 px-4 md:max-w-[none] md:gap-y-8 lg:max-w-[none] lg:gap-y-10">
@@ -74,18 +74,18 @@ const AboutSection: React.FC<IAboutSection> = () => {
         </div>
         {/* Content */}
         <div className="flex flex-col items-center">
-          <h2 className="mb-6 text-center font-display text-h3-mobile text-black-text md:px-32 lg:mb-10 lg:p-0 lg:text-h2-desktop">
+          <h2 className="mb-6 max-w-[590px] text-center font-display text-h3-mobile text-black-text md:text-h2-mobile lg:mb-10 lg:p-0 lg:text-h2-desktop">
             Tekalo aims to bridge the gap between tech talent and impactful
             opportunities.
           </h2>
-          <p className="mb-14 text-center font-sans text-p2-desktop font-normal text-black-text md:px-16 md:text-p2-desktop lg:mb-8 lg:text-p1-desktop">
+          <p className="mb-14 max-w-[590px] text-center font-sans text-p2-desktop font-normal text-black-text md:text-p1-mobile lg:mb-8 lg:text-p1-desktop">
             Now more than ever, impact-driven organizations need tech talent
             that is passionate about solving some of the world’s hardest, most
             pressing problems.
           </p>
         </div>
         {/* Pronunciation */}
-        <div className="mb-20 rounded-lg border-2 border-black-text bg-light-orange px-14 py-6 text-center">
+        <div className="m-auto mb-20 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange px-14 py-6 text-center">
           Pronounced <span className="font-bold">TE</span>•ka•lo
         </div>
         {/* Goals */}
@@ -93,7 +93,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
           <div className="text-center font-display text-h3-mobile">
             Through Tekalo we want to:
           </div>
-          <div className="mt-6 pl-7 text-p1-mobile">
+          <div className="m-auto mt-6 max-w-[590px] pl-7 text-p1-mobile">
             <ol className="list-decimal">
               <li>
                 Empower tech talent to follow non-traditional tech paths, and
@@ -114,18 +114,28 @@ const AboutSection: React.FC<IAboutSection> = () => {
           </div>
         </div>
         {/* Benefits Image */}
-        <div className="mb-16 md:mb-24 lg:mb-28">
+        <div className="mb-16 md:mb-16 lg:mb-28">
+          {/* Mobile Benefit Hero */}
           <img
             src="/images/BenefitHero_sm.png"
             alt="Benefits Image"
-            className="relative -left-[3px] m-auto w-[101%] max-w-[315px]"
+            className="relative -left-[3px] m-auto w-[101%] max-w-[315px] md:hidden"
+          />
+          {/* Tablet Benefit Hero */}
+          <img
+            src="/images/BenefitHero_md.png"
+            alt="Benefits Image"
+            className="m-auto hidden md:block"
           />
         </div>
         {/* Roles */}
         <div className="">
-          <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:text-h3-mobile lg:mb-12 lg:text-h3-desktop">
+          <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:hidden">
             Roles being recruited through Tekalo
           </h3>
+          <div className="mb-10 hidden text-center font-display text-h4-mobile md:block">
+            Full-time and part-time roles being recruited through Tekalo
+          </div>
           <div className="mx-auto flex flex-wrap justify-center md:max-w-[1000px] md:gap-x-4 lg:gap-x-8 lg:px-4">
             {roleImages.map((role, i) => (
               <img

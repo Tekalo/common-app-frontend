@@ -37,10 +37,10 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
   ];
 
   return (
-    <section className="grid w-full place-items-center px-6 pb-20 pt-16">
+    <section className="md:pb- grid w-full place-items-center px-6 pb-20 pt-16">
       <div className="">
         {/* Title */}
-        <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 lg:mb-14 lg:text-large-caption-desktop">
+        <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-14 lg:text-large-caption-desktop">
           Organizations that recruit though Tekalo
         </div>
         {/* Logo Grid */}
@@ -61,7 +61,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
         </div>
       </div>
       {/* CTA Box*/}
-      <div className="relative mt-20 max-w-[475px] lg:mt-28 lg:max-w-[608px]">
+      <div className="relative mt-20 max-w-[475px] md:mt-40 lg:mt-28 lg:max-w-[608px]">
         {/* Offset Blackbox */}
         <div className="absolute -bottom-1 -right-2 left-0 top-2 rounded-2xl bg-[#363D3F]" />
         <div className="relative z-10 rounded-[10px] bg-light-orange ring-4 ring-illustration-black">
