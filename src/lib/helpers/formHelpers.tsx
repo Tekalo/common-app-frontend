@@ -16,13 +16,17 @@ export const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
   return errorMessage;
 };
 
+export const capitalizeFirstLetter = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 // Helper to create option selects given supporting Zod enums
 export const createOptionList = (
   enumOptions: Array<string>
 ): Array<ISelectItem> => {
   return enumOptions.map((option: string) => ({
     value: option,
-    displayText: option[0].toUpperCase() + option.slice(1),
+    displayText: capitalizeFirstLetter(option),
   }));
 };
 

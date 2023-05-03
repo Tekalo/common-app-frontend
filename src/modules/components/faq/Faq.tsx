@@ -3,12 +3,13 @@ import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
 export interface IFaq {
-  faqItems: Array<IFaqItem>;
+  faqItems: IFaqItem[];
+  className?: string;
 }
 
-const Faq: React.FC<IFaq> = ({ faqItems }) => {
+const Faq: React.FC<IFaq> = ({ faqItems, className }) => {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className={`max-w-7xl mx-auto ${className}`}>
       <dl className="space-y-3 divide-y divide-gray-3 border-b border-b-gray-3 pb-8 md:space-y-8">
         {faqItems.map((faq, i) => (
           <Disclosure

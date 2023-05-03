@@ -1,15 +1,11 @@
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgFormPage from '@/modules/sections/sign-up/OrgFormPage/OrgFormPage';
+import OrgReviewPage from '@/modules/sections/sign-up/OrgReviewPage/OrgReviewPage';
 import { useState } from 'react';
 
-// TODO: Render Review Page
-
 const OrganizationSignup: NextPageWithLayout = () => {
-  /**
-   * If activeIndex is -1 show the OrgSignupForm
-   * Else index orgRoles
-   */
+  // activeIdx -1 = orgInfo else orgRoles[activeIdx]
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
@@ -19,8 +15,6 @@ const OrganizationSignup: NextPageWithLayout = () => {
     setOrgInfo(values);
     setActiveIndex(0);
   };
-
-  // TODO - If goToReview is true, render review page!
 
   const handleNewRole = (newRole: NewRoleType, reviewReady = false) => {
     const newOpportunityList = [...orgRoles, newRole];
@@ -40,7 +34,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
   return (
     <>
       {showReview ? (
-        <div>Hello</div>
+        <OrgReviewPage orgInfo={orgInfo} orgRoles={orgRoles} />
       ) : (
         <OrgFormPage
           activeIndex={activeIndex}
