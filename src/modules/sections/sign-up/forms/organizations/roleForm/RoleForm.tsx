@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
   EmploymentOptions,
   PaidOptions,
@@ -50,6 +50,8 @@ const RoleForm: React.FC<IRoleForm> = ({
   activeIndex,
   isLastRole,
 }) => {
+  const partTimeForm = !(formType?.length === 1 && formType?.includes('full'));
+
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   useEffect(executeScroll);
 
@@ -64,7 +66,7 @@ const RoleForm: React.FC<IRoleForm> = ({
       }}
       key={activeIndex}
     >
-      {({ isSubmitted, submit, reset }) => (
+      {({ isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -73,16 +75,17 @@ const RoleForm: React.FC<IRoleForm> = ({
           className="flex flex-col space-y-8"
         >
           {/* Description Section */}
-          {/* TODO: Conditionally render */}
-          <RadioSelectField
-            fieldName="paid"
-            label="Is this role paid or unpaid?"
-            rowAlign={true}
-            listOptions={PaidOptions}
-            isSubmitted={isSubmitted}
-            initialValue={previousForm?.paid}
-            validator={z.boolean()}
-          />
+          {partTimeForm && (
+            <RadioSelectField
+              fieldName="paid"
+              label="Is this role paid or unpaid?"
+              rowAlign={true}
+              listOptions={PaidOptions}
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.paid}
+              validator={z.boolean()}
+            />
+          )}
 
           <SingleSelectField
             fieldName="roleType"
@@ -94,25 +97,28 @@ const RoleForm: React.FC<IRoleForm> = ({
             validator={Roles}
           />
 
-          {/* TODO: Conditionally render */}
-          <SingleSelectField
-            fieldName="employmentType"
-            label="What type of opportunity is this?"
-            placeholder="Choose one"
-            listOptions={EmploymentOptions}
-            isSubmitted={isSubmitted}
-            initialValue={previousForm?.employmentType}
-            validator={EmploymentType}
-          />
+          {partTimeForm && (
+            <>
+              <SingleSelectField
+                fieldName="employmentType"
+                label="What type of opportunity is this?"
+                placeholder="Choose one"
+                listOptions={EmploymentOptions}
+                isSubmitted={isSubmitted}
+                initialValue={previousForm?.employmentType}
+                validator={EmploymentType}
+              />
 
-          <FreeTextField
-            fieldName="employmentType"
-            label="If you chose other, please specify (optional)"
-            placeholder="Type of opportunity"
-            isSubmitted={isSubmitted}
-            initialValue={previousForm?.employmentType}
-            validator={OptionalString}
-          />
+              <FreeTextField
+                fieldName="employmentType"
+                label="If you chose other, please specify (optional)"
+                placeholder="Type of opportunity"
+                isSubmitted={isSubmitted}
+                initialValue={previousForm?.employmentType}
+                validator={OptionalString}
+              />
+            </>
+          )}
 
           <FreeTextField
             fieldName="positionTitle"
@@ -133,25 +139,25 @@ const RoleForm: React.FC<IRoleForm> = ({
           />
 
           {/* Pay Section */}
-          {/* TODO: Conditional Label */}
           <FreeTextField
             fieldName="salaryRange"
-            label="Pay range"
-            placeholder="Eg: $40 - 60 / hour"
+            label={partTimeForm ? 'Pay range' : 'Salary range'}
+            placeholder={partTimeForm ? 'Eg: $40 - 60 / hour' : 'Enter a range'}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.salaryRange}
             validator={RequiredString}
           />
 
-          {/* TODO: Conditional Render */}
-          <FreeTextField
-            fieldName="desiredHoursPerWeek"
-            label="Desired hours per week (optional)"
-            placeholder="Approximate number of hours"
-            isSubmitted={isSubmitted}
-            initialValue={previousForm?.desiredHoursPerWeek}
-            validator={OptionalString}
-          />
+          {partTimeForm && (
+            <FreeTextField
+              fieldName="desiredHoursPerWeek"
+              label="Desired hours per week (optional)"
+              placeholder="Approximate number of hours"
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.desiredHoursPerWeek}
+              validator={OptionalString}
+            />
+          )}
 
           {/* Location Section */}
           <RadioSelectField
@@ -194,15 +200,16 @@ const RoleForm: React.FC<IRoleForm> = ({
             validator={OptionalDate}
           />
 
-          {/* TODO: Conditionally render */}
-          <FreeTextField
-            fieldName="desiredEndDate"
-            label="Desired end date (optional)"
-            placeholder="mm/dd/yyyy"
-            isSubmitted={isSubmitted}
-            initialValue={previousForm?.desiredEndDate}
-            validator={OptionalDate}
-          />
+          {partTimeForm && (
+            <FreeTextField
+              fieldName="desiredEndDate"
+              label="Desired end date (optional)"
+              placeholder="mm/dd/yyyy"
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.desiredEndDate}
+              validator={OptionalDate}
+            />
+          )}
 
           {/* Requirement Section */}
           <MultiSelectField
@@ -248,7 +255,6 @@ const RoleForm: React.FC<IRoleForm> = ({
             validator={z.boolean()}
           />
 
-          {/* TODO: Essay Section */}
           <LongTextField
             fieldName="desiredImpactExp"
             label="Desired impact-related experience or passion that you are looking for in a candidate (optional)"
@@ -268,11 +274,23 @@ const RoleForm: React.FC<IRoleForm> = ({
           />
 
           {/* Form Control Button*/}
-          <Button
-            className="mt-4 w-full text-component-large"
-            label={isLastRole ? 'Add another role' : 'Go to next role'}
-            type="submit"
-          />
+          <div className="space-y-6">
+            <Button
+              className="mt-4 w-full text-component-large"
+              label={isLastRole ? 'Add another role' : 'Go to next role'}
+              variant={ButtonVariant.OUTLINED}
+              disabled={activeIndex >= 3}
+              type="submit"
+            />
+            <Button
+              className="mt-4 w-full text-component-large"
+              label={'Go to review'}
+              onClick={() => {
+                console.log('Wees');
+              }}
+              type="button"
+            />
+          </div>
         </form>
       )}
     </Form>

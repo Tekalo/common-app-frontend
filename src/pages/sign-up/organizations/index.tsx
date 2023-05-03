@@ -1,4 +1,5 @@
 import { APPLICANT_SIGNUP_LINK } from '@/lib/constants/text';
+import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import Breadcrumb from '@/modules/components/navigation/Breadcrumb/Breadcrumb';
 import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
@@ -46,7 +47,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
         </div>
       </div>
 
-      <div className="m-auto max-w-[344px] md:mt-10 lg:mt-8">
+      <div className="m-auto mb-8 max-w-[344px] sm:mb-28 md:mb-36 md:mt-10 lg:mb-44 lg:mt-8">
         {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm and breadcrum*/}
         {activeIndex === -1 ? (
           <OrgSignupForm
@@ -55,7 +56,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
           />
         ) : (
           <>
-            <div className="mb-8 flex flex-row justify-center space-x-2">
+            <div className="mb-8 mt-8 flex flex-row justify-center sm:space-x-2">
               <div
                 className="cursor-pointer text-component-medium text-blue-1"
                 onClick={() => setActiveIndex(-1)}
@@ -85,3 +86,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
 };
 
 export default OrganizationSignup;
+
+OrganizationSignup.getLayout = (page) => (
+  <ApplicationLayout>{page}</ApplicationLayout>
+);
