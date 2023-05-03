@@ -3,7 +3,7 @@ import { NextPageWithLayout } from '@/lib/types';
 // TODO: Add privacy modal once PR is merged
 
 const OrganizationReview: NextPageWithLayout = () => {
-  return <div>Pending</div>;
+  return <div>TODO: INTEGRATE THIS COMPONENT!</div>;
   // const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   // const labels = {

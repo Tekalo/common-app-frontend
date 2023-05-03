@@ -9,9 +9,9 @@ export interface IOrgFormPage {
   orgInfo: NewOrgType | undefined;
   orgRoles: NewRoleType[];
   setActiveIndex: (newIdx: number) => void;
-  handleNewRole: (newRole: NewRoleType, goToReview?: boolean) => void;
-  handleEditRole: (editedRole: NewRoleType, goToReview?: boolean) => void;
-  handleOrgSignup: (values: NewOrgType) => void;
+  handleNewRole: (newRole: NewRoleType) => void;
+  handleEditRole: (editedRole: NewRoleType, reviewReady?: boolean) => void;
+  handleOrgSignup: (values: NewOrgType, reviewReady?: boolean) => void;
 }
 
 const OrgFormPage: React.FC<IOrgFormPage> = ({

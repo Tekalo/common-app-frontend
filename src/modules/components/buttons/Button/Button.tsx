@@ -10,6 +10,7 @@ export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   disabled?: boolean;
   variant?: ButtonVariant;
   onClick?: () => void;
+  name?: string;
 }
 
 const Button: React.FC<IButton> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<IButton> = ({
   variant,
   className,
   type,
+  name,
 }) => {
   const BASE = `group min-w-[118px] flex h-12 flex-row content-center
                 items-center justify-center rounded font-sans
@@ -49,6 +51,7 @@ const Button: React.FC<IButton> = ({
 
   return (
     <button
+      id={name}
       type={type}
       onClick={onClick}
       disabled={disabled}
