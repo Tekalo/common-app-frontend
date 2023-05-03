@@ -1,10 +1,10 @@
-import Button from '@/components/buttons/Button/Button';
+// import Button from '@/components/buttons/Button/Button';
 import {
   CauseOptions,
   CommitmentOptions,
   OrgSizeOptions,
   OrgTypeOptions,
-  TrueFalseOptions
+  TrueFalseOptions,
 } from '@/lib/constants/selects';
 import { EEOC_LABEL } from '@/lib/constants/text';
 import {
@@ -15,24 +15,26 @@ import {
   OrgSize,
   OrgType,
   PhoneNumber,
-  RequiredString
+  RequiredString,
 } from '@/lib/enums';
 
 import { NewOrgType } from '@/lib/types';
+import Button from '@/modules/components/buttons/Button/Button';
 import {
   FreeTextField,
   MultiSelectField,
   SelectBooleanField,
   SelectGroupField,
-  SingleSelectField
+  SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 
 export interface ISignupForm {
   handleSubmit: (values: NewOrgType) => void;
+  previousForm: NewOrgType | undefined;
 }
 
-const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
+const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
   return (
     <Form<NewOrgType>
       onSubmit={(values) => {
@@ -54,7 +56,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Organization name"
             placeholder="Organization's legal name"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.organization.name}
             validator={RequiredString}
           />
 
@@ -65,7 +67,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             placeholder="Choose one"
             listOptions={OrgTypeOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.organization.type}
             validator={OrgType}
           />
 
@@ -76,7 +78,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             placeholder="Choose one"
             listOptions={OrgSizeOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.organization.size}
             validator={OrgSize}
           />
 
@@ -89,8 +91,10 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             selectionLabelSingle=" Area selected"
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
-            initialValue={[]}
-            validator={Causes.array().min(1, { message: 'You must choose at least one impact area' })}
+            initialValue={previousForm?.organization.impactAreas || []}
+            validator={Causes.array().min(1, {
+              message: 'You must choose at least one impact area',
+            })}
           />
 
           {/* Contact name */}
@@ -99,7 +103,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Contact name"
             placeholder="Full name"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.contact.name}
             validator={RequiredString}
           />
 
@@ -109,7 +113,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Contact email"
             placeholder="Email address"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.contact.email}
             validator={Email}
           />
 
@@ -119,13 +123,13 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             label="Contact phone (optional)"
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.contact.phone}
             validator={PhoneNumber.optional()}
           />
 
           {/* Org Employment Types */}
           <SelectGroupField
-            fieldName="organization.employmentTypes"
+            fieldName="commitmentTypes"
             label={
               'What type(s) of positions are you looking to fill? Choose all that apply.'
             }
@@ -134,7 +138,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             }
             listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
-            initialValue={[]}
+            initialValue={previousForm?.commitmentTypes}
             validator={CommitmentType.array()}
           />
 
@@ -145,7 +149,7 @@ const SignupForm: React.FC<ISignupForm> = ({ handleSubmit }) => {
             placeholder="Choose one"
             listOptions={TrueFalseOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.organization.eoe}
             validator={EOE}
           />
 

@@ -11,7 +11,6 @@ const OrganizationSignup: NextPageWithLayout = () => {
 
   // -1 index = signup form, else index of current role
   const [activeIndex, setActiveIndex] = useState<number>(-1);
-
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
 
@@ -34,6 +33,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
     scrollToTop();
   };
 
+  // TODO: Implement the edit role functionality
   const handleEditOpportunity = (editedRole: NewRoleType, index: number) => {
     const newOpportunityList = [...(orgRoles || [])];
     newOpportunityList[index] = editedRole;
@@ -62,7 +62,10 @@ const OrganizationSignup: NextPageWithLayout = () => {
       <div className="m-auto max-w-[344px] md:mt-10 lg:mt-8">
         {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm and breadcrum*/}
         {activeIndex === -1 ? (
-          <OrgSignupForm handleSubmit={handleOrgSignup} />
+          <OrgSignupForm
+            handleSubmit={handleOrgSignup}
+            previousForm={orgInfo}
+          />
         ) : (
           <>
             <div className="mb-8 flex flex-row justify-center space-x-2">

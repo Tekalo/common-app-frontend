@@ -39,6 +39,16 @@ export interface IRoleForm {
   // handleEditRole: (values: NewRole) => void;
 }
 
+// TODO: Add formType to props and conditionally render fields
+// TODO: Add existingFormValues to props and set as initial value for form
+/**
+ * This form needs to accept "existingFormValues" as a prop
+ * If that prop changes, I believe the form should re-render
+ *
+ * The form should then display those values and potentially a
+ * "save" button
+ */
+
 const RoleForm: React.FC<IRoleForm> = ({
   // formList,
   formType,

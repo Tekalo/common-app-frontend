@@ -27,13 +27,13 @@ const NewOrgSchema = z.object({
     name: z.string().max(255),
     type: OrgType,
     size: OrgSize,
-    impactAreas: Causes,
+    impactAreas: Causes.array(),
     eoe: z.boolean(),
   }),
   contact: z.object({
     name: z.string().max(255),
     email: z.string().max(255).email(),
-    phone: z.string().max(255).nullable().optional(),
+    phone: z.string().max(255).optional(),
   }),
 });
 
