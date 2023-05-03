@@ -5,7 +5,10 @@ const base: IRoleForm = {
   // formList: [],
   formType: [CommitmentType.Enum['full']],
   handleNewRole: () => void {},
-  // handleEditRole: () => void {},
+  previousForm: undefined,
+  activeIndex: 1,
+  isLastRole: false,
+  handleEditRole: () => void {},
 };
 
 export const mockRoleFormProps = {

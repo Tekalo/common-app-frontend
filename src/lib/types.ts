@@ -15,6 +15,7 @@ import {
 
 /** Types
  */
+export type RoleRefType = FormInstance<NewRoleType>;
 export type ExperienceRefType = FormInstance<ExperienceFieldsType>;
 export type InterestRefType = FormInstance<InterestFieldsType>;
 export type FieldStringArrayType = FieldInstance<string[], unknown>;

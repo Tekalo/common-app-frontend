@@ -25,6 +25,7 @@ import {
   FieldBooleanType,
   FieldStringType,
   NewRoleType,
+  RoleRefType,
 } from '@/lib/types';
 import {
   FreeTagField,
@@ -40,11 +41,11 @@ import { z } from 'zod';
 
 export interface IRoleForm {
   formType: CommitmentType[] | undefined;
-  handleNewRole: (values: NewRoleType) => void;
-  handleEditRole: (values: NewRoleType) => void;
   previousForm: NewRoleType | undefined;
   activeIndex: number;
   isLastRole: boolean;
+  handleNewRole: (values: NewRoleType, goToReview?: boolean) => void;
+  handleEditRole: (values: NewRoleType, goToReview?: boolean) => void;
 }
 
 const RoleForm: React.FC<IRoleForm> = ({
@@ -58,25 +59,40 @@ const RoleForm: React.FC<IRoleForm> = ({
   const partTimeForm = !(formType?.length === 1 && formType?.includes('full'));
   const isPaidRef = useRef<FieldBooleanType>(null);
   const employmentTypeRef = useRef<FieldStringType>(null);
+  const formRef = useRef<RoleRefType>(null);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   useEffect(executeScroll);
 
+  // const goToReview = () => {
+  //   if (formRef.current) {
+  //     if (previousForm) {
+  //       handleEditRole(formRef.current.value, true);
+  //     } else {
+  //       handleNewRole(formRef.current.value, true);
+  //     }
+  //   }
+  // };
+
+  const doSubmit = (values: NewRoleType) => {
+    if (previousForm) {
+      handleEditRole(values);
+    } else {
+      handleNewRole(values);
+    }
+  };
+
   return (
     <Form<NewRoleType>
-      onSubmit={(values) => {
-        if (previousForm) {
-          handleEditRole(values);
-        } else {
-          handleNewRole(values);
-        }
-      }}
+      onSubmit={(values) => doSubmit(values)}
       key={activeIndex}
+      ref={formRef}
     >
       {({ isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            console.log(e);
             submit();
           }}
           className="flex flex-col space-y-8"
@@ -198,7 +214,6 @@ const RoleForm: React.FC<IRoleForm> = ({
             validator={OptionalString}
           />
 
-          {/* TODO: Disable if Volunteer selected in oppType */}
           <SingleSelectField
             fieldName="visaSponsorship"
             label="Do you offer Visa sponsorship?"
@@ -306,7 +321,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               className="mt-4 w-full text-component-large"
               label={'Go to review'}
               onClick={() => {
-                console.log('Wees');
+                console.log('SUBMIT THEN GO TO REVIEW');
               }}
               type="button"
             />
