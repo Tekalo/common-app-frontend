@@ -83,10 +83,10 @@ const OrganizationSignup: NextPageWithLayout = () => {
               />
             </div>
             <RoleForm
-              // formList={orgRoles}
               formType={orgInfo?.commitmentTypes}
               handleNewRole={handleNewOpportunity}
-              // handleEditRole={handleEditOpportunity}
+              previousForm={orgRoles[activeIndex]}
+              activeIndex={activeIndex}
             />
           </>
         )}

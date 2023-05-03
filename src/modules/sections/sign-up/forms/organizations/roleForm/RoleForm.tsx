@@ -30,36 +30,34 @@ import {
   SingleSelectField,
 } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
 export interface IRoleForm {
-  // formList: [];
   formType: CommitmentType[] | undefined;
   handleNewRole: (values: NewRoleType) => void;
-  // handleEditRole: (values: NewRole) => void;
+  previousForm: NewRoleType | undefined;
+  activeIndex: number;
 }
 
-// TODO: Add formType to props and conditionally render fields
-// TODO: Add existingFormValues to props and set as initial value for form
-/**
- * This form needs to accept "existingFormValues" as a prop
- * If that prop changes, I believe the form should re-render
- *
- * The form should then display those values and potentially a
- * "save" button
- */
-
 const RoleForm: React.FC<IRoleForm> = ({
-  // formList,
   formType,
   handleNewRole,
-  // handleEditRole,
+  previousForm,
+  activeIndex,
 }) => {
+  const [activeIdx, setActiveIdx] = useState<number>();
+
+  useEffect(() => {
+    setActiveIdx(activeIndex);
+  }, [activeIndex]);
+
   return (
     <Form<NewRoleType>
       onSubmit={(values) => {
         handleNewRole(values);
       }}
+      key={activeIdx}
     >
       {({ isSubmitted, submit, reset }) => (
         <form
@@ -77,7 +75,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             rowAlign={true}
             listOptions={PaidOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.paid}
             validator={z.boolean()}
           />
 
@@ -87,7 +85,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Choose one"
             listOptions={RoleOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.roleType}
             validator={Roles}
           />
 
@@ -98,7 +96,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Choose one"
             listOptions={EmploymentOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.employmentType}
             validator={EmploymentType}
           />
 
@@ -107,7 +105,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="If you chose other, please specify (optional)"
             placeholder="Type of opportunity"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.employmentType}
             validator={OptionalString}
           />
 
@@ -116,7 +114,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Positon Title"
             placeholder="Position title"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.positionTitle}
             validator={RequiredString}
           />
 
@@ -125,7 +123,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Link to job description (optional)"
             placeholder="Job description URL"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.jdUrl}
             validator={OptionalString}
           />
 
@@ -136,7 +134,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Pay range"
             placeholder="Eg: $40 - 60 / hour"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.salaryRange}
             validator={RequiredString}
           />
 
@@ -146,7 +144,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Desired hours per week (optional)"
             placeholder="Approximate number of hours"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.desiredHoursPerWeek}
             validator={OptionalString}
           />
 
@@ -157,7 +155,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.fullyRemote}
             validator={z.boolean()}
           />
 
@@ -166,7 +164,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Location (optional)"
             placeholder="City, state"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.location}
             validator={OptionalString}
           />
 
@@ -177,7 +175,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             placeholder="Choose one"
             listOptions={VisaSponsorshipOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.visaSponsorship}
             validator={VisaSponsorship}
           />
 
@@ -187,7 +185,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Desired start date (optional)"
             placeholder="mm/dd/yyyy"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.desiredEndDate}
             validator={OptionalDate}
           />
 
@@ -197,7 +195,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Desired end date (optional)"
             placeholder="mm/dd/yyyy"
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.desiredEndDate}
             validator={OptionalDate}
           />
 
@@ -210,7 +208,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             selectionLabelSingle=" option selected"
             listOptions={YOERangeOptions}
             isSubmitted={isSubmitted}
-            initialValue={[]}
+            initialValue={previousForm?.desiredYoe || []}
             validator={YOE_RANGE.array()}
           />
 
@@ -222,7 +220,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             selectionLabelSingle=" option selected"
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
-            initialValue={[]}
+            initialValue={previousForm?.desiredSkills || []}
             validator={Skills.array().optional()}
           />
 
@@ -231,7 +229,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Other desired skills if not listed above (optional)"
             placeholder="Desired skills separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={[]}
+            initialValue={previousForm?.desiredOtherSkills}
             validator={OptionalString.array()}
           />
 
@@ -241,7 +239,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.similarStaffed}
             validator={z.boolean()}
           />
 
@@ -251,7 +249,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="Desired impact-related experience or passion that you are looking for in a candidate (optional)"
             placeholder="Your answer here. Maximum 200 words."
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.desiredImpactExp}
             validator={OptionalEssay}
           />
 
@@ -260,7 +258,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             label="How would you pitch this role in a few sentences?"
             placeholder="Your answer here. Maximum 200 words."
             isSubmitted={isSubmitted}
-            initialValue={undefined}
+            initialValue={previousForm?.pitchEssay}
             validator={RequiredEssay}
           />
 
