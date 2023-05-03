@@ -37,7 +37,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
   ];
 
   return (
-    <section className="md:pb- grid w-full place-items-center px-6 pb-20 pt-16">
+    <section className="md:pb- grid w-full place-items-center px-6 pb-20 pt-16 lg:pb-36">
       <div className="">
         {/* Title */}
         <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-14 lg:text-large-caption-desktop">
@@ -66,20 +66,21 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
         <div className="absolute -bottom-1 -right-2 left-0 top-2 rounded-2xl bg-[#363D3F]" />
         <div className="relative z-10 rounded-[10px] bg-light-orange ring-4 ring-illustration-black">
           {/* Content */}
-          <div className="flex flex-col items-center px-8 py-6 text-center md:px-11 md:py-10 lg:px-16 lg:py-14">
+          <div className="flex flex-col items-center px-8 py-6 text-center md:px-11 md:py-10 lg:px-10 lg:py-14">
             {/* Title */}
             <div className="text-displaytext-center px-2 text-h4-mobile text-black-text lg:text-h4-desktop">
-              <p>Hire candidates that are aligned with your mission.</p>
+              <p>Find candidates that are aligned with your mission.</p>
             </div>
-            <div className="pt-4 text-center font-sans text-p2-mobile  text-black-text lg:px-16 lg:text-p1-mobile">
-              Candidates on [Name TBD] are carefully vetted and screened before
-              you decide to interview
+            <div className="pt-4 text-center font-sans text-p2-mobile text-black-text lg:px-0 lg:text-p2-desktop">
+              Instead of sorting through hundreds of applications and running
+              tons of screening calls, discover top tech talent through Tekalo.
+              Applications are currently open to all 501(c)3 organizations.
             </div>
             {/* Button */}
             <Button
               variant={ButtonVariant.OUTLINED}
               label="Apply as an organization"
-              className="mt-6 w-full max-w-[228px]"
+              className="mt-6 w-full max-w-[228px] lg:mt-10 lg:max-w-[352px]"
               onClick={() => void {}}
             />
           </div>

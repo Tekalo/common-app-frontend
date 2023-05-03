@@ -3,13 +3,12 @@
 import Button from '@/components/buttons/Button/Button';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent } from 'react';
 
 export type IMainNavbar = React.ComponentPropsWithoutRef<'header'>;
 
 const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
-  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
   const logInOutLabel = isAuthenticated ? 'Log out' : 'Sign in';
 
@@ -24,7 +23,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   return (
     <div>
       <nav className="fixed z-30 w-screen bg-white">
-        <div className="mx-auto h-auto xs:px-1 sm:px-4 md:px-14 lg:px-20">
+        <div className="mx-auto h-auto max-w-[1264px] xs:px-1 sm:px-4 md:px-14 lg:px-20">
           <div className="space-y-50 flex justify-around sm:justify-between">
             <div className="flex items-center py-4 md:gap-x-6 md:py-6">
               {/* Logo */}
@@ -35,7 +34,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   className="max-w-[96px] py-1 md:max-w-[none]"
                 />
               </Link>
-              <div className="hidden text-p3-mobile md:block md:pt-2">
+              <div className="hidden text-p3-mobile md:block md:pt-2 lg:text-p3-desktop">
                 Powered by Futures Engine
               </div>
             </div>
@@ -50,7 +49,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
               ) : (
                 <>
                   <div
-                    className="cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block md:text-component-extra-large"
+                    className="cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block md:text-component-extra-large lg:text-component-large"
                     onClick={(e) => handleAuthentication(e)}
                   >
                     {logInOutLabel}

@@ -44,7 +44,7 @@ const MainFooter: React.FC<IMainFooter> = () => {
                 /* footer link block */
                 <div
                   key={i}
-                  className="mb-6 min-w-[148px] text-left md:mb-0 md:mr-6 md:min-w-[105px]"
+                  className="mb-6 min-w-[148px] text-left md:mb-0 md:mr-6 md:min-w-[105px] lg:min-w-[160px]"
                 >
                   <div className="mb-4 text-small-caption-mobile uppercase text-gray-1">
                     {block.header}

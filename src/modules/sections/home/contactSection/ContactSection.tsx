@@ -4,8 +4,8 @@ export interface IContactSection {}
 
 const ContactSection: React.FC<IContactSection> = () => {
   return (
-    <section className="grid w-full place-items-center justify-center bg-blue-1 p-10 text-center align-middle md:py-14">
-      <div className="m-auto max-w-[618px] font-display text-white">
+    <section className="grid w-full place-items-center justify-center bg-blue-1 p-10 text-center align-middle md:py-14 lg:py-20">
+      <div className="m-auto max-w-[618px] font-display text-white lg:max-w-[none]">
         <div className="mb-4 text-h2-mobile">Get in touch</div>
         <div className="mb-6 text-h3-mobile md:mb-10 md:text-h3-mobile">
           We want to hear from you and answer your questions
