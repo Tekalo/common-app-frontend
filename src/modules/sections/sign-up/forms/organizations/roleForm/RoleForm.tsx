@@ -20,7 +20,12 @@ import {
   VisaSponsorship,
   YOE_RANGE,
 } from '@/lib/enums';
-import { CommitmentType, FieldBooleanType, NewRoleType } from '@/lib/types';
+import {
+  CommitmentType,
+  FieldBooleanType,
+  FieldStringType,
+  NewRoleType,
+} from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
@@ -52,6 +57,7 @@ const RoleForm: React.FC<IRoleForm> = ({
 }) => {
   const partTimeForm = !(formType?.length === 1 && formType?.includes('full'));
   const isPaidRef = useRef<FieldBooleanType>(null);
+  const employmentTypeRef = useRef<FieldStringType>(null);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   useEffect(executeScroll);
@@ -115,6 +121,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.employmentType}
                 validator={EmploymentType}
+                ref={employmentTypeRef}
               />
 
               <FreeTextField
@@ -165,6 +172,9 @@ const RoleForm: React.FC<IRoleForm> = ({
               isSubmitted={isSubmitted}
               initialValue={previousForm?.desiredHoursPerWeek}
               validator={OptionalString}
+              disabled={
+                employmentTypeRef.current?.value === 'full-time employee'
+              }
             />
           )}
 
@@ -197,6 +207,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             isSubmitted={isSubmitted}
             initialValue={previousForm?.visaSponsorship}
             validator={VisaSponsorship}
+            disabled={employmentTypeRef.current?.value === 'volunteer'}
           />
 
           {/* Date Section */}

@@ -19,6 +19,7 @@ export type ExperienceRefType = FormInstance<ExperienceFieldsType>;
 export type InterestRefType = FormInstance<InterestFieldsType>;
 export type FieldStringArrayType = FieldInstance<string[], unknown>;
 export type FieldBooleanType = FieldInstance<boolean, unknown>;
+export type FieldStringType = FieldInstance<string, unknown>;
 export type DraftSubmissionType = z.infer<typeof CandidateDraftSchema>;
 export type ExperienceFieldsType = z.infer<typeof CandidateExperienceSchema>;
 export type InterestFieldsType = z.infer<typeof CandidateInterestsSchema>;
