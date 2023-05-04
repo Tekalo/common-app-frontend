@@ -17,9 +17,14 @@ import RoleDetails from './sections/RoleDetails';
 export interface IReviewFormPage {
   orgInfo: NewOrgType | undefined;
   orgRoles: NewRoleType[];
+  handleEditOrg: () => void;
 }
 
-const ReviewFormPage: React.FC<IReviewFormPage> = ({ orgInfo, orgRoles }) => {
+const ReviewFormPage: React.FC<IReviewFormPage> = ({
+  orgInfo,
+  orgRoles,
+  handleEditOrg,
+}) => {
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
   return (
@@ -29,7 +34,11 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({ orgInfo, orgRoles }) => {
         {'Review your intake form'}
       </div>
       {/* Org Info */}
-      <OrgDetails titleText={'Contact and organization'} orgInfo={orgInfo} />
+      <OrgDetails
+        titleText={'Contact and organization'}
+        orgInfo={orgInfo}
+        handleEditOrg={handleEditOrg}
+      />
       {/* Roles */}
       <RoleDetails orgRoles={orgRoles} />
       {/* Privacy Acknowledgement */}

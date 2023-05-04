@@ -34,10 +34,19 @@ const OrganizationSignup: NextPageWithLayout = () => {
     setShowReview(reviewReady);
   };
 
+  const handleEditOrg = () => {
+    setActiveIndex(-1);
+    setShowReview(false);
+  };
+
   return (
     <>
       {showReview ? (
-        <ReviewForm orgInfo={orgInfo} orgRoles={orgRoles} />
+        <ReviewForm
+          orgInfo={orgInfo}
+          orgRoles={orgRoles}
+          handleEditOrg={handleEditOrg}
+        />
       ) : (
         <OrgForms
           activeIndex={activeIndex}

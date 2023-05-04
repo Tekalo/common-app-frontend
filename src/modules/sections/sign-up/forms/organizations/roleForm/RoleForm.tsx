@@ -36,7 +36,7 @@ import {
   SingleSelectField,
 } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IRoleForm {
@@ -60,17 +60,16 @@ const RoleForm: React.FC<IRoleForm> = ({
   const isPaidRef = useRef<FieldBooleanType>(null);
   const employmentTypeRef = useRef<FieldStringType>(null);
   const formRef = useRef<RoleRefType>(null);
-
-  const [reviewReady, setReviewReady] = useState<boolean>(false);
+  const reviewReadyRef = useRef<boolean>(false);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   useEffect(executeScroll);
 
   const doSubmit = (values: NewRoleType) => {
     if (previousForm) {
-      handleEditRole(values, reviewReady);
+      handleEditRole(values, reviewReadyRef.current);
     } else {
-      handleNewRole(values, reviewReady);
+      handleNewRole(values, reviewReadyRef.current);
     }
   };
 
@@ -321,7 +320,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               className="mt-4 w-full text-component-large"
               label={'Go to review'}
               onClick={() => {
-                setReviewReady(isValid);
+                reviewReadyRef.current = isValid;
                 submit();
               }}
               type="button"

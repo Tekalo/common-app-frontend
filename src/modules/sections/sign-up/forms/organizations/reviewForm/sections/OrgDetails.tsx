@@ -5,9 +5,14 @@ import { NewOrgType } from '@/lib/types';
 export interface IOrgDetails {
   titleText: string;
   orgInfo: NewOrgType | undefined;
+  handleEditOrg: () => void;
 }
 
-const OrgDetails: React.FC<IOrgDetails> = ({ titleText, orgInfo }) => {
+const OrgDetails: React.FC<IOrgDetails> = ({
+  titleText,
+  orgInfo,
+  handleEditOrg,
+}) => {
   return (
     <div className="mt-12 border-b border-b-gray-3 pb-8">
       <div className="font-dispay text-h4-desktop text-black-text">
@@ -63,10 +68,7 @@ const OrgDetails: React.FC<IOrgDetails> = ({ titleText, orgInfo }) => {
       </div>
       <div
         className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-blue-1"
-        onClick={() => {
-          // TODO: Send me back to the form contact stuff!
-          console.log('Send me back to the form contact stuff!');
-        }}
+        onClick={handleEditOrg}
       >
         <div>{'Edit contact and organization'}</div>
         <div>{EditSVG}</div>
