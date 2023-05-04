@@ -1,7 +1,9 @@
+import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
-import OrgForms from '@/modules/sections/sign-up/forms/organizations';
-import ReviewForm from '@/modules/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
+import { ButtonVariant } from '@/modules/components/buttons/Button/Button';
+import OrgForms from '@/sections/sign-up/forms/organizations';
+import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
 import { useState } from 'react';
 
 // TODO: Delete role and delete role modal confirmation
@@ -9,10 +11,12 @@ import { useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
+
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
   const [showReview, setShowReview] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const handleOrgSignup = (values: NewOrgType) => {
     setOrgInfo(values);
@@ -35,10 +39,16 @@ const OrganizationSignup: NextPageWithLayout = () => {
   };
 
   const handleDeleteRole = (idx: number) => {
+    setActiveIndex(idx);
+    setShowDeleteModal(true);
+  };
+
+  const handleRoleRemoval = () => {
     const newOpportunityList = [...orgRoles];
-    newOpportunityList.splice(idx, 1);
+    newOpportunityList.splice(activeIndex, 1);
     setOrgRoles(newOpportunityList);
     setActiveIndex(newOpportunityList.length - 1);
+    setShowDeleteModal(false);
   };
 
   const handleGoToOrg = () => {
@@ -71,6 +81,21 @@ const OrganizationSignup: NextPageWithLayout = () => {
           handleOrgSignup={handleOrgSignup}
           handleDeleteRole={handleDeleteRole}
           setActiveIndex={setActiveIndex}
+        />
+      )}
+      {showDeleteModal && (
+        <ConfirmModal
+          headline={'Delete this role'}
+          bodyText={
+            'Are you sure you want to delete this role? You won’t be able to undo this.'
+          }
+          cancelBtnText={'Cancel'}
+          confirmBtnText={'Delete role'}
+          isOpen={showDeleteModal}
+          confirmBtnVariant={ButtonVariant.RED}
+          closeModal={() => setShowDeleteModal(false)}
+          onConfirm={handleRoleRemoval}
+          onCancel={() => setShowDeleteModal(false)}
         />
       )}
     </>
