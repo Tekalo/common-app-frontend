@@ -25,7 +25,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
             />
             {/* Desktop Hero */}
             <div className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
-              Match to what matters; build a better world.
+              Match to what matters, build a better world
             </div>
             <div className="mb-6 text-center text-p1-mobile md:mb-8 md:text-left lg:mb-8 lg:text-p1-desktop">
               An initiative that matches tech talent with impact-driven
@@ -37,14 +37,14 @@ const HeroSection: React.FC<IHeroSection> = () => {
             {/* CTA Buttons */}
             <div className="flex justify-center gap-x-1 sm:gap-x-4 md:justify-start md:gap-x-6">
               <Button
-                variant={ButtonVariant.OUTLINED}
-                label="For organizations"
-                className="flex-none flex-nowrap p-1 sm:p-3 md:flex-auto lg:flex-none lg:px-7"
+                label="For candidates"
+                className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:flex-auto md:px-7 md:py-3 lg:flex-none lg:px-10"
                 onClick={() => void {}}
               />
               <Button
-                label="For candidates"
-                className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:flex-auto md:px-7 md:py-3 lg:flex-none lg:px-10"
+                variant={ButtonVariant.OUTLINED}
+                label="For organizations"
+                className="flex-none flex-nowrap p-1 sm:p-3 md:flex-auto lg:flex-none lg:px-7"
                 onClick={() => void {}}
               />
             </div>

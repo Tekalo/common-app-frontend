@@ -4,12 +4,8 @@ const TestimonialSection: React.FC<ITestimonialSection> = () => {
   return (
     <section className="bg-light-orange">
       {/* TITLE */}
-      <div className="m-auto max-w-content-area px-7 pb-10 pt-14 md:px-24 md:pb-14 lg:py-28 lg:pb-20">
-        <div className="text-center font-display text-large-caption-desktop uppercase text-gray-1 md:text-large-caption-mobile lg:hidden">
-          Tech talent solving impactful problems lorem ipsum
-        </div>
-
-        <div className="relative m-auto mt-10 max-w-[320px] md:max-w-[428px] lg:mt-0 lg:max-w-[640px]">
+      <div className="m-auto max-w-content-area px-7 py-10 md:px-24 md:pb-14 lg:py-28 lg:pb-20">
+        <div className="relative m-auto max-w-[320px] md:max-w-[428px] lg:max-w-[640px]">
           <div className="relative h-0 pb-[67%]">
             {/* TODO: Obviously this is a placeholder video, right now the
                       aspect ratio is set to 3:2. If we want to change the ratio

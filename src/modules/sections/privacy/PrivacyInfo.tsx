@@ -165,11 +165,11 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
   const orgFAQS: Array<IFaqItem> = [
     {
       questionText: 'OrgHello',
-      answerText: 'OrgWorld',
+      answerText: <>OrgWorld</>,
     },
     {
       questionText: 'OrgZar',
-      answerText: 'OrgDoz',
+      answerText: <>OrgDoz</>,
     },
   ];
 
@@ -177,52 +177,76 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
     {
       questionText:
         'What are Matchmakers, Organizations, and Service Providers?',
-      answerText: `Matchmakers are entities who have partnered with us to help review
-        applications and match individuals with Organizations that might be a
-        good fit. Organizations are entities that are looking for talented
-        individuals. Service Providers are vendors who provide services that
-        support CommonApp such as web hosting, cloud services, analytics, and
-        email marketing.`,
+      answerText: (
+        <>
+          Matchmakers are entities who have partnered with us to help review
+          applications and match individuals with Organizations that might be a
+          good fit. Organizations are entities that are looking for talented
+          individuals. Service Providers are vendors who provide services that
+          support CommonApp such as web hosting, cloud services, analytics, and
+          email marketing.
+        </>
+      ),
     },
     {
       questionText: 'How will my info be shared?',
-      answerText: `Matchmakers from Schmidt Futures and our collaborating
-        organizations, such as All Tech Is Human and Fast Forward, will review
-        applications and identify potential matches. They will then reach out
-        to you to share those potential matches and seek your permission to
-        make your info available to the matched Organizations`,
+      answerText: (
+        <>
+          Matchmakers from Schmidt Futures and our collaborating organizations,
+          such as All Tech Is Human and Fast Forward, will review applications
+          and identify potential matches. They will then reach out to you to
+          share those potential matches and seek your permission to make your
+          info available to the matched Organizations
+        </>
+      ),
     },
     {
       questionText: 'Do you show ads?',
-      answerText: `We don't show any ads on CommonApp! We only promote CommonApp itself
-        via things like social media ads and email marketing, and we use
-        tracking technologies such as cookies, pixels, and beacons to measure
-        their performance.`,
+      answerText: (
+        <>
+          We don&apos;t show any ads on CommonApp! We only promote CommonApp
+          itself via things like social media ads and email marketing, and we
+          use tracking technologies such as cookies, pixels, and beacons to
+          measure their performance.
+        </>
+      ),
     },
     {
       questionText: 'What rights do I have to respect to my data?',
-      answerText: `We offer everyone the right to delete their data, access a copy of
-        their data, withdraw consent to data processing, object to or restrict
-        data processing, and rectify (correct inaccuracies or supplement
-        incomplete info). For your protection, we have to verify your identity
-        before taking action. Also, we can't always fully comply with a
-        request, such as when doing so would reveal someone else's info, or
-        when we're legally required to retain info. Please contact us at
-        privacy@commonapp.com to submit a request or if you have any other data
-        privacy questions.`,
+      answerText: (
+        <>
+          We offer everyone the right to delete their data, access a copy of
+          their data, withdraw consent to data processing, object to or restrict
+          data processing, and rectify (correct inaccuracies or supplement
+          incomplete info). For your protection, we have to verify your identity
+          before taking action. Also, we can&apos;t always fully comply with a
+          request, such as when doing so would reveal someone else&apos;s info,
+          or when we&apos;re legally required to retain info. Please contact us
+          at privacy@commonapp.com to submit a request or if you have any other
+          data privacy questions.
+        </>
+      ),
     },
     {
       questionText: 'Where Is My Data Stored?',
-      answerText: `All of our Matchmakers and Service Providers who store data
-                  are located in the United States.`,
+      answerText: (
+        <>
+          All of our Matchmakers and Service Providers who store data are
+          located in the United States.
+        </>
+      ),
     },
     {
       questionText: 'What are your lawful bases for processing?',
-      answerText: `Bravo if you care enough about your privacy to read this
-      information! Please see below. Note that “Legitimate Interests” refers to
-      something that (i) we think is desirable to us or someone else
-      (including you), (ii) reasonably expected given the nature of our
-      services, and (iii) doesn't create any undue risk to you.`,
+      answerText: (
+        <>
+          Bravo if you care enough about your privacy to read this information!
+          Please see below. Note that “Legitimate Interests” refers to something
+          that (i) we think is desirable to us or someone else (including you),
+          (ii) reasonably expected given the nature of our services, and (iii)
+          doesn&apos;t create any undue risk to you.
+        </>
+      ),
       extras: <BasisTable tableData={basisTableData} />,
     },
   ];
