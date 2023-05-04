@@ -59,6 +59,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
           orgRoles={orgRoles}
           handleGoToOrg={handleGoToOrg}
           handleGoToRole={handleGoToRole}
+          handleDeleteRole={handleDeleteRole}
         />
       ) : (
         <OrgForms

@@ -6,11 +6,13 @@ import { NewRoleType } from '@/lib/types';
 export interface IRoleDetailReview {
   orgRoles: NewRoleType[];
   handleGoToRole: (idx: number) => void;
+  handleDeleteRole: (idx: number) => void;
 }
 
 const RoleDetailReview: React.FC<IRoleDetailReview> = ({
   orgRoles,
   handleGoToRole,
+  handleDeleteRole,
 }) => {
   const renderRole = (role: NewRoleType, idx: number) => {
     return (
@@ -104,12 +106,22 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
             <div className="text-p3-desktop">{role.pitchEssay}</div>
           </div>
         </div>
-        <div
-          className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-blue-1"
-          onClick={() => handleGoToRole(idx)}
-        >
-          <div>{`Edit Role ${idx + 1}`}</div>
-          <div>{EditSVG}</div>
+        <div className="flex space-x-4">
+          <div
+            className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-blue-1"
+            onClick={() => handleGoToRole(idx)}
+          >
+            <div>{`Edit Role ${idx + 1}`}</div>
+            <div>{EditSVG}</div>
+          </div>
+          {orgRoles.length > 1 && (
+            <div
+              className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-red-error"
+              onClick={() => handleDeleteRole(idx)}
+            >
+              <div>{'Delete this role'}</div>
+            </div>
+          )}
         </div>
       </div>
     );

@@ -19,6 +19,7 @@ export interface IReviewFormPage {
   orgRoles: NewRoleType[];
   handleGoToOrg: () => void;
   handleGoToRole: (idx: number) => void;
+  handleDeleteRole: (idx: number) => void;
 }
 
 const ReviewFormPage: React.FC<IReviewFormPage> = ({
@@ -26,6 +27,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   orgRoles,
   handleGoToOrg,
   handleGoToRole,
+  handleDeleteRole,
 }) => {
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
@@ -42,7 +44,11 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
         handleGoToOrg={handleGoToOrg}
       />
       {/* Roles */}
-      <RoleDetailReview orgRoles={orgRoles} handleGoToRole={handleGoToRole} />
+      <RoleDetailReview
+        orgRoles={orgRoles}
+        handleGoToRole={handleGoToRole}
+        handleDeleteRole={handleDeleteRole}
+      />
       {/* Privacy Acknowledgement */}
       <>
         <Form
