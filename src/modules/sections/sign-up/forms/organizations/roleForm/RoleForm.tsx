@@ -71,8 +71,6 @@ const RoleForm: React.FC<IRoleForm> = ({
       ? values.employmentTypeSelect + ' - ' + values.employmentTypeText
       : values.employmentTypeSelect;
 
-    console.log(employmentType);
-
     const NewRole: NewRoleType = {
       ...values,
       employmentType,
@@ -127,7 +125,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             />
 
             {partTimeForm && (
-              // BUG: These two fields should concatenate into one field
+              // HACK: Using the includes is risky here if we ever add a role with a " - " in it it may throw this component off
               <>
                 <SingleSelectField
                   fieldName="employmentTypeSelect"
