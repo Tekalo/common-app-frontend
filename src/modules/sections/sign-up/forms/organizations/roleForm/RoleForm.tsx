@@ -191,7 +191,9 @@ const RoleForm: React.FC<IRoleForm> = ({
               }
               isSubmitted={isSubmitted}
               initialValue={previousForm?.salaryRange}
-              validator={RequiredString}
+              validator={
+                isPaidRef.current?.value ? RequiredString : OptionalString
+              }
               disabled={!isPaidRef.current?.value}
             />
 
@@ -237,7 +239,11 @@ const RoleForm: React.FC<IRoleForm> = ({
               listOptions={VisaSponsorshipOptions}
               isSubmitted={isSubmitted}
               initialValue={previousForm?.visaSponsorship}
-              validator={VisaSponsorship}
+              validator={
+                employmentTypeRef.current?.value === 'volunteer'
+                  ? undefined
+                  : VisaSponsorship
+              }
               disabled={employmentTypeRef.current?.value === 'volunteer'}
             />
           </>
@@ -294,8 +300,8 @@ const RoleForm: React.FC<IRoleForm> = ({
               label="Other desired skills if not listed above (optional)"
               placeholder="Desired skills separated by commas"
               isSubmitted={isSubmitted}
-              initialValue={previousForm?.desiredOtherSkills}
-              validator={OptionalString.array()}
+              initialValue={previousForm?.desiredOtherSkills || []}
+              validator={RequiredString.array().optional()}
             />
 
             <RadioSelectField

@@ -71,14 +71,7 @@ const OptionalEssay = z
   .max(5000)
   .optional();
 const RequiredString = z.string().nonempty(errorMessages.required).max(255);
-const OptionalString = z
-  .string({
-    errorMap: () => ({
-      message: errorMessages.unknownError,
-    }),
-  })
-  .max(255)
-  .optional();
+const OptionalString = z.string().max(255).optional();
 
 const RequiredDate = z.coerce.date();
 const OptionalDate = z
