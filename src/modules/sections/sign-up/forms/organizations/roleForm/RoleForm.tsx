@@ -25,6 +25,7 @@ import {
   FieldBooleanType,
   FieldStringType,
   NewRoleType,
+  PartialNewRoleType,
   RoleRefType,
 } from '@/lib/types';
 import {
@@ -65,17 +66,30 @@ const RoleForm: React.FC<IRoleForm> = ({
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   useEffect(executeScroll);
 
-  const doSubmit = (values: NewRoleType) => {
+  const doSubmit = (values: PartialNewRoleType) => {
+    const employmentType = values.employmentTypeText
+      ? values.employmentTypeSelect + ' - ' + values.employmentTypeText
+      : values.employmentTypeSelect;
+
+    console.log(employmentType);
+
+    const NewRole: NewRoleType = {
+      ...values,
+      employmentType,
+    };
+
     if (previousForm) {
-      handleEditRole(values, reviewReadyRef.current);
+      handleEditRole(NewRole, reviewReadyRef.current);
     } else {
-      handleNewRole(values, reviewReadyRef.current);
+      handleNewRole(NewRole, reviewReadyRef.current);
     }
   };
 
   return (
-    <Form<NewRoleType>
-      onSubmit={(values) => doSubmit(values)}
+    <Form<PartialNewRoleType>
+      onSubmit={(values) => {
+        doSubmit(values);
+      }}
       key={activeIndex}
       ref={formRef}
     >
@@ -113,9 +127,10 @@ const RoleForm: React.FC<IRoleForm> = ({
             />
 
             {partTimeForm && (
+              // BUG: These two fields should concatenate into one field
               <>
                 <SingleSelectField
-                  fieldName="employmentType"
+                  fieldName="employmentTypeSelect"
                   label="What type of opportunity is this?"
                   placeholder="Choose one"
                   listOptions={
@@ -126,17 +141,25 @@ const RoleForm: React.FC<IRoleForm> = ({
                       : EmploymentOptions
                   }
                   isSubmitted={isSubmitted}
-                  initialValue={previousForm?.employmentType}
+                  initialValue={
+                    previousForm?.employmentType.includes(' - ')
+                      ? previousForm?.employmentType.split(' - ')[0]
+                      : previousForm?.employmentType
+                  }
                   validator={EmploymentType}
                   ref={employmentTypeRef}
                 />
 
                 <FreeTextField
-                  fieldName="employmentType"
+                  fieldName="employmentTypeText"
                   label="If you chose other, please specify (optional)"
                   placeholder="Type of opportunity"
                   isSubmitted={isSubmitted}
-                  initialValue={previousForm?.employmentType}
+                  initialValue={
+                    previousForm?.employmentType.includes(' - ')
+                      ? previousForm?.employmentType.split(' - ')[1]
+                      : undefined
+                  }
                   validator={OptionalString}
                 />
               </>

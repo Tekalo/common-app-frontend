@@ -15,7 +15,7 @@ import {
 
 /** Types
  */
-export type RoleRefType = FormInstance<NewRoleType>;
+export type RoleRefType = FormInstance<PartialNewRoleType>;
 export type ExperienceRefType = FormInstance<ExperienceFieldsType>;
 export type InterestRefType = FormInstance<InterestFieldsType>;
 export type FieldStringArrayType = FieldInstance<string[], unknown>;
@@ -27,6 +27,10 @@ export type InterestFieldsType = z.infer<typeof CandidateInterestsSchema>;
 export type NewCandidateType = z.infer<typeof NewCandidateSchema>;
 export type NewOrgType = z.infer<typeof NewOrgSchema>;
 export type NewRoleType = z.infer<typeof NewRoleSchema>;
+export type PartialNewRoleType = Omit<NewRoleType, 'employmentType'> & {
+  employmentTypeSelect: string;
+  employmentTypeText: string;
+};
 export type CommitmentType = z.infer<typeof CommitmentType>;
 export type NewOrgOppFieldsType = z.infer<typeof NewOrgOppSchema>;
 export type IconType = (_props: IIconItem) => React.ReactNode;

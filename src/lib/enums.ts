@@ -157,7 +157,7 @@ const Roles = z.enum(
     'data analyst',
     'product manager',
     'software engineer',
-    'software engineeer backend',
+    'software engineer backend',
     'software engineer frontend',
     'product designer',
     'ux/ui designer',

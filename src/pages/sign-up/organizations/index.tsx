@@ -28,7 +28,9 @@ const OrganizationSignup: NextPageWithLayout = () => {
 
   const handleEditRole = (editedRole: NewRoleType, reviewReady = false) => {
     const newOpportunityList = [...orgRoles];
+    console.log(editedRole);
     newOpportunityList[activeIndex] = editedRole;
+    console.log(orgRoles, newOpportunityList);
     setOrgRoles(newOpportunityList);
     setActiveIndex(activeIndex + 1);
     setShowReview(reviewReady);
