@@ -6,12 +6,10 @@ import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
 import { useState } from 'react';
 
-// TODO: Delete role and delete role modal confirmation
 // TODO: Submit to API and go to success page
 
 const OrganizationSignup: NextPageWithLayout = () => {
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
-
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
