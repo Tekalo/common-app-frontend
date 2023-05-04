@@ -213,7 +213,7 @@ const OrganizationReview: NextPageWithLayout = () => {
 
     return {
       questionText: `Role ${roleNum}`,
-      answerText: '',
+      answerText: <></>,
       extras: renderRole(role, roleNum),
     };
   });

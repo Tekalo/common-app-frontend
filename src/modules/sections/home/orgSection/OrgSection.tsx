@@ -41,7 +41,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
       <div className="">
         {/* Title */}
         <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-14 lg:text-large-caption-desktop">
-          Organizations that recruit though Tekalo
+          ORGANIZATIONS THAT RECRUIT USING TEKALO
         </div>
         {/* Logo Grid */}
         <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-4 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
@@ -69,12 +69,14 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
           <div className="flex flex-col items-center px-8 py-6 text-center md:px-11 md:py-10 lg:px-10 lg:py-14">
             {/* Title */}
             <div className="text-displaytext-center px-2 text-h4-mobile text-black-text lg:text-h4-desktop">
-              <p>Find candidates that are aligned with your mission.</p>
+              <p>Find candidates aligned with your mission.</p>
             </div>
             <div className="pt-4 text-center font-sans text-p2-mobile text-black-text lg:px-0 lg:text-p2-desktop">
-              Instead of sorting through hundreds of applications and running
-              tons of screening calls, discover top tech talent through Tekalo.
-              Applications are currently open to all 501(c)3 organizations.
+              Instead of sorting through hundreds of applications and conducting
+              endless screening calls, discover top tech talent through Tekalo.
+              Applications are currently open to all 501(c)(3) organizations.
+              Other types of organizations are welcome to apply and will be
+              considered on a case by case basis.
             </div>
             {/* Button */}
             <Button

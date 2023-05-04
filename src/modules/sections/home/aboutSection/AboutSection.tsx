@@ -75,33 +75,25 @@ const AboutSection: React.FC<IAboutSection> = () => {
         {/* Content */}
         <div className="flex flex-col items-center">
           <h2 className="mb-6 max-w-[590px] text-center font-display text-h3-mobile text-black-text md:text-h2-mobile lg:mb-10 lg:max-w-[924px] lg:p-0 lg:text-h2-desktop">
-            Tekalo aims to bridge the gap between tech talent and impactful
+            Tekalo aims to bridge the gap between tech talent and impact-driven
             opportunities.
           </h2>
           <p className="mb-14 max-w-[590px] text-center font-sans text-p2-desktop font-normal text-black-text md:text-p1-mobile lg:mb-8 lg:max-w-[735px] lg:text-p1-desktop">
             Now more than ever, impact-driven organizations need tech talent
-            that is passionate about solving some of the world’s hardest, most
-            pressing problems.
+            that is passionate about solving some of the world’s most pressing
+            problems.
           </p>
         </div>
         {/* Pronunciation */}
-        <div className="m-auto mb-20 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange p-6 text-center lg:mb-48 lg:px-10 lg:py-14">
-          <div className="space-y-6">
-            <div className="font-display text-large-caption-mobile uppercase text-gray-1 lg:text-large-caption-desktop">
-              tekalo name and meaning
-            </div>
+        <div className="m-auto mb-16 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange px-5 py-6 lg:mb-20 lg:px-10 lg:py-14">
+          <div className="space-y-3 md:space-y-6">
             <div className="text-p1-mobile lg:text-p1-desktop">
-              Tekalo is pronounced{' '}
               <span className="font-display font-semibold">TE</span>•ka•lo
+              <br />
+              Tech + Kalo (‘good’ in Greek)
             </div>
             <div className="text-p1-mobile lg:text-p1-desktop">
-              Tek referes to tech
-              <br />
-              Kalo means “good” in Greek
-            </div>
-            <div className="text-p1-mobile font-semibold lg:text-p1-desktop">
-              The name Tekalo refers to using technology to build a better
-              world.
+              Tekalo refers to using technology to build a better world.
             </div>
           </div>
         </div>
@@ -113,19 +105,13 @@ const AboutSection: React.FC<IAboutSection> = () => {
           <div className="m-auto mt-6 max-w-[590px] pl-7 text-p1-mobile">
             <ol className="list-decimal">
               <li>
-                Empower tech talent to follow non-traditional tech paths, and
-                work on causes that they care about – at either full-time or
-                part-time capacity – by surfacing opportunities currently not
-                visible to them.
+                Empower tech talent to follow non-traditional paths, and work on
+                causes that they care about (full-time or part-time)
               </li>
+              <li>Simplify the application process with a single form</li>
               <li>
-                Simplify the application process for candidates by creating a
-                single application form.
-              </li>
-              <li>
-                Streamline the review and hiring process for impact-driven
-                organizations by providing them with a list of top candidate
-                matches.
+                Provide impact-driven organizations a list of top candidate
+                matches
               </li>
             </ol>
           </div>

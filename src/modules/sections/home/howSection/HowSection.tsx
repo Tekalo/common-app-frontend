@@ -10,24 +10,19 @@ const HowSection: React.FC<IHowSection> = () => {
   // Store the titems that the component should conditionally render
   const orgItems: Array<ITimelineItem> = [
     {
-      title: 'Lorem ipsum dolor',
+      title: 'Submit an opportunity',
       content:
-        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
+        'Share open tech-related opportunities (part-time or full-time) at your organization using one simple application. Next, your assigned Talent Connector reviews your application to make sure that it’s a good fit.',
     },
     {
-      title: 'Lorem ipsum dolor',
+      title: 'Intro call',
       content:
-        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
+        'Next, your assigned Talent Connector works with you to further define your ideal candidate profile.',
     },
     {
-      title: 'Lorem ipsum dolor',
+      title: 'Connect with your matched candidates',
       content:
-        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
-    },
-    {
-      title: 'Lorem ipsum dolor',
-      content:
-        'In sit amet lectus elit. Vivamus nisl eros, egestas eu lorem sed, tempor imperdiet dolor. Etiam fermentum ipsum quis malesuada maximus. Maecenas ut sapien ac mauris porta tincidunt. Vestibulum eleifend blandit dapibus. Proin tempus tincidunt nibh imperdiet tristique. Donec eu dictum magna. Maecenas sed auctor dolor.',
+        'Your Talent Connector will identify interested candidates and share their profiles. If it’s a good match, you will be introduced to the candidates!',
     },
   ];
 

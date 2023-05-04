@@ -75,7 +75,7 @@ export interface ITimelineItem {
 }
 export interface IFaqItem {
   questionText: string;
-  answerText: string;
+  answerText: ReactElement;
   extras?: ReactElement;
   className?: string;
 }
