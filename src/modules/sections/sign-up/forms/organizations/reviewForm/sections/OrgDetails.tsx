@@ -2,12 +2,12 @@ import { EditSVG } from '@/lib/constants/svgs';
 import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
 
-export interface IOrgReview {
+export interface IOrgDetails {
   titleText: string;
   orgInfo: NewOrgType | undefined;
 }
 
-const OrgReview: React.FC<IOrgReview> = ({ titleText, orgInfo }) => {
+const OrgDetails: React.FC<IOrgDetails> = ({ titleText, orgInfo }) => {
   return (
     <div className="mt-12 border-b border-b-gray-3 pb-8">
       <div className="font-dispay text-h4-desktop text-black-text">
@@ -64,6 +64,7 @@ const OrgReview: React.FC<IOrgReview> = ({ titleText, orgInfo }) => {
       <div
         className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-blue-1"
         onClick={() => {
+          // TODO: Send me back to the form contact stuff!
           console.log('Send me back to the form contact stuff!');
         }}
       >
@@ -74,4 +75,4 @@ const OrgReview: React.FC<IOrgReview> = ({ titleText, orgInfo }) => {
   );
 };
 
-export default OrgReview;
+export default OrgDetails;

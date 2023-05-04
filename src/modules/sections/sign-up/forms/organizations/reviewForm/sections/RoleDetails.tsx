@@ -2,11 +2,13 @@ import Faq from '@/components/faq/Faq';
 import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
 import { NewRoleType } from '@/lib/types';
 
-export interface IRoleReview {
+export interface IRoleDetails {
   orgRoles: NewRoleType[];
 }
 
-const RoleReview: React.FC<IRoleReview> = ({ orgRoles }) => {
+// TODO: Send back to specific role page on edit
+
+const RoleDetails: React.FC<IRoleDetails> = ({ orgRoles }) => {
   const renderRole = (role: NewRoleType) => {
     return (
       <div className="mt-6">
@@ -111,4 +113,4 @@ const RoleReview: React.FC<IRoleReview> = ({ orgRoles }) => {
   return <Faq faqItems={faqItems} />;
 };
 
-export default RoleReview;
+export default RoleDetails;

@@ -1,8 +1,11 @@
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
-import OrgFormPage from '@/modules/sections/sign-up/OrgFormPage/OrgFormPage';
-import OrgReviewPage from '@/modules/sections/sign-up/OrgReviewPage/OrgReviewPage';
+import OrgForms from '@/modules/sections/sign-up/forms/organizations';
+import ReviewForm from '@/modules/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
 import { useState } from 'react';
+
+// TODO: Delete role and delete role modal confirmation
+// TODO: Submit to API and go to success page
 
 const OrganizationSignup: NextPageWithLayout = () => {
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
@@ -34,9 +37,9 @@ const OrganizationSignup: NextPageWithLayout = () => {
   return (
     <>
       {showReview ? (
-        <OrgReviewPage orgInfo={orgInfo} orgRoles={orgRoles} />
+        <ReviewForm orgInfo={orgInfo} orgRoles={orgRoles} />
       ) : (
-        <OrgFormPage
+        <OrgForms
           activeIndex={activeIndex}
           orgInfo={orgInfo}
           orgRoles={orgRoles}

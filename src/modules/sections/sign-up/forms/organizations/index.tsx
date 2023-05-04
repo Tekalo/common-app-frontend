@@ -4,7 +4,7 @@ import { NewOrgType, NewRoleType } from '@/lib/types';
 import RoleForm from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
 
-export interface IOrgFormPage {
+export interface IOrgForms {
   activeIndex: number;
   orgInfo: NewOrgType | undefined;
   orgRoles: NewRoleType[];
@@ -14,7 +14,7 @@ export interface IOrgFormPage {
   handleOrgSignup: (values: NewOrgType, reviewReady?: boolean) => void;
 }
 
-const OrgFormPage: React.FC<IOrgFormPage> = ({
+const OrgForms: React.FC<IOrgForms> = ({
   activeIndex,
   handleOrgSignup,
   orgInfo,
@@ -69,4 +69,4 @@ const OrgFormPage: React.FC<IOrgFormPage> = ({
   );
 };
 
-export default OrgFormPage;
+export default OrgForms;

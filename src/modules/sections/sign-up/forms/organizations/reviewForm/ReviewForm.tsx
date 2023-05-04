@@ -8,18 +8,18 @@ import { PrivacyPolicy } from '@/lib/enums';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import Button from '@/modules/components/buttons/Button/Button';
 import TableModal from '@/modules/components/modal/Modal/TableModal/TableModal';
+import { BooleanField } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { useState } from 'react';
-import { BooleanField } from '../fields';
-import OrgReview from './sections/OrgReview/OrgReview';
-import RoleReview from './sections/RoleReview/RoleReview';
+import OrgDetails from './sections/OrgDetails';
+import RoleDetails from './sections/RoleDetails';
 
-export interface IOrgReviewPage {
+export interface IReviewFormPage {
   orgInfo: NewOrgType | undefined;
   orgRoles: NewRoleType[];
 }
 
-const OrgReviewPage: React.FC<IOrgReviewPage> = ({ orgInfo, orgRoles }) => {
+const ReviewFormPage: React.FC<IReviewFormPage> = ({ orgInfo, orgRoles }) => {
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
   return (
@@ -29,9 +29,9 @@ const OrgReviewPage: React.FC<IOrgReviewPage> = ({ orgInfo, orgRoles }) => {
         {'Review your intake form'}
       </div>
       {/* Org Info */}
-      <OrgReview titleText={'Contact and organization'} orgInfo={orgInfo} />
+      <OrgDetails titleText={'Contact and organization'} orgInfo={orgInfo} />
       {/* Roles */}
-      <RoleReview orgRoles={orgRoles} />
+      <RoleDetails orgRoles={orgRoles} />
       {/* Privacy Acknowledgement */}
       <>
         <Form
@@ -81,4 +81,4 @@ const OrgReviewPage: React.FC<IOrgReviewPage> = ({ orgInfo, orgRoles }) => {
   );
 };
 
-export default OrgReviewPage;
+export default ReviewFormPage;
