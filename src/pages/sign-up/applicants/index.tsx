@@ -1,8 +1,11 @@
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import {
+  APPLICANT_SIGNUP_LINK,
+  ORG_SIGNUP_LINK,
   PRIVACY_MODAL_BODY_TEXT,
   PRIVACY_MODAL_EXTRAS,
   PRIVACY_MODAL_HEADER_TEXT,
+  SIGN_IN_LINK,
 } from '@/lib/constants/text';
 import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
@@ -20,7 +23,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .then((res) => {
         console.log(res);
         if (res.ok) {
-          router.push('/sign-up/applicants/experience-and-interests');
+          router.push(APPLICANT_SIGNUP_LINK);
         } else {
           // TODO: Error handling, from API
           alert(res.statusText);
@@ -44,7 +47,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         <div className="text-center text-component-medium">
           {'Already have an account? '}
           <span className="text-blue-1 underline underline-offset-4">
-            <Link href="/sign-in">Sign in</Link>
+            <Link href={SIGN_IN_LINK}>Sign in</Link>
           </span>
         </div>
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
@@ -58,7 +61,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         <div className="mt-6 text-center">
           {"If you're an organization, "}
           <span className="text-blue-1 underline underline-offset-4">
-            <Link href="/sign-in">{'apply here'}</Link>
+            <Link href={ORG_SIGNUP_LINK}>{'apply here'}</Link>
           </span>
         </div>
         <TableModal

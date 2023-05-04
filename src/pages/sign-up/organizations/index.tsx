@@ -1,3 +1,4 @@
+import { APPLICANT_SIGNUP_LINK } from '@/lib/constants/text';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
@@ -41,7 +42,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
         <div className="text-center text-component-medium">
           {'If you’re a candidate looking for opportunities, '}
           <span className="text-blue-1 underline underline-offset-4">
-            <Link href="/sign-up/applicants">{'sign up here'}</Link>
+            <Link href={APPLICANT_SIGNUP_LINK}>{'sign up here'}</Link>
           </span>
         </div>
 

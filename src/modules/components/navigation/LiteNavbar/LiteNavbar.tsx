@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
+import { CONTACT_US_EMAIL_LINK } from '@/lib/constants/text';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Bars3Icon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { SyntheticEvent } from 'react';
 
@@ -23,18 +23,19 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
 
   return (
     <nav className="fixed z-10 w-screen bg-white">
-      <div className="mx-auto h-20 xs:px-1 sm:px-4 md:px-10 lg:px-20">
-        <div className="flex justify-around sm:justify-between">
-          <div className="flex flex-row justify-center py-5 align-middle">
+      <div className="mx-auto h-20 max-w-[1440px] xs:px-1 sm:px-4 md:px-10 lg:px-24">
+        <div className="flex items-center justify-around sm:justify-between">
+          <div className="flex flex-row items-center justify-center py-5">
             {/* Logo */}
-            <Link
-              href="/"
-              className="flex flex-row space-x-4 px-4 text-component-large text-black-text md:px-8"
-            >
-              <div className="flex flex-row items-center py-3">LOGO TBD</div>
+            <Link href="/" className="">
+              <img
+                src="/images/logo_nav.png"
+                alt="Tekalo Logo"
+                className="max-w-[96px] py-1 md:max-w-[none]"
+              />
             </Link>
-            <div className="flex flex-row space-x-4 py-3 text-p2-desktop md:px-8 md:py-3">
-              {title}
+            <div className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-10 md:pt-2 lg:text-p2-desktop">
+              {title}For Candidates
             </div>
           </div>
           <div className="flex items-center space-x-2 md:space-x-6 lg:space-x-10">
@@ -50,30 +51,25 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
                 {/* Authentication Button */}
                 {isAuthenticated ? (
                   <a
-                    className="hidden cursor-pointer px-6 py-3 text-component-extra-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                    className="cursor-pointer text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
                     onClick={(e) => handleAuthentication(e)}
                   >
-                    Log out
+                    Sign out
                   </a>
                 ) : null}
 
                 {/* Contact Us Button */}
                 <a
-                  className="hidden cursor-pointer px-6 py-3 text-component-extra-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:block"
-                  onClick={(e) => handleAuthentication(e)}
+                  className="cursor-pointer text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
+                  href={CONTACT_US_EMAIL_LINK}
                 >
                   Contact us
                 </a>
-                {/* Mobile Button */}
-                <div className="flex items-center sm:mr-0 md:hidden">
-                  <Bars3Icon className="h-6 w-6 stroke-2 text-black-text" />
-                </div>
               </>
             )}
           </div>
         </div>
       </div>
-      {/* Mobile Menu */}
     </nav>
   );
 };

@@ -1,3 +1,5 @@
+import { PRIVACY_LINK } from '@/lib/constants/text';
+
 export interface ITermsAndConditions {}
 
 const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
@@ -68,7 +70,8 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         <a
           target="_blank"
           className="text-blue-1 underline underline-offset-4"
-          href="/privacy-info"
+          href={PRIVACY_LINK}
+          rel="noreferrer"
         >
           Privacy Information
         </a>
@@ -165,7 +168,8 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           <a
             target="_blank"
             className="text-blue-1 underline underline-offset-4"
-            href="/privacy-info"
+            href={PRIVACY_LINK}
+            rel="noreferrer"
           >
             Privacy Information
           </a>

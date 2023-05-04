@@ -1,5 +1,6 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
+import { APPLICANT_SUCCESS_LINK } from '@/lib/constants/text';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
@@ -58,7 +59,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .then((res) => {
         console.log(res);
         if (res.ok) {
-          router.push('/sign-up/applicants/success');
+          router.push(APPLICANT_SUCCESS_LINK);
         } else {
           // TODO: Error handling, API
           alert(res.statusText);
