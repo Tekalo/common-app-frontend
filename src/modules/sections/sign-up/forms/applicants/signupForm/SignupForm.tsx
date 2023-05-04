@@ -12,7 +12,6 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {
@@ -103,7 +102,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             validator={contactPhoneLinkedValidation}
           />
 
-          {/* TODO Privacy Info */}
+          {/* Privacy Info */}
           <BooleanField
             fieldName="acceptedPrivacy"
             label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}

@@ -46,7 +46,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({ orgInfo, orgRoles }) => {
               }}
               className="mb-40 mt-16 space-y-8"
             >
-              {/* TODO Privacy Info */}
+              {/* Privacy Info */}
               <BooleanField
                 fieldName="acceptedPrivacy"
                 label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}

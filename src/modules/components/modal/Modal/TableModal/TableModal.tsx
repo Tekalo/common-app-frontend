@@ -5,8 +5,6 @@ import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { ReactElement, useRef } from 'react';
 
-// TODO: Generalize this modal to be used for all modals
-
 export interface ITableModal {
   isOpen: boolean;
   closeModal: () => void;
