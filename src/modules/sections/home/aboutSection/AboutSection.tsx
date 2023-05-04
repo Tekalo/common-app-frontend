@@ -85,14 +85,14 @@ const AboutSection: React.FC<IAboutSection> = () => {
           </p>
         </div>
         {/* Pronunciation */}
-        <div className="m-auto mb-16 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange px-5 py-6 lg:mb-20 lg:px-10 lg:py-14">
-          <div className="space-y-3 md:space-y-6">
-            <div className="text-p1-mobile lg:text-p1-desktop">
+        <div className="m-auto mb-16 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange px-5 py-6 lg:mb-20 lg:max-w-[544px] lg:px-10 lg:py-14">
+          <div className="space-y-3 text-p2-mobile md:space-y-6 lg:text-p2-desktop">
+            <div>
               <span className="font-display font-semibold">TE</span>•ka•lo
               <br />
               Tech + Kalo (‘good’ in Greek)
             </div>
-            <div className="text-p1-mobile lg:text-p1-desktop">
+            <div>
               Tekalo refers to using technology to build a better world.
             </div>
           </div>
