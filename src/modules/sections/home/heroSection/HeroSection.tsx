@@ -21,18 +21,13 @@ const HeroSection: React.FC<IHeroSection> = () => {
             <img
               src="/images/hero_md.png"
               alt="Tablet Hero Image"
-              className="mb-4 lg:hidden"
+              className="mb-4 hidden md:block lg:hidden"
             />
             {/* Desktop Hero */}
             <div className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
               Match to what matters; build a better world.
             </div>
-            <div className="mb-6 text-center text-p1-mobile md:hidden">
-              A platform that matches tech talent looking to solve some of the
-              world&apos;s biggest, most pressing problems to impact-driven
-              organizations.
-            </div>
-            <div className="mb-8 text-left text-p1-mobile lg:mb-8 lg:text-p1-desktop">
+            <div className="mb-6 text-center text-p1-mobile md:mb-8 md:text-left lg:mb-8 lg:text-p1-desktop">
               An initiative that matches tech talent with impact-driven
               organizations.
             </div>

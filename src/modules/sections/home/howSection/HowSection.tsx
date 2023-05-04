@@ -35,22 +35,22 @@ const HowSection: React.FC<IHowSection> = () => {
     {
       title: 'Submit a single application',
       content:
-        'Your application will be viewed by a matchmaker from the team to be considered for opportunities by over XX,000 employers and organizations. In the application, we can learn more about what causes you’re interested in, and your preferences in the organizations that fit you best.',
+        'Tell us about your experience and interests by submitting the Tekalo application.',
     },
     {
-      title: 'Receive your matches',
+      title: 'Receive a list of potential matches',
       content:
-        'After 3-5 weeks, your assigned matchmaker send you the right opportunities that fit your interests and experience. This is a rolling process and we’ll send you matches until you opt-out or get hired!',
+        'Your assigned Talent Connector reviews your application and matches you with opportunities at impact-driven organizations that best fit your interests and profile. You will continue to receive potential matches, if available, every few weeks until you get hired or opt out of Tekalo.',
     },
     {
-      title: 'Screening and info call',
+      title: 'Intro call',
       content:
-        'Connect with your matchmaker for a screening and info call. This is an introductory call that usually takes less than 20 minutes to get on the same page and answer questions.',
+        'Next, your Talent Connector will schedule a one-time call to share more information about your potential matches and ask you additional questions about your experience and interests.',
     },
     {
       title: 'Connect to your matched organizations',
       content:
-        'Tell us the matches that looks good to you, and we’ll connect you.  Your matchmaker will only introduce you to the organizations that you decide you’re interested in.',
+        'Your Talent Connector will share your profile with the organization(s) that you agree to be connected to. If mutual, your Talent Connector will make an introduction!',
     },
   ];
 
@@ -81,9 +81,11 @@ const HowSection: React.FC<IHowSection> = () => {
           ))}
         </div>
         {/* Timeline Component */}
-        <Timeline
-          timelineItems={isForOrgsSelected ? orgItems : candidateItems}
-        />
+        <div className="m-auto max-w-[695px]">
+          <Timeline
+            timelineItems={isForOrgsSelected ? orgItems : candidateItems}
+          />
+        </div>
       </div>
     </section>
   );

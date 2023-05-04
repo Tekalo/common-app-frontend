@@ -1,3 +1,11 @@
+import {
+  APPLICANT_SIGNUP_LINK,
+  CONTACT_US_EMAIL_LINK,
+  ORG_SIGNUP_LINK,
+  PRIVACY_LINK,
+  SIGN_IN_LINK,
+  TERMS_LINK,
+} from '@/lib/constants/text';
 import Link from 'next/link';
 
 export interface IMainFooter {}
@@ -7,20 +15,20 @@ const MainFooter: React.FC<IMainFooter> = () => {
     {
       header: 'Candidates',
       links: [
-        { title: 'Get started', href: '/sign-up/applicants' },
-        { title: 'Log in', href: '#' },
+        { title: 'Get started', href: APPLICANT_SIGNUP_LINK },
+        { title: 'Sign in', href: SIGN_IN_LINK },
       ],
     },
     {
       header: 'Organizations',
-      links: [{ title: 'Apply', href: '#' }],
+      links: [{ title: 'Apply', href: ORG_SIGNUP_LINK }],
     },
     {
       header: 'About',
       links: [
-        { title: 'Contact Us', href: '#' },
-        { title: 'Privacy Info', href: '/privacy-info' },
-        { title: 'Terms of Use', href: '/terms-and-conditions' },
+        { title: 'Contact Us', href: CONTACT_US_EMAIL_LINK },
+        { title: 'Privacy Info', href: PRIVACY_LINK },
+        { title: 'Terms of Use', href: TERMS_LINK },
       ],
     },
   ];

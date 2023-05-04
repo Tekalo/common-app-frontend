@@ -1,6 +1,7 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
+import { APPLICANT_EXPERIENCE_LINK } from '@/lib/constants/text';
 import {
   applicantStateEndpoint,
   applicantSubmissionsEndpoint,
@@ -161,7 +162,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             ) : (
               <>
                 <div className="text-component-medium text-blue-1">
-                  <Link href="/sign-up/applicants/experience-and-interests">
+                  <Link href={APPLICANT_EXPERIENCE_LINK}>
                     {'Continue my application >'}
                   </Link>
                 </div>

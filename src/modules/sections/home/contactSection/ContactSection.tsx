@@ -1,4 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { CONTACT_US_EMAIL_LINK } from '@/lib/constants/text';
 
 export interface IContactSection {}
 
@@ -14,7 +15,9 @@ const ContactSection: React.FC<IContactSection> = () => {
           <Button
             label="Contact us"
             variant={ButtonVariant.OUTLINED}
-            onClick={() => void {}}
+            onClick={() => {
+              window.open(CONTACT_US_EMAIL_LINK, '_blank');
+            }}
             className="px-8 py-3"
           />
         </div>

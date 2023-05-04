@@ -3,28 +3,29 @@ import Faq from '@/components/faq/Faq';
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import { EditSVG } from '@/constants/svgs';
 import {
+  ORG_SIGNUP_LINK,
   PRIVACY_DISCLAIMER,
   PRIVACY_MODAL_BODY_TEXT,
   PRIVACY_MODAL_EXTRAS,
-  PRIVACY_MODAL_HEADER_TEXT
+  PRIVACY_MODAL_HEADER_TEXT,
 } from '@/lib/constants/text';
 import {
   EmploymentType,
   PrivacyPolicy,
   Skills,
   VisaSponsorship,
-  YOE_RANGE
+  YOE_RANGE,
 } from '@/lib/enums';
 import {
   mapArrayToList,
   mapBoolToYesNo,
-  mapDateToString
+  mapDateToString,
 } from '@/lib/helpers/formHelpers';
 import {
   IFaqItem,
   NewOrgOppFieldsType,
   NewRoleType,
-  NextPageWithLayout
+  NextPageWithLayout,
 } from '@/lib/types';
 import { BooleanField } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
@@ -198,7 +199,7 @@ const OrganizationReview: NextPageWithLayout = () => {
         <Link
           className="flex items-baseline gap-x-1"
           // TODO: Link?
-          href="/sign-up/organizations"
+          href={ORG_SIGNUP_LINK}
         >
           {`Edit Role ${index}`}
           {EditSVG}
@@ -233,11 +234,7 @@ const OrganizationReview: NextPageWithLayout = () => {
           </div>
         </div>
         <div className="text-component-small text-blue-1">
-          <Link
-            className="flex items-baseline gap-x-1"
-            // TODO: Link?
-            href="/sign-up/organizations"
-          >
+          <Link className="flex items-baseline gap-x-1" href={ORG_SIGNUP_LINK}>
             {'Edit contact and organization '}
             {EditSVG}
           </Link>

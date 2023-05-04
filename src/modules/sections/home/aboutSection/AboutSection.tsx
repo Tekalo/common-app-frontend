@@ -85,25 +85,21 @@ const AboutSection: React.FC<IAboutSection> = () => {
           </p>
         </div>
         {/* Pronunciation */}
-        <div className="m-auto mb-20 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange px-14 py-6 text-center lg:mb-48 lg:px-10 lg:py-14">
-          <div className="lg:hidden">
-            Pronounced <span className="font-display font-semibold">TE</span>
-            •ka•lo
-          </div>
-          <div className="hidden space-y-6 lg:block">
-            <div className="font-display text-large-caption-desktop uppercase text-gray-1">
+        <div className="m-auto mb-20 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange p-6 text-center lg:mb-48 lg:px-10 lg:py-14">
+          <div className="space-y-6">
+            <div className="font-display text-large-caption-mobile uppercase text-gray-1 lg:text-large-caption-desktop">
               tekalo name and meaning
             </div>
-            <div className="text-p1-desktop">
+            <div className="text-p1-mobile lg:text-p1-desktop">
               Tekalo is pronounced{' '}
               <span className="font-display font-semibold">TE</span>•ka•lo
             </div>
-            <div className="text-p1-desktop">
+            <div className="text-p1-mobile lg:text-p1-desktop">
               Tek referes to tech
               <br />
               Kalo means “good” in Greek
             </div>
-            <div className="text-p1-desktop font-semibold">
+            <div className="text-p1-mobile font-semibold lg:text-p1-desktop">
               The name Tekalo refers to using technology to build a better
               world.
             </div>
@@ -151,12 +147,9 @@ const AboutSection: React.FC<IAboutSection> = () => {
         </div>
         {/* Roles */}
         <div className="">
-          <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:hidden">
-            Roles being recruited through Tekalo
+          <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:mb-10 md:block md:text-h4-mobile lg:text-h4-desktop">
+            Full-time and part-time roles listed on Tekalo
           </h3>
-          <div className="mb-10 hidden text-center font-display text-h4-mobile md:block lg:text-h4-desktop">
-            Full-time and part-time roles being recruited through Tekalo
-          </div>
           <div className="mx-auto flex flex-wrap justify-center md:max-w-[1000px] md:gap-x-4 lg:gap-x-8 lg:px-4">
             {roleImages.map((role, i) => (
               <img

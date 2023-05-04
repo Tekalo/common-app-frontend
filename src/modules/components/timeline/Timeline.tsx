@@ -12,7 +12,7 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
     <div className="mt-10 max-w-content-area md:mt-14 lg:mt-10">
       <ol className="">
         {timelineItems.map((item, i) => (
-          <li key={i} className="relative mb-4 md:mb-6">
+          <li key={i} className="relative mb-4 md:mb-6 lg:min-h-[176px]">
             <div
               className={`${
                 i === timelineItems.length - 1 ? 'hidden' : ''

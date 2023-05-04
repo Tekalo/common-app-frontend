@@ -19,6 +19,17 @@ export const USDR_DISCLAIMER = (
   </div>
 );
 
+export const ACCOUNT_LINK = '/account';
+export const APPLICANT_EXPERIENCE_LINK =
+  '/sign-up/applicants/experience-and-interests';
+export const APPLICANT_SIGNUP_LINK = '/sign-up/applicants';
+export const APPLICANT_SUCCESS_LINK = '/sign-up/applicants/success';
+export const CONTACT_US_EMAIL_LINK = 'mailto:support@tekalo.org';
+export const ORG_SIGNUP_LINK = '/sign-up/organizations';
+export const PRIVACY_LINK = '/privacy-info';
+export const SIGN_IN_LINK = '/sign-in';
+export const TERMS_LINK = '/terms';
+
 export const PRIVACY_DISCLAIMER = (
   setShowPrivacyModal: (_arg: boolean) => void
 ) => {
@@ -42,7 +53,7 @@ export const TERMS_DISCLAIMER = (
   <>
     {'By signing up, you agree to the '}
     <span className="text-blue-1 underline underline-offset-4">
-      <Link target="_blank" href="/terms">
+      <Link target="_blank" href={TERMS_LINK}>
         Terms of Service
       </Link>
     </span>
@@ -74,7 +85,7 @@ export const PRIVACY_MODAL_EXTRAS = (
   <div className="text-p3-desktop">
     See our&nbsp;
     <span className="text-blue-1 underline underline-offset-4">
-      <Link target="_blank" href="/privacy-info">
+      <Link target="_blank" href={PRIVACY_LINK}>
         Privacy FAQ
       </Link>
     </span>
