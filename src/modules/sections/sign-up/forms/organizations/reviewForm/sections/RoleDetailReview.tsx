@@ -1,15 +1,18 @@
 import Faq from '@/components/faq/Faq';
+import { EditSVG } from '@/lib/constants/svgs';
 import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
 import { NewRoleType } from '@/lib/types';
 
-export interface IRoleDetails {
+export interface IRoleDetailReview {
   orgRoles: NewRoleType[];
+  handleGoToRole: (idx: number) => void;
 }
 
-// TODO: Send back to specific role page on edit
-
-const RoleDetails: React.FC<IRoleDetails> = ({ orgRoles }) => {
-  const renderRole = (role: NewRoleType) => {
+const RoleDetailReview: React.FC<IRoleDetailReview> = ({
+  orgRoles,
+  handleGoToRole,
+}) => {
+  const renderRole = (role: NewRoleType, idx: number) => {
     return (
       <div className="mt-6">
         {/* Section One: Details */}
@@ -101,16 +104,23 @@ const RoleDetails: React.FC<IRoleDetails> = ({ orgRoles }) => {
             <div className="text-p3-desktop">{role.pitchEssay}</div>
           </div>
         </div>
+        <div
+          className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-blue-1"
+          onClick={() => handleGoToRole(idx)}
+        >
+          <div>{`Edit Role ${idx + 1}`}</div>
+          <div>{EditSVG}</div>
+        </div>
       </div>
     );
   };
 
   const faqItems = orgRoles.map((role, idx) => ({
     questionText: `Role ${idx + 1}`,
-    extras: renderRole(role),
+    extras: renderRole(role, idx),
   }));
 
   return <Faq faqItems={faqItems} />;
 };
 
-export default RoleDetails;
+export default RoleDetailReview;

@@ -2,16 +2,16 @@ import { EditSVG } from '@/lib/constants/svgs';
 import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
 
-export interface IOrgDetails {
+export interface IOrgDetailReview {
   titleText: string;
   orgInfo: NewOrgType | undefined;
-  handleEditOrg: () => void;
+  handleGoToOrg: () => void;
 }
 
-const OrgDetails: React.FC<IOrgDetails> = ({
+const OrgDetailReview: React.FC<IOrgDetailReview> = ({
   titleText,
   orgInfo,
-  handleEditOrg,
+  handleGoToOrg: handleEditOrg,
 }) => {
   return (
     <div className="mt-12 border-b border-b-gray-3 pb-8">
@@ -77,4 +77,4 @@ const OrgDetails: React.FC<IOrgDetails> = ({
   );
 };
 
-export default OrgDetails;
+export default OrgDetailReview;

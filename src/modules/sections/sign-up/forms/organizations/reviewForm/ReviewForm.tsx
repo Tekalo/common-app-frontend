@@ -11,19 +11,21 @@ import TableModal from '@/modules/components/modal/Modal/TableModal/TableModal';
 import { BooleanField } from '@/modules/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { useState } from 'react';
-import OrgDetails from './sections/OrgDetails';
-import RoleDetails from './sections/RoleDetails';
+import OrgDetailReview from './sections/OrgDetailReview';
+import RoleDetailReview from './sections/RoleDetailReview';
 
 export interface IReviewFormPage {
   orgInfo: NewOrgType | undefined;
   orgRoles: NewRoleType[];
-  handleEditOrg: () => void;
+  handleGoToOrg: () => void;
+  handleGoToRole: (idx: number) => void;
 }
 
 const ReviewFormPage: React.FC<IReviewFormPage> = ({
   orgInfo,
   orgRoles,
-  handleEditOrg,
+  handleGoToOrg,
+  handleGoToRole,
 }) => {
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
@@ -34,13 +36,13 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
         {'Review your intake form'}
       </div>
       {/* Org Info */}
-      <OrgDetails
+      <OrgDetailReview
         titleText={'Contact and organization'}
         orgInfo={orgInfo}
-        handleEditOrg={handleEditOrg}
+        handleGoToOrg={handleGoToOrg}
       />
       {/* Roles */}
-      <RoleDetails orgRoles={orgRoles} />
+      <RoleDetailReview orgRoles={orgRoles} handleGoToRole={handleGoToRole} />
       {/* Privacy Acknowledgement */}
       <>
         <Form
