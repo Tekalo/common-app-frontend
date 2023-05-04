@@ -12,6 +12,7 @@ export interface IOrgForms {
   handleNewRole: (newRole: NewRoleType) => void;
   handleEditRole: (editedRole: NewRoleType, reviewReady?: boolean) => void;
   handleOrgSignup: (values: NewOrgType, reviewReady?: boolean) => void;
+  handleDeleteRole: (idx: number) => void;
 }
 
 const OrgForms: React.FC<IOrgForms> = ({
@@ -22,6 +23,7 @@ const OrgForms: React.FC<IOrgForms> = ({
   orgRoles,
   handleNewRole,
   handleEditRole,
+  handleDeleteRole,
 }) => {
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center">
@@ -62,6 +64,15 @@ const OrgForms: React.FC<IOrgForms> = ({
               activeIndex={activeIndex}
               isLastRole={activeIndex === orgRoles.length - 1}
             />
+            {/* If orgRoles.length is greater than 1 render the delete link */}
+            {orgRoles.length > 1 && (
+              <div
+                className="mt-6 cursor-pointer text-center text-component-medium text-red-error"
+                onClick={() => handleDeleteRole(activeIndex)}
+              >
+                {'Delete this role'}
+              </div>
+            )}
           </>
         )}
       </div>

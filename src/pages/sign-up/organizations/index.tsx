@@ -34,6 +34,13 @@ const OrganizationSignup: NextPageWithLayout = () => {
     setShowReview(reviewReady);
   };
 
+  const handleDeleteRole = (idx: number) => {
+    const newOpportunityList = [...orgRoles];
+    newOpportunityList.splice(idx, 1);
+    setOrgRoles(newOpportunityList);
+    setActiveIndex(newOpportunityList.length - 1);
+  };
+
   const handleGoToOrg = () => {
     setActiveIndex(-1);
     setShowReview(false);
@@ -61,6 +68,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
           handleNewRole={handleNewRole}
           handleEditRole={handleEditRole}
           handleOrgSignup={handleOrgSignup}
+          handleDeleteRole={handleDeleteRole}
           setActiveIndex={setActiveIndex}
         />
       )}
