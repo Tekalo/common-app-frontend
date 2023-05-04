@@ -42,10 +42,13 @@ const Faq: React.FC<IFaq> = ({ faqItems, className }) => {
                   </Disclosure.Button>
                 </dt>
                 <Disclosure.Panel as="dd" className="mt-6">
-                  <p className="text-gray-600 max-w-[822px] text-p2-mobile lg:text-p1-mobile">
-                    {faq.answerText}
-                  </p>
-                  {faq.extras ? <div>{faq.extras}</div> : ''}
+                  {faq.answerText && (
+                    <div className="text-gray-600 max-w-[822px] text-p2-mobile lg:text-p1-mobile">
+                      {faq.answerText}
+                    </div>
+                  )}
+
+                  {faq.extras && <>{faq.extras}</>}
                 </Disclosure.Panel>
               </>
             )}
