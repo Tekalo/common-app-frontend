@@ -47,6 +47,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
       <>
         <Form
           onSubmit={(values) => {
+            // TODO: Submit to the API
             console.log('Submit everything');
           }}
         >
