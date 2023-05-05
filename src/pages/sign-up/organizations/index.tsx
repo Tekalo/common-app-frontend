@@ -1,15 +1,13 @@
+import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import { ORG_SUCCESS_LINK } from '@/lib/constants/text';
 import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
-import { ButtonVariant } from '@/modules/components/buttons/Button/Button';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
 import router from 'next/router';
 import { useState } from 'react';
-
-// TODO: Submit to API and go to success page
 
 const OrganizationSignup: NextPageWithLayout = () => {
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]

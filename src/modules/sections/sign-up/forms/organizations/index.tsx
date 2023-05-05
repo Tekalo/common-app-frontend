@@ -1,7 +1,7 @@
 import Breadcrumb from '@/components/navigation/Breadcrumb/Breadcrumb';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import { NewOrgType, NewRoleType } from '@/lib/types';
-import RoleForm from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
+import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
 
 export interface IOrgForms {

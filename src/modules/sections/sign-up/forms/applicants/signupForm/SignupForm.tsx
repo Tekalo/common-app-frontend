@@ -5,9 +5,9 @@ import {
 } from '@/lib/constants/selects';
 import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
-  PhoneNumber,
   PreferredContact,
   PrivacyPolicy,
   RequiredString,
@@ -100,7 +100,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={undefined}
-            validator={PhoneNumber}
+            validator={contactPhoneLinkedValidation}
           />
 
           {/* Privacy Info */}

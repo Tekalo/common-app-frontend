@@ -1,4 +1,5 @@
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
+import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
   APPLICANT_SIGNUP_LINK,
   ORG_SIGNUP_LINK,
@@ -10,8 +11,7 @@ import {
 import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import NavTitle from '@/modules/components/navigation/NavTitle/NavTitle';
-import ApplicantSignupForm from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';

@@ -1,6 +1,6 @@
+import SuccessSection from '@/components/info/successSection/SuccessSection';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import SuccessSection from '@/modules/components/info/successSection/SuccessSection';
 
 const ApplicantSuccess: NextPageWithLayout = () => {
   return (

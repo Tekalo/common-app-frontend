@@ -1,3 +1,5 @@
+import Button from '@/components/buttons/Button/Button';
+import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import {
   PRIVACY_DISCLAIMER,
   PRIVACY_MODAL_BODY_TEXT,
@@ -6,9 +8,7 @@ import {
 } from '@/lib/constants/text';
 import { PrivacyPolicy } from '@/lib/enums';
 import { NewOrgType, NewRoleType } from '@/lib/types';
-import Button from '@/modules/components/buttons/Button/Button';
-import TableModal from '@/modules/components/modal/Modal/TableModal/TableModal';
-import { BooleanField } from '@/modules/sections/sign-up/fields';
+import { BooleanField } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { useState } from 'react';
 import OrgDetailReview from './sections/OrgDetailReview';

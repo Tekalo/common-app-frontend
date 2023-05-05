@@ -35,7 +35,7 @@ import {
   MultiSelectField,
   RadioSelectField,
   SingleSelectField,
-} from '@/modules/sections/sign-up/fields';
+} from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { SyntheticEvent, useEffect, useRef } from 'react';
 import { z } from 'zod';

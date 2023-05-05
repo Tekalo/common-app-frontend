@@ -18,8 +18,8 @@ import {
   RequiredString,
 } from '@/lib/enums';
 
+import Button from '@/components/buttons/Button/Button';
 import { NewOrgType } from '@/lib/types';
-import Button from '@/modules/components/buttons/Button/Button';
 import {
   FreeTextField,
   MultiSelectField,
