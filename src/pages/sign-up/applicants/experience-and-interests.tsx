@@ -14,6 +14,7 @@ import {
   ITimelineItem,
   InterestFieldsType,
   NextPageWithLayout,
+  SubmissionResponseType,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
@@ -57,18 +58,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
     post(applicantSubmissionsEndpoint, finalFormValues, await getAuthToken())
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           router.push(APPLICANT_SUCCESS_LINK);
         } else {
-          // TODO: Error handling, API
-          alert(res.statusText);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error handling, FE
-        console.error('Failed to fetch', error);
-        alert('Failed to submit form data!');
+        console.error('Failed to submit', error);
       });
   };
 
@@ -86,13 +83,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
         if (res.ok) {
           setShowSaveModal(true);
         } else {
-          // TODO: Error handling, API
-          alert(res.statusText);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error handling, FE
-        alert(error);
+        console.error('failed to save form', error);
       });
   };
 
@@ -115,20 +110,19 @@ const ApplicantSignup: NextPageWithLayout = () => {
     get(applicantSubmissionsEndpoint, await getAuthToken())
       .then(async (res) => {
         if (res.ok) {
-          const response: any = await res.json();
+          const response: SubmissionResponseType = await res.json();
           setDraftFormValues(response.submission);
         } else {
-          // TODO: Error Handling
           if (res.status === 401) {
             router.push('/');
           } else {
-            alert(res.statusText);
+            console.error(res.statusText);
           }
         }
       })
       .catch((error) => {
         // TODO: Error Handling
-        alert(error);
+        console.error('failed to fetch submissions', error);
       });
   }
 

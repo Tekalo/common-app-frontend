@@ -7,6 +7,7 @@ import {
   YOE_RANGE,
 } from '@/lib/enums';
 import { z } from 'zod';
+import { CandidateDraftSchema } from './clientSchemas';
 
 const SubmissionResponseSchema = z.object({
   roleType: Roles,
@@ -58,7 +59,7 @@ const NewOrgOppResponseSchema = z.object({
 });
 
 const DraftResponseSchema = z.object({
-  submission: SubmissionResponseSchema,
+  submission: CandidateDraftSchema,
   isFinal: z.boolean(),
 });
 
