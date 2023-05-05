@@ -30,6 +30,9 @@ export const PRIVACY_LINK = '/privacy-info';
 export const SIGN_IN_LINK = '/sign-in';
 export const TERMS_LINK = '/terms';
 
+export const applicantFormHeader =
+  'Join a network of impact-driven organizations to find your match.';
+
 export const PRIVACY_DISCLAIMER = (
   setShowPrivacyModal: (_arg: boolean) => void
 ) => {

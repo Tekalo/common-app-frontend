@@ -1,6 +1,9 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
-import { APPLICANT_SUCCESS_LINK } from '@/lib/constants/text';
+import {
+  APPLICANT_SUCCESS_LINK,
+  applicantFormHeader,
+} from '@/lib/constants/text';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
@@ -147,21 +150,21 @@ const ApplicantSignup: NextPageWithLayout = () => {
   ];
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col items-center">
+    <div className="flex min-h-screen min-w-full flex-col items-center px-6">
       {/* Form Content */}
-      <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
+      <div className="flex max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
         {/* Title */}
-        <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
-          {'Join a network with over XX00 organizations to find your match.'}
+        <div className="max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
+          {applicantFormHeader}
         </div>
 
         {/* Breadcrumb Timeline */}
-        <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
+        <div className="mb-12 mt-10 flex content-center justify-center">
           <Timeline timelineItems={timelineItems} horizontal={true} />
         </div>
 
         {/* Form Area */}
-        <div className="col-span-4 col-start-5 space-y-8">
+        <div className="m-auto w-full max-w-[344px] space-y-8">
           {isInterestFormVisible ? (
             <InterestForm
               savedForm={draftFormValues}

@@ -6,6 +6,7 @@ import {
   PRIVACY_MODAL_EXTRAS,
   PRIVACY_MODAL_HEADER_TEXT,
   SIGN_IN_LINK,
+  applicantFormHeader,
 } from '@/lib/constants/text';
 import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
@@ -39,7 +40,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       <div className="px-6 pb-28 pt-10 md:px-24">
         {/* Title */}
         <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
-          {'Join a network with over XX00 organizations to find your match.'}
+          {applicantFormHeader}
         </div>
         {/* Navaway has an account*/}
         <div className="text-center text-component-medium">

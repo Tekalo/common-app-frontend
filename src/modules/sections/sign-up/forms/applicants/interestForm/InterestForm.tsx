@@ -300,7 +300,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Form Control Buttons */}
           <div className="pt-2">
             <Button
-              className="mt-14 w-full text-component-large"
+              className="w-full text-component-large"
               label="Save your progress"
               type="button"
               onClick={doSave}

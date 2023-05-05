@@ -48,16 +48,6 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
               </div>
             ) : (
               <>
-                {/* Authentication Button */}
-                {isAuthenticated ? (
-                  <a
-                    className="cursor-pointer text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
-                    onClick={(e) => handleAuthentication(e)}
-                  >
-                    Sign out
-                  </a>
-                ) : null}
-
                 {/* Contact Us Button */}
                 <a
                   className="cursor-pointer text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
