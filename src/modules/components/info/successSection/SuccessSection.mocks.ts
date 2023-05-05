@@ -1,12 +1,12 @@
-import { ISuccessPage } from './SuccessPage';
+import { ISuccessSection } from './SuccessSection';
 
-const base: ISuccessPage = {
+const base: ISuccessSection = {
   title: 'Success Page',
   body: 'This is the success page.',
   buttonText: 'Wow!',
   buttonHandler: () => void {},
 };
 
-export const mockSuccessPageProps = {
+export const mockSuccessSectionProps = {
   base,
 };

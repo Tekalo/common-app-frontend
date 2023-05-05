@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
   EmploymentOptions,
   PaidOptions,
@@ -6,7 +6,7 @@ import {
   SkillOptions,
   VisaSponsorshipOptions,
   YesNoOptions,
-  YOERangeOptions
+  YOERangeOptions,
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -18,251 +18,349 @@ import {
   Roles,
   Skills,
   VisaSponsorship,
-  YOE_RANGE
+  YOE_RANGE,
 } from '@/lib/enums';
-import { CommitmentType, NewRoleType } from '@/lib/types';
+import {
+  CommitmentType,
+  FieldBooleanType,
+  FieldStringType,
+  NewRoleType,
+  PartialNewRoleType,
+  RoleRefType,
+} from '@/lib/types';
 import {
   FreeTagField,
   FreeTextField,
   LongTextField,
   MultiSelectField,
   RadioSelectField,
-  SingleSelectField
-} from '@/modules/sections/sign-up/fields';
+  SingleSelectField,
+} from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
+import { SyntheticEvent, useEffect, useRef } from 'react';
 import { z } from 'zod';
 
 export interface IRoleForm {
-  // formList: [];
   formType: CommitmentType[] | undefined;
-  handleNewRole: (values: NewRoleType) => void;
-  // handleEditRole: (values: NewRole) => void;
+  previousForm: NewRoleType | undefined;
+  activeIndex: number;
+  isLastRole: boolean;
+  handleNewRole: (values: NewRoleType, reviewReady?: boolean) => void;
+  handleEditRole: (values: NewRoleType, reviewReady?: boolean) => void;
 }
 
 const RoleForm: React.FC<IRoleForm> = ({
-  // formList,
   formType,
   handleNewRole,
-  // handleEditRole,
+  handleEditRole,
+  previousForm,
+  activeIndex,
+  isLastRole,
 }) => {
+  const partTimeForm = !(formType?.length === 1 && formType?.includes('full'));
+  const isPaidRef = useRef<FieldBooleanType>(null);
+  const employmentTypeRef = useRef<FieldStringType>(null);
+  const formRef = useRef<RoleRefType>(null);
+  const reviewReadyRef = useRef<boolean>(false);
+
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  useEffect(executeScroll);
+
+  const doSubmit = (values: any) => {
+    const employmentType = values.employmentTypeText
+      ? values.employmentTypeSelect + ' - ' + values.employmentTypeText
+      : values.employmentTypeSelect;
+
+    // for each value if it is an empty string empty array set it to undefined
+    Object.keys(values).forEach((key) => {
+      if (values[key] === '' || values[key].length === 0) {
+        values[key] = undefined;
+      }
+    });
+
+    const NewRole: NewRoleType = {
+      ...values,
+      source: '',
+      employmentType,
+    };
+
+    if (previousForm) {
+      handleEditRole(NewRole, reviewReadyRef.current);
+    } else {
+      handleNewRole(NewRole, reviewReadyRef.current);
+    }
+  };
+
   return (
-    <Form<NewRoleType>
+    <Form<PartialNewRoleType>
       onSubmit={(values) => {
-        console.log(values);
-        handleNewRole(values);
+        doSubmit(values);
       }}
+      key={activeIndex}
+      ref={formRef}
     >
-      {({ isSubmitted, submit, reset }) => (
+      {({ isSubmitted, isValid, submit }) => (
         <form
-          onSubmit={(e) => {
+          onSubmit={(e: SyntheticEvent) => {
             e.preventDefault();
-            submit().then(() => {
-              reset();
-            });
+            submit();
           }}
           className="flex flex-col space-y-8"
         >
           {/* Description Section */}
-          {/* TODO: Conditionally render */}
-          <RadioSelectField
-            fieldName="paid"
-            label="Is this role paid or unpaid?"
-            rowAlign={true}
-            listOptions={PaidOptions}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={z.boolean()}
-          />
+          <>
+            {partTimeForm && (
+              <RadioSelectField
+                fieldName="paid"
+                label="Is this role paid or unpaid?"
+                rowAlign={true}
+                listOptions={PaidOptions}
+                isSubmitted={isSubmitted}
+                initialValue={previousForm?.paid}
+                validator={z.boolean()}
+                ref={isPaidRef}
+              />
+            )}
 
-          <SingleSelectField
-            fieldName="roleType"
-            label="What type of role is this?"
-            placeholder="Choose one"
-            listOptions={RoleOptions}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={Roles}
-          />
+            <SingleSelectField
+              fieldName="roleType"
+              label="What type of role is this?"
+              placeholder="Choose one"
+              listOptions={RoleOptions}
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.roleType}
+              validator={Roles}
+            />
 
-          {/* TODO: Conditionally render */}
-          <SingleSelectField
-            fieldName="employmentType"
-            label="What type of opportunity is this?"
-            placeholder="Choose one"
-            listOptions={EmploymentOptions}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={EmploymentType}
-          />
+            {partTimeForm && (
+              // HACK: Using the includes is risky here if we ever add a role with a " - " in it it may throw this component off
+              <>
+                <SingleSelectField
+                  fieldName="employmentTypeSelect"
+                  label="What type of opportunity is this?"
+                  placeholder="Choose one"
+                  listOptions={
+                    isPaidRef.current?.value
+                      ? EmploymentOptions.filter(
+                          (option) => option.value !== 'volunteer'
+                        )
+                      : EmploymentOptions
+                  }
+                  isSubmitted={isSubmitted}
+                  initialValue={
+                    previousForm?.employmentType.includes(' - ')
+                      ? previousForm?.employmentType.split(' - ')[0]
+                      : previousForm?.employmentType
+                  }
+                  validator={EmploymentType}
+                  ref={employmentTypeRef}
+                />
 
-          <FreeTextField
-            fieldName="employmentType"
-            label="If you chose other, please specify (optional)"
-            placeholder="Type of opportunity"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={OptionalString}
-          />
+                <FreeTextField
+                  fieldName="employmentTypeText"
+                  label="If you chose other, please specify (optional)"
+                  placeholder="Type of opportunity"
+                  isSubmitted={isSubmitted}
+                  initialValue={
+                    previousForm?.employmentType.includes(' - ')
+                      ? previousForm?.employmentType.split(' - ')[1]
+                      : undefined
+                  }
+                  validator={OptionalString}
+                />
+              </>
+            )}
 
-          <FreeTextField
-            fieldName="positionTitle"
-            label="Positon Title"
-            placeholder="Position title"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={RequiredString}
-          />
+            <FreeTextField
+              fieldName="positionTitle"
+              label="Positon Title"
+              placeholder="Position title"
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.positionTitle}
+              validator={RequiredString}
+            />
 
-          <FreeTextField
-            fieldName="jdUrl"
-            label="Link to job description (optional)"
-            placeholder="Job description URL"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={OptionalString}
-          />
-
+            <FreeTextField
+              fieldName="jdUrl"
+              label="Link to job description (optional)"
+              placeholder="Job description URL"
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.jdUrl}
+              validator={OptionalString}
+            />
+          </>
           {/* Pay Section */}
-          {/* TODO: Conditional Label */}
-          <FreeTextField
-            fieldName="salaryRange"
-            label="Pay range"
-            placeholder="Eg: $40 - 60 / hour"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={RequiredString}
-          />
+          <>
+            <FreeTextField
+              fieldName="salaryRange"
+              label={partTimeForm ? 'Pay range' : 'Salary range'}
+              placeholder={
+                partTimeForm ? 'Eg: $40 - 60 / hour' : 'Enter a range'
+              }
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.salaryRange}
+              validator={
+                isPaidRef.current?.value ? RequiredString : OptionalString
+              }
+              disabled={!isPaidRef.current?.value}
+            />
 
-          {/* TODO: Conditional Render */}
-          <FreeTextField
-            fieldName="desiredHoursPerWeek"
-            label="Desired hours per week (optional)"
-            placeholder="Approximate number of hours"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={OptionalString}
-          />
-
+            {partTimeForm && (
+              <FreeTextField
+                fieldName="desiredHoursPerWeek"
+                label="Desired hours per week (optional)"
+                placeholder="Approximate number of hours"
+                isSubmitted={isSubmitted}
+                initialValue={previousForm?.desiredHoursPerWeek}
+                validator={OptionalString}
+                disabled={
+                  employmentTypeRef.current?.value === 'full-time employee'
+                }
+              />
+            )}
+          </>
           {/* Location Section */}
-          <RadioSelectField
-            fieldName="fullyRemote"
-            label="Is this role fully remote?"
-            rowAlign={true}
-            listOptions={YesNoOptions}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={z.boolean()}
-          />
+          <>
+            <RadioSelectField
+              fieldName="fullyRemote"
+              label="Is this role fully remote?"
+              rowAlign={true}
+              listOptions={YesNoOptions}
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.fullyRemote}
+              validator={z.boolean()}
+            />
 
-          <FreeTextField
-            fieldName="location"
-            label="Location (optional)"
-            placeholder="City, state"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={OptionalString}
-          />
+            <FreeTextField
+              fieldName="location"
+              label="Location (optional)"
+              placeholder="City, state"
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.location}
+              validator={OptionalString}
+            />
 
-          {/* TODO: Disable if Volunteer selected in oppType */}
-          <SingleSelectField
-            fieldName="visaSponsorship"
-            label="Do you offer Visa sponsorship?"
-            placeholder="Choose one"
-            listOptions={VisaSponsorshipOptions}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={VisaSponsorship}
-          />
-
+            <SingleSelectField
+              fieldName="visaSponsorship"
+              label="Do you offer Visa sponsorship?"
+              placeholder="Choose one"
+              listOptions={VisaSponsorshipOptions}
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.visaSponsorship}
+              validator={
+                employmentTypeRef.current?.value === 'volunteer'
+                  ? undefined
+                  : VisaSponsorship
+              }
+              disabled={employmentTypeRef.current?.value === 'volunteer'}
+            />
+          </>
           {/* Date Section */}
-          <FreeTextField
-            fieldName="desiredStartDate"
-            label="Desired start date (optional)"
-            placeholder="mm/dd/yyyy"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={OptionalDate}
-          />
+          <>
+            <FreeTextField
+              fieldName="desiredStartDate"
+              label="Desired start date (optional)"
+              placeholder="mm/dd/yyyy"
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.desiredEndDate}
+              validator={OptionalDate}
+            />
 
-          {/* TODO: Conditionally render */}
-          <FreeTextField
-            fieldName="desiredEndDate"
-            label="Desired end date (optional)"
-            placeholder="mm/dd/yyyy"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={OptionalDate}
-          />
-
+            {partTimeForm && (
+              <FreeTextField
+                fieldName="desiredEndDate"
+                label="Desired end date (optional)"
+                placeholder="mm/dd/yyyy"
+                isSubmitted={isSubmitted}
+                initialValue={previousForm?.desiredEndDate}
+                validator={OptionalDate}
+              />
+            )}
+          </>
           {/* Requirement Section */}
-          <MultiSelectField
-            fieldName="desiredYoe"
-            label="Desired years of experience"
-            placeholder="Choose all that apply"
-            selectionLabelMulti=" options selected"
-            selectionLabelSingle=" option selected"
-            listOptions={YOERangeOptions}
-            isSubmitted={isSubmitted}
-            initialValue={[]}
-            validator={YOE_RANGE}
-          />
+          <>
+            <MultiSelectField
+              fieldName="desiredYoe"
+              label="Desired years of experience"
+              placeholder="Choose all that apply"
+              selectionLabelMulti=" options selected"
+              selectionLabelSingle=" option selected"
+              listOptions={YOERangeOptions}
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.desiredYoe || []}
+              validator={YOE_RANGE.array().min(1)}
+            />
 
-          <MultiSelectField
-            fieldName="desiredSkills"
-            label="Desired skills for the role (optional)"
-            placeholder="Choose all that apply"
-            selectionLabelMulti=" options selected"
-            selectionLabelSingle=" option selected"
-            listOptions={SkillOptions}
-            isSubmitted={isSubmitted}
-            initialValue={[]}
-            validator={Skills.optional()}
-          />
+            <MultiSelectField
+              fieldName="desiredSkills"
+              label="Desired skills for the role (optional)"
+              placeholder="Choose all that apply"
+              selectionLabelMulti=" options selected"
+              selectionLabelSingle=" option selected"
+              listOptions={SkillOptions}
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.desiredSkills || []}
+              validator={Skills.array().optional()}
+            />
 
-          <FreeTagField
-            fieldName="desiredOtherSkills"
-            label="Other desired skills if not listed above (optional)"
-            placeholder="Desired skills separated by commas"
-            isSubmitted={isSubmitted}
-            initialValue={[]}
-            validator={OptionalString.array()}
-          />
+            <FreeTagField
+              fieldName="desiredOtherSkills"
+              label="Other desired skills if not listed above (optional)"
+              placeholder="Desired skills separated by commas"
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.desiredOtherSkills || []}
+              validator={RequiredString.array().optional()}
+            />
 
-          <RadioSelectField
-            fieldName="similarStaffed"
-            label="Are there employees on staff with the same or similar role?"
-            rowAlign={true}
-            listOptions={YesNoOptions}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={z.boolean()}
-          />
+            <RadioSelectField
+              fieldName="similarStaffed"
+              label="Are there employees on staff with the same or similar role?"
+              rowAlign={true}
+              listOptions={YesNoOptions}
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.similarStaffed}
+              validator={z.boolean()}
+            />
 
-          {/* TODO: Essay Section */}
-          <LongTextField
-            fieldName="desiredImpactExp"
-            label="Desired impact-related experience or passion that you are looking for in a candidate (optional)"
-            placeholder="Your answer here. Maximum 200 words."
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={OptionalEssay}
-          />
+            <LongTextField
+              fieldName="desiredImpactExp"
+              label="Desired impact-related experience or passion that you are looking for in a candidate (optional)"
+              placeholder="Your answer here. Maximum 200 words."
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.desiredImpactExp}
+              validator={OptionalEssay}
+            />
 
-          <LongTextField
-            fieldName="pitchEssay"
-            label="How would you pitch this role in a few sentences?"
-            placeholder="Your answer here. Maximum 200 words."
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={RequiredEssay}
-          />
-
+            <LongTextField
+              fieldName="pitchEssay"
+              label="How would you pitch this role in a few sentences?"
+              placeholder="Your answer here. Maximum 200 words."
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.pitchEssay}
+              validator={RequiredEssay}
+            />
+          </>
           {/* Form Control Button*/}
-          <Button
-            className="mt-4 w-full text-component-large"
-            label="Next"
-            type="submit"
-          />
+          <div className="space-y-6">
+            <Button
+              name="nextRole"
+              className="mt-4 w-full text-component-large"
+              label={isLastRole ? 'Add another role' : 'Go to next role'}
+              variant={ButtonVariant.OUTLINED}
+              disabled={activeIndex >= 3}
+              type="submit"
+            />
+            <Button
+              name="review"
+              className="mt-4 w-full text-component-large"
+              label={'Go to review'}
+              onClick={() => {
+                reviewReadyRef.current = isValid;
+                submit();
+              }}
+              type="button"
+            />
+          </div>
         </form>
       )}
     </Form>

@@ -16,7 +16,7 @@ on:
   # Trigger the workflow on pull requests
   pull_request:
     # whenever a PR is opened, edited, or synchronized
-    types: [opened, edited, synchronize]
+    types: [opened, synchronize, reopened]
     # on develop
     branches:
       - develop

@@ -71,18 +71,18 @@ const OptionalEssay = z
   .max(5000)
   .optional();
 const RequiredString = z.string().nonempty(errorMessages.required).max(255);
-const OptionalString = z
-  .string({
-    errorMap: () => ({
-      message: errorMessages.unknownError,
-    }),
-  })
-  .max(255)
-  .optional();
+const OptionalString = z.string().max(255).optional();
 
 const RequiredDate = z.coerce.date();
-const OptionalDate = z.coerce.date().optional();
-const OrgType = z.enum(['501c(3)', '501c(4)', 'LLC', 'other'], {
+const OptionalDate = z
+  .string()
+  .optional()
+  .refine((str) => {
+    if (!str) return true;
+    const date = new Date(str);
+    return !isNaN(date.getTime());
+  }, 'Invalid date');
+const OrgType = z.enum(['501(c)(3)', '501(c)(4)', 'LLC', 'other'], {
   errorMap: defaultEnumErrorMap,
 });
 
@@ -147,11 +147,10 @@ const Skills = z.enum(
 
 const Roles = z.enum(
   [
-    'data analyst',
-    'product manager',
     'software engineer',
-    'software engineeer backend',
-    'software engineer frontend',
+    'software engineer - backend',
+    'software engineer - frontend',
+    'product manager',
     'product designer',
     'ux/ui designer',
     'ux researcher',

@@ -1,14 +1,14 @@
 import Button from '@/components/buttons/Button/Button';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
-export interface ISuccessPage {
+export interface ISuccessSection {
   title: string;
   body: string;
   buttonText: string;
   buttonHandler: () => void;
 }
 
-const SuccessPage: React.FC<ISuccessPage> = ({
+const SuccessSection: React.FC<ISuccessSection> = ({
   title,
   body,
   buttonText,
@@ -53,4 +53,4 @@ const SuccessPage: React.FC<ISuccessPage> = ({
   );
 };
 
-export default SuccessPage;
+export default SuccessSection;

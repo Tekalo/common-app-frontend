@@ -88,7 +88,7 @@ export default async function handler(req: NextRequest): Promise<Response> {
     const result = await fetchResponse(req, params);
     const data: any = await result.json();
 
-    // TODO: Handle the various status codes
+    // TODO: Decide how to handle various API status codes
 
     return new Response(JSON.stringify(data), {
       status: result.status,
