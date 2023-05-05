@@ -1,7 +1,7 @@
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
-  APPLICANT_SIGNUP_LINK,
+  APPLICANT_EXPERIENCE_LINK,
   ORG_SIGNUP_LINK,
   PRIVACY_MODAL_BODY_TEXT,
   PRIVACY_MODAL_EXTRAS,
@@ -24,10 +24,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .then((res) => {
         console.log(res);
         if (res.ok) {
-          router.push(APPLICANT_SIGNUP_LINK);
+          router.push(APPLICANT_EXPERIENCE_LINK);
         } else {
           // TODO: Error handling, from API
-          alert(res.statusText);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
