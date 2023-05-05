@@ -21,7 +21,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
             <img
               src="/images/hero_md.png"
               alt="Tablet Hero Image"
-              className="mb-4 hidden md:block lg:hidden"
+              className="mb-4 hidden max-w-[528px] md:block lg:hidden"
             />
             {/* Desktop Hero */}
             <div className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">

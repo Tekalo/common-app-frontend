@@ -42,7 +42,7 @@ const MainFooter: React.FC<IMainFooter> = () => {
             <img
               src="/images/logo_footer.png"
               alt="Tekalo Logo"
-              className="w-auto"
+              className="w-auto max-w-[152px]"
             />
           </div>
           {/* footer links container  */}

@@ -32,7 +32,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                 <img
                   src="/images/logo_nav.png"
                   alt="Tekalo Logo"
-                  className="max-w-[96px] py-1 md:max-w-[none]"
+                  className="max-w-[96px] py-1 md:max-w-[132px]"
                 />
               </Link>
               <div className="hidden text-p3-mobile md:block md:pt-2 lg:text-p3-desktop">

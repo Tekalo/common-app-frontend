@@ -31,7 +31,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
               <img
                 src="/images/logo_nav.png"
                 alt="Tekalo Logo"
-                className="max-w-[96px] py-1 md:max-w-[none]"
+                className="max-w-[96px] py-1 md:max-w-[132px]"
               />
             </Link>
             <div className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-10 md:pt-2 lg:text-p2-desktop">
