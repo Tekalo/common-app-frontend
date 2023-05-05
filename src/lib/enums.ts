@@ -82,7 +82,7 @@ const OptionalDate = z
     const date = new Date(str);
     return !isNaN(date.getTime());
   }, 'Invalid date');
-const OrgType = z.enum(['501c(3)', '501c(4)', 'LLC', 'other'], {
+const OrgType = z.enum(['501(c)(3)', '501(c)(4)', 'LLC', 'other'], {
   errorMap: defaultEnumErrorMap,
 });
 

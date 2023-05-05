@@ -73,6 +73,7 @@ const RoleForm: React.FC<IRoleForm> = ({
 
     const NewRole: NewRoleType = {
       ...values,
+      source: '',
       employmentType,
     };
 

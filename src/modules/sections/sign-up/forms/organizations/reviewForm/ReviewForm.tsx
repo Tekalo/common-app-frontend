@@ -20,6 +20,7 @@ export interface IReviewFormPage {
   handleGoToOrg: () => void;
   handleGoToRole: (idx: number) => void;
   handleDeleteRole: (idx: number) => void;
+  handleSubmit: (privacyAcceptance: boolean) => void;
 }
 
 const ReviewFormPage: React.FC<IReviewFormPage> = ({
@@ -28,6 +29,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   handleGoToOrg,
   handleGoToRole,
   handleDeleteRole,
+  handleSubmit,
 }) => {
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
@@ -53,8 +55,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
       <>
         <Form
           onSubmit={(values) => {
-            // TODO: Submit to the API
-            console.log('Submit everything');
+            handleSubmit(values.acceptedPrivacy);
           }}
         >
           {({ isValid, isSubmitted, submit }) => (

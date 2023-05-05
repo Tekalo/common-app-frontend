@@ -1,9 +1,12 @@
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
+import { ORG_SUCCESS_LINK } from '@/lib/constants/text';
+import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import { ButtonVariant } from '@/modules/components/buttons/Button/Button';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
+import router from 'next/router';
 import { useState } from 'react';
 
 // TODO: Submit to API and go to success page
@@ -15,6 +18,32 @@ const OrganizationSignup: NextPageWithLayout = () => {
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
   const [showReview, setShowReview] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+
+  const handleSubmit = async (acceptedPrivacy: boolean) => {
+    const values = {
+      contact: orgInfo?.contact,
+      organization: orgInfo?.organization,
+      submissions: orgRoles,
+      acceptedPrivacy,
+    };
+
+    // Send the payload to the API
+    post(opportunityBatchEndpoint, values)
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          router.push(ORG_SUCCESS_LINK);
+        } else {
+          // TODO: Error handling, from API
+          alert(res.statusText);
+        }
+      })
+      .catch((error) => {
+        // TODO: Error handling, from FE
+        console.error('Failed to submit form data', error);
+        alert(error);
+      });
+  };
 
   const handleOrgSignup = (values: NewOrgType) => {
     setOrgInfo(values);
@@ -68,6 +97,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
           handleGoToOrg={handleGoToOrg}
           handleGoToRole={handleGoToRole}
           handleDeleteRole={handleDeleteRole}
+          handleSubmit={handleSubmit}
         />
       ) : (
         <OrgForms
