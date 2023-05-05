@@ -17,6 +17,7 @@ import {
   YOE,
   YOE_RANGE,
 } from '@/lib/enums';
+import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
 import { IBoolItem, ISelectItem } from '@/lib/types';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
@@ -71,7 +72,7 @@ const VisaSponsorshipOptions: Array<ISelectItem> = VisaSponsorship.options.map(
 
 const SkillOptions: Array<ISelectItem> = Skills.options.map((option) => ({
   value: option,
-  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+  displayText: capitalizeFirstLetter(option),
 }));
 
 const CommitmentOptions: Array<ISelectItem> = CommitmentType.options.map(
@@ -98,7 +99,7 @@ const CommitmentOptions: Array<ISelectItem> = CommitmentType.options.map(
 const EmploymentOptions: Array<ISelectItem> = EmploymentType.options.map(
   (option) => ({
     value: option,
-    displayText: option.charAt(0).toUpperCase() + option.slice(1),
+    displayText: capitalizeFirstLetter(option),
   })
 );
 
@@ -116,14 +117,14 @@ const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
   } else {
     return {
       value: option,
-      displayText: option.charAt(0).toUpperCase() + option.slice(1),
+      displayText: capitalizeFirstLetter(option),
     };
   }
 });
 
 const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => ({
   value: option,
-  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+  displayText: capitalizeFirstLetter(option),
 }));
 
 const YesNoOptions: Array<ISelectItem> = [
@@ -251,7 +252,7 @@ const PreferredContactOptions = PreferredContact.options.map((option) => {
 
 const RelocationOptions = OpenToRelocate.options.map((option) => ({
   value: option,
-  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+  displayText: capitalizeFirstLetter(option),
 }));
 
 const RemoteOptions = OpenToRemote.options.map((option) => {
@@ -273,19 +274,19 @@ const RemoteOptions = OpenToRemote.options.map((option) => {
   } else {
     return {
       value: option,
-      displayText: option.charAt(0).toUpperCase() + option.slice(1),
+      displayText: capitalizeFirstLetter(option),
     };
   }
 });
 
 const AttributionOtpions = ReferenceAttribution.options.map((option) => ({
   value: option,
-  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+  displayText: capitalizeFirstLetter(option),
 }));
 
 const OrgTypeOptions = OrgType.options.map((option) => ({
   value: option,
-  displayText: option.charAt(0).toUpperCase() + option.slice(1),
+  displayText: capitalizeFirstLetter(option),
 }));
 
 const OrgSizeOptions = OrgSize.options.map((option) => ({

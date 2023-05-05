@@ -9,7 +9,7 @@ interface IRadioSelectField {
   fieldName: string;
   label: string;
   helperText?: string | ReactElement;
-  fieldRef?: RefObject<FieldInstance>;
+  ref?: RefObject<FieldInstance>;
   rowAlign?: boolean;
   listOptions: ISelectItem[];
   isSubmitted: boolean;
@@ -17,46 +17,51 @@ interface IRadioSelectField {
   validator?: z.ZodSchema;
 }
 
-const RadioSelectField: React.FC<IRadioSelectField> = ({
-  fieldName,
-  label,
-  helperText,
-  fieldRef,
-  rowAlign,
-  listOptions,
-  isSubmitted,
-  initialValue,
-  validator,
-}) => {
-  return (
-    <Field<boolean>
-      name={fieldName}
-      ref={fieldRef}
-      initialValue={initialValue}
-      onSubmitValidate={validator}
-      onChangeValidate={validator}
-    >
-      {({ value, setValue, onBlur, errors }) => {
-        return (
-          <div className="space-y-2">
-            <RadioGroup
-              name={`input-${fieldName}`}
-              label={label}
-              value={String(value)}
-              onChange={(val) => setValue(val === 'true')}
-              onBlur={onBlur}
-              rowAlign={rowAlign}
-              listOptions={listOptions}
-            />
+const RadioSelectField = React.forwardRef<FieldInstance, IRadioSelectField>(
+  (props, ref) => {
+    const {
+      fieldName,
+      label,
+      helperText,
+      rowAlign,
+      listOptions,
+      isSubmitted,
+      initialValue,
+      validator,
+    } = props;
 
-            {helperText ? <>{helperText}</> : null}
+    return (
+      <Field<boolean>
+        name={fieldName}
+        ref={ref}
+        initialValue={initialValue}
+        onSubmitValidate={validator}
+        onChangeValidate={validator}
+      >
+        {({ value, setValue, onBlur, errors }) => {
+          return (
+            <div className="space-y-2">
+              <RadioGroup
+                name={`input-${fieldName}`}
+                label={label}
+                value={String(value)}
+                onChange={(val) => setValue(val === 'true')}
+                onBlur={onBlur}
+                rowAlign={rowAlign}
+                listOptions={listOptions}
+              />
 
-            {printErrorMessages(isSubmitted, errors)}
-          </div>
-        );
-      }}
-    </Field>
-  );
-};
+              {helperText ? <>{helperText}</> : null}
+
+              {printErrorMessages(isSubmitted, errors)}
+            </div>
+          );
+        }}
+      </Field>
+    );
+  }
+);
+
+RadioSelectField.displayName = 'RadioSelectField';
 
 export default RadioSelectField;

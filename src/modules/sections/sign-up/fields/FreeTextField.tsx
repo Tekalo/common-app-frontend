@@ -10,7 +10,6 @@ export interface IFreeTextField {
   placeholder: string;
   isSubmitted: boolean;
   initialValue: string | undefined;
-  // TODO: If we need this more than once, we can make it a type
   validator?: z.ZodSchema | ((v: string, f: FormInstance) => Promise<boolean>);
   disabled?: boolean;
 }
