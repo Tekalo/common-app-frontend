@@ -21,18 +21,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const handleSubmit = async (values: unknown) => {
     post(applicantsEndpoint, values)
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           router.push(APPLICANT_SIGNUP_LINK);
         } else {
           // TODO: Error handling, from API
-          alert(res.statusText);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
         // TODO: Error handling, from FE
         console.error('Failed to submit form data', error);
-        alert(error);
       });
   };
 

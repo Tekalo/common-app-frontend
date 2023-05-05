@@ -1,6 +1,12 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
-import { OptionalString, RequiredString, Skills, YOE } from '@/lib/enums';
+import {
+  OptionalString,
+  OptionalStringArr,
+  RequiredString,
+  Skills,
+  YOE,
+} from '@/lib/enums';
 import { resetForm } from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
@@ -71,7 +77,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Name of organization"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastOrg}
-            validator={OptionalString}
+            validator={RequiredString}
           />
 
           {/* Years Experience */}
@@ -99,14 +105,13 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           />
 
           {/* Other Skills */}
-          {/* TODO: This is not allowed to be undefined for some reason */}
           <FreeTagField
             fieldName="otherSkills"
             label="Other skills (optional)"
             placeholder="Skills separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.otherSkills}
-            validator={OptionalString.array()}
+            initialValue={savedForm?.otherSkills || []}
+            validator={OptionalStringArr}
           />
 
           {/* LinkedIn */}

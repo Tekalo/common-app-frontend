@@ -80,6 +80,12 @@ const OptionalString = z
   .max(255)
   .optional();
 
+const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
+  message: errorMessages.interestCauses,
+});
+
+const OptionalStringArr = z.array(OptionalString).optional();
+
 const RequiredDate = z.coerce.date();
 const OptionalDate = z.coerce.date().optional();
 const OrgType = z.enum(['501c(3)', '501c(4)', 'LLC', 'other'], {
@@ -107,6 +113,11 @@ const EmploymentType = z.enum(
 const CommitmentType = z.enum(['full', 'part'], {
   errorMap: defaultEnumErrorMap,
 });
+
+const CommitmentTypeValidator = CommitmentType.array().refine(
+  (v) => !!v.length,
+  { message: errorMessages.requiredSelectGroup }
+);
 
 const GovtJobType = z.enum(['paid', 'unpaid'], {
   errorMap: defaultEnumErrorMap,
@@ -159,6 +170,10 @@ const Roles = z.enum(
   ],
   { errorMap: defaultEnumErrorMap }
 );
+
+const RolesValidator = Roles.array().refine((v) => !!v.length, {
+  message: errorMessages.requiredSelectGroup,
+});
 
 const Causes = z.enum(
   [
@@ -235,33 +250,37 @@ const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
 };
 
 export {
-  PreferredContact,
-  SearchStatus,
-  OrgType,
-  OrgSize,
-  EmploymentType,
-  Roles,
-  CommitmentType,
-  GovtJobType,
-  YOE,
-  YOE_RANGE,
-  Skills,
   Causes,
-  VisaSponsorship,
+  CausesValidator,
+  CommitmentType,
+  CommitmentTypeValidator,
+  EOE,
+  Email,
+  EmploymentType,
+  GovtJobType,
   OpenToRelocate,
   OpenToRemote,
-  WorkAuthorization,
-  ReferenceAttribution,
-  Email,
-  PhoneNumber,
-  PrivacyPolicy,
-  ToS,
-  EOE,
-  RequiredString,
-  OptionalString,
-  RequiredEssay,
-  OptionalEssay,
-  RequiredDate,
   OptionalDate,
+  OptionalEssay,
+  OptionalString,
+  OptionalStringArr,
+  OrgSize,
+  OrgType,
+  PhoneNumber,
+  PreferredContact,
+  PrivacyPolicy,
+  ReferenceAttribution,
+  RequiredDate,
+  RequiredEssay,
+  RequiredString,
+  Roles,
+  RolesValidator,
+  SearchStatus,
+  Skills,
+  ToS,
+  VisaSponsorship,
+  WorkAuthorization,
+  YOE,
+  YOE_RANGE,
   contactPhoneLinkedValidation,
 };

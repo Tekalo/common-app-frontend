@@ -12,7 +12,8 @@ import {
 } from '@/lib/constants/selects';
 import { USDR_DISCLAIMER } from '@/lib/constants/text';
 import {
-  CommitmentType,
+  CausesValidator,
+  CommitmentTypeValidator,
   GovtJobType,
   OpenToRelocate,
   OpenToRemote,
@@ -20,7 +21,7 @@ import {
   ReferenceAttribution,
   RequiredEssay,
   RequiredString,
-  Roles,
+  RolesValidator,
   TrueFalseString,
   WorkAuthorization,
 } from '@/lib/enums';
@@ -31,8 +32,6 @@ import {
 } from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
-  FieldBooleanType,
-  FieldStringArrayType,
   InterestFieldsType,
   InterestRefType,
 } from '@/lib/types';
@@ -47,7 +46,7 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface IInterestForm {
   handleSubmit: (_values: InterestFieldsType) => void;
@@ -61,12 +60,18 @@ const InterestForm: React.FC<IInterestForm> = ({
   savedForm,
 }) => {
   const formRef = useRef<InterestRefType>(null);
-  const employmentTypeRef = useRef<FieldStringArrayType>(null);
-  const govRef = useRef<FieldBooleanType>(null);
+  const [employmentType, setEmploymentType] = useState(
+    savedForm?.interestEmploymentType || []
+  );
+  const [interestGovt, setInterestGov] = useState(
+    savedForm?.interestGovt || false
+  );
 
   useEffect(() => {
     // Need to use the inital value once we get it,
     // so we have to reset the form for it to initialize
+    setEmploymentType(savedForm?.interestEmploymentType || []);
+    setInterestGov(savedForm?.interestGovt || false);
     resetForm(formRef);
   }, [savedForm]);
 
@@ -124,11 +129,13 @@ const InterestForm: React.FC<IInterestForm> = ({
             helperText={
               'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
             }
-            ref={employmentTypeRef}
+            onChange={(val) => {
+              setEmploymentType(val);
+            }}
             listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestEmploymentType}
-            validator={CommitmentType.array()}
+            initialValue={employmentType}
+            validator={CommitmentTypeValidator}
           />
           {/* Hours per week */}
           <FreeTextField
@@ -137,8 +144,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="Hours per week you are able to commit (optional)"
             placeholder="Approximate number of hours"
             disabled={
-              employmentTypeRef.current?.value?.length === 1 &&
-              employmentTypeRef.current?.value[0] === 'full'
+              employmentType.length === 1 && employmentType[0] === 'full'
             }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.hoursPerWeek || ''}
@@ -154,7 +160,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={RoleOptions.filter((role) => role.value !== 'other')}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestRoles || []}
-            validator={Roles.array()}
+            validator={RolesValidator}
           />
           {/* Location */}
           <FreeTextField
@@ -209,7 +215,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestCauses}
-            validator={RequiredString.array().min(1)}
+            validator={CausesValidator}
           />
           {/* Other Causes*/}
           <FreeTagField
@@ -221,7 +227,6 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={OptionalString.array()}
           />
           {/* Work Auth*/}
-          {/* TODO: This is not allowed to be optional for some reason */}
           <SingleSelectField
             fieldName="workAuthorization"
             label="Work authorization (optional)"
@@ -236,15 +241,16 @@ const InterestForm: React.FC<IInterestForm> = ({
             fieldName="interestGovt"
             label="Are you interested in U.S. state or local government opportunities?"
             helperText={USDR_DISCLAIMER}
-            fieldRef={govRef}
+            onChange={(val) => {
+              setInterestGov(val);
+            }}
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={mapBoolToString(savedForm?.interestGovt)}
+            initialValue={mapBoolToString(interestGovt)}
             validator={TrueFalseString}
           />
           {/* Gov Opp Type*/}
-          {/* TODO: This is not allowed to be optional if not required */}
           <MultiSelectField
             fieldName="interestGovtEmplTypes"
             listenTo={['interestGovt']}
@@ -256,7 +262,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestGovtEmplTypes || []}
             validator={GovtJobType.array().optional()}
-            disabled={govRef.current?.value.toString() !== 'true'}
+            disabled={interestGovt?.toString() !== 'true'}
           />
           {/* Previous XP */}
           <RadioGroupField
@@ -265,7 +271,9 @@ const InterestForm: React.FC<IInterestForm> = ({
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={mapBoolToString(savedForm?.previousImpactExperience)}
+            initialValue={mapBoolToString(
+              savedForm?.previousImpactExperience || false
+            )}
             validator={TrueFalseString}
           />
           {/* Essay */}

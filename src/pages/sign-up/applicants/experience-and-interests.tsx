@@ -41,7 +41,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
   }, [isSubmitted]);
 
   useEffect(() => {
-    getSubmissions();
+    if (!isLoading) {
+      getSubmissions();
+    }
   }, [isAuthenticated, isLoading, getAccessTokenSilently]);
 
   const getAuthToken = async () => {
