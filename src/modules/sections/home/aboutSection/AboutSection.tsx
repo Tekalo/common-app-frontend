@@ -142,7 +142,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
                 key={i}
                 src={role.src}
                 alt={role.alt}
-                className={`max-w-[312px] md:flex-initial lg:max-w-[351px] ${role.classes}`}
+                className={`max-w-[312px] md:max-w-[348px] md:flex-initial lg:max-w-[352px] ${role.classes}`}
               />
             ))}
           </div>
