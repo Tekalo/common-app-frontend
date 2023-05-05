@@ -6,6 +6,7 @@ const base: IReviewFormPage = {
   handleGoToOrg: () => void {},
   handleGoToRole: (idx) => void {},
   handleDeleteRole: (idx) => void {},
+  handleSubmit: (val) => void {},
 };
 
 export const mockReviewFormPageProps = {
