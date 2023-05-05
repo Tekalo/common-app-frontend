@@ -18,6 +18,8 @@ const OrganizationSignup: NextPageWithLayout = () => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const handleSubmit = async (acceptedPrivacy: boolean) => {
+    console.log(orgRoles);
+
     const values = {
       contact: orgInfo?.contact,
       organization: orgInfo?.organization,

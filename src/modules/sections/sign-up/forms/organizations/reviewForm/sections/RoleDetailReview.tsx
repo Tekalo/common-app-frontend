@@ -62,14 +62,14 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
             <span className="text-component-large text-black-text">
               {'Desired years of experience: '}
             </span>
-            {role.desiredYoe.join(', ')}
+            {role.desiredYoe?.join(', ')}
           </div>
           <div>
             <span className="text-component-large text-black-text">
               {'Desired skills for the role: '}
             </span>
             {role.desiredSkills
-              .map((skill) => capitalizeFirstLetter(skill))
+              ?.map((skill) => capitalizeFirstLetter(skill))
               .join(', ')}
           </div>
           <div>

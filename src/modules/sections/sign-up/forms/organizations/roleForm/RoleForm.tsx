@@ -66,10 +66,17 @@ const RoleForm: React.FC<IRoleForm> = ({
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   useEffect(executeScroll);
 
-  const doSubmit = (values: PartialNewRoleType) => {
+  const doSubmit = (values: any) => {
     const employmentType = values.employmentTypeText
       ? values.employmentTypeSelect + ' - ' + values.employmentTypeText
       : values.employmentTypeSelect;
+
+    // for each value if it is an empty string empty array set it to undefined
+    Object.keys(values).forEach((key) => {
+      if (values[key] === '' || values[key].length === 0) {
+        values[key] = undefined;
+      }
+    });
 
     const NewRole: NewRoleType = {
       ...values,
@@ -281,7 +288,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               listOptions={YOERangeOptions}
               isSubmitted={isSubmitted}
               initialValue={previousForm?.desiredYoe || []}
-              validator={YOE_RANGE.array()}
+              validator={YOE_RANGE.array().min(1)}
             />
 
             <MultiSelectField

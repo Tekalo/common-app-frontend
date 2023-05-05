@@ -51,10 +51,10 @@ const NewRoleSchema = z.object({
   desiredStartDate: z.string().optional(),
   desiredEndDate: z.string().optional(),
   jdUrl: z.string().url().max(500).optional(),
-  desiredYoe: z.array(YOE_RANGE),
-  desiredSkills: z.array(Skills),
+  desiredYoe: z.array(YOE_RANGE).optional(),
+  desiredSkills: z.array(Skills).optional(),
   desiredOtherSkills: z.string().max(255).array().optional(),
-  visaSponsorship: VisaSponsorship,
+  visaSponsorship: VisaSponsorship.optional(),
   similarStaffed: z.boolean(),
   desiredImpactExp: z.string().max(5000).optional(),
 });
