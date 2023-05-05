@@ -267,7 +267,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Previous XP */}
           <RadioGroupField
             fieldName="previousImpactExperience"
-            label="Do you	have previous experience working at a nonprofit or public service organization?"
+            label="Do you have previous experience working at a nonprofit or public service organization?"
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
