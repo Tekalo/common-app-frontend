@@ -267,7 +267,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Previous XP */}
           <RadioGroupField
             fieldName="previousImpactExperience"
-            label="Do you have previous experience working at a non-profit or a public service organization?"
+            label="Do you	have previous experience working at a nonprofit or public service organization?"
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
@@ -279,7 +279,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Essay */}
           <LongTextField
             fieldName="essayResponse"
-            label="If you had unlimited resources, what problem would you choose to solve and why?"
+            label="If you had unlimited resources what problem would you choose to solve and why?"
             placeholder="Write as much as you’d like, suggested up to 250 words."
             isSubmitted={isSubmitted}
             initialValue={savedForm ? savedForm.essayResponse : ''}
@@ -288,7 +288,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Reference */}
           <SingleSelectField
             fieldName="referenceAttribution"
-            label="How did you hear about Tekalo?"
+            label="How did you hear about Tekalo? (optional)"
             placeholder="Choose one"
             listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}

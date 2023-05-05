@@ -38,7 +38,7 @@ export const PRIVACY_DISCLAIMER = (
 ) => {
   return (
     <>
-      By signing up, you acknowledge the{' '}
+      I confirm that I have reviewed the{' '}
       <span
         className="cursor-pointer whitespace-nowrap text-blue-1 underline underline-offset-4"
         onClick={(e) => {
@@ -54,7 +54,7 @@ export const PRIVACY_DISCLAIMER = (
 
 export const TERMS_DISCLAIMER = (
   <>
-    {'By signing up, you agree to the '}
+    {'I agree to the '}
     <span className="text-blue-1 underline underline-offset-4">
       <Link target="_blank" href={TERMS_LINK}>
         Terms of Service

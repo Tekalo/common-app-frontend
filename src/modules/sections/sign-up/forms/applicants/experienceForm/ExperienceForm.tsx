@@ -137,7 +137,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Portfolio Password */}
           <FreeTextField
             fieldName="portfolioPassword"
-            label="portfolioPassword (optional)"
+            label="Portfolio password (optional)"
             placeholder="Password to view website"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.portfolioPassword || ''}
@@ -157,7 +157,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Resume */}
           <FreeTextField
             fieldName="resumeUrl"
-            label="Resume (optional)"
+            label="Link to resume (optional)"
             placeholder="Resume URL"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumeUrl || ''}

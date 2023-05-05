@@ -215,11 +215,12 @@ const ReferenceAttribution = z.enum(
     'partner organization',
     'career fair',
     'other',
+    '',
   ],
   { errorMap: defaultEnumErrorMap }
 );
 
-const PreferredContact = z.enum(['sms', 'whatsapp', 'email'], {
+const PreferredContact = z.enum(['email', 'sms', 'whatsapp'], {
   errorMap: defaultEnumErrorMap,
 });
 
