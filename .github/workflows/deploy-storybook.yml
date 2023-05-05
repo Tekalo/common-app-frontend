@@ -1,7 +1,7 @@
 name: Storybook - Build and Deploy
 on:
   pull_request:
-    types: [opened, edited, synchronize]
+    types: [opened, synchronize, reopened]
     branches: [develop]
     paths: ['src/modules/**/*']
 

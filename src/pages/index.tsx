@@ -8,7 +8,7 @@ import {
   HowSection,
   OrgSection,
   TestimonialSection,
-} from '@/modules/sections/home';
+} from '@/sections/home';
 
 const Home: NextPageWithLayout = () => {
   return (

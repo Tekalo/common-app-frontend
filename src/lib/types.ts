@@ -15,16 +15,22 @@ import {
 
 /** Types
  */
+export type RoleRefType = FormInstance<PartialNewRoleType>;
 export type ExperienceRefType = FormInstance<ExperienceFieldsType>;
 export type InterestRefType = FormInstance<InterestFieldsType>;
 export type FieldStringArrayType = FieldInstance<string[], unknown>;
 export type FieldBooleanType = FieldInstance<boolean, unknown>;
+export type FieldStringType = FieldInstance<string, unknown>;
 export type DraftSubmissionType = z.infer<typeof CandidateDraftSchema>;
 export type ExperienceFieldsType = z.infer<typeof CandidateExperienceSchema>;
 export type InterestFieldsType = z.infer<typeof CandidateInterestsSchema>;
 export type NewCandidateType = z.infer<typeof NewCandidateSchema>;
 export type NewOrgType = z.infer<typeof NewOrgSchema>;
 export type NewRoleType = z.infer<typeof NewRoleSchema>;
+export type PartialNewRoleType = Omit<NewRoleType, 'employmentType'> & {
+  employmentTypeSelect: string;
+  employmentTypeText: string;
+};
 export type CommitmentType = z.infer<typeof CommitmentType>;
 export type NewOrgOppFieldsType = z.infer<typeof NewOrgOppSchema>;
 export type IconType = (_props: IIconItem) => React.ReactNode;
@@ -75,7 +81,7 @@ export interface ITimelineItem {
 }
 export interface IFaqItem {
   questionText: string;
-  answerText: ReactElement;
+  answerText?: ReactElement;
   extras?: ReactElement;
   className?: string;
 }

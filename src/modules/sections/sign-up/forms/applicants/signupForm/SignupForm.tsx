@@ -5,6 +5,7 @@ import {
 } from '@/lib/constants/selects';
 import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -12,7 +13,6 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {
@@ -104,7 +104,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             validator={contactPhoneLinkedValidation}
           />
 
-          {/* TODO Privacy Info */}
+          {/* Privacy Info */}
           <BooleanField
             fieldName="acceptedPrivacy"
             label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}

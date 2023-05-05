@@ -17,6 +17,7 @@ export interface ISingleSelect {
   listOptions: ISelectItem[];
   setValue: (_val: string) => void;
   onBlur?: () => void;
+  disabled?: boolean;
 }
 
 const SingleSelect: React.FC<ISingleSelect> = ({
@@ -29,13 +30,14 @@ const SingleSelect: React.FC<ISingleSelect> = ({
   labelClassName,
   optionsClassName,
   buttonClassName,
+  disabled,
 }) => {
   return (
-    <Listbox value={value} onChange={setValue} name={name}>
+    <Listbox value={value} onChange={setValue} name={name} disabled={disabled}>
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label
-            className={`text-component-extra-small text-black-text ${labelClassName}}`}
+            className={`text-component-extra-small text-black-text  ${labelClassName}}`}
             htmlFor={name}
           >
             {labelText}
@@ -43,7 +45,9 @@ const SingleSelect: React.FC<ISingleSelect> = ({
           <div className="mt-2">
             <Listbox.Button
               name={name}
-              className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${
+              className={`${
+                disabled ? ' bg-gray-4' : ''
+              } flex w-full flex-row items-center justify-between rounded-[3px] border ${
                 open ? 'border-blue-1' : 'border-gray-2'
               } p-2 text-left font-sans text-component-medium placeholder:text-gray-2 ${buttonClassName}`}
             >
