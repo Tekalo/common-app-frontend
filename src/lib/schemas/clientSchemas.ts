@@ -68,6 +68,7 @@ const NewCandidateSchema = z.object({
   searchStatus: SearchStatus,
   acceptedTerms: z.literal(true),
   acceptedPrivacy: z.literal(true),
+  followUpOptIn: z.boolean().optional(),
 });
 
 const CandidateExperienceSchema = z.object({

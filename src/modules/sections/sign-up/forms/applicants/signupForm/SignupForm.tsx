@@ -122,6 +122,14 @@ const SignupForm: React.FC<ISignupForm> = ({
             validator={ToS}
           />
 
+          {/* Follow-up opt-in */}
+          <BooleanField
+            fieldName="followUpOptIn"
+            label="I'd like to receive electronic communications with other opportunities, news, and updates from Schmidt Futures (optional)"
+            isSubmitted={isSubmitted}
+            initialValue={undefined}
+          />
+
           {/* Form Cotnrol Button*/}
           <Button
             className="mt-10 w-full lg:mt-14"
