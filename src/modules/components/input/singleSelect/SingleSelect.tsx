@@ -1,3 +1,4 @@
+import Tooltip from '@/components/tooltip/Tooltip';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import {
@@ -15,6 +16,7 @@ export interface ISingleSelect {
   buttonClassName?: string;
   optionsClassName?: string;
   listOptions: ISelectItem[];
+  tooltipText?: string;
   setValue: (_val: string) => void;
   onBlur?: () => void;
   disabled?: boolean;
@@ -31,16 +33,18 @@ const SingleSelect: React.FC<ISingleSelect> = ({
   optionsClassName,
   buttonClassName,
   disabled,
+  tooltipText,
 }) => {
   return (
     <Listbox value={value} onChange={setValue} name={name} disabled={disabled}>
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label
-            className={`text-component-extra-small text-black-text  ${labelClassName}}`}
+            className={`flex items-center text-component-extra-small text-black-text  ${labelClassName}}`}
             htmlFor={name}
           >
             {labelText}
+            {tooltipText ? <Tooltip text={tooltipText} /> : ''}
           </Listbox.Label>
           <div className="mt-2">
             <Listbox.Button

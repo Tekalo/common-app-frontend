@@ -1,4 +1,3 @@
-// import Button from '@/components/buttons/Button/Button';
 import {
   CauseOptions,
   CommitmentOptions,
@@ -10,8 +9,8 @@ import { EEOC_LABEL } from '@/lib/constants/text';
 import {
   Causes,
   CommitmentType,
-  Email,
   EOE,
+  Email,
   OrgSize,
   OrgType,
   PhoneNumber,
@@ -68,6 +67,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             listOptions={OrgTypeOptions}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.type}
+            tooltipText="We accept applications from 501(c)(3) organizations. Other types of impact-driven organizations are welcome to submit opportunities and will be considered on a case by case basis."
             validator={OrgType}
           />
 
