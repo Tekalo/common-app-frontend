@@ -14,6 +14,7 @@ export interface ISelectGroupField {
   initialValue: string[] | undefined;
   validator?: z.ZodSchema;
   ref: RefObject<FieldInstance>;
+  onChange?: (val: any) => void;
 }
 
 const SelectGroupField = React.forwardRef<FieldInstance, ISelectGroupField>(
@@ -26,6 +27,7 @@ const SelectGroupField = React.forwardRef<FieldInstance, ISelectGroupField>(
       isSubmitted,
       initialValue,
       validator,
+      onChange,
     } = props;
 
     return (
@@ -45,6 +47,7 @@ const SelectGroupField = React.forwardRef<FieldInstance, ISelectGroupField>(
                 value={value}
                 setValue={setValue}
                 onBlur={onBlur}
+                onChange={onChange}
                 listOptions={listOptions}
               />
               {helperText ? (

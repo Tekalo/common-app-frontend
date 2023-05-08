@@ -7,6 +7,7 @@ import {
   PRIVACY_MODAL_EXTRAS,
   PRIVACY_MODAL_HEADER_TEXT,
   SIGN_IN_LINK,
+  applicantFormHeader,
 } from '@/lib/constants/text';
 import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
@@ -22,7 +23,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const handleSubmit = async (values: unknown) => {
     post(applicantsEndpoint, values)
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           router.push(APPLICANT_EXPERIENCE_LINK);
         } else {
@@ -33,34 +33,32 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .catch((error) => {
         // TODO: Error handling, from FE
         console.error('Failed to submit form data', error);
-        alert(error);
       });
   };
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col items-center pb-28">
-      <NavTitle
-        title={
-          'Join a network with over XX00 organizations to find your match.'
-        }
-        navawayText={'Already have an account? '}
-        navLink={SIGN_IN_LINK}
-        navText={'Sign in'}
-      />
-
-      <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
-        {/* New user form */}
-        <ApplicantSignupForm
-          handleSubmit={handleSubmit}
-          setShowPrivacyModal={setShowPrivacyModal}
+    <div className="flex min-h-screen min-w-full flex-col items-center">
+      <div className="px-6 pb-28 pt-10 md:px-24">
+        <NavTitle
+          title={applicantFormHeader}
+          navawayText={'Already have an account? '}
+          navLink={SIGN_IN_LINK}
+          navText={'Sign in'}
         />
-      </div>
-      {/* Navaway for organizations */}
-      <div className="mt-6 text-center">
-        {"If you're an organization, "}
-        <span className="text-blue-1 underline underline-offset-4">
-          <Link href={ORG_SIGNUP_LINK}>{'apply here'}</Link>
-        </span>
+        <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
+          {/* New user form */}
+          <ApplicantSignupForm
+            handleSubmit={handleSubmit}
+            setShowPrivacyModal={setShowPrivacyModal}
+          />
+        </div>
+        {/* Navaway for organizations */}
+        <div className="mt-6 text-center">
+          {"If you're an organization, "}
+          <span className="text-blue-1 underline underline-offset-4">
+            <Link href={ORG_SIGNUP_LINK}>{'apply here'}</Link>
+          </span>
+        </div>
       </div>
       <TableModal
         headerText={PRIVACY_MODAL_HEADER_TEXT}

@@ -31,12 +31,15 @@ export const PRIVACY_LINK = '/privacy-info';
 export const SIGN_IN_LINK = '/sign-in';
 export const TERMS_LINK = '/terms';
 
+export const applicantFormHeader =
+  'Join a network of impact-driven organizations to find your match.';
+
 export const PRIVACY_DISCLAIMER = (
   setShowPrivacyModal: (_arg: boolean) => void
 ) => {
   return (
     <>
-      By signing up, you acknowledge the{' '}
+      I confirm that I have reviewed the{' '}
       <span
         className="cursor-pointer whitespace-nowrap text-blue-1 underline underline-offset-4"
         onClick={(e) => {
@@ -52,7 +55,7 @@ export const PRIVACY_DISCLAIMER = (
 
 export const TERMS_DISCLAIMER = (
   <>
-    {'By signing up, you agree to the '}
+    {'I agree to the '}
     <span className="text-blue-1 underline underline-offset-4">
       <Link target="_blank" href={TERMS_LINK}>
         Terms of Service

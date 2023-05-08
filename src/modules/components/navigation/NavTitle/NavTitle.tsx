@@ -14,7 +14,7 @@ const NavTitle: React.FC<INavTitle> = ({
   navText,
 }) => {
   return (
-    <div className="px-6 pt-10 md:px-24">
+    <>
       {/* Title */}
       <div className="mb-4 px-2 text-center text-h3-desktop md:mb-6 md:max-w-[584px]">
         {title}
@@ -26,7 +26,7 @@ const NavTitle: React.FC<INavTitle> = ({
           <Link href={navLink}>{navText}</Link>
         </span>
       </div>
-    </div>
+    </>
   );
 };
 

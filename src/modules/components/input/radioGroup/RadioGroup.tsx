@@ -28,7 +28,9 @@ const RadioGroup: React.FC<IRadioGroup> = ({
       {/* RADIO OPTIONS */}
       {listOptions.map((option, idx) => (
         <div
-          className={`flex gap-x-2 ${rowAlign ? 'w-20' : 'w-[125%]'}`}
+          className={`flex gap-x-2 ${
+            rowAlign ? 'w-20' : 'w-[100%] md:w-[125%]'
+          }`}
           key={idx}
         >
           <div className="flex h-[16px] w-[16px] items-center justify-center">

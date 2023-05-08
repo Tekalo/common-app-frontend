@@ -55,6 +55,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           <FreeTextField
             fieldName="email"
             label="Email"
+            tooltipText="Your email will be used to contact you about your application. It won’t be used for marketing."
             placeholder="Your email address"
             isSubmitted={isSubmitted}
             initialValue={undefined}
@@ -65,7 +66,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           <FreeTextField
             fieldName="pronouns"
             label="Pronouns (optional)"
-            placeholder="E.g. she/her/hers"
+            placeholder="E.g. she/her"
             isSubmitted={isSubmitted}
             initialValue={undefined}
             validator={OptionalString}

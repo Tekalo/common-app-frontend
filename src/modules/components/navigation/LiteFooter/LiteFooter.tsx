@@ -13,7 +13,7 @@ const LiteFooter: React.FC<ILiteFooter> = () => {
             <img
               src="/images/logo_lite_footer.png"
               alt="Tekalo Logo"
-              className="max-w-[65px] py-1 md:max-w-[none]"
+              className="max-w-[65px] py-1"
             />
           </div>
           {/* Menu Col 1 */}

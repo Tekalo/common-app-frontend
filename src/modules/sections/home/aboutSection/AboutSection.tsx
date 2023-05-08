@@ -23,26 +23,26 @@ const sponsorLogos = [
   },
 ];
 
-const roleImages = [
+const roles = [
   {
     src: '/images/roles/SWERole.png',
     alt: 'Software Engineer Role',
-    classes: '',
+    text: 'Software Engineers',
   },
   {
     src: '/images/roles/PMRole.png',
     alt: 'Product Manager Role',
-    classes: '',
+    text: 'Product Managers',
   },
   {
     src: '/images/roles/UXRole.png',
     alt: 'UX/UI Designer Role',
-    classes: '',
+    text: 'UX/UI Designers',
   },
   {
     src: '/images/roles/DSRole.png',
-    alt: 'Data Scientist Role',
-    classes: '',
+    alt: 'Data Analysts Role',
+    text: 'Data Analysts',
   },
 ];
 
@@ -128,22 +128,26 @@ const AboutSection: React.FC<IAboutSection> = () => {
           <img
             src="/images/BenefitHero_lg.png"
             alt="Benefits Image"
-            className="m-auto hidden max-w-[610px] md:block lg:mb-24 lg:max-w-[none]"
+            className="m-auto hidden max-w-[610px] md:block lg:mb-24 lg:max-w-[928px]"
           />
         </div>
         {/* Roles */}
         <div className="">
-          <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:mb-10 md:block md:text-h4-mobile lg:text-h4-desktop">
+          <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:mb-10 md:text-h4-mobile lg:mb-14 lg:text-h4-desktop">
             Full-time and part-time roles listed on Tekalo
           </h3>
-          <div className="mx-auto flex flex-wrap justify-center md:max-w-[1000px] md:gap-x-4 lg:gap-x-8 lg:px-4">
-            {roleImages.map((role, i) => (
-              <img
-                key={i}
-                src={role.src}
-                alt={role.alt}
-                className={`max-w-[312px] md:flex-initial lg:max-w-[351px] ${role.classes}`}
-              />
+          <div className="mx-auto flex max-w-[280px] flex-wrap justify-start gap-y-9 md:max-w-[688px] md:justify-center md:gap-x-12">
+            {roles.map((role, i) => (
+              <div key={i} className="flex items-center gap-x-4 md:w-[316px]">
+                <img
+                  src={role.src}
+                  alt={role.alt}
+                  className={`max-w-[54px] md:max-w-[64px] md:flex-initial`}
+                />
+                <span className="font-display text-h4-mobile md:text-h4-desktop">
+                  {role.text}
+                </span>
+              </div>
             ))}
           </div>
         </div>
