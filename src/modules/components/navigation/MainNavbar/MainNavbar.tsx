@@ -37,9 +37,6 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   className="max-w-[96px] py-1 md:max-w-[132px]"
                 />
               </Link>
-              <div className="hidden text-p3-mobile md:block md:pt-2 lg:text-p3-desktop">
-                {NAV_BAR_TEXT.POWERED_BY}
-              </div>
             </div>
             <div className="flex items-center space-x-4 md:space-x-9 lg:space-x-10">
               {isLoading ? (
