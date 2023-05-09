@@ -26,14 +26,14 @@ const OrgForms: React.FC<IOrgForms> = ({
   handleDeleteRole,
 }) => {
   return (
-    <div className="flex min-h-screen min-w-full flex-col items-center">
+    <div className="flex min-h-screen min-w-full flex-col items-center px-6 pb-28 pt-10 md:pb-32 lg:pb-44 lg:pt-16">
       <NavTitle
         title={'Recruit qualified candidates from the Tekalo network'}
         navawayText={'If you’re a candidate looking for opportunities, '}
         navLink={'/sign-up/applicants'}
         navText={'sign up here'}
       />
-      <div className="m-auto mb-8 max-w-[344px] sm:mb-28 md:mb-36 md:mt-10 lg:mb-44 lg:mt-8">
+      <div className="m-auto max-w-[344px] lg:max-w-[352px]">
         {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm and breadcrum*/}
         {activeIndex === -1 ? (
           <OrgSignupForm
@@ -42,7 +42,7 @@ const OrgForms: React.FC<IOrgForms> = ({
           />
         ) : (
           <>
-            <div className="mb-8 mt-8 flex flex-row justify-center sm:space-x-2">
+            <div className="mb-10 flex flex-row justify-center sm:space-x-2">
               <div
                 className="cursor-pointer text-component-medium text-blue-1"
                 onClick={() => setActiveIndex(-1)}
@@ -65,7 +65,7 @@ const OrgForms: React.FC<IOrgForms> = ({
               isLastRole={activeIndex === orgRoles.length - 1}
             />
             {/* If orgRoles.length is greater than 1 render the delete link */}
-            {orgRoles.length > 1 && (
+            {orgRoles.length >= 1 && (
               <div
                 className="mt-6 cursor-pointer text-center text-component-medium text-red-error"
                 onClick={() => handleDeleteRole(activeIndex)}

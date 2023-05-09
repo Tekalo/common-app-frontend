@@ -18,7 +18,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
   onChange,
 }) => {
   return (
-    <fieldset className="space-y-2 text-left">
+    <fieldset className="space-y-4 text-left">
       <legend className="text-component-extra-small text-black-text">
         {label}
       </legend>
