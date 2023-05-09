@@ -2,13 +2,12 @@ import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
   APPLICANT_EXPERIENCE_LINK,
+  APPLICANT_FORM_TEXT,
   ORG_SIGNUP_LINK,
-  PRIVACY_MODAL_BODY_TEXT,
-  PRIVACY_MODAL_EXTRAS,
-  PRIVACY_MODAL_HEADER_TEXT,
+  PRIVACY_LINK,
+  PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
-  applicantFormHeader,
-} from '@/lib/constants/text';
+} from '@/lang/en';
 import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
@@ -17,6 +16,18 @@ import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
+
+const privacyModalExtras = (
+  <div className="text-p3-desktop">
+    {PRIVACY_MODAL_TEXT.EXTRAS[0]}
+    <span className="text-blue-1 underline underline-offset-4">
+      <Link target="_blank" href={PRIVACY_LINK}>
+        PRIVACY_MODAL_TEXT.EXTRAS[ 1 ]
+      </Link>
+    </span>
+    PRIVACY_MODAL_TEXT.EXTRAS[2]
+  </div>
+);
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
@@ -41,7 +52,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
     <div className="flex min-h-screen min-w-full flex-col items-center">
       <div className="px-6 pb-28 pt-10 md:px-24">
         <NavTitle
-          title={applicantFormHeader}
+          title={APPLICANT_FORM_TEXT.HEADER}
           navawayText={'Already have an account? '}
           navLink={SIGN_IN_LINK}
           navText={'Sign in'}
@@ -62,9 +73,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </div>
       </div>
       <TableModal
-        headerText={PRIVACY_MODAL_HEADER_TEXT}
-        bodyText={PRIVACY_MODAL_BODY_TEXT}
-        extras={PRIVACY_MODAL_EXTRAS}
+        headerText={PRIVACY_MODAL_TEXT.HEADER}
+        bodyText={PRIVACY_MODAL_TEXT.BODY}
+        extras={privacyModalExtras}
         isOpen={showPrivacyModal}
         closeModal={() => {
           setShowPrivacyModal(false);

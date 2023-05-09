@@ -1,6 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { HOME_ORG_TEXT } from '@/lang/en';
-import { ORG_SIGNUP_LINK } from '@/lib/constants/text';
+import { HOME_ORG_TEXT, ORG_SIGNUP_LINK } from '@/lang/en';
 import Modal from '@/modules/components/modal/Modal/Modal/Modal';
 import Link from 'next/link';
 

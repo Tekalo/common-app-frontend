@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
-import { CONTACT_US_EMAIL_LINK } from '@/lib/constants/text';
+import { CONTACT_US_MAILTO_LINK } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import { SyntheticEvent } from 'react';
@@ -50,7 +50,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
                 {/* Contact Us Button */}
                 <a
                   className="cursor-pointer text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
-                  href={CONTACT_US_EMAIL_LINK}
+                  href={CONTACT_US_MAILTO_LINK}
                 >
                   Contact us
                 </a>
