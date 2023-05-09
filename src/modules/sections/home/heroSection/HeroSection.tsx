@@ -1,7 +1,7 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { HOME_HERO_TEXT } from '@/lang/en';
 import { APPLICANT_SIGNUP_LINK, ORG_SIGNUP_LINK } from '@/lib/constants/text';
-import router from 'next/router';
+import Link from 'next/link';
 
 export interface IHeroSection {}
 
@@ -38,17 +38,19 @@ const HeroSection: React.FC<IHeroSection> = () => {
             </div>
             {/* CTA Buttons */}
             <div className="flex justify-center gap-x-1 sm:gap-x-4 md:justify-start md:gap-x-6">
-              <Button
-                label={HOME_HERO_TEXT.APPLICANT_CTA}
-                className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:flex-auto md:px-7 md:py-3 lg:flex-none lg:px-10"
-                onClick={() => router.push(APPLICANT_SIGNUP_LINK)}
-              />
-              <Button
-                variant={ButtonVariant.OUTLINED}
-                label={HOME_HERO_TEXT.ORG_CTA}
-                className="flex-none flex-nowrap p-1 sm:p-3 md:flex-auto lg:flex-none lg:px-7"
-                onClick={() => router.push(ORG_SIGNUP_LINK)}
-              />
+              <Link href={APPLICANT_SIGNUP_LINK}>
+                <Button
+                  label={HOME_HERO_TEXT.APPLICANT_CTA}
+                  className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:flex-auto md:px-7 md:py-3 lg:flex-none lg:px-10"
+                />
+              </Link>
+              <Link href={ORG_SIGNUP_LINK}>
+                <Button
+                  variant={ButtonVariant.OUTLINED}
+                  label={HOME_HERO_TEXT.ORG_CTA}
+                  className="flex-none flex-nowrap p-1 sm:p-3 md:flex-auto lg:flex-none lg:px-7"
+                />
+              </Link>
             </div>
           </div>
         </div>
