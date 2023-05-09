@@ -1,3 +1,5 @@
+import { HOME_ABOUT_TEXT } from '@/lang/en';
+
 export interface IAboutSection {}
 
 const sponsorLogos = [
@@ -46,7 +48,6 @@ const roles = [
   },
 ];
 
-// TODO: Replace images with next/image --> figure out cloudflare + next/image
 const AboutSection: React.FC<IAboutSection> = () => {
   return (
     <div className="flex flex-col items-center px-6 pb-12 pt-20 md:pb-20 md:pt-16 lg:pb-28 lg:pt-28">
@@ -54,7 +55,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
         {/* Coalition Logos */}
         <div className="mb-16 min-w-full md:mb-24 lg:mb-28">
           <p className="mb-6 text-center font-display text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-10 lg:text-large-caption-desktop">
-            TEKALO is supported by
+            {HOME_ABOUT_TEXT.SPONSOR_HEADER}
           </p>
           <div className="mx-auto flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-2 gap-y-6 px-4 md:max-w-[none] md:gap-x-8 md:gap-y-8 lg:max-w-[none] lg:gap-y-10">
             {sponsorLogos.map((logo, i) => (
@@ -62,6 +63,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
                 key={i}
                 className="flex h-10 max-w-[130px] flex-initial items-center overflow-hidden lg:h-16 lg:max-w-[208px]"
               >
+                {/* TODO: Replace images with next/image --> figure out cloudflare + next/image */}
                 <img
                   key={i}
                   src={logo.src}
@@ -75,44 +77,36 @@ const AboutSection: React.FC<IAboutSection> = () => {
         {/* Content */}
         <div className="flex flex-col items-center">
           <h2 className="mb-6 max-w-[590px] text-center font-display text-h3-mobile text-black-text md:text-h2-mobile lg:mb-10 lg:max-w-[924px] lg:p-0 lg:text-h2-desktop">
-            Tekalo aims to bridge the gap between tech talent and impact-driven
-            opportunities.
+            {HOME_ABOUT_TEXT.HEADER}
           </h2>
           <p className="mb-14 max-w-[590px] text-center font-sans text-p2-desktop font-normal text-black-text md:text-p1-mobile lg:mb-8 lg:max-w-[735px] lg:text-p1-desktop">
-            Now more than ever, impact-driven organizations need tech talent
-            that is passionate about solving some of the world’s most pressing
-            problems.
+            {HOME_ABOUT_TEXT.BODY}
           </p>
         </div>
         {/* Pronunciation */}
         <div className="m-auto mb-16 max-w-[470px] rounded-lg border-2 border-black-text bg-light-orange px-5 py-6 lg:mb-20 lg:max-w-[544px] lg:px-10 lg:py-14">
           <div className="space-y-3 text-p2-mobile md:space-y-6 lg:text-p2-desktop">
             <div>
-              <span className="font-display font-semibold">TE</span>•ka•lo
+              <span className="font-display font-semibold">
+                {HOME_ABOUT_TEXT.PRONUNCIATION_TE}
+              </span>
+              {HOME_ABOUT_TEXT.PRONUNCIATION_KALO}
               <br />
-              Tech + Kalo (‘good’ in Greek)
+              {HOME_ABOUT_TEXT.PRONUNCIATION_DEFINITION}
             </div>
-            <div>
-              Tekalo refers to using technology to build a better world.
-            </div>
+            <div>{HOME_ABOUT_TEXT.PRONUNCIATION_GOAL}</div>
           </div>
         </div>
         {/* Goals */}
         <div className="mb-8">
           <div className="text-center font-display text-h3-mobile">
-            Through Tekalo we want to:
+            {HOME_ABOUT_TEXT.GOAL_HEADER}
           </div>
           <div className="m-auto mt-6 max-w-[590px] pl-7 text-p1-mobile">
             <ol className="list-decimal">
-              <li>
-                Empower tech talent to follow non-traditional paths, and work on
-                causes that they care about (full-time or part-time)
-              </li>
-              <li>Simplify the application process with a single form</li>
-              <li>
-                Provide impact-driven organizations a list of top candidate
-                matches
-              </li>
+              <li>{HOME_ABOUT_TEXT.GOAL_1}</li>
+              <li> {HOME_ABOUT_TEXT.GOAL_2}</li>
+              <li>{HOME_ABOUT_TEXT.GOAL_3}</li>
             </ol>
           </div>
         </div>
@@ -134,7 +128,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
         {/* Roles */}
         <div className="">
           <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:mb-10 md:text-h4-mobile lg:mb-14 lg:text-h4-desktop">
-            Full-time and part-time roles listed on Tekalo
+            {HOME_ABOUT_TEXT.ROLE_HEADER}
           </h3>
           <div className="mx-auto flex max-w-[280px] flex-wrap justify-start gap-y-9 md:max-w-[688px] md:justify-center md:gap-x-12">
             {roles.map((role, i) => (
