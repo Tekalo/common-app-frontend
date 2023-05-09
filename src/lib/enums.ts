@@ -178,7 +178,7 @@ const Causes = z.enum(
   [
     'climate change',
     'environment',
-    'human rights & social equality',
+    'human rights & social justice',
     'international development',
     'education',
     'health & well being',

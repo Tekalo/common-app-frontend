@@ -2,7 +2,7 @@ import SingleSelect from '@/components/input/singleSelect/SingleSelect';
 import { printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance } from 'houseform';
-import { forwardRef, RefObject } from 'react';
+import { RefObject, forwardRef } from 'react';
 import { z } from 'zod';
 
 export interface ISingleSelectField {
@@ -12,6 +12,7 @@ export interface ISingleSelectField {
   listOptions: ISelectItem[];
   isSubmitted: boolean;
   initialValue: string | undefined;
+  tooltipText?: string;
   validator?: z.ZodSchema;
   disabled?: boolean;
   ref?: RefObject<FieldInstance>;
@@ -28,6 +29,7 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
       initialValue,
       validator,
       disabled,
+      tooltipText,
     } = props;
 
     return (
@@ -47,6 +49,7 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
                 placeholder={placeholder}
                 value={value}
                 setValue={setValue}
+                tooltipText={tooltipText}
                 onBlur={onBlur}
                 listOptions={listOptions}
                 disabled={disabled}

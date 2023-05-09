@@ -13,58 +13,36 @@ const OrgDetailReview: React.FC<IOrgDetailReview> = ({
   orgInfo,
   handleGoToOrg: handleEditOrg,
 }) => {
+  const renderRow = (label: string, data?: string) =>
+    data ? (
+      <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-1">
+        <span className="text-component-large text-black-text">{label}</span>
+        <span className="">{data}</span>
+      </div>
+    ) : (
+      <></>
+    );
+
   return (
-    <div className="mt-12 border-b border-b-gray-3 pb-8">
-      <div className="font-dispay text-h4-desktop text-black-text">
+    <div className="mt-8 border-b border-b-gray-3 pb-4">
+      <div className="font-display text-h4-mobile text-black-text lg:text-h4-desktop">
         {titleText}
       </div>
-      <div className="mt-6 space-y-2">
-        <div>
-          <span className="text-component-large text-black-text">
-            {'Organization name: '}
-          </span>
-          {orgInfo?.organization.name}
-        </div>
-        <div>
-          <span className="text-component-large text-black-text">
-            {'Organization type: '}
-          </span>
-          {orgInfo?.organization.type}
-        </div>
-        <div>
-          <span className="text-component-large text-black-text">
-            {'Organization size: '}
-          </span>
-          {orgInfo?.organization.size}
-        </div>
-        <div>
-          <span className="text-component-large text-black-text">
-            {'Impact areas: '}
-          </span>
-          {orgInfo?.organization.impactAreas
+      <div className="mt-4 space-y-2 md:mt-6">
+        {renderRow('Organization name: ', orgInfo?.organization.name)}
+        {renderRow('Organization type: ', orgInfo?.organization.type)}
+        {renderRow('Organization size: ', orgInfo?.organization.size)}
+        {renderRow(
+          'Impact areas: ',
+          orgInfo?.organization.impactAreas
             .map((area) => capitalizeFirstLetter(area))
-            .join(', ')}
-        </div>
+            .join(', ')
+        )}
       </div>
       <div className="mt-4 space-y-2">
-        <div>
-          <span className="text-component-large text-black-text">
-            {'Contact name: '}
-          </span>
-          {orgInfo?.contact.name}
-        </div>
-        <div>
-          <span className="text-component-large text-black-text">
-            {'Contact number: '}
-          </span>
-          {orgInfo?.contact.phone}
-        </div>
-        <div>
-          <span className="text-component-large text-black-text">
-            {'Contact email: '}
-          </span>
-          {orgInfo?.contact.email}
-        </div>
+        {renderRow('Contact name: ', orgInfo?.contact.name)}
+        {renderRow('Contact number: ', orgInfo?.contact.phone)}
+        {renderRow('Contact email: ', orgInfo?.contact.email)}
       </div>
       <div
         className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-blue-1"

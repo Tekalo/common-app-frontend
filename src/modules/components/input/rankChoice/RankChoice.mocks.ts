@@ -10,7 +10,7 @@ const base: IRankChoice = {
   rankOptions: [
     { displayText: 'Climate Change', value: 'climate' },
     { displayText: 'Environment', value: 'environment' },
-    { displayText: 'Human rights & social equality', value: 'humanRights' },
+    { displayText: 'Human rights & social justice', value: 'humanRights' },
     { displayText: 'International Development', value: 'intDev' },
   ],
   setValue: () => void {},

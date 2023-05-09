@@ -1,4 +1,3 @@
-// import Button from '@/components/buttons/Button/Button';
 import {
   CauseOptions,
   CommitmentOptions,
@@ -10,8 +9,8 @@ import { EEOC_LABEL } from '@/lib/constants/text';
 import {
   Causes,
   CommitmentType,
-  Email,
   EOE,
+  Email,
   OrgSize,
   OrgType,
   PhoneNumber,
@@ -48,7 +47,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             e.preventDefault();
             submit();
           }}
-          className="flex flex-col space-y-8"
+          className="flex flex-col space-y-8 lg:space-y-7"
         >
           {/* Org Name */}
           <FreeTextField
@@ -68,6 +67,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             listOptions={OrgTypeOptions}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.type}
+            tooltipText="We accept applications from 501(c)(3) organizations. Other types of impact-driven organizations are welcome to submit opportunities and will be considered on a case by case basis."
             validator={OrgType}
           />
 
@@ -125,6 +125,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             isSubmitted={isSubmitted}
             initialValue={previousForm?.contact.phone}
             validator={PhoneNumber.optional()}
+            tooltipText="If provided, your number will be used to contact you about your application. It won’t be used for marketing."
           />
 
           {/* Org Employment Types */}
@@ -154,11 +155,13 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           />
 
           {/* Form Control Button*/}
-          <Button
-            className="mt-4 w-full text-component-large"
-            label="Next"
-            type="submit"
-          />
+          <div className="pt-2">
+            <Button
+              className="w-full text-component-large"
+              label="Next"
+              type="submit"
+            />
+          </div>
         </form>
       )}
     </Form>

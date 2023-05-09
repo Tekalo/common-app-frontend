@@ -34,9 +34,9 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
   return (
-    <div className="mx-6 mt-16 w-full sm:mx-40">
+    <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
       {/* Header */}
-      <div className="mx-auto text-center font-display text-h3-desktop text-black-text">
+      <div className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop">
         {'Review your intake form'}
       </div>
       {/* Org Info */}
@@ -63,7 +63,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               onSubmit={(e) => {
                 e.preventDefault();
               }}
-              className="mb-40 mt-16 space-y-8"
+              className="mt-6 space-y-8"
             >
               {/* Privacy Info */}
               <BooleanField
@@ -74,13 +74,15 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                 validator={PrivacyPolicy}
               />
               {/* Form Cotnrol Button*/}
-              <Button
-                className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
-                label="Submit"
-                type="submit"
-                disabled={isSubmitted && !isValid}
-                onClick={() => submit()}
-              />
+              <div className="mt-10">
+                <Button
+                  className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
+                  label="Submit"
+                  type="submit"
+                  disabled={isSubmitted && !isValid}
+                  onClick={() => submit()}
+                />
+              </div>
             </form>
           )}
         </Form>
