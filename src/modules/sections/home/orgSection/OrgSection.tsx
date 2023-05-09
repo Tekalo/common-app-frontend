@@ -7,20 +7,20 @@ export interface IOrganizationSection {}
 const OrganizationSection: React.FC<IOrganizationSection> = () => {
   const recruitingLogos = [
     {
-      src: '/images/logos/FreeWorldLogo.png',
-      alt: 'Free World Logo',
+      src: '/images/logos/PlaceHolderLogo.png',
+      alt: 'Placeholder',
     },
     {
-      src: '/images/logos/RebootLogo.png',
-      alt: 'Reboot RX Logo',
+      src: '/images/logos/PlaceHolderLogo.png',
+      alt: 'Placeholder',
     },
     {
-      src: '/images/logos/TMLogo.png',
-      alt: 'Tech Matters Logo',
+      src: '/images/logos/PlaceHolderLogo.png',
+      alt: 'Placeholder',
     },
     {
-      src: '/images/logos/RecidLogo.png',
-      alt: 'Recidiviz Logo',
+      src: '/images/logos/PlaceHolderLogo.png',
+      alt: 'Placeholder',
     },
     {
       src: '/images/logos/PlaceHolderLogo.png',
