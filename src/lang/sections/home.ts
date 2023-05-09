@@ -49,4 +49,13 @@ const HOME_HOW_TEXT = {
     'Your Talent Connector will share your profile with the organization(s) that you agree to be connected to. If mutual, your Talent Connector will make an introduction!',
 };
 
-export { HOME_HERO_TEXT, HOME_ABOUT_TEXT, HOME_HOW_TEXT };
+const HOME_ORG_TEXT = {
+  HEADER: 'ORGANIZATIONS THAT RECRUIT USING TEKALO',
+  SEE_MORE_CTA: 'See more',
+  CTA_TITLE: 'Find candidates aligned with your mission.',
+  CTA_BODY:
+    'Instead of sorting through hundreds of applications and conducting endless screening calls, discover top tech talent through Tekalo. Applications are currently open to all 501(c)(3) organizations. Other types of organizations are welcome to apply and will be considered on a case by case basis.',
+  CTA_BUTTON: 'Apply as an organization',
+};
+
+export { HOME_HERO_TEXT, HOME_ABOUT_TEXT, HOME_HOW_TEXT, HOME_ORG_TEXT };
