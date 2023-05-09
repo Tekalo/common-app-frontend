@@ -10,8 +10,9 @@ import {
   applicantFormHeader,
 } from '@/lib/constants/text';
 import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
+import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
-import { NextPageWithLayout } from '@/lib/types';
+import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
@@ -20,8 +21,8 @@ import { useState } from 'react';
 const ApplicantSignup: NextPageWithLayout = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
-  const handleSubmit = async (values: unknown) => {
-    post(applicantsEndpoint, values)
+  const handleSubmit = async (values: NewCandidateType) => {
+    post(applicantsEndpoint, stripEmptyFields(values))
       .then((res) => {
         if (res.ok) {
           router.push(APPLICANT_EXPERIENCE_LINK);
