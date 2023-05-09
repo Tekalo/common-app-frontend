@@ -85,6 +85,7 @@ export const EEOC_LABEL = (
 export const PRIVACY_MODAL_HEADER_TEXT = 'Privacy Info';
 export const PRIVACY_MODAL_BODY_TEXT =
   'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.';
+
 export const PRIVACY_MODAL_EXTRAS = (
   <div className="text-p3-desktop">
     See our&nbsp;

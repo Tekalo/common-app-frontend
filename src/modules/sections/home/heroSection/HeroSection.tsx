@@ -1,4 +1,7 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { HOME_HERO } from '@/lang/en';
+import { APPLICANT_SIGNUP_LINK, ORG_SIGNUP_LINK } from '@/lib/constants/text';
+import router from 'next/router';
 
 export interface IHeroSection {}
 
@@ -25,27 +28,26 @@ const HeroSection: React.FC<IHeroSection> = () => {
             />
             {/* Desktop Hero */}
             <div className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
-              Match to what matters, build a better world
+              {HOME_HERO.HEADER}
             </div>
             <div className="mb-6 text-center text-p1-mobile md:mb-8 md:text-left lg:mb-8 lg:text-p1-desktop">
-              An initiative that matches tech talent with impact-driven
-              organizations.
+              {HOME_HERO.BODY}
             </div>
             <div className="mb-6 text-center md:hidden">
-              Powered by Futures Engine
+              {HOME_HERO.MOBILE_BODY}
             </div>
             {/* CTA Buttons */}
             <div className="flex justify-center gap-x-1 sm:gap-x-4 md:justify-start md:gap-x-6">
               <Button
-                label="For candidates"
+                label={HOME_HERO.APPLICANT_CTA}
                 className="flex-none flex-nowrap p-2 sm:px-4 sm:py-3 md:flex-auto md:px-7 md:py-3 lg:flex-none lg:px-10"
-                onClick={() => void {}}
+                onClick={() => router.push(APPLICANT_SIGNUP_LINK)}
               />
               <Button
                 variant={ButtonVariant.OUTLINED}
-                label="For organizations"
+                label={HOME_HERO.ORG_CTA}
                 className="flex-none flex-nowrap p-1 sm:p-3 md:flex-auto lg:flex-none lg:px-7"
-                onClick={() => void {}}
+                onClick={() => router.push(ORG_SIGNUP_LINK)}
               />
             </div>
           </div>
