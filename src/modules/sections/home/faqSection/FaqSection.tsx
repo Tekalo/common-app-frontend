@@ -1,4 +1,5 @@
 import Faq from '@/components/faq/Faq';
+import { HOME_FAQ_TEXT } from '@/lang/sections/home';
 import { PRIVACY_LINK, TERMS_LINK } from '@/lib/constants/text';
 import { IFaqItem } from '@/lib/types';
 import Link from 'next/link';
@@ -86,109 +87,100 @@ const FaqSection: React.FC<IFaqSection> = () => {
     </>
   );
 
-  const termsLink = (
-    <Link href={TERMS_LINK} target="_blank" className="text-blue-1 underline">
-      Terms of Use
-    </Link>
-  );
-
   const orgFAQS: Array<IFaqItem> = [
     {
-      questionText: 'What types of organizations can apply?',
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_1,
+      answerText: HOME_FAQ_TEXT.ORG_ANSWER_1,
+    },
+    {
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_2,
+      answerText: HOME_FAQ_TEXT.ORG_ANSWER_2,
+    },
+    {
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_3,
+      answerText: HOME_FAQ_TEXT.ORG_ANSWER_3,
+    },
+    {
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_4,
       answerText: (
         <>
-          All organizations must be impact-driven and based in the United
-          States. We accept applications from 501(c)(3) organizations. Other
-          types of organizations are welcome to submit opportunities and will be
-          considered on a case by case basis. All organizations must go through
-          our vetting process. Every organization has to be an Equal Opportunity
-          Employer (as defined by the EEOC).
+          {HOME_FAQ_TEXT.ORG_ANSWER_4[0]}
+          <Link
+            href={TERMS_LINK}
+            target="_blank"
+            className="text-blue-1 underline"
+          >
+            {HOME_FAQ_TEXT.ORG_ANSWER_4[1]}
+          </Link>
+          {HOME_FAQ_TEXT.ORG_ANSWER_4[2]}
         </>
       ),
     },
     {
-      questionText: 'What types of roles can Tekalo help me recruit for?',
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_5,
+      answerText: HOME_FAQ_TEXT.ORG_ANSWER_5,
+    },
+    {
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_6,
+      answerText: HOME_FAQ_TEXT.ORG_ANSWER_6,
+    },
+    {
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_7,
       answerText: (
         <>
-          We can currently help you recruit software engineers, product
-          managers, UI/UX and product designers, as well as data analysts. If
-          you are looking to recruit for a different type of technical role we
-          would love to hear from you! You may contact us using the “Contact Us”
-          form at the bottom of this page.
+          {HOME_FAQ_TEXT.ORG_ANSWER_7.map((value, i) => (
+            <div key={i}>
+              <span className="font-bold">{value.title}</span>
+              {value.text}
+            </div>
+          ))}
         </>
       ),
     },
     {
-      questionText: 'What types of positions can Tekalo help me recruit for?',
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_8,
       answerText: (
         <>
-          You can submit paid and unpaid positions, including full-time and
-          part-time employment, contract, advisory and volunteering
-          opportunities.
+          {HOME_FAQ_TEXT.ORG_ANSWER_8.text}
+          {HOME_FAQ_TEXT.ORG_ANSWER_8.partners.map((partner, i) => (
+            <a
+              href={partner.url}
+              className="text-blue-1 underline"
+              target="_blank"
+              rel="noreferrer"
+              key={i}
+            >
+              {partner.name}
+            </a>
+          ))}
         </>
       ),
     },
     {
-      questionText: 'What types of candidates may I be connected to?',
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_9,
       answerText: (
         <>
-          Candidates from around the world who meet the eligibility requirements
-          (see the {termsLink}
-          ), from all backgrounds, career paths and experience levels are
-          welcome to apply. In your application you can specify what candidates
-          you are looking for and your assigned Talent Connector will help you
-          further define your ideal candidate profile during your call.
+          {HOME_FAQ_TEXT.ORG_ANSWER_9.text}
+          <Link
+            href={PRIVACY_LINK}
+            className="text-blue-1 underline"
+            target="_blank"
+          >
+            {HOME_FAQ_TEXT.ORG_ANSWER_9.urlText}
+          </Link>
+          .
         </>
       ),
     },
     {
-      questionText: 'When will I receive my matches?',
+      questionText: HOME_FAQ_TEXT.ORG_QUESTION_10,
       answerText: (
         <>
-          We will reach out to you promptly after we’ve identified a potential
-          candidate match. We will generally continue to look for candidates for
-          you until your opportunity is filled or you opt out of the platform.
-          If you don’t receive a match right away don’t worry; we continue to
-          receive new candidate applications weekly.
-        </>
-      ),
-    },
-    {
-      questionText:
-        'I am no longer looking for candidates. How do I opt out of Tekalo?',
-      answerText: (
-        <>
-          If your opportunity is filled or you are no longer looking for
-          candidates for a different reason, you can simply reach out to your
-          assigned Talent Connector who will remove your opportunity from
-          Tekalo.
-        </>
-      ),
-    },
-    {
-      questionText: 'What is Tekalo’s approach?',
-      answerText: approachSection,
-    },
-    {
-      questionText: 'Who runs the review and matchmaking process?',
-      answerText: reviewSection,
-    },
-    {
-      questionText: 'How will my personal information be used or shared?',
-      answerText: privacySection,
-    },
-    {
-      questionText: 'I would like for my account and data to be deleted.',
-      answerText: (
-        <>
-          You can submit a deletion request through your settings or simply
-          email{' '}
+          {HOME_FAQ_TEXT.ORG_ANSWER_10[0]}
           <a href="mailto:privacy@tekalo.org" className="text-blue-1 underline">
-            privacy@tekalo.org
-          </a>{' '}
-          and request that your data be deleted. Please note that we have to
-          retain some information for legal and technical purposes, such as your
-          agreement with us and that we deleted your data.
+            {HOME_FAQ_TEXT.ORG_ANSWER_10[1]}
+          </a>
+          {HOME_FAQ_TEXT.ORG_ANSWER_10[2]}
         </>
       ),
     },
@@ -237,9 +229,8 @@ const FaqSection: React.FC<IFaqSection> = () => {
       answerText: (
         <>
           The application is open to everyone around the world who meets the
-          eligibility requirements (see the {termsLink}
-          )! We welcome candidates from all backgrounds, career paths and
-          experience levels to apply.
+          eligibility requirements (see the termsLink )! We welcome candidates
+          from all backgrounds, career paths and experience levels to apply.
         </>
       ),
     },
@@ -349,12 +340,11 @@ const FaqSection: React.FC<IFaqSection> = () => {
     <section className="grid w-full place-items-center">
       <div className="px-6 pb-16 pt-14 md:px-4 md:py-20 lg:px-5 lg:py-28">
         {/* TOGGLE */}
-        {/* TODO: Consider moving toggle menu to own component, this is identical to FAQ */}
         <div className="md:hidden">{renderToggle()}</div>
         {/* TITLE */}
         <div className="mx-auto max-w-content-area">
           <div className="text-black-text: text-center font-display text-h3-mobile md:text-h1-mobile lg:text-h2-desktop">
-            Frequently Asked Questions
+            {HOME_FAQ_TEXT.HEADER}
           </div>
           <div className="hidden md:block">{renderToggle()}</div>
           {/* FAQS */}
