@@ -2,7 +2,7 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { HOME_ORG_TEXT } from '@/lang/en';
 import { ORG_SIGNUP_LINK } from '@/lib/constants/text';
 import Modal from '@/modules/components/modal/Modal/Modal/Modal';
-import router from 'next/router';
+import Link from 'next/link';
 
 export interface IOrganizationSection {
   showLogoModal: boolean;
@@ -94,12 +94,13 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
               {HOME_ORG_TEXT.CTA_BODY}
             </div>
             {/* Button */}
-            <Button
-              variant={ButtonVariant.OUTLINED}
-              label={HOME_ORG_TEXT.CTA_BUTTON}
-              className="mt-6 w-full max-w-[228px] lg:mt-10 lg:max-w-[352px]"
-              onClick={() => router.push(ORG_SIGNUP_LINK)}
-            />
+            <Link href={ORG_SIGNUP_LINK}>
+              <Button
+                variant={ButtonVariant.OUTLINED}
+                label={HOME_ORG_TEXT.CTA_BUTTON}
+                className="mt-6 w-full max-w-[228px] lg:mt-10 lg:max-w-[352px]"
+              />
+            </Link>
           </div>
         </div>
       </div>

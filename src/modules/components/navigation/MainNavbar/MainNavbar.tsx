@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 import Button from '@/components/buttons/Button/Button';
+import { NAV_BAR_TEXT } from '@/lang/en';
 import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK } from '@/lib/constants/text';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
@@ -11,7 +12,9 @@ export type IMainNavbar = React.ComponentPropsWithoutRef<'header'>;
 const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
-  const logInOutLabel = isAuthenticated ? 'Sign out' : 'Sign in';
+  const logInOutLabel = isAuthenticated
+    ? NAV_BAR_TEXT.SIGN_OUT
+    : NAV_BAR_TEXT.SIGN_IN;
 
   const handleAuthentication = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -36,7 +39,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                 />
               </Link>
               <div className="hidden text-p3-mobile md:block md:pt-2 lg:text-p3-desktop">
-                Powered by Futures Engine
+                {NAV_BAR_TEXT.POWERED_BY}
               </div>
             </div>
             <div className="flex items-center space-x-4 md:space-x-9 lg:space-x-10">
@@ -64,14 +67,13 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   >
                     {isAuthenticated ? (
                       <div className="cursor-pointer px-3 py-3 text-component-extra-large font-normal text-black-text md:px-6">
-                        My account
+                        {NAV_BAR_TEXT.MY_ACCOUNT}
                       </div>
                     ) : (
                       <Link href={APPLICANT_SIGNUP_LINK}>
                         <Button
                           className="px-4 py-2 md:px-8 md:py-3"
-                          label="Get started"
-                          onClick={() => void {}}
+                          label={NAV_BAR_TEXT.GET_STARTED_CTA}
                         />
                       </Link>
                     )}
