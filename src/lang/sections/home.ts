@@ -60,6 +60,8 @@ const HOME_ORG_TEXT = {
 
 const HOME_FAQ_TEXT = {
   HEADER: 'Frequently Asked Questions',
+  CANDIDATE_TOGGLE: 'For candidates',
+  ORG_TOGGLE: 'For organizations',
   ORG_QUESTION_1: 'What types of organizations can apply?',
   ORG_ANSWER_1:
     'All organizations must be impact-driven and based in the United States. We accept applications from 501(c)(3) organizations. Other types of organizations are welcome to submit opportunities and will be considered on a case by case basis. All organizations must go through our vetting process. Every organization has to be an Equal Opportunity Employer (as defined by the EEOC).',
@@ -138,6 +140,44 @@ const HOME_FAQ_TEXT = {
     'privacy@tekalo.org',
     ' and request that your data be deleted. Please note that we have to retain some information for legal and technical purposes, such as your agreement with us and that we deleted your data.',
   ],
+  APPLICANT_QUESTION_1:
+    'What types of organizations are recruiting through Tekalo?',
+  APPLICANT_ANSWER_1: [
+    'You can see a list of organizations with open opportunities on Tekalo ',
+    'here.',
+    'We only collaborate with impact-driven organizations, and every organization goes through our vetting process. Organizations on Tekalo focus on cause areas ranging from climate change to human rights. At this time, we are only able to include organizations that are based in the United States.',
+  ],
+  APPLICANT_QUESTION_2: 'What types of roles can I find on Tekalo?',
+  APPLICANT_ANSWER_2:
+    'Right now, we are focusing on software engineers, product managers, UI/UX and product designers, as well as data analysts. If you are interested in a role currently not listed on our platform, we would love to hear from you! You may contact us using the “Contact Us” form at the bottom of this page.',
+  APPLICANT_QUESTION_3: 'What types of opportunities might I find on Tekalo?',
+  APPLICANT_ANSWER_3:
+    'On Tekalo, there will be many types of opportunities including: full-time or part-time, paid or unpaid positions, including part-time employment, contract, advisory and volunteer.',
+  APPLICANT_QUESTION_4: 'Who can apply?',
+  APPLICANT_ANSWER_4:
+    'The application is open to everyone around the world who meets the eligibility requirements (see the termsLink )! We welcome candidates from all backgrounds, career paths and experience levels to apply.',
+  APPLICANT_QUESTION_5: 'Who will review and have access to my application?',
+  APPLICANT_ANSWER_5:
+    'Your assigned Tekalo Talent Connector will be the one reviewing your application. Other key members of the Tekalo team will also have access to your application. If you indicated an interest in state and local government opportunities, a team at U.S. Digital Response will also receive your application details. We will never share your application with any organization/ employer unless you explicitly agree by communicating to your Talent Connector that your info may be shared with that specific organization.',
+  APPLICANT_QUESTION_6: 'When will I receive my matches?',
+  APPLICANT_ANSWER_6:
+    "Our matchmaking process is iterative; we will generally continue to look for matches for you until you have a job or let us know that you are no longer looking for opportunities. We will aim to conduct the first round of matchmaking within 6 weeks of receiving your application. Once we conclude each matchmaking round, we will send you a list of your top matches. If you don't receive matches right away don't worry; we continue to receive new opportunities weekly.",
+  APPLICANT_QUESTION_7:
+    'I am no longer looking for opportunities at this time. How do I pause further matches?',
+  APPLICANT_ANSWER_7:
+    'If you are no longer looking for opportunities, you can log in to youraccount by clicking "Sign in" at the top of this page, and choose to pause your matches. If you would like to be considered for opportunities again, you can simply sign in and click "resume my matches." If you would like to fully delete your account and data, see the FAQ titled ("How can I delete my account and data?").',
+  APPLICANT_QUESTION_8: 'Is Tekalo free?',
+  APPLICANT_ANSWER_8:
+    'Yes! Tekalo is a free resource. We will never ask you for payment information.',
+  APPLICANT_QUESTION_9: 'What is Tekalo’s approach?',
+  APPLICANT_ANSWER_9: undefined, // Defined in component
+  APPLICANT_QUESTION_10: 'Who runs the review and matchmaking process?',
+  APPLICANT_ANSWER_10: undefined, // Defined in component
+  APPLICANT_QUESTION_11: 'How will my personal information be used or shared?',
+  APPLICANT_ANSWER_11: undefined, // Defined in component
+  APPLICANT_QUESTION_12: 'How can I delete my account and data?',
+  APPLICANT_ANSWER_12:
+    'You can simply click “Sign in” at the top of this page and then once you are logged in select “Delete my account and data.” Please note that we have to retain some information for legal and technical purposes, such as your agreement with us and that we deleted your data.',
 };
 
 export {

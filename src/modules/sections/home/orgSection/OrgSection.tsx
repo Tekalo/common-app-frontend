@@ -66,16 +66,14 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
         {/* Logo Grid */}
 
         {renderLogos()}
-        <div className="mt-6 text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowLogoModal(true);
-            }}
-          >
-            {HOME_ORG_TEXT.SEE_MORE_CTA}
-          </a>
+        <div
+          className="mt-6 text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowLogoModal(true);
+          }}
+        >
+          {HOME_ORG_TEXT.SEE_MORE_CTA}
         </div>
       </div>
       {/* CTA Box*/}
