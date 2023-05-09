@@ -25,4 +25,28 @@ const HOME_ABOUT_TEXT = {
   ROLE_HEADER: 'Full-time and part-time roles listed on Tekalo',
 };
 
-export { HOME_HERO_TEXT, HOME_ABOUT_TEXT };
+const HOME_HOW_TEXT = {
+  ORG_TITLE_1: 'Submit an opportunity',
+  ORG_CONTENT_1:
+    'Share open tech-related opportunities (part-time or full-time) at your organization using one simple application. Next, your assigned Talent Connector reviews your application to make sure that it’s a good fit.',
+  ORG_TITLE_2: 'Intro call',
+  ORG_CONTENT_2:
+    'Next, your assigned Talent Connector works with you to further define your ideal candidate profile.',
+  ORG_TITLE_3: 'Connect with your matched candidates',
+  ORG_CONTENT_3:
+    'Your Talent Connector will identify interested candidates and share their profiles. If it’s a good match, you will be introduced to the candidates!',
+  CANDIDATE_TITLE_1: 'Submit a single application',
+  CANDIDATE_CONTENT_1:
+    'Tell us about your experience and interests by submitting the Tekalo application.',
+  CANDIDATE_TITLE_2: 'Receive a list of potential matches',
+  CANDIDATE_CONTENT_2:
+    'Your assigned Talent Connector reviews your application and matches you with opportunities at impact-driven organizations that best fit your interests and profile. You will continue to receive potential matches, if available, every few weeks until you get hired or opt out of Tekalo.',
+  CANDIDATE_TITLE_3: 'Intro call',
+  CANDIDATE_CONTENT_3:
+    'Next, your Talent Connector will schedule a one-time call to share more information about your potential matches and ask you additional questions about your experience and interests.',
+  CANDIDATE_TITLE_4: 'Connect to your matched organizations',
+  CANDIDATE_CONTENT_4:
+    'Your Talent Connector will share your profile with the organization(s) that you agree to be connected to. If mutual, your Talent Connector will make an introduction!',
+};
+
+export { HOME_HERO_TEXT, HOME_ABOUT_TEXT, HOME_HOW_TEXT };
