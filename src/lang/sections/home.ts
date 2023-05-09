@@ -58,4 +58,92 @@ const HOME_ORG_TEXT = {
   CTA_BUTTON: 'Apply as an organization',
 };
 
-export { HOME_HERO_TEXT, HOME_ABOUT_TEXT, HOME_HOW_TEXT, HOME_ORG_TEXT };
+const HOME_FAQ_TEXT = {
+  HEADER: 'Frequently Asked Questions',
+  ORG_QUESTION_1: 'What types of organizations can apply?',
+  ORG_ANSWER_1:
+    'All organizations must be impact-driven and based in the United States. We accept applications from 501(c)(3) organizations. Other types of organizations are welcome to submit opportunities and will be considered on a case by case basis. All organizations must go through our vetting process. Every organization has to be an Equal Opportunity Employer (as defined by the EEOC).',
+  ORG_QUESTION_2: 'What types of roles can Tekalo help me recruit for?',
+  ORG_ANSWER_2:
+    'We can currently help you recruit software engineers, product managers, UI/UX and product designers, as well as data analysts. If you are looking to recruit for a different type of technical role we would love to hear from you! You may contact us using the "Contact Us" form at the bottom of this page.',
+  ORG_QUESTION_3: 'What types of positions can Tekalo help me recruit for?',
+  ORG_ANSWER_3:
+    'You can submit paid and unpaid positions, including full-time and part-time employment, contract, advisory and volunteering opportunities.',
+  ORG_QUESTION_4: 'What types of candidates may I be connected to?',
+  ORG_ANSWER_4: [
+    'Candidates from around the world who meet the eligibility requirements (see the ',
+    'Terms of Use',
+    '), from all backgrounds, career paths and experience levels are welcome to apply. In your application you can specify what candidates you are looking for and your assigned Talent Connector will help you further define your ideal candidate profile during your call.',
+  ],
+  ORG_QUESTION_5: 'When will I receive my matches?',
+  ORG_ANSWER_5:
+    "We will reach out to you promptly after we've identified a potentialcandidate match. We will generally continue to look for candidates for you until your opportunity is filled or you opt out of the platform. If you don't receive a match right away don't worry; we continue to receive new candidate applications weekly.",
+  ORG_QUESTION_6:
+    'I am no longer looking for candidates. How do I opt out of Tekalo?',
+  ORG_ANSWER_6:
+    'If your opportunity is filled or you are no longer looking for candidates for a different reason, you can simply reach out to your assigned Talent Connector who will remove your opportunity from Tekalo.',
+  ORG_QUESTION_7: 'What is Tekalo’s approach?',
+  ORG_ANSWER_7: [
+    {
+      title: 'Equity:',
+      text: ' strive to make the matchmaking process equitable for candidates and organizations',
+    },
+    {
+      title: 'Connections:',
+      text: ' connect talent to opportunities that may be inaccessible or not easily discovered',
+    },
+    {
+      title: 'Transparent:',
+      text: ' be transparent throughout the process, including our matchmaking policy, data privacy information, and the list of partner organizations',
+    },
+    {
+      title: 'Seamless user experience:',
+      text: ' design an experience that is seamless and accessible for all',
+    },
+    {
+      title: 'Scalability:',
+      text: 'match more open impact-driven opportunities with tech talent to build a better world',
+    },
+  ],
+  ORG_QUESTION_8: 'Who runs the review and matchmaking process?',
+  ORG_ANSWER_8: {
+    text: 'The review and matchmaking process is currently conducted by Talent Connectors at ',
+    partners: [
+      {
+        name: 'Schmidt Futures',
+        url: 'https://www.schmidtfutures.com/',
+      },
+      {
+        name: 'All Tech Is Human',
+        url: 'https://alltechishuman.org/',
+      },
+      {
+        name: 'Fast Forward',
+        url: 'https://www.ffwd.org/',
+      },
+      {
+        name: 'U.S. Digital Response',
+        url: 'https://www.usdigitalresponse.org/about',
+      },
+    ],
+  },
+  ORG_QUESTION_9: 'How will my personal information be used or shared?',
+  ORG_ANSWER_9: {
+    text: 'You can find more details on our ',
+    urlText: 'Privacy Info Page',
+  },
+  ORG_QUESTION_10: 'I would like for my account and data to be deleted.',
+  ORG_ANSWER_10: [
+    'You can submit a deletion request through your settings or simply email ',
+    'privacy@tekalo.org',
+    ' and request that your data be deleted. Please note that we have to retain some information for legal and technical purposes, such as your agreement with us and that we deleted your data.',
+  ],
+};
+
+export {
+  HOME_HERO_TEXT,
+  HOME_ABOUT_TEXT,
+  HOME_HOW_TEXT,
+  HOME_ORG_TEXT,
+  HOME_FAQ_TEXT,
+};

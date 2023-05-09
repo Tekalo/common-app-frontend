@@ -7,8 +7,6 @@ import { ReactElement, useState } from 'react';
 
 export interface IOrganizationSection {}
 
-// TODO: Replace images with next/image --> figure out cloudflare + next/image
-
 const OrganizationSection: React.FC<IOrganizationSection> = () => {
   const [showLogoModal, setShowLogoModal] = useState(false);
 
