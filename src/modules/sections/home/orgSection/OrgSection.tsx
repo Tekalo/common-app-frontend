@@ -3,13 +3,16 @@ import { HOME_ORG_TEXT } from '@/lang/en';
 import { ORG_SIGNUP_LINK } from '@/lib/constants/text';
 import Modal from '@/modules/components/modal/Modal/Modal/Modal';
 import router from 'next/router';
-import { ReactElement, useState } from 'react';
 
-export interface IOrganizationSection {}
+export interface IOrganizationSection {
+  showLogoModal: boolean;
+  setShowLogoModal: (showModal: boolean) => void;
+}
 
-const OrganizationSection: React.FC<IOrganizationSection> = () => {
-  const [showLogoModal, setShowLogoModal] = useState(false);
-
+const OrganizationSection: React.FC<IOrganizationSection> = ({
+  showLogoModal,
+  setShowLogoModal,
+}) => {
   const recruitingLogos = [
     {
       src: '/images/logos/PlaceHolderLogo.png',
@@ -41,7 +44,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
     },
   ];
 
-  const renderLogos = (): ReactElement => (
+  const renderLogos = () => (
     <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-4 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
       {recruitingLogos.map((logo, i) => {
         return (
@@ -67,7 +70,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
 
         {renderLogos()}
         <div
-          className="mt-6 text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large"
+          className="mt-6 cursor-pointer text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large"
           onClick={(e) => {
             e.preventDefault();
             setShowLogoModal(true);
@@ -101,13 +104,15 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
         </div>
       </div>
 
-      <Modal
-        headline="Organizations that recruit through Tekalo"
-        isOpen={showLogoModal}
-        content={renderLogos()}
-        closeModal={() => setShowLogoModal(false)}
-        onConfirm={() => setShowLogoModal(false)}
-      />
+      {showLogoModal && (
+        <Modal
+          headline="Organizations that recruit through Tekalo"
+          isOpen={showLogoModal}
+          content={renderLogos()}
+          closeModal={() => setShowLogoModal(false)}
+          onConfirm={() => setShowLogoModal(false)}
+        />
+      )}
     </section>
   );
 };
