@@ -9,7 +9,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
     <div className="bg-light-blue px-6 pb-10 pt-6 md:px-24 md:pb-20 md:pt-16 lg:pt-24">
       <div className="mx-auto max-w-content-area lg:grid lg:grid-cols-12">
         {/* CONTENT */}
-        <div className="col-span-8">
+        <div className="col-span-8 lg:col-span-7">
           <div className="max-w-2xl mx-auto md:mx-0">
             {/* Mobile Hero */}
             <img
@@ -51,12 +51,12 @@ const HeroSection: React.FC<IHeroSection> = () => {
           </div>
         </div>
         {/* IMAGE */}
-        <div className="col-start-9 col-end-13 flex items-center justify-end">
+        <div className="col-start-8 col-end-13 flex items-center justify-end">
           {/* TODO: Wiaiting for final images, so this will change */}
           <img
             src="/images/hero_lg.png"
             alt="Tablet Hero Image"
-            className="hidden lg:block"
+            className="hidden max-w-[391px] lg:block"
           />
         </div>
       </div>

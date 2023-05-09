@@ -56,11 +56,11 @@ const AboutSection: React.FC<IAboutSection> = () => {
           <p className="mb-6 text-center font-display text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-10 lg:text-large-caption-desktop">
             TEKALO is supported by
           </p>
-          <div className="mx-auto flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-9 gap-y-6 px-4 md:max-w-[none] md:gap-y-8 lg:max-w-[none] lg:gap-y-10">
+          <div className="mx-auto flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-2 gap-y-6 px-4 md:max-w-[none] md:gap-x-8 md:gap-y-8 lg:max-w-[none] lg:gap-y-10">
             {sponsorLogos.map((logo, i) => (
               <div
                 key={i}
-                className="flex h-10 w-[43%] max-w-[110px] flex-initial items-center overflow-hidden sm:max-w-[130px] md:w-[20%] md:max-w-[155px] md:p-3"
+                className="flex h-10 max-w-[130px] flex-initial items-center overflow-hidden lg:h-16 lg:max-w-[208px]"
               >
                 <img
                   key={i}
@@ -142,7 +142,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
                 <img
                   src={role.src}
                   alt={role.alt}
-                  className={`max-w-[54px] md:max-w-[64px] md:flex-initial`}
+                  className={`max-w-[54px] md:max-w-[65px] md:flex-initial`}
                 />
                 <span className="font-display text-h4-mobile md:text-h4-desktop">
                   {role.text}
