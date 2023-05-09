@@ -1,5 +1,8 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { HOME_ORG_TEXT } from '@/lang/en';
+import { ORG_SIGNUP_LINK } from '@/lib/constants/text';
 import Modal from '@/modules/components/modal/Modal/Modal/Modal';
+import router from 'next/router';
 import { ReactElement, useState } from 'react';
 
 export interface IOrganizationSection {}
@@ -60,7 +63,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
       <div className="">
         {/* Title */}
         <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-14 lg:text-large-caption-desktop">
-          ORGANIZATIONS THAT RECRUIT USING TEKALO
+          {HOME_ORG_TEXT.HEADER}
         </div>
         {/* Logo Grid */}
 
@@ -73,7 +76,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
               setShowLogoModal(true);
             }}
           >
-            See more
+            {HOME_ORG_TEXT.SEE_MORE_CTA}
           </a>
         </div>
       </div>
@@ -86,21 +89,17 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
           <div className="flex flex-col items-center px-8 py-6 text-center md:px-11 md:py-10 lg:px-10 lg:py-14">
             {/* Title */}
             <div className="text-displaytext-center px-2 text-h4-mobile text-black-text lg:text-h4-desktop">
-              <p>Find candidates aligned with your mission.</p>
+              <p>{HOME_ORG_TEXT.CTA_TITLE}</p>
             </div>
             <div className="pt-4 text-center font-sans text-p2-mobile text-black-text lg:px-0 lg:text-p2-desktop">
-              Instead of sorting through hundreds of applications and conducting
-              endless screening calls, discover top tech talent through Tekalo.
-              Applications are currently open to all 501(c)(3) organizations.
-              Other types of organizations are welcome to apply and will be
-              considered on a case by case basis.
+              {HOME_ORG_TEXT.CTA_BODY}
             </div>
             {/* Button */}
             <Button
               variant={ButtonVariant.OUTLINED}
-              label="Apply as an organization"
+              label={HOME_ORG_TEXT.CTA_BUTTON}
               className="mt-6 w-full max-w-[228px] lg:mt-10 lg:max-w-[352px]"
-              onClick={() => void {}}
+              onClick={() => router.push(ORG_SIGNUP_LINK)}
             />
           </div>
         </div>

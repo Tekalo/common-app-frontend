@@ -1,0 +1,8 @@
+import {
+  HOME_ABOUT_TEXT,
+  HOME_HERO_TEXT,
+  HOME_HOW_TEXT,
+  HOME_ORG_TEXT,
+} from './sections/home';
+
+export { HOME_HERO_TEXT, HOME_ABOUT_TEXT, HOME_HOW_TEXT, HOME_ORG_TEXT };
