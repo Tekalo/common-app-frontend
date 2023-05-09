@@ -144,8 +144,8 @@ const HOME_FAQ_TEXT = {
     'What types of organizations are recruiting through Tekalo?',
   APPLICANT_ANSWER_1: [
     'You can see a list of organizations with open opportunities on Tekalo ',
-    'here.',
-    'We only collaborate with impact-driven organizations, and every organization goes through our vetting process. Organizations on Tekalo focus on cause areas ranging from climate change to human rights. At this time, we are only able to include organizations that are based in the United States.',
+    'here',
+    '. We only collaborate with impact-driven organizations, and every organization goes through our vetting process. Organizations on Tekalo focus on cause areas ranging from climate change to human rights. At this time, we are only able to include organizations that are based in the United States.',
   ],
   APPLICANT_QUESTION_2: 'What types of roles can I find on Tekalo?',
   APPLICANT_ANSWER_2:

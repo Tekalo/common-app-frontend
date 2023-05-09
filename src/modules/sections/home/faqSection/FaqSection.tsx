@@ -5,9 +5,11 @@ import { IFaqItem } from '@/lib/types';
 import Link from 'next/link';
 import { useState } from 'react';
 
-export interface IFaqSection {}
+export interface IFaqSection {
+  setShowLogoModal: (showModal: boolean) => void;
+}
 
-const FaqSection: React.FC<IFaqSection> = () => {
+const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
   const [isForOrgsSelected, setForOrgs] = useState(false);
   const toggleHeaders = [
     HOME_FAQ_TEXT.CANDIDATE_TOGGLE,
@@ -117,19 +119,17 @@ const FaqSection: React.FC<IFaqSection> = () => {
 
   const candidateFAQS: Array<IFaqItem> = [
     {
-      questionText: HOME_FAQ_TEXT.APPLICANT_QUESTION_1[0],
+      questionText: HOME_FAQ_TEXT.APPLICANT_QUESTION_1,
       answerText: (
         // TODO: Logos link
         <>
           {HOME_FAQ_TEXT.APPLICANT_ANSWER_1[0]}
-          <div
+          <span
             className={`cursor-pointer text-blue-1 underline underline-offset-4`}
-            onClick={() => {
-              console.log('OPEN THE MODAL');
-            }}
+            onClick={() => setShowLogoModal(true)}
           >
             {HOME_FAQ_TEXT.APPLICANT_ANSWER_1[1]}
-          </div>
+          </span>
           {HOME_FAQ_TEXT.APPLICANT_ANSWER_1[2]}
         </>
       ),
