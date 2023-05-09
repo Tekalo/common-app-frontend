@@ -1,6 +1,6 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
-import { ORG_SUCCESS_LINK } from '@/lib/constants/text';
+import { ORG_SUCCESS_LINK } from '@/lang/en';
 import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';

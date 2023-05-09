@@ -1,4 +1,5 @@
 import Button from '@/components/buttons/Button/Button';
+import { INTEREST_FORM_TEXT, US_DIGITAL_RESPONSE_URL } from '@/lang/en';
 import {
   AttributionOtpions,
   AuthorizationOptions,
@@ -10,7 +11,6 @@ import {
   USDROptions,
   YesNoOptions,
 } from '@/lib/constants/selects';
-import { USDR_DISCLAIMER } from '@/lib/constants/text';
 import {
   CausesValidator,
   CommitmentTypeValidator,
@@ -53,6 +53,23 @@ export interface IInterestForm {
   handleSave: (_values: DraftSubmissionType) => void;
   savedForm: DraftSubmissionType | undefined;
 }
+
+const USDR_DISCLAIMER = (
+  <div className="space-y-2">
+    <div className="w-[103%] text-left text-p3-mobile text-black-text">
+      {INTEREST_FORM_TEXT.USDR[0]}
+      <a
+        href={US_DIGITAL_RESPONSE_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="underline underline-offset-4"
+      >
+        {INTEREST_FORM_TEXT.USDR[1]}
+      </a>
+      {INTEREST_FORM_TEXT.USDR[2]}
+    </div>
+  </div>
+);
 
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,

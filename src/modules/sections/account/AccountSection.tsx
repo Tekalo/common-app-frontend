@@ -1,7 +1,7 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
+import { APPLICANT_EXPERIENCE_LINK } from '@/lang/en';
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
-import { APPLICANT_EXPERIENCE_LINK } from '@/lib/constants/text';
 import {
   applicantStateEndpoint,
   applicantSubmissionsEndpoint,

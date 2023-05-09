@@ -1,9 +1,9 @@
 import Button from '@/components/buttons/Button/Button';
+import { APPLICANT_FORM_TEXT, TERMS_LINK } from '@/lang/en';
 import {
   PreferredContactOptions,
   SearchStatusOptions,
 } from '@/lib/constants/selects';
-import { PRIVACY_DISCLAIMER, TERMS_DISCLAIMER } from '@/lib/constants/text';
 import {
   contactPhoneLinkedValidation,
   Email,
@@ -22,11 +22,40 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
+import Link from 'next/link';
 
 export interface ISignupForm {
   handleSubmit: (_values: NewCandidateType) => void;
   setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
 }
+
+const TERMS_DISCLAIMER = (
+  <>
+    {APPLICANT_FORM_TEXT.TERMS_DISCLAIMER.text}
+    <span className="text-blue-1 underline underline-offset-4">
+      <Link target="_blank" href={TERMS_LINK}>
+        {APPLICANT_FORM_TEXT.TERMS_DISCLAIMER.linkText}
+      </Link>
+    </span>
+  </>
+);
+
+const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
+  return (
+    <>
+      {APPLICANT_FORM_TEXT.PRIVACY_DISCLAIMER.text}
+      <span
+        className="cursor-pointer whitespace-nowrap text-blue-1 underline underline-offset-4"
+        onClick={(e) => {
+          e.preventDefault();
+          setShowPrivacyModal(true);
+        }}
+      >
+        {APPLICANT_FORM_TEXT.PRIVACY_DISCLAIMER.linkText}
+      </span>
+    </>
+  );
+};
 
 const SignupForm: React.FC<ISignupForm> = ({
   handleSubmit,

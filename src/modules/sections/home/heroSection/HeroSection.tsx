@@ -1,6 +1,9 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { HOME_HERO_TEXT } from '@/lang/en';
-import { APPLICANT_SIGNUP_LINK, ORG_SIGNUP_LINK } from '@/lib/constants/text';
+import {
+  APPLICANT_SIGNUP_LINK,
+  HOME_HERO_TEXT,
+  ORG_SIGNUP_LINK,
+} from '@/lang/en';
 import Link from 'next/link';
 
 export interface IHeroSection {}

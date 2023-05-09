@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 import Button from '@/components/buttons/Button/Button';
-import { NAV_BAR_TEXT } from '@/lang/en';
-import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK } from '@/lib/constants/text';
+import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK, NAV_BAR_TEXT } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import { SyntheticEvent } from 'react';

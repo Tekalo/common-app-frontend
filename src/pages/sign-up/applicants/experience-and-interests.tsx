@@ -1,9 +1,6 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
-import {
-  applicantFormHeader,
-  APPLICANT_SUCCESS_LINK,
-} from '@/lib/constants/text';
+import { APPLICANT_FORM_TEXT, APPLICANT_SUCCESS_LINK } from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
@@ -156,7 +153,7 @@ const ApplicantForms: NextPageWithLayout = () => {
       <div className="flex max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
         {/* Title */}
         <div className="max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
-          {applicantFormHeader}
+          {APPLICANT_FORM_TEXT.HEADER}
         </div>
 
         {/* Breadcrumb Timeline */}

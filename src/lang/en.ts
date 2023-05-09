@@ -1,21 +1,24 @@
-/**
- * NAV LINKS
- */
+// NAV LINKS
 const ACCOUNT_LINK = '/account';
-const APPLICANT_EXPERIENCE_LINK =
-  '/sign-up/applicants/experience-and-interests';
-const APPLICANT_SIGNUP_LINK = '/sign-up/applicants';
-const APPLICANT_SUCCESS_LINK = '/sign-up/applicants/success';
-const CONTACT_US_EMAIL_LINK = 'mailto:support@tekalo.org';
-const ORG_SIGNUP_LINK = '/sign-up/organizations';
-const ORG_SUCCESS_LINK = '/sign-up/organizations/success';
 const PRIVACY_LINK = '/privacy-info';
 const SIGN_IN_LINK = '/sign-in';
 const TERMS_LINK = '/terms';
+const APPLICANT_SIGNUP_LINK = '/sign-up/applicants';
+const APPLICANT_EXPERIENCE_LINK =
+  '/sign-up/applicants/experience-and-interests';
+const APPLICANT_SUCCESS_LINK = '/sign-up/applicants/success';
+const ORG_SIGNUP_LINK = '/sign-up/organizations';
+const ORG_SUCCESS_LINK = '/sign-up/organizations/success';
+const CONTACT_US_MAILTO_LINK = 'mailto:support@tekalo.org';
 
-/**
- * NAV BAR TEXT CONSTANTS
- */
+// EXTERNAL URLS
+const SCHMIDT_FUTURES_URL = 'https://www.schmidtfutures.com/';
+const ALL_TECH_IS_HUMAN_URL = 'https://alltechishuman.org/';
+const FAST_FORWARD_URL = 'https://www.ffwd.org/';
+const US_DIGITAL_RESPONSE_URL = 'https://www.usdigitalresponse.org/about';
+const EEOC_URL = 'https://www.eeoc.gov/employers';
+
+// NAV BAR TEXT CONSTANTS
 const NAV_BAR_TEXT = {
   POWERED_BY: 'Powered by Futures Engine',
   SIGN_IN: 'Sign in',
@@ -23,7 +26,6 @@ const NAV_BAR_TEXT = {
   MY_ACCOUNT: 'My account',
   GET_STARTED_CTA: 'Get started',
 };
-
 const NAV_FOOTER_TEXT = {
   COPYRIGHT: '© Futures Action Nework, LLC',
   RESERVED_RIGHTS: '2023. All Rights Reserved.',
@@ -42,7 +44,7 @@ const NAV_FOOTER_TEXT = {
     {
       header: 'About',
       links: [
-        { title: 'Contact Us', href: CONTACT_US_EMAIL_LINK },
+        { title: 'Contact Us', href: CONTACT_US_MAILTO_LINK },
         { title: 'Privacy Info', href: PRIVACY_LINK },
         { title: 'Terms of Use', href: TERMS_LINK },
       ],
@@ -50,9 +52,7 @@ const NAV_FOOTER_TEXT = {
   ],
 };
 
-/**
- * HOME PAGE TEXT CONSTANTS
- */
+// HOME PAGE TEXT CONSTANTS
 const HOME_HERO_TEXT = {
   HEADER: 'Match to what matters, build a better world',
   BODY: 'An initiative that matches tech talent with impact-driven organizations.',
@@ -60,7 +60,6 @@ const HOME_HERO_TEXT = {
   APPLICANT_CTA: 'For candidates',
   ORG_CTA: 'For organizations',
 };
-
 const HOME_ABOUT_TEXT = {
   SPONSOR_HEADER: 'TEKALO is supported by',
   HEADER:
@@ -79,7 +78,6 @@ const HOME_ABOUT_TEXT = {
   GOAL_3: 'Provide impact-driven organizations a list of top candidate matches',
   ROLE_HEADER: 'Full-time and part-time roles listed on Tekalo',
 };
-
 const HOME_HOW_TEXT = {
   ORG_TITLE_1: 'Submit an opportunity',
   ORG_CONTENT_1:
@@ -103,7 +101,6 @@ const HOME_HOW_TEXT = {
   CANDIDATE_CONTENT_4:
     'Your Talent Connector will share your profile with the organization(s) that you agree to be connected to. If mutual, your Talent Connector will make an introduction!',
 };
-
 const HOME_ORG_TEXT = {
   HEADER: 'ORGANIZATIONS THAT RECRUIT USING TEKALO',
   SEE_MORE_CTA: 'See more',
@@ -112,7 +109,6 @@ const HOME_ORG_TEXT = {
     'Instead of sorting through hundreds of applications and conducting endless screening calls, discover top tech talent through Tekalo. Applications are currently open to all 501(c)(3) organizations. Other types of organizations are welcome to apply and will be considered on a case by case basis.',
   CTA_BUTTON: 'Apply as an organization',
 };
-
 const HOME_FAQ_TEXT = {
   HEADER: 'Frequently Asked Questions',
   CANDIDATE_TOGGLE: 'For candidates',
@@ -168,19 +164,19 @@ const HOME_FAQ_TEXT = {
     partners: [
       {
         name: 'Schmidt Futures',
-        url: 'https://www.schmidtfutures.com/',
+        url: SCHMIDT_FUTURES_URL,
       },
       {
         name: 'All Tech Is Human',
-        url: 'https://alltechishuman.org/',
+        url: ALL_TECH_IS_HUMAN_URL,
       },
       {
         name: 'Fast Forward',
-        url: 'https://www.ffwd.org/',
+        url: FAST_FORWARD_URL,
       },
       {
         name: 'U.S. Digital Response',
-        url: 'https://www.usdigitalresponse.org/about',
+        url: US_DIGITAL_RESPONSE_URL,
       },
     ],
   },
@@ -225,35 +221,81 @@ const HOME_FAQ_TEXT = {
   APPLICANT_ANSWER_8:
     'Yes! Tekalo is a free resource. We will never ask you for payment information.',
   APPLICANT_QUESTION_9: 'What is Tekalo’s approach?',
-  APPLICANT_ANSWER_9: undefined, // Defined in component
   APPLICANT_QUESTION_10: 'Who runs the review and matchmaking process?',
-  APPLICANT_ANSWER_10: undefined, // Defined in component
   APPLICANT_QUESTION_11: 'How will my personal information be used or shared?',
-  APPLICANT_ANSWER_11: undefined, // Defined in component
   APPLICANT_QUESTION_12: 'How can I delete my account and data?',
   APPLICANT_ANSWER_12:
     'You can simply click “Sign in” at the top of this page and then once you are logged in select “Delete my account and data.” Please note that we have to retain some information for legal and technical purposes, such as your agreement with us and that we deleted your data.',
 };
-
 const HOME_CONTACT_TEXT = {
-  header: 'Get in touch',
-  body: 'We want to hear from you and answer your questions',
-  cta: 'Contact us',
+  HEADER: 'Get in touch',
+  BODY: 'We want to hear from you and answer your questions',
+  CTA: 'Contact us',
 };
 
+/** MODAL TEXT CONSTANTS */
+const PRIVACY_MODAL_TEXT = {
+  HEADER: 'Privacy Info',
+  BODY: 'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.',
+  EXTRAS: ['See our ', 'Privacy FAQ', ' for more information'],
+};
+
+/** FORM TEXT CONSTANTS */
+const APPLICANT_FORM_TEXT = {
+  HEADER: 'Join a network of impact-driven organizations to find your match.',
+  PRIVACY_DISCLAIMER: {
+    text: 'I confirm that I have reviewed the ',
+    linkText: 'Privacy Info',
+  },
+  TERMS_DISCLAIMER: {
+    text: 'I agree to the ',
+    linkText: 'Terms of Service',
+  },
+};
+const INTEREST_FORM_TEXT = {
+  USDR: [
+    'By choosing “yes,” you consent to ',
+    'U.S. Digital Response',
+    'saving a copy of your CommonApp profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.',
+  ],
+};
+const ORG_SIGNUP_FORM_TEXT = {
+  EEOC: {
+    text: 'Please confirm that you are an Equal Opportunity Employer as defined by the ',
+    linkText: 'EEOC',
+  },
+};
+const REVIEW_FORM_TEXT = {
+  PRIVACY_DISCLAIMER: {
+    text: 'I confirm that I have reviewed the ',
+    linkText: 'Privacy Info',
+  },
+};
+
+// INTERNAL LINK EXPORTS
 export {
   ACCOUNT_LINK,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
-  CONTACT_US_EMAIL_LINK,
+  CONTACT_US_MAILTO_LINK,
   ORG_SIGNUP_LINK,
   ORG_SUCCESS_LINK,
   PRIVACY_LINK,
   SIGN_IN_LINK,
   TERMS_LINK,
 };
+// EXTERNAL LINK EXPORTS
+export {
+  SCHMIDT_FUTURES_URL,
+  ALL_TECH_IS_HUMAN_URL,
+  FAST_FORWARD_URL,
+  US_DIGITAL_RESPONSE_URL,
+  EEOC_URL,
+};
+// NAV EXPORTS
 export { NAV_BAR_TEXT, NAV_FOOTER_TEXT };
+// HOME PAGE EXPORTS
 export {
   HOME_HERO_TEXT,
   HOME_ABOUT_TEXT,
@@ -262,3 +304,12 @@ export {
   HOME_FAQ_TEXT,
   HOME_CONTACT_TEXT,
 };
+// FORM EXPORTS
+export {
+  APPLICANT_FORM_TEXT,
+  INTEREST_FORM_TEXT,
+  REVIEW_FORM_TEXT,
+  ORG_SIGNUP_FORM_TEXT,
+};
+// MODAL EXPORTS
+export { PRIVACY_MODAL_TEXT };
