@@ -11,6 +11,7 @@ interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
+// TODO: Move to env variables
 const SENTRY_DSN =
   'https://957fb85e991e41e1b624969dec7932ef@o4504962952724480.ingest.sentry.io/4504991639928833';
 
@@ -25,6 +26,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
+    // TODO: Move to env variables
     <Auth0Provider
       domain="capp-auth.dev.apps.futurestech.cloud"
       clientId="bk8hnOe5NfVA8xsVFy69iYJ1XEn42DTi"
