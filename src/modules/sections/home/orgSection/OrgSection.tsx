@@ -1,10 +1,14 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import Modal from '@/modules/components/modal/Modal/Modal/Modal';
+import { ReactElement, useState } from 'react';
 
 export interface IOrganizationSection {}
 
 // TODO: Replace images with next/image --> figure out cloudflare + next/image
 
 const OrganizationSection: React.FC<IOrganizationSection> = () => {
+  const [showLogoModal, setShowLogoModal] = useState(false);
+
   const recruitingLogos = [
     {
       src: '/images/logos/FreeWorldLogo.png',
@@ -36,6 +40,21 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
     },
   ];
 
+  const renderLogos = (): ReactElement => (
+    <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-4 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
+      {recruitingLogos.map((logo, i) => {
+        return (
+          <div
+            key={i}
+            className="flex h-10 max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px] md:p-3"
+          >
+            <img src={logo.src} alt={logo.alt} className="min-w-0" />
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
     <section className="md:pb- grid w-full place-items-center px-6 pb-20 pt-16 lg:pb-36">
       <div className="">
@@ -44,20 +63,18 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
           ORGANIZATIONS THAT RECRUIT USING TEKALO
         </div>
         {/* Logo Grid */}
-        <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-4 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
-          {recruitingLogos.map((logo, i) => {
-            return (
-              <div
-                key={i}
-                className="flex h-10 max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px] md:p-3"
-              >
-                <img src={logo.src} alt={logo.alt} className="min-w-0" />
-              </div>
-            );
-          })}
-        </div>
+
+        {renderLogos()}
         <div className="mt-6 text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large">
-          <a href="#">See more</a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowLogoModal(true);
+            }}
+          >
+            See more
+          </a>
         </div>
       </div>
       {/* CTA Box*/}
@@ -88,6 +105,14 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        headline="Organizations that recruit through Tekalo"
+        isOpen={showLogoModal}
+        content={renderLogos()}
+        closeModal={() => setShowLogoModal(false)}
+        onConfirm={() => setShowLogoModal(false)}
+      />
     </section>
   );
 };
