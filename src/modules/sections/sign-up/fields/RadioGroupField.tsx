@@ -41,7 +41,6 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
       {({ value, setValue, onBlur, errors }) => {
         return (
           <div className="space-y-2">
-            {value}
             <RadioGroup
               name={`input-${fieldName}`}
               label={label}

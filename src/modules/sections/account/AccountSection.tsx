@@ -203,7 +203,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                     onConfirm={onResumeConfirm}
                   />
                 </>
-              ) : (
+              ) : applicationSubmitted ? (
                 <>
                   <div
                     className="cursor-pointer text-component-medium text-blue-1"
@@ -225,6 +225,8 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                     onConfirm={onPauseConfirm}
                   />
                 </>
+              ) : (
+                <></>
               )}
             </div>
 
