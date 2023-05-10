@@ -1,8 +1,8 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import {
-  APPLICANT_SUCCESS_LINK,
   applicantFormHeader,
+  APPLICANT_SUCCESS_LINK,
 } from '@/lib/constants/text';
 import {
   applicantDraftSubmissionsEndpoint,
@@ -11,11 +11,12 @@ import {
   post,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  ITimelineItem,
   InterestFieldsType,
+  ITimelineItem,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -25,7 +26,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 
-const ApplicantSignup: NextPageWithLayout = () => {
+const ApplicantForms: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
@@ -193,4 +194,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
   );
 };
 
-export default ApplicantSignup;
+export default ApplicantForms;
+
+ApplicantForms.getLayout = (page) => {
+  return <ApplicationLayout>{page}</ApplicationLayout>;
+};
