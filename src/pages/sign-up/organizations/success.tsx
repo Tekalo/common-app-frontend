@@ -1,5 +1,5 @@
 import SuccessSection from '@/components/info/successSection/SuccessSection';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 
 const ApplicantSuccess: NextPageWithLayout = () => {
@@ -16,5 +16,5 @@ const ApplicantSuccess: NextPageWithLayout = () => {
 export default ApplicantSuccess;
 
 ApplicantSuccess.getLayout = (page) => {
-  return <ApplicationLayout>{page}</ApplicationLayout>;
+  return <OrganizationLayout>{page}</OrganizationLayout>;
 };

@@ -2,7 +2,7 @@ import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import { ORG_SUCCESS_LINK } from '@/lib/constants/text';
 import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
@@ -133,5 +133,5 @@ const OrganizationSignup: NextPageWithLayout = () => {
 export default OrganizationSignup;
 
 OrganizationSignup.getLayout = (page) => (
-  <ApplicationLayout>{page}</ApplicationLayout>
+  <OrganizationLayout>{page}</OrganizationLayout>
 );

@@ -35,7 +35,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
               />
             </Link>
             <div className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-10 md:pt-2 lg:text-p2-desktop">
-              {title}For Candidates
+              {title}
             </div>
           </div>
           <div className="flex items-center space-x-2 md:space-x-6 lg:space-x-10">

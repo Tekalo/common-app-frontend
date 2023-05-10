@@ -65,7 +65,7 @@ const OrgForms: React.FC<IOrgForms> = ({
               isLastRole={activeIndex === orgRoles.length - 1}
             />
             {/* If orgRoles.length is greater than 1 render the delete link */}
-            {orgRoles.length >= 1 && (
+            {orgRoles.length > 1 && (
               <div
                 className="mt-6 cursor-pointer text-center text-component-medium text-red-error"
                 onClick={() => handleDeleteRole(activeIndex)}
