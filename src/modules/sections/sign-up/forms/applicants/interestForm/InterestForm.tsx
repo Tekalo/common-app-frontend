@@ -82,6 +82,7 @@ const InterestForm: React.FC<IInterestForm> = ({
     if (typeof newVals.interestGovt === 'string') {
       newVals.interestGovt = mapStringToBool(newVals.interestGovt);
     }
+
     if (typeof newVals.previousImpactExperience === 'string') {
       newVals.previousImpactExperience = mapStringToBool(
         newVals.previousImpactExperience
@@ -242,7 +243,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="Are you interested in U.S. state or local government opportunities?"
             helperText={USDR_DISCLAIMER}
             onChange={(val) => {
-              setInterestGov(val);
+              setInterestGov(mapStringToBool(val) || false);
             }}
             rowAlign={true}
             listOptions={YesNoOptions}

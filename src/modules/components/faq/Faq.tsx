@@ -9,7 +9,11 @@ export interface IFaq {
 
 const Faq: React.FC<IFaq> = ({ faqItems, className }) => {
   return (
-    <div className={`max-w-7xl mx-auto ${className}`}>
+    <div
+      className={`mx-auto w-full max-w-content-area ${
+        className ? className : ''
+      }`}
+    >
       <dl className="space-y-3 divide-y divide-gray-3 border-b border-b-gray-3 pb-8 md:space-y-8">
         {faqItems.map((faq, i) => (
           <Disclosure

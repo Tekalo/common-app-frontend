@@ -347,7 +347,7 @@ const FaqSection: React.FC<IFaqSection> = () => {
 
   return (
     <section className="grid w-full place-items-center">
-      <div className="px-6 pb-16 pt-14 md:px-4 md:py-20 lg:px-5 lg:py-28">
+      <div className="w-full px-6 pb-16 pt-14 md:px-4 md:py-20 lg:px-5 lg:py-28">
         {/* TOGGLE */}
         {/* TODO: Consider moving toggle menu to own component, this is identical to FAQ */}
         <div className="md:hidden">{renderToggle()}</div>
