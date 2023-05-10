@@ -9,8 +9,8 @@ import { EEOC_LABEL } from '@/lib/constants/text';
 import {
   Causes,
   CommitmentType,
-  EOE,
   Email,
+  EOE,
   OrgSize,
   OrgType,
   PhoneNumber,
@@ -37,7 +37,6 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
   return (
     <Form<NewOrgType>
       onSubmit={(values) => {
-        console.log(values);
         handleSubmit(values);
       }}
     >
