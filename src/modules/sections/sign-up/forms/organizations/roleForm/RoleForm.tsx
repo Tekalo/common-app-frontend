@@ -202,7 +202,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               validator={
                 isPaidRef.current?.value ? RequiredString : OptionalString
               }
-              disabled={!isPaidRef.current?.value}
+              disabled={partTimeForm ? !isPaidRef.current?.value : false}
             />
 
             {partTimeForm && (
