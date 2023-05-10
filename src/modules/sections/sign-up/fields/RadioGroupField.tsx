@@ -41,6 +41,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
       {({ value, setValue, onBlur, errors }) => {
         return (
           <div className="space-y-2">
+            {value} {typeof value}
             <RadioGroup
               name={`input-${fieldName}`}
               label={label}
@@ -56,9 +57,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
               rowAlign={rowAlign}
               listOptions={listOptions}
             />
-
             {helperText ? <>{helperText}</> : null}
-
             {printErrorMessages(isSubmitted, errors)}
           </div>
         );
