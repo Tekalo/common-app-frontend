@@ -2,19 +2,19 @@ import LiteFooter from '@/components/navigation/LiteFooter/LiteFooter';
 import LiteNavbar from '@/components/navigation/LiteNavbar/LiteNavbar';
 import Head from 'next/head';
 
-export type IApplicationLayout = React.ComponentPropsWithoutRef<'div'>;
+export type IOrganizationLayout = React.ComponentPropsWithoutRef<'div'>;
 
-const ApplicationLayout: React.FC<IApplicationLayout> = ({
+const OrganizationLayout: React.FC<IOrganizationLayout> = ({
   children,
   ...divProps
 }) => {
   return (
     <>
       <Head>
-        <title>Tekalo | Candidates</title>
+        <title>Tekalo | Organizations</title>
       </Head>
       <div {...divProps}>
-        <LiteNavbar title={'For candidates'} />
+        <LiteNavbar title={'For organizations'} />
         <main className="flex pt-16 md:pt-20">{children}</main>
         <div className="m-auto" />
         <LiteFooter />
@@ -23,4 +23,4 @@ const ApplicationLayout: React.FC<IApplicationLayout> = ({
   );
 };
 
-export default ApplicationLayout;
+export default OrganizationLayout;
