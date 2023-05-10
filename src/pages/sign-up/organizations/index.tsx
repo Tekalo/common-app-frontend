@@ -1,15 +1,17 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
-import { ORG_SUCCESS_LINK } from '@/lang/en';
+import { CONFIRM_MODAL, ORG_SUCCESS_LINK } from '@/lang/en';
 import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
+  const router = useRouter();
+
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
@@ -113,12 +115,10 @@ const OrganizationSignup: NextPageWithLayout = () => {
       )}
       {showDeleteModal && (
         <ConfirmModal
-          headline={'Delete this role'}
-          bodyText={
-            'Are you sure you want to delete this role? You won’t be able to undo this.'
-          }
-          cancelBtnText={'Cancel'}
-          confirmBtnText={'Delete role'}
+          headline={CONFIRM_MODAL.HEADER}
+          bodyText={CONFIRM_MODAL.BODY}
+          cancelBtnText={CONFIRM_MODAL.CTA_CANCEL}
+          confirmBtnText={CONFIRM_MODAL.CTA_CONFIRM}
           isOpen={showDeleteModal}
           confirmBtnVariant={ButtonVariant.RED}
           closeModal={() => setShowDeleteModal(false)}

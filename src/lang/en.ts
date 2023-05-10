@@ -233,11 +233,59 @@ const HOME_CONTACT_TEXT = {
   CTA: 'Contact us',
 };
 
+// ACCOUNT PAGE TEXT CONSTANTS
+const ACCOUNT_PAGE_TEXT = {
+  WELCOME: 'Welcome back,',
+  MANAGE: 'Manage your settings',
+  ACCOUNT: 'Your Account',
+  APP_SUBMITTED: ' Application submitted',
+  APP_SUBMITTED_BODY:
+    "You're all set. We'll contact you via your preferred method.",
+  APP_CONTINUE: 'Continue my application >',
+  APP_CONTINUE_BODY: 'Your application has not been submitted yet',
+  APP_OPT_IN_TITLE: 'Opt back in for matches >',
+  APP_OPT_IN_BODY: 'Your matches are paused until you opt back in.',
+  APP_PAUSE_TITLE: 'Pause my matches >',
+  APP_PAUSE_BODY:
+    "If you're not looking for matches now, we'll stop contacting you until you opt back in.",
+  APP_DELETE_TITLE: 'Delete my account and data >',
+  APP_DELETE_BODY: 'Permanently delete your account and saved data.',
+};
+
 /** MODAL TEXT CONSTANTS */
 const PRIVACY_MODAL_TEXT = {
   HEADER: 'Privacy Info',
   BODY: 'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.',
   EXTRAS: ['See our ', 'Privacy FAQ', ' for more information'],
+};
+const SAVE_MODAL = {
+  HEADER: 'Your progress has been saved!',
+  BODY: 'If you need to leave, you can click “Sign in” from the homepage, then return to the application.',
+  CTA: 'Ok',
+};
+const CONFIRM_MODAL = {
+  HEADER: 'Delete this role',
+  BODY: "Are you sure you want to delete this role? You won't be able to undo this.",
+  CTA_CANCEL: 'Cancel',
+  CTA_CONFIRM: 'Delete role',
+};
+const DELETE_MODAL = {
+  CTA_CONFIRM: 'Delete account',
+  CTA_CANCEL: 'Cancel',
+  HEADER: 'Permanently delete your account and data',
+  BODY: 'Are you sure you want to permanently delete you account and data? This may take up to 30 days. Choose "delete account" to start deletion.',
+};
+const PAUSE_MODAL = {
+  CTA_CONFIRM: 'Pause matches',
+  CTA_CANCEL: 'Cancel',
+  HEADER: 'Pause your matches',
+  BODY: 'Are you sure you want to pause your matches?',
+};
+const RESUME_MODAL = {
+  CTA_CONFIRM: 'Resume matches',
+  CTA_CANCEL: 'Cancel',
+  HEADER: 'Resume your matches',
+  BODY: 'Are you sure you want to resume your matches?',
 };
 
 /** FORM TEXT CONSTANTS */
@@ -250,6 +298,20 @@ const APPLICANT_FORM_TEXT = {
   TERMS_DISCLAIMER: {
     text: 'I agree to the ',
     linkText: 'Terms of Service',
+  },
+  SUCCESS: {
+    title: 'Your application was submitted!',
+    body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you via your preferred contact method once matches are available. Thank you for applying to Tekalo.',
+    cta: 'Done',
+  },
+  EXPERIENCE: 'Your expereience',
+  INTERESTS: 'Your interests',
+};
+const ORG_FORM_TEXT = {
+  SUCCESS: {
+    title: 'Your intake form was submitted!',
+    body: 'You will receive a confirmation email shortly. Your assigned Tekalo recruiting liaison will review your application and contact you. This process may take up to 6 weeks. Thank you for applying to Tekalo.',
+    cta: 'Done',
   },
 };
 const INTEREST_FORM_TEXT = {
@@ -304,12 +366,22 @@ export {
   HOME_FAQ_TEXT,
   HOME_CONTACT_TEXT,
 };
+// ACCOUNT PAGE EXPORTS
+export { ACCOUNT_PAGE_TEXT };
 // FORM EXPORTS
 export {
   APPLICANT_FORM_TEXT,
   INTEREST_FORM_TEXT,
   REVIEW_FORM_TEXT,
   ORG_SIGNUP_FORM_TEXT,
+  ORG_FORM_TEXT,
 };
 // MODAL EXPORTS
-export { PRIVACY_MODAL_TEXT };
+export {
+  PRIVACY_MODAL_TEXT,
+  SAVE_MODAL,
+  CONFIRM_MODAL,
+  PAUSE_MODAL,
+  RESUME_MODAL,
+  DELETE_MODAL,
+};

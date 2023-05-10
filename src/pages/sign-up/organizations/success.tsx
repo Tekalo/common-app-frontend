@@ -1,14 +1,16 @@
 import SuccessSection from '@/components/info/successSection/SuccessSection';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NextPageWithLayout } from '@/lib/types';
+import { useRouter } from 'next/router';
 
 const ApplicantSuccess: NextPageWithLayout = () => {
+  const router = useRouter();
   return (
     <SuccessSection
-      title="Your intake form was submitted!"
-      body="You will receive a confirmation email shortly. Your assigned Tekalo recruiting liaison will review your application and contact you. This process may take up to 6 weeks. Thank you for applying to Tekalo."
-      buttonText="Done"
-      buttonHandler={() => void {}}
+      title={ORG_FORM_TEXT.SUCCESS.title}
+      body={ORG_FORM_TEXT.SUCCESS.body}
+      buttonText={ORG_FORM_TEXT.SUCCESS.cta}
+      buttonHandler={() => router.push}
     />
   );
 };
