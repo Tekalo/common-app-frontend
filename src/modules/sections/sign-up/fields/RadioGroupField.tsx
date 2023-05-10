@@ -56,9 +56,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
               rowAlign={rowAlign}
               listOptions={listOptions}
             />
-
             {helperText ? <>{helperText}</> : null}
-
             {printErrorMessages(isSubmitted, errors)}
           </div>
         );
