@@ -116,7 +116,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 rowAlign={true}
                 listOptions={PaidOptions}
                 isSubmitted={isSubmitted}
-                initialValue={previousForm?.paid}
+                initialValue={previousForm?.paid || true}
                 validator={z.boolean()}
                 ref={isPaidRef}
               />
@@ -227,7 +227,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               rowAlign={true}
               listOptions={YesNoOptions}
               isSubmitted={isSubmitted}
-              initialValue={previousForm?.fullyRemote}
+              initialValue={previousForm?.fullyRemote || false}
               validator={z.boolean()}
             />
 
@@ -318,7 +318,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               rowAlign={true}
               listOptions={YesNoOptions}
               isSubmitted={isSubmitted}
-              initialValue={previousForm?.similarStaffed}
+              initialValue={previousForm?.similarStaffed || true}
               validator={z.boolean()}
             />
 
