@@ -1,6 +1,10 @@
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
-import { APPLICANT_FORM_TEXT, APPLICANT_SUCCESS_LINK } from '@/lang/en';
+import {
+  APPLICANT_FORM_TEXT,
+  APPLICANT_SUCCESS_LINK,
+  SAVE_MODAL,
+} from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
@@ -135,13 +139,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
           className={isInterestFormVisible ? `cursor-pointer text-blue-1` : ''}
           onClick={() => setIsInterestFormVisible(false)}
         >
-          {'Your experience'}
+          {APPLICANT_FORM_TEXT.EXPERIENCE}
         </div>
       ),
       isActive: true,
     },
     {
-      content: 'Your interests',
+      content: APPLICANT_FORM_TEXT.INTERESTS,
       isActive: isInterestFormVisible,
     },
   ];
@@ -179,9 +183,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
       {/* Save Modal */}
       <Modal
-        headline="Your progress has been saved!"
-        bodyText="If you need to leave, you can click “Sign in” from the homepage, then return to the application."
-        buttonText="Ok"
+        headline={SAVE_MODAL.HEADER}
+        bodyText={SAVE_MODAL.BODY}
+        buttonText={SAVE_MODAL.CTA}
         isOpen={showSaveModal}
         closeModal={() => setShowSaveModal(false)}
         onConfirm={() => setShowSaveModal(false)}

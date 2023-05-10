@@ -1,6 +1,12 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
-import { APPLICANT_EXPERIENCE_LINK } from '@/lang/en';
+import {
+  ACCOUNT_PAGE_TEXT,
+  APPLICANT_EXPERIENCE_LINK,
+  DELETE_MODAL,
+  PAUSE_MODAL,
+  RESUME_MODAL,
+} from '@/lang/en';
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
 import {
   applicantStateEndpoint,
@@ -107,30 +113,18 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
     updateMatchStatus(false);
   };
 
-  const deleteModalConfirm = 'Delete account';
-  const deleteModalHeadline = 'Permanently delete your account and data';
-  const deleteModalText = `Are you sure you want to permanently delete you account and data? This may take up to 30 days. Choose “delete account” to start deletion.`;
-
-  const pauseModalConfirm = 'Pause matches';
-  const pauseModalHeadline = 'Pause your matches';
-  const pauseModalText = 'Are you sure you want to pause your matches?';
-
-  const resumeModalConfirm = 'Resume matches';
-  const resumeModalHeadline = 'Resume your matches';
-  const resumeModalText = 'Are you sure you want to resume your matches?';
-
   return (
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
       <div className="mb-2 font-display text-h3-desktop text-black-text">
-        {`Welcome Back, ${accountName}`}
+        {`${ACCOUNT_PAGE_TEXT.WELCOME} ${accountName}`}
       </div>
       <div className="mb-6 font-display text-h4-desktop text-black-text">
-        {`Manage your settings`}
+        {ACCOUNT_PAGE_TEXT.MANAGE}
       </div>
       {/* Bordered Settings Box */}
       <div className="border border-gray-3 p-10">
         <div className="mb-6 font-display text-small-caption-desktop text-gray-1">
-          {`Your Account`}
+          {ACCOUNT_PAGE_TEXT.ACCOUNT}
         </div>
 
         <div className="space-y-5">
@@ -152,23 +146,21 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                       />
                     }
                   </div>
-                  <div className="">{' Application submitted'}</div>
+                  <div className="">{ACCOUNT_PAGE_TEXT.APP_SUBMITTED}</div>
                 </div>
                 <div className="text-p3-desktop text-gray-1">
-                  {
-                    "You're all set. We'll contact you via your preferred method."
-                  }
+                  {ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY}
                 </div>
               </>
             ) : (
               <>
                 <div className="text-component-medium text-blue-1">
                   <Link href={APPLICANT_EXPERIENCE_LINK}>
-                    {'Continue my application >'}
+                    {ACCOUNT_PAGE_TEXT.APP_CONTINUE}
                   </Link>
                 </div>
                 <div className="text-p3-desktop text-gray-1">
-                  Your application has not been submitted yet.
+                  {ACCOUNT_PAGE_TEXT.APP_CONTINUE_BODY}
                 </div>
               </>
             )}
@@ -192,17 +184,19 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                           color="#317BB5"
                         />
                       }
-                      <div className="ml-1">{'Opt back in for matches >'}</div>
+                      <div className="ml-1">
+                        {ACCOUNT_PAGE_TEXT.APP_OPT_IN_TITLE}
+                      </div>
                     </div>
                   </div>
                   <div className="text-p3-desktop text-gray-1">
-                    {'Your matches are paused until you opt back in.'}
+                    {ACCOUNT_PAGE_TEXT.APP_OPT_IN_BODY}
                   </div>
                   <ConfirmModal
-                    bodyText={resumeModalText}
-                    cancelBtnText={'Cancel'}
-                    confirmBtnText={resumeModalConfirm}
-                    headline={resumeModalHeadline}
+                    bodyText={RESUME_MODAL.BODY}
+                    cancelBtnText={RESUME_MODAL.CTA_CANCEL}
+                    confirmBtnText={RESUME_MODAL.CTA_CONFIRM}
+                    headline={RESUME_MODAL.HEADER}
                     isOpen={showResumeModal}
                     closeModal={() => setShowResumeModal(false)}
                     onCancel={() => setShowResumeModal(false)}
@@ -215,18 +209,16 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                     className="cursor-pointer text-component-medium text-blue-1"
                     onClick={() => setShowPauseModal(true)}
                   >
-                    {' Pause my matches >'}
+                    {ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE}
                   </div>
                   <div className="text-p3-desktop text-gray-1">
-                    {
-                      "If you're not looking for matches now, we'll stop contacting you until you opt back in."
-                    }
+                    {ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY}
                   </div>
                   <ConfirmModal
-                    bodyText={pauseModalText}
-                    cancelBtnText={'Cancel'}
-                    confirmBtnText={pauseModalConfirm}
-                    headline={pauseModalHeadline}
+                    bodyText={PAUSE_MODAL.BODY}
+                    cancelBtnText={PAUSE_MODAL.CTA_CANCEL}
+                    confirmBtnText={PAUSE_MODAL.CTA_CONFIRM}
+                    headline={PAUSE_MODAL.HEADER}
                     isOpen={showPauseModal}
                     closeModal={() => setShowPauseModal(false)}
                     onCancel={() => setShowPauseModal(false)}
@@ -242,18 +234,18 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                 className="cursor-pointer text-component-medium text-blue-1"
                 onClick={() => setShowDeleteModal(true)}
               >
-                {'Delete my account and data >'}
+                {ACCOUNT_PAGE_TEXT.APP_DELETE_TITLE}
               </div>
               <div className="text-p3-desktop text-gray-1">
-                {'Permanently delete your account and saved data.'}
+                {ACCOUNT_PAGE_TEXT.APP_DELETE_BODY}
               </div>
             </div>
             <ConfirmModal
-              bodyText={deleteModalText}
+              bodyText={DELETE_MODAL.BODY}
               confirmBtnVariant={ButtonVariant.RED}
-              cancelBtnText={'Cancel'}
-              confirmBtnText={deleteModalConfirm}
-              headline={deleteModalHeadline}
+              cancelBtnText={DELETE_MODAL.CTA_CANCEL}
+              confirmBtnText={DELETE_MODAL.CTA_CONFIRM}
+              headline={DELETE_MODAL.HEADER}
               isOpen={showDeleteModal}
               closeModal={() => setShowDeleteModal(false)}
               onCancel={() => setShowDeleteModal(false)}
