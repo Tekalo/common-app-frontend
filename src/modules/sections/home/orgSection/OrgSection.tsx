@@ -1,14 +1,17 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { HOME_ORG_TEXT, ORG_SIGNUP_LINK } from '@/lang/en';
 import Modal from '@/modules/components/modal/Modal/Modal/Modal';
-import { ReactElement, useState } from 'react';
+import Link from 'next/link';
 
-export interface IOrganizationSection {}
+export interface IOrganizationSection {
+  showLogoModal: boolean;
+  setShowLogoModal: (showModal: boolean) => void;
+}
 
-// TODO: Replace images with next/image --> figure out cloudflare + next/image
-
-const OrganizationSection: React.FC<IOrganizationSection> = () => {
-  const [showLogoModal, setShowLogoModal] = useState(false);
-
+const OrganizationSection: React.FC<IOrganizationSection> = ({
+  showLogoModal,
+  setShowLogoModal,
+}) => {
   const recruitingLogos = [
     {
       src: '/images/logos/PlaceHolderLogo.png',
@@ -40,7 +43,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
     },
   ];
 
-  const renderLogos = (): ReactElement => (
+  const renderLogos = () => (
     <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-4 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
       {recruitingLogos.map((logo, i) => {
         return (
@@ -60,21 +63,19 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
       <div className="">
         {/* Title */}
         <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-14 lg:text-large-caption-desktop">
-          ORGANIZATIONS THAT RECRUIT USING TEKALO
+          {HOME_ORG_TEXT.HEADER}
         </div>
         {/* Logo Grid */}
 
         {renderLogos()}
-        <div className="mt-6 text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowLogoModal(true);
-            }}
-          >
-            See more
-          </a>
+        <div
+          className="mt-6 cursor-pointer text-center text-blue-1 transition-all lg:mt-8 lg:text-component-extra-large"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowLogoModal(true);
+          }}
+        >
+          {HOME_ORG_TEXT.SEE_MORE_CTA}
         </div>
       </div>
       {/* CTA Box*/}
@@ -86,33 +87,32 @@ const OrganizationSection: React.FC<IOrganizationSection> = () => {
           <div className="flex flex-col items-center px-8 py-6 text-center md:px-11 md:py-10 lg:px-10 lg:py-14">
             {/* Title */}
             <div className="text-displaytext-center px-2 text-h4-mobile text-black-text lg:text-h4-desktop">
-              <p>Find candidates aligned with your mission.</p>
+              <p>{HOME_ORG_TEXT.CTA_TITLE}</p>
             </div>
             <div className="pt-4 text-center font-sans text-p2-mobile text-black-text lg:px-0 lg:text-p2-desktop">
-              Instead of sorting through hundreds of applications and conducting
-              endless screening calls, discover top tech talent through Tekalo.
-              Applications are currently open to all 501(c)(3) organizations.
-              Other types of organizations are welcome to apply and will be
-              considered on a case by case basis.
+              {HOME_ORG_TEXT.CTA_BODY}
             </div>
             {/* Button */}
-            <Button
-              variant={ButtonVariant.OUTLINED}
-              label="Apply as an organization"
-              className="mt-6 w-full max-w-[228px] lg:mt-10 lg:max-w-[352px]"
-              onClick={() => void {}}
-            />
+            <Link href={ORG_SIGNUP_LINK}>
+              <Button
+                variant={ButtonVariant.OUTLINED}
+                label={HOME_ORG_TEXT.CTA_BUTTON}
+                className="mt-6 w-full max-w-[228px] lg:mt-10 lg:max-w-[352px]"
+              />
+            </Link>
           </div>
         </div>
       </div>
 
-      <Modal
-        headline="Organizations that recruit through Tekalo"
-        isOpen={showLogoModal}
-        content={renderLogos()}
-        closeModal={() => setShowLogoModal(false)}
-        onConfirm={() => setShowLogoModal(false)}
-      />
+      {showLogoModal && (
+        <Modal
+          headline="Organizations that recruit through Tekalo"
+          isOpen={showLogoModal}
+          content={renderLogos()}
+          closeModal={() => setShowLogoModal(false)}
+          onConfirm={() => setShowLogoModal(false)}
+        />
+      )}
     </section>
   );
 };

@@ -5,7 +5,6 @@ import {
   OrgTypeOptions,
   TrueFalseOptions,
 } from '@/lib/constants/selects';
-import { EEOC_LABEL } from '@/lib/constants/text';
 import {
   Causes,
   CommitmentType,
@@ -18,6 +17,7 @@ import {
 } from '@/lib/enums';
 
 import Button from '@/components/buttons/Button/Button';
+import { EEOC_URL, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
 import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
@@ -32,6 +32,22 @@ export interface ISignupForm {
   handleSubmit: (values: NewOrgType) => void;
   previousForm: NewOrgType | undefined;
 }
+
+const EEOC_LABEL = (
+  <div className="space-y-2">
+    <div className="w-[103%] text-left text-p3-mobile text-black-text">
+      {ORG_SIGNUP_FORM_TEXT.EEOC.text}
+      <a
+        href={EEOC_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="underline underline-offset-4"
+      >
+        {ORG_SIGNUP_FORM_TEXT.EEOC.linkText}
+      </a>
+    </div>
+  </div>
+);
 
 const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
   return (

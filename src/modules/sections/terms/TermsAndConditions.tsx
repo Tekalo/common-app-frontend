@@ -1,4 +1,4 @@
-import { PRIVACY_LINK } from '@/lib/constants/text';
+import { PRIVACY_LINK } from '@/lang/en';
 
 export interface ITermsAndConditions {}
 

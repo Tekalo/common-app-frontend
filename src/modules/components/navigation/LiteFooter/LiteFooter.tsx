@@ -1,4 +1,4 @@
-import { PRIVACY_LINK, TERMS_LINK } from '@/lib/constants/text';
+import { PRIVACY_LINK, TERMS_LINK } from '@/lang/en';
 import Link from 'next/link';
 
 export interface ILiteFooter {}

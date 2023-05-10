@@ -9,16 +9,22 @@ import {
   OrgSection,
   TestimonialSection,
 } from '@/sections/home';
+import { useState } from 'react';
 
 const Home: NextPageWithLayout = () => {
+  const [showLogoModal, setShowLogoModal] = useState(false);
+
   return (
     <div>
       <HeroSection />
       <AboutSection />
       <HowSection />
-      <OrgSection />
+      <OrgSection
+        showLogoModal={showLogoModal}
+        setShowLogoModal={setShowLogoModal}
+      />
       <TestimonialSection />
-      <FaqSection />
+      <FaqSection setShowLogoModal={setShowLogoModal} />
       <ContactSection />
     </div>
   );
