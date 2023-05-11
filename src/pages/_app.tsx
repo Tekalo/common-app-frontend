@@ -13,7 +13,7 @@ interface AppPropsWithLayout extends AppProps {
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN || '',
-  environment: process.env.ENVIRONMENT,
+  environment: process.env.SENTRY_ENV,
   tracesSampleRate: 1.0,
 });
 
