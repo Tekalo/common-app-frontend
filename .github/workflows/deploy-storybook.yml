@@ -1,7 +1,7 @@
 name: Storybook - Build and Deploy
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, edited, reopened]
     branches: [develop]
     paths: ['src/modules/**/*']
 
@@ -48,7 +48,7 @@ jobs:
           pnpm build-storybook
 
         # 👇 Checks if the branch is not develop and runs Chromatic
-      - name: 🚀 Deploy Branch to Chromatic
+      - name: 🚀 Deploy  to Chromatic
         if: github.ref != 'refs/heads/develop'
         uses: chromaui/action@v1
         with:
