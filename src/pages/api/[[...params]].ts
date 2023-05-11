@@ -26,12 +26,6 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
   const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
   const authToken = req.headers.get('Authorization');
 
-  console.log('process.env', process.env);
-  console.log('URL', url);
-  console.log('sessionCookie', sessionCookie);
-  console.log('cookieHeader', cookieHeader);
-  console.log('authToken', authToken);
-
   const headers: any = {
     'Content-Type': 'application/json',
   };
