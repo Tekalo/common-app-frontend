@@ -8,11 +8,11 @@ import {
 import {
   Causes,
   CommitmentType,
-  Email,
   EOE,
+  Email,
+  OptionalPhoneNumber,
   OrgSize,
   OrgType,
-  PhoneNumber,
   RequiredString,
 } from '@/lib/enums';
 
@@ -139,7 +139,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={previousForm?.contact.phone}
-            validator={PhoneNumber.optional()}
+            validator={OptionalPhoneNumber}
             tooltipText="If provided, your number will be used to contact you about your application. It won’t be used for marketing."
           />
 
