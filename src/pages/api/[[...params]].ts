@@ -9,7 +9,7 @@ type HeadersInit = [string, string][] | Record<string, string> | Headers;
 const fetchResponse = async (req: NextRequest, params: string[]) => {
   const BASE_URL = (() => {
     // Note: This process.env variable is picked from the Cloudflare Pages environment variables whereas others are set at build time in the github action
-    switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
+    switch (process.env.CLOUDFLARE_ENV) {
       case 'production':
         return 'https://capp-api.prod.apps.futurestech.cloud';
       case 'staging':
