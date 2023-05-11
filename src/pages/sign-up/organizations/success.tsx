@@ -11,7 +11,7 @@ const ApplicantSuccess: NextPageWithLayout = () => {
       title={ORG_FORM_TEXT.SUCCESS.title}
       body={ORG_FORM_TEXT.SUCCESS.body}
       buttonText={ORG_FORM_TEXT.SUCCESS.cta}
-      buttonHandler={() => router.push}
+      buttonHandler={() => router.push('/')}
     />
   );
 };
