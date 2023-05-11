@@ -1,6 +1,5 @@
 import HomeLayout from '@/lib/layouts/home/HomeLayout';
 import { NextPageWithLayout } from '@/lib/types';
-import Button from '@/modules/components/buttons/Button/Button';
 import {
   AboutSection,
   ContactSection,
@@ -17,12 +16,6 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <div>
-      <Button
-        label="Test Error"
-        onClick={() => {
-          throw 'test error';
-        }}
-      />
       <HeroSection />
       <AboutSection />
       <HowSection />

@@ -21,27 +21,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
-  console.log(
-    'process.env.NEXT_PUBLIC_AUTH0_DOMAIN',
-    process.env.NEXT_PUBLIC_AUTH0_DOMAIN
-  );
-  console.log(
-    'process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID',
-    process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID
-  );
-  console.log(
-    'process.env.NEXT_PUBLIC_AUTH0_AUDIENCE',
-    process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
-  );
-  console.log(
-    'process.env.NEXT_PUBLIC_ENVIRONMENT',
-    process.env.NEXT_PUBLIC_ENVIRONMENT
-  );
-  console.log(
-    'process.env.NEXT_PUBLIC_SENTRY_DSN',
-    process.env.NEXT_PUBLIC_SENTRY_DSN
-  );
-
   return (
     // TODO: Move to env variables
     <Auth0Provider
