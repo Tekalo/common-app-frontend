@@ -24,13 +24,10 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     // TODO: Move to env variables
     <Auth0Provider
-      domain={process.env.AUTH0_DOMAI || 'error: No Auth0 domain provided'}
-      clientId={
-        process.env.AUTH0_CLIENT_ID || 'error: No Auth0 client ID provided'
-      }
+      domain={process.env.AUTH0_DOMAIN || ''}
+      clientId={process.env.AUTH0_CLIENT_ID || ''}
       authorizationParams={{
-        audience:
-          process.env.AUTH0_AUDIENCE || 'error: No Auth0 audience provided',
+        audience: process.env.AUTH0_AUDIENCE || '',
         redirect_uri:
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
