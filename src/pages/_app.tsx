@@ -16,6 +16,7 @@ let AUTH0_CLIENT_ID: string;
 let AUTH0_AUDIENCE: string;
 let SENTRY_DSN: string;
 let SENTRY_ENV: string;
+let TEST_VAR: string;
 
 const SET_ENV = () => {
   AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || '';
@@ -23,11 +24,13 @@ const SET_ENV = () => {
   AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || '';
   SENTRY_DSN = process.env.SENTRY_DSN || '';
   SENTRY_ENV = process.env.SENTRY_ENV || '';
+  TEST_VAR = process.env.TEST_VAR || '';
 };
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   SET_ENV();
 
+  console.log('TEST_VAR: ', TEST_VAR);
   console.log('AUTH DOMAIN: ', AUTH0_DOMAIN);
   console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
   console.log('AUTH0_CLIENT_ID', AUTH0_CLIENT_ID);
