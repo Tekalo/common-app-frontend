@@ -65,6 +65,8 @@ jobs:
 
         env:
           CI: true
+          TEST_VAR: SET_IN_ACTION_BUILD
+          NEXT_PUBLIC_TEST_VAR: SET_IN_ACTION_BUILD
 
         run: |
           pnpm install
@@ -113,7 +115,8 @@ jobs:
           CI: true
           NEXT_PUBLIC_SENTRY_ENV: preview
           AUTH0_DOMAIN: capp-auth.dev.apps.futurestech.cloud
-          TEST_VAR: SET_IN_ACTION
+          TEST_VAR: SET_IN_ACTION_DEPLOY
+          NEXT_PUBLIC_TEST_VAR: SET_IN_ACTION_DEPLOY
 
         run: |
           pnpm install
