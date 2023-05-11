@@ -50,9 +50,10 @@ const Home = () => {
           <div className="mt-6 space-y-4 px-2 text-p2-mobile md:mt-8 md:space-y-6 md:text-p2-desktop">
             <div className="">
               <span className="font-bold">{'TE'}</span>
-              {
-                '•ka•lo = Tech + Kalo (‘good’ in Greek) Tekalo refers to using technology to build a better world.'
-              }
+              {'•ka•lo = Tech + Kalo (‘good’ in Greek)'}
+            </div>
+            <div className="">
+              {'Tekalo refers to using technology to build a better world.'}
             </div>
             <div>
               {
