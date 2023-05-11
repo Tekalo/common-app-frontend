@@ -20,6 +20,7 @@ Sentry.init({
 function App({ Component, pageProps }: AppPropsWithLayout) {
   SET_ENV();
 
+  console.log('TEST_VAR: ', TEST_VAR);
   console.log('AUTH DOMAIN: ', AUTH0_DOMAIN);
   console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
   console.log('AUTH0_CLIENT_ID', AUTH0_CLIENT_ID);
