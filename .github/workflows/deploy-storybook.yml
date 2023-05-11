@@ -1,7 +1,7 @@
-name: Storybook - Build and Deploy
+name: Deploy to Chromatic
 on:
   pull_request:
-    types: [opened, synchronize, edited, reopened]
+    types: [opened, synchronize, reopened]
     branches: [develop]
     paths: ['src/modules/**/*']
 

@@ -1,4 +1,4 @@
-name: Dev - Build & Deploy
+name: Deploy Dev to Cloudflare Preview
 
 # This workflow is triggered on a pull request against the develop branch.
 # This workflow is triggered on pushes to branches starting with test/

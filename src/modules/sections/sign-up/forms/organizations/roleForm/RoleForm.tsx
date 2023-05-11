@@ -109,7 +109,7 @@ const RoleForm: React.FC<IRoleForm> = ({
         >
           {/* Description Section */}
           <>
-            {partTimeForm && (
+            <div className={partTimeForm ? '' : 'hidden'}>
               <RadioSelectField
                 fieldName="paid"
                 label="Is this role paid or unpaid?"
@@ -120,7 +120,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 validator={z.boolean()}
                 ref={isPaidRef}
               />
-            )}
+            </div>
 
             <SingleSelectField
               fieldName="roleType"
@@ -132,44 +132,42 @@ const RoleForm: React.FC<IRoleForm> = ({
               validator={Roles}
             />
 
-            {partTimeForm && (
-              // HACK: Using the includes is risky here if we ever add a role with a " - " in it it may throw this component off
-              <>
-                <SingleSelectField
-                  fieldName="employmentTypeSelect"
-                  label="What type of opportunity is this?"
-                  placeholder="Choose one"
-                  listOptions={
-                    isPaidRef.current?.value
-                      ? EmploymentOptions.filter(
-                          (option) => option.value !== 'volunteer'
-                        )
-                      : EmploymentOptions
-                  }
-                  isSubmitted={isSubmitted}
-                  initialValue={
-                    previousForm?.employmentType.includes(' - ')
-                      ? previousForm?.employmentType.split(' - ')[0]
-                      : previousForm?.employmentType
-                  }
-                  validator={EmploymentType}
-                  ref={employmentTypeRef}
-                />
+            {/* // HACK: Using the includes is risky here if we ever add a role with a " - " in it it may throw this component off */}
+            <div className={partTimeForm ? '' : 'hidden'}>
+              <SingleSelectField
+                fieldName="employmentTypeSelect"
+                label="What type of opportunity is this?"
+                placeholder="Choose one"
+                listOptions={
+                  isPaidRef.current?.value
+                    ? EmploymentOptions.filter(
+                        (option) => option.value !== 'volunteer'
+                      )
+                    : EmploymentOptions
+                }
+                isSubmitted={isSubmitted}
+                initialValue={
+                  previousForm?.employmentType.includes(' - ')
+                    ? previousForm?.employmentType.split(' - ')[0]
+                    : previousForm?.employmentType ?? 'full-time employee'
+                }
+                validator={EmploymentType}
+                ref={employmentTypeRef}
+              />
 
-                <FreeTextField
-                  fieldName="employmentTypeText"
-                  label="If you chose other, please specify (optional)"
-                  placeholder="Type of opportunity"
-                  isSubmitted={isSubmitted}
-                  initialValue={
-                    previousForm?.employmentType.includes(' - ')
-                      ? previousForm?.employmentType.split(' - ')[1]
-                      : undefined
-                  }
-                  validator={OptionalString}
-                />
-              </>
-            )}
+              <FreeTextField
+                fieldName="employmentTypeText"
+                label="If you chose other, please specify (optional)"
+                placeholder="Type of opportunity"
+                isSubmitted={isSubmitted}
+                initialValue={
+                  previousForm?.employmentType.includes(' - ')
+                    ? previousForm?.employmentType.split(' - ')[1]
+                    : undefined
+                }
+                validator={OptionalString}
+              />
+            </div>
 
             <FreeTextField
               fieldName="positionTitle"
