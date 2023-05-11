@@ -12,7 +12,7 @@ interface AppPropsWithLayout extends AppProps {
 }
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
+  dsn: process.env.SENTRY_DSN || '',
   environment: process.env.ENVIRONMENT,
   tracesSampleRate: 1.0,
 });
@@ -24,10 +24,13 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     // TODO: Move to env variables
     <Auth0Provider
-      domain={process.env.AUTH0_DOMAIN}
-      clientId={process.env.AUTH0_CLIENT_ID}
+      domain={process.env.AUTH0_DOMAI || 'error: No Auth0 domain provided'}
+      clientId={
+        process.env.AUTH0_CLIENT_ID || 'error: No Auth0 client ID provided'
+      }
       authorizationParams={{
-        audience: process.env.AUTH0_AUDIENCE,
+        audience:
+          process.env.AUTH0_AUDIENCE || 'error: No Auth0 audience provided',
         redirect_uri:
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
