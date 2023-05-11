@@ -11,13 +11,9 @@ interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
-// TODO: Move to env variables
-const SENTRY_DSN =
-  'https://957fb85e991e41e1b624969dec7932ef@o4504962952724480.ingest.sentry.io/4504991639928833';
-
 Sentry.init({
-  dsn: SENTRY_DSN,
-  environment: process.env.NEXT_PUBLIC_SENTRY_ENV,
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.ENVIRONMENT,
   tracesSampleRate: 1.0,
 });
 
@@ -28,10 +24,10 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     // TODO: Move to env variables
     <Auth0Provider
-      domain="capp-auth.dev.apps.futurestech.cloud"
-      clientId="bk8hnOe5NfVA8xsVFy69iYJ1XEn42DTi"
+      domain={process.env.AUTH0_DOMAIN}
+      clientId={process.env.AUTH0_CLIENT_ID}
       authorizationParams={{
-        audience: 'auth0.capp.com',
+        audience: process.env.AUTH0_AUDIENCE,
         redirect_uri:
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
