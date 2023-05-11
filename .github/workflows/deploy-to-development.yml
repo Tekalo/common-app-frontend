@@ -112,6 +112,7 @@ jobs:
         env:
           CI: true
           NEXT_PUBLIC_SENTRY_ENV: preview
+          AUTH0_DOMAIN: capp-auth.dev.apps.futurestech.cloud
 
         run: |
           pnpm install
