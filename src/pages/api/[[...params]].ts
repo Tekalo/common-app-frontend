@@ -8,12 +8,13 @@ export const config = {
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
 const fetchResponse = async (req: NextRequest, params: string[]) => {
   const BASE_URL = (() => {
-    switch (process.env.ENVIRONMENT) {
+    // Note: This process.env variable is picked from the Cloudflare Pages environment variables whereas others are set at build time in the github action
+    switch (process.env.CLOUDFLARE_ENV) {
       case 'production':
         return 'https://capp-api.prod.apps.futurestech.cloud';
       case 'staging':
         return 'https://capp-api.dev.apps.futurestech.cloud';
-      case 'development':
+      case 'develop':
         return 'https://localhost:3000';
       default:
         return 'http://localhost:3000';
