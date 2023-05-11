@@ -23,7 +23,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     // TODO: Move to env variables
     <Auth0Provider
-      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || 'error: unset'}
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
       clientId={process.env.AUTH0_CLIENT_ID || ''}
       authorizationParams={{
         audience: process.env.AUTH0_AUDIENCE || '',
