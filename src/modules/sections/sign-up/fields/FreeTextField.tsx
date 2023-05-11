@@ -36,7 +36,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
-          <>
+          <div>
             <FreeText
               name={`input-${fieldName}`}
               disabled={disabled}
@@ -48,7 +48,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
               onBlur={onBlur}
             />
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>

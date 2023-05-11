@@ -28,7 +28,7 @@ const BooleanField: React.FC<IBooleanField> = ({
     >
       {({ value, setValue, errors }) => {
         return (
-          <>
+          <div>
             <fieldset className="space-y-3">
               <div className="flex space-x-2 align-middle">
                 <input
@@ -50,7 +50,7 @@ const BooleanField: React.FC<IBooleanField> = ({
               </div>
             </fieldset>
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>

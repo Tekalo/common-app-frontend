@@ -39,7 +39,7 @@ const MultiSelectField: React.FC<IMultiSelectField> = ({
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
-          <>
+          <div>
             <MultiSelect
               disabled={disabled}
               name={`input-${fieldName}`}
@@ -53,7 +53,7 @@ const MultiSelectField: React.FC<IMultiSelectField> = ({
               listOptions={listOptions}
             />
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>

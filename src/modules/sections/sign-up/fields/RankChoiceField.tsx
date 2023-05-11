@@ -59,20 +59,21 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
 
         return (
           <>
-            <MultiSelect
-              disabled={disabled}
-              name={`input-${fieldName}`}
-              label={selectLabel}
-              placeholder={placeholder}
-              selectionLabelMulti={selectionLabelMulti}
-              selectionLabelSingle={selectionLabelSingle}
-              value={value || []}
-              setValue={setValue}
-              onBlur={onBlur}
-              listOptions={listOptions}
-            />
-            {printErrorMessages(isSubmitted, errors)}
-
+            <div>
+              <MultiSelect
+                disabled={disabled}
+                name={`input-${fieldName}`}
+                label={selectLabel}
+                placeholder={placeholder}
+                selectionLabelMulti={selectionLabelMulti}
+                selectionLabelSingle={selectionLabelSingle}
+                value={value || []}
+                setValue={setValue}
+                onBlur={onBlur}
+                listOptions={listOptions}
+              />
+              {printErrorMessages(isSubmitted, errors)}
+            </div>
             <RankChoice
               label={rankLabel}
               setValue={setValue}
