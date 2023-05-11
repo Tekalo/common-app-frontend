@@ -37,10 +37,20 @@ const Email = z
   .nonempty(errorMessages.required)
   .email(errorMessages.invalidEmail);
 
+const phoneRegex = new RegExp(
+  /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
+);
+
 const PhoneNumber = z.string().refine((phoneNumber: string) => {
-  return new RegExp(
-    /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-  ).test(phoneNumber);
+  return phoneRegex.test(phoneNumber);
+});
+
+const OptionalPhoneNumber = z.string().refine((phoneNumber: string) => {
+  if (phoneNumber.length) {
+    return phoneRegex.test(phoneNumber);
+  } else {
+    return true;
+  }
 });
 
 const PrivacyPolicy = z.literal(true, {
@@ -262,6 +272,7 @@ export {
   OpenToRemote,
   OptionalDate,
   OptionalEssay,
+  OptionalPhoneNumber,
   OptionalString,
   OptionalStringArr,
   OrgSize,
