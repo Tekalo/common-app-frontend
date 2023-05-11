@@ -33,6 +33,13 @@ export const Red = {
   },
 };
 
+export const Green = {
+  args: {
+    ...mockButtonProps.base,
+    variant: ButtonVariant.GREEN,
+  },
+};
+
 export const Small = {
   args: { ...mockButtonProps.base, className: 'px-6 py-3' },
 };
