@@ -17,7 +17,7 @@ const Home = () => {
       <div
         className={`flex max-h-screen min-h-screen min-w-full flex-col items-center text-center align-middle`}
       >
-        <div className="mt-8 w-[312px] text-black-text sm:w-[342px] md:w-[462px] lg:w-[544px]">
+        <div className="mt-6 w-[312px] text-black-text sm:w-[342px] md:mt-8 md:w-[462px] lg:w-[544px]">
           {/* Logo Stuff */}
           <div className="space-y-2">
             {/* Logo */}
@@ -33,7 +33,7 @@ const Home = () => {
           </div>
 
           {/* HeadLines */}
-          <div className="mt-8 space-y-4 md:mt-16">
+          <div className="mt-8 space-y-4 md:mt-16 md:space-y-6">
             {/* Header */}
             <div className="text-h2-mobile md:text-h2-desktop">
               {'Coming soon!'}
@@ -47,7 +47,17 @@ const Home = () => {
           </div>
 
           {/* Paragraph */}
-          <div className="mt-6 space-y-8 px-2 text-p2-mobile md:mt-8 md:text-p2-desktop">
+          <div className="mt-6 space-y-4 px-2 text-p2-mobile md:mt-8 md:space-y-6 md:text-p2-desktop">
+            <div className="">
+              <div className="">
+                <span className="font-bold">{'TE'}</span>
+                {'•ka•lo = Tech + Kalo (‘good’ in Greek)'}
+              </div>
+              <div className="">
+                {'Tekalo refers to using technology to build a better world.'}
+              </div>
+            </div>
+
             <div>
               {
                 "Now more than ever, impact-driven organizations need technical talent that is passionate about solving some of the world's biggest, most pressing problems."
@@ -61,7 +71,7 @@ const Home = () => {
           </div>
 
           {/* Button */}
-          <div className="mt-9 flex w-full justify-center">
+          <div className="mt-8 flex w-full justify-center">
             {/* Add mx-auto class for centering */}
             <button
               onClick={handleButtonClick}
