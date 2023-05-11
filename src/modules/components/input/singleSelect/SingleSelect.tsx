@@ -8,18 +8,19 @@ import {
 } from '@heroicons/react/24/outline';
 
 export interface ISingleSelect {
-  name: string;
-  value: string;
   label: string;
-  placeholder?: string;
-  labelClassName?: string;
-  buttonClassName?: string;
-  optionsClassName?: string;
   listOptions: ISelectItem[];
-  tooltipText?: string;
+  name: string;
   setValue: (_val: string) => void;
-  onBlur?: () => void;
+  value: string;
+  buttonClassName?: string;
   disabled?: boolean;
+  labelClassName?: string;
+  onBlur?: () => void;
+  onChange?: (val: string) => void;
+  optionsClassName?: string;
+  placeholder?: string;
+  tooltipText?: string;
 }
 
 const SingleSelect: React.FC<ISingleSelect> = ({
@@ -34,9 +35,21 @@ const SingleSelect: React.FC<ISingleSelect> = ({
   buttonClassName,
   disabled,
   tooltipText,
+  onChange,
 }) => {
   return (
-    <Listbox value={value} onChange={setValue} name={name} disabled={disabled}>
+    <Listbox
+      value={value}
+      onChange={(val) => {
+        setValue(val);
+
+        if (onChange) {
+          onChange(val);
+        }
+      }}
+      name={name}
+      disabled={disabled}
+    >
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label

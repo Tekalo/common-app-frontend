@@ -23,6 +23,7 @@ import {
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export interface ISignupForm {
   handleSubmit: (_values: NewCandidateType) => void;
@@ -61,6 +62,8 @@ const SignupForm: React.FC<ISignupForm> = ({
   handleSubmit,
   setShowPrivacyModal,
 }) => {
+  const [contactValue, setContactValue] = useState<string>();
+
   return (
     <Form<NewCandidateType> onSubmit={(values) => handleSubmit(values)}>
       {({ isValid, isSubmitted, submit }) => (
@@ -111,6 +114,8 @@ const SignupForm: React.FC<ISignupForm> = ({
             validator={SearchStatus}
           />
 
+          {/* TODO: Move all fields with dependencies into their own fields
+          so we can centralize the logic */}
           {/* Contact Method */}
           <SingleSelectField
             fieldName="preferredContact"
@@ -118,6 +123,9 @@ const SignupForm: React.FC<ISignupForm> = ({
             placeholder="Choose one"
             listOptions={PreferredContactOptions}
             isSubmitted={isSubmitted}
+            onChange={(val) => {
+              setContactValue(val);
+            }}
             initialValue={undefined}
             validator={PreferredContact}
           />
@@ -126,7 +134,11 @@ const SignupForm: React.FC<ISignupForm> = ({
           <FreeTextField
             listenTo={['preferredContact']}
             fieldName="phone"
-            label="Phone number (optional)"
+            // TODO: This should be more directly tied to the validation
+            // function this field uses
+            label={`Phone number ${
+              contactValue === 'email' ? '(optional)' : ''
+            }`}
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={undefined}
