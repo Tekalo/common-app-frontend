@@ -1,4 +1,4 @@
-name: Production Cloudflare
+name: Deploy Production to Cloudflare
 
 # This workflow triggers when a push happens on on main
 

@@ -1,4 +1,4 @@
-name: Staging Cloudflare Preview
+name: Deploy Staging to Cloudflare Preview
 
 # This workflow triggers when a push happens on on staging
 
