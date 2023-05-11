@@ -3,7 +3,6 @@ import { IconType } from '@/lib/types';
 export enum ButtonVariant {
   OUTLINED,
   RED,
-  GREEN,
 }
 export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   icon?: IconType;
@@ -37,16 +36,13 @@ const Button: React.FC<IButton> = ({
 
   const RED = `${BASE} bg-red-error text-white hover:bg-red-hover active:bg-red-active`;
 
-  const GREEN = `${BASE} bg-green-1 text-white hover:bg-green-2 active:bg-green-3`;
-
   const getButtonVariantStyles = () => {
     switch (variant) {
       case ButtonVariant.OUTLINED:
         return OUTLINED;
       case ButtonVariant.RED:
         return RED;
-      case ButtonVariant.GREEN:
-        return GREEN;
+
       default:
         return DEFAULT;
     }
