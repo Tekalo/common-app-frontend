@@ -18,6 +18,20 @@ Sentry.init({
 });
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
+  SET_ENV();
+
+  console.log('AUTH DOMAIN: ', AUTH0_DOMAIN);
+  console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
+  console.log('AUTH0_CLIENT_ID', AUTH0_CLIENT_ID);
+  console.log('SENTRY_DSN', SENTRY_DSN);
+  console.log('SENTRY_ENV', SENTRY_ENV);
+
+  Sentry.init({
+    dsn: SENTRY_DSN,
+    environment: SENTRY_ENV,
+    tracesSampleRate: 1.0,
+  });
+
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
