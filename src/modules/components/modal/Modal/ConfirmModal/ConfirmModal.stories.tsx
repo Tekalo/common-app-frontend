@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ConfirmModal, { IConfirmModal } from './ConfirmModal';
 import { mockConfirmModalProps } from './ConfirmModal.mocks';
 
-const ToolTipExample: React.FC<IConfirmModal> = ({
+const ConfirmModalExample: React.FC<IConfirmModal> = ({
   bodyText,
   cancelBtnText: cancelButtonText,
   confirmBtnText: confirmButtonText,
@@ -32,7 +32,7 @@ const ToolTipExample: React.FC<IConfirmModal> = ({
   );
 };
 
-export default { component: ToolTipExample };
+export default { component: ConfirmModalExample };
 
 export const Default = {
   args: { ...mockConfirmModalProps.base },

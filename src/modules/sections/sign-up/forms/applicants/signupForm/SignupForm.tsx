@@ -5,7 +5,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -13,6 +12,7 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {

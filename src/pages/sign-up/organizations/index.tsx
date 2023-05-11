@@ -1,5 +1,6 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
+import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import { CONFIRM_MODAL, ORG_SUCCESS_LINK } from '@/lang/en';
 import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
@@ -18,10 +19,9 @@ const OrganizationSignup: NextPageWithLayout = () => {
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
   const [showReview, setShowReview] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const handleSubmit = async (acceptedPrivacy: boolean) => {
-    console.log(orgRoles);
-
     const values = {
       contact: orgInfo?.contact,
       organization: orgInfo?.organization,
@@ -32,18 +32,16 @@ const OrganizationSignup: NextPageWithLayout = () => {
     // Send the payload to the API
     post(opportunityBatchEndpoint, values)
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           router.push(ORG_SUCCESS_LINK);
         } else {
-          // TODO: Error handling, from API
-          alert(res.statusText);
+          setShowErrorModal(true);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error handling, from FE
+        setShowErrorModal(true);
         console.error('Failed to submit form data', error);
-        alert(error);
       });
   };
 
@@ -126,6 +124,12 @@ const OrganizationSignup: NextPageWithLayout = () => {
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
+      <ErrorModal
+        isOpen={showErrorModal}
+        closeModal={() => {
+          setShowErrorModal(false);
+        }}
+      />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import Modal from '@/components/modal/Modal/Modal/Modal';
 import { HOME_ORG_TEXT, ORG_SIGNUP_LINK } from '@/lang/en';
-import Modal from '@/modules/components/modal/Modal/Modal/Modal';
 import Link from 'next/link';
 
 export interface IOrganizationSection {
