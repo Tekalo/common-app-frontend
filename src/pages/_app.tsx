@@ -20,11 +20,10 @@ Sentry.init({
 function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
-
   return (
     // TODO: Move to env variables
     <Auth0Provider
-      domain={process.env.AUTH0_DOMAIN || ''}
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || 'error: unset'}
       clientId={process.env.AUTH0_CLIENT_ID || ''}
       authorizationParams={{
         audience: process.env.AUTH0_AUDIENCE || '',
