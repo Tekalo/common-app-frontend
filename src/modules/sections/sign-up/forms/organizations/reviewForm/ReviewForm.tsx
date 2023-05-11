@@ -24,10 +24,10 @@ const privacyModalExtras = (
     {PRIVACY_MODAL_TEXT.EXTRAS[0]}
     <span className="text-blue-1 underline underline-offset-4">
       <Link target="_blank" href={PRIVACY_LINK}>
-        PRIVACY_MODAL_TEXT.EXTRAS[ 1 ]
+        {PRIVACY_MODAL_TEXT.EXTRAS[1]}
       </Link>
     </span>
-    PRIVACY_MODAL_TEXT.EXTRAS[2]
+    {PRIVACY_MODAL_TEXT.EXTRAS[2]}
   </div>
 );
 
