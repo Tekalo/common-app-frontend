@@ -11,23 +11,45 @@ interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
-Sentry.init({
-  dsn: process.env.SENTRY_DSN || '',
-  environment: process.env.SENTRY_ENV,
-  tracesSampleRate: 1.0,
-});
+let AUTH0_DOMAIN: string;
+let AUTH0_CLIENT_ID: string;
+let AUTH0_AUDIENCE: string;
+let SENTRY_DSN: string;
+let SENTRY_ENV: string;
+
+const SET_ENV = () => {
+  AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || '';
+  AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID || '';
+  AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || '';
+  SENTRY_DSN = process.env.SENTRY_DSN || '';
+  SENTRY_ENV = process.env.SENTRY_ENV || '';
+};
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
+  SET_ENV();
+
+  console.log('AUTH DOMAIN: ', AUTH0_DOMAIN);
+  console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
+  console.log('AUTH0_CLIENT_ID', AUTH0_CLIENT_ID);
+  console.log('SENTRY_DSN', SENTRY_DSN);
+  console.log('SENTRY_ENV', SENTRY_ENV);
+
+  Sentry.init({
+    dsn: SENTRY_DSN,
+    environment: SENTRY_ENV,
+    tracesSampleRate: 1.0,
+  });
+
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
-  console.log(process.env);
+
   return (
     // TODO: Move to env variables
     <Auth0Provider
-      domain={process.env.AUTH0_DOMAIN || ''}
-      clientId={process.env.AUTH0_CLIENT_ID || ''}
+      domain={AUTH0_DOMAIN}
+      clientId={AUTH0_CLIENT_ID}
       authorizationParams={{
-        audience: process.env.AUTH0_AUDIENCE || '',
+        audience: AUTH0_AUDIENCE,
         redirect_uri:
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
