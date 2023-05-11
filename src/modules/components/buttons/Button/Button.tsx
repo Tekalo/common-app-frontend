@@ -42,6 +42,7 @@ const Button: React.FC<IButton> = ({
         return OUTLINED;
       case ButtonVariant.RED:
         return RED;
+
       default:
         return DEFAULT;
     }
