@@ -1,3 +1,4 @@
+import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import {
@@ -16,8 +17,8 @@ import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  InterestFieldsType,
   ITimelineItem,
+  InterestFieldsType,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -29,14 +30,14 @@ import { useEffect, useState } from 'react';
 
 const ApplicantForms: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-  const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
-  const [showSaveModal, setShowSaveModal] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   const [draftFormValues, setDraftFormValues] = useState<DraftSubmissionType>();
   const [experienceFields, setExperienceFields] =
     useState<ExperienceFieldsType>();
   const [interestFields, setInterestFields] = useState<InterestFieldsType>();
+  const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -68,10 +69,12 @@ const ApplicantForms: NextPageWithLayout = () => {
         if (res.ok) {
           router.push(APPLICANT_SUCCESS_LINK);
         } else {
+          setShowErrorModal(true);
           console.error(res.statusText);
         }
       })
       .catch((error) => {
+        setShowErrorModal(true);
         console.error('Failed to submit', error);
       });
   };
@@ -90,10 +93,12 @@ const ApplicantForms: NextPageWithLayout = () => {
         if (res.ok) {
           setShowSaveModal(true);
         } else {
+          setShowErrorModal(true);
           console.error(res.statusText);
         }
       })
       .catch((error) => {
+        setShowErrorModal(true);
         console.error('failed to save form', error);
       });
   };
@@ -119,16 +124,15 @@ const ApplicantForms: NextPageWithLayout = () => {
         if (res.ok) {
           const response: SubmissionResponseType = await res.json();
           setDraftFormValues(response.submission);
+        } else if (res.status === 401) {
+          router.push('/');
         } else {
-          if (res.status === 401) {
-            router.push('/');
-          } else {
-            console.error(res.statusText);
-          }
+          setShowErrorModal(true);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error Handling
+        setShowErrorModal(true);
         console.error('failed to fetch submissions', error);
       });
   }
@@ -190,6 +194,10 @@ const ApplicantForms: NextPageWithLayout = () => {
         isOpen={showSaveModal}
         closeModal={() => setShowSaveModal(false)}
         onConfirm={() => setShowSaveModal(false)}
+      />
+      <ErrorModal
+        isOpen={showErrorModal}
+        closeModal={() => setShowErrorModal(false)}
       />
     </div>
   );
