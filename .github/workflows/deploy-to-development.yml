@@ -29,7 +29,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: development
+    environment: develop
 
     strategy:
       matrix:
@@ -65,8 +65,12 @@ jobs:
 
         env:
           CI: true
-          TEST_VAR: SET_IN_ACTION_BUILD
-          NEXT_PUBLIC_TEST_VAR: SET_IN_ACTION_BUILD
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install
@@ -113,10 +117,12 @@ jobs:
 
         env:
           CI: true
-          NEXT_PUBLIC_SENTRY_ENV: preview
-          AUTH0_DOMAIN: capp-auth.dev.apps.futurestech.cloud
-          TEST_VAR: SET_IN_ACTION_DEPLOY
-          NEXT_PUBLIC_TEST_VAR: SET_IN_ACTION_DEPLOY
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install

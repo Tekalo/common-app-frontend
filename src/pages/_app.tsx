@@ -11,51 +11,44 @@ interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
-let AUTH0_DOMAIN: string;
-let AUTH0_CLIENT_ID: string;
-let AUTH0_AUDIENCE: string;
-let SENTRY_DSN: string;
-let SENTRY_ENV: string;
-let TEST_VAR: string;
-let NEXT_PUBLIC_TEST_VAR: string;
-
-const SET_ENV = () => {
-  AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || '';
-  AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID || '';
-  AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE || '';
-  SENTRY_DSN = process.env.SENTRY_DSN || '';
-  SENTRY_ENV = process.env.SENTRY_ENV || '';
-  TEST_VAR = process.env.TEST_VAR || '';
-  NEXT_PUBLIC_TEST_VAR = process.env.NEXT_PUBLIC_TEST_VAR || '';
-};
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
+  tracesSampleRate: 1.0,
+});
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
-  SET_ENV();
-
-  console.log('TEST_VAR: ', TEST_VAR);
-  console.log('NEXT_PUBLIC_TEST_VAR: ', NEXT_PUBLIC_TEST_VAR);
-  console.log('AUTH DOMAIN: ', AUTH0_DOMAIN);
-  console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
-  console.log('AUTH0_CLIENT_ID', AUTH0_CLIENT_ID);
-  console.log('SENTRY_DSN', SENTRY_DSN);
-  console.log('SENTRY_ENV', SENTRY_ENV);
-
-  Sentry.init({
-    dsn: SENTRY_DSN,
-    environment: SENTRY_ENV,
-    tracesSampleRate: 1.0,
-  });
-
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
+
+  console.log(
+    'process.env.NEXT_PUBLIC_AUTH0_DOMAIN',
+    process.env.NEXT_PUBLIC_AUTH0_DOMAIN
+  );
+  console.log(
+    'process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID',
+    process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID
+  );
+  console.log(
+    'process.env.NEXT_PUBLIC_AUTH0_AUDIENCE',
+    process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
+  );
+  console.log(
+    'process.env.NEXT_PUBLIC_ENVIRONMENT',
+    process.env.NEXT_PUBLIC_ENVIRONMENT
+  );
+  console.log(
+    'process.env.NEXT_PUBLIC_SENTRY_DSN',
+    process.env.NEXT_PUBLIC_SENTRY_DSN
+  );
 
   return (
     // TODO: Move to env variables
     <Auth0Provider
-      domain={AUTH0_DOMAIN}
-      clientId={AUTH0_CLIENT_ID}
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
+      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
       authorizationParams={{
-        audience: AUTH0_AUDIENCE,
+        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
         redirect_uri:
           typeof window === 'undefined' ? undefined : window.location.origin,
       }}
