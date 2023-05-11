@@ -188,7 +188,7 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
               key={i}
               className={`cursor-pointer text-component-small transition-all sm:text-component-large md:text-h4-mobile lg:text-h4-desktop ${
                 (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
-                  ? 'text-gray-2'
+                  ? 'text-gray-2 hover:text-blue-1'
                   : 'text-blue-1 underline underline-offset-8'
               }`}
               onClick={() => setForOrgs(header.includes('organizations'))}
