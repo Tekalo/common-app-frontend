@@ -1,5 +1,6 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
+import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import {
   ACCOUNT_PAGE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
@@ -38,21 +39,32 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(true);
+
+  const handleUncaughtErrorResponse = (error: any): void => {
+    setShowErrorModal(true);
+    console.error(error);
+  };
+
+  const handleCaughtErrorResponse = (res: Response): void => {
+    setShowErrorModal(true);
+    console.error(res.statusText);
+  };
 
   // User must be logged in to view this page, check for auth
   useEffect(() => {
     const getSubmissions = async () => {
-      get(applicantSubmissionsEndpoint, await getAccessTokenSilently()).then(
-        async (res) => {
+      get(applicantSubmissionsEndpoint, await getAccessTokenSilently())
+        .then(async (res) => {
           if (res.ok) {
             const submissionResponse =
               (await res.json()) as SubmissionResponseType;
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
-            console.error(res.statusText);
+            handleCaughtErrorResponse(res);
           }
-        }
-      );
+        })
+        .catch(handleUncaughtErrorResponse);
     };
 
     const getAccountData = async () => {
@@ -63,10 +75,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             setAccountName(accountResponse.name);
             setMatchesPaused(accountResponse.isPaused);
           } else {
-            console.error(res.statusText);
+            handleCaughtErrorResponse(res);
           }
         })
-        .catch((err) => console.error(err));
+        .catch(handleUncaughtErrorResponse);
     };
 
     if (!isLoading) {
@@ -87,22 +99,24 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
           setMatchesPaused(accountResponse.isPaused);
           pause ? setShowPauseModal(false) : setShowResumeModal(false);
         } else {
-          console.error(res.statusText);
+          handleCaughtErrorResponse(res);
         }
       })
-      .catch((err) => console.error(err));
+      .catch(handleUncaughtErrorResponse);
   };
 
   const onDeleteConfirm = async (): Promise<void> => {
-    deleteRequest(
-      existingApplicantEndpoint,
-      await getAccessTokenSilently()
-    ).then((res) => {
-      if (res.ok) {
-        setShowDeleteModal(false);
-        logout({ logoutParams: { returnTo: window.location.origin } });
-      }
-    });
+    deleteRequest(existingApplicantEndpoint, await getAccessTokenSilently())
+      .then((res) => {
+        if (res.ok) {
+          setShowDeleteModal(false);
+          logout({ logoutParams: { returnTo: window.location.origin } });
+        } else {
+          setShowDeleteModal(false);
+          handleCaughtErrorResponse(res);
+        }
+      })
+      .catch(handleUncaughtErrorResponse);
   };
 
   const onPauseConfirm = async (): Promise<void> => {
@@ -229,7 +243,6 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                 <></>
               )}
             </div>
-
             {/* Data Control */}
             <div className="space-y-2">
               <div
@@ -252,6 +265,12 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
               closeModal={() => setShowDeleteModal(false)}
               onCancel={() => setShowDeleteModal(false)}
               onConfirm={onDeleteConfirm}
+            />
+            <ErrorModal
+              isOpen={showErrorModal}
+              closeModal={() => {
+                setShowErrorModal(false);
+              }}
             />
           </div>
         </div>

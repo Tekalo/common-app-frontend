@@ -1,3 +1,4 @@
+import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
@@ -31,19 +32,29 @@ const privacyModalExtras = (
 
 const ApplicantSignup: NextPageWithLayout = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [isConflict, setIsConflict] = useState(false);
+
+  const displayErrorModal = (isConflict = false): void => {
+    setIsConflict(isConflict);
+    setShowErrorModal(true);
+  };
 
   const handleSubmit = async (values: NewCandidateType) => {
     post(applicantsEndpoint, stripEmptyFields(values))
       .then((res) => {
         if (res.ok) {
           router.push(APPLICANT_EXPERIENCE_LINK);
+        } else if (res.status === 409) {
+          // Reg conflict
+          displayErrorModal(true);
         } else {
-          // TODO: Error handling, from API
+          displayErrorModal(false);
           console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error handling, from FE
+        displayErrorModal(false);
         console.error('Failed to submit form data', error);
       });
   };
@@ -79,6 +90,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
         isOpen={showPrivacyModal}
         closeModal={() => {
           setShowPrivacyModal(false);
+        }}
+      />
+      <ErrorModal
+        isOpen={showErrorModal}
+        isConflict={isConflict}
+        closeModal={() => {
+          setShowErrorModal(false);
         }}
       />
     </div>
