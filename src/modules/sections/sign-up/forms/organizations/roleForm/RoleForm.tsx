@@ -64,7 +64,7 @@ const RoleForm: React.FC<IRoleForm> = ({
   const reviewReadyRef = useRef<boolean>(false);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
-  useEffect(executeScroll);
+  useEffect(executeScroll, []);
 
   const doSubmit = (values: any) => {
     const employmentType = values.employmentTypeText
