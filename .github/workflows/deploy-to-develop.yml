@@ -1,23 +1,11 @@
-name: Deploy Dev to Cloudflare Preview
+name: Deploy develop to Cloudflare Pages
 
-# This workflow is triggered on a pull request against the develop branch.
-# This workflow is triggered on pushes to branches starting with test/
-## It builds setting the ENVIRONMENT variable to 'develop'
-## It deploys to Cloudflare Pages as a preview deployment
+# This workflow is triggered on a push to the develop branch.
+# Latest deployment: https://develop.common-app-frontend.pages.dev/
 
 on:
   # Trigger the workflow on a push to a branch that starts with `test/`
   push:
-    branches:
-      - test/*
-
-    # OR #
-
-  # Trigger the workflow on pull requests
-  pull_request:
-    # whenever a PR is opened, edited, or synchronized
-    types: [opened, synchronize, reopened]
-    # on develop
     branches:
       - develop
 
@@ -29,7 +17,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: development
+    environment: develop
 
     strategy:
       matrix:
@@ -65,6 +53,12 @@ jobs:
 
         env:
           CI: true
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install
@@ -73,7 +67,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: development
+    environment: develop
 
     needs: [build]
 
@@ -111,7 +105,12 @@ jobs:
 
         env:
           CI: true
-          NEXT_PUBLIC_SENTRY_ENV: preview
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install

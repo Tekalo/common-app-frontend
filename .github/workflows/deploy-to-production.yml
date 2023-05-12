@@ -1,6 +1,7 @@
-name: Deploy Production to Cloudflare
+name: Deploy main to Cloudflare Pages
 
 # This workflow triggers when a push happens on on main
+# Latest deployment: https://main.common-app-frontend.pages.dev/
 
 on:
   push:
@@ -51,7 +52,12 @@ jobs:
 
         env:
           CI: true
-          NEXT_PUBLIC_SENTRY_ENV: production
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install
@@ -98,6 +104,12 @@ jobs:
 
         env:
           CI: true
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install

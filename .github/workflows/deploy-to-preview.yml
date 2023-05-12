@@ -1,12 +1,23 @@
-name: Deploy staging to Cloudflare Pages
+name: Deploy preview to Cloudflare Pages
 
-# This workflow is triggered on a push to the develop branch.
-# Latest deployment: https://staging.common-app-frontend.pages.dev/
+# This workflow is triggered on pull requests against the develop branch.
+# This workflow is triggered on pushes to branches starting with test/
 
 on:
+  # Trigger the workflow on a push to a branch that starts with `test/`
   push:
     branches:
-      - staging
+      - test/*
+
+    # OR #
+
+  # Trigger the workflow on pull requests
+  pull_request:
+    # whenever a PR is opened, edited, or synchronized
+    types: [opened, synchronize, reopened]
+    # on develop
+    branches:
+      - develop
 
   workflow_dispatch:
 
@@ -16,7 +27,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: staging
+    environment: develop
 
     strategy:
       matrix:
@@ -66,7 +77,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: staging
+    environment: develop
 
     needs: [build]
 
@@ -135,7 +146,6 @@ jobs:
 
   comment:
     name: Comment on PR
-    if: ${{ github.event_name == 'pull_request' }}
     uses: raisedadead/portfolio/.github/workflows/comment.yml@main
     needs: [deploy]
     with:
