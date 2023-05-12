@@ -28,6 +28,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
       <div className="mx-auto h-auto max-w-[1440px] xs:px-1 sm:px-4 md:px-14 lg:px-20">
         <div className="space-y-50 flex justify-around sm:justify-between">
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
+
             {/* Logo */}
             <Link href="/" className="">
               <img
