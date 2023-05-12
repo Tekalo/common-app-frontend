@@ -5,7 +5,7 @@ export interface IMainFooter {}
 
 const MainFooter: React.FC<IMainFooter> = () => {
   return (
-    <>
+    <footer>
       <section className="bg-gray-4 px-6 pt-10 text-center md:px-12 md:pb-32 lg:px-40 lg:py-20">
         <div className="mx-auto flex flex-col md:flex-row md:items-start md:justify-between lg:max-w-content-area lg:justify-between">
           {/* Logo */}
@@ -48,7 +48,7 @@ const MainFooter: React.FC<IMainFooter> = () => {
         <span>{NAV_FOOTER_TEXT.COPYRIGHT}</span>
         <span>{NAV_FOOTER_TEXT.RESERVED_RIGHTS}</span>
       </section>
-    </>
+    </footer>
   );
 };
 
