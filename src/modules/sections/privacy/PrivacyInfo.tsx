@@ -6,6 +6,140 @@ import { useState } from 'react';
 
 export interface IPrivacyInfo {}
 
+export const applicantContentTableData: ContentTableData = {
+  headers: [
+    {
+      heading: '',
+      subheading: '',
+    },
+    {
+      heading: 'Data Type',
+      subheading: '(what info do you collect?)',
+    },
+    {
+      heading: 'Uses',
+      subheading: '(how do you use my info?)',
+    },
+    {
+      heading: 'Third Parties',
+      subheading: '(who can see my info?)',
+    },
+  ],
+  content: [
+    {
+      heading: 'Info You provide',
+      bullets: [
+        [
+          'Personal Info',
+          'Application Materials',
+          'Communications',
+          'Surveys, feedback',
+        ],
+        [
+          'Identify You and Operate Tekalo',
+          'Conduct Research and Improve Tekalo',
+        ],
+        ['Talent Connectors', 'Organizations', 'Service Providers'],
+      ],
+    },
+    {
+      heading: 'Info we observe',
+      bullets: [
+        [
+          'Technical Info (e.g. browser, device, IP, trackers, server logs)',
+          'Tekalo Usage and Application Outcomes',
+        ],
+        [
+          'Quality of Service',
+          'Security',
+          'Ads',
+          'Conduct Research and Improve Tekalo',
+        ],
+        ['Service Providers'],
+      ],
+    },
+    {
+      heading: 'Other sources',
+      bullets: [
+        ['Data from other programs run by Schmidt Futures or third parties'],
+        ['Enable Applicants to Other Programs to Utilize Tekalo'],
+        ['Talent Connectors', 'Organizations', 'Service Providers'],
+      ],
+    },
+  ],
+};
+
+export const orgContentTableData: ContentTableData = {
+  headers: [
+    {
+      heading: '',
+      subheading: '',
+    },
+    {
+      heading: 'Data Type',
+      subheading: '(what info do you collect?)',
+    },
+    {
+      heading: 'Uses',
+      subheading: '(how do you use my info?)',
+    },
+    {
+      heading: 'Third Parties',
+      subheading: '(who can see my info?)',
+    },
+  ],
+  content: [
+    {
+      heading: 'Info You provide',
+      bullets: [
+        [
+          'Personal Info',
+          'Professional Info',
+          'Communications',
+          'Surveys, feedback',
+        ],
+        [
+          'Identify You and Operate Tekalo',
+          'Conduct Research and Improve Tekalo',
+        ],
+        [
+          'Users',
+          'Other Talent Connectors and Organizations',
+          'Service Providers',
+        ],
+      ],
+    },
+    {
+      heading: 'Info we observe',
+      bullets: [
+        [
+          'Technical Info (e.g. browser, device, IP, trackers, server logs)',
+          'Usage and Outcomes',
+        ],
+        [
+          'Quality of Service',
+          'Security',
+          'Ads',
+          'Conduct Research and Improve Tekalo',
+        ],
+        ['Service Providers'],
+      ],
+    },
+    {
+      heading: 'Other sources',
+      bullets: [
+        [
+          'Publicly available information (e.g. from review sites, news articles, and social networking sites)',
+        ],
+        [
+          'Understand the workplace environment and other details of Organizations',
+        ],
+        ['Users', 'Talent Connectors', 'Service Providers'],
+      ],
+    },
+  ],
+};
+
 const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
   const [isForOrgsSelected, setForOrgs] = useState(false);
 
@@ -96,140 +230,6 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
             data for another purpose, we’ll let you know!
           </>
         ),
-      },
-    ],
-  };
-
-  const applicantContentTableData: ContentTableData = {
-    headers: [
-      {
-        heading: '',
-        subheading: '',
-      },
-      {
-        heading: 'Data Type',
-        subheading: '(what info do you collect?)',
-      },
-      {
-        heading: 'Uses',
-        subheading: '(how do you use my info?)',
-      },
-      {
-        heading: 'Third Parties',
-        subheading: '(who can see my info?)',
-      },
-    ],
-    content: [
-      {
-        heading: 'Info You provide',
-        bullets: [
-          [
-            'Personal Info',
-            'Application Materials',
-            'Communications',
-            'Surveys, feedback',
-          ],
-          [
-            'Identify You and Operate Tekalo',
-            'Conduct Research and Improve Tekalo',
-          ],
-          ['Talent Connectors', 'Organizations', 'Service Providers'],
-        ],
-      },
-      {
-        heading: 'Info we observe',
-        bullets: [
-          [
-            'Technical Info (e.g. browser, device, IP, trackers, server logs)',
-            'Tekalo Usage and Application Outcomes',
-          ],
-          [
-            'Quality of Service',
-            'Security',
-            'Ads',
-            'Conduct Research and Improve Tekalo',
-          ],
-          ['Service Providers'],
-        ],
-      },
-      {
-        heading: 'Other sources',
-        bullets: [
-          ['Data from other programs run by Schmidt Futures or third parties'],
-          ['Enable Applicants to Other Programs to Utilize Tekalo'],
-          ['Talent Connectors', 'Organizations', 'Service Providers'],
-        ],
-      },
-    ],
-  };
-
-  const orgContentTableData: ContentTableData = {
-    headers: [
-      {
-        heading: '',
-        subheading: '',
-      },
-      {
-        heading: 'Data Type',
-        subheading: '(what info do you collect?)',
-      },
-      {
-        heading: 'Uses',
-        subheading: '(how do you use my info?)',
-      },
-      {
-        heading: 'Third Parties',
-        subheading: '(who can see my info?)',
-      },
-    ],
-    content: [
-      {
-        heading: 'Info You provide',
-        bullets: [
-          [
-            'Personal Info',
-            'Professional Info',
-            'Communications',
-            'Surveys, feedback',
-          ],
-          [
-            'Identify You and Operate Tekalo',
-            'Conduct Research and Improve Tekalo',
-          ],
-          [
-            'Users',
-            'Other Talent Connectors and Organizations',
-            'Service Providers',
-          ],
-        ],
-      },
-      {
-        heading: 'Info we observe',
-        bullets: [
-          [
-            'Technical Info (e.g. browser, device, IP, trackers, server logs)',
-            'Usage and Outcomes',
-          ],
-          [
-            'Quality of Service',
-            'Security',
-            'Ads',
-            'Conduct Research and Improve Tekalo',
-          ],
-          ['Service Providers'],
-        ],
-      },
-      {
-        heading: 'Other sources',
-        bullets: [
-          [
-            'Publicly available information (e.g. from review sites, news articles, and social networking sites)',
-          ],
-          [
-            'Understand the workplace environment and other details of Organizations',
-          ],
-          ['Users', 'Talent Connectors', 'Service Providers'],
-        ],
       },
     ],
   };

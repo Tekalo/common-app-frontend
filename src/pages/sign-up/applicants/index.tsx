@@ -13,6 +13,7 @@ import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
+import { applicantContentTableData } from '@/sections/privacy/PrivacyInfo';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
@@ -84,6 +85,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </div>
       </div>
       <TableModal
+        tableData={applicantContentTableData}
         headerText={PRIVACY_MODAL_TEXT.HEADER}
         bodyText={PRIVACY_MODAL_TEXT.BODY}
         extras={privacyModalExtras}
