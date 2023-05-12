@@ -318,7 +318,7 @@ const INTEREST_FORM_TEXT = {
   USDR: [
     'By choosing “yes,” you consent to ',
     'U.S. Digital Response',
-    'saving a copy of your CommonApp profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.',
+    ' saving a copy of your Tekalo profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities..',
   ],
 };
 const ORG_SIGNUP_FORM_TEXT = {
