@@ -10,6 +10,7 @@ export interface ILongTextField {
   isSubmitted: boolean;
   initialValue: string | undefined;
   validator?: z.ZodSchema;
+  tooltipText?: string;
 }
 
 const LongTextField: React.FC<ILongTextField> = ({
@@ -18,6 +19,7 @@ const LongTextField: React.FC<ILongTextField> = ({
   placeholder,
   isSubmitted,
   initialValue,
+  tooltipText,
   validator,
 }) => {
   return (
@@ -35,6 +37,7 @@ const LongTextField: React.FC<ILongTextField> = ({
               label={label}
               placeholder={placeholder}
               value={value}
+              tooltipText={tooltipText}
               setValue={setValue}
               onBlur={onBlur}
             />

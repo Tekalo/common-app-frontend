@@ -37,23 +37,6 @@ const Email = z
   .nonempty(errorMessages.required)
   .email(errorMessages.invalidEmail);
 
-const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm;
-
-const PhoneNumber = z.string().refine((phoneNumber: string) => {
-  return new RegExp(phoneRegex).test(phoneNumber);
-});
-
-const OptionalPhoneNumber = z.string().refine(
-  (phoneNumber: string) => {
-    if (phoneNumber.length) {
-      return new RegExp(phoneRegex).test(phoneNumber);
-    } else {
-      return true;
-    }
-  },
-  { message: errorMessages.invalidPhone }
-);
-
 const PrivacyPolicy = z.literal(true, {
   errorMap: () => ({
     message: errorMessages.privacyRequired,
@@ -237,6 +220,23 @@ const PreferredContact = z.enum(['email', 'sms', 'whatsapp'], {
 const SearchStatus = z.enum(['active', 'passive', 'future'], {
   errorMap: defaultEnumErrorMap,
 });
+
+const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/g;
+
+const PhoneNumber = z.string().refine((phoneNumber: string) => {
+  return new RegExp(phoneRegex).test(phoneNumber);
+});
+
+const OptionalPhoneNumber = z.string().refine(
+  (phoneNumber: string) => {
+    if (phoneNumber.length) {
+      return new RegExp(phoneRegex).test(phoneNumber);
+    } else {
+      return true;
+    }
+  },
+  { message: errorMessages.invalidPhone }
+);
 
 // Functions
 const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
