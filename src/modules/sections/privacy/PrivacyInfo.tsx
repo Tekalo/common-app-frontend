@@ -13,25 +13,24 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
     headers: ['Data processing activity', 'Lawful Basis'],
     content: [
       {
-        activity: 'Identify you and operate [Name]',
+        activity: 'Identify You and Operate Tekalo',
         basis: (
           <>
             Contractual necessity
             <br />
             (You agree to our Terms of Service, whereby we collect your info,
-            review it, and connect you with the opportunities you&apos;ve
-            requested.)
+            review it, and connect you with the opportunities you’ve requested.)
           </>
         ),
       },
       {
-        activity: 'Conduct Research and Improve [Name]',
+        activity: 'Conduct Research and Improve Tekalo',
         basis: (
           <>
             Legitimate Interests
             <br />
-            (We collect feedback and analyze metrics and outcomes so that we can
-            show our impact and improve Name.),
+            (We collect feedback and perform analytics so that we can measure
+            our impact and improve Tekalo.)
           </>
         ),
       },
@@ -41,18 +40,18 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           <>
             Legitimate Interests
             <br />
-            (We use data to help provide a secure and well-running service.),
+            (We use data to help provide a secure and well-running service.)
           </>
         ),
       },
       {
-        activity: 'Target and Measure Ads Promoting [Name]',
+        activity: 'Target / Measure Ads Promoting Tekalo',
         basis: (
           <>
-            Legitimate Interests
+            Legitimate Interests / Consent
             <br />
-            (We may use data to help target ads promoting Name and to measure
-            the effectiveness of those ads.),
+            (We may use data and technologies such as pixels to help target ads
+            promoting Tekalo and to measure the effectiveness of those ads.)
           </>
         ),
       },
@@ -62,19 +61,19 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           <>
             Consent
             <br />
-            (We&apos;ll only send you emails about other stuff if you opt in.),
+            (We’ll only send you emails unrelated to Tekalo if you opt in.)
           </>
         ),
       },
       {
-        activity: 'Share Your Info with Matchmakers and Service Providers',
+        activity:
+          'Share Your Info with Talent Connectors and Service Providers',
         basis: (
           <>
             Legitimate Interests
             <br />
-            (We share your info with vetted matchmaking organizations and
-            vendors, with whom we have appropriate written agreements, to help
-            us operate Name.),
+            (We share your info with vetted non-profit entities and vendors,
+            with whom we have appropriate contracts, to help us operate Tekalo.)
           </>
         ),
       },
@@ -85,8 +84,7 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
             Consent
             <br />
             (We ask for your permission to share your info with Organizations so
-            that you&apos;re only contacted by ones you&apos;re actually
-            interested in.),
+            that you’re only contacted by ones you’re actually interested in.)
           </>
         ),
       },
@@ -94,15 +92,15 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
         activity: 'Others',
         basis: (
           <>
-            We can&apos;t imagine every possible scenario, so if we need to use
-            your data for another purpose, we&apos;ll let you know!
+            We can’t imagine every possible scenario, so if we need to use your
+            data for another purpose, we’ll let you know!
           </>
         ),
       },
     ],
   };
 
-  const contentTableData: ContentTableData = {
+  const applicantContentTableData: ContentTableData = {
     headers: [
       {
         heading: '',
@@ -110,40 +108,113 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       },
       {
         heading: 'Data Type',
-        subheading: 'What info we collect',
+        subheading: '(what info do you collect?)',
       },
       {
         heading: 'Uses',
-        subheading: 'How we use the info',
+        subheading: '(how do you use my info?)',
       },
       {
         heading: 'Third Parties',
-        subheading: 'Who can see the info',
+        subheading: '(who can see my info?)',
       },
     ],
     content: [
       {
         heading: 'Info You provide',
         bullets: [
-          ['Personal Info', 'Professional Info', 'Communications', 'Surveys'],
           [
-            'Identify you and Operate [Name]',
-            'Conduct Research and improve [Name]',
+            'Personal Info',
+            'Application Materials',
+            'Communications',
+            'Surveys, feedback',
           ],
-          ['Users', 'Other Matchmakers and Organziations', 'Service Providers'],
+          [
+            'Identify You and Operate Tekalo',
+            'Conduct Research and Improve Tekalo',
+          ],
+          ['Talent Connectors', 'Organizations', 'Service Providers'],
         ],
       },
       {
         heading: 'Info we observe',
         bullets: [
           [
-            'Technical info (eg; browser device, IP, trackers, server logs)',
-            'Usage and outcomes',
+            'Technical Info (e.g. browser, device, IP, trackers, server logs)',
+            'Tekalo Usage and Application Outcomes',
           ],
           [
             'Quality of Service',
             'Security',
-            'Conduct Research and improve [Name]',
+            'Ads',
+            'Conduct Research and Improve Tekalo',
+          ],
+          ['Service Providers'],
+        ],
+      },
+      {
+        heading: 'Other sources',
+        bullets: [
+          ['Data from other programs run by Schmidt Futures or third parties'],
+          ['Enable Applicants to Other Programs to Utilize Tekalo'],
+          ['Talent Connectors', 'Organizations', 'Service Providers'],
+        ],
+      },
+    ],
+  };
+
+  const orgContentTableData: ContentTableData = {
+    headers: [
+      {
+        heading: '',
+        subheading: '',
+      },
+      {
+        heading: 'Data Type',
+        subheading: '(what info do you collect?)',
+      },
+      {
+        heading: 'Uses',
+        subheading: '(how do you use my info?)',
+      },
+      {
+        heading: 'Third Parties',
+        subheading: '(who can see my info?)',
+      },
+    ],
+    content: [
+      {
+        heading: 'Info You provide',
+        bullets: [
+          [
+            'Personal Info',
+            'Professional Info',
+            'Communications',
+            'Surveys, feedback',
+          ],
+          [
+            'Identify You and Operate Tekalo',
+            'Conduct Research and Improve Tekalo',
+          ],
+          [
+            'Users',
+            'Other Talent Connectors and Organizations',
+            'Service Providers',
+          ],
+        ],
+      },
+      {
+        heading: 'Info we observe',
+        bullets: [
+          [
+            'Technical Info (e.g. browser, device, IP, trackers, server logs)',
+            'Usage and Outcomes',
+          ],
+          [
+            'Quality of Service',
+            'Security',
+            'Ads',
+            'Conduct Research and Improve Tekalo',
           ],
           ['Service Providers'],
         ],
@@ -152,11 +223,12 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
         heading: 'Other sources',
         bullets: [
           [
-            'Programs from Third-Party organizations',
-            'Other Schmidt Futures Programs',
+            'Publicly available information (e.g. from review sites, news articles, and social networking sites)',
           ],
-          ['Enable applicants to other programs to utilize [Name]'],
-          ['Users', 'Matchmakers', 'Organizations', 'Service Providers'],
+          [
+            'Understand the workplace environment and other details of Organizations',
+          ],
+          ['Users', 'Talent Connectors', 'Service Providers'],
         ],
       },
     ],
@@ -176,27 +248,29 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
   const candidateFAQS: Array<IFaqItem> = [
     {
       questionText:
-        'What are Matchmakers, Organizations, and Service Providers?',
+        'What are Talent Connectors, Organizations, and Service Providers?',
       answerText: (
         <>
-          Matchmakers are entities who have partnered with us to help review
-          applications and match individuals with Organizations that might be a
-          good fit. Organizations are entities that are looking for talented
-          individuals. Service Providers are vendors who provide services that
-          support CommonApp such as web hosting, cloud services, analytics, and
-          email marketing.
+          <b>Talent Connectors</b> are entities who work with us to help review
+          applications and connect individuals with Organizations that might be
+          a good fit. <b>Organizations</b> are entities that are looking for
+          talented individuals. <b>Service Providers</b> are vendors who provide
+          services that support Tekalo such as web hosting, cloud services,
+          analytics, and email marketing.
         </>
       ),
     },
     {
-      questionText: 'How will my info be shared?',
+      questionText:
+        'How do you decide which Organizations to share my info with?',
       answerText: (
         <>
-          Matchmakers from Schmidt Futures and our collaborating organizations,
-          such as All Tech Is Human and Fast Forward, will review applications
-          and identify potential matches. They will then reach out to you to
-          share those potential matches and seek your permission to make your
-          info available to the matched Organizations
+          Talent Connectors from Schmidt Futures and our collaborating
+          organizations, such as All Tech Is Human, US Digital Response, and
+          Fast Forward, will review applications and identify potential
+          candidates. They will then reach out to you to share those potential
+          opportunities and seek your permission to make your info available to
+          the relevant Organizations
         </>
       ),
     },
@@ -204,10 +278,10 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       questionText: 'Do you show ads?',
       answerText: (
         <>
-          We don&apos;t show any ads on CommonApp! We only promote CommonApp
-          itself via things like social media ads and email marketing, and we
-          use tracking technologies such as cookies, pixels, and beacons to
-          measure their performance.
+          We don’t show any ads on Tekalo! We only promote Tekalo itself via
+          things like social media ads and email marketing, and we use tracking
+          technologies such as cookies, pixels, and beacons to measure their
+          performance.
         </>
       ),
     },
@@ -215,15 +289,16 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       questionText: 'What rights do I have to respect to my data?',
       answerText: (
         <>
-          We offer everyone the right to delete their data, access a copy of
-          their data, withdraw consent to data processing, object to or restrict
-          data processing, and rectify (correct inaccuracies or supplement
-          incomplete info). For your protection, we have to verify your identity
-          before taking action. Also, we can&apos;t always fully comply with a
-          request, such as when doing so would reveal someone else&apos;s info,
-          or when we&apos;re legally required to retain info. Please contact us
-          at privacy@commonapp.com to submit a request or if you have any other
-          data privacy questions.
+          We offer everyone the right to <b>delete</b> their data, <b>access</b>{' '}
+          a copy of their data, <b>withdraw consent</b> to data processing,{' '}
+          <b>object to</b> data processing, and <b>rectify</b> their data
+          (correct inaccuracies or supplement incomplete info). For your
+          protection, we have to verify your identity before taking action.
+          Also, we can’t always fully comply with a request, such as when doing
+          so would reveal someone else’s info, or when we’re legally required to
+          retain info. You can submit a deletion request through your account
+          settings. Please contact us at privacy@Tekalo.org to submit other
+          requests or if you have any other data privacy questions.
         </>
       ),
     },
@@ -231,20 +306,20 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       questionText: 'Where Is My Data Stored?',
       answerText: (
         <>
-          All of our Matchmakers and Service Providers who store data are
+          All of our Talent Connectors and Service Providers who store data are
           located in the United States.
         </>
       ),
     },
     {
-      questionText: 'What are your lawful bases for processing?',
+      questionText: 'What are your legal bases for processing?',
       answerText: (
         <>
           Bravo if you care enough about your privacy to read this information!
           Please see below. Note that “Legitimate Interests” refers to something
           that (i) we think is desirable to us or someone else (including you),
           (ii) reasonably expected given the nature of our services, and (iii)
-          doesn&apos;t create any undue risk to you.
+          doesn’t create any undue risk to you.
         </>
       ),
       extras: <BasisTable tableData={basisTableData} />,
@@ -257,12 +332,7 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
     <div className="px-6 pb-28 md:pb-32">
       <div className="text-center">
         <div className="mt-10 text-h2-mobile text-black-text lg:text-h2-desktop">
-          Privacy Info
-        </div>
-        <div className="m-auto mt-6 max-w-[464px] text-p1-mobile lg:max-w-[928px] lg:text-p1-desktop">
-          This Privacy Info is meant to help you understand what information we
-          collect, why we collect it, and how you can manage and delete your
-          information lorem.
+          Tekalo Privacy Info
         </div>
       </div>
 
@@ -285,7 +355,9 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       </div>
       <ContentTable
         className={'w-[calc(100%+24px)]'}
-        tableData={contentTableData}
+        tableData={
+          isForOrgsSelected ? orgContentTableData : applicantContentTableData
+        }
       />
       <div className="mt-16 text-center text-h3-mobile lg:text-h3-desktop">
         Frequently Asked Questions{' '}
