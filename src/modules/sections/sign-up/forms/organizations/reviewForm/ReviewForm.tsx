@@ -1,16 +1,13 @@
 import Button from '@/components/buttons/Button/Button';
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
-import {
-  PRIVACY_DISCLAIMER,
-  PRIVACY_MODAL_BODY_TEXT,
-  PRIVACY_MODAL_EXTRAS,
-  PRIVACY_MODAL_HEADER_TEXT,
-} from '@/lib/constants/text';
+import { PRIVACY_LINK, PRIVACY_MODAL_TEXT, REVIEW_FORM_TEXT } from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
 import { NewOrgType, NewRoleType } from '@/lib/types';
+import { orgContentTableData } from '@/sections/privacy/PrivacyInfo';
 import { BooleanField } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useState } from 'react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import OrgDetailReview from './sections/OrgDetailReview';
 import RoleDetailReview from './sections/RoleDetailReview';
 
@@ -23,6 +20,35 @@ export interface IReviewFormPage {
   handleSubmit: (privacyAcceptance: boolean) => void;
 }
 
+const privacyModalExtras = (
+  <div className="text-p3-desktop">
+    {PRIVACY_MODAL_TEXT.EXTRAS[0]}
+    <span className="text-blue-1 underline underline-offset-4">
+      <Link target="_blank" href={PRIVACY_LINK}>
+        {PRIVACY_MODAL_TEXT.EXTRAS[1]}
+      </Link>
+    </span>
+    {PRIVACY_MODAL_TEXT.EXTRAS[2]}
+  </div>
+);
+
+const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
+  return (
+    <>
+      {REVIEW_FORM_TEXT.PRIVACY_DISCLAIMER.text}
+      <span
+        className="cursor-pointer whitespace-nowrap text-blue-1 underline underline-offset-4"
+        onClick={(e) => {
+          e.preventDefault();
+          setShowPrivacyModal(true);
+        }}
+      >
+        {REVIEW_FORM_TEXT.PRIVACY_DISCLAIMER.linkText}
+      </span>
+    </>
+  );
+};
+
 const ReviewFormPage: React.FC<IReviewFormPage> = ({
   orgInfo,
   orgRoles,
@@ -31,12 +57,14 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   handleDeleteRole,
   handleSubmit,
 }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll, []);
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
   return (
-    <div className="mx-6 mt-16 w-full sm:mx-40">
+    <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
       {/* Header */}
-      <div className="mx-auto text-center font-display text-h3-desktop text-black-text">
+      <div className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop">
         {'Review your intake form'}
       </div>
       {/* Org Info */}
@@ -63,7 +91,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               onSubmit={(e) => {
                 e.preventDefault();
               }}
-              className="mb-40 mt-16 space-y-8"
+              className="mt-6 space-y-8"
             >
               {/* Privacy Info */}
               <BooleanField
@@ -74,21 +102,24 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                 validator={PrivacyPolicy}
               />
               {/* Form Cotnrol Button*/}
-              <Button
-                className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
-                label="Submit"
-                type="submit"
-                disabled={isSubmitted && !isValid}
-                onClick={() => submit()}
-              />
+              <div className="mt-10">
+                <Button
+                  className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
+                  label="Submit"
+                  type="submit"
+                  disabled={isSubmitted && !isValid}
+                  onClick={() => submit()}
+                />
+              </div>
             </form>
           )}
         </Form>
         {showPrivacyModal && (
           <TableModal
-            headerText={PRIVACY_MODAL_HEADER_TEXT}
-            bodyText={PRIVACY_MODAL_BODY_TEXT}
-            extras={PRIVACY_MODAL_EXTRAS}
+            tableData={orgContentTableData}
+            headerText={PRIVACY_MODAL_TEXT.HEADER}
+            bodyText={PRIVACY_MODAL_TEXT.BODY}
+            extras={privacyModalExtras}
             isOpen={showPrivacyModal}
             closeModal={() => {
               setShowPrivacyModal(false);

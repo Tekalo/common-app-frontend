@@ -1,4 +1,5 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { INTEREST_FORM_TEXT, US_DIGITAL_RESPONSE_URL } from '@/lang/en';
 import {
   AttributionOtpions,
   AuthorizationOptions,
@@ -10,9 +11,9 @@ import {
   USDROptions,
   YesNoOptions,
 } from '@/lib/constants/selects';
-import { USDR_DISCLAIMER } from '@/lib/constants/text';
 import {
-  CommitmentType,
+  CausesValidator,
+  CommitmentTypeValidator,
   GovtJobType,
   OpenToRelocate,
   OpenToRemote,
@@ -20,7 +21,7 @@ import {
   ReferenceAttribution,
   RequiredEssay,
   RequiredString,
-  Roles,
+  RolesValidator,
   TrueFalseString,
   WorkAuthorization,
 } from '@/lib/enums';
@@ -31,8 +32,6 @@ import {
 } from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
-  FieldBooleanType,
-  FieldStringArrayType,
   InterestFieldsType,
   InterestRefType,
 } from '@/lib/types';
@@ -47,7 +46,7 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface IInterestForm {
   handleSubmit: (_values: InterestFieldsType) => void;
@@ -55,18 +54,44 @@ export interface IInterestForm {
   savedForm: DraftSubmissionType | undefined;
 }
 
+const USDR_DISCLAIMER = (
+  <div className="space-y-2">
+    <div className="w-[103%] text-left text-p3-mobile text-black-text">
+      {INTEREST_FORM_TEXT.USDR[0]}
+      <a
+        href={US_DIGITAL_RESPONSE_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="underline underline-offset-4"
+      >
+        {INTEREST_FORM_TEXT.USDR[1]}
+      </a>
+      {INTEREST_FORM_TEXT.USDR[2]}
+    </div>
+  </div>
+);
+
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,
   handleSave,
   savedForm,
 }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll, []);
+
   const formRef = useRef<InterestRefType>(null);
-  const employmentTypeRef = useRef<FieldStringArrayType>(null);
-  const govRef = useRef<FieldBooleanType>(null);
+  const [employmentType, setEmploymentType] = useState(
+    savedForm?.interestEmploymentType || []
+  );
+  const [interestGovt, setInterestGov] = useState(
+    savedForm?.interestGovt || false
+  );
 
   useEffect(() => {
     // Need to use the inital value once we get it,
     // so we have to reset the form for it to initialize
+    setEmploymentType(savedForm?.interestEmploymentType || []);
+    setInterestGov(savedForm?.interestGovt || false);
     resetForm(formRef);
   }, [savedForm]);
 
@@ -77,6 +102,7 @@ const InterestForm: React.FC<IInterestForm> = ({
     if (typeof newVals.interestGovt === 'string') {
       newVals.interestGovt = mapStringToBool(newVals.interestGovt);
     }
+
     if (typeof newVals.previousImpactExperience === 'string') {
       newVals.previousImpactExperience = mapStringToBool(
         newVals.previousImpactExperience
@@ -124,11 +150,13 @@ const InterestForm: React.FC<IInterestForm> = ({
             helperText={
               'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
             }
-            ref={employmentTypeRef}
+            onChange={(val) => {
+              setEmploymentType(val);
+            }}
             listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestEmploymentType}
-            validator={CommitmentType.array()}
+            initialValue={employmentType}
+            validator={CommitmentTypeValidator}
           />
           {/* Hours per week */}
           <FreeTextField
@@ -137,8 +165,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="Hours per week you are able to commit (optional)"
             placeholder="Approximate number of hours"
             disabled={
-              employmentTypeRef.current?.value?.length === 1 &&
-              employmentTypeRef.current?.value[0] === 'full'
+              employmentType.length === 1 && employmentType[0] === 'full'
             }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.hoursPerWeek || ''}
@@ -154,7 +181,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={RoleOptions.filter((role) => role.value !== 'other')}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestRoles || []}
-            validator={Roles.array()}
+            validator={RolesValidator}
           />
           {/* Location */}
           <FreeTextField
@@ -209,7 +236,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestCauses}
-            validator={RequiredString.array().min(1)}
+            validator={CausesValidator}
           />
           {/* Other Causes*/}
           <FreeTagField
@@ -221,13 +248,13 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={OptionalString.array()}
           />
           {/* Work Auth*/}
-          {/* TODO: This is not allowed to be optional for some reason */}
           <SingleSelectField
             fieldName="workAuthorization"
             label="Work authorization (optional)"
             placeholder="Choose one"
             listOptions={AuthorizationOptions}
             isSubmitted={isSubmitted}
+            tooltipText="If you require U.S. visa sponsorship now or in the future, we can do our best to match you with opportunities that sponsor visas"
             initialValue={savedForm?.workAuthorization || undefined}
             validator={WorkAuthorization}
           />
@@ -236,15 +263,16 @@ const InterestForm: React.FC<IInterestForm> = ({
             fieldName="interestGovt"
             label="Are you interested in U.S. state or local government opportunities?"
             helperText={USDR_DISCLAIMER}
-            fieldRef={govRef}
+            onChange={(val) => {
+              setInterestGov(mapStringToBool(val) || false);
+            }}
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={mapBoolToString(savedForm?.interestGovt)}
+            initialValue={mapBoolToString(interestGovt)}
             validator={TrueFalseString}
           />
           {/* Gov Opp Type*/}
-          {/* TODO: This is not allowed to be optional if not required */}
           <MultiSelectField
             fieldName="interestGovtEmplTypes"
             listenTo={['interestGovt']}
@@ -256,31 +284,34 @@ const InterestForm: React.FC<IInterestForm> = ({
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestGovtEmplTypes || []}
             validator={GovtJobType.array().optional()}
-            disabled={govRef.current?.value.toString() !== 'true'}
+            disabled={interestGovt?.toString() !== 'true'}
           />
           {/* Previous XP */}
           <RadioGroupField
             fieldName="previousImpactExperience"
-            label="Do you have previous experience working at a non-profit or a public service organization?"
+            label="Do you have previous experience working at a nonprofit or public service organization?"
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
-            initialValue={mapBoolToString(savedForm?.previousImpactExperience)}
+            initialValue={mapBoolToString(
+              savedForm?.previousImpactExperience || false
+            )}
             validator={TrueFalseString}
           />
           {/* Essay */}
           <LongTextField
             fieldName="essayResponse"
-            label="If you had unlimited resources, what problem would you choose to solve and why?"
+            label="If you had unlimited resources what problem would you choose to solve and why?"
             placeholder="Write as much as you’d like, suggested up to 250 words."
             isSubmitted={isSubmitted}
+            tooltipText="This response will only be reviewed by Tekalo recruiters and will help them learn more about your interests."
             initialValue={savedForm ? savedForm.essayResponse : ''}
             validator={RequiredEssay}
           />
           {/* Reference */}
           <SingleSelectField
             fieldName="referenceAttribution"
-            label="How did you hear about Tekalo?"
+            label="How did you hear about Tekalo? (optional)"
             placeholder="Choose one"
             listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}
@@ -292,9 +323,10 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Form Control Buttons */}
           <div className="pt-2">
             <Button
-              className="mt-14 w-full text-component-large"
+              className="w-full text-component-large"
               label="Save your progress"
               type="button"
+              variant={ButtonVariant.OUTLINED}
               onClick={doSave}
             />
             <Button

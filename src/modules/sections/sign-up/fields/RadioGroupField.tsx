@@ -15,6 +15,7 @@ interface IRadioGroupField {
   isSubmitted: boolean;
   initialValue: string | undefined;
   validator?: z.ZodSchema;
+  onChange?: (val: any) => void;
 }
 
 const RadioGroupField: React.FC<IRadioGroupField> = ({
@@ -27,6 +28,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
   isSubmitted,
   initialValue,
   validator,
+  onChange,
 }) => {
   return (
     <Field<string>
@@ -43,14 +45,18 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
               name={`input-${fieldName}`}
               label={label}
               value={String(value)}
-              onChange={(val) => setValue(val)}
+              onChange={(val) => {
+                setValue(val);
+
+                if (onChange) {
+                  onChange(val);
+                }
+              }}
               onBlur={onBlur}
               rowAlign={rowAlign}
               listOptions={listOptions}
             />
-
             {helperText ? <>{helperText}</> : null}
-
             {printErrorMessages(isSubmitted, errors)}
           </div>
         );

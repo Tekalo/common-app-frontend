@@ -240,7 +240,7 @@ const PreferredContactOptions = PreferredContact.options.map((option) => {
   } else if (option === 'whatsapp') {
     return {
       value: option,
-      displayText: 'Whatsapp message',
+      displayText: 'WhatsApp message',
     };
   } else {
     return {

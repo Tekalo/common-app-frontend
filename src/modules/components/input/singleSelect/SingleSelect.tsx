@@ -1,3 +1,4 @@
+import Tooltip from '@/components/tooltip/Tooltip';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import {
@@ -7,17 +8,19 @@ import {
 } from '@heroicons/react/24/outline';
 
 export interface ISingleSelect {
-  name: string;
-  value: string;
   label: string;
-  placeholder?: string;
-  labelClassName?: string;
-  buttonClassName?: string;
-  optionsClassName?: string;
   listOptions: ISelectItem[];
+  name: string;
   setValue: (_val: string) => void;
-  onBlur?: () => void;
+  value: string;
+  buttonClassName?: string;
   disabled?: boolean;
+  labelClassName?: string;
+  onBlur?: () => void;
+  onChange?: (val: string) => void;
+  optionsClassName?: string;
+  placeholder?: string;
+  tooltipText?: string;
 }
 
 const SingleSelect: React.FC<ISingleSelect> = ({
@@ -31,16 +34,30 @@ const SingleSelect: React.FC<ISingleSelect> = ({
   optionsClassName,
   buttonClassName,
   disabled,
+  tooltipText,
+  onChange,
 }) => {
   return (
-    <Listbox value={value} onChange={setValue} name={name} disabled={disabled}>
+    <Listbox
+      value={value}
+      onChange={(val) => {
+        setValue(val);
+
+        if (onChange) {
+          onChange(val);
+        }
+      }}
+      name={name}
+      disabled={disabled}
+    >
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label
-            className={`text-component-extra-small text-black-text  ${labelClassName}}`}
+            className={`flex items-center text-component-extra-small text-black-text  ${labelClassName}}`}
             htmlFor={name}
           >
             {labelText}
+            {tooltipText ? <Tooltip text={tooltipText} /> : ''}
           </Listbox.Label>
           <div className="mt-2">
             <Listbox.Button
@@ -84,7 +101,7 @@ const SingleSelect: React.FC<ISingleSelect> = ({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
+              <Listbox.Options className="absolute mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
                 {listOptions.map((option) => (
                   <Listbox.Option
                     key={option.value}

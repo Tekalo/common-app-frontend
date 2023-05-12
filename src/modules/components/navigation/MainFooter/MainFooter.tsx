@@ -1,40 +1,11 @@
-import {
-  APPLICANT_SIGNUP_LINK,
-  CONTACT_US_EMAIL_LINK,
-  ORG_SIGNUP_LINK,
-  PRIVACY_LINK,
-  SIGN_IN_LINK,
-  TERMS_LINK,
-} from '@/lib/constants/text';
+import { NAV_FOOTER_TEXT } from '@/lang/en';
 import Link from 'next/link';
 
 export interface IMainFooter {}
 
 const MainFooter: React.FC<IMainFooter> = () => {
-  const linkBlocks = [
-    {
-      header: 'Candidates',
-      links: [
-        { title: 'Get started', href: APPLICANT_SIGNUP_LINK },
-        { title: 'Sign in', href: SIGN_IN_LINK },
-      ],
-    },
-    {
-      header: 'Organizations',
-      links: [{ title: 'Apply', href: ORG_SIGNUP_LINK }],
-    },
-    {
-      header: 'About',
-      links: [
-        { title: 'Contact Us', href: CONTACT_US_EMAIL_LINK },
-        { title: 'Privacy Info', href: PRIVACY_LINK },
-        { title: 'Terms of Use', href: TERMS_LINK },
-      ],
-    },
-  ];
-
   return (
-    <>
+    <footer>
       <section className="bg-gray-4 px-6 pt-10 text-center md:px-12 md:pb-32 lg:px-40 lg:py-20">
         <div className="mx-auto flex flex-col md:flex-row md:items-start md:justify-between lg:max-w-content-area lg:justify-between">
           {/* Logo */}
@@ -42,12 +13,12 @@ const MainFooter: React.FC<IMainFooter> = () => {
             <img
               src="/images/logo_footer.png"
               alt="Tekalo Logo"
-              className="w-auto"
+              className="w-auto max-w-[152px]"
             />
           </div>
           {/* footer links container  */}
           <div className="flex flex-wrap md:mt-0 md:flex-nowrap">
-            {linkBlocks.map((block, i) => {
+            {NAV_FOOTER_TEXT.LINK_BLOCKS.map((block, i) => {
               return (
                 /* footer link block */
                 <div
@@ -74,10 +45,10 @@ const MainFooter: React.FC<IMainFooter> = () => {
         </div>
       </section>
       <section className="flex w-full flex-col justify-center bg-gray-3 py-4 text-center align-middle text-component-extra-small text-gray-1 md:flex-row md:gap-x-1 md:text-component-small">
-        <span>{'© Futures Action Network, LLC'}</span>
-        <span>2023. All Rights Reserved.</span>
+        <span>{NAV_FOOTER_TEXT.COPYRIGHT}</span>
+        <span>{NAV_FOOTER_TEXT.RESERVED_RIGHTS}</span>
       </section>
-    </>
+    </footer>
   );
 };
 

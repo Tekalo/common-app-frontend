@@ -33,7 +33,7 @@ const SelectBooleanField: React.FC<ISelectBooleanField> = ({
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
-          <>
+          <div>
             <SelectBoolean
               name={`input-${fieldName}`}
               label={label}
@@ -44,7 +44,7 @@ const SelectBooleanField: React.FC<ISelectBooleanField> = ({
               listOptions={listOptions}
             />
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>

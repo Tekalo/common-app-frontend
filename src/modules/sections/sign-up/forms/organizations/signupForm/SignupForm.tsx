@@ -1,4 +1,3 @@
-// import Button from '@/components/buttons/Button/Button';
 import {
   CauseOptions,
   CommitmentOptions,
@@ -6,19 +5,19 @@ import {
   OrgTypeOptions,
   TrueFalseOptions,
 } from '@/lib/constants/selects';
-import { EEOC_LABEL } from '@/lib/constants/text';
 import {
   Causes,
   CommitmentType,
   Email,
   EOE,
+  OptionalPhoneNumber,
   OrgSize,
   OrgType,
-  PhoneNumber,
   RequiredString,
 } from '@/lib/enums';
 
 import Button from '@/components/buttons/Button/Button';
+import { EEOC_URL, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
 import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
@@ -28,17 +27,36 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
+import { useEffect } from 'react';
 
 export interface ISignupForm {
   handleSubmit: (values: NewOrgType) => void;
   previousForm: NewOrgType | undefined;
 }
 
+const EEOC_LABEL = (
+  <div className="space-y-2">
+    <div className="w-[103%] text-left text-p3-mobile text-black-text">
+      {ORG_SIGNUP_FORM_TEXT.EEOC.text}
+      <a
+        href={EEOC_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="underline underline-offset-4"
+      >
+        {ORG_SIGNUP_FORM_TEXT.EEOC.linkText}
+      </a>
+    </div>
+  </div>
+);
+
 const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll, []);
+
   return (
     <Form<NewOrgType>
       onSubmit={(values) => {
-        console.log(values);
         handleSubmit(values);
       }}
     >
@@ -48,7 +66,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             e.preventDefault();
             submit();
           }}
-          className="flex flex-col space-y-8"
+          className="flex flex-col space-y-8 lg:space-y-7"
         >
           {/* Org Name */}
           <FreeTextField
@@ -68,6 +86,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             listOptions={OrgTypeOptions}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.type}
+            tooltipText="We accept applications from 501(c)(3) organizations. Other types of impact-driven organizations are welcome to submit opportunities and will be considered on a case by case basis."
             validator={OrgType}
           />
 
@@ -124,7 +143,8 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             placeholder="+1 (555) 555-5555"
             isSubmitted={isSubmitted}
             initialValue={previousForm?.contact.phone}
-            validator={PhoneNumber.optional()}
+            validator={OptionalPhoneNumber}
+            tooltipText="If provided, your number will be used to contact you about your application. It won’t be used for marketing."
           />
 
           {/* Org Employment Types */}
@@ -154,11 +174,13 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           />
 
           {/* Form Control Button*/}
-          <Button
-            className="mt-4 w-full text-component-large"
-            label="Next"
-            type="submit"
-          />
+          <div className="pt-2">
+            <Button
+              className="w-full text-component-large"
+              label="Next"
+              type="submit"
+            />
+          </div>
         </form>
       )}
     </Form>

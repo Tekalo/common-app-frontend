@@ -1,25 +1,27 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
-import { ORG_SUCCESS_LINK } from '@/lib/constants/text';
+import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
+import { CONFIRM_MODAL, ORG_SUCCESS_LINK } from '@/lang/en';
 import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
+  const router = useRouter();
+
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [orgInfo, setOrgInfo] = useState<NewOrgType>();
   const [orgRoles, setOrgRoles] = useState<NewRoleType[]>([]);
   const [showReview, setShowReview] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const handleSubmit = async (acceptedPrivacy: boolean) => {
-    console.log(orgRoles);
-
     const values = {
       contact: orgInfo?.contact,
       organization: orgInfo?.organization,
@@ -30,18 +32,16 @@ const OrganizationSignup: NextPageWithLayout = () => {
     // Send the payload to the API
     post(opportunityBatchEndpoint, values)
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           router.push(ORG_SUCCESS_LINK);
         } else {
-          // TODO: Error handling, from API
-          alert(res.statusText);
+          setShowErrorModal(true);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error handling, from FE
+        setShowErrorModal(true);
         console.error('Failed to submit form data', error);
-        alert(error);
       });
   };
 
@@ -113,12 +113,10 @@ const OrganizationSignup: NextPageWithLayout = () => {
       )}
       {showDeleteModal && (
         <ConfirmModal
-          headline={'Delete this role'}
-          bodyText={
-            'Are you sure you want to delete this role? You won’t be able to undo this.'
-          }
-          cancelBtnText={'Cancel'}
-          confirmBtnText={'Delete role'}
+          headline={CONFIRM_MODAL.HEADER}
+          bodyText={CONFIRM_MODAL.BODY}
+          cancelBtnText={CONFIRM_MODAL.CTA_CANCEL}
+          confirmBtnText={CONFIRM_MODAL.CTA_CONFIRM}
           isOpen={showDeleteModal}
           confirmBtnVariant={ButtonVariant.RED}
           closeModal={() => setShowDeleteModal(false)}
@@ -126,6 +124,12 @@ const OrganizationSignup: NextPageWithLayout = () => {
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
+      <ErrorModal
+        isOpen={showErrorModal}
+        closeModal={() => {
+          setShowErrorModal(false);
+        }}
+      />
     </>
   );
 };
@@ -133,5 +137,5 @@ const OrganizationSignup: NextPageWithLayout = () => {
 export default OrganizationSignup;
 
 OrganizationSignup.getLayout = (page) => (
-  <ApplicationLayout>{page}</ApplicationLayout>
+  <OrganizationLayout>{page}</OrganizationLayout>
 );

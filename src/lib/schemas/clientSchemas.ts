@@ -1,7 +1,6 @@
 import {
   Causes,
   CommitmentType,
-  EmploymentType,
   GovtJobType,
   OpenToRelocate,
   OpenToRemote,
@@ -69,6 +68,7 @@ const NewCandidateSchema = z.object({
   searchStatus: SearchStatus,
   acceptedTerms: z.literal(true),
   acceptedPrivacy: z.literal(true),
+  followUpOptIn: z.boolean().optional(),
 });
 
 const CandidateExperienceSchema = z.object({
@@ -87,7 +87,7 @@ const CandidateExperienceSchema = z.object({
 
 const CandidateInterestsSchema = z.object({
   hoursPerWeek: z.string().nullable().optional(),
-  interestEmploymentType: z.array(EmploymentType),
+  interestEmploymentType: z.array(CommitmentType),
   interestRoles: z.array(Roles), // keep this as non-zod-enum?
   currentLocation: z.string(),
   openToRelocate: OpenToRelocate,

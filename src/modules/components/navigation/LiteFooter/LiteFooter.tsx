@@ -1,11 +1,11 @@
-import { PRIVACY_LINK, TERMS_LINK } from '@/lib/constants/text';
+import { PRIVACY_LINK, TERMS_LINK } from '@/lang/en';
 import Link from 'next/link';
 
 export interface ILiteFooter {}
 
 const LiteFooter: React.FC<ILiteFooter> = () => {
   return (
-    <section className="w-full bg-gray-4">
+    <footer className="w-full bg-gray-4">
       <div className="px-8 pb-10 pt-14 md:px-20 md:pb-24 md:pt-12 lg:px-0">
         <div className="m-auto flex max-w-content-area flex-col flex-wrap items-start gap-x-14 gap-y-7 md:flex-row md:items-center md:justify-between">
           {/* Logo */}
@@ -13,7 +13,7 @@ const LiteFooter: React.FC<ILiteFooter> = () => {
             <img
               src="/images/logo_lite_footer.png"
               alt="Tekalo Logo"
-              className="max-w-[65px] py-1 md:max-w-[none]"
+              className="max-w-[65px] py-1"
             />
           </div>
           {/* Menu Col 1 */}
@@ -28,7 +28,7 @@ const LiteFooter: React.FC<ILiteFooter> = () => {
           </div>
         </div>
       </div>
-    </section>
+    </footer>
   );
 };
 

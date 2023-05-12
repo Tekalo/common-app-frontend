@@ -37,12 +37,6 @@ const Email = z
   .nonempty(errorMessages.required)
   .email(errorMessages.invalidEmail);
 
-const PhoneNumber = z.string().refine((phoneNumber: string) => {
-  return new RegExp(
-    /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm
-  ).test(phoneNumber);
-});
-
 const PrivacyPolicy = z.literal(true, {
   errorMap: () => ({
     message: errorMessages.privacyRequired,
@@ -72,6 +66,12 @@ const OptionalEssay = z
   .optional();
 const RequiredString = z.string().nonempty(errorMessages.required).max(255);
 const OptionalString = z.string().max(255).optional();
+
+const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
+  message: errorMessages.interestCauses,
+});
+
+const OptionalStringArr = z.array(OptionalString).optional();
 
 const RequiredDate = z.coerce.date();
 const OptionalDate = z
@@ -107,6 +107,11 @@ const EmploymentType = z.enum(
 const CommitmentType = z.enum(['full', 'part'], {
   errorMap: defaultEnumErrorMap,
 });
+
+const CommitmentTypeValidator = CommitmentType.array().refine(
+  (v) => !!v.length,
+  { message: errorMessages.requiredSelectGroup }
+);
 
 const GovtJobType = z.enum(['paid', 'unpaid'], {
   errorMap: defaultEnumErrorMap,
@@ -159,11 +164,15 @@ const Roles = z.enum(
   { errorMap: defaultEnumErrorMap }
 );
 
+const RolesValidator = Roles.array().refine((v) => !!v.length, {
+  message: errorMessages.requiredSelectGroup,
+});
+
 const Causes = z.enum(
   [
     'climate change',
     'environment',
-    'human rights & social equality',
+    'human rights & social justice',
     'international development',
     'education',
     'health & well being',
@@ -199,17 +208,35 @@ const ReferenceAttribution = z.enum(
     'partner organization',
     'career fair',
     'other',
+    '',
   ],
   { errorMap: defaultEnumErrorMap }
 );
 
-const PreferredContact = z.enum(['sms', 'whatsapp', 'email'], {
+const PreferredContact = z.enum(['email', 'sms', 'whatsapp'], {
   errorMap: defaultEnumErrorMap,
 });
 
 const SearchStatus = z.enum(['active', 'passive', 'future'], {
   errorMap: defaultEnumErrorMap,
 });
+
+const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/g;
+
+const PhoneNumber = z.string().refine((phoneNumber: string) => {
+  return new RegExp(phoneRegex).test(phoneNumber);
+});
+
+const OptionalPhoneNumber = z.string().refine(
+  (phoneNumber: string) => {
+    if (phoneNumber.length) {
+      return new RegExp(phoneRegex).test(phoneNumber);
+    } else {
+      return true;
+    }
+  },
+  { message: errorMessages.invalidPhone }
+);
 
 // Functions
 const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
@@ -234,33 +261,38 @@ const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
 };
 
 export {
-  PreferredContact,
-  SearchStatus,
-  OrgType,
-  OrgSize,
-  EmploymentType,
-  Roles,
-  CommitmentType,
-  GovtJobType,
-  YOE,
-  YOE_RANGE,
-  Skills,
   Causes,
-  VisaSponsorship,
+  CausesValidator,
+  CommitmentType,
+  CommitmentTypeValidator,
+  EOE,
+  Email,
+  EmploymentType,
+  GovtJobType,
   OpenToRelocate,
   OpenToRemote,
-  WorkAuthorization,
-  ReferenceAttribution,
-  Email,
-  PhoneNumber,
-  PrivacyPolicy,
-  ToS,
-  EOE,
-  RequiredString,
-  OptionalString,
-  RequiredEssay,
-  OptionalEssay,
-  RequiredDate,
   OptionalDate,
+  OptionalEssay,
+  OptionalPhoneNumber,
+  OptionalString,
+  OptionalStringArr,
+  OrgSize,
+  OrgType,
+  PhoneNumber,
+  PreferredContact,
+  PrivacyPolicy,
+  ReferenceAttribution,
+  RequiredDate,
+  RequiredEssay,
+  RequiredString,
+  Roles,
+  RolesValidator,
+  SearchStatus,
+  Skills,
+  ToS,
+  VisaSponsorship,
+  WorkAuthorization,
+  YOE,
+  YOE_RANGE,
   contactPhoneLinkedValidation,
 };

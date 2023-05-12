@@ -29,7 +29,7 @@ const FreeTagField: React.FC<IFreeTagField> = ({
     >
       {({ value, setValue, errors }) => {
         return (
-          <>
+          <div>
             <FreeTag
               name={`input-${fieldName}`}
               label={label}
@@ -38,7 +38,7 @@ const FreeTagField: React.FC<IFreeTagField> = ({
               setValue={setValue}
             />
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>

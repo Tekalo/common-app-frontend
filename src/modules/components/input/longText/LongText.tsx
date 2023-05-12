@@ -1,3 +1,5 @@
+import Tooltip from '@/components/tooltip/Tooltip';
+
 export interface ILongText {
   name: string;
   value: string;
@@ -7,6 +9,7 @@ export interface ILongText {
   placeholder?: string;
   labelClassName?: string;
   inputClassName?: string;
+  tooltipText?: string;
 }
 
 const LongText: React.FC<ILongText> = ({
@@ -18,14 +21,25 @@ const LongText: React.FC<ILongText> = ({
   placeholder,
   labelClassName,
   inputClassName,
+  tooltipText,
 }) => {
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`${labelClassName} flex items-center text-component-extra-small text-black-text`}
+        className={`${
+          labelClassName ? labelClassName : ''
+        } block text-component-extra-small text-black-text`}
         htmlFor={name}
       >
         {label}
+        {tooltipText ? (
+          <div className="inline-block align-top">
+            {' '}
+            <Tooltip text={tooltipText} />
+          </div>
+        ) : (
+          ''
+        )}
       </label>
       <textarea
         name={name}

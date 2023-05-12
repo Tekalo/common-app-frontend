@@ -11,12 +11,11 @@ const ApplicationLayout: React.FC<IApplicationLayout> = ({
   return (
     <>
       <Head>
-        <title>Application</title>
+        <title>Tekalo | Candidates</title>
       </Head>
-      <div {...divProps}>
-        <LiteNavbar />
+      <div {...divProps} className="flex h-screen flex-col justify-between">
+        <LiteNavbar title={'For candidates'} />
         <main className="flex pt-16 md:pt-20">{children}</main>
-        <div className="m-auto" />
         <LiteFooter />
       </div>
     </>

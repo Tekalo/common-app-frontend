@@ -1,6 +1,7 @@
-name: Staging - Build & Deploy
+name: Deploy staging to Cloudflare Pages
 
-# This workflow triggers when a push happens on on staging
+# This workflow is triggered on a push to the develop branch.
+# Latest deployment: https://staging.common-app-frontend.pages.dev/
 
 on:
   push:
@@ -15,7 +16,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: production
+    environment: staging
 
     strategy:
       matrix:
@@ -51,7 +52,12 @@ jobs:
 
         env:
           CI: true
-          NEXT_PUBLIC_SENTRY_ENV: staging
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install
@@ -60,7 +66,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: production
+    environment: staging
 
     needs: [build]
 
@@ -98,6 +104,12 @@ jobs:
 
         env:
           CI: true
+          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          NEXT_TELEMETRY_DISABLED: 1
 
         run: |
           pnpm install

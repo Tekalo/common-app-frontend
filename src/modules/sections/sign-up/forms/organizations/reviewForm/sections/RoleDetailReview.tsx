@@ -14,91 +14,71 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
   handleGoToRole,
   handleDeleteRole,
 }) => {
+  const renderRow = (label: string, data?: string) =>
+    data ? (
+      <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-1">
+        <span className="text-component-large text-black-text">{label}</span>
+        <span className="">{data}</span>
+      </div>
+    ) : (
+      <></>
+    );
   const renderRole = (role: NewRoleType, idx: number) => {
     return (
       <div className="mt-6">
         {/* Section One: Details */}
         <div className="space-y-2">
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Type of opportunity: '}
-            </span>
-            {role.employmentType}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Type of role: '}
-            </span>
-            {capitalizeFirstLetter(role.roleType)}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Position title: '}
-            </span>
-            {capitalizeFirstLetter(role.positionTitle)}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Link to job description: '}
-            </span>
-            {role.jdUrl}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Salary range: '}
-            </span>
-            {role.salaryRange}
-          </div>
+          {renderRow('Type of opportunity: ', role.employmentType)}
+          {renderRow('Type of role: ', capitalizeFirstLetter(role.roleType))}
+          {renderRow(
+            'Position title: ',
+            capitalizeFirstLetter(role.positionTitle)
+          )}
+          {renderRow('Link to job description: ', role.jdUrl)}
+          {renderRow('Salary range: ', role.salaryRange)}
         </div>
         {/* Section Two: Info  */}
         <div className="mt-6 space-y-2">
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Desired start date: '}
-            </span>
-            {role.desiredStartDate}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Desired years of experience: '}
-            </span>
-            {role.desiredYoe?.join(', ')}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Desired skills for the role: '}
-            </span>
-            {role.desiredSkills
+          {renderRow('Desired start date: ', role.desiredStartDate)}
+          {renderRow(
+            'Desired years of experience: ',
+            role.desiredYoe?.join(', ')
+          )}
+          {renderRow(
+            'Desired skills for the role: ',
+            role.desiredSkills
               ?.map((skill) => capitalizeFirstLetter(skill))
-              .join(', ')}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Desired other skills: '}
-            </span>
-            {role.desiredOtherSkills
+              .join(', ')
+          )}
+          {renderRow(
+            'Desired other skills: ',
+            role.desiredOtherSkills
               ? role.desiredOtherSkills
                   .map((skill) => capitalizeFirstLetter(skill))
                   .join(', ')
-              : 'N/A'}
-          </div>
-          <div>
-            <span className="text-component-large text-black-text">
-              {'Are there other employees on staff with similar roles?: '}
-            </span>
-            {role.similarStaffed ? 'Yes' : 'No'}
-          </div>
+              : 'N/A'
+          )}
+          {renderRow(
+            'Are there other employees on staff with similar roles?: ',
+            role.similarStaffed ? 'Yes' : 'No'
+          )}
         </div>
         {/* Section Three: Essays */}
         <div className="mt-9 space-y-4">
-          <div className="space-y-2">
-            <div className="text-component-large text-black-text">
-              {
-                'Desired impact-related experience or passion that you’re looking for in a candidate:'
-              }
+          {role.desiredImpactExp ? (
+            <div className="space-y-2">
+              {' '}
+              <div className="text-component-large text-black-text">
+                {
+                  'Desired impact-related experience or passion that you’re looking for in a candidate:'
+                }
+              </div>
+              <div className="text-p3-desktop">{role.desiredImpactExp}</div>
             </div>
-            <div className="text-p3-desktop">{role.desiredImpactExp}</div>
-          </div>
+          ) : (
+            <></>
+          )}
+
           <div className="space-y-2">
             <div className="text-component-large text-black-text">
               {'How would you describe the role in a few sentences?:'}

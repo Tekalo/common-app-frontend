@@ -1,6 +1,12 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
-import { OptionalString, RequiredString, Skills, YOE } from '@/lib/enums';
+import {
+  OptionalString,
+  OptionalStringArr,
+  RequiredString,
+  Skills,
+  YOE,
+} from '@/lib/enums';
 import { resetForm } from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
@@ -27,6 +33,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   handleSave,
   savedForm,
 }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll, []);
+
   useEffect(() => {
     // Need to use the inital value once we get it,
     // so we have to reset the form for it to initialize
@@ -71,7 +80,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Name of organization"
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastOrg}
-            validator={OptionalString}
+            validator={RequiredString}
           />
 
           {/* Years Experience */}
@@ -99,14 +108,13 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           />
 
           {/* Other Skills */}
-          {/* TODO: This is not allowed to be undefined for some reason */}
           <FreeTagField
             fieldName="otherSkills"
             label="Other skills (optional)"
             placeholder="Skills separated by commas"
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.otherSkills}
-            validator={OptionalString.array()}
+            initialValue={savedForm?.otherSkills || []}
+            validator={OptionalStringArr}
           />
 
           {/* LinkedIn */}
@@ -132,8 +140,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Portfolio Password */}
           <FreeTextField
             fieldName="portfolioPassword"
-            label="portfolioPassword (optional)"
+            label="Portfolio password (optional)"
             placeholder="Password to view website"
+            tooltipText="If you maintain a website with a portfolio that is password-protected,  you may share your password here. Don't share any sensitive passwords as this field is not secure."
             isSubmitted={isSubmitted}
             initialValue={savedForm?.portfolioPassword || ''}
             validator={OptionalString}
@@ -152,8 +161,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Resume */}
           <FreeTextField
             fieldName="resumeUrl"
-            label="Resume (optional)"
+            label="Link to resume (optional)"
             placeholder="Resume URL"
+            tooltipText="You may upload your resume to a file-sharing service such as Google Drive, Box, Dropbox and share the link here. As an alternative, make sure to include a link to your LinkedIn profile or similar above."
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumeUrl || ''}
             validator={OptionalString}

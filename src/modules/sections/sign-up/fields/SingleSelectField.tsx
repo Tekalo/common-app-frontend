@@ -2,32 +2,36 @@ import SingleSelect from '@/components/input/singleSelect/SingleSelect';
 import { printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance } from 'houseform';
-import { forwardRef, RefObject } from 'react';
+import { RefObject, forwardRef } from 'react';
 import { z } from 'zod';
 
 export interface ISingleSelectField {
   fieldName: string;
-  label: string;
-  placeholder: string;
-  listOptions: ISelectItem[];
-  isSubmitted: boolean;
   initialValue: string | undefined;
-  validator?: z.ZodSchema;
+  isSubmitted: boolean;
+  label: string;
+  listOptions: ISelectItem[];
+  placeholder: string;
   disabled?: boolean;
+  onChange?: (val: string) => void;
   ref?: RefObject<FieldInstance>;
+  tooltipText?: string;
+  validator?: z.ZodSchema;
 }
 
 const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
   (props, ref) => {
     const {
       fieldName,
-      label,
-      placeholder,
-      listOptions,
-      isSubmitted,
       initialValue,
-      validator,
+      isSubmitted,
+      label,
+      listOptions,
+      placeholder,
       disabled,
+      onChange,
+      tooltipText,
+      validator,
     } = props;
 
     return (
@@ -40,19 +44,21 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
       >
         {({ value, setValue, onBlur, errors }) => {
           return (
-            <>
+            <div>
               <SingleSelect
                 name={`input-${fieldName}`}
                 label={label}
                 placeholder={placeholder}
                 value={value}
                 setValue={setValue}
+                tooltipText={tooltipText}
                 onBlur={onBlur}
+                onChange={onChange}
                 listOptions={listOptions}
                 disabled={disabled}
               />
               {printErrorMessages(isSubmitted, errors)}
-            </>
+            </div>
           );
         }}
       </Field>

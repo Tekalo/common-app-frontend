@@ -10,6 +10,7 @@ export interface IFreeTextField {
   placeholder: string;
   isSubmitted: boolean;
   initialValue: string | undefined;
+  tooltipText?: string;
   validator?: z.ZodSchema | ((v: string, f: FormInstance) => Promise<boolean>);
   disabled?: boolean;
 }
@@ -22,6 +23,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
   isSubmitted,
   initialValue,
   validator,
+  tooltipText,
   disabled = false,
 }) => {
   return (
@@ -34,10 +36,11 @@ const FreeTextField: React.FC<IFreeTextField> = ({
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
-          <>
+          <div>
             <FreeText
               name={`input-${fieldName}`}
               disabled={disabled}
+              tooltipText={tooltipText}
               label={label}
               placeholder={placeholder}
               value={value}
@@ -45,7 +48,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
               onBlur={onBlur}
             />
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>

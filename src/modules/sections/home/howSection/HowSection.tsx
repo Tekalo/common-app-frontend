@@ -1,4 +1,5 @@
 import Timeline from '@/components/timeline/Timeline';
+import { HOME_HOW_TEXT } from '@/lang/en';
 import { ITimelineItem } from '@/lib/types';
 import { useState } from 'react';
 
@@ -10,42 +11,35 @@ const HowSection: React.FC<IHowSection> = () => {
   // Store the titems that the component should conditionally render
   const orgItems: Array<ITimelineItem> = [
     {
-      title: 'Submit an opportunity',
-      content:
-        'Share open tech-related opportunities (part-time or full-time) at your organization using one simple application. Next, your assigned Talent Connector reviews your application to make sure that it’s a good fit.',
+      title: HOME_HOW_TEXT.ORG_TITLE_1,
+      content: HOME_HOW_TEXT.ORG_CONTENT_1,
     },
     {
-      title: 'Intro call',
-      content:
-        'Next, your assigned Talent Connector works with you to further define your ideal candidate profile.',
+      title: HOME_HOW_TEXT.ORG_TITLE_2,
+      content: HOME_HOW_TEXT.ORG_CONTENT_2,
     },
     {
-      title: 'Connect with your matched candidates',
-      content:
-        'Your Talent Connector will identify interested candidates and share their profiles. If it’s a good match, you will be introduced to the candidates!',
+      title: HOME_HOW_TEXT.ORG_TITLE_3,
+      content: HOME_HOW_TEXT.ORG_CONTENT_3,
     },
   ];
 
   const candidateItems: Array<ITimelineItem> = [
     {
-      title: 'Submit a single application',
-      content:
-        'Tell us about your experience and interests by submitting the Tekalo application.',
+      title: HOME_HOW_TEXT.CANDIDATE_TITLE_1,
+      content: HOME_HOW_TEXT.CANDIDATE_CONTENT_1,
     },
     {
-      title: 'Receive a list of potential matches',
-      content:
-        'Your assigned Talent Connector reviews your application and matches you with opportunities at impact-driven organizations that best fit your interests and profile. You will continue to receive potential matches, if available, every few weeks until you get hired or opt out of Tekalo.',
+      title: HOME_HOW_TEXT.CANDIDATE_TITLE_2,
+      content: HOME_HOW_TEXT.CANDIDATE_CONTENT_2,
     },
     {
-      title: 'Intro call',
-      content:
-        'Next, your Talent Connector will schedule a one-time call to share more information about your potential matches and ask you additional questions about your experience and interests.',
+      title: HOME_HOW_TEXT.CANDIDATE_TITLE_3,
+      content: HOME_HOW_TEXT.CANDIDATE_CONTENT_3,
     },
     {
-      title: 'Connect to your matched organizations',
-      content:
-        'Your Talent Connector will share your profile with the organization(s) that you agree to be connected to. If mutual, your Talent Connector will make an introduction!',
+      title: HOME_HOW_TEXT.CANDIDATE_TITLE_4,
+      content: HOME_HOW_TEXT.CANDIDATE_CONTENT_4,
     },
   ];
 
@@ -66,7 +60,7 @@ const HowSection: React.FC<IHowSection> = () => {
               key={i}
               className={`cursor-pointer text-component-large transition-all md:text-h4-mobile lg:text-h4-desktop ${
                 (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
-                  ? 'text-gray-2'
+                  ? 'text-gray-2 hover:text-blue-1'
                   : 'text-blue-1 underline underline-offset-8'
               }`}
               onClick={() => setForOrgs(header.includes('organizations'))}

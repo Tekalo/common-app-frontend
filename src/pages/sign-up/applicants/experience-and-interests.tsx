@@ -1,6 +1,11 @@
+import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
-import { APPLICANT_SUCCESS_LINK } from '@/lib/constants/text';
+import {
+  APPLICANT_FORM_TEXT,
+  APPLICANT_SUCCESS_LINK,
+  SAVE_MODAL,
+} from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
@@ -8,12 +13,14 @@ import {
   post,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
   ITimelineItem,
   InterestFieldsType,
   NextPageWithLayout,
+  SubmissionResponseType,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
@@ -21,16 +28,16 @@ import { useAuth0 } from '@auth0/auth0-react';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 
-const ApplicantSignup: NextPageWithLayout = () => {
+const ApplicantForms: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-  const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
-  const [showSaveModal, setShowSaveModal] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   const [draftFormValues, setDraftFormValues] = useState<DraftSubmissionType>();
   const [experienceFields, setExperienceFields] =
     useState<ExperienceFieldsType>();
   const [interestFields, setInterestFields] = useState<InterestFieldsType>();
+  const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -40,7 +47,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
   }, [isSubmitted]);
 
   useEffect(() => {
-    getSubmissions();
+    if (!isLoading) {
+      getSubmissions();
+    }
   }, [isAuthenticated, isLoading, getAccessTokenSilently]);
 
   const getAuthToken = async () => {
@@ -57,18 +66,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
     post(applicantSubmissionsEndpoint, finalFormValues, await getAuthToken())
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           router.push(APPLICANT_SUCCESS_LINK);
         } else {
-          // TODO: Error handling, API
-          alert(res.statusText);
+          setShowErrorModal(true);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error handling, FE
-        console.error('Failed to fetch', error);
-        alert('Failed to submit form data!');
+        setShowErrorModal(true);
+        console.error('Failed to submit', error);
       });
   };
 
@@ -86,13 +93,13 @@ const ApplicantSignup: NextPageWithLayout = () => {
         if (res.ok) {
           setShowSaveModal(true);
         } else {
-          // TODO: Error handling, API
-          alert(res.statusText);
+          setShowErrorModal(true);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error handling, FE
-        alert(error);
+        setShowErrorModal(true);
+        console.error('failed to save form', error);
       });
   };
 
@@ -115,20 +122,18 @@ const ApplicantSignup: NextPageWithLayout = () => {
     get(applicantSubmissionsEndpoint, await getAuthToken())
       .then(async (res) => {
         if (res.ok) {
-          const response: any = await res.json();
+          const response: SubmissionResponseType = await res.json();
           setDraftFormValues(response.submission);
+        } else if (res.status === 401) {
+          router.push('/');
         } else {
-          // TODO: Error Handling
-          if (res.status === 401) {
-            router.push('/');
-          } else {
-            alert(res.statusText);
-          }
+          setShowErrorModal(true);
+          console.error(res.statusText);
         }
       })
       .catch((error) => {
-        // TODO: Error Handling
-        alert(error);
+        setShowErrorModal(true);
+        console.error('failed to fetch submissions', error);
       });
   }
 
@@ -139,33 +144,33 @@ const ApplicantSignup: NextPageWithLayout = () => {
           className={isInterestFormVisible ? `cursor-pointer text-blue-1` : ''}
           onClick={() => setIsInterestFormVisible(false)}
         >
-          {'Your experience'}
+          {APPLICANT_FORM_TEXT.EXPERIENCE}
         </div>
       ),
       isActive: true,
     },
     {
-      content: 'Your interests',
+      content: APPLICANT_FORM_TEXT.INTERESTS,
       isActive: isInterestFormVisible,
     },
   ];
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col items-center">
+    <div className="flex min-h-screen min-w-full flex-col items-center px-6">
       {/* Form Content */}
-      <div className="mb-40 grid w-[1120px] max-w-[1120px] grid-flow-col grid-cols-12 justify-center gap-8 text-center">
+      <div className="flex max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
         {/* Title */}
-        <div className="col-span-6 col-start-4 pt-16 font-display text-h3-desktop text-black-text">
-          {'Join a network with over XX00 organizations to find your match.'}
+        <div className="max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
+          {APPLICANT_FORM_TEXT.HEADER}
         </div>
 
         {/* Breadcrumb Timeline */}
-        <div className="col-span-4 col-start-5 mb-12 mt-10 flex content-center justify-center">
+        <div className="mb-12 mt-10 flex content-center justify-center">
           <Timeline timelineItems={timelineItems} horizontal={true} />
         </div>
 
         {/* Form Area */}
-        <div className="col-span-4 col-start-5 space-y-8">
+        <div className="m-auto w-full max-w-[344px] space-y-8">
           {isInterestFormVisible ? (
             <InterestForm
               savedForm={draftFormValues}
@@ -183,15 +188,23 @@ const ApplicantSignup: NextPageWithLayout = () => {
       </div>
       {/* Save Modal */}
       <Modal
-        headline="Your progress has been saved!"
-        bodyText="If you need to leave, you can click “Sign in” from the homepage, then return to the application."
-        buttonText="Ok"
+        headline={SAVE_MODAL.HEADER}
+        bodyText={SAVE_MODAL.BODY}
+        buttonText={SAVE_MODAL.CTA}
         isOpen={showSaveModal}
         closeModal={() => setShowSaveModal(false)}
         onConfirm={() => setShowSaveModal(false)}
+      />
+      <ErrorModal
+        isOpen={showErrorModal}
+        closeModal={() => setShowErrorModal(false)}
       />
     </div>
   );
 };
 
-export default ApplicantSignup;
+export default ApplicantForms;
+
+ApplicantForms.getLayout = (page) => {
+  return <ApplicationLayout>{page}</ApplicationLayout>;
+};

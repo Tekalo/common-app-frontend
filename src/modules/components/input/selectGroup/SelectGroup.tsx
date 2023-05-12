@@ -7,6 +7,7 @@ export interface ISelectGroup {
   listOptions: ISelectItem[];
   setValue: (_val: string[]) => void;
   onBlur?: () => void;
+  onChange?: (val: any) => void;
 }
 
 const SelectGroup: React.FC<ISelectGroup> = ({
@@ -14,9 +15,10 @@ const SelectGroup: React.FC<ISelectGroup> = ({
   setValue,
   listOptions,
   label,
+  onChange,
 }) => {
   return (
-    <fieldset className="space-y-2 text-left">
+    <fieldset className="space-y-4 text-left">
       <legend className="text-component-extra-small text-black-text">
         {label}
       </legend>
@@ -36,6 +38,10 @@ const SelectGroup: React.FC<ISelectGroup> = ({
                 if (e.target.checked) newValue.push(e.target.value);
                 else newValue.splice(newValue.indexOf(e.target.value), 1);
                 setValue(newValue);
+
+                if (onChange) {
+                  onChange(newValue);
+                }
               }}
               className="form-checkbox appearance-none rounded-[3px] align-middle checked:bg-blue-1 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
             />
