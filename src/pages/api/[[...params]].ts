@@ -8,14 +8,14 @@ export const config = {
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
 const fetchResponse = async (req: NextRequest, params: string[]) => {
   const BASE_URL = (() => {
-    // Note: This process.env variable is picked from the Cloudflare Pages environment variables whereas others are set at build time in the github action
-    switch (process.env.CLOUDFLARE_ENV) {
-      case 'production':
+    // Note: This process.env variable is picked from the Cloudflare Pages environment variables - others are set at build time in the github action
+    switch (process.env.CF_PAGES_BRANCH) {
+      case 'main':
         return 'https://capp-api.prod.apps.futurestech.cloud';
       case 'staging':
-        return 'https://capp-api.dev.apps.futurestech.cloud';
+        return 'https://capp-api.staging.apps.futurestech.cloud';
       case 'develop':
-        return 'https://localhost:3000';
+        return 'https://capp-api.dev.apps.futurestech.cloud';
       default:
         return 'http://localhost:3000';
     }

@@ -5,6 +5,8 @@ on:
     branches: [develop]
     paths: ['src/modules/**/*']
 
+  workflow_dispatch:
+
 jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }}

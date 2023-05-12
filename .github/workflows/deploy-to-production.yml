@@ -1,6 +1,7 @@
-name: Deploy Production to Cloudflare
+name: Deploy main to Cloudflare Pages
 
 # This workflow triggers when a push happens on on main
+# Latest deployment: https://main.common-app-frontend.pages.dev/
 
 on:
   push:

@@ -1,6 +1,7 @@
-name: Deploy Staging to Cloudflare Preview
+name: Deploy staging to Cloudflare Pages
 
-# This workflow triggers when a push happens on on staging
+# This workflow is triggered on a push to the develop branch.
+# Latest deployment: https://staging.common-app-frontend.pages.dev/
 
 on:
   push:
