@@ -304,7 +304,7 @@ const APPLICANT_FORM_TEXT = {
     body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you via your preferred contact method once matches are available. Thank you for applying to Tekalo.',
     cta: 'Done',
   },
-  EXPERIENCE: 'Your expereience',
+  EXPERIENCE: 'Your experience',
   INTERESTS: 'Your interests',
 };
 const ORG_FORM_TEXT = {
