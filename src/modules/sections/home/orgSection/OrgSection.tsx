@@ -62,7 +62,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
     <section className="md:pb- grid w-full place-items-center px-6 pb-20 pt-16 lg:pb-36">
       <div className="">
         {/* Title */}
-        <div className="mb-6 text-center text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-14 lg:text-large-caption-desktop">
+        <div className="mb-6 text-center font-display text-large-caption-mobile uppercase text-gray-1 md:mb-8 lg:mb-14 lg:text-large-caption-desktop">
           {HOME_ORG_TEXT.HEADER}
         </div>
         {/* Logo Grid */}
@@ -81,8 +81,8 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       {/* CTA Box*/}
       <div className="relative mt-20 max-w-[475px] md:mt-40 lg:mt-28 lg:max-w-[608px]">
         {/* Offset Blackbox */}
-        <div className="absolute -bottom-1 -right-2 left-0 top-2 rounded-2xl bg-[#363D3F]" />
-        <div className="relative z-10 rounded-[10px] bg-light-orange ring-4 ring-illustration-black">
+        <div className="absolute -bottom-1 -right-1 left-0 top-2 rounded-2xl bg-[#363D3F]" />
+        <div className="relative z-10 rounded-[10px] border border-illustration-black bg-light-orange">
           {/* Content */}
           <div className="flex flex-col items-center px-8 py-6 text-center md:px-11 md:py-10 lg:px-10 lg:py-14">
             {/* Title */}
@@ -97,7 +97,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
               <Button
                 variant={ButtonVariant.OUTLINED}
                 label={HOME_ORG_TEXT.CTA_BUTTON}
-                className="mt-6 w-full max-w-[228px] lg:mt-10 lg:max-w-[352px]"
+                className="mt-6 w-full max-w-[248px] px-2 sm:px-7 md:max-w-[352px] md:px-8 lg:mt-10"
               />
             </Link>
           </div>

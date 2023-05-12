@@ -29,7 +29,7 @@ const LongTextField: React.FC<ILongTextField> = ({
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
-          <>
+          <div>
             <LongText
               name={`input-${fieldName}`}
               label={label}
@@ -39,7 +39,7 @@ const LongTextField: React.FC<ILongTextField> = ({
               onBlur={onBlur}
             />
             {printErrorMessages(isSubmitted, errors)}
-          </>
+          </div>
         );
       }}
     </Field>

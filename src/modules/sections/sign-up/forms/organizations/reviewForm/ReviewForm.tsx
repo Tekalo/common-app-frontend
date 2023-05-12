@@ -3,6 +3,7 @@ import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import { PRIVACY_LINK, PRIVACY_MODAL_TEXT, REVIEW_FORM_TEXT } from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
 import { NewOrgType, NewRoleType } from '@/lib/types';
+import { orgContentTableData } from '@/sections/privacy/PrivacyInfo';
 import { BooleanField } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import Link from 'next/link';
@@ -24,10 +25,10 @@ const privacyModalExtras = (
     {PRIVACY_MODAL_TEXT.EXTRAS[0]}
     <span className="text-blue-1 underline underline-offset-4">
       <Link target="_blank" href={PRIVACY_LINK}>
-        PRIVACY_MODAL_TEXT.EXTRAS[ 1 ]
+        {PRIVACY_MODAL_TEXT.EXTRAS[1]}
       </Link>
     </span>
-    PRIVACY_MODAL_TEXT.EXTRAS[2]
+    {PRIVACY_MODAL_TEXT.EXTRAS[2]}
   </div>
 );
 
@@ -115,6 +116,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
         </Form>
         {showPrivacyModal && (
           <TableModal
+            tableData={orgContentTableData}
             headerText={PRIVACY_MODAL_TEXT.HEADER}
             bodyText={PRIVACY_MODAL_TEXT.BODY}
             extras={privacyModalExtras}

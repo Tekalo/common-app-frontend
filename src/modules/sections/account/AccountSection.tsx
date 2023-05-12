@@ -39,7 +39,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(true);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const handleUncaughtErrorResponse = (error: any): void => {
     setShowErrorModal(true);

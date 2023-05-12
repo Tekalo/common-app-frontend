@@ -11,6 +11,7 @@ export interface ITableModal {
   headerText: string;
   bodyText: string;
   extras?: ReactElement;
+  tableData: ContentTableData;
 }
 
 const TableModal: React.FC<ITableModal> = ({
@@ -19,68 +20,9 @@ const TableModal: React.FC<ITableModal> = ({
   headerText,
   bodyText,
   extras,
+  tableData,
 }) => {
   const headerRef = useRef(null);
-
-  const tableData: ContentTableData = {
-    headers: [
-      {
-        heading: '',
-        subheading: '',
-      },
-      {
-        heading: 'Data Type',
-        subheading: 'What info we collect',
-      },
-      {
-        heading: 'Uses',
-        subheading: 'How we use the info',
-      },
-      {
-        heading: 'Third Parties',
-        subheading: 'Who can see the info',
-      },
-    ],
-    content: [
-      {
-        heading: 'Info You provide',
-        bullets: [
-          ['Personal Info', 'Professional Info', 'Communications', 'Surveys'],
-          [
-            'Identify you and Operate [Name]',
-            'Conduct Research and improve [Name]',
-          ],
-          ['Users', 'Other Matchmakers and Organziations', 'Service Providers'],
-        ],
-      },
-      {
-        heading: 'Info we observe',
-        bullets: [
-          [
-            'Technical info (eg; browser device, IP, trackers, server logs)',
-            'Usage and outcomes',
-          ],
-          [
-            'Quality of Service',
-            'Security',
-            'Conduct Research and improve [Name]',
-          ],
-          ['Service Providers'],
-        ],
-      },
-      {
-        heading: 'Other sources',
-        bullets: [
-          [
-            'Programs from Third-Party organizations',
-            'Other Schmidt Futures Programs',
-          ],
-          ['Enable applicants to other programs to utilize [Name]'],
-          ['Users', 'Matchmakers', 'Organizations', 'Service Providers'],
-        ],
-      },
-    ],
-  };
 
   return (
     <>

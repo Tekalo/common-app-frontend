@@ -42,7 +42,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
       multiple={true}
     >
       {({ open }) => (
-        <div className="text-left">
+        <div className="relative z-20 text-left">
           <Listbox.Label
             className={`text-component-extra-small ${
               disabled ? 'text-gray-2' : 'text-black-text'

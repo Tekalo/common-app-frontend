@@ -13,6 +13,7 @@ import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
+import { applicantContentTableData } from '@/sections/privacy/PrivacyInfo';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
@@ -23,10 +24,10 @@ const privacyModalExtras = (
     {PRIVACY_MODAL_TEXT.EXTRAS[0]}
     <span className="text-blue-1 underline underline-offset-4">
       <Link target="_blank" href={PRIVACY_LINK}>
-        PRIVACY_MODAL_TEXT.EXTRAS[ 1 ]
+        {PRIVACY_MODAL_TEXT.EXTRAS[1]}
       </Link>
     </span>
-    PRIVACY_MODAL_TEXT.EXTRAS[2]
+    {PRIVACY_MODAL_TEXT.EXTRAS[2]}
   </div>
 );
 
@@ -84,6 +85,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </div>
       </div>
       <TableModal
+        tableData={applicantContentTableData}
         headerText={PRIVACY_MODAL_TEXT.HEADER}
         bodyText={PRIVACY_MODAL_TEXT.BODY}
         extras={privacyModalExtras}

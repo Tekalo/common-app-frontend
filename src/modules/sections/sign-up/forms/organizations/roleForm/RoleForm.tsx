@@ -133,7 +133,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             />
 
             {/* // HACK: Using the includes is risky here if we ever add a role with a " - " in it it may throw this component off */}
-            <div className={partTimeForm ? '' : 'hidden'}>
+            <div className={partTimeForm ? 'space-y-8' : 'hidden'}>
               <SingleSelectField
                 fieldName="employmentTypeSelect"
                 label="What type of opportunity is this?"

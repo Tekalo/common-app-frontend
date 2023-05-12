@@ -44,7 +44,7 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
       >
         {({ value, setValue, onBlur, errors }) => {
           return (
-            <>
+            <div>
               <SingleSelect
                 name={`input-${fieldName}`}
                 label={label}
@@ -58,7 +58,7 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
                 disabled={disabled}
               />
               {printErrorMessages(isSubmitted, errors)}
-            </>
+            </div>
           );
         }}
       </Field>
