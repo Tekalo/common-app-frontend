@@ -13,7 +13,7 @@ const OrganizationLayout: React.FC<IOrganizationLayout> = ({
       <Head>
         <title>Tekalo | Organizations</title>
       </Head>
-      <div {...divProps}>
+      <div {...divProps} className="flex h-screen flex-col justify-between">
         <LiteNavbar title={'For organizations'} />
         <main className="flex pt-16 md:pt-20">{children}</main>
         <div className="m-auto" />
