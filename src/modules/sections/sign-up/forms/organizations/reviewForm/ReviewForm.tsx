@@ -58,7 +58,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   handleSubmit,
 }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
-  useEffect(executeScroll);
+  useEffect(executeScroll, []);
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
   return (

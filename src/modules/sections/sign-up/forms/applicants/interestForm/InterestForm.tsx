@@ -77,7 +77,7 @@ const InterestForm: React.FC<IInterestForm> = ({
   savedForm,
 }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
-  useEffect(executeScroll);
+  useEffect(executeScroll, []);
 
   const formRef = useRef<InterestRefType>(null);
   const [employmentType, setEmploymentType] = useState(
