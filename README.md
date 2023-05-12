@@ -4,6 +4,14 @@ This repository contains the code to run the Common App Next.js frontend applica
 
 ## Getting Started
 
+### Deployments
+
+develop: <https://develop.common-app-frontend.pages.dev/>
+
+staging: <https://staging.common-app-frontend.pages.dev/>
+
+main: <https://main.common-app-frontend.pages.dev/> or <https://www.tekalo.org>
+
 ### Pre-Requisites
 
 - Install [nvm](https://github.com/nvm-sh/nvm)
