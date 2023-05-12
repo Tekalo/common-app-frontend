@@ -24,9 +24,9 @@ const FreeText: React.FC<IFreeText> = ({
   return (
     <div className="space-y-2 text-left">
       <label
-        className={`flex items-center text-component-extra-small ${
-          disabled ? 'text-gray-2' : 'text-black-text'
-        }}`}
+        className={`${
+          disabled ? 'text-gray-1' : 'text-black-text'
+        } flex items-center text-component-extra-small`}
         htmlFor={name}
       >
         {label}
@@ -35,8 +35,10 @@ const FreeText: React.FC<IFreeText> = ({
       <input
         disabled={disabled}
         name={name}
-        className={`active:p-2} box-border h-[32px] w-full
-                    rounded-[3px] border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2 focus:border-2 focus:border-blue-1 focus:p-[7px] active:border active:border-blue-1`}
+        className={`${
+          disabled ? 'bg-gray-4' : ''
+        } box-border h-[32px] w-full rounded-[3px]
+                    border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2 focus:border-2 focus:border-blue-1 focus:p-[7px] active:border active:border-blue-1 active:p-2`}
         value={value}
         onBlur={onBlur}
         onChange={(e) => setValue(e.target.value)}
