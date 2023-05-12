@@ -254,6 +254,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder="Choose one"
             listOptions={AuthorizationOptions}
             isSubmitted={isSubmitted}
+            tooltipText="If you require U.S. visa sponsorship now or in the future, we can do our best to match you with opportunities that sponsor visas"
             initialValue={savedForm?.workAuthorization || undefined}
             validator={WorkAuthorization}
           />
@@ -303,6 +304,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             label="If you had unlimited resources what problem would you choose to solve and why?"
             placeholder="Write as much as you’d like, suggested up to 250 words."
             isSubmitted={isSubmitted}
+            tooltipText="This response will only be reviewed by Tekalo recruiters and will help them learn more about your interests."
             initialValue={savedForm ? savedForm.essayResponse : ''}
             validator={RequiredEssay}
           />

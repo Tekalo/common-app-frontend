@@ -5,7 +5,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -13,6 +12,7 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {
@@ -139,6 +139,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             fieldName="phone"
             // TODO: This should be more directly tied to the validation
             // function this field uses
+            tooltipText="If you prefer not to share your phone number, choose email as your preferred contact method. If provided, your number will be used to contact you about your application. It won’t be used for marketing unless you opt in below."
             label={`Phone number ${
               contactValue === 'email' ? '(optional)' : ''
             }`}
