@@ -304,7 +304,7 @@ const APPLICANT_FORM_TEXT = {
     body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you via your preferred contact method once matches are available. Thank you for applying to Tekalo.',
     cta: 'Done',
   },
-  EXPERIENCE: 'Your expereience',
+  EXPERIENCE: 'Your experience',
   INTERESTS: 'Your interests',
 };
 const ORG_FORM_TEXT = {
@@ -318,7 +318,7 @@ const INTEREST_FORM_TEXT = {
   USDR: [
     'By choosing “yes,” you consent to ',
     'U.S. Digital Response',
-    'saving a copy of your CommonApp profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.',
+    ' saving a copy of your Tekalo profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities..',
   ],
 };
 const ORG_SIGNUP_FORM_TEXT = {

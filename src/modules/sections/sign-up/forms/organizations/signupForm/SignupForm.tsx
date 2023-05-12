@@ -8,8 +8,8 @@ import {
 import {
   Causes,
   CommitmentType,
-  EOE,
   Email,
+  EOE,
   OptionalPhoneNumber,
   OrgSize,
   OrgType,
@@ -27,6 +27,7 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
+import { useEffect } from 'react';
 
 export interface ISignupForm {
   handleSubmit: (values: NewOrgType) => void;
@@ -50,6 +51,9 @@ const EEOC_LABEL = (
 );
 
 const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll);
+
   return (
     <Form<NewOrgType>
       onSubmit={(values) => {

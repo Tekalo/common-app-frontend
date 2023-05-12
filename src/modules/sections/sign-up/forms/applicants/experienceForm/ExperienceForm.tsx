@@ -33,6 +33,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   handleSave,
   savedForm,
 }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll);
+
   useEffect(() => {
     // Need to use the inital value once we get it,
     // so we have to reset the form for it to initialize

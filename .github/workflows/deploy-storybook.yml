@@ -1,14 +1,19 @@
-name: Deploy to Chromatic
+name: Deploy Storybook to Chromatic
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [develop]
     paths: ['src/modules/**/*']
 
+  push:
+    branches:
+      - develop
+
   workflow_dispatch:
 
 jobs:
   build-and-deploy:
+    name: Build and Deploy
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
 

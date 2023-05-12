@@ -5,6 +5,7 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -12,7 +13,6 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {
@@ -23,7 +23,7 @@ import {
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface ISignupForm {
   handleSubmit: (_values: NewCandidateType) => void;
@@ -62,6 +62,9 @@ const SignupForm: React.FC<ISignupForm> = ({
   handleSubmit,
   setShowPrivacyModal,
 }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll);
+
   const [contactValue, setContactValue] = useState<string>();
 
   return (

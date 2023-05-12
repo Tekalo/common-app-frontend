@@ -63,7 +63,7 @@ const RoleForm: React.FC<IRoleForm> = ({
   const formRef = useRef<RoleRefType>(null);
   const reviewReadyRef = useRef<boolean>(false);
 
-  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll);
 
   const doSubmit = (values: any) => {

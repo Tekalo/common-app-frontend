@@ -6,7 +6,7 @@ import { NewOrgType, NewRoleType } from '@/lib/types';
 import { BooleanField } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import OrgDetailReview from './sections/OrgDetailReview';
 import RoleDetailReview from './sections/RoleDetailReview';
 
@@ -56,6 +56,8 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   handleDeleteRole,
   handleSubmit,
 }) => {
+  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
+  useEffect(executeScroll);
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
 
   return (
