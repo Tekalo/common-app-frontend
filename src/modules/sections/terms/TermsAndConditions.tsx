@@ -12,10 +12,10 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
   return (
     <div className="m-auto max-w-content-area px-6 pb-32 pt-8 md:pt-10 lg:pb-44">
       <div className="mb-14 text-center text-h2-mobile md:mb-20 lg:mb-24 lg:text-h2-desktop">
-        [Name] Terms of Use
+        Futures Engine Terms of Use
       </div>
       <div className="mb-8 text-large-caption-mobile uppercase text-gray-1 lg:text-large-caption-desktop">
-        Last Updated: April __, 2023
+        Last Updated: May 12, 2023
       </div>
       <div className={h4Mobile}>About This Document</div>
       <div className={`${lightBlueBox} mb-7 text-p2-desktop`}>
@@ -25,20 +25,19 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={`mb-8 space-y-4 ${largeCaption}`}>
         <p>
           THESE TERMS SET FORTH A LEGALLY BINDING AGREEMENT BETWEEN YOU AND
-          ____________, LLC THAT GOVERNS YOUR ACCESS TO AND USE OF ALL
+          FUTURES ACTION NETWORK, LLC THAT GOVERNS YOUR ACCESS TO AND USE OF ALL
           INFORMATION, WEBSITES, SERVICES, EVENTS AND CONTENT (COLLECTIVELY,
-          “SERVICES”) PROVIDED IN CONNECTION WITH COMMONAPP. BY ACCEPTING THESE
-          TERMS, ACCESSING AND USING SERVICES, OR OTHERWISE INTERACTING WITH US
-          IN CONNECTION THEREWITH, YOU:
+          “SERVICES”) PROVIDED IN CONNECTION WITH FUTURES ENGINE. BY ACCEPTING
+          THESE TERMS, ACCESSING AND USING SERVICES, OR OTHERWISE INTERACTING
+          WITH US IN CONNECTION THEREWITH, YOU:
         </p>
         <p>
           (1) AGREE TO THESE TERMS PERSONALLY AND ON BEHALF OF ANY COMPANY OR
-          OTHER LEGAL ENTITY (“ORGANIZATION”) THAT YOU REPRESENT WHEN USING THE
-          SERVICES, AND
+          OTHER LEGAL ENTITY YOU REPRESENT WHEN USING THE SERVICES, AND
         </p>
         <p>
           (2) YOU REPRESENT AND WARRANT THAT YOU HAVE THE RIGHT, AUTHORITY, AND
-          CAPACITY TO ENTER INTO THESE TERMS (AND TO BIND YOUR ORGANIZATION, IF
+          CAPACITY TO ENTER INTO THESE TERMS (AND TO BIND YOUR ENTITY, IF
           APPLICABLE, TO THESE TERMS).
         </p>
         <p>
@@ -56,7 +55,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
 
       <div className={h4Mobile}>Minimum Age</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
-        Summary: You must be 18 or older to use CommonApp.
+        Summary: You must be 18 or older to use Futures Engine.
       </div>
       <div className={p2Mobile}>
         You represent that you are at least 18 years of age (or the age of
@@ -73,7 +72,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           href={PRIVACY_LINK}
           rel="noreferrer"
         >
-          Privacy Information
+          Privacy Info
         </a>
         , which applies to personal information processed about you in
         connection with the Services.
@@ -91,21 +90,20 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           credentials to be used by any other person.
         </p>
         <p>
-          {' '}
           We may terminate your account and/or suspend your use of the Services
           without notice if we suspect that your account is being used in an
           unauthorized manner or if you violate these Terms.
         </p>
       </div>
-      <div className={h4Mobile}>Common App Content</div>
+      <div className={h4Mobile}>Futures Engine Content</div>
       <div className={`${lightBlueBox} mb-7 text-p2-mobile`}>
-        Summary: CommonApp content belongs to others; don&apos;t steal it.
+        Summary: Futures Engine content belongs to others; don’t steal it.
       </div>
       <div className={p2Mobile}>
         All information, content, images, logos, trademarks, graphics, software,
-        and other materials made available by us in connection with CommonApp
-        (collectively, the “Content”) are the sole property of the owners or
-        licensors of such Content, and are protected by copyright, trademark,
+        and other materials made available by us in connection with Futures
+        Engine (collectively, the “Content”) are the sole property of the owners
+        or licensors of such Content, and are protected by copyright, trademark,
         and other laws. You may not reproduce, modify, republish, distribute,
         resell, broadcast, reverse-engineer, create derivative works from or
         otherwise exploit in any manner, in whole or in part, the Content,
@@ -118,18 +116,19 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={`${lightBlueBox} mb-7 text-p2-mobile`}>
         Summary: You own your User Material, but you permit us to use it in
         connection with providing the Services. Your information is not
-        confidential; it will be seen by Matchmakers and Organizations who post
-        opportunities on the Services.
+        confidential; it will be seen by third parties who review applications
+        or to whom you choose to share your info.{' '}
         <a
-          target="_blank"
+          href="http://tekalo.org/privacy-info"
           className="text-blue-1 underline underline-offset-4"
-          href="#"
+          target="_blank"
+          rel="noreferrer"
         >
           Read more
         </a>
-        . We may remove User Material from CommonApp in our discretion. Submit
-        your User Material at your own risk. If you give us any Feedback, we can
-        use it for any purpose.{' '}
+        . We may remove User Material from Futures Engine in our discretion.
+        Submit your User Material at your own risk. If you give us any Feedback,
+        we can use it for any purpose.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
@@ -152,35 +151,33 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           You represent and warrant that you own or have the necessary rights
           and permissions to provide your User Material to us, and to authorize
           us to use such User Material in the manner contemplated by these
-          Terms. Applying to CommonApp requires you to submit your User Material
-          for review by us, third-party Matchmakers and Organizations offering
-          opportunities. Under no circumstances will we be required to treat
-          your User Material as confidential. For the avoidance of doubt, we
-          will not be liable to you or any other person as a result of any
-          similarities to the User Material that may appear in any future
-          products or services of us or our affiliates.
+          Terms.
+        </p>
+        <p>
+          Applying to Futures Engine requires you to submit your User Material
+          for review by us and third-parties with whom we’ve contracted. Under
+          no circumstances will we be required to treat your User Material as
+          confidential. For the avoidance of doubt, we will not be liable to you
+          or any other person as a result of any similarities to the User
+          Material that may appear in any future products or services of us or
+          our affiliates.
         </p>
         <p>
           Please note that the license you grant us to your User Material and
           the statement above regarding non-confidentiality apply to
           intellectual property only, and do not expand or alter our use or
-          disclosure of your personal information as set forth in our{' '}
-          <a
-            target="_blank"
-            className="text-blue-1 underline underline-offset-4"
-            href={PRIVACY_LINK}
-            rel="noreferrer"
-          >
-            Privacy Information
-          </a>
-          . While we may not review or monitor User Material, we reserve the
-          right to block, refuse, delete, remove or edit, in whole or in part,
-          any User Material that violates these Terms or is otherwise
-          objectionable, as determined in our sole discretion. You are solely
-          responsible and assume all risks associated with any User Material you
-          submit or that is submitted through your account. We assume no
-          liability in connection with any damage, loss, or harm you may suffer
-          from submitting, viewing, or using any User Material.
+          disclosure of your personal information as set forth in our Privacy
+          Notice.
+        </p>
+        <p>
+          While we may not review or monitor User Material, we reserve the right
+          to block, refuse, delete, remove or edit, in whole or in part, any
+          User Material that violates these Terms or is otherwise objectionable,
+          as determined in our sole discretion. You are solely responsible and
+          assume all risks associated with any User Material you submit or that
+          is submitted through your account. We assume no liability in
+          connection with any damage, loss, or harm you may suffer from
+          submitting, viewing, or using any User Material.
         </p>
         <p>
           If you provide or disclose to us any suggestions, ideas, or feedback
@@ -188,18 +185,18 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           potential products and services, you hereby grant us and our
           affiliates, a worldwide, perpetual, irrevocable, transferable,
           nonexclusive, royalty-free license, with the right to sublicense, to
-          use and exploit the Feedback for any purpose.{' '}
+          use and exploit the Feedback for any purpose.
         </p>
       </div>
       <div className={h4Mobile}>Submission Guidelines</div>
       <div className={`${lightBlueBox} mb-7 text-p2-mobile`}>
-        Summary: Your application must comply with the guidelines below, and if
-        they do not, we can reject or remove them.{' '}
+        Summary: Your Submission must comply with the guidelines below, and if
+        it does not, we can reject or remove it.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
           All information and content submitted in support of your application
-          (“Submissions”) must adhere to the following guidelines (collectively
+          (“Submission”) must adhere to the following guidelines (collectively
           the “Submission Guidelines”):
         </p>
         <ol className="list-decimal pl-4">
@@ -212,10 +209,9 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           </li>
           <li>
             The Submission must not contain material that is unlawful or that
-            violates or infringes another&apos;s rights, including but not
-            limited to privacy, publicity, confidentiality, copyright,
-            trademark, patent, or other proprietary intellectual property
-            rights;
+            violates or infringes another’s rights, including but not limited to
+            privacy, publicity, confidentiality, copyright, trademark, patent,
+            or other proprietary intellectual property rights;
           </li>
           <li>
             The Submission must not contain material that is derogatory,
@@ -247,17 +243,17 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         <p>
           We may, in our sole and absolute discretion, reject Submissions or
           parts of Submissions that: (i) fail to meet any Submission Guideline,
-          (ii) are not reasonably pertinent to the subject matter of CommonApp,
-          (iii) are illegible, incomplete, forged, altered or mechanically
-          produced or reproduced, or (iv) are otherwise in violation of or
-          non-compliance with these Terms of Use.
+          (ii) are not reasonably pertinent to the subject matter of Futures
+          Engine, (iii) are illegible, incomplete, forged, altered or
+          mechanically produced or reproduced, or (iv) are otherwise in
+          violation of or non-compliance with these Terms of Use.
         </p>
       </div>
       <div className={h4Mobile}>Representations and Warranties</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
         Summary: You confirm that your Submission is your original work,
         accurate and truthful, and does not violate any law, these Terms, or any
-        other person&apos;s rights.
+        other person’s rights.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>By submitting an application, you represent and warrant that:</p>
@@ -304,6 +300,15 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
             otherwise, which would in any manner or to any extent prevent or
             restrict making a Submission.
           </li>
+          <li>
+            You are not on any sanctions or restricted party list maintained by
+            any agency of the United States Government, including but not
+            limited to the Departments of the Treasury, Commerce, and State
+            (e.g., the Specially Designated Nationals and Blocked Persons List
+            maintained by the U.S. Office of Foreign Asset Control (OFAC)),
+            whether currently listed, or subsequently listed at any time during
+            your use of the Services.
+          </li>
         </ol>
       </div>
       <div className={h4Mobile}>Termination of Services; Disclaimers</div>
@@ -311,12 +316,12 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         Summary: We may terminate or modify the Services for any reason,
         including if you violate these Terms. We are not responsible for errors
         that may affect the Services or the processing and review of your
-        application.{' '}
+        application.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
           We reserve the right at our sole discretion and at any time to
-          terminate this agreement and your right to use the Services if you
+          terminate these Terms and your right to use the Services if you
           violate or fail to comply with the Terms, tamper with the application
           process, and/or act in any way that would, in any way, discredit or
           harm the reputation of us or our affiliates or partners, and/or to
@@ -345,7 +350,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           including without limitation any malfunctions or failures of computer
           hardware, computer software, networks or telephone equipment or any
           technical problems or traffic congestion on the Internet or at any
-          website or any combination thereof.{' '}
+          website or any combination thereof.
         </p>
         <p>
           We are not responsible for any typographical or other error in the
@@ -355,7 +360,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={h4Mobile}>Other Services and Features</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
         Summary: We are not responsible for third-party services that we may
-        invite you to use in connection with CommonApp.
+        invite you to use in connection with Futures Engine.
       </div>
       <div className={`${p2Mobile}`}>
         For your convenience and information, the Services may provide links to
@@ -379,7 +384,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           Material (defined below) infringes your copyright or other
           intellectual property right, you may notify our designated agent by
           email at dmca@schmidtfutures.com or by mail to 155 W. 23rd St., 5th
-          Floor, New York, NY 10011, Attn: CommonApp.
+          Floor, New York, NY 10011, Attn: Futures Engine.
         </p>
         <p>You must include the following information in your complaint:</p>
         <ul className="list-disc pl-4">
@@ -388,25 +393,21 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
             that you claim has been infringed;
           </li>
           <li>
-            {' '}
             a description of the material that you claim is infringing with
             respect to the Services;
           </li>
-          <li> your email address, mailing address and telephone number;</li>
+          <li>your email address, mailing address and telephone number;</li>
           <li>
-            {' '}
             a statement by you that you have a good faith belief that the use of
             the material on the Services is not authorized by the copyright
-            owner, the copyright owner&apos;s agent or law;
+            owner, the copyright owner’s agent or law;
           </li>
           <li>
-            {' '}
             a statement by you that the above information in your notice is
             accurate and, under penalty of perjury, that you are the copyright
-            owner or authorized to act on the copyright owner&apos;s behalf; and
+            owner or authorized to act on the copyright owner’s behalf; and
           </li>
           <li>
-            {' '}
             an electronic or physical signature of the copyright owner or person
             authorized to act on behalf of the copyright owner.
           </li>
@@ -414,15 +415,15 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       </div>
       <div className={h4Mobile}>Warranty Disclaimer</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
-        Summary: We don&apos;t make any promises that the Services are perfect
-        or will help you achieve any particular result.
+        Summary: We don’t make any promises that the Services are perfect or
+        will help you achieve any particular result.
       </div>
       <div className={`space-y-4 ${largeCaption} mb-8`}>
         <p>
-          THE SERVICES ARE PROVIDED ON AN &quot;AS IS&quot; AND “AS AVAILABLE”
-          BASIS. WE MAKE NO REPRESENTATIONS OR WARRANTIES OF ANY KIND THAT THE
-          SERVICES WILL: MEET YOUR REQUIREMENTS, BE TIMELY, SECURE, ERROR FREE
-          OR UNINTERRUPTED, BE FREE OF MALWARE OR OTHER HARMFUL CODE, OR BE
+          THE SERVICES ARE PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS. WE
+          MAKE NO REPRESENTATIONS OR WARRANTIES OF ANY KIND THAT THE SERVICES
+          WILL: MEET YOUR REQUIREMENTS, BE TIMELY, SECURE, ERROR FREE OR
+          UNINTERRUPTED, BE FREE OF MALWARE OR OTHER HARMFUL CODE, OR BE
           ACCURATE, COMPLETE, OR RELIABLE.
         </p>
         <p>
@@ -440,7 +441,6 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       </div>
       <div className={h4Mobile}>Limitation of Liability</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
-        {' '}
         Summary: We will not be responsible for certain extra damages that are
         typically excluded from consumer agreements.
       </div>
@@ -453,7 +453,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           ARISING OUT OF OR RELATED TO YOUR ACCESS TO OR USE OF THE SERVICES,
           WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE),
           DELICT OR ANY OTHER LEGAL THEORY AND WHETHER OR NOT WE HAVE BEEN
-          ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.{' '}
+          ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
         </p>
         <p>
           BECAUSE SOME JURISDICTIONS DO NOT ALLOW FOR THE EXCLUSION OF DAMAGES,
@@ -464,7 +464,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={h4Mobile}>Indemnity</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
         Summary: If we face claims or liabilities based on actions or omissions
-        within your control, you will defend us and cover any resulting damages.{' '}
+        within your control, you will defend us and cover any resulting damages.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
@@ -474,25 +474,23 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           representatives, from and against all claims, liabilities, actions,
           suits, proceedings, assessments, judgments, decrees, losses, expenses,
           damages, settlement funds, fines, penalties and associated costs and
-          expenses, including reasonable attorneys&apos; fees, arising out of or
-          related to (1) your use or misuse of the Services (which for the sake
-          of clarity includes your application to or participation in
-          CommonApp); (2) your breach of these Terms; (3) any User Materials
-          submitted or provided to us; or (4) our use of your User Materials
-          and/or the exercise of any rights granted to us, including without
-          limitation claims based on rights of privacy, rights of publicity,
-          false light, defamation, copyright, patent and/or trademark
-          infringement relating to your User Material. We reserve the right to
-          assume the exclusive defense and control of any matter that is subject
-          to indemnification under this section, in which event you agree to
-          cooperate with any reasonable requests assisting our defense of such
-          matter.
+          expenses, including reasonable attorneys’ fees, arising out of or
+          related to (1) your use or misuse of the Services; (2) your breach of
+          these Terms; (3) any User Materials submitted or provided to us; or
+          (4) our use of your User Materials and/or the exercise of any rights
+          granted to us, including without limitation claims based on rights of
+          privacy, rights of publicity, false light, defamation, copyright,
+          patent and/or trademark infringement relating to your User Material.
+          We reserve the right to assume the exclusive defense and control of
+          any matter that is subject to indemnification under this section, in
+          which event you agree to cooperate with any reasonable requests
+          assisting our defense of such matter.
         </p>
       </div>
       <div className={h4Mobile}>Release of Claims</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
         Summary: You will not bring claims against us if we exercise the rights
-        you&apos;ve granted us under this agreement.
+        you’ve granted us under these Terms.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
@@ -501,9 +499,8 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           agents, suppliers and representatives from and against the full amount
           of all claims, liabilities, actions, suits, proceedings, assessments,
           judgments, decrees, losses, fees, damages, settlement funds, and
-          associated costs and expenses including attorney&apos;s fees arising
-          from or in connection with your use of the Services (including
-          application to or participation in CommonApp), any use of User
+          associated costs and expenses including attorney’s fees arising from
+          or in connection with your use of the Services, any use of User
           Material, and/or the exercise of any rights granted to us, including
           without limitation claims based on rights of privacy, rights of
           publicity, false light, defamation, copyright, patent and/or trademark
@@ -512,7 +509,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       </div>
       <div className={h4Mobile}>Governing Law</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
-        Summary: New York law applies to this agreement.
+        Summary: New York law applies to these Terms.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
@@ -527,18 +524,16 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       </div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
         Summary: We are agreeing to use arbitration, instead of litigation in
-        court, to resolve any legal disputes that may arise.{' '}
+        court, to resolve any legal disputes that may arise.
       </div>
       <div className={`space-y-4 ${largeCaption} mb-8`}>
         <p>
           TO THE FULLEST EXTENT PERMITTED BY LAW, YOU AND WE AGREE TO ARBITRATE
           ANY CONTROVERSY, CLAIM OR DISPUTE ARISING OUT OF OR IN ANY WAY RELATED
-          TO YOUR USE OF THE SERVICES (INCLUDING FOR THE SAKE OF CLARITY YOUR
-          APPLICATION TO OR PARTICIPATION IN COMMONAPP), INCLUDING BUT NOT
-          LIMITED TO CLAIMS BASED ON CONTRACT, TORT, NEGLIGENCE, STATUTORY OR
-          REGULATORY PROVISIONS. EACH PARTY IS GIVING UP ITS RIGHT TO SUE IN
-          COURT AND TO HAVE ANY CONTROVERSY, CLAIM OR DISPUTE HEARD BY A JUDGE
-          OR JURY.
+          TO YOUR USE OF THE SERVICES, INCLUDING BUT NOT LIMITED TO CLAIMS BASED
+          ON CONTRACT, TORT, NEGLIGENCE, STATUTORY OR REGULATORY PROVISIONS.
+          EACH PARTY IS GIVING UP ITS RIGHT TO SUE IN COURT AND TO HAVE ANY
+          CONTROVERSY, CLAIM OR DISPUTE HEARD BY A JUDGE OR JURY.
         </p>
         <p>
           THIS AGREEMENT TO ARBITRATE ALSO APPLIES TO THRESHOLD ARBITRABILITY
@@ -547,8 +542,8 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           ARBITRATION. YOU ALSO AGREE THAT ANY ARBITRATION MAY ONLY BE BROUGHT
           IN YOUR AND OUR INDIVIDUAL CAPACITIES, NOT AS A CLASS, PURPORTED CLASS
           OR REPRESENTATIVE ACTION. THE ARBITRATOR MAY NOT CONSOLIDATE MORE THAN
-          ONE INDIVIDUAL OR ENTITY&apos;S CLAIMS, AND MAY NOT OTHERWISE PRESIDE
-          OVER ANY FORM OF A REPRESENTATIVE OR CLASS PROCEEDING.
+          ONE INDIVIDUAL OR ENTITY’S CLAIMS, AND MAY NOT OTHERWISE PRESIDE OVER
+          ANY FORM OF A REPRESENTATIVE OR CLASS PROCEEDING.
         </p>
         <p className={`${p2Mobile} normal-case`}>
           The mutual promise by you and us to arbitrate any and all disputes,
@@ -585,20 +580,19 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           therein state the essential findings and conclusions on which the
           award is based. Judgment on the award may be entered in any court
           having jurisdiction thereof. Payment of all filing, administration and
-          arbitrator fees will be governed by the AAA&apos;s rules.
+          arbitrator fees will be governed by the AAA’s rules.
         </p>
         <p className={`${p2Mobile} normal-case`}>
           If this arbitration clause is held unenforceable or arbitration is for
-          any other reason not available, any disputes under this Agreement
-          shall be heard in a court of competent jurisdiction in New York, New
-          York.
+          any other reason not available, any disputes under these Terms shall
+          be heard in a court of competent jurisdiction in New York, New York.
         </p>
       </div>
       <div className={h4Mobile}>General</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
         Summary: This clause contains common general provisions, such as how the
         contract will be interpreted and enforced, and whether it can be
-        assigned.{' '}
+        assigned.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
@@ -620,15 +614,15 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
           between us. We may assign our rights and obligations under these Terms
           without your consent in the event of a reorganization, consolidation,
           or merger, or a transfer of all or substantially all of our assets or
-          business operations to a successor entity. This Agreement shall inure
-          to the benefit of and be binding upon you, us, and our successors and
+          business operations to a successor entity. These Terms shall inure to
+          the benefit of and be binding upon you, us, and our successors and
           assigns. The word “including” as used in these Terms shall be read to
           mean “including but not limited to.”
         </p>
       </div>
       <div className={h4Mobile}>Modifications</div>
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
-        Summary: We may make changes to the Services and to this agreement.
+        Summary: We may make changes to the Services and to these Terms.
       </div>
       <div className={`${p2Mobile} space-y-4`}>
         <p>
@@ -645,7 +639,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         </p>
         <p>Change log</p>
         <ul className="list-disc pl-4">
-          <li>April __, 2023 - Terms of Use first published.</li>
+          <li>May 12, 2023 - Terms of Use first published.</li>
         </ul>
       </div>
       <div className={h4Mobile}>Electronic Communications</div>
@@ -666,8 +660,8 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={`${p2Mobile} space-y-4`}>
         <p>
           If you have any questions about these Terms, please email us at
-          info@commonapp.org. You also may write to: 155 W. 23rd St., 5th Floor,
-          New York, NY 10011, Attn: CommonApp.
+          support@tekalo.org. You also may write to: 155 W. 23rd St., 5th Floor,
+          New York, NY 10011, Attn: Futures Engine.
         </p>
       </div>
     </div>
