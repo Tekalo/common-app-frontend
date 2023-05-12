@@ -5,6 +5,10 @@ on:
     branches: [develop]
     paths: ['src/modules/**/*']
 
+  push:
+    branches:
+      - develop
+
   workflow_dispatch:
 
 jobs:
