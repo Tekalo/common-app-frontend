@@ -52,7 +52,7 @@ const EEOC_LABEL = (
 
 const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
-  useEffect(executeScroll);
+  useEffect(executeScroll, []);
 
   return (
     <Form<NewOrgType>

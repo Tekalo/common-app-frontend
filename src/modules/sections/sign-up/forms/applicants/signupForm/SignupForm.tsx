@@ -63,7 +63,7 @@ const SignupForm: React.FC<ISignupForm> = ({
   setShowPrivacyModal,
 }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
-  useEffect(executeScroll);
+  useEffect(executeScroll, []);
 
   const [contactValue, setContactValue] = useState<string>();
 
