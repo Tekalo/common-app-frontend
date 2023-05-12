@@ -42,7 +42,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
       multiple={true}
     >
       {({ open }) => (
-        <div className="relative z-20 text-left">
+        <div className="text-left">
           <Listbox.Label
             className={`text-component-extra-small ${
               disabled ? 'text-gray-2' : 'text-black-text'
@@ -97,7 +97,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="absolute z-10 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none">
+              <Listbox.Options className="absolute z-20 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none">
                 {selectOptions.map((option) => (
                   <Listbox.Option
                     key={option.value}

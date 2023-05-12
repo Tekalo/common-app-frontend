@@ -116,7 +116,7 @@ export const IFilledSVG = (
 
 export const IOutlineSVG: React.FC<ISVGProps> = ({ color, height, width }) => (
   <svg
-    className="relative z-10"
+    className=""
     width={width}
     height={height}
     viewBox="0 0 16 16"

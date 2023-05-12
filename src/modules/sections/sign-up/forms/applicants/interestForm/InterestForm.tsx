@@ -1,4 +1,4 @@
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { INTEREST_FORM_TEXT, US_DIGITAL_RESPONSE_URL } from '@/lang/en';
 import {
   AttributionOtpions,
@@ -324,6 +324,7 @@ const InterestForm: React.FC<IInterestForm> = ({
               className="w-full text-component-large"
               label="Save your progress"
               type="button"
+              variant={ButtonVariant.OUTLINED}
               onClick={doSave}
             />
             <Button
