@@ -224,13 +224,13 @@ const SearchStatus = z.enum(['active', 'passive', 'future'], {
 const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/g;
 
 const PhoneNumber = z.string().refine((phoneNumber: string) => {
-  return new RegExp(phoneRegex).test(phoneNumber);
+  return new RegExp(phoneRegex, 'g').test(phoneNumber);
 });
 
 const OptionalPhoneNumber = z.string().refine(
   (phoneNumber: string) => {
     if (phoneNumber.length) {
-      return new RegExp(phoneRegex).test(phoneNumber);
+      return new RegExp(phoneRegex, 'g').test(phoneNumber);
     } else {
       return true;
     }
