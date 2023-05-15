@@ -55,7 +55,9 @@ const RoleForm: React.FC<IRoleForm> = ({
   activeIndex,
   isLastRole,
 }) => {
-  const partTimeForm = !(formType?.length === 1 && formType?.includes('full'));
+  const partTimeOnly = formType?.length === 1 && formType?.includes('part');
+  const fullTimeOnly = formType?.length === 1 && formType?.includes('full');
+
   const formRef = useRef<RoleRefType>(null);
   const reviewReadyRef = useRef<boolean>(false);
 
@@ -109,7 +111,7 @@ const RoleForm: React.FC<IRoleForm> = ({
           >
             {/* Description Section */}
             <>
-              <div className={partTimeForm ? '' : 'hidden'}>
+              <div className={fullTimeOnly ? 'hidden' : ''}>
                 <RadioSelectField
                   fieldName="paid"
                   label="Is this role paid or unpaid?"
@@ -132,14 +134,23 @@ const RoleForm: React.FC<IRoleForm> = ({
               />
 
               {/* // HACK: Using the includes is risky here if we ever add a role with a " - " in it it may throw this component off */}
-              <div className={partTimeForm ? 'space-y-8' : 'hidden'}>
+              <div className={fullTimeOnly ? 'hidden' : 'space-y-8'}>
                 <SingleSelectField
                   fieldName="employmentTypeSelect"
                   label="What type of opportunity is this?"
                   placeholder="Choose one"
-                  // TODO: Filter out full time employee here if part time form
                   listOptions={
-                    isPaid
+                    partTimeOnly
+                      ? isPaid
+                        ? EmploymentOptions.filter(
+                            (option) =>
+                              option.value !== 'volunteer' &&
+                              option.value !== 'full-time employee'
+                          )
+                        : EmploymentOptions.filter(
+                            (option) => option.value !== 'full-time employee'
+                          )
+                      : isPaid
                       ? EmploymentOptions.filter(
                           (option) => option.value !== 'volunteer'
                         )
@@ -192,9 +203,9 @@ const RoleForm: React.FC<IRoleForm> = ({
             <>
               <FreeTextField
                 fieldName="salaryRange"
-                label={partTimeForm ? 'Pay range' : 'Salary range'}
+                label={fullTimeOnly ? 'Salary range' : 'Pay range'}
                 placeholder={
-                  partTimeForm ? 'Eg: $40 - 60 / hour' : 'Enter a range'
+                  fullTimeOnly ? 'Enter a range' : 'Eg: $40 - 60 / hour'
                 }
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.salaryRange}
@@ -202,7 +213,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 disabled={!isPaid}
               />
 
-              {partTimeForm && (
+              {!fullTimeOnly && (
                 <FreeTextField
                   fieldName="desiredHoursPerWeek"
                   label="Desired hours per week (optional)"
@@ -222,7 +233,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 rowAlign={true}
                 listOptions={YesNoOptions}
                 isSubmitted={isSubmitted}
-                initialValue={previousForm?.fullyRemote || false}
+                initialValue={previousForm?.fullyRemote ?? false}
                 validator={z.boolean()}
               />
 
@@ -259,7 +270,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 validator={OptionalDate}
               />
 
-              {partTimeForm && (
+              {partTimeOnly && (
                 <FreeTextField
                   fieldName="desiredEndDate"
                   label="Desired end date (optional)"
@@ -311,7 +322,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 rowAlign={true}
                 listOptions={YesNoOptions}
                 isSubmitted={isSubmitted}
-                initialValue={previousForm?.similarStaffed || true}
+                initialValue={previousForm?.similarStaffed ?? false}
                 validator={z.boolean()}
               />
 
