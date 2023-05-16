@@ -47,6 +47,13 @@ export interface IRoleForm {
   handleEditRole: (values: NewRoleType, reviewReady?: boolean) => void;
 }
 
+const filterIfUnpaid = [
+  'full-time employee',
+  'contractor',
+  'consultant',
+  'internship',
+];
+
 const RoleForm: React.FC<IRoleForm> = ({
   formType,
   handleNewRole,
@@ -142,21 +149,25 @@ const RoleForm: React.FC<IRoleForm> = ({
                   listOptions={
                     partTimeOnly
                       ? isPaid
-                        ? EmploymentOptions.filter(
+                        ? // Paid Part Time
+                          EmploymentOptions.filter(
                             (option) =>
                               option.value !== 'volunteer' &&
                               option.value !== 'full-time employee'
                           )
-                        : EmploymentOptions.filter(
-                            (option) => option.value !== 'full-time employee'
-                          )
+                        : // Unpaid Part Time
+                          EmploymentOptions.filter((option) => {
+                            return !filterIfUnpaid.includes(option.value);
+                          })
                       : isPaid
-                      ? EmploymentOptions.filter(
+                      ? // Paid Full Time
+                        EmploymentOptions.filter(
                           (option) => option.value !== 'volunteer'
                         )
-                      : EmploymentOptions.filter(
-                          (option) => option.value !== 'full-time employee'
-                        )
+                      : // Unpaid Full Time
+                        EmploymentOptions.filter((option) => {
+                          return !filterIfUnpaid.includes(option.value);
+                        })
                   }
                   isSubmitted={isSubmitted}
                   initialValue={
