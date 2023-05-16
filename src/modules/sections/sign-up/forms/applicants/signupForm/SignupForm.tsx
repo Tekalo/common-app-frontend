@@ -90,7 +90,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           <FreeTextField
             fieldName="email"
             label="Email"
-            tooltipText="Your email will be used to contact you about your application. It won’t be used for marketing."
+            tooltipText="Your email will be used to contact you about your application. It won’t be used for marketing unless you opt in below."
             placeholder="Your email address"
             isSubmitted={isSubmitted}
             initialValue={undefined}
