@@ -54,6 +54,27 @@ const filterIfUnpaid = [
   'internship',
 ];
 
+// returns a list of roles based on whether the role is paid and part time
+const getEmploymentOptions = (isPaid = true, isPartTime: boolean) => {
+  if (isPaid && isPartTime) {
+    // If they are paid and part time, remove FTE and volunteer
+    return EmploymentOptions.filter(
+      (option) =>
+        option.value !== 'volunteer' && option.value !== 'full-time employee'
+    );
+  } else if (isPaid && !isPartTime) {
+    // If they are paid and full time, remove volunteer
+    return EmploymentOptions.filter((option) => option.value !== 'volunteer');
+  } else if ((!isPaid && isPartTime) || (!isPaid && !isPartTime)) {
+    // If they are unpaid and full or part time, remove filterIfUnpaid options
+    return EmploymentOptions.filter((option) => {
+      return !filterIfUnpaid.includes(option.value);
+    });
+  } else {
+    return EmploymentOptions;
+  }
+};
+
 const RoleForm: React.FC<IRoleForm> = ({
   formType,
   handleNewRole,
@@ -146,29 +167,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                   fieldName="employmentTypeSelect"
                   label="What type of opportunity is this?"
                   placeholder="Choose one"
-                  listOptions={
-                    partTimeOnly
-                      ? isPaid
-                        ? // Paid Part Time
-                          EmploymentOptions.filter(
-                            (option) =>
-                              option.value !== 'volunteer' &&
-                              option.value !== 'full-time employee'
-                          )
-                        : // Unpaid Part Time
-                          EmploymentOptions.filter((option) => {
-                            return !filterIfUnpaid.includes(option.value);
-                          })
-                      : isPaid
-                      ? // Paid Full Time
-                        EmploymentOptions.filter(
-                          (option) => option.value !== 'volunteer'
-                        )
-                      : // Unpaid Full Time
-                        EmploymentOptions.filter((option) => {
-                          return !filterIfUnpaid.includes(option.value);
-                        })
-                  }
+                  listOptions={getEmploymentOptions(isPaid, partTimeOnly)}
                   isSubmitted={isSubmitted}
                   initialValue={
                     previousForm?.employmentType.includes(' - ')
