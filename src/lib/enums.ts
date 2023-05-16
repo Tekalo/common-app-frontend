@@ -159,6 +159,7 @@ const Roles = z.enum(
     'product designer',
     'ux/ui designer',
     'ux researcher',
+    'data analyst',
     'other',
   ],
   { errorMap: defaultEnumErrorMap }
