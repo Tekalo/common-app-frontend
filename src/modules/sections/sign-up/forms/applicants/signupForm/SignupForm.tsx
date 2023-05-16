@@ -65,6 +65,7 @@ const SignupForm: React.FC<ISignupForm> = ({
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
+  // TODO: Use form values like in candidate flow
   const [contactValue, setContactValue] = useState<string>();
 
   return (

@@ -14,12 +14,12 @@ const Faq: React.FC<IFaq> = ({ faqItems, className }) => {
         className ? className : ''
       }`}
     >
-      <dl className="space-y-3 divide-y divide-gray-3 border-b border-b-gray-3 pb-8 md:space-y-8">
+      <dl className="space-y-3 divide-y divide-gray-3 border-b border-b-gray-3 pb-8 md:space-y-6">
         {faqItems.map((faq, i) => (
           <Disclosure
             as="div"
             key={i}
-            className="pt-3 md:pt-8"
+            className="pt-3 md:pt-6"
             defaultOpen={i == 0 ? true : false}
           >
             {({ open }) => (
@@ -27,10 +27,10 @@ const Faq: React.FC<IFaq> = ({ faqItems, className }) => {
                 <dt>
                   <Disclosure.Button
                     className={`${
-                      open ? 'text-blue-1' : `text-black-text`
+                      open ? 'text-blue-1' : `text-black-text hover:text-blue-1`
                     } flex w-full items-start justify-between text-left`}
                   >
-                    <span className="text-h4-mobile lg:text-h4-desktop">
+                    <span className="font-display text-h4-mobile lg:text-h4-desktop">
                       {faq.questionText}
                     </span>
                     <span className="ml-6 flex h-7 items-center">
