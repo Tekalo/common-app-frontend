@@ -6,7 +6,7 @@ import {
   SkillOptions,
   VisaSponsorshipOptions,
   YesNoOptions,
-  YOERangeOptions,
+  YOERangeOptions
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -18,13 +18,13 @@ import {
   Roles,
   Skills,
   VisaSponsorship,
-  YOE_RANGE,
+  YOE_RANGE
 } from '@/lib/enums';
 import {
   CommitmentType,
   NewRoleType,
   PartialNewRoleType,
-  RoleRefType,
+  RoleRefType
 } from '@/lib/types';
 import {
   FreeTagField,
@@ -32,7 +32,7 @@ import {
   LongTextField,
   MultiSelectField,
   RadioSelectField,
-  SingleSelectField,
+  SingleSelectField
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { SyntheticEvent, useEffect, useRef } from 'react';
@@ -204,9 +204,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               <FreeTextField
                 fieldName="salaryRange"
                 label={fullTimeOnly ? 'Salary range' : 'Pay range'}
-                placeholder={
-                  fullTimeOnly ? 'Enter a range' : 'Eg: $40 - 60 / hour'
-                }
+                placeholder={'Enter a range'}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.salaryRange}
                 validator={isPaid ? RequiredString : OptionalString}
