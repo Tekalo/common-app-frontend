@@ -3,7 +3,6 @@
 import { CONTACT_US_MAILTO_LINK } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
-import { SyntheticEvent } from 'react';
 
 export interface ILiteNavbar extends React.ComponentPropsWithoutRef<'header'> {
   title?: string;
@@ -14,12 +13,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
   title,
   ...headerProps
 }) => {
-  const { isAuthenticated, isLoading, logout } = useAuth0();
-
-  const handleAuthentication = (e: SyntheticEvent) => {
-    e.preventDefault();
-    logout({ logoutParams: { returnTo: window.location.origin } });
-  };
+  const { isLoading } = useAuth0();
 
   return (
     <nav className="fixed z-30 w-screen bg-white">
@@ -34,7 +28,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
                 className="max-w-[96px] py-1 md:max-w-[132px]"
               />
             </Link>
-            <div className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-10 md:pt-2 lg:text-p2-desktop">
+            <div className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2 md:text-p2-mobile lg:text-p2-desktop">
               {title}
             </div>
           </div>
@@ -49,7 +43,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
               <>
                 {/* Contact Us Button */}
                 <a
-                  className="cursor-pointer text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
+                  className="cursor-pointer pt-1 text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
                   href={CONTACT_US_MAILTO_LINK}
                 >
                   Contact us
