@@ -5,3 +5,5 @@ describe('Candidate Application', () => {
     expect(true).to.equal(true);
   });
 });
+
+export {};
