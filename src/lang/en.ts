@@ -206,8 +206,8 @@ const HOME_FAQ_TEXT = {
     'On Tekalo, there will be many types of opportunities including: full-time or part-time, paid or unpaid positions, including part-time employment, contract, advisory and volunteer.',
   APPLICANT_QUESTION_4: 'Who can apply?',
   APPLICANT_ANSWER_4: [
-    'The application is open to everyone around the world who meets the eligibility requirements (see the ',
-    'termsLink',
+    'The application is open to everyone around the world who meets the eligibility requirements (',
+    'see the terms',
     ')! We welcome candidates from all backgrounds, career paths and experience levels to apply.',
   ],
   APPLICANT_QUESTION_5: 'Who will review and have access to my application?',

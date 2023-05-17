@@ -33,7 +33,7 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
         <>
           <a
             href={partner.url}
-            className="text-blue-1 underline"
+            className="whitespace-nowrap text-blue-1 underline"
             target="_blank"
             rel="noreferrer"
             key={i}
@@ -148,7 +148,11 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
       answerText: (
         <>
           {HOME_FAQ_TEXT.APPLICANT_ANSWER_4[0]}
-          <Link href="/terms" target="_blank" className="text-blue-1 underline">
+          <Link
+            href="/terms"
+            target="_blank"
+            className="whitespace-nowrap text-blue-1 underline"
+          >
             {HOME_FAQ_TEXT.APPLICANT_ANSWER_4[1]}
           </Link>
           {HOME_FAQ_TEXT.APPLICANT_ANSWER_4[2]}
