@@ -1,10 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config({ path: '.env.local' });
 import { defineConfig } from 'cypress';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.local' });
 
 export default defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
+    setupNodeEvents(_on, config) {
       config.baseUrl =
         process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001';
       config.env.auth0_username = process.env.NEXT_PUBLIC_TEST_USER;
