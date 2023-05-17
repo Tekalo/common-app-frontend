@@ -64,7 +64,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
             if (res.status === 404) {
-              // TODO: Do we need to an
+              // TODO: Do we need to anything here?
               console.log('No submissions for this user');
             } else {
               handleCaughtErrorResponse(res);
@@ -181,7 +181,6 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             ) : (
               <>
                 <div className="text-component-medium text-blue-1">
-                  {/* TODO: This link should vary depending on what info we have on the user! */}
                   <Link
                     href={
                       applicantExists
