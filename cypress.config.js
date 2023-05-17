@@ -12,6 +12,8 @@ module.exports = defineConfig({
       config.env.auth0_domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN;
       config.env.auth0_audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE;
       config.env.auth0_client_id = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID;
+      config.env.cf_access_id = process.env.CF_ACCESS_CLIENT_ID;
+      config.env.cf_access_secret = process.env.CF_ACCESS_CLIENT_SECRET;
 
       return config;
     },
