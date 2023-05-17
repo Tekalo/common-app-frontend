@@ -1,9 +1,8 @@
-import { defineConfig } from 'cypress';
-import dotenv from 'dotenv';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { defineConfig } = require('cypress');
+require('dotenv').config({ path: '.env.local' });
 
-dotenv.config({ path: '.env.local' });
-
-export default defineConfig({
+module.exports = defineConfig({
   e2e: {
     setupNodeEvents(_on, config) {
       config.baseUrl =

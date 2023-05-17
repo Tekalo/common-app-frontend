@@ -189,7 +189,6 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
-          pnpm i -g typescript
 
       - name: Cypress run
 
