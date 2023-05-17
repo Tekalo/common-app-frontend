@@ -8,7 +8,8 @@ on:
   push:
     branches:
       - test/*
-
+    branches-ignore:
+      - test/pre-launch
     # OR #
 
   # Trigger the workflow on pull requests
