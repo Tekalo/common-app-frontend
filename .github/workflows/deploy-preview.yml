@@ -192,6 +192,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
+      - name: Install dependencies and Build (for Cloudflare Pages)
+        run: |
+          pnpm install
+          pnpm build:for-edge
+
       - name: Cypress run
 
         env:
@@ -204,5 +209,4 @@ jobs:
 
         uses: cypress-io/github-action@v5
         with:
-          build: npm run build
-          start: npm start
+          start: pnpm start
