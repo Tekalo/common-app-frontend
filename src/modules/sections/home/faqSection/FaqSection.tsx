@@ -30,15 +30,17 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
     <>
       {HOME_FAQ_TEXT.ORG_ANSWER_8.text}
       {HOME_FAQ_TEXT.ORG_ANSWER_8.partners.map((partner, i) => (
-        <a
-          href={partner.url}
-          className="text-blue-1 underline"
-          target="_blank"
-          rel="noreferrer"
-          key={i}
-        >
-          {partner.name}
-        </a>
+        <>
+          <a
+            href={partner.url}
+            className="whitespace-nowrap text-blue-1 underline"
+            target="_blank"
+            rel="noreferrer"
+            key={i}
+          >
+            {partner.name}
+          </a>{' '}
+        </>
       ))}
     </>
   );
@@ -143,7 +145,19 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
     },
     {
       questionText: HOME_FAQ_TEXT.APPLICANT_QUESTION_4,
-      answerText: HOME_FAQ_TEXT.APPLICANT_ANSWER_4,
+      answerText: (
+        <>
+          {HOME_FAQ_TEXT.APPLICANT_ANSWER_4[0]}
+          <Link
+            href="/terms"
+            target="_blank"
+            className="whitespace-nowrap text-blue-1 underline"
+          >
+            {HOME_FAQ_TEXT.APPLICANT_ANSWER_4[1]}
+          </Link>
+          {HOME_FAQ_TEXT.APPLICANT_ANSWER_4[2]}
+        </>
+      ),
     },
     {
       questionText: HOME_FAQ_TEXT.APPLICANT_QUESTION_5,
