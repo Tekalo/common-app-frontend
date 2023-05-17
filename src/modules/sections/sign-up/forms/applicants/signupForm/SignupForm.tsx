@@ -5,6 +5,7 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -12,7 +13,6 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import {
@@ -159,7 +159,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             validator={PrivacyPolicy}
           />
 
-          {/* Terms of Service */}
+          {/* Terms of Use */}
           <BooleanField
             fieldName="acceptedTerms"
             label={TERMS_DISCLAIMER}

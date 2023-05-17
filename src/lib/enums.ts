@@ -13,7 +13,7 @@ const errorMessages = {
 
   privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
   required: 'This is a required field',
-  termsRequired: 'You must agree to the Terms of Service',
+  termsRequired: 'You must agree to the Terms of Use',
   eoeRequired:
     'Tekalo only works with Equal Opportunity Employers as defined by the EEOC.',
   unknownError: 'An unknown error has occurred',
