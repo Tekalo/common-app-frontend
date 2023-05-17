@@ -116,7 +116,7 @@ const HOME_FAQ_TEXT = {
   ORG_QUESTION_1: 'What types of organizations can apply?',
   ORG_ANSWER_1:
     'All organizations must be impact-driven and based in the United States. We accept applications from 501(c)(3) organizations. Other types of organizations are welcome to submit opportunities and will be considered on a case by case basis. All organizations must go through our vetting process. Every organization has to be an Equal Opportunity Employer (as defined by the EEOC).',
-  ORG_QUESTION_2: 'What types of roles can Tekalo help me recruit for?',
+  ORG_QUESTION_2: 'What types of roles can Tekalo help me recruitfor?',
   ORG_ANSWER_2:
     'We can currently help you recruit software engineers, product managers, UI/UX and product designers, as well as data analysts. If you are looking to recruit for a different type of technical role we would love to hear from you! You may contact us using the "Contact Us" form at the bottom of this page.',
   ORG_QUESTION_3: 'What types of positions can Tekalo help me recruit for?',
@@ -154,7 +154,7 @@ const HOME_FAQ_TEXT = {
       text: ' design an experience that is seamless and accessible for all',
     },
     {
-      title: 'Scalability:',
+      title: 'Scalability: ',
       text: 'match more open impact-driven opportunities with tech talent to build a better world',
     },
   ],
@@ -187,7 +187,7 @@ const HOME_FAQ_TEXT = {
   },
   ORG_QUESTION_10: 'I would like for my account and data to be deleted.',
   ORG_ANSWER_10: [
-    'You can submit a deletion request through your settings or simply email ',
+    'You can submit a deletion request by simply emailing ',
     'privacy@tekalo.org',
     ' and request that your data be deleted. Please note that we have to retain some information for legal and technical purposes, such as your agreement with us and that we deleted your data.',
   ],
@@ -205,8 +205,11 @@ const HOME_FAQ_TEXT = {
   APPLICANT_ANSWER_3:
     'On Tekalo, there will be many types of opportunities including: full-time or part-time, paid or unpaid positions, including part-time employment, contract, advisory and volunteer.',
   APPLICANT_QUESTION_4: 'Who can apply?',
-  APPLICANT_ANSWER_4:
-    'The application is open to everyone around the world who meets the eligibility requirements (see the termsLink )! We welcome candidates from all backgrounds, career paths and experience levels to apply.',
+  APPLICANT_ANSWER_4: [
+    'The application is open to everyone around the world who meets the eligibility requirements (see the ',
+    'termsLink',
+    ')! We welcome candidates from all backgrounds, career paths and experience levels to apply.',
+  ],
   APPLICANT_QUESTION_5: 'Who will review and have access to my application?',
   APPLICANT_ANSWER_5:
     'Your assigned Tekalo Talent Connector will be the one reviewing your application. Other key members of the Tekalo team will also have access to your application. If you indicated an interest in state and local government opportunities, a team at U.S. Digital Response will also receive your application details. We will never share your application with any organization/ employer unless you explicitly agree by communicating to your Talent Connector that your info may be shared with that specific organization.',
