@@ -1,4 +1,5 @@
 import { PRIVACY_LINK } from '@/lang/en';
+import Link from 'next/link';
 
 export interface ITermsAndConditions {}
 
@@ -47,9 +48,14 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
         <p>
           ARBITRATION NOTICE: THESE TERMS CONTAIN A BINDING ARBITRATION
           AGREEMENT INCLUDING A WAIVER OF ANY RIGHT TO PARTICIPATE IN A CLASS
-          ACTION LAWSUIT OR CLASS-WIDE ARBITRATION. PLEASE SEE THE ARBITRATION
-          AGREEMENT AND CLASS ACTION WAIVER SECTION BELOW FOR ADDITIONAL
-          DETAILS.
+          ACTION LAWSUIT OR CLASS-WIDE ARBITRATION. PLEASE SEE THE{' '}
+          <Link
+            href={'#arbitration-agreement'}
+            className="cursor-pointer text-blue-1 underline underline-offset-4"
+          >
+            ARBITRATION AGREEMENT AND CLASS ACTION WAIVER
+          </Link>{' '}
+          SECTION BELOW FOR ADDITIONAL DETAILS.
         </p>
       </div>
 
@@ -511,7 +517,7 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={`${lightBlueBox} mb-4 text-p2-mobile`}>
         Summary: New York law applies to these Terms.
       </div>
-      <div className={`${p2Mobile} space-y-4`}>
+      <div className={`${p2Mobile} space-y-4`} id={'arbitration-agreement'}>
         <p>
           All questions concerning the construction, validity, enforcement and
           interpretation of these Terms shall be governed by and construed in

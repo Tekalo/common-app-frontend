@@ -168,7 +168,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={PrivacyPolicy}
           />
-          {/* Terms of Service */}
+          {/* Terms of Use */}
           <BooleanField
             fieldName="acceptedTerms"
             label={TERMS_DISCLAIMER}
