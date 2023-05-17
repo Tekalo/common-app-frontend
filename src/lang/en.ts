@@ -116,7 +116,7 @@ const HOME_FAQ_TEXT = {
   ORG_QUESTION_1: 'What types of organizations can apply?',
   ORG_ANSWER_1:
     'All organizations must be impact-driven and based in the United States. We accept applications from 501(c)(3) organizations. Other types of organizations are welcome to submit opportunities and will be considered on a case by case basis. All organizations must go through our vetting process. Every organization has to be an Equal Opportunity Employer (as defined by the EEOC).',
-  ORG_QUESTION_2: 'What types of roles can Tekalo help me recruitfor?',
+  ORG_QUESTION_2: 'What types of roles can Tekalo help me recruit for?',
   ORG_ANSWER_2:
     'We can currently help you recruit software engineers, product managers, UI/UX and product designers, as well as data analysts. If you are looking to recruit for a different type of technical role we would love to hear from you! You may contact us using the "Contact Us" form at the bottom of this page.',
   ORG_QUESTION_3: 'What types of positions can Tekalo help me recruit for?',
