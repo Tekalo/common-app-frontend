@@ -63,8 +63,12 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
               (await res.json()) as SubmissionResponseType;
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
-            console.log('No submissions for this user');
-            // handleCaughtErrorResponse(res);
+            if (res.status === 404) {
+              // TODO: Do we need to an
+              console.log('No submissions for this user');
+            } else {
+              handleCaughtErrorResponse(res);
+            }
           }
         })
         .catch(handleUncaughtErrorResponse);
