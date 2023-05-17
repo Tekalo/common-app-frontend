@@ -297,7 +297,7 @@ const APPLICANT_FORM_TEXT = {
   },
   TERMS_DISCLAIMER: {
     text: 'I agree to the ',
-    linkText: 'Terms of Service',
+    linkText: 'Terms of Use',
   },
   SUCCESS: {
     title: 'Your application was submitted!',

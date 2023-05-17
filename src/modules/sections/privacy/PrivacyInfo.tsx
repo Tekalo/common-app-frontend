@@ -152,8 +152,8 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           <>
             Contractual necessity
             <br />
-            (You agree to our Terms of Service, whereby we collect your info,
-            review it, and connect you with the opportunities you’ve requested.)
+            (You agree to our Terms of Use, whereby we collect your info, review
+            it, and connect you with the opportunities you’ve requested.)
           </>
         ),
       },
