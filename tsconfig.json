@@ -1,6 +1,7 @@
 {
   "ts-node": {
-    "require": ["tsconfig-paths/register"]
+    "require": ["tsconfig-paths/register"],
+    "esm": true,
   },
   "compilerOptions": {
     "jsx": "preserve",
@@ -29,6 +30,6 @@
     },
     "types": ["@cloudflare/workers-types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "cypress.config.js"],
   "exclude": ["node_modules"]
 }
