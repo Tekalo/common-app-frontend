@@ -3,7 +3,7 @@ describe('Candidate Application', () => {
     console.log(Cypress.env());
     cy.visit('/sign-up/applicants');
 
-    expect(true).to.equal(true);
+    cy.url().should('include', '/sign-up/applicants');
   });
 });
 
