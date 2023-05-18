@@ -280,14 +280,26 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
         <>
           We offer everyone the right to <b>delete</b> their data, <b>access</b>{' '}
           a copy of their data, <b>withdraw consent</b> to data processing,{' '}
-          <b>object to</b> data processing, and <b>rectify</b> their data
-          (correct inaccuracies or supplement incomplete info). For your
-          protection, we have to verify your identity before taking action.
-          Also, we can’t always fully comply with a request, such as when doing
-          so would reveal someone else’s info, or when we’re legally required to
-          retain info. You can submit a deletion request through your account
-          settings. Please contact us at privacy@Tekalo.org to submit other
-          requests or if you have any other data privacy questions.
+          <b>object to</b> data processing, and <b>rectify</b>
+          {
+            " their data (correct inaccuracies or supplement incomplete info). For your protection, we have to verify your identity before taking action. Also, we can't always fully comply with a request, such as when doing so would reveal someone else's info, or when we're legally required to retain info. Candidates can submit a deletion request through their account settings. Organizations can reach out to "
+          }
+          <a
+            href={'mailto:privacy@tekalo.org'}
+            className="cursor-pointer text-blue-1 underline underline-offset-4"
+          >
+            privacy@Tekalo.org
+          </a>
+          {'. Please contact us at '}
+          <a
+            href={'mailto:privacy@tekalo.org'}
+            className="cursor-pointer text-blue-1 underline underline-offset-4"
+          >
+            privacy@Tekalo.org
+          </a>
+          {
+            ' to submit other requests or if you have any other data privacy questions.'
+          }
         </>
       ),
     },
@@ -304,7 +316,6 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       questionText: 'What are your legal bases for processing?',
       answerText: (
         <>
-          Bravo if you care enough about your privacy to read this information!
           Please see below. Note that “Legitimate Interests” refers to something
           that (i) we think is desirable to us or someone else (including you),
           (ii) reasonably expected given the nature of our services, and (iii)
@@ -361,14 +372,26 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
         <>
           We offer everyone the right to <b>delete</b> their data, <b>access</b>{' '}
           a copy of their data, <b>withdraw consent</b> to data processing,{' '}
-          <b>object to</b> data processing, and <b>rectify</b> their data
-          (correct inaccuracies or supplement incomplete info). For your
-          protection, we have to verify your identity before taking action.
-          Also, we can’t always fully comply with a request, such as when doing
-          so would reveal someone else’s info, or when we’re legally required to
-          retain info. You can submit a deletion request through your account
-          settings. Please contact us at privacy@Tekalo.org to submit other
-          requests or if you have any other data privacy questions.
+          <b>object to</b> data processing, and <b>rectify</b>
+          {
+            " their data (correct inaccuracies or supplement incomplete info). For your protection, we have to verify your identity before taking action. Also, we can't always fully comply with a request, such as when doing so would reveal someone else's info, or when we're legally required to retain info. Candidates can submit a deletion request through their account settings. Organizations can reach out to "
+          }
+          <a
+            href={'mailto:privacy@tekalo.org'}
+            className="cursor-pointer text-blue-1 underline underline-offset-4"
+          >
+            privacy@Tekalo.org
+          </a>
+          {'. Please contact us at '}
+          <a
+            href={'mailto:privacy@tekalo.org'}
+            className="cursor-pointer text-blue-1 underline underline-offset-4"
+          >
+            privacy@Tekalo.org
+          </a>
+          {
+            ' to submit other requests or if you have any other data privacy questions.'
+          }
         </>
       ),
     },
@@ -385,7 +408,6 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
       questionText: 'What are your legal bases for processing?',
       answerText: (
         <>
-          Bravo if you care enough about your privacy to read this information!
           Please see below. Note that “Legitimate Interests” refers to something
           that (i) we think is desirable to us or someone else (including you),
           (ii) reasonably expected given the nature of our services, and (iii)
