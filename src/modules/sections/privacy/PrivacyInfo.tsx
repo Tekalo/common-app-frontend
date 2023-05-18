@@ -280,9 +280,9 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
         <>
           We offer everyone the right to <b>delete</b> their data, <b>access</b>{' '}
           a copy of their data, <b>withdraw consent</b> to data processing,{' '}
-          <b>object to</b> data processing, and <b>rectify</b>{' '}
+          <b>object to</b> data processing, and <b>rectify</b>
           {
-            "their data (correct inaccuracies or supplement incomplete info). For your protection, we have to verify your identity before taking action. Also, we can't always fully comply with a request, such as when doing so would reveal someone else's info, or when we're legally required to retain info. Candidates can submit a deletion request through their account settings. Organizations can reach out to privacy@Tekalo.org. Please contact us at privacy@Tekalo.org to submit other requests or if you have any other data privacy questions."
+            " their data (correct inaccuracies or supplement incomplete info). For your protection, we have to verify your identity before taking action. Also, we can't always fully comply with a request, such as when doing so would reveal someone else's info, or when we're legally required to retain info. Candidates can submit a deletion request through their account settings. Organizations can reach out to privacy@Tekalo.org. Please contact us at privacy@Tekalo.org to submit other requests or if you have any other data privacy questions."
           }
         </>
       ),
