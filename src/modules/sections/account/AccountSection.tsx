@@ -4,6 +4,7 @@ import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import {
   ACCOUNT_PAGE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
+  APPLICANT_SIGNUP_LINK,
   DELETE_MODAL,
   PAUSE_MODAL,
   RESUME_MODAL,
@@ -33,6 +34,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const router = useRouter();
   const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
     useAuth0();
+  const [applicantExists, setApplicantExists] = useState(false);
   const [accountName, setAccountName] = useState('');
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   const [matchesPaused, setMatchesPaused] = useState(false);
@@ -61,7 +63,12 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
               (await res.json()) as SubmissionResponseType;
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
-            handleCaughtErrorResponse(res);
+            if (res.status === 404) {
+              // TODO: Do we need to anything here?
+              console.log('No submissions for this user');
+            } else {
+              handleCaughtErrorResponse(res);
+            }
           }
         })
         .catch(handleUncaughtErrorResponse);
@@ -71,11 +78,16 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       get(existingApplicantEndpoint, await getAccessTokenSilently())
         .then(async (res) => {
           if (res.ok) {
+            setApplicantExists(true);
             const accountResponse = (await res.json()) as AccountResponseType;
             setAccountName(accountResponse.name);
             setMatchesPaused(accountResponse.isPaused);
           } else {
-            handleCaughtErrorResponse(res);
+            if (res.status === 404) {
+              setApplicantExists(false);
+            } else {
+              handleCaughtErrorResponse(res);
+            }
           }
         })
         .catch(handleUncaughtErrorResponse);
@@ -169,7 +181,13 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             ) : (
               <>
                 <div className="text-component-medium text-blue-1">
-                  <Link href={APPLICANT_EXPERIENCE_LINK}>
+                  <Link
+                    href={
+                      applicantExists
+                        ? APPLICANT_EXPERIENCE_LINK
+                        : APPLICANT_SIGNUP_LINK
+                    }
+                  >
                     {ACCOUNT_PAGE_TEXT.APP_CONTINUE}
                   </Link>
                 </div>

@@ -47,6 +47,34 @@ export interface IRoleForm {
   handleEditRole: (values: NewRoleType, reviewReady?: boolean) => void;
 }
 
+const filterIfUnpaid = [
+  'full-time employee',
+  'contractor',
+  'consultant',
+  'internship',
+];
+
+// returns a list of roles based on whether the role is paid and part time
+const getEmploymentOptions = (isPaid = true, isPartTime: boolean) => {
+  if (isPaid && isPartTime) {
+    // If they are paid and part time, remove FTE and volunteer
+    return EmploymentOptions.filter(
+      (option) =>
+        option.value !== 'volunteer' && option.value !== 'full-time employee'
+    );
+  } else if (isPaid && !isPartTime) {
+    // If they are paid and full time, remove volunteer
+    return EmploymentOptions.filter((option) => option.value !== 'volunteer');
+  } else if ((!isPaid && isPartTime) || (!isPaid && !isPartTime)) {
+    // If they are unpaid and full or part time, remove filterIfUnpaid options
+    return EmploymentOptions.filter((option) => {
+      return !filterIfUnpaid.includes(option.value);
+    });
+  } else {
+    return EmploymentOptions;
+  }
+};
+
 const RoleForm: React.FC<IRoleForm> = ({
   formType,
   handleNewRole,
@@ -139,30 +167,12 @@ const RoleForm: React.FC<IRoleForm> = ({
                   fieldName="employmentTypeSelect"
                   label="What type of opportunity is this?"
                   placeholder="Choose one"
-                  listOptions={
-                    partTimeOnly
-                      ? isPaid
-                        ? EmploymentOptions.filter(
-                            (option) =>
-                              option.value !== 'volunteer' &&
-                              option.value !== 'full-time employee'
-                          )
-                        : EmploymentOptions.filter(
-                            (option) => option.value !== 'full-time employee'
-                          )
-                      : isPaid
-                      ? EmploymentOptions.filter(
-                          (option) => option.value !== 'volunteer'
-                        )
-                      : EmploymentOptions.filter(
-                          (option) => option.value !== 'full-time employee'
-                        )
-                  }
+                  listOptions={getEmploymentOptions(isPaid, partTimeOnly)}
                   isSubmitted={isSubmitted}
                   initialValue={
                     previousForm?.employmentType.includes(' - ')
                       ? previousForm?.employmentType.split(' - ')[0]
-                      : previousForm?.employmentType ?? 'full-time employee'
+                      : previousForm?.employmentType ?? undefined
                   }
                   validator={EmploymentType}
                 />
@@ -204,15 +214,12 @@ const RoleForm: React.FC<IRoleForm> = ({
               <FreeTextField
                 fieldName="salaryRange"
                 label={fullTimeOnly ? 'Salary range' : 'Pay range'}
-                placeholder={
-                  fullTimeOnly ? 'Enter a range' : 'Eg: $40 - 60 / hour'
-                }
+                placeholder={'Enter a range'}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.salaryRange}
                 validator={isPaid ? RequiredString : OptionalString}
                 disabled={!isPaid}
               />
-
               {!fullTimeOnly && (
                 <FreeTextField
                   fieldName="desiredHoursPerWeek"
@@ -240,7 +247,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               <FreeTextField
                 fieldName="location"
                 label="Location (optional)"
-                placeholder="City, state"
+                placeholder="City, state (separate multiple locations with commas)"
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.location}
                 validator={OptionalString}
@@ -294,7 +301,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.desiredYoe || []}
                 validator={YOE_RANGE.array().min(1)}
               />
-
               <MultiSelectField
                 fieldName="desiredSkills"
                 label="Desired skills for the role (optional)"
@@ -325,7 +331,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.similarStaffed ?? false}
                 validator={z.boolean()}
               />
-
               <LongTextField
                 fieldName="desiredImpactExp"
                 label="Desired impact-related experience or passion that you are looking for in a candidate (optional)"

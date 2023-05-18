@@ -152,8 +152,8 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           <>
             Contractual necessity
             <br />
-            (You agree to our Terms of Service, whereby we collect your info,
-            review it, and connect you with the opportunities you’ve requested.)
+            (You agree to our Terms of Use, whereby we collect your info, review
+            it, and connect you with the opportunities you’ve requested.)
           </>
         ),
       },
@@ -401,35 +401,37 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
   return (
     <div className="px-6 pb-28 md:pb-32">
       <div className="text-center">
-        <div className="mt-10 text-h2-mobile text-black-text lg:text-h2-desktop">
+        <div className="mt-10 font-display text-h2-mobile text-black-text lg:text-h2-desktop">
           Tekalo Privacy Info
         </div>
       </div>
 
-      <div className="mb-11 mt-2-mobile flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-20 lg:mt-2-desktop">
-        {toggleHeaders.map((header, i) => {
-          return (
-            <div
-              key={i}
-              className={`cursor-pointer text-component-small transition-all sm:text-component-large md:text-h4-mobile lg:text-h4-desktop ${
-                (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
-                  ? 'text-gray-2'
-                  : 'text-blue-1 underline underline-offset-8'
-              }`}
-              onClick={() => setForOrgs(header.includes('organizations'))}
-            >
-              {header}
-            </div>
-          );
-        })}
+      <div className="-ml-6 mt-10 w-[calc(100%+48px)] overflow-hidden bg-light-blue pb-4 pl-6 md:pb-6 md:pl-0">
+        <div className="mb-10 mt-2-mobile flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-20 lg:mt-2-desktop">
+          {toggleHeaders.map((header, i) => {
+            return (
+              <div
+                key={i}
+                className={`cursor-pointer text-component-small transition-all sm:text-component-large md:text-h4-mobile lg:text-h4-desktop ${
+                  (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
+                    ? 'text-gray-2 hover:text-blue-1'
+                    : 'text-blue-1 underline underline-offset-8'
+                }`}
+                onClick={() => setForOrgs(header.includes('organizations'))}
+              >
+                {header}
+              </div>
+            );
+          })}
+        </div>
+        <ContentTable
+          className={'w-full'}
+          tableData={
+            isForOrgsSelected ? orgContentTableData : applicantContentTableData
+          }
+        />
       </div>
-      <ContentTable
-        className={'w-[calc(100%+24px)]'}
-        tableData={
-          isForOrgsSelected ? orgContentTableData : applicantContentTableData
-        }
-      />
-      <div className="mt-16 text-center text-h3-mobile lg:text-h3-desktop">
+      <div className="mt-16 text-center font-display text-h3-mobile lg:text-h3-desktop">
         Frequently Asked Questions{' '}
       </div>
       <div className="m-auto mt-2-mobile max-w-content-area md:mt-2-tablet lg:mt-2-desktop">

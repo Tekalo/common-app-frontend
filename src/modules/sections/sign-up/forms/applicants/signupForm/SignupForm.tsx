@@ -5,6 +5,7 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -12,15 +13,16 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
+import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
 import {
   BooleanField,
   FreeTextField,
   RadioGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Form } from 'houseform';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -62,9 +64,12 @@ const SignupForm: React.FC<ISignupForm> = ({
   handleSubmit,
   setShowPrivacyModal,
 }) => {
+  const { isAuthenticated, isLoading, user } = useAuth0();
+
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
+  // TODO: Use form values like in candidate flow
   const [contactValue, setContactValue] = useState<string>();
 
   return (
@@ -77,25 +82,35 @@ const SignupForm: React.FC<ISignupForm> = ({
           className="flex flex-col space-y-8"
         >
           {/* Name */}
-          <FreeTextField
-            fieldName="name"
-            label="Name"
-            placeholder="Full name"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={RequiredString}
-          />
+          {isLoading ? (
+            <LoadingInput label={'Name'} />
+          ) : (
+            <FreeTextField
+              fieldName="name"
+              label="Name"
+              placeholder="Full name"
+              isSubmitted={isSubmitted}
+              initialValue={isAuthenticated ? user?.name : undefined}
+              validator={RequiredString}
+              disabled={isAuthenticated}
+            />
+          )}
 
           {/* Email */}
-          <FreeTextField
-            fieldName="email"
-            label="Email"
-            tooltipText="Your email will be used to contact you about your application. It won’t be used for marketing."
-            placeholder="Your email address"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={Email}
-          />
+          {isLoading ? (
+            <LoadingInput label={'Name'} />
+          ) : (
+            <FreeTextField
+              fieldName="email"
+              label="Email"
+              tooltipText="Your email will be used to contact you about your application. It won’t be used for marketing unless you opt in below."
+              placeholder="Your email address"
+              isSubmitted={isSubmitted}
+              initialValue={isAuthenticated ? user?.email : undefined}
+              validator={Email}
+              disabled={isAuthenticated}
+            />
+          )}
 
           {/* Pronouns */}
           <FreeTextField
@@ -106,7 +121,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={OptionalString}
           />
-
           {/* Search Status */}
           <RadioGroupField
             fieldName="searchStatus"
@@ -116,7 +130,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={SearchStatus}
           />
-
           {/* TODO: Move all fields with dependencies into their own fields
           so we can centralize the logic */}
           {/* Contact Method */}
@@ -132,7 +145,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={PreferredContact}
           />
-
           {/* Phone Number */}
           <FreeTextField
             listenTo={['preferredContact']}
@@ -148,7 +160,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={contactPhoneLinkedValidation}
           />
-
           {/* Privacy Info */}
           <BooleanField
             fieldName="acceptedPrivacy"
@@ -157,8 +168,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={PrivacyPolicy}
           />
-
-          {/* Terms of Service */}
+          {/* Terms of Use */}
           <BooleanField
             fieldName="acceptedTerms"
             label={TERMS_DISCLAIMER}
@@ -166,7 +176,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={ToS}
           />
-
           {/* Follow-up opt-in */}
           <BooleanField
             fieldName="followUpOptIn"
@@ -174,7 +183,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             isSubmitted={isSubmitted}
             initialValue={undefined}
           />
-
           {/* Form Cotnrol Button*/}
           <Button
             className="mt-10 w-full lg:mt-14"

@@ -28,7 +28,6 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
       <div className="mx-auto h-auto max-w-[1440px] xs:px-1 sm:px-4 md:px-14 lg:px-20">
         <div className="space-y-50 flex justify-around sm:justify-between">
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
-
             {/* Logo */}
             <Link href="/" className="">
               <img
@@ -50,7 +49,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
             ) : (
               <>
                 <div
-                  className="cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block md:text-component-extra-large lg:text-component-large"
+                  className="cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
                   onClick={(e) => handleAuthentication(e)}
                 >
                   {logInOutLabel}
@@ -63,7 +62,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   }
                 >
                   {isAuthenticated ? (
-                    <div className="cursor-pointer px-3 py-3 text-component-extra-large font-normal text-black-text md:px-6">
+                    <div className="cursor-pointer px-3 py-3 text-component-large text-black-text md:px-6">
                       {NAV_BAR_TEXT.MY_ACCOUNT}
                     </div>
                   ) : (
