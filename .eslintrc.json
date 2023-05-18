@@ -1,11 +1,12 @@
 {
   "extends": [
+    "eslint:recommended",
     "plugin:storybook/recommended",
-    "next",
+    "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
-    "eslint:recommended"
+    "next"
   ],
-  "globals": { "React": "readonly" },
+  "globals": { "React": "readonly", "JSX": "readonly" },
   "overrides": [
     {
       "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
@@ -15,9 +16,22 @@
       }
     }
   ],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     // Allows you to prefix variables with an underscore to avoid no-unused-vars lint error. Useful when WIP
-    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }]
+    "import/no-anonymous-default-export": [2, { "allowObject": true }],
+    "@typescript-eslint/no-empty-interface": [1],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["^(?!\\.\\/)((?!.)[sS])*) ?$", "../.*"],
+            "message": "Relative imports outside the current directory are not allowed. Please us the '@/{RESOURCE}' syntax specified in tsconfig.json"
+          }
+        ]
+      }
+    ]
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier", "@typescript-eslint"]
 }
