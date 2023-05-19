@@ -12,7 +12,7 @@
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "export": "next export",
-    "e2e": "cypress run --port=3001",
+    "e2e": "npx cypress open",
     "build:for-edge": "pnpx @cloudflare/next-on-pages --experimental-minify",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out",
     "start": "next start",
