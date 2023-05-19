@@ -12,7 +12,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -20,6 +19,7 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import {
   applicantSubmissionsEndpoint,
@@ -321,6 +321,7 @@ const SignupForm: React.FC<ISignupForm> = ({
 
               {/* Form Control Button*/}
               <Button
+                name="submit-candidate-application"
                 className="mt-10 w-full lg:mt-14"
                 label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
                 type="submit"

@@ -59,6 +59,7 @@ const ConfirmModal: React.FC<IConfirmModal> = ({
                 {cancelBtnText}
               </div>
               <Button
+                name="confirm-modal-confirm"
                 className="px-2 md:px-[33px]"
                 label={confirmBtnText}
                 onClick={() => onConfirm()}
