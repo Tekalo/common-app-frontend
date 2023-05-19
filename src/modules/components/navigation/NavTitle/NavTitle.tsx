@@ -20,7 +20,7 @@ const NavTitle: React.FC<INavTitle> = ({
         {title}
       </div>
       {/* Navaway is an applicant*/}
-      <div className="mb-8 max-w-[300px] text-center text-component-medium md:mb-10 md:max-w-[none]">
+      <div className="m-auto mb-8 max-w-[300px] text-center text-component-medium md:mb-10 md:max-w-[none]">
         {navawayText}
         <span className="text-blue-1 underline underline-offset-4">
           <Link href={navLink}>{navText}</Link>
