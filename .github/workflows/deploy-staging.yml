@@ -32,21 +32,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Cache
-        uses: actions/cache@6998d139ddd3e68c71e9e398d8e40b71a2f39812 # v3
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
         with:
-          # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
-          path: |
-            ~/.npm
-            ~/.pnpm-store
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+          version: latest
+          run_install: false
 
       - name: Install dependencies and Build (regular)
 
@@ -62,6 +52,21 @@ jobs:
         run: |
           pnpm install
           pnpm build:for-edge
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache/save@v3
+        name: Setup build and dependency cache
+        with:
+          path: |
+            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/.vercel/output
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
   deploy:
     name: Deploy
@@ -83,24 +88,32 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Cache
-        uses: actions/cache@6998d139ddd3e68c71e9e398d8e40b71a2f39812 # v3
+      - name: Restore cache
+        id: pnpm-next-restore
+        uses: actions/cache/restore@v3
         with:
-          # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
           path: |
-            ~/.npm
-            ~/.pnpm-store
+            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
             ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ github.workspace }}/.vercel/output
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
-      - name: Install dependencies and Build (for Cloudflare Pages)
+      - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
+        name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: latest
+          run_install: false
+
+      - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
+        name: Install dependencies and Build (for Cloudflare Pages)
 
         env:
           CI: true
@@ -126,25 +139,6 @@ jobs:
           # Optional: Enable this if you want to have GitHub Deployments triggered
           # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
-    outputs:
-      issue-number: ${{ github.event.pull_request.number }}
-      url: ${{ steps.deploy.outputs.url }}
-      alias: ${{ steps.deploy.outputs.alias }}
-      environment: ${{ steps.deploy.outputs.environment }}
-      deployment_id: ${{ steps.deploy.outputs.id }}
-
-  comment:
-    name: Comment on PR
-    if: ${{ github.event_name == 'pull_request' }}
-    uses: raisedadead/portfolio/.github/workflows/comment.yml@main
-    needs: [deploy]
-    with:
-      issue-number: ${{ github.event.pull_request.number }}
-      url: ${{ needs.deploy.outputs.url }}
-      alias: ${{ needs.deploy.outputs.alias }}
-      environment: ${{ needs.deploy.outputs.environment }}
-      deployment_id: ${{ needs.deploy.outputs.deployment_id }}
-
   e2e-tests:
     name: Run e2e Tests
     continue-on-error: true
@@ -166,20 +160,28 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.3.1
-
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Install dependencies
-        run: |
-          pnpm install
+      - name: Restore cache
+        id: pnpm-next-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/.vercel/output
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: latest
+          run_install: false
 
       - name: Cypress run
 
