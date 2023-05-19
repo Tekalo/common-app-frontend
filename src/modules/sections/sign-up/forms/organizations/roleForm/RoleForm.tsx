@@ -172,7 +172,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                   initialValue={
                     previousForm?.employmentType.includes(' - ')
                       ? previousForm?.employmentType.split(' - ')[0]
-                      : previousForm?.employmentType ?? 'full-time employee'
+                      : previousForm?.employmentType ?? undefined
                   }
                   validator={EmploymentType}
                 />
@@ -220,7 +220,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 validator={isPaid ? RequiredString : OptionalString}
                 disabled={!isPaid}
               />
-
               {!fullTimeOnly && (
                 <FreeTextField
                   fieldName="desiredHoursPerWeek"
@@ -302,7 +301,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.desiredYoe || []}
                 validator={YOE_RANGE.array().min(1)}
               />
-
               <MultiSelectField
                 fieldName="desiredSkills"
                 label="Desired skills for the role (optional)"
@@ -333,7 +331,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.similarStaffed ?? false}
                 validator={z.boolean()}
               />
-
               <LongTextField
                 fieldName="desiredImpactExp"
                 label="Desired impact-related experience or passion that you are looking for in a candidate (optional)"

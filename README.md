@@ -1,6 +1,6 @@
-# Common App Frontend
+# Tekalo Frontend
 
-This repository contains the code to run the Common App Next.js frontend application. This README provides useful information concerning development, deployment, and project structure.
+This repository contains the code to run the Tekalo Next.js frontend application. This README provides useful information concerning development, deployment, and project structure.
 
 ## Getting Started
 
