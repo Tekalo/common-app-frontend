@@ -36,9 +36,6 @@ const HeroSection: React.FC<IHeroSection> = () => {
             <div className="mb-6 text-center text-p1-mobile md:mb-8 md:text-left lg:mb-8 lg:text-p1-desktop">
               {HOME_HERO_TEXT.BODY}
             </div>
-            <div className="mb-6 text-center md:hidden">
-              {HOME_HERO_TEXT.MOBILE_BODY}
-            </div>
             {/* CTA Buttons */}
             <div className="flex justify-center gap-x-1 sm:gap-x-4 md:justify-start md:gap-x-6">
               <Link href={APPLICANT_SIGNUP_LINK}>

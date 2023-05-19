@@ -30,17 +30,16 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
     <>
       {HOME_FAQ_TEXT.ORG_ANSWER_8.text}
       {HOME_FAQ_TEXT.ORG_ANSWER_8.partners.map((partner, i) => (
-        <>
+        <span key={i}>
           <a
             href={partner.url}
             className="whitespace-nowrap text-blue-1 underline"
             target="_blank"
             rel="noreferrer"
-            key={i}
           >
             {partner.name}
           </a>{' '}
-        </>
+        </span>
       ))}
     </>
   );
@@ -195,7 +194,7 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
 
   const renderToggle = () => {
     return (
-      <div className="mb-14 flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-2-tablet lg:mt-2-desktop">
+      <div className="my-8 flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-2-tablet lg:mt-2-desktop">
         {toggleHeaders.map((header, i) => {
           return (
             <div
@@ -218,14 +217,12 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
   return (
     <section className="grid w-full place-items-center">
       <div className="w-full px-6 pb-16 pt-14 md:px-4 md:py-20 lg:px-5 lg:py-28">
-        {/* TOGGLE */}
-        <div className="md:hidden">{renderToggle()}</div>
         {/* TITLE */}
         <div className="mx-auto max-w-content-area">
           <div className="text-black-text: text-center font-display text-h3-mobile md:text-h1-mobile lg:text-h2-desktop">
             {HOME_FAQ_TEXT.HEADER}
           </div>
-          <div className="hidden md:block">{renderToggle()}</div>
+          {renderToggle()}
           {/* FAQS */}
           <div className="mt-6 md:mt-2-tablet lg:mt-2-desktop">
             <Faq
