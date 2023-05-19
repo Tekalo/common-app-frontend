@@ -127,15 +127,6 @@ jobs:
           version: latest
           run_install: false
 
-      - uses: actions/cache/save@v3
-        name: Save build and dependency cache
-        with:
-          path: |
-            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-            ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-
       - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
         name: Install dependencies and Build (for Cloudflare Pages)
 
@@ -162,6 +153,15 @@ jobs:
           directory: .vercel/output/static
           # Optional: Enable this if you want to have GitHub Deployments triggered
           # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/cache/save@v3
+        name: Save build and dependency cache
+        with:
+          path: |
+            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/.vercel/output
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
