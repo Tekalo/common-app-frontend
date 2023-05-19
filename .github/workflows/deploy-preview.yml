@@ -205,8 +205,7 @@ jobs:
             ${{ github.workspace }}/.vercel/output
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
-      - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
-        name: Install pnpm
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         id: pnpm-install
         with:
