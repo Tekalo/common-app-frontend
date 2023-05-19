@@ -30,17 +30,16 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
     <>
       {HOME_FAQ_TEXT.ORG_ANSWER_8.text}
       {HOME_FAQ_TEXT.ORG_ANSWER_8.partners.map((partner, i) => (
-        <>
+        <span key={i}>
           <a
             href={partner.url}
             className="whitespace-nowrap text-blue-1 underline"
             target="_blank"
             rel="noreferrer"
-            key={i}
           >
             {partner.name}
           </a>{' '}
-        </>
+        </span>
       ))}
     </>
   );
