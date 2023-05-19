@@ -8,7 +8,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
   return (
     <>
       <Head>
-        <title>CommonApp</title>
+        <title>Tekalo | Do Good</title>
       </Head>
       <div
         {...divProps}
