@@ -49,25 +49,6 @@ jobs:
           version: latest
           run_install: false
 
-      - name: Get pnpm store directory
-        id: pnpm-next-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        name: Setup build and dependency cache
-        with:
-          path: |
-            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-            ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
       - name: Install dependencies and Build (regular)
 
         env:
@@ -82,6 +63,21 @@ jobs:
         run: |
           pnpm install
           pnpm build:for-edge
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache/save@v3
+        name: Setup build and dependency cache
+        with:
+          path: |
+            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/.vercel/output
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
   deploy:
     name: Deploy
@@ -153,15 +149,6 @@ jobs:
           directory: .vercel/output/static
           # Optional: Enable this if you want to have GitHub Deployments triggered
           # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/cache/save@v3
-        name: Save build and dependency cache
-        with:
-          path: |
-            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-            ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
