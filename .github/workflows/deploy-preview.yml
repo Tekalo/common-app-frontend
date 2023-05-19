@@ -61,7 +61,7 @@ jobs:
           path: |
             ${{ steps.pnpm-cache.outputs.STORE_PATH }}
             ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output/static
+            ${{ github.workspace }}/.vercel/output
           # Generate a new cache whenever packages or source files change.
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
@@ -116,7 +116,7 @@ jobs:
           path: |
             ${{ steps.pnpm-cache.outputs.STORE_PATH }}
             ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output/static
+            ${{ github.workspace }}/.vercel/output
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
       - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
@@ -133,7 +133,7 @@ jobs:
           path: |
             ${{ steps.pnpm-cache.outputs.STORE_PATH }}
             ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output/static
+            ${{ github.workspace }}/.vercel/output
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
       - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
@@ -215,7 +215,7 @@ jobs:
           path: |
             ${{ steps.pnpm-cache.outputs.STORE_PATH }}
             ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output/static
+            ${{ github.workspace }}/.vercel/output
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
 
       - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
