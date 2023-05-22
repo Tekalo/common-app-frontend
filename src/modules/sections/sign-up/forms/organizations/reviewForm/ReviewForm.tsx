@@ -84,7 +84,10 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   return (
     <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
       {/* Header */}
-      <div className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop">
+      <div
+        data-name="review-page-title"
+        className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop"
+      >
         {REVIEW_FORM_TEXT.HEADER}
       </div>
       {/* Org Info */}
@@ -161,6 +164,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                   className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
                   label={REVIEW_FORM_TEXT.BUTTONS.submit.label}
                   type="submit"
+                  name="submit-org-form"
                   disabled={isSubmitted && !isValid}
                 />
               </div>
