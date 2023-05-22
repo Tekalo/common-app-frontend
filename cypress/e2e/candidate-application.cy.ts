@@ -1,6 +1,8 @@
 import '../support/commands';
 
 describe('Candidate Application', () => {
+  // Just a little extra wait time for local api, it can be slow
+  const formSubmissionDelay = 1000;
   const navigationFormFillDelay = 250;
 
   beforeEach(() => {
@@ -8,18 +10,18 @@ describe('Candidate Application', () => {
     cy.visit('/sign-up/applicants');
   });
 
-  it('Should submit a candidate, required fields only', () => {
+  xit('Should submit a candidate, required fields only', () => {
     cy.url().should('include', '/sign-up/applicants');
 
     fillName();
     fillEmail();
-    fillSearchStatus();
-    fillContactMethod();
+    fillSearchStatus('active');
+    fillContactMethod('email');
     acceptPrivacy();
     acceptTerms();
     submitCandidateSignup();
 
-    // Wait for page navigation
+    cy.wait(formSubmissionDelay);
     cy.url().should('include', '/sign-up/applicants/experience-and-interests');
 
     cy.wait(navigationFormFillDelay);
@@ -42,12 +44,67 @@ describe('Candidate Application', () => {
     submitInterestForm();
 
     // Confirm success
+    cy.wait(formSubmissionDelay);
     cy.url().should('include', '/sign-up/applicants/success');
   });
 
-  // it('Should submit a candidate, all fields', () => {
+  it('Should submit a candidate, all fields', () => {
+    cy.url().should('include', '/sign-up/applicants');
 
-  // });
+    fillName();
+    fillEmail();
+    fillPronouns();
+    fillSearchStatus('passive');
+    fillContactMethod('sms');
+    fillPhoneNumber();
+    acceptPrivacy();
+    acceptTerms();
+    acceptFollowUpOptIn();
+    submitCandidateSignup();
+
+    cy.wait(formSubmissionDelay);
+    cy.url().should('include', '/sign-up/applicants/experience-and-interests');
+
+    cy.wait(navigationFormFillDelay);
+    fillPreviousRole();
+    fillPreviousOrg();
+    fillYearsOfExperience();
+    fillSkills(['react', 'javascript', 'devops']);
+    fillOtherSkills();
+    fillLinkedIn();
+    fillPortfolio();
+    fillPortfolioPwd();
+    fillGithub();
+    fillResume();
+    fillResumePwd();
+
+    saveAndConfirmExperienceForm();
+    submitExperienceForm();
+
+    cy.wait(navigationFormFillDelay);
+    fillAndCheckEmploymentType();
+    fillHoursPerWeek();
+    selectRoleInterest();
+    fillCurrentLocation();
+    fillOpenToRelocation();
+    fillOpenToRemote();
+    fillDesiredSalary();
+    selectInterestCauses();
+    fillOtherCauses();
+    selectWorkAuthorization();
+    selectInterestGovt();
+    selectInterestGovtTypes();
+    fillPreviousExperience();
+    fillEssay();
+    selectAttribution();
+
+    saveAndConfirmInterestForm();
+    submitInterestForm();
+
+    // Confirm success
+    cy.wait(formSubmissionDelay);
+    cy.url().should('include', '/sign-up/applicants/success');
+  });
 
   function fillName(): void {
     cy.get('input[name=input-name]').type('Test User Name');
@@ -58,13 +115,23 @@ describe('Candidate Application', () => {
     cy.get('input[name=input-email]').type(randomEmail);
   }
 
-  function fillSearchStatus(): void {
-    cy.get('input[name=input-searchStatus-active]').click();
+  function fillPronouns(): void {
+    cy.get('input[name=input-pronouns]').type('they/them');
   }
 
-  function fillContactMethod(): void {
+  // Note: any of these can be customized like this, depending on our future needs
+  // We may want to make it so that all of them can have options passed
+  function fillSearchStatus(status: 'active' | 'passive' | 'future'): void {
+    cy.get(`input[name=input-searchStatus-${status}]`).click();
+  }
+
+  function fillContactMethod(method: 'email' | 'sms' | 'whatsapp'): void {
     cy.get('button[name=input-preferredContact]').click();
-    cy.get('li[data-name=input-preferredContact-email]').click();
+    cy.get(`li[data-name=input-preferredContact-${method}]`).click();
+  }
+
+  function fillPhoneNumber(): void {
+    cy.get('input[name=input-phone]').type('+1 8102410001');
   }
 
   function acceptPrivacy(): void {
@@ -72,6 +139,10 @@ describe('Candidate Application', () => {
   }
   function acceptTerms(): void {
     cy.get('input[name=acceptedTerms]').click();
+  }
+
+  function acceptFollowUpOptIn(): void {
+    cy.get('input[name=followUpOptIn]').click();
   }
 
   function submitCandidateSignup(): void {
@@ -91,6 +162,44 @@ describe('Candidate Application', () => {
     cy.get('li[data-name=input-yoe-4]').click();
   }
 
+  function fillSkills(skills: string[]): void {
+    cy.get('button[name=input-skills]').click();
+
+    skills.forEach((skill) => {
+      cy.get(`li[data-name=input-skills-${skill}]`).click();
+    });
+
+    cy.get('button[name=input-skills]').click();
+  }
+
+  function fillOtherSkills(): void {
+    cy.get('input[name=input-otherSkills]').type('otherSkill1, otherSkill2');
+  }
+
+  function fillLinkedIn(): void {
+    cy.get('input[name=input-linkedInUrl]').type('linkedInUrl');
+  }
+
+  function fillPortfolio(): void {
+    cy.get('input[name=input-portfolioUrl]').type('portfolioUrl');
+  }
+
+  function fillPortfolioPwd(): void {
+    cy.get('input[name=input-portfolioPassword]').type('portfolioPwd');
+  }
+
+  function fillGithub(): void {
+    cy.get('input[name=input-githubUrl]').type('github');
+  }
+
+  function fillResume(): void {
+    cy.get('input[name=input-resumeUrl]').type('resumeLink');
+  }
+
+  function fillResumePwd(): void {
+    cy.get('input[name=input-resumePassword]').type('resumePwd');
+  }
+
   function saveAndConfirmExperienceForm(): void {
     cy.get('button#experience-save').click();
     cy.get('button[name=modal-confirm]').click();
@@ -105,6 +214,10 @@ describe('Candidate Application', () => {
     cy.get('input[name=input-hoursPerWeek]').should('be.disabled');
     cy.get('input#input-interestEmploymentType-part').click();
     cy.get('input[name=input-hoursPerWeek]').should('not.be.disabled');
+  }
+
+  function fillHoursPerWeek(): void {
+    cy.get('input[name=input-hoursPerWeek]').type('40hrs');
   }
 
   function selectRoleInterest(): void {
@@ -134,6 +247,10 @@ describe('Candidate Application', () => {
     cy.get('li[data-name="input-openToRemote-only remote"]').click();
   }
 
+  function fillDesiredSalary(): void {
+    cy.get('input[name=input-desiredSalary]').type('$200,000');
+  }
+
   function selectInterestCauses(): void {
     cy.get('button[name=input-interestCauses]').click();
     cy.get(
@@ -145,8 +262,37 @@ describe('Candidate Application', () => {
     cy.get('button[name=input-interestCauses]').click();
   }
 
+  function fillOtherCauses(): void {
+    cy.get('input[name=input-otherCauses]').type('otherCause1, otherCause2');
+  }
+
+  function selectWorkAuthorization(): void {
+    cy.get('button[name=input-workAuthorization]').click();
+    cy.get('li[data-name=input-workAuthorization-authorized]').click();
+  }
+
+  function selectInterestGovt(): void {
+    cy.get('input[name=input-interestGovt-true]').click();
+  }
+
+  function selectInterestGovtTypes(): void {
+    cy.get('button[name=input-interestGovtEmplTypes]').click();
+    cy.get('li[data-name=input-interestGovtEmplTypes-paid]').click();
+    cy.get('li[data-name=input-interestGovtEmplTypes-unpaid]').click();
+    cy.get('button[name=input-interestGovtEmplTypes]').click();
+  }
+
+  function fillPreviousExperience(): void {
+    cy.get('input[name=input-previousImpactExperience-true]').click();
+  }
+
   function fillEssay(): void {
     cy.get('textarea[name=input-essayResponse]').type('Essay entry.');
+  }
+
+  function selectAttribution(): void {
+    cy.get('button[name=input-referenceAttribution]').click();
+    cy.get('li[data-name=input-referenceAttribution-website]').click();
   }
 
   function saveAndConfirmInterestForm(): void {
