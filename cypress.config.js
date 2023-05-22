@@ -3,6 +3,9 @@ const { defineConfig } = require('cypress');
 require('dotenv').config({ path: '.env.local' });
 
 module.exports = defineConfig({
+  trashAssetsBeforeRuns: true,
+  video: false,
+  screenshotOnRunFailure: false,
   e2e: {
     setupNodeEvents(_on, config) {
       config.baseUrl =

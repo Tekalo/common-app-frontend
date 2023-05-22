@@ -142,7 +142,6 @@ jobs:
 
   e2e-tests:
     name: Run e2e Tests
-    continue-on-error: true
     runs-on: ubuntu-latest
     environment: develop
 
