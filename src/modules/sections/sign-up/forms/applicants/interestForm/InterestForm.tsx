@@ -335,12 +335,14 @@ const InterestForm: React.FC<IInterestForm> = ({
               className="w-full text-component-large"
               label={INTEREST_FORM_TEXT.BUTTONS.save.label}
               type="button"
+              name="interest-save"
               variant={ButtonVariant.OUTLINED}
               onClick={doSave}
             />
             <Button
               className="mt-4 w-full text-component-large"
               label={INTEREST_FORM_TEXT.BUTTONS.submit.label}
+              name="candidate-application-submit"
               type="submit"
             />
           </div>

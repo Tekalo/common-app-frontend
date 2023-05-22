@@ -321,7 +321,7 @@ const SignupForm: React.FC<ISignupForm> = ({
 
               {/* Form Control Button*/}
               <Button
-                name="submit-candidate-application"
+                name="submit-candidate-sign-up"
                 className="mt-10 w-full lg:mt-14"
                 label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
                 type="submit"
