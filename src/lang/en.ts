@@ -12,7 +12,11 @@ const ORG_SUCCESS_LINK = '/sign-up/organizations/success';
 const CONTACT_US_MAILTO_LINK = 'mailto:support@tekalo.org';
 
 // Cookie consent
-const COOKIE_CONSENT_COPY = 'TBD Cookie Consent Copy';
+const COOKIE_CONSENT_COPY = [
+  'Tekalo, an initiative of Futures Action Network, uses cookies and similar technologies, including third-party cookies, to optimize the functionality of the services, analyze how you interact with our program, measure the effectiveness of our digital campaigns, and offer social media features. For more information, see our ',
+  'privacy info',
+  '.',
+];
 
 // EXTERNAL URLS
 const SCHMIDT_FUTURES_URL = 'https://www.schmidtfutures.com/';

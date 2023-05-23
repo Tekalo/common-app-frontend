@@ -1,10 +1,11 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { COOKIE_CONSENT_COPY } from '@/lang/en';
+import { COOKIE_CONSENT_COPY, TERMS_LINK } from '@/lang/en';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
+import Link from 'next/link';
 import CookieConsent, { OPTIONS } from 'react-cookie-consent';
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
@@ -62,7 +63,15 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             focus-visible:ring-2 focus-visible:ring-[#A7C4DB]
             active:border-blue-3 active:bg-blue-3 text-white py-2 px-6"
           >
-            {COOKIE_CONSENT_COPY}
+            {COOKIE_CONSENT_COPY[0]}
+            <Link
+              className="text-blue-1 underline"
+              href={TERMS_LINK}
+              target="_blank"
+            >
+              {COOKIE_CONSENT_COPY[1]}
+            </Link>
+            {COOKIE_CONSENT_COPY[2]}
           </CookieConsent>
           <Preview generator={RankChoiceCard.generatePreview} />
         </DndProvider>
