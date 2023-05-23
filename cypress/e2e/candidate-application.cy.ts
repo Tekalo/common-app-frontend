@@ -1,6 +1,6 @@
 import '../support/commands';
 
-xdescribe('Candidate Application', () => {
+describe('Candidate Application', () => {
   // Just a little extra wait time for local api, it can be slow
   const formSubmissionTimeout = 10000;
   const navigationFormFillDelay = 250;
