@@ -337,6 +337,75 @@ const REVIEW_FORM_TEXT = {
   },
 };
 
+/** Select Options Texts */
+const YOE_OPTION_TEXT = {
+  lt1: 'Less than 1',
+  gt11: '11+',
+};
+const VISA_SPONSOR_TEXT = {
+  yes: 'Yes, we sponsor U.S. visas',
+  no: 'No, we do not sponsor U.S. visas',
+  sometimes: 'We sponsor U.S. visas in some cases',
+};
+const COMMITMENT_TEXT = {
+  fullTime: 'Full-time employment',
+  partTime: 'Part-time/short term opportunities',
+};
+const ROLE_TEXT = {
+  uxResearch: 'UX researcher',
+  uxDesigner: 'UX/UI designer',
+};
+const YES_NO_TEXT = {
+  yes: 'Yes',
+  no: 'No',
+};
+const PAID_TEXT = {
+  paid: 'Paid',
+  unpaid: 'Unpaid',
+};
+const USDR_TEXT = {
+  paid: 'Paid government jobs with local & state governments',
+  unpaid: 'Volunteer (unpaid) roles with USDR to support government partners',
+};
+const WORK_AUTHORIZATION_TEXT = {
+  authorized: 'I am authorized to work in the U.S.',
+  sponsorship:
+    'I will now or in the future require sponsorship to work in the U.S.',
+};
+const SEARCH_STATUS_TEXT = {
+  active: "I'm actively looking for a new role",
+  passive: "I'm flexible, casually looking for opportunities",
+  future: 'I want to stay in touch for opportunities in the future',
+};
+const CONTACT_OPTION_TEXT = {
+  email: 'Email',
+  sms: 'Text message',
+  whatsapp: 'WhatsApp message',
+};
+const REMOTE_OPTION_TEXT = {
+  remoteOnly: 'Only open to remote',
+  notRemote: 'Not open to remote',
+  both: 'Open to remote or in-person',
+};
+const ORG_SIZE_TEXT = {
+  employees: ' employees',
+};
+
+// SELECT EXPORTS
+export {
+  YOE_OPTION_TEXT,
+  VISA_SPONSOR_TEXT,
+  COMMITMENT_TEXT,
+  ROLE_TEXT,
+  YES_NO_TEXT,
+  PAID_TEXT,
+  USDR_TEXT,
+  WORK_AUTHORIZATION_TEXT,
+  SEARCH_STATUS_TEXT,
+  CONTACT_OPTION_TEXT,
+  REMOTE_OPTION_TEXT,
+  ORG_SIZE_TEXT,
+};
 // INTERNAL LINK EXPORTS
 export {
   ACCOUNT_LINK,

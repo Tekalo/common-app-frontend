@@ -1,4 +1,12 @@
 import {
+  COMMITMENT_TEXT,
+  PAID_TEXT,
+  ROLE_TEXT,
+  VISA_SPONSOR_TEXT,
+  YES_NO_TEXT,
+  YOE_OPTION_TEXT,
+} from '@/lang/en';
+import {
   Causes,
   CommitmentType,
   EmploymentType,
@@ -24,12 +32,12 @@ const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
   if (option === '<1') {
     return {
       value: option,
-      displayText: 'Less than 1',
+      displayText: YOE_OPTION_TEXT.lt1,
     };
   } else if (option === '>11') {
     return {
       value: option,
-      displayText: '11+',
+      displayText: YOE_OPTION_TEXT.gt11,
     };
   } else {
     return {
@@ -49,17 +57,17 @@ const VisaSponsorshipOptions: Array<ISelectItem> = VisaSponsorship.options.map(
     if (option === 'yes') {
       return {
         value: option,
-        displayText: 'Yes, we sponsor U.S. visas',
+        displayText: VISA_SPONSOR_TEXT.yes,
       };
     } else if (option === 'no') {
       return {
         value: option,
-        displayText: 'No, we do not sponsor U.S. visas',
+        displayText: VISA_SPONSOR_TEXT.no,
       };
     } else if (option === 'sometimes') {
       return {
         value: option,
-        displayText: 'We sponsor U.S. visas in some cases',
+        displayText: VISA_SPONSOR_TEXT.sometimes,
       };
     } else {
       return {
@@ -80,12 +88,12 @@ const CommitmentOptions: Array<ISelectItem> = CommitmentType.options.map(
     if (option === 'full') {
       return {
         value: option,
-        displayText: 'Full-time employment',
+        displayText: COMMITMENT_TEXT.fullTime,
       };
     } else if (option === 'part') {
       return {
         value: option,
-        displayText: 'Part-time/short term opportunities',
+        displayText: COMMITMENT_TEXT.partTime,
       };
     } else {
       return {
@@ -107,12 +115,12 @@ const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
   if (option === 'ux researcher') {
     return {
       value: option,
-      displayText: 'UX researcher',
+      displayText: ROLE_TEXT.uxResearcher,
     };
   } else if (option === 'ux/ui designer') {
     return {
       value: option,
-      displayText: 'UX/UI designer',
+      displayText: ROLE_TEXT.uxDesigner,
     };
   } else {
     return {
@@ -130,33 +138,33 @@ const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => ({
 const YesNoOptions: Array<ISelectItem> = [
   {
     value: 'false',
-    displayText: 'No',
+    displayText: YES_NO_TEXT.no,
   },
   {
     value: 'true',
-    displayText: 'Yes',
+    displayText: YES_NO_TEXT.yes,
   },
 ];
 
 const PaidOptions: Array<ISelectItem> = [
   {
     value: 'true',
-    displayText: 'Paid',
+    displayText: PAID_TEXT.paid,
   },
   {
     value: 'false',
-    displayText: 'Unpaid',
+    displayText: PAID_TEXT.unpaid,
   },
 ];
 
 const TrueFalseOptions: Array<IBoolItem> = [
   {
     value: false,
-    displayText: 'No',
+    displayText: YES_NO_TEXT.no,
   },
   {
     value: true,
-    displayText: 'Yes',
+    displayText: YES_NO_TEXT.yes,
   },
 ];
 
