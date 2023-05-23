@@ -11,6 +11,9 @@ const ORG_SIGNUP_LINK = '/sign-up/organizations';
 const ORG_SUCCESS_LINK = '/sign-up/organizations/success';
 const CONTACT_US_MAILTO_LINK = 'mailto:support@tekalo.org';
 
+// Cookie consent
+const COOKIE_CONSENT_COPY = 'TBD Cookie Consent Copy';
+
 // EXTERNAL URLS
 const SCHMIDT_FUTURES_URL = 'https://www.schmidtfutures.com/';
 const ALL_TECH_IS_HUMAN_URL = 'https://alltechishuman.org/';
@@ -360,6 +363,7 @@ export {
 };
 // NAV EXPORTS
 export { NAV_BAR_TEXT, NAV_FOOTER_TEXT };
+export { COOKIE_CONSENT_COPY };
 // HOME PAGE EXPORTS
 export {
   HOME_HERO_TEXT,

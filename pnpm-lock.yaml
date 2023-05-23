@@ -40,6 +40,9 @@ dependencies:
   react:
     specifier: 18.2.0
     version: 18.2.0
+  react-cookie-consent:
+    specifier: ^8.0.1
+    version: 8.0.1(react@18.2.0)
   react-dnd:
     specifier: ^16.0.1
     version: 16.0.1(@types/node@18.13.0)(@types/react@18.0.28)(react@18.2.0)
@@ -3849,12 +3852,12 @@ packages:
       telejson: 7.1.0
     dev: true
 
-  /@storybook/channel-postmessage@7.0.12:
-    resolution: {integrity: sha512-Tc7kQZ5yxlZ44Nmmzec92JaDJ6UZ3Ze4cBfiHik4XcnM1PtN8hr8VFoC6a2AIm1ybfIRenfT5w9TH5yriiPIhw==}
+  /@storybook/channel-postmessage@7.0.14:
+    resolution: {integrity: sha512-LYgxjOg6FTuow/H9UfcL825Bf1ScJGnhMjImmI5GIkHSHKMKlYVQhRuN7WU5IUX6O5rOHV9hwkraaTZTWkFIzQ==}
     dependencies:
-      '@storybook/channels': 7.0.12
-      '@storybook/client-logger': 7.0.12
-      '@storybook/core-events': 7.0.12
+      '@storybook/channels': 7.0.14
+      '@storybook/client-logger': 7.0.14
+      '@storybook/core-events': 7.0.14
       '@storybook/global': 5.0.0
       qs: 6.11.1
       telejson: 7.1.0
@@ -3889,8 +3892,8 @@ packages:
     resolution: {integrity: sha512-LNjI2etxaK5hbBHziNbDzK5VajGU0BLcD04CO3LbGRC14hJvDfVnvymJeDbbgT1b7RPUwl/vv/azO1kVHDax/A==}
     dev: true
 
-  /@storybook/channels@7.0.12:
-    resolution: {integrity: sha512-KDdDmDs8kxAJU+vndTqTNazjLO+XoIPiTRlfP7mk7cgHiQXSjMYy3JSCQ7W0of0Q+9VSl/ve9CNbnGbcQF7rNQ==}
+  /@storybook/channels@7.0.14:
+    resolution: {integrity: sha512-LVoFy2TRJz5lbIFfaQ6Hapn0XmtXV/kkBbD/kQ9E8KTMfbWlZApGVaCnzGKR7/eiwft38smT9mmyWOfg3CfQbg==}
     dev: true
 
   /@storybook/cli@7.0.0-rc.10:
@@ -3999,8 +4002,8 @@ packages:
       '@storybook/global': 5.0.0
     dev: true
 
-  /@storybook/client-logger@7.0.12:
-    resolution: {integrity: sha512-MQMtIgGEgdixvxnBvZ2m8hhc0DGJWeCpHtxg7oqBLBEBmCYFueTqDZHl4Z6SoCrK0a2YS5X/BIXOcEtP1ulMKw==}
+  /@storybook/client-logger@7.0.14:
+    resolution: {integrity: sha512-LRsToB8B3iee2nS4OpCnyFhLD5zW16eIbrVGPC5vRQEoepbNAS1/F9D7gnRMYSYiCY3KMk0x3C58a/JVLyK5VA==}
     dependencies:
       '@storybook/global': 5.0.0
     dev: true
@@ -4127,8 +4130,8 @@ packages:
     resolution: {integrity: sha512-Z4S6H1E5FuG7eiVozqcqNBSADt0kCDZeXlpR/gIOYLmTd/BDIQ2QhLt+G41BbEvck8nRnC7lZ9DXuref8V3pDA==}
     dev: true
 
-  /@storybook/core-events@7.0.12:
-    resolution: {integrity: sha512-VTmb/zjbz3o1bg+bATzLigVXMVDC/S1FP8CqIrz4mkiys52139FGzMandL2Y2AecPZPGss7ZRdfma28HKVYTRg==}
+  /@storybook/core-events@7.0.14:
+    resolution: {integrity: sha512-zHqeRLyL2PasZljLgclDox4cZ/2wN3KZmJJT6VI6VovHe4mr82Jb9PTsuwVwznDyf12em6C9YULgtoCXh5N9Sw==}
     dev: true
 
   /@storybook/core-server@7.0.0-rc.10:
@@ -4297,14 +4300,14 @@ packages:
       '@storybook/preview-api': 7.0.0-rc.10
     dev: true
 
-  /@storybook/instrumenter@7.0.12:
-    resolution: {integrity: sha512-jx4rb4AMT1YIOpE0HCdfyLvpYU+94wPkC9vt7sZGWAp7nnYG+KO/lx3XCJaR9qQPIxVYejJtWkeGn4RID79SoQ==}
+  /@storybook/instrumenter@7.0.14:
+    resolution: {integrity: sha512-aVTCUwN69+e11xLt+WiOdl5pxQFtIV5IiDeBp7gmDndLCVXj4Jiu80YJcDyyNiyKQV4G79aejtS8Pz6Bht/LKQ==}
     dependencies:
-      '@storybook/channels': 7.0.12
-      '@storybook/client-logger': 7.0.12
-      '@storybook/core-events': 7.0.12
+      '@storybook/channels': 7.0.14
+      '@storybook/client-logger': 7.0.14
+      '@storybook/core-events': 7.0.14
       '@storybook/global': 5.0.0
-      '@storybook/preview-api': 7.0.12
+      '@storybook/preview-api': 7.0.14
     dev: true
 
   /@storybook/manager-api@7.0.0-rc.10(react-dom@18.2.0)(react@18.2.0):
@@ -4518,16 +4521,16 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /@storybook/preview-api@7.0.12:
-    resolution: {integrity: sha512-YI/AfHszIOYt967fsRlc7j6I0zZB+RSsBwD/nMA8y9vszdpQ0MgRhxHgQxFf6cgqbuQcdCsnTIpT0iQ4GHjDXg==}
+  /@storybook/preview-api@7.0.14:
+    resolution: {integrity: sha512-GhBzTGgNtiEjKZxSYYq+IDEOme6QidS2BAcLLSrQ+Ka4j1dGOF0ZtCn/TPOPRFe51j9x6A5kl6PFpZpFuzxQHA==}
     dependencies:
-      '@storybook/channel-postmessage': 7.0.12
-      '@storybook/channels': 7.0.12
-      '@storybook/client-logger': 7.0.12
-      '@storybook/core-events': 7.0.12
+      '@storybook/channel-postmessage': 7.0.14
+      '@storybook/channels': 7.0.14
+      '@storybook/client-logger': 7.0.14
+      '@storybook/core-events': 7.0.14
       '@storybook/csf': 0.1.0
       '@storybook/global': 5.0.0
-      '@storybook/types': 7.0.12
+      '@storybook/types': 7.0.14
       '@types/qs': 6.9.7
       dequal: 2.0.3
       lodash: 4.17.21
@@ -4770,8 +4773,8 @@ packages:
   /@storybook/testing-library@0.0.14-next.1:
     resolution: {integrity: sha512-1CAl40IKIhcPaCC4pYCG0b9IiYNymktfV/jTrX7ctquRY3akaN7f4A1SippVHosksft0M+rQTFE0ccfWW581fw==}
     dependencies:
-      '@storybook/client-logger': 7.0.12
-      '@storybook/instrumenter': 7.0.12
+      '@storybook/client-logger': 7.0.14
+      '@storybook/instrumenter': 7.0.14
       '@testing-library/dom': 8.20.0
       '@testing-library/user-event': 13.5.0(@testing-library/dom@8.20.0)
       ts-dedent: 2.2.0
@@ -4827,10 +4830,10 @@ packages:
       file-system-cache: 2.1.1
     dev: true
 
-  /@storybook/types@7.0.12:
-    resolution: {integrity: sha512-nlvU4MyO2grwPCRQ8alA3AnY1bQxGJ6A4QgJu+1MhtjVenifFlxOQX4H1OiA+YXfjlV096oO5LrxvetJPFAKKQ==}
+  /@storybook/types@7.0.14:
+    resolution: {integrity: sha512-P9fL9Ha8nQY2uSc/GaCj/N28g8T0soiNWpBzcd61mk58eiCi1jSP7B5hA+jjKhj1eviIBPhwv81ZwnwLWxCtsg==}
     dependencies:
-      '@storybook/channels': 7.0.12
+      '@storybook/channels': 7.0.14
       '@types/babel__core': 7.20.0
       '@types/express': 4.17.17
       file-system-cache: 2.1.1
@@ -10568,6 +10571,10 @@ packages:
     hasBin: true
     dev: true
 
+  /js-cookie@2.2.1:
+    resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
+    dev: false
+
   /js-sdsl@4.4.0:
     resolution: {integrity: sha512-FfVSdx6pJ41Oa+CF7RDaFmTnCaFhua+SNYQX74riGOpl96x+2jQCqEfQ2bnXu/5DPCqlRuiqyvTJM0Qjz26IVg==}
     dev: true
@@ -13098,6 +13105,16 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: true
+
+  /react-cookie-consent@8.0.1(react@18.2.0):
+    resolution: {integrity: sha512-4A2jzPQDFfBhtxIz4hYX+vJ0QnOknGdOXpEoetXzgwUrMtxVJVow8YgBsGerNt5rJI7WhKkHwr8LmxekxgVejg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      js-cookie: 2.2.1
+      react: 18.2.0
+    dev: false
 
   /react-dnd-preview@8.0.0(react-dnd@16.0.1)(react@18.2.0):
     resolution: {integrity: sha512-pKDpJxaGya00tqPqswGHN6d1lmXe26gGkiXSb9xsDGEXMS+efjz4YAid9tKyaKNWJMU8hJOcUmJWTQpdi22P2g==}
