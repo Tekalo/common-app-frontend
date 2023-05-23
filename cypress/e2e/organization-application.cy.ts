@@ -26,11 +26,8 @@ describe('Organization Application', () => {
 
     submitOrgSignUpForm();
 
-    cy.get('div[data-name="Role 1"]').should('exist');
-    cy.get('input[name=input-paid-true]').should('not.exist');
-    cy.get('button[name=input-employmentTypeSelect]').should('be.hidden');
-    cy.get('input[name=input-employmentTypeText]').should('be.hidden');
-    cy.get('input[name=input-desiredHoursPerWeek]').should('not.exist');
+    // Role Form
+    doFullTimeChecks();
 
     selectRoleType();
     fillPositionTitle();
@@ -42,9 +39,9 @@ describe('Organization Application', () => {
     selectSimilarExperience();
     fillRolePitch();
 
-    // Review
     goToOrgReview();
 
+    // Review form
     cy.get('div[data-name=review-page-title]').should('exist');
     acceptPrivacy();
     submitOrgApplication();
@@ -79,36 +76,10 @@ describe('Organization Application', () => {
 
     submitOrgSignUpForm();
 
-    cy.get('div[data-name="Role 1"]').should('exist');
-    cy.get('input[name=input-paid-true]').should('be.visible');
-    cy.get('button[name=input-employmentTypeSelect]').should('be.visible');
-    cy.get('input[name=input-employmentTypeText]').should('be.visible');
-    cy.get('input[name=input-desiredHoursPerWeek]').should('be.visible');
-
-    // Unpaid checks
-    selectPaidOrUnpaid('unpaid');
-    cy.get(
-      'li[data-name="input-employmentTypeSelect-full-time employee"]'
-    ).should('not.exist');
-    cy.get('li[data-name="input-employmentTypeSelect-contractor"]').should(
-      'not.exist'
-    );
-    cy.get('li[data-name="input-employmentTypeSelect-consultant"]').should(
-      'not.exist'
-    );
-    cy.get('li[data-name="input-employmentTypeSelect-internship"]').should(
-      'not.exist'
-    );
-    cy.get('input[name=input-salaryRange]').should('be.disabled');
-    fillEmploymentType(['volunteer']);
-    cy.get('button[name=input-visaSponsorship]').should('be.disabled');
-
-    // Paid Checks
-    selectPaidOrUnpaid('paid');
-    cy.get(
-      'li[data-name="input-employmentTypeSelect-full-time employee"]'
-    ).should('not.exist');
-    cy.get('input[name=input-salaryRange]').should('not.be.disabled');
+    // Role Form
+    doPartTimeChecks();
+    doPartTimeUnpaidChecks();
+    doPartTimePaidChecks();
 
     selectRoleType();
     fillEmploymentType(['other']);
@@ -121,9 +92,9 @@ describe('Organization Application', () => {
     selectSimilarExperience();
     fillRolePitch();
 
-    // Review
     goToOrgReview();
 
+    // Review form
     cy.get('div[data-name=review-page-title]').should('exist');
     acceptPrivacy();
     submitOrgApplication();
@@ -157,36 +128,9 @@ describe('Organization Application', () => {
 
     submitOrgSignUpForm();
 
-    cy.get('div[data-name="Role 1"]').should('exist');
-    cy.get('input[name=input-paid-true]').should('be.visible');
-    cy.get('button[name=input-employmentTypeSelect]').should('be.visible');
-    cy.get('input[name=input-employmentTypeText]').should('be.visible');
-    cy.get('input[name=input-desiredHoursPerWeek]').should('be.visible');
-
-    // Unpaid checks
-    selectPaidOrUnpaid('unpaid');
-    cy.get(
-      'li[data-name="input-employmentTypeSelect-full-time employee"]'
-    ).should('not.exist');
-    cy.get('li[data-name="input-employmentTypeSelect-contractor"]').should(
-      'not.exist'
-    );
-    cy.get('li[data-name="input-employmentTypeSelect-consultant"]').should(
-      'not.exist'
-    );
-    cy.get('li[data-name="input-employmentTypeSelect-internship"]').should(
-      'not.exist'
-    );
-    cy.get('input[name=input-salaryRange]').should('be.disabled');
-    fillEmploymentType(['volunteer']);
-    cy.get('button[name=input-visaSponsorship]').should('be.disabled');
-
-    // Paid Checks
-    selectPaidOrUnpaid('paid');
-    cy.get(
-      'li[data-name="input-employmentTypeSelect-full-time employee"]'
-    ).should('not.exist');
-    cy.get('input[name=input-salaryRange]').should('not.be.disabled');
+    doPartTimeChecks();
+    doPartTimeUnpaidChecks();
+    doPartTimePaidChecks();
 
     selectRoleType();
     fillEmploymentType(['contractor']);
@@ -207,9 +151,9 @@ describe('Organization Application', () => {
     fillDesiredImpactExperience();
     fillRolePitch();
 
-    // Review
     goToOrgReview();
 
+    // Review form
     cy.get('div[data-name=review-page-title]').should('exist');
     acceptPrivacy();
     submitOrgApplication();
@@ -223,6 +167,49 @@ describe('Organization Application', () => {
   it('Should submit opportunity, part and full-time, all fields');
 
   it('Should submit opportunity, part and full-time, required only');
+
+  function doFullTimeChecks(): void {
+    cy.get('div[data-name="Role 1"]').should('exist');
+    cy.get('input[name=input-paid-true]').should('not.exist');
+    cy.get('button[name=input-employmentTypeSelect]').should('be.hidden');
+    cy.get('input[name=input-employmentTypeText]').should('be.hidden');
+    cy.get('input[name=input-desiredHoursPerWeek]').should('not.exist');
+  }
+
+  function doPartTimeChecks(): void {
+    cy.get('div[data-name="Role 1"]').should('exist');
+    cy.get('input[name=input-paid-true]').should('be.visible');
+    cy.get('button[name=input-employmentTypeSelect]').should('be.visible');
+    cy.get('input[name=input-employmentTypeText]').should('be.visible');
+    cy.get('input[name=input-desiredHoursPerWeek]').should('be.visible');
+  }
+
+  function doPartTimeUnpaidChecks(): void {
+    selectPaidOrUnpaid('unpaid');
+    cy.get(
+      'li[data-name="input-employmentTypeSelect-full-time employee"]'
+    ).should('not.exist');
+    cy.get('li[data-name="input-employmentTypeSelect-contractor"]').should(
+      'not.exist'
+    );
+    cy.get('li[data-name="input-employmentTypeSelect-consultant"]').should(
+      'not.exist'
+    );
+    cy.get('li[data-name="input-employmentTypeSelect-internship"]').should(
+      'not.exist'
+    );
+    cy.get('input[name=input-salaryRange]').should('be.disabled');
+    fillEmploymentType(['volunteer']);
+    cy.get('button[name=input-visaSponsorship]').should('be.disabled');
+  }
+
+  function doPartTimePaidChecks(): void {
+    selectPaidOrUnpaid('paid');
+    cy.get(
+      'li[data-name="input-employmentTypeSelect-full-time employee"]'
+    ).should('not.exist');
+    cy.get('input[name=input-salaryRange]').should('not.be.disabled');
+  }
 
   function fillOrgName(): void {
     cy.get('input[name="input-organization.name"]').type('TestOrg1');
