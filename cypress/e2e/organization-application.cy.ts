@@ -11,6 +11,8 @@ describe('Organization Application', () => {
     cy.visit('/sign-up/organizations');
   });
 
+  it('Should submit opportunity, full-time only, required only');
+
   xit('Should submit opportunity, full-time only, all fields', () => {
     cy.url().should('include', '/sign-up/organizations');
 
@@ -27,6 +29,7 @@ describe('Organization Application', () => {
     submitOrgSignUpForm();
 
     // Role Form
+    cy.get('div[data-name="Role 1"]').should('exist');
     doFullTimeChecks();
 
     selectRoleType();
@@ -46,13 +49,8 @@ describe('Organization Application', () => {
     acceptPrivacy();
     submitOrgApplication();
 
-    cy.url({ timeout: formSubmissionDelay }).should(
-      'include',
-      'sign-up/organizations/success'
-    );
+    checkSuccessPage();
   });
-
-  it('Should submit opportunity, full-time only, required only');
 
   xit('Should submit opportunity, part-time only, required only', () => {
     /*
@@ -77,6 +75,7 @@ describe('Organization Application', () => {
     submitOrgSignUpForm();
 
     // Role Form
+    cy.get('div[data-name="Role 1"]').should('exist');
     doPartTimeChecks();
     doPartTimeUnpaidChecks();
     doPartTimePaidChecks();
@@ -99,10 +98,7 @@ describe('Organization Application', () => {
     acceptPrivacy();
     submitOrgApplication();
 
-    cy.url({ timeout: formSubmissionDelay }).should(
-      'include',
-      'sign-up/organizations/success'
-    );
+    checkSuccessPage();
   });
 
   xit('Should submit opportunity, part-time only, all fields', () => {
@@ -128,6 +124,8 @@ describe('Organization Application', () => {
 
     submitOrgSignUpForm();
 
+    // Role form
+    cy.get('div[data-name="Role 1"]').should('exist');
     doPartTimeChecks();
     doPartTimeUnpaidChecks();
     doPartTimePaidChecks();
@@ -158,18 +156,63 @@ describe('Organization Application', () => {
     acceptPrivacy();
     submitOrgApplication();
 
-    cy.url({ timeout: formSubmissionDelay }).should(
-      'include',
-      'sign-up/organizations/success'
-    );
+    checkSuccessPage();
+  });
+
+  xit('Should submit opportunity, part and full-time, required only', () => {
+    cy.url().should('include', '/sign-up/organizations');
+
+    fillOrgName();
+    selectOrgType();
+    selectOrgSize();
+    selectImpactAreas();
+    fillContactName();
+    fillContactEmail();
+    fillContactPhone();
+    selectCommitmentTypes(['full', 'part']);
+    selectEoe();
+
+    submitOrgSignUpForm();
+
+    // Role form
+    cy.get('div[data-name="Role 1"]').should('exist');
+    doPartTimeUnpaidChecks();
+
+    selectPaidOrUnpaid('paid');
+
+    selectRoleType();
+
+    fillEmploymentType(['full-time employee']);
+    cy.get('input[name=input-desiredHoursPerWeek]').should('be.disabled');
+
+    fillPositionTitle();
+    fillSalaryRange();
+    selectFullyRemote();
+    selectVisaSponsorship();
+    selectYoe();
+    selectSimilarExperience();
+    fillRolePitch();
+
+    goToOrgReview();
+
+    // Review form
+    cy.get('div[data-name=review-page-title]').should('exist');
+    acceptPrivacy();
+    submitOrgApplication();
+
+    checkSuccessPage();
   });
 
   it('Should submit opportunity, part and full-time, all fields');
 
-  it('Should submit opportunity, part and full-time, required only');
+  function checkSuccessPage(): void {
+    cy.url({ timeout: formSubmissionDelay }).should(
+      'include',
+      'sign-up/organizations/success'
+    );
+  }
 
   function doFullTimeChecks(): void {
-    cy.get('div[data-name="Role 1"]').should('exist');
     cy.get('input[name=input-paid-true]').should('not.exist');
     cy.get('button[name=input-employmentTypeSelect]').should('be.hidden');
     cy.get('input[name=input-employmentTypeText]').should('be.hidden');
@@ -177,7 +220,6 @@ describe('Organization Application', () => {
   }
 
   function doPartTimeChecks(): void {
-    cy.get('div[data-name="Role 1"]').should('exist');
     cy.get('input[name=input-paid-true]').should('be.visible');
     cy.get('button[name=input-employmentTypeSelect]').should('be.visible');
     cy.get('input[name=input-employmentTypeText]').should('be.visible');
