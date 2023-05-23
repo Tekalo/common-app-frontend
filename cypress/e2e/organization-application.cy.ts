@@ -203,7 +203,55 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
-  it('Should submit opportunity, part and full-time, all fields');
+  xit('Should submit opportunity, part and full-time, all fields', () => {
+    cy.url().should('include', '/sign-up/organizations');
+
+    fillOrgName();
+    selectOrgType();
+    selectOrgSize();
+    selectImpactAreas();
+    fillContactName();
+    fillContactEmail();
+    fillContactPhone();
+    selectCommitmentTypes(['full', 'part']);
+    selectEoe();
+
+    submitOrgSignUpForm();
+
+    // Role form
+    cy.get('div[data-name="Role 1"]').should('exist');
+    doPartTimeUnpaidChecks();
+
+    selectPaidOrUnpaid('paid');
+
+    selectRoleType();
+
+    fillEmploymentType(['internship']);
+    cy.get('input[name=input-desiredHoursPerWeek]').should('not.be.disabled');
+    fillOtherRoleType();
+    fillPositionTitle();
+    fillJobDescriptionLink();
+    fillSalaryRange();
+    fillHoursPerWeek();
+    selectFullyRemote();
+    selectVisaSponsorship();
+    fillStartDate();
+    selectYoe();
+    selectDesiredSkills();
+    fillOtherSkills();
+    selectSimilarExperience();
+    fillDesiredImpactExperience();
+    fillRolePitch();
+
+    goToOrgReview();
+
+    // Review form
+    cy.get('div[data-name=review-page-title]').should('exist');
+    acceptPrivacy();
+    submitOrgApplication();
+
+    checkSuccessPage();
+  });
 
   function checkSuccessPage(): void {
     cy.url({ timeout: formSubmissionDelay }).should(
@@ -254,7 +302,7 @@ describe('Organization Application', () => {
   }
 
   function fillOrgName(): void {
-    cy.get('input[name="input-organization.name"]').type('TestOrg1');
+    cy.get('input[name="input-organization.name"]').type('SF E2E Test Org');
   }
 
   function selectOrgType(): void {
