@@ -11,9 +11,44 @@ describe('Organization Application', () => {
     cy.visit('/sign-up/organizations');
   });
 
-  it('Should submit opportunity, full-time only, required only');
+  it('Should submit opportunity, full-time only, required only', () => {
+    cy.url().should('include', '/sign-up/organizations');
 
-  xit('Should submit opportunity, full-time only, all fields', () => {
+    fillOrgName();
+    selectOrgType();
+    selectOrgSize();
+    selectImpactAreas();
+    fillContactName();
+    fillContactEmail();
+    selectCommitmentTypes(['full']);
+    selectEoe();
+
+    submitOrgSignUpForm();
+
+    // Role Form
+    cy.get('div[data-name="Role 1"]').should('exist');
+    doFullTimeChecks();
+
+    selectRoleType();
+    fillPositionTitle();
+    fillSalaryRange();
+    selectFullyRemote();
+    selectVisaSponsorship();
+    selectYoe();
+    selectSimilarExperience();
+    fillRolePitch();
+
+    goToOrgReview();
+
+    // Review form
+    cy.get('div[data-name=review-page-title]').should('exist');
+    acceptPrivacy();
+    submitOrgApplication();
+
+    checkSuccessPage();
+  });
+
+  it('Should submit opportunity, full-time only, all fields', () => {
     cy.url().should('include', '/sign-up/organizations');
 
     fillOrgName();
@@ -37,9 +72,14 @@ describe('Organization Application', () => {
     fillJobDescriptionLink();
     fillSalaryRange();
     selectFullyRemote();
+    fillLocation();
     selectVisaSponsorship();
+    fillStartDate();
     selectYoe();
+    selectDesiredSkills();
+    fillOtherSkills();
     selectSimilarExperience();
+    fillDesiredImpactExperience();
     fillRolePitch();
 
     goToOrgReview();
@@ -52,7 +92,7 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
-  xit('Should submit opportunity, part-time only, required only', () => {
+  it('Should submit opportunity, part-time only, required only', () => {
     /*
       TEST FLOW:
         Sign up
@@ -101,7 +141,7 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
-  xit('Should submit opportunity, part-time only, all fields', () => {
+  it('Should submit opportunity, part-time only, all fields', () => {
     /*
       TEST FLOW:
         Sign up
@@ -159,7 +199,7 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
-  xit('Should submit opportunity, part and full-time, required only', () => {
+  it('Should submit opportunity, part and full-time, required only', () => {
     cy.url().should('include', '/sign-up/organizations');
 
     fillOrgName();
@@ -203,7 +243,7 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
-  xit('Should submit opportunity, part and full-time, all fields', () => {
+  it('Should submit opportunity, part and full-time, all fields', () => {
     cy.url().should('include', '/sign-up/organizations');
 
     fillOrgName();
@@ -261,7 +301,7 @@ describe('Organization Application', () => {
   }
 
   function doFullTimeChecks(): void {
-    cy.get('input[name=input-paid-true]').should('not.exist');
+    cy.get('input[name=input-paid-true]').should('be.hidden');
     cy.get('button[name=input-employmentTypeSelect]').should('be.hidden');
     cy.get('input[name=input-employmentTypeText]').should('be.hidden');
     cy.get('input[name=input-desiredHoursPerWeek]').should('not.exist');
