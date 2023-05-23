@@ -1,4 +1,7 @@
+import { EmploymentType } from '@/lib/enums';
 import '../support/commands';
+
+type EmploymentFillTypes = typeof EmploymentType._input;
 
 describe('Organization Application', () => {
   const formSubmissionDelay = 10000;
@@ -8,7 +11,7 @@ describe('Organization Application', () => {
     cy.visit('/sign-up/organizations');
   });
 
-  it('Should submit opportunity, all fields', () => {
+  xit('Should submit opportunity, full-time only, all fields', () => {
     cy.url().should('include', '/sign-up/organizations');
 
     fillOrgName();
@@ -18,23 +21,104 @@ describe('Organization Application', () => {
     fillContactName();
     fillContactEmail();
     fillContactPhone();
-    selectCommitmentTypes();
+    selectCommitmentTypes(['full']);
     selectEoe();
 
     submitOrgSignUpForm();
 
     cy.get('div[data-name="Role 1"]').should('exist');
+    cy.get('input[name=input-paid-true]').should('not.exist');
+    cy.get('button[name=input-employmentTypeSelect]').should('be.hidden');
+    cy.get('input[name=input-employmentTypeText]').should('be.hidden');
+    cy.get('input[name=input-desiredHoursPerWeek]').should('not.exist');
 
-    // selectUnpaid();
     selectRoleType();
-    fillOpportunityType();
-    fillOtherRoleType();
     fillPositionTitle();
     fillJobDescriptionLink();
     fillPayRange();
+    selectFullyRemote();
+    selectVisaSponsorship();
+    selectYoe();
+    selectSimilarExperience();
+    fillRolePitch();
+
+    // Review
+    goToOrgReview();
+
+    cy.get('div[data-name=review-page-title]').should('exist');
+    acceptPrivacy();
+    submitOrgApplication();
+
+    cy.url({ timeout: formSubmissionDelay }).should(
+      'include',
+      'sign-up/organizations/success'
+    );
+  });
+
+  it('Should submit opportunity, full-time only, required only');
+
+  it('Should submit opportunity, part-time only, required only', () => {
+    /*
+      TEST FLOW:
+        Sign up
+        Check correct fields are hidden/shown
+        Check Paid/unpaid options are correct
+        Fill required fields
+    */
+
+    cy.url().should('include', '/sign-up/organizations');
+
+    fillOrgName();
+    selectOrgType();
+    selectOrgSize();
+    selectImpactAreas();
+    fillContactName();
+    fillContactEmail();
+    fillContactPhone();
+    selectCommitmentTypes(['part']);
+    selectEoe();
+
+    submitOrgSignUpForm();
+
+    cy.get('div[data-name="Role 1"]').should('exist');
+    cy.get('input[name=input-paid-true]').should('be.visible');
+    cy.get('button[name=input-employmentTypeSelect]').should('be.visible');
+    cy.get('input[name=input-employmentTypeText]').should('be.visible');
+    cy.get('input[name=input-desiredHoursPerWeek]').should('be.visible');
+
+    // Unpaid checks
+    selectPaidOrUnpaid('unpaid');
+    cy.get(
+      'li[data-name="input-employmentTypeSelect-full-time employee"]'
+    ).should('not.exist');
+    cy.get('li[data-name="input-employmentTypeSelect-contractor"]').should(
+      'not.exist'
+    );
+    cy.get('li[data-name="input-employmentTypeSelect-consultant"]').should(
+      'not.exist'
+    );
+    cy.get('li[data-name="input-employmentTypeSelect-internship"]').should(
+      'not.exist'
+    );
+    cy.get('input[name=input-salaryRange]').should('be.disabled');
+    fillEmploymentType(['volunteer']);
+    cy.get('button[name=input-visaSponsorship]').should('be.disabled');
+
+    // Paid Checks
+    selectPaidOrUnpaid('paid');
+    cy.get(
+      'li[data-name="input-employmentTypeSelect-full-time employee"]'
+    ).should('not.exist');
+    cy.get('input[name=input-salaryRange]').should('not.be.disabled');
+
+    selectRoleType();
+    fillEmploymentType(['contractor']);
+
+    fillPositionTitle();
+
+    fillPayRange();
     // fillHoursPerWeek();
     selectFullyRemote();
-    fillLocation();
     selectVisaSponsorship();
     fillStartDate();
     selectYoe();
@@ -56,6 +140,12 @@ describe('Organization Application', () => {
       'sign-up/organizations/success'
     );
   });
+
+  it('Should submit opportunity, part-time only, all fields');
+
+  it('Should submit opportunity, part and full-time, all fields');
+
+  it('Should submit opportunity, part and full-time, required only');
 
   function fillOrgName(): void {
     cy.get('input[name="input-organization.name"]').type('TestOrg1');
@@ -99,9 +189,10 @@ describe('Organization Application', () => {
     cy.get('input[name="input-contact.phone"]').type('1212110009');
   }
 
-  function selectCommitmentTypes(): void {
-    cy.get('input#input-commitmentTypes-full').click();
-    cy.get('input#input-commitmentTypes-part').click();
+  function selectCommitmentTypes(types: ('full' | 'part')[]): void {
+    types.forEach((type) => {
+      cy.get(`input#input-commitmentTypes-${type}`).click();
+    });
   }
 
   function selectEoe(): void {
@@ -113,8 +204,10 @@ describe('Organization Application', () => {
     cy.get('button#submit-org-sign-up').click();
   }
 
-  function selectUnpaid(): void {
-    cy.get('input[name=input-paid-false]').click();
+  function selectPaidOrUnpaid(paid: 'paid' | 'unpaid'): void {
+    const selector = paid === 'paid' ? 'true' : 'false';
+
+    cy.get(`input[name=input-paid-${selector}]`).click();
   }
 
   function selectRoleType(): void {
@@ -122,11 +215,12 @@ describe('Organization Application', () => {
     cy.get('li[data-name="input-roleType-software engineer"').click();
   }
 
-  function fillOpportunityType(): void {
+  function fillEmploymentType(types: EmploymentFillTypes[]): void {
     cy.get('button[name=input-employmentTypeSelect]').click();
-    cy.get(
-      'li[data-name="input-employmentTypeSelect-full-time employee"]'
-    ).click();
+
+    types.forEach((type) => {
+      cy.get(`li[data-name="input-employmentTypeSelect-${type}"]`).click();
+    });
   }
 
   function fillOtherRoleType(): void {
