@@ -10,6 +10,7 @@ export interface IConfirmModal {
   confirmBtnVariant?: ButtonVariant;
   headline: string;
   isOpen: boolean;
+  name?: string;
   closeModal: () => void;
   onConfirm: () => void;
   onCancel: () => void;
@@ -22,6 +23,7 @@ const ConfirmModal: React.FC<IConfirmModal> = ({
   confirmBtnVariant,
   headline,
   isOpen,
+  name,
   closeModal,
   onConfirm,
   onCancel,
@@ -36,7 +38,10 @@ const ConfirmModal: React.FC<IConfirmModal> = ({
       onClose={() => closeModal()}
     >
       <div className="absolute left-6 right-6 top-20 z-50 md:top-48">
-        <Dialog.Panel className="m-auto max-w-[736px] rounded bg-white px-6 pb-8 pt-6 md:px-8">
+        <Dialog.Panel
+          data-name={name}
+          className="m-auto max-w-[736px] rounded bg-white px-6 pb-8 pt-6 md:px-8"
+        >
           <div className="relative">
             <XMarkIcon
               className="absolute -right-4 -top-4 h-[26px] w-[26px] cursor-pointer md:right-0 md:top-0"
@@ -53,6 +58,7 @@ const ConfirmModal: React.FC<IConfirmModal> = ({
             </Dialog.Description>
             <div className="flex items-center justify-center gap-x-8 md:justify-end">
               <div
+                data-name="confirm-modal-cancel"
                 className="cursor-pointer text-component-extra-large"
                 onClick={() => onCancel()}
               >
