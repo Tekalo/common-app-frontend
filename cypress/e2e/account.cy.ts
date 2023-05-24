@@ -1,6 +1,5 @@
 describe('Signed In User', () => {
   beforeEach(() => {
-    cy.bypassCloudflare();
     cy.login();
     cy.visit('/account');
 

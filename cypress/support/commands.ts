@@ -18,6 +18,7 @@ Cypress.Commands.add('login', (): void => {
   cy.session(
     'login',
     () => {
+      cy.bypassCloudflare();
       cy.visit('/sign-in');
 
       // TODO: Update this for production
@@ -30,7 +31,10 @@ Cypress.Commands.add('login', (): void => {
         cy.get('button[name=action]').last().click();
       });
 
-      cy.url({ timeout: 10000 }).should('equal', Cypress.config('baseUrl'));
+      cy.url({ timeout: 10000 }).should(
+        'equal',
+        `${Cypress.config('baseUrl')}`
+      );
     },
     {
       validate() {
