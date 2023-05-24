@@ -240,6 +240,6 @@ jobs:
           NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
           NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{vars.TURNSTILE_SITEKEY }}
           CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
-          CF_ACCESS_CLIENT_SECRET: ${{ format('{0}/', secrets.CF_ACCESS_CLIENT_SECRET) }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
         uses: cypress-io/github-action@v5.7.2
