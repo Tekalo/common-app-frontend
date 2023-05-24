@@ -21,7 +21,7 @@ Cypress.Commands.add('login', (): void => {
       cy.visit('/sign-in');
 
       // TODO: Update this for production
-      cy.origin(Cypress.env('auth0_domain'), () => {
+      cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
         cy.url().should('contain', '/u/login');
 
         cy.get('input[name=username]').type(Cypress.env('auth0_username'));
