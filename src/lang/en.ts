@@ -352,7 +352,7 @@ const COMMITMENT_TEXT = {
   partTime: 'Part-time/short term opportunities',
 };
 const ROLE_TEXT = {
-  uxResearch: 'UX researcher',
+  uxResearcher: 'UX researcher',
   uxDesigner: 'UX/UI designer',
 };
 const YES_NO_TEXT = {

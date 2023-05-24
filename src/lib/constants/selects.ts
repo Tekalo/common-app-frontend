@@ -1,8 +1,14 @@
 import {
   COMMITMENT_TEXT,
+  CONTACT_OPTION_TEXT,
+  ORG_SIZE_TEXT,
   PAID_TEXT,
+  REMOTE_OPTION_TEXT,
   ROLE_TEXT,
+  SEARCH_STATUS_TEXT,
+  USDR_TEXT,
   VISA_SPONSOR_TEXT,
+  WORK_AUTHORIZATION_TEXT,
   YES_NO_TEXT,
   YOE_OPTION_TEXT,
 } from '@/lang/en';
@@ -172,13 +178,12 @@ const USDROptions: Array<ISelectItem> = GovtJobType.options.map((option) => {
   if (option === 'paid') {
     return {
       value: option,
-      displayText: 'Paid government jobs with local & state governments',
+      displayText: USDR_TEXT.paid,
     };
   } else if (option === 'unpaid') {
     return {
       value: option,
-      displayText:
-        'Volunteer (unpaid) roles with USDR to support government partners',
+      displayText: USDR_TEXT.unpaid,
     };
   } else {
     return {
@@ -193,13 +198,12 @@ const AuthorizationOptions: Array<ISelectItem> = WorkAuthorization.options.map(
     if (option === 'authorized') {
       return {
         value: option,
-        displayText: 'I am authorized to work in the U.S.',
+        displayText: WORK_AUTHORIZATION_TEXT.authorized,
       };
     } else if (option === 'sponsorship') {
       return {
         value: option,
-        displayText:
-          'I will now or in the future require sponsorship to work in the U.S.',
+        displayText: WORK_AUTHORIZATION_TEXT.sponsorship,
       };
     } else {
       return {
@@ -214,17 +218,17 @@ const SearchStatusOptions = SearchStatus.options.map((option) => {
   if (option === 'active') {
     return {
       value: option,
-      displayText: "I'm actively looking for a new role",
+      displayText: SEARCH_STATUS_TEXT.active,
     };
   } else if (option === 'passive') {
     return {
       value: option,
-      displayText: "I'm flexible, casually looking for opportunities",
+      displayText: SEARCH_STATUS_TEXT.passive,
     };
   } else if (option === 'future') {
     return {
       value: option,
-      displayText: 'I want to stay in touch for opportunities in the future',
+      displayText: SEARCH_STATUS_TEXT.future,
     };
   } else {
     return {
@@ -238,17 +242,17 @@ const PreferredContactOptions = PreferredContact.options.map((option) => {
   if (option === 'email') {
     return {
       value: option,
-      displayText: 'Email',
+      displayText: CONTACT_OPTION_TEXT.email,
     };
   } else if (option === 'sms') {
     return {
       value: option,
-      displayText: 'Text message',
+      displayText: CONTACT_OPTION_TEXT.sms,
     };
   } else if (option === 'whatsapp') {
     return {
       value: option,
-      displayText: 'WhatsApp message',
+      displayText: CONTACT_OPTION_TEXT.whatsapp,
     };
   } else {
     return {
@@ -267,17 +271,17 @@ const RemoteOptions = OpenToRemote.options.map((option) => {
   if (option === 'only remote') {
     return {
       value: option,
-      displayText: 'Only open to remote',
+      displayText: REMOTE_OPTION_TEXT.remoteOnly,
     };
   } else if (option === 'no remote') {
     return {
       value: option,
-      displayText: 'Not open to remote',
+      displayText: REMOTE_OPTION_TEXT.notRemote,
     };
   } else if (option === 'both') {
     return {
       value: option,
-      displayText: 'Open to in-person or remote',
+      displayText: REMOTE_OPTION_TEXT.both,
     };
   } else {
     return {
@@ -299,7 +303,7 @@ const OrgTypeOptions = OrgType.options.map((option) => ({
 
 const OrgSizeOptions = OrgSize.options.map((option) => ({
   value: option,
-  displayText: option + ' employees',
+  displayText: option + ORG_SIZE_TEXT.employees,
 }));
 
 export {
