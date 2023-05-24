@@ -4,6 +4,7 @@ import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
+  ERROR_MODAL_TEXT,
   ORG_SIGNUP_LINK,
   PRIVACY_LINK,
   PRIVACY_MODAL_TEXT,
@@ -96,7 +97,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
       />
       <ErrorModal
         isOpen={showErrorModal}
-        isConflict={isConflict}
+        titleText={
+          isConflict
+            ? ERROR_MODAL_TEXT.emailExists
+            : ERROR_MODAL_TEXT.requestFailed
+        }
+        descriptionText={
+          isConflict ? ERROR_MODAL_TEXT.signIn : ERROR_MODAL_TEXT.somethingWrong
+        }
+        buttonText={ERROR_MODAL_TEXT.okButton}
+        buttonHandler={() => router.push('/sign-in')}
         closeModal={() => {
           setShowErrorModal(false);
         }}

@@ -256,6 +256,13 @@ const ACCOUNT_PAGE_TEXT = {
 };
 
 /** MODAL TEXT CONSTANTS */
+const ERROR_MODAL_TEXT = {
+  emailExists: 'Email already exists',
+  requestFailed: 'Request requestFailed',
+  signIn: 'Please sign in',
+  somethingWrong: 'Something went wrong. Please try again later.',
+  okButton: 'Ok',
+};
 const PRIVACY_MODAL_TEXT = {
   HEADER: 'Privacy Info',
   BODY: 'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.',
@@ -637,4 +644,5 @@ export {
   PAUSE_MODAL,
   RESUME_MODAL,
   DELETE_MODAL,
+  ERROR_MODAL_TEXT,
 };
