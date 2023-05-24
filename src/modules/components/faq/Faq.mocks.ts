@@ -4,9 +4,11 @@ const base: IFaq = {
   faqItems: [
     {
       questionText: 'Hello',
+      answerText: 'Wow',
     },
     {
       questionText: 'Zar',
+      answerText: 'Doz',
     },
   ],
 };

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ErrorModal, { IErrorModal } from './ErrorModal';
 import { mockErrorModalProps } from './ErrorModal.mocks';
 
-const ErrorModalExample: React.FC<IErrorModal> = ({ isConflict }) => {
+const ErrorModalExample: React.FC<IErrorModal> = () => {
   const [showModal, setShowModal] = useState(true);
   const closeModal = () => setShowModal(false);
 
@@ -11,7 +11,9 @@ const ErrorModalExample: React.FC<IErrorModal> = ({ isConflict }) => {
     <div>
       <Button label="Show Modal" onClick={() => setShowModal(true)} />
       <ErrorModal
-        isConflict={isConflict}
+        titleText="Wow"
+        descriptionText="A modal"
+        buttonText="Ok"
         isOpen={showModal}
         closeModal={closeModal}
       />
