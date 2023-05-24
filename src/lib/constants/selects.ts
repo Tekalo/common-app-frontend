@@ -1,7 +1,7 @@
 import {
   COMMITMENT_TEXT,
   CONTACT_OPTION_TEXT,
-  ORG_SIZE_TEXT,
+  ORG_SIZE_LABEL_TEXT,
   PAID_TEXT,
   REMOTE_OPTION_TEXT,
   ROLE_TEXT,
@@ -303,7 +303,7 @@ const OrgTypeOptions = OrgType.options.map((option) => ({
 
 const OrgSizeOptions = OrgSize.options.map((option) => ({
   value: option,
-  displayText: option + ORG_SIZE_TEXT.employees,
+  displayText: option + ORG_SIZE_LABEL_TEXT.employees,
 }));
 
 export {

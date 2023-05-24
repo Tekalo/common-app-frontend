@@ -1,5 +1,6 @@
 import LiteFooter from '@/components/navigation/LiteFooter/LiteFooter';
 import LiteNavbar from '@/components/navigation/LiteNavbar/LiteNavbar';
+import { HEAD_TEXT } from '@/lang/en';
 import Head from 'next/head';
 
 export type IOrganizationLayout = React.ComponentPropsWithoutRef<'div'>;
@@ -11,7 +12,7 @@ const OrganizationLayout: React.FC<IOrganizationLayout> = ({
   return (
     <>
       <Head>
-        <title>Tekalo | Organizations</title>
+        <title>{HEAD_TEXT.organizations}</title>
       </Head>
       <div {...divProps} className="flex h-screen flex-col justify-between">
         <LiteNavbar title={'For organizations'} />

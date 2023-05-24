@@ -1,5 +1,6 @@
 import MainFooter from '@/components/navigation/MainFooter/MainFooter';
 import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
+import { HEAD_TEXT } from '@/lang/en';
 import Head from 'next/head';
 
 export type IHomeLayout = React.ComponentPropsWithoutRef<'div'>;
@@ -8,7 +9,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
   return (
     <>
       <Head>
-        <title>Tekalo | Do Good</title>
+        <title>{HEAD_TEXT.home}</title>
       </Head>
       <div
         {...divProps}

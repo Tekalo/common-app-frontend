@@ -387,10 +387,191 @@ const REMOTE_OPTION_TEXT = {
   notRemote: 'Not open to remote',
   both: 'Open to remote or in-person',
 };
-const ORG_SIZE_TEXT = {
+const ORG_SIZE_LABEL_TEXT = {
   employees: ' employees',
 };
 
+/** APP TEXT CONSTS */
+const HEAD_TEXT = {
+  candidates: 'Tekalo | Candidates',
+  organizations: 'Tekalo | Organizations',
+  home: 'Tekalo | Do Good',
+};
+
+const ERROR_TEXT = {
+  currentLocation: 'Current location is required',
+  interestCauses: 'You must select at least one cause',
+  interestRoles: 'You must select at least one role',
+  invalidEmail: 'This must be a valid email address',
+  invalidPhone: 'This must be a valid phone number',
+  orgRequired: 'Organization is required',
+
+  privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
+  required: 'This is a required field',
+  termsRequired: 'You must agree to the Terms of Use',
+  eoeRequired:
+    'Tekalo only works with Equal Opportunity Employers as defined by the EEOC.',
+  unknownError: 'An unknown error has occurred',
+  requiredSelectGroup: 'You must select at least one option',
+  roleRequired: 'Role is required',
+  invalidDate: 'Invalid date',
+};
+
+/** ENUM TEXT CONSTANTS */
+const ORG_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '501(c)(3)',
+  '501(c)(4)',
+  'LLC',
+  'other',
+];
+const ORG_SIZE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '<20',
+  '20-50',
+  '51-100',
+  '101-200',
+  '201-500',
+  '500+',
+];
+const EMPLOYMENT_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'full-time employee',
+  'volunteer',
+  'contractor',
+  'consultant',
+  'advisor',
+  'internship',
+  'other',
+];
+const COMMITMENT_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'full',
+  'part',
+];
+const PAID_ENUM_OPTIONS: readonly [string, ...string[]] = ['paid', 'unpaid'];
+const YOE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '<1',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '>11',
+];
+const YOE_RANGE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '0-2',
+  '2-4',
+  '4-8',
+  '8-12',
+  '12-15',
+  '15+',
+];
+const BOOL_ENUM_OPTIONS: readonly [string, ...string[]] = ['true', 'false'];
+const SKILL_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'react',
+  'javascript',
+  'python',
+  'java',
+  'sql',
+  'privacy',
+  'security',
+  'devops',
+  'figma',
+  'sketch',
+  'prototyping',
+  'user research',
+  'product development',
+  'project management',
+];
+const ROLE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'software engineer',
+  'software engineer - backend',
+  'software engineer - frontend',
+  'product manager',
+  'product designer',
+  'ux/ui designer',
+  'ux researcher',
+  'data analyst',
+  'other',
+];
+const CAUSE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'climate change',
+  'environment',
+  'human rights & social justice',
+  'international development',
+  'education',
+  'health & well being',
+  'government tech',
+  'tech policy',
+  'trust & safety',
+  'other',
+];
+const VISA_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'yes',
+  'no',
+  'sometimes',
+];
+const RELOCATION_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'yes',
+  'no',
+  'not sure',
+];
+const REMOTE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'only remote',
+  'no remote',
+  'both',
+  'not sure',
+];
+const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'authorized',
+  'sponsorship',
+  '',
+];
+const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'website',
+  'linkedin',
+  'social media',
+  'partner organization',
+  'career fair',
+  'other',
+  '',
+];
+const CONTACT_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'email',
+  'sms',
+  'whatsapp',
+];
+const SEARCH_STATUS_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'active',
+  'passive',
+  'future',
+];
+
+// ENUM EXPORTS
+export {
+  ORG_TYPE_ENUM_OPTIONS,
+  ORG_SIZE_ENUM_OPTIONS,
+  EMPLOYMENT_TYPE_ENUM_OPTIONS,
+  COMMITMENT_ENUM_OPTIONS,
+  PAID_ENUM_OPTIONS,
+  YOE_ENUM_OPTIONS,
+  YOE_RANGE_ENUM_OPTIONS,
+  BOOL_ENUM_OPTIONS,
+  SKILL_ENUM_OPTIONS,
+  ROLE_ENUM_OPTIONS,
+  CAUSE_ENUM_OPTIONS,
+  VISA_ENUM_OPTIONS,
+  RELOCATION_ENUM_OPTIONS,
+  REMOTE_ENUM_OPTIONS,
+  WORKAUTH_ENUM_OPTIONS,
+  REF_ENUM_OPTIONS,
+  CONTACT_ENUM_OPTIONS,
+  SEARCH_STATUS_ENUM_OPTIONS,
+};
+// APP EXPORTS
+export { HEAD_TEXT, ERROR_TEXT };
 // SELECT EXPORTS
 export {
   YOE_OPTION_TEXT,
@@ -404,7 +585,7 @@ export {
   SEARCH_STATUS_TEXT,
   CONTACT_OPTION_TEXT,
   REMOTE_OPTION_TEXT,
-  ORG_SIZE_TEXT,
+  ORG_SIZE_LABEL_TEXT,
 };
 // INTERNAL LINK EXPORTS
 export {
