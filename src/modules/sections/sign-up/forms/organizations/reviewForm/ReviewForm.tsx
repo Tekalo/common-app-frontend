@@ -1,9 +1,13 @@
 import Button from '@/components/buttons/Button/Button';
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
-import { PRIVACY_LINK, PRIVACY_MODAL_TEXT, REVIEW_FORM_TEXT } from '@/lang/en';
+import {
+  ORG_CONTENT_TABLE_TEXT,
+  PRIVACY_LINK,
+  PRIVACY_MODAL_TEXT,
+  REVIEW_FORM_TEXT,
+} from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
 import { NewOrgType, NewRoleType } from '@/lib/types';
-import { orgContentTableData } from '@/sections/privacy/PrivacyInfo';
 import { BooleanField } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import Link from 'next/link';
@@ -116,7 +120,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
         </Form>
         {showPrivacyModal && (
           <TableModal
-            tableData={orgContentTableData}
+            tableData={ORG_CONTENT_TABLE_TEXT}
             headerText={PRIVACY_MODAL_TEXT.HEADER}
             bodyText={PRIVACY_MODAL_TEXT.BODY}
             extras={privacyModalExtras}

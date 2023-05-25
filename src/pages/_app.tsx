@@ -1,5 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { COOKIE_CONSENT_COPY, TERMS_LINK } from '@/lang/en';
+import { COOKIE_CONSENT_COPY, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -18,7 +18,7 @@ interface AppPropsWithLayout extends AppProps {
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.25,
 });
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
@@ -39,9 +39,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       <Sentry.ErrorBoundary // Enable Sentry by wrapping component with ErrorBoundary
         fallback={({ error }) => (
           <>
-            {
-              'An error occurred. Please try again later or contact support. Error:'
-            }
+            {ERROR_TEXT.fallbackError}
             {error}
           </>
         )}
