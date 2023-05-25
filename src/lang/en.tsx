@@ -52,7 +52,7 @@ const NAV_FOOTER_TEXT = {
       header: 'About',
       links: [
         { title: 'Contact Us', href: CONTACT_US_MAILTO_LINK },
-        { title: 'Privacy Info', href: PRIVACY_LINK },
+        { title: 'Privacy Data', href: PRIVACY_LINK },
         { title: 'Terms of Use', href: TERMS_LINK },
       ],
     },
