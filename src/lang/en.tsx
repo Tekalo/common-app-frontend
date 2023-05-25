@@ -1,3 +1,4 @@
+import { GreenCircleCheck } from '@/lib/constants/svgs';
 import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
@@ -291,7 +292,12 @@ const PRIVACY_MODAL_TEXT = {
   EXTRAS: ['See our ', 'Privacy FAQ', ' for more information'],
 };
 const SAVE_MODAL = {
-  HEADER: 'Your progress has been saved!',
+  HEADER: (
+    <>
+      <div className="mr-2 inline-block pt-1 align-top">{GreenCircleCheck}</div>
+      <div className="inline-block w-[80%]">Your progress has been saved!</div>
+    </>
+  ),
   BODY: 'If you need to leave, you can click “Sign in” from the homepage, then return to the application.',
   CTA: 'Ok',
 };
