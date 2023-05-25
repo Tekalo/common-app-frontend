@@ -241,8 +241,8 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Other Causes*/}
           <FreeTagField
             fieldName="otherCauses"
-            label="Other causes (optional)"
-            placeholder="Additional causes separated by commas"
+            label={INTEREST_FORM_TEXT.FIELDS.otherCauses.label}
+            placeholder={INTEREST_FORM_TEXT.FIELDS.otherCauses.placeholder}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.otherCauses || []}
             validator={OptionalString.array()}
@@ -250,18 +250,22 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Work Auth*/}
           <SingleSelectField
             fieldName="workAuthorization"
-            label="Work authorization (optional)"
-            placeholder="Choose one"
+            label={INTEREST_FORM_TEXT.FIELDS.workAuthorization.label}
+            placeholder={
+              INTEREST_FORM_TEXT.FIELDS.workAuthorization.placeholder
+            }
             listOptions={AuthorizationOptions}
             isSubmitted={isSubmitted}
-            tooltipText="If you require U.S. visa sponsorship now or in the future, we can do our best to match you with opportunities that sponsor visas"
+            tooltipText={
+              INTEREST_FORM_TEXT.FIELDS.workAuthorization.tooltipText
+            }
             initialValue={savedForm?.workAuthorization || undefined}
             validator={WorkAuthorization}
           />
           {/* Gov Interest*/}
           <RadioGroupField
             fieldName="interestGovt"
-            label="Are you interested in U.S. state or local government opportunities?"
+            label={INTEREST_FORM_TEXT.FIELDS.interestGovt.label}
             helperText={USDR_DISCLAIMER}
             onChange={(val) => {
               setInterestGov(mapStringToBool(val) || false);
@@ -276,10 +280,18 @@ const InterestForm: React.FC<IInterestForm> = ({
           <MultiSelectField
             fieldName="interestGovtEmplTypes"
             listenTo={['interestGovt']}
-            label="Which opportunities from USDR are you interested in?"
-            placeholder="Choose all that apply"
-            selectionLabelMulti=" Opportunity selected"
-            selectionLabelSingle=" Opportunities selected"
+            label={INTEREST_FORM_TEXT.FIELDS.interestGovtEmplTypes.label}
+            placeholder={
+              INTEREST_FORM_TEXT.FIELDS.interestGovtEmplTypes.placeholder
+            }
+            selectionLabelMulti={
+              INTEREST_FORM_TEXT.FIELDS.interestGovtEmplTypes
+                .selectionLabelMulti
+            }
+            selectionLabelSingle={
+              INTEREST_FORM_TEXT.FIELDS.interestGovtEmplTypes
+                .selectionLabelSingle
+            }
             listOptions={USDROptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestGovtEmplTypes || []}
@@ -289,7 +301,7 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Previous XP */}
           <RadioGroupField
             fieldName="previousImpactExperience"
-            label="Do you have previous experience working at a nonprofit or public service organization?"
+            label={INTEREST_FORM_TEXT.FIELDS.previousImpactExperience.label}
             rowAlign={true}
             listOptions={YesNoOptions}
             isSubmitted={isSubmitted}
@@ -301,18 +313,20 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* Essay */}
           <LongTextField
             fieldName="essayResponse"
-            label="If you had unlimited resources what problem would you choose to solve and why?"
-            placeholder="Write as much as you’d like, suggested up to 250 words."
+            label={INTEREST_FORM_TEXT.FIELDS.essayResponse.label}
+            placeholder={INTEREST_FORM_TEXT.FIELDS.essayResponse.placeholder}
             isSubmitted={isSubmitted}
-            tooltipText="This response will only be reviewed by Tekalo recruiters and will help them learn more about your interests."
+            tooltipText={INTEREST_FORM_TEXT.FIELDS.essayResponse.tooltipText}
             initialValue={savedForm ? savedForm.essayResponse : ''}
             validator={RequiredEssay}
           />
           {/* Reference */}
           <SingleSelectField
             fieldName="referenceAttribution"
-            label="How did you hear about Tekalo? (optional)"
-            placeholder="Choose one"
+            label={INTEREST_FORM_TEXT.FIELDS.referenceAttribution.label}
+            placeholder={
+              INTEREST_FORM_TEXT.FIELDS.referenceAttribution.placeholder
+            }
             listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}
             initialValue={
@@ -324,14 +338,14 @@ const InterestForm: React.FC<IInterestForm> = ({
           <div className="pt-2">
             <Button
               className="w-full text-component-large"
-              label="Save your progress"
+              label={INTEREST_FORM_TEXT.BUTTONS.save.label}
               type="button"
               variant={ButtonVariant.OUTLINED}
               onClick={doSave}
             />
             <Button
               className="mt-4 w-full text-component-large"
-              label="Submit"
+              label={INTEREST_FORM_TEXT.BUTTONS.submit.label}
               type="submit"
             />
           </div>

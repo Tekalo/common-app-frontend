@@ -357,6 +357,85 @@ const INTEREST_FORM_TEXT = {
     'U.S. Digital Response',
     ' saving a copy of your Tekalo profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.',
   ],
+  BUTTONS: {
+    save: {
+      label: 'Save your progress',
+    },
+    submit: {
+      label: 'Submit',
+    },
+  },
+  FIELDS: {
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    fieldName: {
+      label: '',
+      placeholder: '',
+    },
+    otherCauses: {
+      label: 'Other causes (optional)',
+      placeholder: 'Additional causes separated by commas',
+    },
+    workAuthorization: {
+      label: 'Work authorization (optional)',
+      placeholder: 'Choose one',
+      tooltipText:
+        'If you require U.S. visa sponsorship now or in the future, we can do our best to match you with opportunities that sponsor visas',
+    },
+    interestGovt: {
+      label:
+        'Are you interested in U.S. state or local government opportunities?',
+      placeholder: '',
+    },
+    interestGovtEmplTypes: {
+      label: 'Which opportunities from USDR are you interested in?',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Opportunity selected',
+      selectionLabelSingle: ' Opportunities selected',
+    },
+    previousImpactExperience: {
+      label:
+        'Do you have previous experience working at a nonprofit or public service organization?',
+      placeholder: '',
+    },
+    essayResponse: {
+      label:
+        'If you had unlimited resources what problem would you choose to solve and why?',
+      placeholder: "Write as much as you'd like, suggested up to 250 words.",
+      tooltipText:
+        'This response will only be reviewed by Tekalo recruiters and will help them learn more about your interests.',
+    },
+    referenceAttribution: {
+      label: 'How did you hear about Tekalo? (optional)',
+      placeholder: 'Choose one',
+    },
+  },
 };
 const ORG_SIGNUP_FORM_TEXT = {
   BUTTONS: {
