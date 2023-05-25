@@ -1,3 +1,6 @@
+const META_DESCRIPTION =
+  'Now more than ever, impact-driven orgs need tech talent that is passionate about solving the world’s most pressing problems. Tekalo is an initiative that matches tech talent with impact-driven organizations.';
+
 // NAV LINKS
 const ACCOUNT_LINK = '/account';
 const PRIVACY_LINK = '/privacy-info';
@@ -337,6 +340,7 @@ const REVIEW_FORM_TEXT = {
   },
 };
 
+export { META_DESCRIPTION };
 // INTERNAL LINK EXPORTS
 export {
   ACCOUNT_LINK,
