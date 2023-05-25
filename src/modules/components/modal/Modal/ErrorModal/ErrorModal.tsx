@@ -1,23 +1,26 @@
 import Button from '@/components/buttons/Button/Button';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import { useRouter } from 'next/router';
 import { useRef } from 'react';
 
 export interface IErrorModal {
-  // Used to switch out the message for 409s
-  isConflict?: boolean;
+  titleText: string;
+  descriptionText: string;
+  buttonText: string;
   isOpen: boolean;
   closeModal: () => void;
+  buttonHandler?: () => void;
 }
 
 const ErrorModal: React.FC<IErrorModal> = ({
-  isConflict,
+  titleText,
+  descriptionText,
+  buttonText,
   isOpen,
+  buttonHandler,
   closeModal,
 }) => {
   const headerRef = useRef(null);
-  const router = useRouter();
 
   return (
     <Dialog
@@ -34,20 +37,16 @@ const ErrorModal: React.FC<IErrorModal> = ({
           ref={headerRef}
           className="mb-4 font-display text-h4-mobile"
         >
-          {isConflict ? 'Email already exists' : 'Request failed'}
+          {titleText}
         </Dialog.Title>
         <Dialog.Description className="text-p2-mobile">
-          {isConflict
-            ? 'Please sign in'
-            : 'Something went wrong. Please try again later.'}
+          {descriptionText}
         </Dialog.Description>
 
         <div className="flex justify-end">
           <Button
-            onClick={() =>
-              isConflict ? router.push('/sign-in') : closeModal()
-            }
-            label="Ok"
+            onClick={() => (buttonHandler ? buttonHandler : closeModal())}
+            label={buttonText}
           />
         </div>
       </Dialog.Panel>

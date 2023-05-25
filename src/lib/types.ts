@@ -66,6 +66,11 @@ export type BasisTableData = {
   }[];
 };
 
+export type LinkBlock = {
+  title: string;
+  href: string;
+};
+
 /**Interfaces
  */
 interface IIconItem {

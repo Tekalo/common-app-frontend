@@ -2,8 +2,10 @@ import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
+  APPLICANT_CONTENT_TABLE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
+  ERROR_MODAL_TEXT,
   ORG_SIGNUP_LINK,
   PRIVACY_LINK,
   PRIVACY_MODAL_TEXT,
@@ -13,7 +15,6 @@ import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
-import { applicantContentTableData } from '@/sections/privacy/PrivacyInfo';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
 import router from 'next/router';
@@ -78,14 +79,15 @@ const ApplicantSignup: NextPageWithLayout = () => {
         </div>
         {/* Navaway for organizations */}
         <div className="mt-6 text-center">
-          {"If you're an organization, "}
+          {APPLICANT_FORM_TEXT.IFORG[0]}
           <span className="text-blue-1 underline underline-offset-4">
-            <Link href={ORG_SIGNUP_LINK}>{'apply here'}</Link>
+            <Link href={ORG_SIGNUP_LINK}>{APPLICANT_FORM_TEXT.IFORG[1]}</Link>
+            {APPLICANT_FORM_TEXT.IFORG[1]}
           </span>
         </div>
       </div>
       <TableModal
-        tableData={applicantContentTableData}
+        tableData={APPLICANT_CONTENT_TABLE_TEXT}
         headerText={PRIVACY_MODAL_TEXT.HEADER}
         bodyText={PRIVACY_MODAL_TEXT.BODY}
         extras={privacyModalExtras}
@@ -96,7 +98,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
       />
       <ErrorModal
         isOpen={showErrorModal}
-        isConflict={isConflict}
+        titleText={
+          isConflict
+            ? ERROR_MODAL_TEXT.emailExists
+            : ERROR_MODAL_TEXT.requestFailed
+        }
+        descriptionText={
+          isConflict ? ERROR_MODAL_TEXT.signIn : ERROR_MODAL_TEXT.somethingWrong
+        }
+        buttonText={ERROR_MODAL_TEXT.okButton}
+        buttonHandler={() => router.push(SIGN_IN_LINK)}
         closeModal={() => {
           setShowErrorModal(false);
         }}

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
-import { CONTACT_US_MAILTO_LINK } from '@/lang/en';
+import { CONTACT_US_MAILTO_LINK, NAV_LITE_HEADER_TEXT } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 
@@ -46,7 +46,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
                   className="cursor-pointer pt-1 text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
                   href={CONTACT_US_MAILTO_LINK}
                 >
-                  Contact us
+                  {NAV_LITE_HEADER_TEXT.contactUs}
                 </a>
               </>
             )}

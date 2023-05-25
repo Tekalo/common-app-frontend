@@ -4,6 +4,8 @@ import Timeline from '@/components/timeline/Timeline';
 import {
   APPLICANT_FORM_TEXT,
   APPLICANT_SUCCESS_LINK,
+  BASE_LINK,
+  ERROR_MODAL_TEXT,
   SAVE_MODAL,
 } from '@/lang/en';
 import {
@@ -17,8 +19,8 @@ import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  ITimelineItem,
   InterestFieldsType,
+  ITimelineItem,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -125,7 +127,7 @@ const ApplicantForms: NextPageWithLayout = () => {
           const response: SubmissionResponseType = await res.json();
           setDraftFormValues(response.submission);
         } else if (res.status === 401) {
-          router.push('/');
+          router.push(BASE_LINK);
         } else {
           setShowErrorModal(true);
           console.error(res.statusText);
@@ -197,7 +199,12 @@ const ApplicantForms: NextPageWithLayout = () => {
       />
       <ErrorModal
         isOpen={showErrorModal}
-        closeModal={() => setShowErrorModal(false)}
+        titleText={ERROR_MODAL_TEXT.requestFailed}
+        descriptionText={ERROR_MODAL_TEXT.somethingWrong}
+        buttonText={ERROR_MODAL_TEXT.okButton}
+        closeModal={() => {
+          setShowErrorModal(false);
+        }}
       />
     </div>
   );
