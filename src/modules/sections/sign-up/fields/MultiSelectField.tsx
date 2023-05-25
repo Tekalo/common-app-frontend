@@ -52,7 +52,7 @@ const MultiSelectField: React.FC<IMultiSelectField> = ({
               onBlur={onBlur}
               listOptions={listOptions}
             />
-            {printErrorMessages(isSubmitted, errors)}
+            {printErrorMessages(isSubmitted, errors, disabled)}
           </div>
         );
       }}

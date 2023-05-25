@@ -45,7 +45,7 @@ const ErrorModal: React.FC<IErrorModal> = ({
 
         <div className="flex justify-end">
           <Button
-            onClick={() => (buttonHandler ? buttonHandler : closeModal())}
+            onClick={() => (buttonHandler ? buttonHandler() : closeModal())}
             label={buttonText}
           />
         </div>

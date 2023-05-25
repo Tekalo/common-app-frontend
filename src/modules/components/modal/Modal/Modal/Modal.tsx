@@ -9,7 +9,7 @@ export interface IModal {
   buttonColor?: string;
   buttonHoverColor?: string;
   cancelButtonText?: string;
-  headline?: string;
+  headline?: string | ReactElement;
   isOpen: boolean;
   closeModal: () => void;
   onConfirm: () => void;

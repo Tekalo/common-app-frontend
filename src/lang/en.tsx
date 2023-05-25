@@ -1,6 +1,11 @@
+import { GreenCircleCheck } from '@/lib/constants/svgs';
 import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
+
+// META
+const META_DESCRIPTION =
+  'Now more than ever, impact-driven orgs need tech talent that is passionate about solving the world’s most pressing problems. Tekalo is an initiative that matches tech talent with impact-driven organizations.';
 
 // NAV LINKS
 const BASE_LINK = '/';
@@ -287,7 +292,12 @@ const PRIVACY_MODAL_TEXT = {
   EXTRAS: ['See our ', 'Privacy FAQ', ' for more information'],
 };
 const SAVE_MODAL = {
-  HEADER: 'Your progress has been saved!',
+  HEADER: (
+    <>
+      <div className="mr-2 inline-block pt-1 align-top">{GreenCircleCheck}</div>
+      <div className="inline-block w-[80%]">Your progress has been saved!</div>
+    </>
+  ),
   BODY: 'If you need to leave, you can click “Sign in” from the homepage, then return to the application.',
   CTA: 'Ok',
 };
@@ -1593,6 +1603,8 @@ const TERMS_TEXT = {
   ),
 };
 
+// META
+export { META_DESCRIPTION };
 // PRIVACY & TERMS EXPORTS
 export {
   APPLICANT_CONTENT_TABLE_TEXT,

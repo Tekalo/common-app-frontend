@@ -57,7 +57,7 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
                 listOptions={listOptions}
                 disabled={disabled}
               />
-              {printErrorMessages(isSubmitted, errors)}
+              {printErrorMessages(isSubmitted, errors, disabled)}
             </div>
           );
         }}
