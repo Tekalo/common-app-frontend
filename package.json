@@ -13,7 +13,7 @@
     "build": "next build",
     "export": "next export",
     "e2e": "npx cypress open",
-    "build:for-edge": "pnpx @cloudflare/next-on-pages --experimental-minify",
+    "build:for-edge": "pnpx @cloudflare/next-on-pages",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out",
     "start": "next start",
     "lint": "next lint",
