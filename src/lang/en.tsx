@@ -148,7 +148,7 @@ const HOME_FAQ_TEXT = {
   ],
   ORG_QUESTION_5: 'When will I receive my matches?',
   ORG_ANSWER_5:
-    "We will reach out to you promptly after we've identified a potentialcandidate match. We will generally continue to look for candidates for you until your opportunity is filled or you opt out of the platform. If you don't receive a match right away don't worry; we continue to receive new candidate applications weekly.",
+    "We will reach out to you promptly after we've identified a potential candidate match. We will generally continue to look for candidates for you until your opportunity is filled or you opt out of the platform. If you don't receive a match right away don't worry; we continue to receive new candidate applications weekly.",
   ORG_QUESTION_6:
     'I am no longer looking for candidates. How do I opt out of Tekalo?',
   ORG_ANSWER_6:
@@ -342,6 +342,14 @@ const ORG_FORM_TEXT = {
     body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you once they have updates available. Thank you for applying to Tekalo.',
     cta: 'Done',
   },
+  NAV: {
+    title: 'Recruit qualified candidates from the Tekalo network',
+    navawayText: "If you're a candidate looking for opportunities, ",
+    navText: 'sign up here',
+  },
+  CONTACT: 'Contact',
+  BREADCRUMB: 'Role',
+  DELETE_ROLE: 'Delete this role',
 };
 const INTEREST_FORM_TEXT = {
   USDR: [
@@ -615,6 +623,7 @@ const ERROR_TEXT = {
   requiredSelectGroup: 'You must select at least one option',
   roleRequired: 'Role is required',
   invalidDate: 'Invalid date',
+  chooseOne: 'Choose at least one',
 };
 
 /** ENUM TEXT CONSTANTS */

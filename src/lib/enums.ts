@@ -34,6 +34,16 @@ const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
   return { message: errorMsg };
 };
 
+const chooseOneErrorMap = (err: z.ZodIssueOptionalMessage) => {
+  console.log(err);
+  const errorMsg =
+    err.code === 'invalid_type'
+      ? ERROR_TEXT.chooseOne
+      : ERROR_TEXT.unknownError;
+
+  return { message: errorMsg };
+};
+
 /** Enums
  */
 const Email = z
@@ -100,7 +110,7 @@ const EmploymentType = z.enum(EMPLOYMENT_TYPE_ENUM_OPTIONS, {
 });
 
 const CommitmentType = z.enum(COMMITMENT_ENUM_OPTIONS, {
-  errorMap: defaultEnumErrorMap,
+  errorMap: chooseOneErrorMap,
 });
 
 const CommitmentTypeValidator = CommitmentType.array().refine(
