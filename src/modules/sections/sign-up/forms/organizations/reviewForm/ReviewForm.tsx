@@ -69,11 +69,11 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
     <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
       {/* Header */}
       <div className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop">
-        {'Review your intake form'}
+        {REVIEW_FORM_TEXT.HEADER}
       </div>
       {/* Org Info */}
       <OrgDetailReview
-        titleText={'Contact and organization'}
+        titleText={REVIEW_FORM_TEXT.ORG_DETAIL.title}
         orgInfo={orgInfo}
         handleGoToOrg={handleGoToOrg}
       />
@@ -109,7 +109,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               <div className="mt-10">
                 <Button
                   className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
-                  label="Submit"
+                  label={REVIEW_FORM_TEXT.BUTTONS.submit.label}
                   type="submit"
                   disabled={isSubmitted && !isValid}
                   onClick={() => submit()}

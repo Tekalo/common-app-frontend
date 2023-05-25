@@ -1,4 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
 import {
   OptionalString,
@@ -66,8 +67,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Current Role */}
           <FreeTextField
             fieldName="lastRole"
-            label="Current or most recent role"
-            placeholder="Role"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastRole.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastRole.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastRole}
             validator={RequiredString}
@@ -76,8 +79,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Current Org */}
           <FreeTextField
             fieldName="lastOrg"
-            label="Current or most recent organization"
-            placeholder="Name of organization"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastOrg.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastOrg.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.lastOrg}
             validator={RequiredString}
@@ -97,10 +102,16 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Skills */}
           <MultiSelectField
             fieldName="skills"
-            label="Which of these skills apply to you? (optional)"
-            placeholder="Choose all that apply"
-            selectionLabelMulti=" Skills selected"
-            selectionLabelSingle=" Skill selected"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.placeholder
+            }
+            selectionLabelMulti={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.selectionLabelMulti
+            }
+            selectionLabelSingle={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.selectionLabelSingle
+            }
             listOptions={SkillOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.skills || []}
@@ -110,8 +121,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Other Skills */}
           <FreeTagField
             fieldName="otherSkills"
-            label="Other skills (optional)"
-            placeholder="Skills separated by commas"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.otherSkills || []}
             validator={OptionalStringArr}
@@ -120,8 +133,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* LinkedIn */}
           <FreeTextField
             fieldName="linkedInUrl"
-            label="LinkedIn (optional)"
-            placeholder="LinkedIn URL"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.linkedInUrl.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.linkedInUrl.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.linkedInUrl || ''}
             validator={OptionalString}
@@ -130,8 +145,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Portfolio */}
           <FreeTextField
             fieldName="portfolioUrl"
-            label="Portfolio (optional)"
-            placeholder="Portfolio URL"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioUrl.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioUrl.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.portfolioUrl || ''}
             validator={OptionalString}
@@ -140,9 +157,17 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Portfolio Password */}
           <FreeTextField
             fieldName="portfolioPassword"
-            label="Portfolio password (optional)"
-            placeholder="Password to view website"
-            tooltipText="If you maintain a website with a portfolio that is password-protected,  you may share your password here. Don't share any sensitive passwords as this field is not secure."
+            label={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword.label
+            }
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword
+                .placeholder
+            }
+            tooltipText={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword
+                .tooltipText
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.portfolioPassword || ''}
             validator={OptionalString}
@@ -151,8 +176,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Github */}
           <FreeTextField
             fieldName="githubUrl"
-            label="Github (optional)"
-            placeholder="Github URL"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.githubUrl.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.githubUrl.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.githubUrl || ''}
             validator={OptionalString}
@@ -161,9 +188,13 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Resume */}
           <FreeTextField
             fieldName="resumeUrl"
-            label="Link to resume (optional)"
-            placeholder="Resume URL"
-            tooltipText="You may upload your resume to a file-sharing service such as Google Drive, Box, Dropbox and share the link here. As an alternative, make sure to include a link to your LinkedIn profile or similar above."
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumeUrl.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumeUrl.placeholder
+            }
+            tooltipText={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumeUrl.tooltipText
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumeUrl || ''}
             validator={OptionalString}
@@ -172,8 +203,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Resume Password */}
           <FreeTextField
             fieldName="resumePassword"
-            label="Resume password (optional)"
-            placeholder="Password to view resume"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumePassword.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumePassword.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumePassword || ''}
             validator={OptionalString}
@@ -183,7 +216,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           <div className="pt-2">
             <Button
               className="w-full text-component-large"
-              label="Save your progress"
+              label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.save.label}
               type="button"
               variant={ButtonVariant.OUTLINED}
               onClick={doSave}
@@ -192,7 +225,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             <Button
               type="submit"
               className="mt-4 w-full text-component-large"
-              label="Next"
+              label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.submit.label}
             />
           </div>
         </form>
