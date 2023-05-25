@@ -36,7 +36,7 @@ const NAV_BAR_TEXT = {
   MY_ACCOUNT: 'My account',
   GET_STARTED_CTA: 'Get started',
   FOR_CANDIDATES: 'For candidates',
-  FOR_ORGS: 'For Organiizations',
+  FOR_ORGS: 'For Organizations',
 };
 const NAV_FOOTER_TEXT = {
   COPYRIGHT: '© Futures Action Nework, LLC',
