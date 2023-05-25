@@ -425,10 +425,29 @@ const ORG_SIGNUP_FORM_TEXT = {
     },
   },
 };
+const ORG_ROLE_FORM_TEXT = {
+  BUTTONS: {
+    addRole: {
+      label: 'Add another role',
+    },
+    review: {
+      label: 'Go to review',
+    },
+  },
+};
 const REVIEW_FORM_TEXT = {
+  HEADER: 'Review your intake form',
+  ORG_DETAIL: {
+    title: 'Contact and organization',
+  },
   PRIVACY_DISCLAIMER: {
     text: 'I confirm that I have reviewed the ',
     linkText: 'Privacy Info',
+  },
+  BUTTONS: {
+    submit: {
+      label: 'Submit',
+    },
   },
 };
 
@@ -1767,6 +1786,7 @@ export {
   REVIEW_FORM_TEXT,
   ORG_SIGNUP_FORM_TEXT,
   ORG_FORM_TEXT,
+  ORG_ROLE_FORM_TEXT,
 };
 // MODAL EXPORTS
 export {

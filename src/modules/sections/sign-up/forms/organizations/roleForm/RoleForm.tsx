@@ -1,5 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { EMPLOYMENT_TYPE_TEXT } from '@/lang/en';
+import { EMPLOYMENT_TYPE_TEXT, ORG_ROLE_FORM_TEXT } from '@/lang/en';
 import {
   EmploymentOptions,
   PaidOptions,
@@ -43,7 +43,6 @@ export interface IRoleForm {
   formType: CommitmentType[] | undefined;
   previousForm: NewRoleType | undefined;
   activeIndex: number;
-  isLastRole: boolean;
   handleNewRole: (values: NewRoleType, reviewReady?: boolean) => void;
   handleEditRole: (values: NewRoleType, reviewReady?: boolean) => void;
 }
@@ -85,7 +84,6 @@ const RoleForm: React.FC<IRoleForm> = ({
   handleEditRole,
   previousForm,
   activeIndex,
-  isLastRole,
 }) => {
   const partTimeOnly = formType?.length === 1 && formType?.includes('part');
   const fullTimeOnly = formType?.length === 1 && formType?.includes('full');
@@ -356,9 +354,9 @@ const RoleForm: React.FC<IRoleForm> = ({
             {/* Form Control Button*/}
             <div className="space-y-6">
               <Button
-                name="nextRole"
+                name="addRole"
                 className="mt-4 w-full text-component-large"
-                label={isLastRole ? 'Add another role' : 'Go to next role'}
+                label={ORG_ROLE_FORM_TEXT.BUTTONS.addRole.label}
                 variant={ButtonVariant.OUTLINED}
                 disabled={activeIndex >= 3}
                 type="submit"
@@ -366,7 +364,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               <Button
                 name="review"
                 className="mt-4 w-full text-component-large"
-                label={'Go to review'}
+                label={ORG_ROLE_FORM_TEXT.BUTTONS.review.label}
                 onClick={() => {
                   reviewReadyRef.current = isValid;
                   submit();

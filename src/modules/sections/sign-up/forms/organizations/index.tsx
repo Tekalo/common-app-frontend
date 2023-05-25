@@ -62,7 +62,6 @@ const OrgForms: React.FC<IOrgForms> = ({
               handleEditRole={handleEditRole}
               previousForm={orgRoles[activeIndex]}
               activeIndex={activeIndex}
-              isLastRole={activeIndex === orgRoles.length - 1}
             />
             {/* If orgRoles.length is greater than 1 render the delete link */}
             {orgRoles.length > 1 && (
