@@ -1,4 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
+import { ERROR_TEXT } from '@/lang/en';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -35,9 +36,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       <Sentry.ErrorBoundary // Enable Sentry by wrapping component with ErrorBoundary
         fallback={({ error }) => (
           <>
-            {
-              'An error occurred. Please try again later or contact support. Error:'
-            }
+            {ERROR_TEXT.fallbackError}
             {error}
           </>
         )}

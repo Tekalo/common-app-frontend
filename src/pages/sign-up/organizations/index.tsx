@@ -1,7 +1,7 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
-import { CONFIRM_MODAL, ORG_SUCCESS_LINK } from '@/lang/en';
+import { CONFIRM_MODAL, ERROR_MODAL_TEXT, ORG_SUCCESS_LINK } from '@/lang/en';
 import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
@@ -126,6 +126,9 @@ const OrganizationSignup: NextPageWithLayout = () => {
       )}
       <ErrorModal
         isOpen={showErrorModal}
+        titleText={ERROR_MODAL_TEXT.requestFailed}
+        descriptionText={ERROR_MODAL_TEXT.somethingWrong}
+        buttonText={ERROR_MODAL_TEXT.okButton}
         closeModal={() => {
           setShowErrorModal(false);
         }}
