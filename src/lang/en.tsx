@@ -351,9 +351,78 @@ const INTEREST_FORM_TEXT = {
   ],
 };
 const ORG_SIGNUP_FORM_TEXT = {
-  EEOC: {
-    text: 'Please confirm that you are an Equal Opportunity Employer as defined by the ',
-    linkText: 'EEOC',
+  BUTTONS: {
+    submit: {
+      label: 'Next',
+    },
+  },
+  FIELDS: {
+    orgName: {
+      label: 'Organization name',
+      placeholder: "Organization's legal name",
+    },
+    orgType: {
+      label: 'Organization type',
+      placeholder: 'Choose one',
+      tooltipText:
+        'We accept applications from 501(c)(3) organizations. Other types of impact-driven organizations are welcome to submit opportunities and will be considered on a case by case basis.',
+    },
+    orgSize: {
+      label: 'Organization size',
+      placeholder: 'Choose one',
+      tooltipText: '',
+    },
+    orgImpactAreas: {
+      label: 'Impact area(s) the organization works on',
+      placeholder: 'Choose all that apply',
+      selectionLabelSingle: ' Area selected',
+      selectionLabelMulti: ' Areas selected',
+    },
+    orgContactName: {
+      label: 'Contact name',
+      placeholder: 'Full name',
+      tooltipText: '',
+    },
+    orgContactEmail: {
+      label: 'Contact email',
+      placeholder: 'Email address',
+      tooltipText: '',
+    },
+    orgContactPhone: {
+      label: 'Contact phone (optional)',
+      placeholder: '+1 (555) 555-5555',
+      tooltipText:
+        "If provided, your number will be used to contact you about your application. It won't be used for marketing.",
+    },
+    orgEmploymentTypes: {
+      label:
+        'What type(s) of positions are you looking to fill? Choose all that apply.',
+      placeholder: '',
+      helperText:
+        'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.',
+    },
+    orgEOE: {
+      label: (
+        <>
+          <div className="space-y-2">
+            <div className="w-[103%] text-left text-p3-mobile text-black-text">
+              {
+                'Please confirm that you are an Equal Opportunity Employer as defined by the '
+              }
+              <a
+                href={EEOC_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4"
+              >
+                {'EEOC'}
+              </a>
+            </div>
+          </div>
+        </>
+      ),
+      placeholder: 'Choose one',
+    },
   },
 };
 const REVIEW_FORM_TEXT = {
@@ -434,7 +503,7 @@ const ERROR_TEXT = {
   invalidEmail: 'This must be a valid email address',
   invalidPhone: 'This must be a valid phone number',
   orgRequired: 'Organization is required',
-
+  impactAreasRequired: 'You must select at least one impact area',
   privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
   required: 'This is a required field',
   termsRequired: 'You must agree to the Terms of Use',
@@ -461,14 +530,23 @@ const ORG_SIZE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '201-500',
   '500+',
 ];
+const EMPLOYMENT_TYPE_TEXT = {
+  fte: 'full-time employee',
+  volunteer: 'volunteer',
+  contractor: 'contractor',
+  consultant: 'consultant',
+  advisor: 'advisor',
+  internship: 'internship',
+  other: 'other',
+};
 const EMPLOYMENT_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'full-time employee',
-  'volunteer',
-  'contractor',
-  'consultant',
-  'advisor',
-  'internship',
-  'other',
+  EMPLOYMENT_TYPE_TEXT.fte,
+  EMPLOYMENT_TYPE_TEXT.volunteer,
+  EMPLOYMENT_TYPE_TEXT.contractor,
+  EMPLOYMENT_TYPE_TEXT.consultant,
+  EMPLOYMENT_TYPE_TEXT.advisor,
+  EMPLOYMENT_TYPE_TEXT.internship,
+  EMPLOYMENT_TYPE_TEXT.other,
 ];
 const COMMITMENT_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'full',
@@ -1623,6 +1701,7 @@ export {
   REF_ENUM_OPTIONS,
   CONTACT_ENUM_OPTIONS,
   SEARCH_STATUS_ENUM_OPTIONS,
+  EMPLOYMENT_TYPE_TEXT,
 };
 // APP EXPORTS
 export { HEAD_TEXT, ERROR_TEXT };

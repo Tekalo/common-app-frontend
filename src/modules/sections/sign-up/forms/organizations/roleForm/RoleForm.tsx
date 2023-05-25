@@ -1,4 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { EMPLOYMENT_TYPE_TEXT } from '@/lang/en';
 import {
   EmploymentOptions,
   PaidOptions,
@@ -48,10 +49,10 @@ export interface IRoleForm {
 }
 
 const filterIfUnpaid = [
-  'full-time employee',
-  'contractor',
-  'consultant',
-  'internship',
+  EMPLOYMENT_TYPE_TEXT.fte,
+  EMPLOYMENT_TYPE_TEXT.contractor,
+  EMPLOYMENT_TYPE_TEXT.consultant,
+  EMPLOYMENT_TYPE_TEXT.internship,
 ];
 
 // returns a list of roles based on whether the role is paid and part time
@@ -60,11 +61,14 @@ const getEmploymentOptions = (isPaid = true, isPartTime: boolean) => {
     // If they are paid and part time, remove FTE and volunteer
     return EmploymentOptions.filter(
       (option) =>
-        option.value !== 'volunteer' && option.value !== 'full-time employee'
+        option.value !== EMPLOYMENT_TYPE_TEXT.volunteer &&
+        option.value !== EMPLOYMENT_TYPE_TEXT.fte
     );
   } else if (isPaid && !isPartTime) {
     // If they are paid and full time, remove volunteer
-    return EmploymentOptions.filter((option) => option.value !== 'volunteer');
+    return EmploymentOptions.filter(
+      (option) => option.value !== EMPLOYMENT_TYPE_TEXT.volunteer
+    );
   } else if ((!isPaid && isPartTime) || (!isPaid && !isPartTime)) {
     // If they are unpaid and full or part time, remove filterIfUnpaid options
     return EmploymentOptions.filter((option) => {
