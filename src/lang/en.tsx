@@ -352,11 +352,6 @@ const ORG_FORM_TEXT = {
   DELETE_ROLE: 'Delete this role',
 };
 const INTEREST_FORM_TEXT = {
-  USDR: [
-    'By choosing “yes,” you consent to ',
-    'U.S. Digital Response',
-    ' saving a copy of your Tekalo profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.',
-  ],
   BUTTONS: {
     save: {
       label: 'Save your progress',
@@ -366,37 +361,47 @@ const INTEREST_FORM_TEXT = {
     },
   },
   FIELDS: {
-    fieldName: {
-      label: '',
-      placeholder: '',
+    interestEmploymentType: {
+      label:
+        'What type(s) of opportunities are you interested in? Choose all that apply',
+      helperText:
+        'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.',
     },
-    fieldName: {
-      label: '',
-      placeholder: '',
+    interestRoles: {
+      label: 'What role(s) are you interested in?',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Roles selected',
+      selectionLabelSingle: ' Role selected',
     },
-    fieldName: {
-      label: '',
-      placeholder: '',
+
+    hoursPerWeek: {
+      label: 'Hours per week you are able to commit (optional)',
+      placeholder: 'Approximate number of hours',
     },
-    fieldName: {
-      label: '',
-      placeholder: '',
+    currentLocation: {
+      label: 'Current location',
+      placeholder: 'City, state and/or country',
     },
-    fieldName: {
-      label: '',
-      placeholder: '',
+    openToRelocate: {
+      label: 'Open to relocating?',
+      placeholder: 'Choose one',
     },
-    fieldName: {
-      label: '',
-      placeholder: '',
+    openToRemote: {
+      label: 'Open to remote?',
+      placeholder: 'Choose one',
     },
-    fieldName: {
-      label: '',
-      placeholder: '',
+    desiredSalary: {
+      label: 'Desired salary (optional)',
+      placeholder: 'Enter a range',
     },
-    fieldName: {
-      label: '',
-      placeholder: '',
+    interestCauses: {
+      selectLabel:
+        'Which causes are you interested in hearing opportunities for?',
+      rankLabel:
+        'Rank the causes you would be interested in working on with 1 being the highest.',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Causes selected',
+      selectionLabelSingle: ' Cause selected',
     },
     otherCauses: {
       label: 'Other causes (optional)',
@@ -411,7 +416,26 @@ const INTEREST_FORM_TEXT = {
     interestGovt: {
       label:
         'Are you interested in U.S. state or local government opportunities?',
-      placeholder: '',
+      helperText: (
+        <>
+          <div className="space-y-2">
+            <div className="w-[103%] text-left text-p3-mobile text-black-text">
+              {'By choosing “yes,” you consent to '}
+              <a
+                href={US_DIGITAL_RESPONSE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4"
+              >
+                {'U.S. Digital Response'}
+              </a>
+              {
+                ' saving a copy of your Tekalo profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.'
+              }
+            </div>
+          </div>
+        </>
+      ),
     },
     interestGovtEmplTypes: {
       label: 'Which opportunities from USDR are you interested in?',
@@ -738,9 +762,13 @@ const EMPLOYMENT_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   EMPLOYMENT_TYPE_TEXT.internship,
   EMPLOYMENT_TYPE_TEXT.other,
 ];
+const COMMITMENT_ENUM_TEXT = {
+  full: 'full',
+  part: 'part',
+};
 const COMMITMENT_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'full',
-  'part',
+  COMMITMENT_ENUM_TEXT.full,
+  COMMITMENT_ENUM_TEXT.part,
 ];
 const PAID_ENUM_OPTIONS: readonly [string, ...string[]] = ['paid', 'unpaid'];
 const YOE_ENUM_OPTIONS: readonly [string, ...string[]] = [
@@ -782,16 +810,27 @@ const SKILL_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'product development',
   'project management',
 ];
+const ROLE_ENUM_TEXT = {
+  swe: 'software engineer',
+  sweBackend: 'software engineer - backend',
+  sweFrontend: 'software engineer - frontend',
+  pm: 'product manager',
+  pd: 'product designer',
+  ux: 'ux/ui designer',
+  uxResearcher: 'ux researcher',
+  dataAnalyst: 'data analyst',
+  other: 'other',
+};
 const ROLE_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'software engineer',
-  'software engineer - backend',
-  'software engineer - frontend',
-  'product manager',
-  'product designer',
-  'ux/ui designer',
-  'ux researcher',
-  'data analyst',
-  'other',
+  ROLE_ENUM_TEXT.swe,
+  ROLE_ENUM_TEXT.sweBackend,
+  ROLE_ENUM_TEXT.sweFrontend,
+  ROLE_ENUM_TEXT.pm,
+  ROLE_ENUM_TEXT.pd,
+  ROLE_ENUM_TEXT.ux,
+  ROLE_ENUM_TEXT.uxResearcher,
+  ROLE_ENUM_TEXT.dataAnalyst,
+  ROLE_ENUM_TEXT.other,
 ];
 const CAUSE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'climate change',
@@ -1892,6 +1931,8 @@ export {
   CONTACT_ENUM_OPTIONS,
   SEARCH_STATUS_ENUM_OPTIONS,
   EMPLOYMENT_TYPE_TEXT,
+  COMMITMENT_ENUM_TEXT,
+  ROLE_ENUM_TEXT,
 };
 // APP EXPORTS
 export { HEAD_TEXT, ERROR_TEXT };
