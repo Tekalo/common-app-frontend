@@ -461,6 +461,68 @@ const INTEREST_FORM_TEXT = {
     },
   },
 };
+const APPLICANT_EXPERIENCE_FORM_TEXT = {
+  BUTTONS: {
+    save: {
+      label: 'Save your progress',
+    },
+    submit: {
+      label: 'Nex',
+    },
+  },
+  FIELDS: {
+    lastRole: {
+      label: 'Current or most recent role',
+      placeholder: 'Role',
+    },
+    lastOrg: {
+      label: 'Current or most recent organization',
+      placeholder: 'Name of organization',
+    },
+    yoe: {
+      label: 'Current or most recent organization',
+      placeholder: 'Name of organization',
+    },
+    skills: {
+      label: 'Which of these skills apply to you? (optional)',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Skills selected',
+      selectionLabelSingle: ' Skill selected',
+    },
+    otherSkills: {
+      label: 'Other skills (optional)',
+      placeholder: 'Skills separated by commas',
+    },
+    linkedInUrl: {
+      label: 'LinkedIn (optional)',
+      placeholder: 'LinkedIn URL',
+    },
+    portfolioUrl: {
+      label: 'Portfolio (optional)',
+      placeholder: 'Portfolio URL',
+    },
+    portfolioPassword: {
+      label: 'Portfolio password (optional)',
+      placeholder: 'Password to view website',
+      tooltipText:
+        "If you maintain a website with a portfolio that is password-protected,  you may share your password here. Don't share any sensitive passwords as this field is not secure.",
+    },
+    githubUrl: {
+      label: 'Github (optional)',
+      placeholder: 'Github URL',
+    },
+    resumeUrl: {
+      label: 'Link to resume (optional)',
+      placeholder: 'Resume URL',
+      tooltipText:
+        'You may upload your resume to a file-sharing service such as Google Drive, Box, Dropbox and share the link here. As an alternative, make sure to include a link to your LinkedIn profile or similar above.',
+    },
+    resumePassword: {
+      label: 'Resume password (optional)',
+      placeholder: 'Password to view resume',
+    },
+  },
+};
 const ORG_SIGNUP_FORM_TEXT = {
   BUTTONS: {
     submit: {
@@ -1995,6 +2057,7 @@ export { ACCOUNT_PAGE_TEXT };
 export {
   APPLICANT_FORM_TEXT,
   INTEREST_FORM_TEXT,
+  APPLICANT_EXPERIENCE_FORM_TEXT,
   REVIEW_FORM_TEXT,
   ORG_SIGNUP_FORM_TEXT,
   ORG_FORM_TEXT,
