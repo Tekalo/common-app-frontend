@@ -72,7 +72,7 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
                 onBlur={onBlur}
                 listOptions={listOptions}
               />
-              {printErrorMessages(isSubmitted, errors)}
+              {printErrorMessages(isSubmitted, errors, disabled)}
             </div>
             <RankChoice
               label={rankLabel}
