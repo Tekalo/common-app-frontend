@@ -311,7 +311,7 @@ const DELETE_MODAL = {
   CTA_CONFIRM: 'Delete account',
   CTA_CANCEL: 'Cancel',
   HEADER: 'Permanently delete your account and data',
-  BODY: 'Are you sure you want to permanently delete you account and data? This may take up to 30 days. Choose "delete account" to start deletion.',
+  BODY: 'Are you sure you want to permanently delete your account and data? This may take up to 30 days. Choose "delete account" to start deletion.',
 };
 const PAUSE_MODAL = {
   CTA_CONFIRM: 'Pause matches',
