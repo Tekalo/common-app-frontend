@@ -477,7 +477,7 @@ const APPLICANT_EXPERIENCE_FORM_TEXT = {
       label: 'Save your progress',
     },
     submit: {
-      label: 'Nex',
+      label: 'Next',
     },
   },
   FIELDS: {
