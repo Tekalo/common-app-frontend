@@ -1,0 +1,98 @@
+---
+name: Deploy Project
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: environment name
+        type: string
+        required: true
+    outputs:
+      issue-number:
+        value: ${{ jobs.deploy.outputs.issue-number }}
+      url:
+        value: ${{ jobs.deploy.outputs.url }}
+      alias:
+        value: ${{ jobs.deploy.outputs.alias }}
+      environment:
+        value: ${{ jobs.deploy.outputs.environment }}
+      deployment_id:
+        value: ${{ jobs.deploy.outputs.deployment_id }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: ${{inputs.environment}}
+
+    strategy:
+      matrix:
+        node-version: [16.19.1]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Restore cache
+        id: pnpm-next-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+            ${{ github.workspace }}/.next/cache
+            ${{ github.workspace }}/.vercel/output
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          fail-on-cache-miss: true
+
+      # - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
+      #   name: Install pnpm
+      #   uses: pnpm/action-setup@v2
+      #   id: pnpm-install
+      #   with:
+      #     version: latest
+      #     run_install: false
+
+      # - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
+      #   name: Install dependencies and Build (for Cloudflare Pages)
+
+      #   env:
+      #     CI: true
+      #     NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+      #     NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+      #     NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
+      #     NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+      #     NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+      #     NEXT_TELEMETRY_DISABLED: 1
+
+      #   run: |
+      #     pnpm install
+      #     pnpm build:for-edge
+
+      - name: Publish to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/pages-action@c2ad89679f0dee1ff4bcf9b8bbe1cf52d176cb29 # v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: common-app-frontend
+          directory: .vercel/output/static
+          # Optional: Enable this if you want to have GitHub Deployments triggered
+          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      issue-number: ${{ github.event.pull_request.number }}
+      url: ${{ steps.deploy.outputs.url }}
+      alias: ${{ steps.deploy.outputs.alias }}
+      environment: ${{ steps.deploy.outputs.environment }}
+      deployment_id: ${{ steps.deploy.outputs.id }}

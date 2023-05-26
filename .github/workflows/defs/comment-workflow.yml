@@ -1,0 +1,16 @@
+---
+name: Comment on PR
+
+on:
+  workflow_call:
+
+jobs:
+  comment:
+    name: Comment on PR
+    uses: raisedadead/portfolio/.github/workflows/comment.yml@main
+    with:
+      issue-number: ${{ github.event.pull_request.number }}
+      url: ${{ needs.deploy.outputs.url }}
+      alias: ${{ needs.deploy.outputs.alias }}
+      environment: ${{ needs.deploy.outputs.environment }}
+      deployment_id: ${{ needs.deploy.outputs.deployment_id }}
