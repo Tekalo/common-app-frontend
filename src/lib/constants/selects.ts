@@ -205,6 +205,11 @@ const AuthorizationOptions: Array<ISelectItem> = WorkAuthorization.options.map(
         value: option,
         displayText: WORK_AUTHORIZATION_TEXT.sponsorship,
       };
+    } else if (option === '') {
+      return {
+        value: '',
+        displayText: WORK_AUTHORIZATION_TEXT.noAnswer,
+      };
     } else {
       return {
         value: option,
