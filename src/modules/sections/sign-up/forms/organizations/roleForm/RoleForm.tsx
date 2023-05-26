@@ -176,7 +176,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                   initialValue={
                     previousForm?.employmentType.includes(' - ')
                       ? previousForm?.employmentType.split(' - ')[0]
-                      : previousForm?.employmentType ?? undefined
+                      : previousForm?.employmentType ?? EMPLOYMENT_TYPE_TEXT.fte
                   }
                   validator={EmploymentType}
                 />
