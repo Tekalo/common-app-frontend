@@ -751,7 +751,7 @@ const WORK_AUTHORIZATION_TEXT = {
   authorized: 'I am authorized to work in the U.S.',
   sponsorship:
     'I will now or in the future require sponsorship to work in the U.S.',
-  noAnswer: 'I prefer not to answer',
+  noAnswer: 'Clear selection',
 };
 const SEARCH_STATUS_TEXT = {
   active: "I'm actively looking for a new role",
