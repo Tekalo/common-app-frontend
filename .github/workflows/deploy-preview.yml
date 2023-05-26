@@ -26,25 +26,25 @@ jobs:
   # This can be expanded to include e2e testing later.
   build:
     name: Build Project
-    uses: ./.github/workflows/defs/build-workflow.yml
+    uses: ./.github/workflows/build-workflow.yml
     with:
       environment: 'develop'
 
   deploy:
     name: Deploy
-    uses: ./.github/workflows/defs/deploy-workflow.yml
+    uses: ./.github/workflows/deploy-workflow.yml
     needs: [build]
     with:
       environment: 'develop'
 
   comment:
     name: Comment on PR
-    uses: ./.github/workflows/defs/comment-workflow.yml
+    uses: ./.github/workflows/comment-workflow.yml
     needs: [deploy]
 
   e2e-tests:
     name: Run e2e Tests
-    uses: ./.github/workflows/defs/e2e-workflow.yml
+    uses: ./.github/workflows/e2e-workflow.yml
     needs: [deploy]
     with:
       environment: 'develop'
