@@ -72,10 +72,10 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
+          # TODO: Can probably find a way to re-use builds so we don't have to do it every time
           name: build-${{github.run_id}}
           path: |
             .next
             .vercel
             public
-            pnpm-lock.yaml
           retention-days: 1
