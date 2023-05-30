@@ -82,7 +82,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
           {APPLICANT_FORM_TEXT.IFORG[0]}
           <span className="text-blue-1 underline underline-offset-4">
             <Link href={ORG_SIGNUP_LINK}>{APPLICANT_FORM_TEXT.IFORG[1]}</Link>
-            {APPLICANT_FORM_TEXT.IFORG[1]}
+            {APPLICANT_FORM_TEXT.IFORG[3]}
           </span>
         </div>
       </div>
