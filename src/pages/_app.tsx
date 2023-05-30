@@ -1,5 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { COOKIE_CONSENT_COPY, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
+import { COOKIE_CONSENT, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -24,6 +24,8 @@ Sentry.init({
 function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
+  const cookieBtnClasses =
+    'mt-4 text-black-text w-full bg-blue-1 rounded font-sans text-component-large transition-colors hover:bg-blue-2 focus-visible:ring-2 focus-visible:ring-[#A7C4DB] active:border-blue-3 active:bg-blue-3 text-white py-2 px-6 md:w-auto lg:mt-0';
 
   return (
     // TODO: Move to env variables
@@ -51,25 +53,26 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         >
           {getLayout(<Component {...pageProps} />)}
           <CookieConsent
+            enableDeclineButton
+            declineButtonText={COOKIE_CONSENT.DECLINE_BTN}
             disableStyles={true}
             location={OPTIONS.BOTTOM}
-            buttonText="Accept"
+            buttonText={COOKIE_CONSENT.ACCEPT_BTN}
             cookieName="tekalo-opt-in-cookie"
-            containerClasses="text-black-text px-6 py-4 items-center bg-gray-4 flex justify-between fixed bottom-0 left-0 right-0"
-            buttonClasses="text-black-text bg-blue-1 rounded font-sans
-            text-component-large transition-colors hover:bg-blue-2
-            focus-visible:ring-2 focus-visible:ring-[#A7C4DB]
-            active:border-blue-3 active:bg-blue-3 text-white py-2 px-6"
+            containerClasses="text-black-text text-p3-mobile px-6 py-4 items-center bg-gray-4 flex flex-col justify-between fixed bottom-0 left-0 right-0 z-50 md:py-6 lg:flex-row lg:items-start lg:text-p3-desktop"
+            buttonWrapperClasses="w-full mt-2 md:flex md:justify-end md:gap-x-4 md:mt-0 lg:flex-1 lg:ml-3"
+            buttonClasses={cookieBtnClasses}
+            declineButtonClasses={cookieBtnClasses}
           >
-            {COOKIE_CONSENT_COPY[0]}
+            {COOKIE_CONSENT.COPY[0]}
             <Link
               className="text-blue-1 underline"
               href={TERMS_LINK}
               target="_blank"
             >
-              {COOKIE_CONSENT_COPY[1]}
+              {COOKIE_CONSENT.COPY[1]}
             </Link>
-            {COOKIE_CONSENT_COPY[2]}
+            {COOKIE_CONSENT.COPY[2]}
           </CookieConsent>
           <Preview generator={RankChoiceCard.generatePreview} />
         </DndProvider>
