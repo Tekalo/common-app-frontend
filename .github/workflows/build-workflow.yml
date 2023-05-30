@@ -54,10 +54,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-
 
-      - name: debug 1
-        run: |
-          echo "${{vars.NEXT_PUBLIC_BASE_URL}} ${{vars.NEXT_PUBLIC_TEST_USER}}"
-
       - name: Install dependencies and Build (regular)
 
         env:
