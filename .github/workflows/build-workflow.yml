@@ -77,4 +77,5 @@ jobs:
             .next
             .vercel
             public
+            pnpm-lock.yaml
           retention-days: 1
