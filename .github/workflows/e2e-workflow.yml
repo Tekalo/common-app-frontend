@@ -82,4 +82,3 @@ jobs:
         with:
           record: false
           auto-cancel-after-failures: 1
-          install: false
