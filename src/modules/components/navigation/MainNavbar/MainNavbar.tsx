@@ -3,25 +3,62 @@
 import Button from '@/components/buttons/Button/Button';
 import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK, NAV_BAR_TEXT } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useState } from 'react';
 
 export type IMainNavbar = React.ComponentPropsWithoutRef<'header'>;
 
 const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
   const logInOutLabel = isAuthenticated
     ? NAV_BAR_TEXT.SIGN_OUT
     : NAV_BAR_TEXT.SIGN_IN;
 
-  const handleAuthentication = (e: SyntheticEvent) => {
-    e.preventDefault();
+  const handleAuthentication = (e?: SyntheticEvent) => {
+    e ? e.preventDefault() : () => void {};
 
     isAuthenticated
       ? logout({ logoutParams: { returnTo: window.location.origin } })
       : loginWithRedirect();
   };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuIsOpen(!mobileMenuIsOpen);
+  };
+
+  const hideMobileMenu = () => {
+    setMobileMenuIsOpen(false);
+  };
+
+  const scrollToSection = (section: 'faq' | 'how'): void => {
+    setMobileMenuIsOpen(false);
+    const faqSection = document.getElementById(`landing_${section}`);
+
+    faqSection?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  };
+
+  const mobileLinks = [
+    {
+      text: NAV_BAR_TEXT.HOW_IT_WORKS,
+      action: () => {
+        scrollToSection('how');
+      },
+    },
+    {
+      text: NAV_BAR_TEXT.FAQ,
+      action: () => {
+        scrollToSection('faq');
+      },
+    },
+    { text: logInOutLabel, action: handleAuthentication },
+  ];
 
   return (
     <nav className="fixed z-30 w-screen bg-white">
@@ -29,7 +66,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
         <div className="space-y-50 flex justify-around sm:justify-between">
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
             {/* Logo */}
-            <Link href="/" className="">
+            <Link href="/">
               <img
                 src="/images/logo_nav.png"
                 alt="Tekalo Logo"
@@ -49,7 +86,22 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
             ) : (
               <>
                 <div
-                  className="cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                  tabIndex={0}
+                  className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                  onClick={() => scrollToSection('how')}
+                >
+                  {NAV_BAR_TEXT.HOW_IT_WORKS}
+                </div>
+                <div
+                  tabIndex={0}
+                  className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                  onClick={() => scrollToSection('faq')}
+                >
+                  {NAV_BAR_TEXT.FAQ}
+                </div>
+                <div
+                  tabIndex={0}
+                  className="my-3 hidden cursor-pointer    text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
                   onClick={(e) => handleAuthentication(e)}
                 >
                   {logInOutLabel}
@@ -62,7 +114,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   }
                 >
                   {isAuthenticated ? (
-                    <div className="cursor-pointer px-3 py-3 text-component-large text-black-text md:px-6">
+                    <div className="cursor-pointer py-3 text-component-large text-black-text">
                       {NAV_BAR_TEXT.MY_ACCOUNT}
                     </div>
                   ) : (
@@ -74,9 +126,41 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                     </Link>
                   )}
                 </Link>
+                {/* Mobile Menu Button */}
+                <div className="flex items-center sm:mr-0 md:hidden">
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => toggleMobileMenu()}
+                  >
+                    {mobileMenuIsOpen ? (
+                      <XMarkIcon className="h-6 w-6 stroke-2 text-black-text" />
+                    ) : (
+                      <Bars3Icon className="h-6 w-6 stroke-2 text-black-text" />
+                    )}
+                  </div>
+                </div>
               </>
             )}
           </div>
+        </div>
+      </div>
+      <div className={`md:hidden ${!mobileMenuIsOpen ? 'hidden' : ''}`}>
+        {/* Mobile Overlay */}
+        <div
+          className="fixed bottom-0 left-0 right-0 top-32 z-20 bg-black-text bg-opacity-75"
+          onClick={() => hideMobileMenu()}
+        ></div>
+        {/* Mobile Menu */}
+        <div className="relative z-30 bg-white px-6 py-4">
+          {mobileLinks.map((link, i) => (
+            <div
+              onClick={() => link.action()}
+              key={i}
+              className="px-4 py-3 text-component-large"
+            >
+              {link.text}
+            </div>
+          ))}
         </div>
       </div>
     </nav>
