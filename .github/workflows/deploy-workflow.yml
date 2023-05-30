@@ -12,6 +12,12 @@ on:
         description: id of run for grabbing artifact
         type: string
         required: true
+    secrets:
+      CLOUDFLARE_ACCOUNT_ID:
+        description: Cloudflare Account ID
+      CLOUDFLARE_API_TOKEN:
+        description: Cloudflare API Token
+
     outputs:
       issue-number:
         value: ${{ jobs.deploy.outputs.issue-number }}
