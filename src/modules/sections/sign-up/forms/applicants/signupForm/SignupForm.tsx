@@ -1,10 +1,15 @@
 import Button from '@/components/buttons/Button/Button';
-import { APPLICANT_FORM_TEXT, TERMS_LINK } from '@/lang/en';
+import {
+  APPLICANT_FORM_TEXT,
+  CONTACT_OPTION_TEXT,
+  TERMS_LINK,
+} from '@/lang/en';
 import {
   PreferredContactOptions,
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -12,7 +17,6 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
@@ -23,9 +27,10 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface ISignupForm {
   handleSubmit: (_values: NewCandidateType) => void;
@@ -65,12 +70,14 @@ const SignupForm: React.FC<ISignupForm> = ({
   setShowPrivacyModal,
 }) => {
   const { isAuthenticated, isLoading, user } = useAuth0();
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
   // TODO: Use form values like in candidate flow
   const [contactValue, setContactValue] = useState<string>();
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   return (
     <Form<NewCandidateType> onSubmit={(values) => handleSubmit(values)}>
@@ -87,8 +94,8 @@ const SignupForm: React.FC<ISignupForm> = ({
           ) : (
             <FreeTextField
               fieldName="name"
-              label="Name"
-              placeholder="Full name"
+              label={APPLICANT_FORM_TEXT.FIELDS.name.label}
+              placeholder={APPLICANT_FORM_TEXT.FIELDS.name.placeholder}
               isSubmitted={isSubmitted}
               initialValue={isAuthenticated ? user?.name : undefined}
               validator={RequiredString}
@@ -102,9 +109,9 @@ const SignupForm: React.FC<ISignupForm> = ({
           ) : (
             <FreeTextField
               fieldName="email"
-              label="Email"
-              tooltipText="Your email will be used to contact you about your application. It won’t be used for marketing unless you opt in below."
-              placeholder="Your email address"
+              label={APPLICANT_FORM_TEXT.FIELDS.email.label}
+              tooltipText={APPLICANT_FORM_TEXT.FIELDS.email.tooltipText}
+              placeholder={APPLICANT_FORM_TEXT.FIELDS.email.placeholder}
               isSubmitted={isSubmitted}
               initialValue={isAuthenticated ? user?.email : undefined}
               validator={Email}
@@ -115,8 +122,8 @@ const SignupForm: React.FC<ISignupForm> = ({
           {/* Pronouns */}
           <FreeTextField
             fieldName="pronouns"
-            label="Pronouns (optional)"
-            placeholder="E.g. she/her"
+            label={APPLICANT_FORM_TEXT.FIELDS.pronouns.label}
+            placeholder={APPLICANT_FORM_TEXT.FIELDS.pronouns.placeholder}
             isSubmitted={isSubmitted}
             initialValue={undefined}
             validator={OptionalString}
@@ -124,7 +131,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           {/* Search Status */}
           <RadioGroupField
             fieldName="searchStatus"
-            label="Which describes you best?"
+            label={APPLICANT_FORM_TEXT.FIELDS.searchStatus.label}
             listOptions={SearchStatusOptions}
             isSubmitted={isSubmitted}
             initialValue={undefined}
@@ -135,8 +142,10 @@ const SignupForm: React.FC<ISignupForm> = ({
           {/* Contact Method */}
           <SingleSelectField
             fieldName="preferredContact"
-            label="Preferred contact method to receive matches"
-            placeholder="Choose one"
+            label={APPLICANT_FORM_TEXT.FIELDS.preferredContact.label}
+            placeholder={
+              APPLICANT_FORM_TEXT.FIELDS.preferredContact.placeholder
+            }
             listOptions={PreferredContactOptions}
             isSubmitted={isSubmitted}
             onChange={(val) => {
@@ -149,46 +158,50 @@ const SignupForm: React.FC<ISignupForm> = ({
           <FreeTextField
             listenTo={['preferredContact']}
             fieldName="phone"
-            // TODO: This should be more directly tied to the validation
-            // function this field uses
-            tooltipText="If you prefer not to share your phone number, choose email as your preferred contact method. If provided, your number will be used to contact you about your application. It won’t be used for marketing unless you opt in below."
-            label={`Phone number ${
-              contactValue === 'email' ? '(optional)' : ''
-            }`}
-            placeholder="+1 (555) 555-5555"
+            tooltipText={APPLICANT_FORM_TEXT.FIELDS.phone.tooltipText}
+            label={
+              contactValue === CONTACT_OPTION_TEXT.email
+                ? APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
+                : APPLICANT_FORM_TEXT.FIELDS.phone.label
+            }
+            placeholder={APPLICANT_FORM_TEXT.FIELDS.phone.placeholder}
             isSubmitted={isSubmitted}
             initialValue={undefined}
             validator={contactPhoneLinkedValidation}
           />
-          <div className="space-y-4">
-            {/* Privacy Info */}
-            <BooleanField
-              fieldName="acceptedPrivacy"
-              label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
-              isSubmitted={isSubmitted}
-              initialValue={undefined}
-              validator={PrivacyPolicy}
-            />
-            {/* Terms of Use */}
-            <BooleanField
-              fieldName="acceptedTerms"
-              label={TERMS_DISCLAIMER}
-              isSubmitted={isSubmitted}
-              initialValue={undefined}
-              validator={ToS}
-            />
-            {/* Follow-up opt-in */}
-            <BooleanField
-              fieldName="followUpOptIn"
-              label="I'd like to receive electronic communications with other opportunities, news, and updates from Schmidt Futures (optional)"
-              isSubmitted={isSubmitted}
-              initialValue={undefined}
-            />
-          </div>
+          {/* Privacy Info */}
+          <BooleanField
+            fieldName="acceptedPrivacy"
+            label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
+            isSubmitted={isSubmitted}
+            initialValue={undefined}
+            validator={PrivacyPolicy}
+          />
+          {/* Terms of Use */}
+          <BooleanField
+            fieldName="acceptedTerms"
+            label={TERMS_DISCLAIMER}
+            isSubmitted={isSubmitted}
+            initialValue={undefined}
+            validator={ToS}
+          />
+          {/* Follow-up opt-in */}
+          <BooleanField
+            fieldName="followUpOptIn"
+            label={APPLICANT_FORM_TEXT.FIELDS.followUpOptIn.label}
+            isSubmitted={isSubmitted}
+            initialValue={undefined}
+          />
+          <Turnstile
+            ref={turnstileRef}
+            className="mx-auto"
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
+          />
+
           {/* Form Cotnrol Button*/}
           <Button
             className="mt-10 w-full lg:mt-14"
-            label="Sign up"
+            label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
             type="submit"
             disabled={isSubmitted && !isValid}
             onClick={() => submit()}
