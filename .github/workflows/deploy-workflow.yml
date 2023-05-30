@@ -8,6 +8,10 @@ on:
         description: environment name
         type: string
         required: true
+      run_id:
+        description: id of run for grabbing artifact
+        type: number
+        required: true
     outputs:
       issue-number:
         value: ${{ jobs.deploy.outputs.issue-number }}
@@ -45,6 +49,7 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
+      # Might just need to re-install pnpm before we do this
       # - name: Restore cache
       #   id: pnpm-next-restore
       #   uses: actions/cache/restore@v3
@@ -80,7 +85,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
-          name: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          name: build-${{github.run_id}}
 
       - name: Publish to Cloudflare Pages
         id: deploy

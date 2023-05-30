@@ -36,6 +36,7 @@ jobs:
     needs: [build]
     with:
       environment: 'develop'
+      run_id: ${{needs.build.outputs.run_id}}
 
   comment:
     name: Comment on PR

@@ -8,6 +8,9 @@ on:
         description: environment name
         type: string
         required: true
+    outputs:
+      run_id:
+        value: ${{github.run_id}}
 
 jobs:
   build:
@@ -69,7 +72,7 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          name: build-${{github.run_id}}
           path: |
             .next
             .vercel
