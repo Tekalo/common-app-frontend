@@ -71,14 +71,14 @@ jobs:
 
         env:
           CI: true
-          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
-          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
-          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
-          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
-          NEXT_PUBLIC_BASE_URL: ${{ format('{0}/', needs.deploy.outputs.url) }}
-          NEXT_PUBLIC_TEST_USER: ${{vars.NEXT_PUBLIC_TEST_USER}}
+          NEXT_PUBLIC_ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+          NEXT_PUBLIC_AUTH0_DOMAIN: ${{ inputs.AUTH0_DOMAIN }}
+          NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ inputs.AUTH0_CLIENT_ID }}
+          NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ inputs.AUTH0_AUDIENCE }}
+          NEXT_PUBLIC_BASE_URL: ${{ inputs.url }}
+          NEXT_PUBLIC_TEST_USER: ${{inputs.NEXT_PUBLIC_TEST_USER}}
           NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
-          CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_ID: ${{ inputs.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
         uses: cypress-io/github-action@v5.7.2
