@@ -1,4 +1,5 @@
 const baseApiUrl = '/api/';
+export const verifyTurnstileEndpoint = `${baseApiUrl}verify`;
 export const applicantsEndpoint = `${baseApiUrl}applicants`;
 export const opportunityEndpoint = `${baseApiUrl}opportunities`;
 export const opportunityBatchEndpoint = `${opportunityEndpoint}/batch`;
@@ -21,7 +22,7 @@ export const post = async (url: string, values: any, token = '') => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: generateTokenValue(token),
+      // Authorization: generateTokenValue(token),
     },
     body: JSON.stringify(values),
   });
