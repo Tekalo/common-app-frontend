@@ -60,7 +60,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             buttonText={COOKIE_CONSENT.ACCEPT_BTN}
             cookieName="tekalo-opt-in-cookie"
             containerClasses="text-black-text text-p3-mobile px-6 py-4 items-center bg-gray-4 flex flex-col justify-between fixed bottom-0 left-0 right-0 z-50 md:py-6 lg:flex-row lg:items-start lg:text-p3-desktop"
-            buttonWrapperClasses="w-full mt-2 md:flex md:justify-end md:gap-x-4 md:mt-0 lg:flex-1 lg:ml-3"
+            buttonWrapperClasses="w-full mt-2 md:flex md:justify-end md:gap-x-4 md:mt-0 lg:flex-1 lg:ml-10"
             buttonClasses={cookieBtnClasses}
             declineButtonClasses={cookieBtnClasses}
           >
