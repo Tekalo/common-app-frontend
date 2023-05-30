@@ -18,6 +18,7 @@ import {
   SearchStatus,
   ToS,
 } from '@/lib/enums';
+import { post, verifyTurnstileEndpoint } from '@/lib/helpers/apiHelpers';
 import { NewCandidateType } from '@/lib/types';
 import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
 import {
@@ -27,7 +28,11 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
+import {
+  Turnstile,
+  TurnstileInstance,
+  TurnstileServerValidationResponse,
+} from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -83,8 +88,26 @@ const SignupForm: React.FC<ISignupForm> = ({
     <Form<NewCandidateType> onSubmit={(values) => handleSubmit(values)}>
       {({ isValid, isSubmitted, submit }) => (
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
+            // Validate the Turnstile token and if success submit form otherwise show error
+
+            const turnstile = await post(verifyTurnstileEndpoint, {
+              token: turnstileToken,
+            });
+
+            // TODO: Having an issue right here with how we handle responses
+            // Might have to handle "where to call" from within our general api file instead...
+            const data: TurnstileServerValidationResponse =
+              await turnstile.json();
+
+            console.log(data);
+
+            if (data.success) {
+              submit();
+            } else {
+              console.log('Turnstile Error: ', data);
+            }
           }}
           className="flex flex-col space-y-8"
         >
@@ -194,6 +217,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           />
           <Turnstile
             ref={turnstileRef}
+            onSuccess={setTurnstileToken}
             className="mx-auto"
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
           />
@@ -204,7 +228,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
             type="submit"
             disabled={isSubmitted && !isValid}
-            onClick={() => submit()}
+            // onClick={() => submit()}
           />
         </form>
       )}
