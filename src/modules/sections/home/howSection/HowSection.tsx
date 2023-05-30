@@ -49,7 +49,10 @@ const HowSection: React.FC<IHowSection> = () => {
   ];
 
   return (
-    <section className="grid w-full place-items-center bg-light-blue">
+    <section
+      id="landing_how"
+      className="grid w-full scroll-mt-14 place-items-center bg-light-blue md:scroll-mt-16 lg:scroll-mt-20"
+    >
       <div className="px-6 py-14 md:px-24 md:py-16 lg:py-28">
         {/* Title */}
         <div className="text-center font-display text-h3-mobile text-black-text lg:text-h2-desktop">

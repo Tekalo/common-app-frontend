@@ -215,7 +215,10 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
   };
 
   return (
-    <section className="grid w-full place-items-center">
+    <section
+      className="grid w-full scroll-mt-14 place-items-center md:scroll-mt-20"
+      id="landing_faq"
+    >
       <div className="w-full px-6 pb-16 pt-14 md:px-4 md:py-20 lg:px-5 lg:py-28">
         {/* TITLE */}
         <div className="mx-auto max-w-content-area">

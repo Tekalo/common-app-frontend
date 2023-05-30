@@ -37,6 +37,8 @@ const NAV_BAR_TEXT = {
   GET_STARTED_CTA: 'Get started',
   FOR_CANDIDATES: 'For candidates',
   FOR_ORGS: 'For Organizations',
+  FAQ: 'FAQs',
+  HOW_IT_WORKS: 'How it works',
 };
 const NAV_FOOTER_TEXT = {
   COPYRIGHT: '© Futures Action Nework, LLC',
