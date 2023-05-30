@@ -16,22 +16,27 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
     {
       src: '/images/logos/Patrick_J_McGovern.png',
       alt: 'Patrick J McGovern Logo',
+      url: 'https://www.mcgovern.org/',
     },
     {
       src: '/images/logos/Humans_of_Public_Service.jpeg',
       alt: 'Humans of Public Service Logo',
+      url: 'https://humansofpublicservice.org/about',
     },
     {
       src: '/images/logos/Agency_Fund.png',
       alt: 'Agency Fund Logo',
+      url: 'https://www.agency.fund/',
     },
     {
       src: '/images/logos/Project_Tech4Dev.png',
       alt: 'Project Tech 4 Dev Logo',
+      url: 'https://projecttech4dev.org/',
     },
     {
       src: '/images/logos/new_data.png',
       alt: 'New Data Logo',
+      url: 'https://center-for-new-data.breezy.hr/',
     },
   ];
 
@@ -43,7 +48,9 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
             key={i}
             className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px]"
           >
-            <img src={logo.src} alt={logo.alt} className="min-w-0" />
+            <a href={logo.url} target="_blank" rel="noreferrer">
+              <img src={logo.src} alt={logo.alt} className="min-w-0" />
+            </a>
           </div>
         );
       })}
