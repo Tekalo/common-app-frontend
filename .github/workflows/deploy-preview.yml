@@ -57,3 +57,13 @@ jobs:
     needs: [deploy]
     with:
       environment: 'develop'
+      GH_ENVIRONMENT: ${{vars.ENVIRONMENT}}
+      AUTH0_DOMAIN: ${{vars.AUTH0_DOMAIN}}
+      AUTH0_CLIENT_ID: ${{vars.AUTH0_CLIENT_ID}}
+      AUTH0_AUDIENCE: ${{vars.AUTH0_AUDIENCE}}
+      url: ${{ format('{0}/', needs.deploy.outputs.url) }}
+      NEXT_PUBLIC_TEST_USER: ${{vars.NEXT_PUBLIC_TEST_USER}}
+      CF_ACCESS_CLIENT_ID: ${{vars.CF_ACCESS_CLIENT_ID}}
+    secrets:
+      NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
+      CF_ACCESS_CLIENT_SECRET: ${{secrets.CF_ACCESS_CLIENT_SECRET}}

@@ -8,6 +8,33 @@ on:
         description: environment name
         type: string
         required: true
+      GH_ENVIRONMENT:
+        type: string
+        required: true
+      AUTH0_DOMAIN:
+        type: string
+        required: true
+      AUTH0_CLIENT_ID:
+        type: string
+        required: true
+      AUTH0_AUDIENCE:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
+      NEXT_PUBLIC_TEST_USER:
+        type: string
+        required: true
+      CF_ACCESS_CLIENT_ID:
+        type: string
+        required: true
+    secrets:
+      NEXT_PUBLIC_TEST_PASSWORD:
+        description: Auth0 e2e test user pwd
+        required: true
+      CF_ACCESS_CLIENT_SECRET:
+        description: Cloudflare Access Secret
 
 jobs:
   e2e-tests:
@@ -34,16 +61,16 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Restore cache
-        id: pnpm-next-restore
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-            ${{ github.workspace }}/.next/cache
-            ${{ github.workspace }}/.vercel/output
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          fail-on-cache-miss: true
+      # - name: Restore cache
+      #   id: pnpm-next-restore
+      #   uses: actions/cache/restore@v3
+      #   with:
+      #     path: |
+      #       ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+      #       ${{ github.workspace }}/.next/cache
+      #       ${{ github.workspace }}/.vercel/output
+      #     key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+      #     fail-on-cache-miss: true
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
