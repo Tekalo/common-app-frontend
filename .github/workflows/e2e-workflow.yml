@@ -84,4 +84,3 @@ jobs:
         uses: cypress-io/github-action@v5.7.2
         with:
           record: false
-          auto-cancel-after-failures: 1
