@@ -67,6 +67,10 @@ jobs:
         with:
           name: build-${{github.run_id}}
 
+      - name: debug 2
+        run: |
+          echo "${{vars.NEXT_PUBLIC_BASE_URL}} ${{vars.NEXT_PUBLIC_TEST_USER}} ${{inputs.NEXT_PUBLIC_BASE_URL}} ${{inputs.NEXT_PUBLIC_TEST_USER}}"
+
       - name: Cypress run
 
         env:
