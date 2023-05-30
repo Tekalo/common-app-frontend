@@ -14,6 +14,14 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
 }) => {
   const recruitingLogos = [
     {
+      src: '/images/logos/Patrick_J_McGovern.png',
+      alt: 'Patrick J McGovern Logo',
+    },
+    {
+      src: '/images/logos/Humans_of_Public_Service.jpeg',
+      alt: 'Humans of Public Service Logo',
+    },
+    {
       src: '/images/logos/Agency_Fund.png',
       alt: 'Agency Fund Logo',
     },
@@ -25,18 +33,10 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       src: '/images/logos/new_data.png',
       alt: 'New Data Logo',
     },
-    {
-      src: '/images/logos/Patrick_J_McGovern.png',
-      alt: 'Patrick J McGovern Logo',
-    },
-    {
-      src: '/images/logos/Humans_of_Public_Service.jpeg',
-      alt: 'Humans of Public Service Logo',
-    },
   ];
 
   const renderLogos = () => (
-    <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-20 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
+    <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-center justify-items-start gap-x-20 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
       {recruitingLogos.map((logo, i) => {
         return (
           <div
