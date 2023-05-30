@@ -85,11 +85,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
               {HOME_ORG_TEXT.CTA_BODY}
             </div>
             {/* Button */}
-            <Link href={ORG_SIGNUP_LINK}>
+            <Link href={ORG_SIGNUP_LINK} className="mt-6 lg:mt-10">
               <Button
                 variant={ButtonVariant.OUTLINED}
                 label={HOME_ORG_TEXT.CTA_BUTTON}
-                className="mt-6 w-full max-w-[248px] px-2 sm:px-7 md:max-w-[352px] md:px-8 lg:mt-10"
+                className="w-full max-w-[248px] px-2 sm:px-7 md:max-w-[352px] md:px-8"
               />
             </Link>
           </div>
