@@ -86,19 +86,22 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
             ) : (
               <>
                 <div
-                  className="hidden cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                  tabIndex={0}
+                  className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
                   onClick={() => scrollToSection('how')}
                 >
                   {NAV_BAR_TEXT.HOW_IT_WORKS}
                 </div>
                 <div
-                  className="hidden cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                  tabIndex={0}
+                  className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
                   onClick={() => scrollToSection('faq')}
                 >
                   {NAV_BAR_TEXT.FAQ}
                 </div>
                 <div
-                  className="hidden cursor-pointer py-3 text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                  tabIndex={0}
+                  className="my-3 hidden cursor-pointer    text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
                   onClick={(e) => handleAuthentication(e)}
                 >
                   {logInOutLabel}
