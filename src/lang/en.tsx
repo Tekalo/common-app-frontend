@@ -748,10 +748,10 @@ const USDR_TEXT = {
   unpaid: 'Volunteer (unpaid) roles with USDR to support government partners',
 };
 const WORK_AUTHORIZATION_TEXT = {
+  noAnswer: 'No option selected',
   authorized: 'I am authorized to work in the U.S.',
   sponsorship:
     'I will now or in the future require sponsorship to work in the U.S.',
-  noAnswer: 'Clear selection',
 };
 const SEARCH_STATUS_TEXT = {
   active: "I'm actively looking for a new role",
@@ -934,9 +934,9 @@ const REMOTE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'not sure',
 ];
 const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '',
   'authorized',
   'sponsorship',
-  '',
 ];
 const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'website',

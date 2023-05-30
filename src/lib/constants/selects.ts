@@ -195,7 +195,12 @@ const USDROptions: Array<ISelectItem> = GovtJobType.options.map((option) => {
 
 const AuthorizationOptions: Array<ISelectItem> = WorkAuthorization.options.map(
   (option) => {
-    if (option === 'authorized') {
+    if (option === '') {
+      return {
+        value: '',
+        displayText: WORK_AUTHORIZATION_TEXT.noAnswer,
+      };
+    } else if (option === 'authorized') {
       return {
         value: option,
         displayText: WORK_AUTHORIZATION_TEXT.authorized,
@@ -204,11 +209,6 @@ const AuthorizationOptions: Array<ISelectItem> = WorkAuthorization.options.map(
       return {
         value: option,
         displayText: WORK_AUTHORIZATION_TEXT.sponsorship,
-      };
-    } else if (option === '') {
-      return {
-        value: '',
-        displayText: WORK_AUTHORIZATION_TEXT.noAnswer,
       };
     } else {
       return {
