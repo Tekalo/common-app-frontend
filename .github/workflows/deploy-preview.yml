@@ -1,4 +1,4 @@
-name: Deploy preview to Cloudflare Pages
+name: Build, Deploy preview to Cloudflare Pages, Run E2E Tests
 
 # This workflow is triggered on pull requests against the develop branch.
 # This workflow is triggered on pushes to branches starting with test/
