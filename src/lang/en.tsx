@@ -44,6 +44,8 @@ const NAV_BAR_TEXT = {
   GET_STARTED_CTA: 'Get started',
   FOR_CANDIDATES: 'For candidates',
   FOR_ORGS: 'For Organizations',
+  FAQ: 'FAQs',
+  HOW_IT_WORKS: 'How it works',
 };
 const NAV_FOOTER_TEXT = {
   COPYRIGHT: '© Futures Action Nework, LLC',
@@ -318,7 +320,7 @@ const DELETE_MODAL = {
   CTA_CONFIRM: 'Delete account',
   CTA_CANCEL: 'Cancel',
   HEADER: 'Permanently delete your account and data',
-  BODY: 'Are you sure you want to permanently delete you account and data? This may take up to 30 days. Choose "delete account" to start deletion.',
+  BODY: 'Are you sure you want to permanently delete your account and data? This may take up to 30 days. Choose "delete account" to start deletion.',
 };
 const PAUSE_MODAL = {
   CTA_CONFIRM: 'Pause matches',
@@ -755,6 +757,7 @@ const USDR_TEXT = {
   unpaid: 'Volunteer (unpaid) roles with USDR to support government partners',
 };
 const WORK_AUTHORIZATION_TEXT = {
+  noAnswer: 'No option selected',
   authorized: 'I am authorized to work in the U.S.',
   sponsorship:
     'I will now or in the future require sponsorship to work in the U.S.',
@@ -940,9 +943,9 @@ const REMOTE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'not sure',
 ];
 const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '',
   'authorized',
   'sponsorship',
-  '',
 ];
 const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'website',
