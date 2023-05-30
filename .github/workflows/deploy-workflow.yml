@@ -101,8 +101,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: common-app-frontend
           directory: .vercel/output/static
-          # Optional: Enable this if you want to have GitHub Deployments triggered
-          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
       url: ${{ steps.deploy.outputs.url }}
