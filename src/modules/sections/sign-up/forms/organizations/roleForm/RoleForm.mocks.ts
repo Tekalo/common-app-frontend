@@ -7,7 +7,6 @@ const base: IRoleForm = {
   handleNewRole: () => void {},
   previousForm: undefined,
   activeIndex: 1,
-  isLastRole: false,
   handleEditRole: () => void {},
 };
 

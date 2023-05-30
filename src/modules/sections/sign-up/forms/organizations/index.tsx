@@ -1,5 +1,6 @@
 import Breadcrumb from '@/components/navigation/Breadcrumb/Breadcrumb';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
+import { APPLICANT_SIGNUP_LINK, ORG_FORM_TEXT } from '@/lang/en';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';
@@ -28,10 +29,10 @@ const OrgForms: React.FC<IOrgForms> = ({
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center px-6 pb-28 pt-10 md:pb-32 lg:pb-44 lg:pt-16">
       <NavTitle
-        title={'Recruit qualified candidates from the Tekalo network'}
-        navawayText={'If you’re a candidate looking for opportunities, '}
-        navLink={'/sign-up/applicants'}
-        navText={'sign up here'}
+        title={ORG_FORM_TEXT.NAV.title}
+        navawayText={ORG_FORM_TEXT.NAV.navawayText}
+        navLink={APPLICANT_SIGNUP_LINK}
+        navText={ORG_FORM_TEXT.NAV.navText}
       />
       <div className="m-auto max-w-[344px] lg:max-w-[352px]">
         {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm and breadcrum*/}
@@ -47,10 +48,10 @@ const OrgForms: React.FC<IOrgForms> = ({
                 className="cursor-pointer text-component-medium text-blue-1"
                 onClick={() => setActiveIndex(-1)}
               >
-                {'Contact'}
+                {ORG_FORM_TEXT.CONTACT}
               </div>
               <Breadcrumb
-                label="Role"
+                label={ORG_FORM_TEXT.BREADCRUMB}
                 items={orgRoles}
                 activeIndex={activeIndex}
                 setActive={setActiveIndex}
@@ -62,7 +63,6 @@ const OrgForms: React.FC<IOrgForms> = ({
               handleEditRole={handleEditRole}
               previousForm={orgRoles[activeIndex]}
               activeIndex={activeIndex}
-              isLastRole={activeIndex === orgRoles.length - 1}
             />
             {/* If orgRoles.length is greater than 1 render the delete link */}
             {orgRoles.length > 1 && (
@@ -70,7 +70,7 @@ const OrgForms: React.FC<IOrgForms> = ({
                 className="mt-6 cursor-pointer text-center text-component-medium text-red-error"
                 onClick={() => handleDeleteRole(activeIndex)}
               >
-                {'Delete this role'}
+                {ORG_FORM_TEXT.DELETE_ROLE}
               </div>
             )}
           </>

@@ -1,6 +1,11 @@
+import { GreenCircleCheck } from '@/lib/constants/svgs';
 import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
+
+// META
+const META_DESCRIPTION =
+  'Now more than ever, impact-driven orgs need tech talent that is passionate about solving the world’s most pressing problems. Tekalo is an initiative that matches tech talent with impact-driven organizations.';
 
 // NAV LINKS
 const BASE_LINK = '/';
@@ -38,7 +43,7 @@ const NAV_BAR_TEXT = {
   MY_ACCOUNT: 'My account',
   GET_STARTED_CTA: 'Get started',
   FOR_CANDIDATES: 'For candidates',
-  FOR_ORGS: 'For Organiizations',
+  FOR_ORGS: 'For Organizations',
 };
 const NAV_FOOTER_TEXT = {
   COPYRIGHT: '© Futures Action Nework, LLC',
@@ -155,7 +160,7 @@ const HOME_FAQ_TEXT = {
   ],
   ORG_QUESTION_5: 'When will I receive my matches?',
   ORG_ANSWER_5:
-    "We will reach out to you promptly after we've identified a potentialcandidate match. We will generally continue to look for candidates for you until your opportunity is filled or you opt out of the platform. If you don't receive a match right away don't worry; we continue to receive new candidate applications weekly.",
+    "We will reach out to you promptly after we've identified a potential candidate match. We will generally continue to look for candidates for you until your opportunity is filled or you opt out of the platform. If you don't receive a match right away don't worry; we continue to receive new candidate applications weekly.",
   ORG_QUESTION_6:
     'I am no longer looking for candidates. How do I opt out of Tekalo?',
   ORG_ANSWER_6:
@@ -294,7 +299,12 @@ const PRIVACY_MODAL_TEXT = {
   EXTRAS: ['See our ', 'Privacy FAQ', ' for more information'],
 };
 const SAVE_MODAL = {
-  HEADER: 'Your progress has been saved!',
+  HEADER: (
+    <>
+      <div className="mr-2 inline-block pt-1 align-top">{GreenCircleCheck}</div>
+      <div className="inline-block w-[80%]">Your progress has been saved!</div>
+    </>
+  ),
   BODY: 'If you need to leave, you can click “Sign in” from the homepage, then return to the application.',
   CTA: 'Ok',
 };
@@ -346,27 +356,371 @@ const APPLICANT_FORM_TEXT = {
 const ORG_FORM_TEXT = {
   SUCCESS: {
     title: 'Your intake form was submitted!',
-    body: 'You will receive a confirmation email shortly. Your assigned Tekalo recruiting liaison will review your application and contact you. This process may take up to 6 weeks. Thank you for applying to Tekalo.',
+    body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you once they have updates available. Thank you for applying to Tekalo.',
     cta: 'Done',
   },
+  NAV: {
+    title: 'Recruit qualified candidates from the Tekalo network',
+    navawayText: "If you're a candidate looking for opportunities, ",
+    navText: 'sign up here',
+  },
+  CONTACT: 'Contact',
+  BREADCRUMB: 'Role',
+  DELETE_ROLE: 'Delete this role',
 };
 const INTEREST_FORM_TEXT = {
-  USDR: [
-    'By choosing “yes,” you consent to ',
-    'U.S. Digital Response',
-    ' saving a copy of your Tekalo profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.',
-  ],
+  BUTTONS: {
+    save: {
+      label: 'Save your progress',
+    },
+    submit: {
+      label: 'Submit',
+    },
+  },
+  FIELDS: {
+    interestEmploymentType: {
+      label:
+        'What type(s) of opportunities are you interested in? Choose all that apply',
+      helperText:
+        'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.',
+    },
+    interestRoles: {
+      label: 'What role(s) are you interested in?',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Roles selected',
+      selectionLabelSingle: ' Role selected',
+    },
+
+    hoursPerWeek: {
+      label: 'Hours per week you are able to commit (optional)',
+      placeholder: 'Approximate number of hours',
+    },
+    currentLocation: {
+      label: 'Current location',
+      placeholder: 'City, state and/or country',
+    },
+    openToRelocate: {
+      label: 'Open to relocating?',
+      placeholder: 'Choose one',
+    },
+    openToRemote: {
+      label: 'Open to remote?',
+      placeholder: 'Choose one',
+    },
+    desiredSalary: {
+      label: 'Desired salary (optional)',
+      placeholder: 'Enter a range',
+    },
+    interestCauses: {
+      selectLabel:
+        'Which causes are you interested in hearing opportunities for?',
+      rankLabel:
+        'Rank the causes you would be interested in working on with 1 being the highest.',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Causes selected',
+      selectionLabelSingle: ' Cause selected',
+    },
+    otherCauses: {
+      label: 'Other causes (optional)',
+      placeholder: 'Additional causes separated by commas',
+    },
+    workAuthorization: {
+      label: 'Work authorization (optional)',
+      placeholder: 'Choose one',
+      tooltipText:
+        'If you require U.S. visa sponsorship now or in the future, we can do our best to match you with opportunities that sponsor visas',
+    },
+    interestGovt: {
+      label:
+        'Are you interested in U.S. state or local government opportunities?',
+      helperText: (
+        <>
+          <div className="space-y-2">
+            <div className="w-[103%] text-left text-p3-mobile text-black-text">
+              {'By choosing “yes,” you consent to '}
+              <a
+                href={US_DIGITAL_RESPONSE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4"
+              >
+                {'U.S. Digital Response'}
+              </a>
+              {
+                ' saving a copy of your Tekalo profile in its own database and sending you electronic communications. USDR may contact you about opportunities in state and local governments, and add you to their newsletter which contains government job opportunities.'
+              }
+            </div>
+          </div>
+        </>
+      ),
+    },
+    interestGovtEmplTypes: {
+      label: 'Which opportunities from USDR are you interested in?',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Opportunity selected',
+      selectionLabelSingle: ' Opportunities selected',
+    },
+    previousImpactExperience: {
+      label:
+        'Do you have previous experience working at a nonprofit or public service organization?',
+      placeholder: '',
+    },
+    essayResponse: {
+      label:
+        'If you had unlimited resources what problem would you choose to solve and why?',
+      placeholder: "Write as much as you'd like, suggested up to 250 words.",
+      tooltipText:
+        'This response will only be reviewed by Tekalo recruiters and will help them learn more about your interests.',
+    },
+    referenceAttribution: {
+      label: 'How did you hear about Tekalo? (optional)',
+      placeholder: 'Choose one',
+    },
+  },
+};
+const APPLICANT_EXPERIENCE_FORM_TEXT = {
+  BUTTONS: {
+    save: {
+      label: 'Save your progress',
+    },
+    submit: {
+      label: 'Next',
+    },
+  },
+  FIELDS: {
+    lastRole: {
+      label: 'Current or most recent role',
+      placeholder: 'Role',
+    },
+    lastOrg: {
+      label: 'Current or most recent organization',
+      placeholder: 'Name of organization',
+    },
+    yoe: {
+      label: 'Current or most recent organization',
+      placeholder: 'Name of organization',
+    },
+    skills: {
+      label: 'Which of these skills apply to you? (optional)',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Skills selected',
+      selectionLabelSingle: ' Skill selected',
+    },
+    otherSkills: {
+      label: 'Other skills (optional)',
+      placeholder: 'Skills separated by commas',
+    },
+    linkedInUrl: {
+      label: 'LinkedIn (optional)',
+      placeholder: 'LinkedIn URL',
+    },
+    portfolioUrl: {
+      label: 'Portfolio (optional)',
+      placeholder: 'Portfolio URL',
+    },
+    portfolioPassword: {
+      label: 'Portfolio password (optional)',
+      placeholder: 'Password to view website',
+      tooltipText:
+        "If you maintain a website with a portfolio that is password-protected,  you may share your password here. Don't share any sensitive passwords as this field is not secure.",
+    },
+    githubUrl: {
+      label: 'Github (optional)',
+      placeholder: 'Github URL',
+    },
+    resumeUrl: {
+      label: 'Link to resume (optional)',
+      placeholder: 'Resume URL',
+      tooltipText:
+        'You may upload your resume to a file-sharing service such as Google Drive, Box, Dropbox and share the link here. As an alternative, make sure to include a link to your LinkedIn profile or similar above.',
+    },
+    resumePassword: {
+      label: 'Resume password (optional)',
+      placeholder: 'Password to view resume',
+    },
+  },
 };
 const ORG_SIGNUP_FORM_TEXT = {
-  EEOC: {
-    text: 'Please confirm that you are an Equal Opportunity Employer as defined by the ',
-    linkText: 'EEOC',
+  BUTTONS: {
+    submit: {
+      label: 'Next',
+    },
+  },
+  FIELDS: {
+    orgName: {
+      label: 'Organization name',
+      placeholder: "Organization's legal name",
+    },
+    orgType: {
+      label: 'Organization type',
+      placeholder: 'Choose one',
+      tooltipText:
+        'We accept applications from 501(c)(3) organizations. Other types of impact-driven organizations are welcome to submit opportunities and will be considered on a case by case basis.',
+    },
+    orgSize: {
+      label: 'Organization size',
+      placeholder: 'Choose one',
+      tooltipText: '',
+    },
+    orgImpactAreas: {
+      label: 'Impact area(s) the organization works on',
+      placeholder: 'Choose all that apply',
+      selectionLabelSingle: ' Area selected',
+      selectionLabelMulti: ' Areas selected',
+    },
+    orgContactName: {
+      label: 'Contact name',
+      placeholder: 'Full name',
+      tooltipText: '',
+    },
+    orgContactEmail: {
+      label: 'Contact email',
+      placeholder: 'Email address',
+      tooltipText: '',
+    },
+    orgContactPhone: {
+      label: 'Contact phone (optional)',
+      placeholder: '+1 (555) 555-5555',
+      tooltipText:
+        "If provided, your number will be used to contact you about your application. It won't be used for marketing.",
+    },
+    orgEmploymentTypes: {
+      label:
+        'What type(s) of positions are you looking to fill? Choose all that apply.',
+      placeholder: '',
+      helperText:
+        'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.',
+    },
+    orgEOE: {
+      label: (
+        <>
+          <div className="space-y-2">
+            <div className="w-[103%] text-left text-p3-mobile text-black-text">
+              {
+                'Please confirm that you are an Equal Opportunity Employer as defined by the '
+              }
+              <a
+                href={EEOC_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4"
+              >
+                {'EEOC'}
+              </a>
+            </div>
+          </div>
+        </>
+      ),
+      placeholder: 'Choose one',
+    },
+  },
+};
+const ORG_ROLE_FORM_TEXT = {
+  BUTTONS: {
+    addRole: {
+      label: 'Add another role',
+    },
+    review: {
+      label: 'Go to review',
+    },
+  },
+  FIELDS: {
+    paid: {
+      label: 'Is this role paid or unpaid?',
+    },
+    roleType: {
+      label: 'What type of role is this?',
+      placeholder: 'Choose one',
+    },
+    employmentTypeSelect: {
+      label: 'What type of opportunity is this?',
+      placeholder: 'Choose one',
+    },
+    employmentTypeText: {
+      label: 'If you chose other, please specify (optional)',
+      placeholder: 'Type of opportunity',
+    },
+    positionTitle: {
+      label: 'Position Title',
+      placeholder: 'Position Title',
+    },
+    jdUrl: {
+      label: 'Link to job description (optional)',
+      placeholder: 'Job description URL',
+    },
+    salaryRange: {
+      labelFte: 'Salary range',
+      labelPte: 'Pay range',
+      placeholder: 'Enter a range',
+    },
+    desiredHoursPerWeek: {
+      label: 'Desired hours per week (optional)',
+      placeholder: 'Approximate number of hours',
+    },
+    fullyRemote: {
+      label: 'Is this role fully remote?',
+      placeholder: '',
+    },
+    location: {
+      label: 'Location(s) (optional)',
+      placeholder: 'List all locations in "city, state" format',
+    },
+    visaSponsorship: {
+      label: 'Do you offer Visa sponsorship?',
+      placeholder: 'Choose one',
+    },
+    desiredStartDate: {
+      label: 'Desired start date (optional)',
+      placeholder: 'mm/dd/yyyy',
+    },
+    desiredEndDate: {
+      label: 'Desired end date (optional)',
+      placeholder: 'mm/dd/yyyy',
+    },
+    desiredYoe: {
+      label: 'Desired years of experience',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' options selected',
+      selectionLabelSingle: ' option selected',
+    },
+    desiredSkills: {
+      label: 'Desired skills for the role (optional)',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' options selected',
+      selectionLabelSingle: ' option selected',
+    },
+    desiredOtherSkills: {
+      label: 'Other desired skills if not listed above (optional)',
+      placeholder: 'Desired skills separated by commas',
+    },
+    similarStaffed: {
+      label: 'Are there employees on staff with the same or similar role?',
+      placeholder: '',
+    },
+    desiredImpactExp: {
+      label:
+        'Desired impact-related experience or passion that you are looking for in a candidate (optional)',
+      placeholder: 'Your answer here. Maximum 200 words.',
+    },
+    pitchEssay: {
+      label: 'How would you pitch this role in a few sentences?',
+      placeholder: 'Your answer here. Maximum 200 words.',
+    },
   },
 };
 const REVIEW_FORM_TEXT = {
+  HEADER: 'Review your intake form',
+  ORG_DETAIL: {
+    title: 'Contact and organization',
+  },
   PRIVACY_DISCLAIMER: {
     text: 'I confirm that I have reviewed the ',
     linkText: 'Privacy Info',
+  },
+  BUTTONS: {
+    submit: {
+      label: 'Submit',
+    },
   },
 };
 
@@ -441,7 +795,7 @@ const ERROR_TEXT = {
   invalidEmail: 'This must be a valid email address',
   invalidPhone: 'This must be a valid phone number',
   orgRequired: 'Organization is required',
-
+  impactAreasRequired: 'You must select at least one impact area',
   privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
   required: 'This is a required field',
   termsRequired: 'You must agree to the Terms of Use',
@@ -451,6 +805,7 @@ const ERROR_TEXT = {
   requiredSelectGroup: 'You must select at least one option',
   roleRequired: 'Role is required',
   invalidDate: 'Invalid date',
+  chooseOne: 'Choose at least one',
 };
 
 /** ENUM TEXT CONSTANTS */
@@ -468,18 +823,31 @@ const ORG_SIZE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '201-500',
   '500+',
 ];
+const EMPLOYMENT_TYPE_TEXT = {
+  fte: 'full-time employee',
+  volunteer: 'volunteer',
+  contractor: 'contractor',
+  consultant: 'consultant',
+  advisor: 'advisor',
+  internship: 'internship',
+  other: 'other',
+};
 const EMPLOYMENT_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'full-time employee',
-  'volunteer',
-  'contractor',
-  'consultant',
-  'advisor',
-  'internship',
-  'other',
+  EMPLOYMENT_TYPE_TEXT.fte,
+  EMPLOYMENT_TYPE_TEXT.volunteer,
+  EMPLOYMENT_TYPE_TEXT.contractor,
+  EMPLOYMENT_TYPE_TEXT.consultant,
+  EMPLOYMENT_TYPE_TEXT.advisor,
+  EMPLOYMENT_TYPE_TEXT.internship,
+  EMPLOYMENT_TYPE_TEXT.other,
 ];
+const COMMITMENT_ENUM_TEXT = {
+  full: 'full',
+  part: 'part',
+};
 const COMMITMENT_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'full',
-  'part',
+  COMMITMENT_ENUM_TEXT.full,
+  COMMITMENT_ENUM_TEXT.part,
 ];
 const PAID_ENUM_OPTIONS: readonly [string, ...string[]] = ['paid', 'unpaid'];
 const YOE_ENUM_OPTIONS: readonly [string, ...string[]] = [
@@ -521,16 +889,27 @@ const SKILL_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'product development',
   'project management',
 ];
+const ROLE_ENUM_TEXT = {
+  swe: 'software engineer',
+  sweBackend: 'software engineer - backend',
+  sweFrontend: 'software engineer - frontend',
+  pm: 'product manager',
+  pd: 'product designer',
+  ux: 'ux/ui designer',
+  uxResearcher: 'ux researcher',
+  dataAnalyst: 'data analyst',
+  other: 'other',
+};
 const ROLE_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'software engineer',
-  'software engineer - backend',
-  'software engineer - frontend',
-  'product manager',
-  'product designer',
-  'ux/ui designer',
-  'ux researcher',
-  'data analyst',
-  'other',
+  ROLE_ENUM_TEXT.swe,
+  ROLE_ENUM_TEXT.sweBackend,
+  ROLE_ENUM_TEXT.sweFrontend,
+  ROLE_ENUM_TEXT.pm,
+  ROLE_ENUM_TEXT.pd,
+  ROLE_ENUM_TEXT.ux,
+  ROLE_ENUM_TEXT.uxResearcher,
+  ROLE_ENUM_TEXT.dataAnalyst,
+  ROLE_ENUM_TEXT.other,
 ];
 const CAUSE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'climate change',
@@ -1601,6 +1980,8 @@ const TERMS_TEXT = {
 };
 
 export { COOKIE_CONSENT_COPY };
+// META
+export { META_DESCRIPTION };
 // PRIVACY & TERMS EXPORTS
 export {
   APPLICANT_CONTENT_TABLE_TEXT,
@@ -1631,6 +2012,9 @@ export {
   REF_ENUM_OPTIONS,
   CONTACT_ENUM_OPTIONS,
   SEARCH_STATUS_ENUM_OPTIONS,
+  EMPLOYMENT_TYPE_TEXT,
+  COMMITMENT_ENUM_TEXT,
+  ROLE_ENUM_TEXT,
 };
 // APP EXPORTS
 export { HEAD_TEXT, ERROR_TEXT };
@@ -1693,9 +2077,11 @@ export { ACCOUNT_PAGE_TEXT };
 export {
   APPLICANT_FORM_TEXT,
   INTEREST_FORM_TEXT,
+  APPLICANT_EXPERIENCE_FORM_TEXT,
   REVIEW_FORM_TEXT,
   ORG_SIGNUP_FORM_TEXT,
   ORG_FORM_TEXT,
+  ORG_ROLE_FORM_TEXT,
 };
 // MODAL EXPORTS
 export {

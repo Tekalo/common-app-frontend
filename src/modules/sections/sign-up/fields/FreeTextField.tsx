@@ -47,7 +47,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
               setValue={setValue}
               onBlur={onBlur}
             />
-            {printErrorMessages(isSubmitted, errors)}
+            {printErrorMessages(isSubmitted, errors, disabled)}
           </div>
         );
       }}

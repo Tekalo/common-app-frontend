@@ -26,6 +26,41 @@ export const GreenCheckSvg: React.FC<ISVGProps> = ({
   </svg>
 );
 
+export const GreenCircleCheck = (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clip-path="url(#clip0_1390_2857)">
+      <rect width="24" height="24" fill="white" />
+      <circle
+        cx="12"
+        cy="12"
+        r="11.25"
+        fill="#00A870"
+        fill-opacity="0.08"
+        stroke="#00A870"
+        stroke-width="1.5"
+      />
+      <path
+        d="M7 12.2778L11.2222 16.5L17.5556 7"
+        stroke="#00A870"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_1390_2857">
+        <rect width="24" height="24" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
 export const HandleSvg = (
   <svg
     width="16"

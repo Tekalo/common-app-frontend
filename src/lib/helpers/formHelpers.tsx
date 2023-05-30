@@ -3,9 +3,13 @@ import { FormInstance } from 'houseform';
 import { RefObject } from 'react';
 
 // Helper that prints error messages from Houseforms consistently
-export const printErrorMessages = (isSubmitted: boolean, errors: string[]) => {
+export const printErrorMessages = (
+  isSubmitted: boolean,
+  errors: string[],
+  disabled?: boolean
+) => {
   const errorMessage =
-    isSubmitted && errors.length ? (
+    !disabled && isSubmitted && errors.length ? (
       <div
         className={'mt-1 text-left text-component-small text-red-error'}
         key={errors[0]}
