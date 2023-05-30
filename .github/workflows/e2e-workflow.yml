@@ -47,30 +47,10 @@ jobs:
         node-version: [16.19.1]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      # - name: Restore cache
-      #   id: pnpm-next-restore
-      #   uses: actions/cache/restore@v3
-      #   with:
-      #     path: |
-      #       ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-      #       ${{ github.workspace }}/.next/cache
-      #       ${{ github.workspace }}/.vercel/output
-      #     key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-      #     fail-on-cache-miss: true
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -78,6 +58,11 @@ jobs:
         with:
           version: latest
           run_install: false
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-${{github.run_id}}
 
       - name: Cypress run
 
@@ -94,3 +79,7 @@ jobs:
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
         uses: cypress-io/github-action@v5.7.2
+        with:
+          record: false
+          auto-cancel-after-failures: 1
+          install: false

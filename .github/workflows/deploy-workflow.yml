@@ -17,7 +17,6 @@ on:
         description: Cloudflare Account ID
       CLOUDFLARE_API_TOKEN:
         description: Cloudflare API Token
-
     outputs:
       issue-number:
         value: ${{ jobs.deploy.outputs.issue-number }}
