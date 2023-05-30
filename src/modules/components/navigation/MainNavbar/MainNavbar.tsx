@@ -66,7 +66,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
         <div className="space-y-50 flex justify-around sm:justify-between">
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
             {/* Logo */}
-            <Link href="/" className="">
+            <Link href="/">
               <img
                 src="/images/logo_nav.png"
                 alt="Tekalo Logo"
@@ -104,7 +104,6 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
                   {logInOutLabel}
                 </div>
                 <Link
-                  className=""
                   href={
                     isAuthenticated
                       ? `${ACCOUNT_LINK}`
