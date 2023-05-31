@@ -11,6 +11,13 @@ on:
       url:
         type: string
         required: true
+    secrets:
+      NEXT_PUBLIC_TEST_PASSWORD:
+        description: e2e test user pwd
+        required: true
+      CF_ACCESS_CLIENT_SECRET:
+        description: cloudflare access secret
+        required: true
 
 jobs:
   e2e-tests:
@@ -45,7 +52,7 @@ jobs:
 
       - name: debug 2
         run: |
-          echo "${{vars.CF_ACCESS_CLIENT_ID}} ${{secrets.CF_ACCESS_CLIENT_SECRET}}"
+          echo "${{vars.CF_ACCESS_CLIENT_ID}}-${{secrets.CF_ACCESS_CLIENT_SECRET}}"
 
       - name: Cypress run
 
