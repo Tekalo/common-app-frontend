@@ -2,7 +2,10 @@ import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import { CONFIRM_MODAL, ERROR_MODAL_TEXT, ORG_SUCCESS_LINK } from '@/lang/en';
-import { opportunityBatchEndpoint, post } from '@/lib/helpers/apiHelpers';
+import {
+  opportunityBatchEndpoint,
+  postWithTurnstile,
+} from '@/lib/helpers/apiHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
@@ -20,8 +23,12 @@ const OrganizationSignup: NextPageWithLayout = () => {
   const [showReview, setShowReview] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
 
-  const handleSubmit = async (acceptedPrivacy: boolean) => {
+  const handleSubmit = async (
+    acceptedPrivacy: boolean,
+    turnstileToken: string
+  ) => {
     const values = {
       contact: orgInfo?.contact,
       organization: orgInfo?.organization,
@@ -30,7 +37,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
     };
 
     // Send the payload to the API
-    post(opportunityBatchEndpoint, values)
+    postWithTurnstile(opportunityBatchEndpoint, values, turnstileToken)
       .then((res) => {
         if (res.ok) {
           router.push(ORG_SUCCESS_LINK);
@@ -41,6 +48,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
       })
       .catch((error) => {
         setShowErrorModal(true);
+        setIsTurnstileValid(false);
         console.error('Failed to submit form data', error);
       });
   };
@@ -98,6 +106,8 @@ const OrganizationSignup: NextPageWithLayout = () => {
           handleGoToRole={handleGoToRole}
           handleDeleteRole={handleDeleteRole}
           handleSubmit={handleSubmit}
+          isTurnstileValid={isTurnstileValid}
+          setIsTurnstileValid={setIsTurnstileValid}
         />
       ) : (
         <OrgForms

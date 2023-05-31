@@ -8,14 +8,9 @@ import {
   REVIEW_FORM_TEXT,
 } from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
-import { post, verifyTurnstileEndpoint } from '@/lib/helpers/apiHelpers';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import { BooleanField } from '@/sections/sign-up/fields';
-import {
-  Turnstile,
-  TurnstileInstance,
-  TurnstileServerValidationResponse,
-} from '@marsidev/react-turnstile';
+import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -28,7 +23,9 @@ export interface IReviewFormPage {
   handleGoToOrg: () => void;
   handleGoToRole: (idx: number) => void;
   handleDeleteRole: (idx: number) => void;
-  handleSubmit: (privacyAcceptance: boolean) => void;
+  handleSubmit: (privacyAcceptance: boolean, _turnstileToken: string) => void;
+  isTurnstileValid: boolean;
+  setIsTurnstileValid: (_isTurnstileValid: boolean) => void;
 }
 
 const privacyModalExtras = (
@@ -67,14 +64,21 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   handleGoToRole,
   handleDeleteRole,
   handleSubmit,
+  isTurnstileValid,
+  setIsTurnstileValid,
 }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
   const turnstileOrgRef = useRef<TurnstileInstance>(null);
 
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
+
+  useEffect(() => {
+    if (!isTurnstileValid) {
+      turnstileOrgRef.current?.reset();
+    }
+  }, [isTurnstileValid]);
 
   return (
     <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
@@ -98,7 +102,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
       <>
         <Form
           onSubmit={(values) => {
-            handleSubmit(values.acceptedPrivacy);
+            handleSubmit(values.acceptedPrivacy, turnstileToken);
           }}
         >
           {({ isValid, isSubmitted, submit }) => (
@@ -106,19 +110,15 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               onSubmit={async (e) => {
                 e.preventDefault();
 
-                const turnstile = await post(verifyTurnstileEndpoint, {
-                  token: turnstileToken,
-                });
-
-                const data: TurnstileServerValidationResponse =
-                  await turnstile.json();
-
-                if (data.success) {
-                  submit();
-                } else {
+                if (
+                  turnstileToken === '' ||
+                  turnstileOrgRef.current?.getResponse() === undefined
+                ) {
                   setIsTurnstileValid(false);
                   turnstileOrgRef.current?.reset();
-                  console.log('Turnstile Error: ', data);
+                  return;
+                } else {
+                  submit();
                 }
               }}
               className="mt-6 space-y-8"
