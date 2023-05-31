@@ -41,6 +41,13 @@ const OrganizationSignup: NextPageWithLayout = () => {
       .then((res) => {
         if (res.ok) {
           router.push(ORG_SUCCESS_LINK);
+        } else if (res.status === 418) {
+          // The user is a teapot
+          setIsTurnstileValid(false);
+          console.error(res.statusText);
+        } else if (res.status === 409) {
+          // Reg conflict
+          setShowErrorModal(true);
         } else {
           setShowErrorModal(true);
           console.error(res.statusText);

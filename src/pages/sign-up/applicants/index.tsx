@@ -5,6 +5,7 @@ import {
   APPLICANT_CONTENT_TABLE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
+  APPLICANT_SIGNUP_LINK,
   ERROR_MODAL_TEXT,
   ORG_SIGNUP_LINK,
   PRIVACY_LINK,
@@ -58,6 +59,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .then((res) => {
         if (res.ok) {
           router.push(APPLICANT_EXPERIENCE_LINK);
+        } else if (res.status === 401) {
+          router.push(APPLICANT_SIGNUP_LINK);
+        } else if (res.status === 418) {
+          // The user is a teapot
+          setIsTurnstileValid(false);
+          console.error(res.statusText);
         } else if (res.status === 409) {
           // Reg conflict
           displayErrorModal(true);

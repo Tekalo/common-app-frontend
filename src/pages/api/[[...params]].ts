@@ -8,31 +8,46 @@ export const config = {
 
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
 
-const validateTurnstileToken = async (request: Request) => {
-  const { token } = (await request.json()) as { token: string };
-
-  const secret = process.env.TURNSTILE_SECRET || '';
-  const verifyEndpoint =
-    'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-
-  const res = await fetch(verifyEndpoint, {
+const validateTurnstileAndPost = async (
+  turnstileToken: string,
+  turnstileSecret: string,
+  turnstileEndpoint: string,
+  url: string,
+  req: NextRequest,
+  headers: any
+) => {
+  // Validate the x-turnstile-token header
+  const res = await fetch(turnstileEndpoint, {
     method: 'POST',
-    body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(
-      token
-    )}`,
+    body: `secret=${encodeURIComponent(
+      turnstileSecret
+    )}&response=${encodeURIComponent(turnstileToken)}`,
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
     },
   });
-
   const data = (await res.json()) as TurnstileServerValidationResponse;
-
-  return new Response(JSON.stringify(data), {
-    status: data.success ? 200 : 400,
-    headers: {
-      'content-type': 'application/json',
-    },
-  });
+  if (data.success) {
+    // Call our API
+    return await fetch(url, {
+      method: 'POST',
+      body: req.body,
+      headers,
+    });
+  }
+  // Otherwise return an error
+  return new Response(
+    JSON.stringify({
+      message:
+        'Our robot guardians determined that you are likely a teapot - please try again and do your best to not be a teapot this time',
+    }),
+    {
+      status: 418,
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+  );
 };
 
 const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
@@ -57,6 +72,10 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
   const sessionCookie = req.cookies.get('connect.sid');
   const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
   const authToken = req.headers.get('Authorization');
+  const turnstileToken = req.headers.get('x-turnstile-token') || '';
+  const turnstileSecret = process.env.TURNSTILE_SECRET || '';
+  const turnstileEndpoint =
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
   const headers: any = {
     'Content-Type': 'application/json',
@@ -70,6 +89,17 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
 
   switch (req.method) {
     case 'POST':
+      if (params[0] === 'applicants' || params[0] === 'opportunities') {
+        // Validate the x-turnstile-token header when a new POST request is made to the applicants or opportunities endpoints
+        return validateTurnstileAndPost(
+          turnstileToken,
+          turnstileSecret,
+          turnstileEndpoint,
+          url,
+          req,
+          headers
+        );
+      } // Otherwise post to the server as usual
       return await fetch(url, {
         method: 'POST',
         body: req.body,
@@ -116,9 +146,6 @@ export default async function handler(req: NextRequest): Promise<Response> {
         } as HeadersInit,
       }
     );
-  } else if (params.length === 1 && params.includes('verify')) {
-    // Validate the Turnstile token if the request is to the /verify endpoint
-    return await validateTurnstileToken(req);
   } else {
     // Pass the request directly the 3rd party API
     const result = await fetchAPIResponse(req, params);

@@ -1,7 +1,4 @@
-import { TurnstileServerValidationResponse } from '@marsidev/react-turnstile';
-
 const baseApiUrl = '/api/';
-export const verifyTurnstileEndpoint = `${baseApiUrl}verify`;
 export const applicantsEndpoint = `${baseApiUrl}applicants`;
 export const opportunityEndpoint = `${baseApiUrl}opportunities`;
 export const opportunityBatchEndpoint = `${opportunityEndpoint}/batch`;
@@ -35,21 +32,14 @@ export const postWithTurnstile = async (
   values: any,
   turnstileToken: string
 ) => {
-  const turnstileResponse: TurnstileServerValidationResponse = await (
-    await checkTurnstile(turnstileToken)
-  ).json();
-
-  if (turnstileResponse.success) {
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-  } else {
-    throw new Error('Turnstile validation failed');
-  }
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-turnstile-token': turnstileToken,
+    },
+    body: JSON.stringify(values),
+  });
 };
 
 export const put = async (url: string, values: any, token = '') => {
@@ -69,16 +59,6 @@ export const deleteRequest = async (url: string, token = '') => {
     headers: {
       Authorization: generateTokenValue(token),
     },
-  });
-};
-
-const checkTurnstile = async (turnstileToken: string) => {
-  return fetch(verifyTurnstileEndpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ turnstileToken }),
   });
 };
 
