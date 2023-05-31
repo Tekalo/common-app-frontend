@@ -18,6 +18,12 @@ interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
+declare global {
+  interface Window {
+    consentGranted: () => void;
+  }
+}
+
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
