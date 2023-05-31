@@ -6,7 +6,10 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
-import CookieConsent, { OPTIONS } from 'react-cookie-consent';
+import CookieConsent, {
+  OPTIONS,
+  getCookieConsentValue,
+} from 'react-cookie-consent';
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
@@ -22,6 +25,12 @@ Sentry.init({
 });
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
+  const cookieName = 'tekalo-opt-in-cookie';
+
+  if (getCookieConsentValue(cookieName) === 'true') {
+    window.consentGranted();
+  }
+
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
   const cookieBtnClasses =
@@ -53,12 +62,13 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         >
           {getLayout(<Component {...pageProps} />)}
           <CookieConsent
+            onAccept={() => window.consentGranted()}
             enableDeclineButton
             declineButtonText={COOKIE_CONSENT.DECLINE_BTN}
             disableStyles={true}
             location={OPTIONS.BOTTOM}
             buttonText={COOKIE_CONSENT.ACCEPT_BTN}
-            cookieName="tekalo-opt-in-cookie"
+            cookieName={cookieName}
             containerClasses="text-black-text text-p3-mobile px-6 py-4 items-center bg-gray-4 flex flex-col justify-between fixed bottom-0 left-0 right-0 z-50 md:py-6 lg:flex-row lg:items-start lg:text-p3-desktop"
             buttonWrapperClasses="w-full mt-2 md:flex md:justify-end md:gap-x-4 md:mt-0 lg:flex-1 lg:ml-10"
             buttonClasses={cookieBtnClasses}
