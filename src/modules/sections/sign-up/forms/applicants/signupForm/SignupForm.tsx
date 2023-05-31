@@ -105,7 +105,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             } else {
               setIsTurnstileValid(false);
               turnstileCandidateRef.current?.reset();
-              console.log('Turnstile Error: ', data);
+              console.error('Turnstile Error: ', data);
             }
           }}
           className="flex flex-col space-y-8"
@@ -191,29 +191,31 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={contactPhoneLinkedValidation}
           />
-          {/* Privacy Info */}
-          <BooleanField
-            fieldName="acceptedPrivacy"
-            label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={PrivacyPolicy}
-          />
-          {/* Terms of Use */}
-          <BooleanField
-            fieldName="acceptedTerms"
-            label={TERMS_DISCLAIMER}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={ToS}
-          />
-          {/* Follow-up opt-in */}
-          <BooleanField
-            fieldName="followUpOptIn"
-            label={APPLICANT_FORM_TEXT.FIELDS.followUpOptIn.label}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-          />
+          <div className="space-y-4">
+            {/* Privacy Info */}
+            <BooleanField
+              fieldName="acceptedPrivacy"
+              label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
+              isSubmitted={isSubmitted}
+              initialValue={undefined}
+              validator={PrivacyPolicy}
+            />
+            {/* Terms of Use */}
+            <BooleanField
+              fieldName="acceptedTerms"
+              label={TERMS_DISCLAIMER}
+              isSubmitted={isSubmitted}
+              initialValue={undefined}
+              validator={ToS}
+            />
+            {/* Follow-up opt-in */}
+            <BooleanField
+              fieldName="followUpOptIn"
+              label={APPLICANT_FORM_TEXT.FIELDS.followUpOptIn.label}
+              isSubmitted={isSubmitted}
+              initialValue={undefined}
+            />
+          </div>
 
           {/* Turnstile */}
           <div className="mx-auto">
