@@ -33,5 +33,5 @@ const Home: NextPageWithLayout = () => {
 export default Home;
 
 Home.getLayout = (page) => {
-  return <HomeLayout>{page}</HomeLayout>;
+  return <HomeLayout pageName="home">{page}</HomeLayout>;
 };

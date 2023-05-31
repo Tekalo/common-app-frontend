@@ -9,5 +9,5 @@ const TermsConditionsPage: NextPageWithLayout = () => {
 export default TermsConditionsPage;
 
 TermsConditionsPage.getLayout = (page) => {
-  return <HomeLayout>{page}</HomeLayout>;
+  return <HomeLayout pageName="terms">{page}</HomeLayout>;
 };

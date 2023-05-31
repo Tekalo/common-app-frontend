@@ -3,9 +3,15 @@ import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
 import { HEAD_TEXT } from '@/lang/en';
 import Head from 'next/head';
 
-export type IHomeLayout = React.ComponentPropsWithoutRef<'div'>;
+export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {
+  pageName: string;
+}
 
-const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
+const HomeLayout: React.FC<IHomeLayout> = ({
+  pageName,
+  children,
+  ...divProps
+}) => {
   return (
     <>
       <Head>
@@ -15,7 +21,7 @@ const HomeLayout: React.FC<IHomeLayout> = ({ children, ...divProps }) => {
         {...divProps}
         className={`flex min-h-screen min-w-full flex-col items-stretch`}
       >
-        <MainNavbar />
+        <MainNavbar pageName={pageName} />
         <main className="pt-16 md:pt-20">{children}</main>
         <MainFooter />
       </div>

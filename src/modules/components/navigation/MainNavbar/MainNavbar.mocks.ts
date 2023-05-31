@@ -1,6 +1,8 @@
 import { IMainNavbar } from './MainNavbar';
 
-const base: IMainNavbar = {};
+const base: IMainNavbar = {
+  pageName: 'home',
+};
 
 export const mockMainNavbarProps = {
   base,

@@ -7,5 +7,5 @@ const PrivacyInfoPage: NextPageWithLayout = () => <PrivacyInfo />;
 export default PrivacyInfoPage;
 
 PrivacyInfoPage.getLayout = (page) => {
-  return <HomeLayout>{page}</HomeLayout>;
+  return <HomeLayout pageName="privacy-info">{page}</HomeLayout>;
 };
