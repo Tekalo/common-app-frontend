@@ -1,17 +1,24 @@
 import Button from '@/components/buttons/Button/Button';
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import {
+  ERROR_TEXT,
   ORG_CONTENT_TABLE_TEXT,
   PRIVACY_LINK,
   PRIVACY_MODAL_TEXT,
   REVIEW_FORM_TEXT,
 } from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
+import { post, verifyTurnstileEndpoint } from '@/lib/helpers/apiHelpers';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import { BooleanField } from '@/sections/sign-up/fields';
+import {
+  Turnstile,
+  TurnstileInstance,
+  TurnstileServerValidationResponse,
+} from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import OrgDetailReview from './sections/OrgDetailReview';
 import RoleDetailReview from './sections/RoleDetailReview';
 
@@ -63,7 +70,11 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
 }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
+  const turnstileOrgRef = useRef<TurnstileInstance>(null);
+
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
 
   return (
     <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
@@ -92,8 +103,23 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
         >
           {({ isValid, isSubmitted, submit }) => (
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
+
+                const turnstile = await post(verifyTurnstileEndpoint, {
+                  token: turnstileToken,
+                });
+
+                const data: TurnstileServerValidationResponse =
+                  await turnstile.json();
+
+                if (data.success) {
+                  submit();
+                } else {
+                  setIsTurnstileValid(false);
+                  turnstileOrgRef.current?.reset();
+                  console.log('Turnstile Error: ', data);
+                }
               }}
               className="mt-6 space-y-8"
             >
@@ -105,6 +131,27 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                 initialValue={false}
                 validator={PrivacyPolicy}
               />
+
+              {/* Turnstile */}
+              <div className="mx-auto">
+                <Turnstile
+                  id="org-form-turnstile"
+                  ref={turnstileOrgRef}
+                  onSuccess={setTurnstileToken}
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
+                  onAfterInteractive={() => setIsTurnstileValid(true)}
+                />
+                {isTurnstileValid ? null : (
+                  <div
+                    className={
+                      'mt-1 text-left text-component-small text-red-error'
+                    }
+                  >
+                    {ERROR_TEXT.somethingWrong}
+                  </div>
+                )}
+              </div>
+
               {/* Form Cotnrol Button*/}
               <div className="mt-10">
                 <Button
@@ -112,7 +159,6 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                   label={REVIEW_FORM_TEXT.BUTTONS.submit.label}
                   type="submit"
                   disabled={isSubmitted && !isValid}
-                  onClick={() => submit()}
                 />
               </div>
             </form>

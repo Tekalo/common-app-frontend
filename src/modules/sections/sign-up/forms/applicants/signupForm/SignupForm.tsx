@@ -2,6 +2,7 @@ import Button from '@/components/buttons/Button/Button';
 import {
   APPLICANT_FORM_TEXT,
   CONTACT_OPTION_TEXT,
+  ERROR_TEXT,
   TERMS_LINK,
 } from '@/lang/en';
 import {
@@ -75,7 +76,7 @@ const SignupForm: React.FC<ISignupForm> = ({
   setShowPrivacyModal,
 }) => {
   const { isAuthenticated, isLoading, user } = useAuth0();
-  const turnstileRef = useRef<TurnstileInstance>(null);
+  const turnstileCandidateRef = useRef<TurnstileInstance>(null);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
@@ -83,6 +84,7 @@ const SignupForm: React.FC<ISignupForm> = ({
   // TODO: Use form values like in candidate flow
   const [contactValue, setContactValue] = useState<string>();
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
 
   return (
     <Form<NewCandidateType> onSubmit={(values) => handleSubmit(values)}>
@@ -90,22 +92,19 @@ const SignupForm: React.FC<ISignupForm> = ({
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            // Validate the Turnstile token and if success submit form otherwise show error
 
             const turnstile = await post(verifyTurnstileEndpoint, {
               token: turnstileToken,
             });
 
-            // TODO: Having an issue right here with how we handle responses
-            // Might have to handle "where to call" from within our general api file instead...
             const data: TurnstileServerValidationResponse =
               await turnstile.json();
-
-            console.log(data);
 
             if (data.success) {
               submit();
             } else {
+              setIsTurnstileValid(false);
+              turnstileCandidateRef.current?.reset();
               console.log('Turnstile Error: ', data);
             }
           }}
@@ -215,12 +214,26 @@ const SignupForm: React.FC<ISignupForm> = ({
             isSubmitted={isSubmitted}
             initialValue={undefined}
           />
-          <Turnstile
-            ref={turnstileRef}
-            onSuccess={setTurnstileToken}
-            className="mx-auto"
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
-          />
+
+          {/* Turnstile */}
+          <div className="mx-auto">
+            <Turnstile
+              id="candidate-form-turnstile"
+              ref={turnstileCandidateRef}
+              onSuccess={setTurnstileToken}
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
+              onAfterInteractive={() => setIsTurnstileValid(true)}
+            />
+            {isTurnstileValid ? null : (
+              <div
+                className={
+                  'mt-1 text-center text-component-small text-red-error'
+                }
+              >
+                {ERROR_TEXT.somethingWrong}
+              </div>
+            )}
+          </div>
 
           {/* Form Cotnrol Button*/}
           <Button
@@ -228,7 +241,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
             type="submit"
             disabled={isSubmitted && !isValid}
-            // onClick={() => submit()}
           />
         </form>
       )}

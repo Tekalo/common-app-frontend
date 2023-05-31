@@ -1,4 +1,5 @@
 // Next.js Edge API Routes: https://nextjs.org/docs/api-routes/edge-api-routes
+import { TurnstileServerValidationResponse } from '@marsidev/react-turnstile';
 import type { NextRequest } from 'next/server';
 
 export const config = {
@@ -6,7 +7,35 @@ export const config = {
 };
 
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
-const fetchResponse = async (req: NextRequest, params: string[]) => {
+
+const validateTurnstileToken = async (request: Request) => {
+  const { token } = (await request.json()) as { token: string };
+
+  const secret = process.env.TURNSTILE_SECRET || '';
+  const verifyEndpoint =
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+
+  const res = await fetch(verifyEndpoint, {
+    method: 'POST',
+    body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(
+      token
+    )}`,
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  });
+
+  const data = (await res.json()) as TurnstileServerValidationResponse;
+
+  return new Response(JSON.stringify(data), {
+    status: data.success ? 200 : 400,
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+};
+
+const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
   const BASE_URL = (() => {
     // Note: This process.env variable is picked from the Cloudflare Pages environment variables - others are set at build time in the github action
     switch (process.env.CF_PAGES_BRANCH) {
@@ -74,8 +103,8 @@ const fetchResponse = async (req: NextRequest, params: string[]) => {
 export default async function handler(req: NextRequest): Promise<Response> {
   const params = req.nextUrl.searchParams.getAll('params');
 
-  // If params is empty return proxy health
   if (params.length === 0 || params[0] === 'undefined') {
+    // Return proxy health if no parameters are provided
     return new Response(
       JSON.stringify({
         proxy: 'OK',
@@ -87,12 +116,13 @@ export default async function handler(req: NextRequest): Promise<Response> {
         } as HeadersInit,
       }
     );
+  } else if (params.length === 1 && params.includes('verify')) {
+    // Validate the Turnstile token if the request is to the /verify endpoint
+    return await validateTurnstileToken(req);
   } else {
-    // If params is not empty, pass the request directly the 3rd party API
-    const result = await fetchResponse(req, params);
-    const data: any = await result.json();
-
-    // TODO: Decide how to handle various API status codes
+    // Pass the request directly the 3rd party API
+    const result = await fetchAPIResponse(req, params);
+    const data: unknown = await result.json();
 
     return new Response(JSON.stringify(data), {
       status: result.status,
