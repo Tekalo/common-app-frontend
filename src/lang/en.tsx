@@ -835,6 +835,7 @@ const ERROR_TEXT = {
   roleRequired: 'Role is required',
   invalidDate: 'Invalid date',
   chooseOne: 'Choose at least one',
+  somethingWrong: 'Something went wrong - please try again',
 };
 
 /** ENUM TEXT CONSTANTS */
