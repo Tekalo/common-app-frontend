@@ -68,7 +68,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
-                  className={`${logo.classes}`}
+                  className={`${logo.classes} max-w-[100%]`}
                 />
               </div>
             ))}

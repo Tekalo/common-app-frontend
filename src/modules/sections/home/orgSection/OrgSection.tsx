@@ -14,44 +14,43 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
 }) => {
   const recruitingLogos = [
     {
-      src: '/images/logos/PlaceHolderLogo.png',
-      alt: 'Placeholder',
+      src: '/images/logos/Patrick_J_McGovern.png',
+      alt: 'Patrick J McGovern Logo',
+      url: 'https://www.mcgovern.org/',
     },
     {
-      src: '/images/logos/PlaceHolderLogo.png',
-      alt: 'Placeholder',
+      src: '/images/logos/Humans_of_Public_Service.jpeg',
+      alt: 'Humans of Public Service Logo',
+      url: 'https://humansofpublicservice.org/about',
     },
     {
-      src: '/images/logos/PlaceHolderLogo.png',
-      alt: 'Placeholder',
+      src: '/images/logos/Agency_Fund.png',
+      alt: 'Agency Fund Logo',
+      url: 'https://www.agency.fund/',
     },
     {
-      src: '/images/logos/PlaceHolderLogo.png',
-      alt: 'Placeholder',
+      src: '/images/logos/Project_Tech4Dev.png',
+      alt: 'Project Tech 4 Dev Logo',
+      url: 'https://projecttech4dev.org/',
     },
     {
-      src: '/images/logos/PlaceHolderLogo.png',
-      alt: 'Placeholder',
-    },
-    {
-      src: '/images/logos/PlaceHolderLogo.png',
-      alt: 'Placeholder',
-    },
-    {
-      src: '/images/logos/PlaceHolderLogo.png',
-      alt: 'Placeholder',
+      src: '/images/logos/new_data.png',
+      alt: 'New Data Logo',
+      url: 'https://center-for-new-data.breezy.hr/',
     },
   ];
 
   const renderLogos = () => (
-    <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-evenly justify-items-start gap-x-4 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
+    <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-center justify-items-start gap-x-20 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
       {recruitingLogos.map((logo, i) => {
         return (
           <div
             key={i}
-            className="flex h-10 max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px] md:p-3"
+            className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px]"
           >
-            <img src={logo.src} alt={logo.alt} className="min-w-0" />
+            <a href={logo.url} target="_blank" rel="noreferrer">
+              <img src={logo.src} alt={logo.alt} className="min-w-0" />
+            </a>
           </div>
         );
       })}
@@ -93,11 +92,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
               {HOME_ORG_TEXT.CTA_BODY}
             </div>
             {/* Button */}
-            <Link href={ORG_SIGNUP_LINK}>
+            <Link href={ORG_SIGNUP_LINK} className="mt-6 lg:mt-10">
               <Button
                 variant={ButtonVariant.OUTLINED}
                 label={HOME_ORG_TEXT.CTA_BUTTON}
-                className="mt-6 w-full max-w-[248px] px-2 sm:px-7 md:max-w-[352px] md:px-8 lg:mt-10"
+                className="w-full max-w-[248px] px-2 sm:px-7 md:max-w-[352px] md:px-8"
               />
             </Link>
           </div>
@@ -106,7 +105,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
 
       {showLogoModal && (
         <Modal
-          headline="Organizations that recruit through Tekalo"
+          headline={HOME_ORG_TEXT.HEADER}
           isOpen={showLogoModal}
           content={renderLogos()}
           closeModal={() => setShowLogoModal(false)}

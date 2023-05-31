@@ -7,9 +7,15 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { SyntheticEvent, useState } from 'react';
 
-export type IMainNavbar = React.ComponentPropsWithoutRef<'header'>;
+export interface IMainNavbar extends React.ComponentPropsWithoutRef<'header'> {
+  pageName: string;
+}
 
-const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
+const MainNavbar: React.FC<IMainNavbar> = ({
+  pageName,
+  className,
+  ...headerProps
+}) => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
@@ -85,20 +91,27 @@ const MainNavbar: React.FC<IMainNavbar> = ({ className, ...headerProps }) => {
               </div>
             ) : (
               <>
-                <div
-                  tabIndex={0}
-                  className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
-                  onClick={() => scrollToSection('how')}
-                >
-                  {NAV_BAR_TEXT.HOW_IT_WORKS}
-                </div>
-                <div
-                  tabIndex={0}
-                  className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
-                  onClick={() => scrollToSection('faq')}
-                >
-                  {NAV_BAR_TEXT.FAQ}
-                </div>
+                {/* We only want to show these on the home page */}
+                {pageName === 'home' ? (
+                  <>
+                    <div
+                      tabIndex={0}
+                      className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                      onClick={() => scrollToSection('how')}
+                    >
+                      {NAV_BAR_TEXT.HOW_IT_WORKS}
+                    </div>
+                    <div
+                      tabIndex={0}
+                      className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                      onClick={() => scrollToSection('faq')}
+                    >
+                      {NAV_BAR_TEXT.FAQ}
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
                 <div
                   tabIndex={0}
                   className="my-3 hidden cursor-pointer    text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"

@@ -255,7 +255,7 @@ const HOME_FAQ_TEXT = {
   APPLICANT_QUESTION_7:
     'I am no longer looking for opportunities at this time. How do I pause further matches?',
   APPLICANT_ANSWER_7:
-    'If you are no longer looking for opportunities, you can log in to youraccount by clicking "Sign in" at the top of this page, and choose to pause your matches. If you would like to be considered for opportunities again, you can simply sign in and click "resume my matches." If you would like to fully delete your account and data, see the FAQ titled ("How can I delete my account and data?").',
+    'If you are no longer looking for opportunities, you can log in to your account by clicking "Sign in" at the top of this page, and choose to pause your matches. If you would like to be considered for opportunities again, you can simply sign in and click "resume my matches." If you would like to fully delete your account and data, see the FAQ titled ("How can I delete my account and data?").',
   APPLICANT_QUESTION_8: 'Is Tekalo free?',
   APPLICANT_ANSWER_8:
     'Yes! Tekalo is a free resource. We will never ask you for payment information.',

@@ -32,7 +32,7 @@ const BooleanField: React.FC<IBooleanField> = ({
             <fieldset className="space-y-3">
               <div className="flex space-x-2 align-middle">
                 <input
-                  className="form-checkbox h-4 w-4 appearance-none align-middle checked:bg-blue-1 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
+                  className="form-checkbox h-4 w-4 appearance-none rounded-[3px] align-middle checked:bg-blue-1 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
                   type="checkbox"
                   id="active"
                   name={fieldName}
