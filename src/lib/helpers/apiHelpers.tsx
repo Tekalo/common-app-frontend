@@ -22,7 +22,7 @@ export const post = async (url: string, values: any, token = '') => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // Authorization: generateTokenValue(token),
+      Authorization: generateTokenValue(token),
     },
     body: JSON.stringify(values),
   });
