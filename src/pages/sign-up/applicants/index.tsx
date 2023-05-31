@@ -11,7 +11,10 @@ import {
   PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
 } from '@/lang/en';
-import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
+import {
+  applicantsEndpoint,
+  postWithTurnstile,
+} from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
@@ -36,14 +39,22 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
+  const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
 
   const displayErrorModal = (isConflict = false): void => {
     setIsConflict(isConflict);
     setShowErrorModal(true);
   };
 
-  const handleSubmit = async (values: NewCandidateType) => {
-    post(applicantsEndpoint, stripEmptyFields(values))
+  const handleSubmit = async (
+    values: NewCandidateType,
+    turnstileToken: string
+  ) => {
+    postWithTurnstile(
+      applicantsEndpoint,
+      stripEmptyFields(values),
+      turnstileToken
+    )
       .then((res) => {
         if (res.ok) {
           router.push(APPLICANT_EXPERIENCE_LINK);
@@ -57,6 +68,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       })
       .catch((error) => {
         displayErrorModal(false);
+        setIsTurnstileValid(false);
         console.error('Failed to submit form data', error);
       });
   };
@@ -75,6 +87,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <ApplicantSignupForm
             handleSubmit={handleSubmit}
             setShowPrivacyModal={setShowPrivacyModal}
+            isTurnstileValid={isTurnstileValid}
+            setIsTurnstileValid={setIsTurnstileValid}
           />
         </div>
         {/* Navaway for organizations */}
@@ -106,7 +120,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
           isConflict ? ERROR_MODAL_TEXT.signIn : ERROR_MODAL_TEXT.somethingWrong
         }
         buttonText={ERROR_MODAL_TEXT.okButton}
-        buttonHandler={() => router.push(SIGN_IN_LINK)}
+        buttonHandler={() => {
+          isConflict ? router.push(SIGN_IN_LINK) : setShowErrorModal(false);
+        }}
         closeModal={() => {
           setShowErrorModal(false);
         }}

@@ -19,7 +19,6 @@ import {
   SearchStatus,
   ToS,
 } from '@/lib/enums';
-import { post, verifyTurnstileEndpoint } from '@/lib/helpers/apiHelpers';
 import { NewCandidateType } from '@/lib/types';
 import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
 import {
@@ -29,18 +28,16 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { useAuth0 } from '@auth0/auth0-react';
-import {
-  Turnstile,
-  TurnstileInstance,
-  TurnstileServerValidationResponse,
-} from '@marsidev/react-turnstile';
+import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 export interface ISignupForm {
-  handleSubmit: (_values: NewCandidateType) => void;
+  handleSubmit: (_values: NewCandidateType, _turnstileToken: string) => void;
   setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
+  isTurnstileValid: boolean;
+  setIsTurnstileValid: (_isTurnstileValid: boolean) => void;
 }
 
 const TERMS_DISCLAIMER = (
@@ -74,6 +71,8 @@ const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
 const SignupForm: React.FC<ISignupForm> = ({
   handleSubmit,
   setShowPrivacyModal,
+  isTurnstileValid,
+  setIsTurnstileValid,
 }) => {
   const { isAuthenticated, isLoading, user } = useAuth0();
   const turnstileCandidateRef = useRef<TurnstileInstance>(null);
@@ -81,34 +80,35 @@ const SignupForm: React.FC<ISignupForm> = ({
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
-  // TODO: Use form values like in candidate flow
   const [contactValue, setContactValue] = useState<string>();
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
+
+  useEffect(() => {
+    if (!isTurnstileValid) {
+      turnstileCandidateRef.current?.reset();
+    }
+  }, [isTurnstileValid]);
 
   return (
-    <Form<NewCandidateType> onSubmit={(values) => handleSubmit(values)}>
+    <Form<NewCandidateType>
+      onSubmit={(values) => handleSubmit(values, turnstileToken)}
+    >
       {({ isValid, isSubmitted, submit }) => (
         <form
+          className="flex flex-col space-y-8"
           onSubmit={async (e) => {
             e.preventDefault();
-
-            const turnstile = await post(verifyTurnstileEndpoint, {
-              token: turnstileToken,
-            });
-
-            const data: TurnstileServerValidationResponse =
-              await turnstile.json();
-
-            if (data.success) {
-              submit();
-            } else {
+            if (
+              turnstileToken === '' ||
+              turnstileCandidateRef.current?.getResponse() === undefined
+            ) {
               setIsTurnstileValid(false);
               turnstileCandidateRef.current?.reset();
-              console.error('Turnstile Error: ', data);
+              return;
+            } else {
+              submit();
             }
           }}
-          className="flex flex-col space-y-8"
         >
           {/* Name */}
           {isLoading ? (
