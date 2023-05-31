@@ -7,5 +7,5 @@ const CandidateAccountPage: NextPageWithLayout = () => <AccountSection />;
 export default CandidateAccountPage;
 
 CandidateAccountPage.getLayout = (page) => {
-  return <HomeLayout>{page}</HomeLayout>;
+  return <HomeLayout pageName="account">{page}</HomeLayout>;
 };

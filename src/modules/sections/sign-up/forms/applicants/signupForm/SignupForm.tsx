@@ -5,7 +5,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -13,6 +12,7 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
@@ -160,29 +160,31 @@ const SignupForm: React.FC<ISignupForm> = ({
             initialValue={undefined}
             validator={contactPhoneLinkedValidation}
           />
-          {/* Privacy Info */}
-          <BooleanField
-            fieldName="acceptedPrivacy"
-            label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={PrivacyPolicy}
-          />
-          {/* Terms of Use */}
-          <BooleanField
-            fieldName="acceptedTerms"
-            label={TERMS_DISCLAIMER}
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-            validator={ToS}
-          />
-          {/* Follow-up opt-in */}
-          <BooleanField
-            fieldName="followUpOptIn"
-            label="I'd like to receive electronic communications with other opportunities, news, and updates from Schmidt Futures (optional)"
-            isSubmitted={isSubmitted}
-            initialValue={undefined}
-          />
+          <div className="space-y-4">
+            {/* Privacy Info */}
+            <BooleanField
+              fieldName="acceptedPrivacy"
+              label={PRIVACY_DISCLAIMER(setShowPrivacyModal)}
+              isSubmitted={isSubmitted}
+              initialValue={undefined}
+              validator={PrivacyPolicy}
+            />
+            {/* Terms of Use */}
+            <BooleanField
+              fieldName="acceptedTerms"
+              label={TERMS_DISCLAIMER}
+              isSubmitted={isSubmitted}
+              initialValue={undefined}
+              validator={ToS}
+            />
+            {/* Follow-up opt-in */}
+            <BooleanField
+              fieldName="followUpOptIn"
+              label="I'd like to receive electronic communications with other opportunities, news, and updates from Schmidt Futures (optional)"
+              isSubmitted={isSubmitted}
+              initialValue={undefined}
+            />
+          </div>
           {/* Form Cotnrol Button*/}
           <Button
             className="mt-10 w-full lg:mt-14"
