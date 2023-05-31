@@ -346,7 +346,7 @@ const APPLICANT_FORM_TEXT = {
   },
   EXPERIENCE: 'Your experience',
   INTERESTS: 'Your interests',
-  IFORG: ["If you're an organization, ", 'apply here', '.'],
+  IFORG: ["If you're an organization, ", 'apply here'],
   FIELDS: {
     name: {
       label: 'Name',
