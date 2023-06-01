@@ -230,7 +230,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             }
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.interestCauses}
+            initialValue={savedForm?.interestCauses || []}
             validator={CausesValidator}
           />
           {/* Other Causes*/}
