@@ -34,6 +34,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const cookieName = 'tekalo-opt-in-cookie';
 
   if (getCookieConsentValue(cookieName) === 'true') {
+    // this fn is in _document.ts if you need to see it
     window.consentGranted();
   }
 
