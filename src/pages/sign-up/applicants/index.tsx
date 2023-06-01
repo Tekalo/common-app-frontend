@@ -16,7 +16,6 @@ import {
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
@@ -56,10 +55,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
       turnstileToken
     )
       .then((res) => {
-        if (res.ok) {
-          router.push(APPLICANT_EXPERIENCE_LINK);
-        }
         switch (res.status) {
+          case 200: // good submission
+            router.push(APPLICANT_EXPERIENCE_LINK);
+            break;
           case 418: // the user is a teapot
             setIsTurnstileValid(false);
             console.error(res.statusText);
@@ -133,7 +132,3 @@ const ApplicantSignup: NextPageWithLayout = () => {
 };
 
 export default ApplicantSignup;
-
-ApplicantSignup.getLayout = (page) => {
-  return <ApplicationLayout>{page}</ApplicationLayout>;
-};
