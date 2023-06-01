@@ -1,4 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import { EMPLOYMENT_TYPE_TEXT, ORG_ROLE_FORM_TEXT } from '@/lang/en';
 import {
   EmploymentOptions,
   PaidOptions,
@@ -42,16 +43,15 @@ export interface IRoleForm {
   formType: CommitmentType[] | undefined;
   previousForm: NewRoleType | undefined;
   activeIndex: number;
-  isLastRole: boolean;
   handleNewRole: (values: NewRoleType, reviewReady?: boolean) => void;
   handleEditRole: (values: NewRoleType, reviewReady?: boolean) => void;
 }
 
 const filterIfUnpaid = [
-  'full-time employee',
-  'contractor',
-  'consultant',
-  'internship',
+  EMPLOYMENT_TYPE_TEXT.fte,
+  EMPLOYMENT_TYPE_TEXT.contractor,
+  EMPLOYMENT_TYPE_TEXT.consultant,
+  EMPLOYMENT_TYPE_TEXT.internship,
 ];
 
 // returns a list of roles based on whether the role is paid and part time
@@ -60,11 +60,14 @@ const getEmploymentOptions = (isPaid = true, isPartTime: boolean) => {
     // If they are paid and part time, remove FTE and volunteer
     return EmploymentOptions.filter(
       (option) =>
-        option.value !== 'volunteer' && option.value !== 'full-time employee'
+        option.value !== EMPLOYMENT_TYPE_TEXT.volunteer &&
+        option.value !== EMPLOYMENT_TYPE_TEXT.fte
     );
   } else if (isPaid && !isPartTime) {
     // If they are paid and full time, remove volunteer
-    return EmploymentOptions.filter((option) => option.value !== 'volunteer');
+    return EmploymentOptions.filter(
+      (option) => option.value !== EMPLOYMENT_TYPE_TEXT.volunteer
+    );
   } else if ((!isPaid && isPartTime) || (!isPaid && !isPartTime)) {
     // If they are unpaid and full or part time, remove filterIfUnpaid options
     return EmploymentOptions.filter((option) => {
@@ -81,7 +84,6 @@ const RoleForm: React.FC<IRoleForm> = ({
   handleEditRole,
   previousForm,
   activeIndex,
-  isLastRole,
 }) => {
   const partTimeOnly = formType?.length === 1 && formType?.includes('part');
   const fullTimeOnly = formType?.length === 1 && formType?.includes('full');
@@ -142,7 +144,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               <div className={fullTimeOnly ? 'hidden' : ''}>
                 <RadioSelectField
                   fieldName="paid"
-                  label="Is this role paid or unpaid?"
+                  label={ORG_ROLE_FORM_TEXT.FIELDS.paid.label}
                   rowAlign={true}
                   listOptions={PaidOptions}
                   isSubmitted={isSubmitted}
@@ -153,8 +155,8 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <SingleSelectField
                 fieldName="roleType"
-                label="What type of role is this?"
-                placeholder="Choose one"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.roleType.label}
+                placeholder={ORG_ROLE_FORM_TEXT.FIELDS.roleType.placeholder}
                 listOptions={RoleOptions}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.roleType}
@@ -165,22 +167,26 @@ const RoleForm: React.FC<IRoleForm> = ({
               <div className={fullTimeOnly ? 'hidden' : 'space-y-8'}>
                 <SingleSelectField
                   fieldName="employmentTypeSelect"
-                  label="What type of opportunity is this?"
-                  placeholder="Choose one"
+                  label={ORG_ROLE_FORM_TEXT.FIELDS.employmentTypeSelect.label}
+                  placeholder={
+                    ORG_ROLE_FORM_TEXT.FIELDS.employmentTypeSelect.placeholder
+                  }
                   listOptions={getEmploymentOptions(isPaid, partTimeOnly)}
                   isSubmitted={isSubmitted}
                   initialValue={
                     previousForm?.employmentType.includes(' - ')
                       ? previousForm?.employmentType.split(' - ')[0]
-                      : previousForm?.employmentType ?? undefined
+                      : previousForm?.employmentType ?? EMPLOYMENT_TYPE_TEXT.fte
                   }
                   validator={EmploymentType}
                 />
 
                 <FreeTextField
                   fieldName="employmentTypeText"
-                  label="If you chose other, please specify (optional)"
-                  placeholder="Type of opportunity"
+                  label={ORG_ROLE_FORM_TEXT.FIELDS.employmentTypeText.label}
+                  placeholder={
+                    ORG_ROLE_FORM_TEXT.FIELDS.employmentTypeText.placeholder
+                  }
                   isSubmitted={isSubmitted}
                   initialValue={
                     previousForm?.employmentType.includes(' - ')
@@ -193,8 +199,10 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <FreeTextField
                 fieldName="positionTitle"
-                label="Positon Title"
-                placeholder="Position title"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.positionTitle.label}
+                placeholder={
+                  ORG_ROLE_FORM_TEXT.FIELDS.positionTitle.placeholder
+                }
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.positionTitle}
                 validator={RequiredString}
@@ -202,8 +210,8 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <FreeTextField
                 fieldName="jdUrl"
-                label="Link to job description (optional)"
-                placeholder="Job description URL"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.jdUrl.label}
+                placeholder={ORG_ROLE_FORM_TEXT.FIELDS.jdUrl.placeholder}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.jdUrl}
                 validator={OptionalString}
@@ -213,8 +221,12 @@ const RoleForm: React.FC<IRoleForm> = ({
             <>
               <FreeTextField
                 fieldName="salaryRange"
-                label={fullTimeOnly ? 'Salary range' : 'Pay range'}
-                placeholder={'Enter a range'}
+                label={
+                  fullTimeOnly
+                    ? ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.labelFte
+                    : ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.labelPte
+                }
+                placeholder={ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.placeholder}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.salaryRange}
                 validator={isPaid ? RequiredString : OptionalString}
@@ -223,12 +235,14 @@ const RoleForm: React.FC<IRoleForm> = ({
               {!fullTimeOnly && (
                 <FreeTextField
                   fieldName="desiredHoursPerWeek"
-                  label="Desired hours per week (optional)"
-                  placeholder="Approximate number of hours"
+                  label={ORG_ROLE_FORM_TEXT.FIELDS.desiredHoursPerWeek.label}
+                  placeholder={
+                    ORG_ROLE_FORM_TEXT.FIELDS.desiredHoursPerWeek.placeholder
+                  }
                   isSubmitted={isSubmitted}
                   initialValue={previousForm?.desiredHoursPerWeek}
                   validator={OptionalString}
-                  disabled={employmentType === 'full-time employee'}
+                  disabled={employmentType === EMPLOYMENT_TYPE_TEXT.fte}
                 />
               )}
             </>
@@ -236,7 +250,7 @@ const RoleForm: React.FC<IRoleForm> = ({
             <>
               <RadioSelectField
                 fieldName="fullyRemote"
-                label="Is this role fully remote?"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.fullyRemote.label}
                 rowAlign={true}
                 listOptions={YesNoOptions}
                 isSubmitted={isSubmitted}
@@ -246,8 +260,8 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <FreeTextField
                 fieldName="location"
-                label="Location (optional)"
-                placeholder="City, state (separate multiple locations with commas)"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.location.label}
+                placeholder={ORG_ROLE_FORM_TEXT.FIELDS.location.placeholder}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.location}
                 validator={OptionalString}
@@ -255,23 +269,29 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <SingleSelectField
                 fieldName="visaSponsorship"
-                label="Do you offer Visa sponsorship?"
-                placeholder="Choose one"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.visaSponsorship.label}
+                placeholder={
+                  ORG_ROLE_FORM_TEXT.FIELDS.visaSponsorship.placeholder
+                }
                 listOptions={VisaSponsorshipOptions}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.visaSponsorship}
                 validator={
-                  employmentType === 'volunteer' ? undefined : VisaSponsorship
+                  employmentType === EMPLOYMENT_TYPE_TEXT.volunteer
+                    ? undefined
+                    : VisaSponsorship
                 }
-                disabled={employmentType === 'volunteer'}
+                disabled={employmentType === EMPLOYMENT_TYPE_TEXT.volunteer}
               />
             </>
             {/* Date Section */}
             <>
               <FreeTextField
                 fieldName="desiredStartDate"
-                label="Desired start date (optional)"
-                placeholder="mm/dd/yyyy"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredStartDate.label}
+                placeholder={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredStartDate.placeholder
+                }
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.desiredEndDate}
                 validator={OptionalDate}
@@ -280,8 +300,10 @@ const RoleForm: React.FC<IRoleForm> = ({
               {partTimeOnly && (
                 <FreeTextField
                   fieldName="desiredEndDate"
-                  label="Desired end date (optional)"
-                  placeholder="mm/dd/yyyy"
+                  label={ORG_ROLE_FORM_TEXT.FIELDS.desiredEndDate.label}
+                  placeholder={
+                    ORG_ROLE_FORM_TEXT.FIELDS.desiredEndDate.placeholder
+                  }
                   isSubmitted={isSubmitted}
                   initialValue={previousForm?.desiredEndDate}
                   validator={OptionalDate}
@@ -292,10 +314,14 @@ const RoleForm: React.FC<IRoleForm> = ({
             <>
               <MultiSelectField
                 fieldName="desiredYoe"
-                label="Desired years of experience"
-                placeholder="Choose all that apply"
-                selectionLabelMulti=" options selected"
-                selectionLabelSingle=" option selected"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredYoe.label}
+                placeholder={ORG_ROLE_FORM_TEXT.FIELDS.desiredYoe.placeholder}
+                selectionLabelMulti={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredYoe.selectionLabelMulti
+                }
+                selectionLabelSingle={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredYoe.selectionLabelSingle
+                }
                 listOptions={YOERangeOptions}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.desiredYoe || []}
@@ -303,10 +329,16 @@ const RoleForm: React.FC<IRoleForm> = ({
               />
               <MultiSelectField
                 fieldName="desiredSkills"
-                label="Desired skills for the role (optional)"
-                placeholder="Choose all that apply"
-                selectionLabelMulti=" options selected"
-                selectionLabelSingle=" option selected"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.label}
+                placeholder={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.placeholder
+                }
+                selectionLabelMulti={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.selectionLabelMulti
+                }
+                selectionLabelSingle={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.selectionLabelSingle
+                }
                 listOptions={SkillOptions}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.desiredSkills || []}
@@ -315,8 +347,10 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <FreeTagField
                 fieldName="desiredOtherSkills"
-                label="Other desired skills if not listed above (optional)"
-                placeholder="Desired skills separated by commas"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredOtherSkills.label}
+                placeholder={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredOtherSkills.placeholder
+                }
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.desiredOtherSkills || []}
                 validator={RequiredString.array().optional()}
@@ -324,7 +358,7 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <RadioSelectField
                 fieldName="similarStaffed"
-                label="Are there employees on staff with the same or similar role?"
+                label={ORG_ROLE_FORM_TEXT.FIELDS.similarStaffed.label}
                 rowAlign={true}
                 listOptions={YesNoOptions}
                 isSubmitted={isSubmitted}
@@ -333,8 +367,10 @@ const RoleForm: React.FC<IRoleForm> = ({
               />
               <LongTextField
                 fieldName="desiredImpactExp"
-                label="Desired impact-related experience or passion that you are looking for in a candidate (optional)"
-                placeholder="Your answer here. Maximum 200 words."
+                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredImpactExp.label}
+                placeholder={
+                  ORG_ROLE_FORM_TEXT.FIELDS.desiredImpactExp.placeholder
+                }
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.desiredImpactExp}
                 validator={OptionalEssay}
@@ -342,8 +378,8 @@ const RoleForm: React.FC<IRoleForm> = ({
 
               <LongTextField
                 fieldName="pitchEssay"
-                label="How would you pitch this role in a few sentences?"
-                placeholder="Your answer here. Maximum 200 words."
+                label={ORG_ROLE_FORM_TEXT.FIELDS.pitchEssay.label}
+                placeholder={ORG_ROLE_FORM_TEXT.FIELDS.pitchEssay.placeholder}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.pitchEssay}
                 validator={RequiredEssay}
@@ -352,9 +388,9 @@ const RoleForm: React.FC<IRoleForm> = ({
             {/* Form Control Button*/}
             <div className="space-y-6">
               <Button
-                name="nextRole"
+                name="addRole"
                 className="mt-4 w-full text-component-large"
-                label={isLastRole ? 'Add another role' : 'Go to next role'}
+                label={ORG_ROLE_FORM_TEXT.BUTTONS.addRole.label}
                 variant={ButtonVariant.OUTLINED}
                 disabled={activeIndex >= 3}
                 type="submit"
@@ -362,7 +398,7 @@ const RoleForm: React.FC<IRoleForm> = ({
               <Button
                 name="review"
                 className="mt-4 w-full text-component-large"
-                label={'Go to review'}
+                label={ORG_ROLE_FORM_TEXT.BUTTONS.review.label}
                 onClick={() => {
                   reviewReadyRef.current = isValid;
                   submit();

@@ -5,7 +5,9 @@ import {
   ACCOUNT_PAGE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
+  BASE_LINK,
   DELETE_MODAL,
+  ERROR_MODAL_TEXT,
   PAUSE_MODAL,
   RESUME_MODAL,
 } from '@/lang/en';
@@ -64,8 +66,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
             if (res.status === 404) {
-              // TODO: Do we need to anything here?
+              // TODO: Once API returns 200, revert to handleCaughtErrorResponse
               console.log('No submissions for this user');
+            } else if (res.status === 401) {
+              router.push(APPLICANT_SIGNUP_LINK);
             } else {
               handleCaughtErrorResponse(res);
             }
@@ -84,7 +88,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             setMatchesPaused(accountResponse.isPaused);
           } else {
             if (res.status === 404) {
+              // TODO: Once API returns 200, revert to handleCaughtErrorResponse
               setApplicantExists(false);
+            } else if (res.status === 401) {
+              router.push(APPLICANT_SIGNUP_LINK);
             } else {
               handleCaughtErrorResponse(res);
             }
@@ -98,7 +105,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
         getAccountData();
         getSubmissions();
       } else {
-        router.push('/');
+        router.push(BASE_LINK);
       }
     }
   }, [isAuthenticated, isLoading, getAccessTokenSilently]);
@@ -286,6 +293,9 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             />
             <ErrorModal
               isOpen={showErrorModal}
+              titleText={ERROR_MODAL_TEXT.requestFailed}
+              descriptionText={ERROR_MODAL_TEXT.somethingWrong}
+              buttonText={ERROR_MODAL_TEXT.okButton}
               closeModal={() => {
                 setShowErrorModal(false);
               }}

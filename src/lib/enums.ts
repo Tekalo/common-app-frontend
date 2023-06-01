@@ -1,31 +1,45 @@
+import {
+  BOOL_ENUM_OPTIONS,
+  CAUSE_ENUM_OPTIONS,
+  COMMITMENT_ENUM_OPTIONS,
+  CONTACT_ENUM_OPTIONS,
+  EMPLOYMENT_TYPE_ENUM_OPTIONS,
+  ERROR_TEXT,
+  ORG_SIZE_ENUM_OPTIONS,
+  ORG_TYPE_ENUM_OPTIONS,
+  PAID_ENUM_OPTIONS,
+  REF_ENUM_OPTIONS,
+  RELOCATION_ENUM_OPTIONS,
+  REMOTE_ENUM_OPTIONS,
+  ROLE_ENUM_OPTIONS,
+  SEARCH_STATUS_ENUM_OPTIONS,
+  SKILL_ENUM_OPTIONS,
+  VISA_ENUM_OPTIONS,
+  WORKAUTH_ENUM_OPTIONS,
+  YOE_ENUM_OPTIONS,
+  YOE_RANGE_ENUM_OPTIONS,
+} from '@/lang/en';
 import { FormInstance } from 'houseform';
 import { z } from 'zod';
 
 /** Helpers
  */
-const errorMessages = {
-  currentLocation: 'Current location is required',
-  interestCauses: 'You must select at least one cause',
-  interestRoles: 'You must select at least one role',
-  invalidEmail: 'This must be a valid email address',
-  invalidPhone: 'This must be a valid phone number',
-  orgRequired: 'Organization is required',
-
-  privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
-  required: 'This is a required field',
-  termsRequired: 'You must agree to the Terms of Use',
-  eoeRequired:
-    'Tekalo only works with Equal Opportunity Employers as defined by the EEOC.',
-  unknownError: 'An unknown error has occurred',
-  requiredSelectGroup: 'You must select at least one option',
-  roleRequired: 'Role is required',
-};
 
 const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
   const errorMsg =
     err.code === 'invalid_enum_value'
-      ? errorMessages.required
-      : errorMessages.unknownError;
+      ? ERROR_TEXT.required
+      : ERROR_TEXT.unknownError;
+
+  return { message: errorMsg };
+};
+
+const chooseOneErrorMap = (err: z.ZodIssueOptionalMessage) => {
+  console.log(err);
+  const errorMsg =
+    err.code === 'invalid_type'
+      ? ERROR_TEXT.chooseOne
+      : ERROR_TEXT.unknownError;
 
   return { message: errorMsg };
 };
@@ -34,41 +48,41 @@ const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
  */
 const Email = z
   .string()
-  .nonempty(errorMessages.required)
-  .email(errorMessages.invalidEmail);
+  .nonempty(ERROR_TEXT.required)
+  .email(ERROR_TEXT.invalidEmail);
 
 const PrivacyPolicy = z.literal(true, {
   errorMap: () => ({
-    message: errorMessages.privacyRequired,
+    message: ERROR_TEXT.privacyRequired,
   }),
 });
 
 const ToS = z.literal(true, {
   errorMap: () => ({
-    message: errorMessages.termsRequired,
+    message: ERROR_TEXT.termsRequired,
   }),
 });
 
 const EOE = z.literal(true, {
   errorMap: () => ({
-    message: errorMessages.eoeRequired,
+    message: ERROR_TEXT.eoeRequired,
   }),
 });
 
-const RequiredEssay = z.string().nonempty(errorMessages.required).max(5000);
+const RequiredEssay = z.string().nonempty(ERROR_TEXT.required).max(5000);
 const OptionalEssay = z
   .string({
     errorMap: () => ({
-      message: errorMessages.unknownError,
+      message: ERROR_TEXT.unknownError,
     }),
   })
   .max(5000)
   .optional();
-const RequiredString = z.string().nonempty(errorMessages.required).max(255);
+const RequiredString = z.string().nonempty(ERROR_TEXT.required).max(255);
 const OptionalString = z.string().max(255).optional();
 
 const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
-  message: errorMessages.interestCauses,
+  message: ERROR_TEXT.interestCauses,
 });
 
 const OptionalStringArr = z.array(OptionalString).optional();
@@ -81,144 +95,78 @@ const OptionalDate = z
     if (!str) return true;
     const date = new Date(str);
     return !isNaN(date.getTime());
-  }, 'Invalid date');
-const OrgType = z.enum(['501(c)(3)', '501(c)(4)', 'LLC', 'other'], {
+  }, ERROR_TEXT.invalidDate);
+
+const OrgType = z.enum(ORG_TYPE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const OrgSize = z.enum(
-  ['<20', '20-50', '51-100', '101-200', '201-500', '500+'],
-  { errorMap: defaultEnumErrorMap }
-);
-
-const EmploymentType = z.enum(
-  [
-    'full-time employee',
-    'volunteer',
-    'contractor',
-    'consultant',
-    'advisor',
-    'internship',
-    'other',
-  ],
-  { errorMap: defaultEnumErrorMap }
-);
-
-const CommitmentType = z.enum(['full', 'part'], {
+const OrgSize = z.enum(ORG_SIZE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
+});
+
+const EmploymentType = z.enum(EMPLOYMENT_TYPE_ENUM_OPTIONS, {
+  errorMap: defaultEnumErrorMap,
+});
+
+const CommitmentType = z.enum(COMMITMENT_ENUM_OPTIONS, {
+  errorMap: chooseOneErrorMap,
 });
 
 const CommitmentTypeValidator = CommitmentType.array().refine(
   (v) => !!v.length,
-  { message: errorMessages.requiredSelectGroup }
+  { message: ERROR_TEXT.requiredSelectGroup }
 );
 
-const GovtJobType = z.enum(['paid', 'unpaid'], {
+const GovtJobType = z.enum(PAID_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const YOE = z.enum(
-  ['<1', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '>11'],
-  { errorMap: defaultEnumErrorMap }
-);
+const YOE = z.enum(YOE_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
-const YOE_RANGE = z.enum(['0-2', '2-4', '4-8', '8-12', '12-15', '15+'], {
+const YOE_RANGE = z.enum(YOE_RANGE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-export const TrueFalseString = z.enum(['true', 'false'], {
+export const TrueFalseString = z.enum(BOOL_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const Skills = z.enum(
-  [
-    'react',
-    'javascript',
-    'python',
-    'java',
-    'sql',
-    'privacy',
-    'security',
-    'devops',
-    'figma',
-    'sketch',
-    'prototyping',
-    'user research',
-    'product development',
-    'project management',
-  ],
-  { errorMap: defaultEnumErrorMap }
-);
+const Skills = z.enum(SKILL_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
-const Roles = z.enum(
-  [
-    'software engineer',
-    'software engineer - backend',
-    'software engineer - frontend',
-    'product manager',
-    'product designer',
-    'ux/ui designer',
-    'ux researcher',
-    'data analyst',
-    'other',
-  ],
-  { errorMap: defaultEnumErrorMap }
-);
+const Roles = z.enum(ROLE_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
 const RolesValidator = Roles.array().refine((v) => !!v.length, {
-  message: errorMessages.requiredSelectGroup,
+  message: ERROR_TEXT.requiredSelectGroup,
 });
 
-const Causes = z.enum(
-  [
-    'climate change',
-    'environment',
-    'human rights & social justice',
-    'international development',
-    'education',
-    'health & well being',
-    'government tech',
-    'tech policy',
-    'trust & safety',
-    'other',
-  ],
-  { errorMap: defaultEnumErrorMap }
-);
+const Causes = z.enum(CAUSE_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
-const VisaSponsorship = z.enum(['yes', 'no', 'sometimes'], {
+const VisaSponsorship = z.enum(VISA_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const OpenToRelocate = z.enum(['yes', 'no', 'not sure'], {
+const OpenToRelocate = z.enum(RELOCATION_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const OpenToRemote = z.enum(['only remote', 'no remote', 'both', 'not sure'], {
+const OpenToRemote = z.enum(REMOTE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const WorkAuthorization = z.enum(['authorized', 'sponsorship', ''], {
+const WorkAuthorization = z.enum(WORKAUTH_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const ReferenceAttribution = z.enum(
-  [
-    'website',
-    'linkedin',
-    'social media',
-    'partner organization',
-    'career fair',
-    'other',
-    '',
-  ],
-  { errorMap: defaultEnumErrorMap }
-);
-
-const PreferredContact = z.enum(['email', 'sms', 'whatsapp'], {
+const ReferenceAttribution = z.enum(REF_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const SearchStatus = z.enum(['active', 'passive', 'future'], {
+const PreferredContact = z.enum(CONTACT_ENUM_OPTIONS, {
+  errorMap: defaultEnumErrorMap,
+});
+
+const SearchStatus = z.enum(SEARCH_STATUS_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
@@ -236,7 +184,7 @@ const OptionalPhoneNumber = z.string().refine(
       return true;
     }
   },
-  { message: errorMessages.invalidPhone }
+  { message: ERROR_TEXT.invalidPhone }
 );
 
 // Functions
@@ -254,7 +202,7 @@ const contactPhoneLinkedValidation = (v: string, f: FormInstance) => {
     return PhoneNumber.safeParse(v).success
       ? isValid
       : Promise.reject(
-          hasValue ? errorMessages.invalidPhone : errorMessages.required
+          hasValue ? ERROR_TEXT.invalidPhone : ERROR_TEXT.required
         );
   }
 

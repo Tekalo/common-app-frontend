@@ -7,6 +7,8 @@ const base: IReviewFormPage = {
   handleGoToRole: (idx) => void {},
   handleDeleteRole: (idx) => void {},
   handleSubmit: (val) => void {},
+  isTurnstileValid: true,
+  setIsTurnstileValid: () => void {},
 };
 
 export const mockReviewFormPageProps = {

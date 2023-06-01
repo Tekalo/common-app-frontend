@@ -17,7 +17,7 @@ import {
 } from '@/lib/enums';
 
 import Button from '@/components/buttons/Button/Button';
-import { EEOC_URL, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
+import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
 import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
@@ -33,22 +33,6 @@ export interface ISignupForm {
   handleSubmit: (values: NewOrgType) => void;
   previousForm: NewOrgType | undefined;
 }
-
-const EEOC_LABEL = (
-  <div className="space-y-2">
-    <div className="w-[103%] text-left text-p3-mobile text-black-text">
-      {ORG_SIGNUP_FORM_TEXT.EEOC.text}
-      <a
-        href={EEOC_URL}
-        target="_blank"
-        rel="noreferrer"
-        className="underline underline-offset-4"
-      >
-        {ORG_SIGNUP_FORM_TEXT.EEOC.linkText}
-      </a>
-    </div>
-  </div>
-);
 
 const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
@@ -71,8 +55,8 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           {/* Org Name */}
           <FreeTextField
             fieldName="organization.name"
-            label="Organization name"
-            placeholder="Organization's legal name"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgName.label}
+            placeholder={ORG_SIGNUP_FORM_TEXT.FIELDS.orgName.placeholder}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.name}
             validator={RequiredString}
@@ -81,20 +65,20 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           {/* Org Type */}
           <SingleSelectField
             fieldName="organization.type"
-            label="Organization type"
-            placeholder="Choose one"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgType.label}
+            placeholder={ORG_SIGNUP_FORM_TEXT.FIELDS.orgType.placeholder}
             listOptions={OrgTypeOptions}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.type}
-            tooltipText="We accept applications from 501(c)(3) organizations. Other types of impact-driven organizations are welcome to submit opportunities and will be considered on a case by case basis."
+            tooltipText={ORG_SIGNUP_FORM_TEXT.FIELDS.orgType.tooltipText}
             validator={OrgType}
           />
 
           {/* Org Size */}
           <SingleSelectField
             fieldName="organization.size"
-            label="Organization size"
-            placeholder="Choose one"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgSize.label}
+            placeholder={ORG_SIGNUP_FORM_TEXT.FIELDS.orgSize.placeholder}
             listOptions={OrgSizeOptions}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.size}
@@ -104,23 +88,27 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           {/* Org Impact Areas */}
           <MultiSelectField
             fieldName="organization.impactAreas"
-            label="Impact area(s) the organization works on"
-            placeholder="Choose all that apply"
-            selectionLabelMulti=" Areas selected"
-            selectionLabelSingle=" Area selected"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.label}
+            placeholder={ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.placeholder}
+            selectionLabelMulti={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.selectionLabelMulti
+            }
+            selectionLabelSingle={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.selectionLabelSingle
+            }
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.impactAreas || []}
             validator={Causes.array().min(1, {
-              message: 'You must choose at least one impact area',
+              message: ERROR_TEXT.impactAreasRequired,
             })}
           />
 
           {/* Contact name */}
           <FreeTextField
             fieldName="contact.name"
-            label="Contact name"
-            placeholder="Full name"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactName.label}
+            placeholder={ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactName.placeholder}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.contact.name}
             validator={RequiredString}
@@ -129,8 +117,10 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           {/* Contact email */}
           <FreeTextField
             fieldName="contact.email"
-            label="Contact email"
-            placeholder="Email address"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactEmail.label}
+            placeholder={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactEmail.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={previousForm?.contact.email}
             validator={Email}
@@ -139,22 +129,24 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           {/* Contact number */}
           <FreeTextField
             fieldName="contact.phone"
-            label="Contact phone (optional)"
-            placeholder="+1 (555) 555-5555"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactPhone.label}
+            placeholder={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactPhone.placeholder
+            }
             isSubmitted={isSubmitted}
             initialValue={previousForm?.contact.phone}
             validator={OptionalPhoneNumber}
-            tooltipText="If provided, your number will be used to contact you about your application. It won’t be used for marketing."
+            tooltipText={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactPhone.tooltipText
+            }
           />
 
           {/* Org Employment Types */}
           <SelectGroupField
             fieldName="commitmentTypes"
-            label={
-              'What type(s) of positions are you looking to fill? Choose all that apply.'
-            }
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgEmploymentTypes.label}
             helperText={
-              'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.'
+              ORG_SIGNUP_FORM_TEXT.FIELDS.orgEmploymentTypes.helperText
             }
             listOptions={CommitmentOptions}
             isSubmitted={isSubmitted}
@@ -165,8 +157,8 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           {/* Org EOE */}
           <SelectBooleanField
             fieldName="organization.eoe"
-            label={EEOC_LABEL}
-            placeholder="Choose one"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgEOE.label}
+            placeholder={ORG_SIGNUP_FORM_TEXT.FIELDS.orgEOE.placeholder}
             listOptions={TrueFalseOptions}
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.eoe}
@@ -177,7 +169,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           <div className="pt-2">
             <Button
               className="w-full text-component-large"
-              label="Next"
+              label={ORG_SIGNUP_FORM_TEXT.BUTTONS.submit.label}
               type="submit"
             />
           </div>

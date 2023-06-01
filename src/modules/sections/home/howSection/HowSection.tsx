@@ -1,5 +1,5 @@
 import Timeline from '@/components/timeline/Timeline';
-import { HOME_HOW_TEXT } from '@/lang/en';
+import { HOME_FAQ_TEXT, HOME_HOW_TEXT } from '@/lang/en';
 import { ITimelineItem } from '@/lib/types';
 import { useState } from 'react';
 
@@ -43,14 +43,20 @@ const HowSection: React.FC<IHowSection> = () => {
     },
   ];
 
-  const toggleHeaders = ['For candidates', 'For organizations'];
+  const toggleHeaders = [
+    HOME_FAQ_TEXT.CANDIDATE_TOGGLE,
+    HOME_FAQ_TEXT.ORG_TOGGLE,
+  ];
 
   return (
-    <section className="grid w-full place-items-center bg-light-blue">
+    <section
+      id="landing_how"
+      className="grid w-full scroll-mt-14 place-items-center bg-light-blue md:scroll-mt-16 lg:scroll-mt-20"
+    >
       <div className="px-6 py-14 md:px-24 md:py-16 lg:py-28">
         {/* Title */}
         <div className="text-center font-display text-h3-mobile text-black-text lg:text-h2-desktop">
-          How it works
+          {HOME_HOW_TEXT.TITLE}
         </div>
         {/* Toggle Menu */}
         {/* TODO: Move the toggle menu into its own component, this is identical to FAQ */}

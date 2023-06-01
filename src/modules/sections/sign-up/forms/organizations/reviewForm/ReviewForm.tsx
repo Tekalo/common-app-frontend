@@ -1,13 +1,19 @@
 import Button from '@/components/buttons/Button/Button';
 import TableModal from '@/components/modal/Modal/TableModal/TableModal';
-import { PRIVACY_LINK, PRIVACY_MODAL_TEXT, REVIEW_FORM_TEXT } from '@/lang/en';
+import {
+  ERROR_TEXT,
+  ORG_CONTENT_TABLE_TEXT,
+  PRIVACY_LINK,
+  PRIVACY_MODAL_TEXT,
+  REVIEW_FORM_TEXT,
+} from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
 import { NewOrgType, NewRoleType } from '@/lib/types';
-import { orgContentTableData } from '@/sections/privacy/PrivacyInfo';
 import { BooleanField } from '@/sections/sign-up/fields';
+import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import OrgDetailReview from './sections/OrgDetailReview';
 import RoleDetailReview from './sections/RoleDetailReview';
 
@@ -17,7 +23,9 @@ export interface IReviewFormPage {
   handleGoToOrg: () => void;
   handleGoToRole: (idx: number) => void;
   handleDeleteRole: (idx: number) => void;
-  handleSubmit: (privacyAcceptance: boolean) => void;
+  handleSubmit: (privacyAcceptance: boolean, _turnstileToken: string) => void;
+  isTurnstileValid: boolean;
+  setIsTurnstileValid: (_isTurnstileValid: boolean) => void;
 }
 
 const privacyModalExtras = (
@@ -56,20 +64,31 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   handleGoToRole,
   handleDeleteRole,
   handleSubmit,
+  isTurnstileValid,
+  setIsTurnstileValid,
 }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
+  const turnstileOrgRef = useRef<TurnstileInstance>(null);
+
   const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
+
+  useEffect(() => {
+    if (!isTurnstileValid) {
+      turnstileOrgRef.current?.reset();
+    }
+  }, [isTurnstileValid]);
 
   return (
     <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
       {/* Header */}
       <div className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop">
-        {'Review your intake form'}
+        {REVIEW_FORM_TEXT.HEADER}
       </div>
       {/* Org Info */}
       <OrgDetailReview
-        titleText={'Contact and organization'}
+        titleText={REVIEW_FORM_TEXT.ORG_DETAIL.title}
         orgInfo={orgInfo}
         handleGoToOrg={handleGoToOrg}
       />
@@ -83,13 +102,24 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
       <>
         <Form
           onSubmit={(values) => {
-            handleSubmit(values.acceptedPrivacy);
+            handleSubmit(values.acceptedPrivacy, turnstileToken);
           }}
         >
           {({ isValid, isSubmitted, submit }) => (
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
+
+                if (
+                  turnstileToken === '' ||
+                  turnstileOrgRef.current?.getResponse() === undefined
+                ) {
+                  setIsTurnstileValid(false);
+                  turnstileOrgRef.current?.reset();
+                  return;
+                } else {
+                  submit();
+                }
               }}
               className="mt-6 space-y-8"
             >
@@ -101,14 +131,34 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                 initialValue={false}
                 validator={PrivacyPolicy}
               />
+
+              {/* Turnstile */}
+              <div className="mx-auto">
+                <Turnstile
+                  id="org-form-turnstile"
+                  ref={turnstileOrgRef}
+                  onSuccess={setTurnstileToken}
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
+                  onAfterInteractive={() => setIsTurnstileValid(true)}
+                />
+                {isTurnstileValid ? null : (
+                  <div
+                    className={
+                      'mt-1 text-left text-component-small text-red-error'
+                    }
+                  >
+                    {ERROR_TEXT.somethingWrong}
+                  </div>
+                )}
+              </div>
+
               {/* Form Cotnrol Button*/}
               <div className="mt-10">
                 <Button
                   className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
-                  label="Submit"
+                  label={REVIEW_FORM_TEXT.BUTTONS.submit.label}
                   type="submit"
                   disabled={isSubmitted && !isValid}
-                  onClick={() => submit()}
                 />
               </div>
             </form>
@@ -116,7 +166,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
         </Form>
         {showPrivacyModal && (
           <TableModal
-            tableData={orgContentTableData}
+            tableData={ORG_CONTENT_TABLE_TEXT}
             headerText={PRIVACY_MODAL_TEXT.HEADER}
             bodyText={PRIVACY_MODAL_TEXT.BODY}
             extras={privacyModalExtras}

@@ -1,4 +1,5 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
+import { DELETE_MODAL } from '@/lang/en';
 import { IConfirmModal } from './ConfirmModal';
 
 const base: IConfirmModal = {
@@ -13,9 +14,7 @@ const base: IConfirmModal = {
 };
 
 const deleteContent: IConfirmModal = {
-  bodyText: `Are you sure you want to permanently delete you
-  account and data? This may take up to 30 days. Choose
-  “delete account” to start deletion.`,
+  bodyText: DELETE_MODAL.BODY,
   confirmBtnVariant: ButtonVariant.RED,
   cancelBtnText: 'Cancel',
   confirmBtnText: 'Delete account',
