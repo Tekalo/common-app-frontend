@@ -16,6 +16,7 @@ import {
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
@@ -132,3 +133,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 };
 
 export default ApplicantSignup;
+
+ApplicantSignup.getLayout = function getLayout(page) {
+  return <ApplicationLayout>{page}</ApplicationLayout>;
+};

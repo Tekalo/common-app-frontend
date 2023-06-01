@@ -6,6 +6,7 @@ import {
   opportunityBatchEndpoint,
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
+import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
@@ -153,3 +154,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
 };
 
 export default OrganizationSignup;
+
+OrganizationSignup.getLayout = function getLayout(page) {
+  return <OrganizationLayout>{page}</OrganizationLayout>;
+};
