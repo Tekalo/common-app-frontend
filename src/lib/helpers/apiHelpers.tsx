@@ -27,6 +27,21 @@ export const post = async (url: string, values: any, token = '') => {
   });
 };
 
+export const postWithTurnstile = async (
+  url: string,
+  values: any,
+  turnstileToken: string
+) => {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-turnstile-token': turnstileToken,
+    },
+    body: JSON.stringify(values),
+  });
+};
+
 export const put = async (url: string, values: any, token = '') => {
   return fetch(url, {
     method: 'PUT',

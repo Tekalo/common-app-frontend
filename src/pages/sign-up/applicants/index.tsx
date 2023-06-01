@@ -5,13 +5,17 @@ import {
   APPLICANT_CONTENT_TABLE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
+  APPLICANT_SIGNUP_LINK,
   ERROR_MODAL_TEXT,
   ORG_SIGNUP_LINK,
   PRIVACY_LINK,
   PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
 } from '@/lang/en';
-import { applicantsEndpoint, post } from '@/lib/helpers/apiHelpers';
+import {
+  applicantsEndpoint,
+  postWithTurnstile,
+} from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
@@ -36,17 +40,31 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
+  const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
 
   const displayErrorModal = (isConflict = false): void => {
     setIsConflict(isConflict);
     setShowErrorModal(true);
   };
 
-  const handleSubmit = async (values: NewCandidateType) => {
-    post(applicantsEndpoint, stripEmptyFields(values))
+  const handleSubmit = async (
+    values: NewCandidateType,
+    turnstileToken: string
+  ) => {
+    postWithTurnstile(
+      applicantsEndpoint,
+      stripEmptyFields(values),
+      turnstileToken
+    )
       .then((res) => {
         if (res.ok) {
           router.push(APPLICANT_EXPERIENCE_LINK);
+        } else if (res.status === 401) {
+          router.push(APPLICANT_SIGNUP_LINK);
+        } else if (res.status === 418) {
+          // The user is a teapot
+          setIsTurnstileValid(false);
+          console.error(res.statusText);
         } else if (res.status === 409) {
           // Reg conflict
           displayErrorModal(true);
@@ -57,6 +75,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       })
       .catch((error) => {
         displayErrorModal(false);
+        setIsTurnstileValid(false);
         console.error('Failed to submit form data', error);
       });
   };
@@ -75,6 +94,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
           <ApplicantSignupForm
             handleSubmit={handleSubmit}
             setShowPrivacyModal={setShowPrivacyModal}
+            isTurnstileValid={isTurnstileValid}
+            setIsTurnstileValid={setIsTurnstileValid}
           />
         </div>
         {/* Navaway for organizations */}
@@ -82,7 +103,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
           {APPLICANT_FORM_TEXT.IFORG[0]}
           <span className="text-blue-1 underline underline-offset-4">
             <Link href={ORG_SIGNUP_LINK}>{APPLICANT_FORM_TEXT.IFORG[1]}</Link>
-            {APPLICANT_FORM_TEXT.IFORG[2]}
           </span>
         </div>
       </div>
@@ -107,7 +127,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
           isConflict ? ERROR_MODAL_TEXT.signIn : ERROR_MODAL_TEXT.somethingWrong
         }
         buttonText={ERROR_MODAL_TEXT.okButton}
-        buttonHandler={() => router.push(SIGN_IN_LINK)}
+        buttonHandler={() => {
+          isConflict ? router.push(SIGN_IN_LINK) : setShowErrorModal(false);
+        }}
         closeModal={() => {
           setShowErrorModal(false);
         }}
