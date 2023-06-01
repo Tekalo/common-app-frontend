@@ -6,7 +6,6 @@ import {
   opportunityBatchEndpoint,
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
-import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
@@ -39,18 +38,17 @@ const OrganizationSignup: NextPageWithLayout = () => {
     // Send the payload to the API
     postWithTurnstile(opportunityBatchEndpoint, values, turnstileToken)
       .then((res) => {
-        if (res.ok) {
-          router.push(ORG_SUCCESS_LINK);
-        } else if (res.status === 418) {
-          // The user is a teapot
-          setIsTurnstileValid(false);
-          console.error(res.statusText);
-        } else if (res.status === 409) {
-          // Reg conflict
-          setShowErrorModal(true);
-        } else {
-          setShowErrorModal(true);
-          console.error(res.statusText);
+        switch (res.status) {
+          case 200: // good submission
+            router.push(ORG_SUCCESS_LINK);
+            break;
+          case 418: // the user is a teapot
+            setIsTurnstileValid(false);
+            console.error(res.statusText);
+            break;
+          default: // we have no idea
+            setShowErrorModal(true);
+            console.error(res.statusText);
         }
       })
       .catch((error) => {
@@ -155,7 +153,3 @@ const OrganizationSignup: NextPageWithLayout = () => {
 };
 
 export default OrganizationSignup;
-
-OrganizationSignup.getLayout = (page) => (
-  <OrganizationLayout>{page}</OrganizationLayout>
-);

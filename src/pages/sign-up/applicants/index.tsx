@@ -5,7 +5,6 @@ import {
   APPLICANT_CONTENT_TABLE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
-  APPLICANT_SIGNUP_LINK,
   ERROR_MODAL_TEXT,
   ORG_SIGNUP_LINK,
   PRIVACY_LINK,
@@ -17,7 +16,6 @@ import {
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import Link from 'next/link';
@@ -42,8 +40,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [isConflict, setIsConflict] = useState(false);
   const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
 
-  const displayErrorModal = (isConflict = false): void => {
-    setIsConflict(isConflict);
+  const displayErrorModal = (): void => {
     setShowErrorModal(true);
   };
 
@@ -51,30 +48,31 @@ const ApplicantSignup: NextPageWithLayout = () => {
     values: NewCandidateType,
     turnstileToken: string
   ) => {
+    setIsConflict(false);
     postWithTurnstile(
       applicantsEndpoint,
       stripEmptyFields(values),
       turnstileToken
     )
       .then((res) => {
-        if (res.ok) {
-          router.push(APPLICANT_EXPERIENCE_LINK);
-        } else if (res.status === 401) {
-          router.push(APPLICANT_SIGNUP_LINK);
-        } else if (res.status === 418) {
-          // The user is a teapot
-          setIsTurnstileValid(false);
-          console.error(res.statusText);
-        } else if (res.status === 409) {
-          // Reg conflict
-          displayErrorModal(true);
-        } else {
-          displayErrorModal(false);
-          console.error(res.statusText);
+        switch (res.status) {
+          case 200: // good submission
+            router.push(APPLICANT_EXPERIENCE_LINK);
+            break;
+          case 418: // the user is a teapot
+            setIsTurnstileValid(false);
+            console.error(res.statusText);
+            break;
+          case 409: // user exists already
+            setIsConflict(true);
+            break;
+          default: // we have no idea
+            displayErrorModal();
+            console.error(res.statusText);
         }
       })
       .catch((error) => {
-        displayErrorModal(false);
+        displayErrorModal();
         setIsTurnstileValid(false);
         console.error('Failed to submit form data', error);
       });
@@ -92,6 +90,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
           {/* New user form */}
           <ApplicantSignupForm
+            showUserExistsError={isConflict}
             handleSubmit={handleSubmit}
             setShowPrivacyModal={setShowPrivacyModal}
             isTurnstileValid={isTurnstileValid}
@@ -118,14 +117,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
       />
       <ErrorModal
         isOpen={showErrorModal}
-        titleText={
-          isConflict
-            ? ERROR_MODAL_TEXT.emailExists
-            : ERROR_MODAL_TEXT.requestFailed
-        }
-        descriptionText={
-          isConflict ? ERROR_MODAL_TEXT.signIn : ERROR_MODAL_TEXT.somethingWrong
-        }
+        titleText={ERROR_MODAL_TEXT.requestFailed}
+        descriptionText={ERROR_MODAL_TEXT.somethingWrong}
         buttonText={ERROR_MODAL_TEXT.okButton}
         buttonHandler={() => {
           isConflict ? router.push(SIGN_IN_LINK) : setShowErrorModal(false);
@@ -139,7 +132,3 @@ const ApplicantSignup: NextPageWithLayout = () => {
 };
 
 export default ApplicantSignup;
-
-ApplicantSignup.getLayout = (page) => {
-  return <ApplicationLayout>{page}</ApplicationLayout>;
-};

@@ -10,7 +10,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -18,6 +17,7 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import { NewCandidateType } from '@/lib/types';
 import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
@@ -29,11 +29,12 @@ import {
 } from '@/sections/sign-up/fields';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
-import { Form } from 'houseform';
+import { Form, FormInstance } from 'houseform';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { ForwardedRef, useEffect, useRef, useState } from 'react';
 
 export interface ISignupForm {
+  showUserExistsError: boolean;
   handleSubmit: (_values: NewCandidateType, _turnstileToken: string) => void;
   setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
   isTurnstileValid: boolean;
@@ -69,16 +70,29 @@ const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
 };
 
 const SignupForm: React.FC<ISignupForm> = ({
+  showUserExistsError,
   handleSubmit,
   setShowPrivacyModal,
   isTurnstileValid,
   setIsTurnstileValid,
 }) => {
   const { isAuthenticated, isLoading, user } = useAuth0();
+
+  const formRef: ForwardedRef<FormInstance<NewCandidateType>> = useRef(null);
   const turnstileCandidateRef = useRef<TurnstileInstance>(null);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
+
+  useEffect(() => {
+    if (showUserExistsError && formRef.current) {
+      formRef.current.formFieldsRef.current
+        .at(1)
+        ?.setErrors([ERROR_TEXT.userAlreadyExists]);
+    }
+  }, [showUserExistsError]);
+
+  // TODO: Use form values like in candidate flow
 
   const [contactValue, setContactValue] = useState<string>();
   const [turnstileToken, setTurnstileToken] = useState<string>('');
@@ -91,6 +105,7 @@ const SignupForm: React.FC<ISignupForm> = ({
 
   return (
     <Form<NewCandidateType>
+      ref={formRef}
       onSubmit={(values) => handleSubmit(values, turnstileToken)}
     >
       {({ isValid, isSubmitted, submit }) => (

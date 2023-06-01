@@ -816,28 +816,29 @@ const HEAD_TEXT = {
   home: 'Tekalo | Do Good',
 };
 const ERROR_TEXT = {
-  fallbackError:
-    'An error occurred. Please try again later or contact support. Error:',
-  NotFoundCode: '404',
-  NotFoundText: "Sorry, we couldn't find this page.",
+  chooseOne: 'Choose at least one',
   currentLocation: 'Current location is required',
-  interestCauses: 'You must select at least one cause',
-  interestRoles: 'You must select at least one role',
-  invalidEmail: 'This must be a valid email address',
-  invalidPhone: 'This must be a valid phone number',
-  orgRequired: 'Organization is required',
-  impactAreasRequired: 'You must select at least one impact area',
-  privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
-  required: 'This is a required field',
-  termsRequired: 'You must agree to the Terms of Use',
   eoeRequired:
     'Tekalo only works with Equal Opportunity Employers as defined by the EEOC.',
-  unknownError: 'An unknown error has occurred',
+  fallbackError:
+    'An error occurred. Please try again later or contact support. Error:',
+  impactAreasRequired: 'You must select at least one impact area',
+  interestCauses: 'You must select at least one cause',
+  interestRoles: 'You must select at least one role',
+  invalidDate: 'Invalid date',
+  invalidEmail: 'This must be a valid email address',
+  invalidPhone: 'This must be a valid phone number',
+  notFoundCode: '404',
+  notFoundText: "Sorry, we couldn't find this page.",
+  orgRequired: 'Organization is required',
+  privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
+  required: 'This is a required field',
   requiredSelectGroup: 'You must select at least one option',
   roleRequired: 'Role is required',
-  invalidDate: 'Invalid date',
-  chooseOne: 'Choose at least one',
   somethingWrong: 'Something went wrong - please try again',
+  termsRequired: 'You must agree to the Terms of Use',
+  unknownError: 'An unknown error has occurred',
+  userAlreadyExists: 'This account already exists, please sign in',
 };
 
 /** ENUM TEXT CONSTANTS */
