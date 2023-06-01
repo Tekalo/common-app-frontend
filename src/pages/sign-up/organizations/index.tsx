@@ -10,11 +10,13 @@ import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
   const router = useRouter();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
   const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -36,8 +38,19 @@ const OrganizationSignup: NextPageWithLayout = () => {
       acceptedPrivacy,
     };
 
+    let authToken = '';
+
+    if (isAuthenticated) {
+      authToken = await getAccessTokenSilently();
+    }
+
     // Send the payload to the API
-    postWithTurnstile(opportunityBatchEndpoint, values, turnstileToken)
+    postWithTurnstile(
+      opportunityBatchEndpoint,
+      values,
+      turnstileToken,
+      authToken
+    )
       .then((res) => {
         switch (res.status) {
           case 200: // good submission
