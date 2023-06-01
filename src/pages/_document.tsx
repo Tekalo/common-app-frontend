@@ -43,7 +43,8 @@ export default function Document() {
             function consentGranted() {
 
             gtag('consent', 'update', {
-              'ad_storage': 'granted'
+              'ad_storage': 'granted',
+              'analytics_storage': 'granted'
             });
         }`}</Script>
         <meta name="description" content={META_DESCRIPTION} />
