@@ -1,5 +1,5 @@
 import Button from '@/components/buttons/Button/Button';
-import { APPLICANT_FORM_TEXT, TERMS_LINK } from '@/lang/en';
+import { APPLICANT_FORM_TEXT, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
 import {
   PreferredContactOptions,
   SearchStatusOptions,
@@ -23,11 +23,12 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Form } from 'houseform';
+import { Form, FormInstance } from 'houseform';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { ForwardedRef, useEffect, useRef, useState } from 'react';
 
 export interface ISignupForm {
+  showUserExistsError: boolean;
   handleSubmit: (_values: NewCandidateType) => void;
   setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
 }
@@ -61,19 +62,32 @@ const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
 };
 
 const SignupForm: React.FC<ISignupForm> = ({
+  showUserExistsError,
   handleSubmit,
   setShowPrivacyModal,
 }) => {
   const { isAuthenticated, isLoading, user } = useAuth0();
+  const formRef: ForwardedRef<FormInstance<NewCandidateType>> = useRef(null);
 
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
+
+  useEffect(() => {
+    if (showUserExistsError && formRef.current) {
+      formRef.current.formFieldsRef.current
+        .at(1)
+        ?.setErrors([ERROR_TEXT.userAlreadyExists]);
+    }
+  }, [showUserExistsError]);
 
   // TODO: Use form values like in candidate flow
   const [contactValue, setContactValue] = useState<string>();
 
   return (
-    <Form<NewCandidateType> onSubmit={(values) => handleSubmit(values)}>
+    <Form<NewCandidateType>
+      ref={formRef}
+      onSubmit={(values) => handleSubmit(values)}
+    >
       {({ isValid, isSubmitted, submit }) => (
         <form
           onSubmit={(e) => {

@@ -37,26 +37,27 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
 
-  const displayErrorModal = (isConflict = false): void => {
-    setIsConflict(isConflict);
+  const displayErrorModal = (): void => {
     setShowErrorModal(true);
   };
 
   const handleSubmit = async (values: NewCandidateType) => {
+    setIsConflict(false);
+
     post(applicantsEndpoint, stripEmptyFields(values))
       .then((res) => {
         if (res.ok) {
           router.push(APPLICANT_EXPERIENCE_LINK);
         } else if (res.status === 409) {
           // Reg conflict
-          displayErrorModal(true);
+          setIsConflict(true);
         } else {
-          displayErrorModal(false);
+          displayErrorModal();
           console.error(res.statusText);
         }
       })
       .catch((error) => {
-        displayErrorModal(false);
+        displayErrorModal();
         console.error('Failed to submit form data', error);
       });
   };
@@ -73,6 +74,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
         <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
           {/* New user form */}
           <ApplicantSignupForm
+            showUserExistsError={isConflict}
             handleSubmit={handleSubmit}
             setShowPrivacyModal={setShowPrivacyModal}
           />
@@ -98,14 +100,8 @@ const ApplicantSignup: NextPageWithLayout = () => {
       />
       <ErrorModal
         isOpen={showErrorModal}
-        titleText={
-          isConflict
-            ? ERROR_MODAL_TEXT.emailExists
-            : ERROR_MODAL_TEXT.requestFailed
-        }
-        descriptionText={
-          isConflict ? ERROR_MODAL_TEXT.signIn : ERROR_MODAL_TEXT.somethingWrong
-        }
+        titleText={ERROR_MODAL_TEXT.requestFailed}
+        descriptionText={ERROR_MODAL_TEXT.somethingWrong}
         buttonText={ERROR_MODAL_TEXT.okButton}
         buttonHandler={() => router.push(SIGN_IN_LINK)}
         closeModal={() => {
