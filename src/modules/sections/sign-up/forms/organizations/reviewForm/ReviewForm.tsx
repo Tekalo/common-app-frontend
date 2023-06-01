@@ -8,6 +8,7 @@ import {
   REVIEW_FORM_TEXT,
 } from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
+import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import { BooleanField } from '@/sections/sign-up/fields';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
@@ -118,7 +119,9 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                   turnstileOrgRef.current?.reset();
                   return;
                 } else {
-                  submit();
+                  submit().then(() => {
+                    jumpToFirstErrorMessage();
+                  });
                 }
               }}
               className="mt-6 space-y-8"

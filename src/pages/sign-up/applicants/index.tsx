@@ -15,7 +15,10 @@ import {
   applicantsEndpoint,
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
-import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import {
+  jumpToFirstErrorMessage,
+  stripEmptyFields,
+} from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
@@ -75,6 +78,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
             break;
           case 409: // user exists already
             setIsConflict(true);
+            setTimeout(() => {
+              jumpToFirstErrorMessage();
+            }, 250);
             break;
           default: // we have no idea
             displayErrorModal();

@@ -11,7 +11,9 @@ export const printErrorMessages = (
   const errorMessage =
     !disabled && isSubmitted && errors.length ? (
       <div
-        className={'mt-1 text-left text-component-small text-red-error'}
+        className={
+          'form-error-message mt-1 text-left text-component-small text-red-error'
+        }
         key={errors[0]}
       >
         {errors[0]}
@@ -40,6 +42,18 @@ export const stripEmptyFields = (obj: any): any => {
   );
 
   return result;
+};
+
+export const jumpToFirstErrorMessage = (): void => {
+  const scrollOffset = 150;
+  const firstError = document.querySelector('.form-error-message');
+
+  if (firstError) {
+    const scrollTop =
+      firstError.getBoundingClientRect().top + window.scrollY - scrollOffset;
+
+    window.scroll({ top: scrollTop });
+  }
 };
 
 export const mapArrayToList = (arr?: string[]): string => {

@@ -6,8 +6,8 @@ import {
   RoleOptions,
   SkillOptions,
   VisaSponsorshipOptions,
-  YesNoOptions,
   YOERangeOptions,
+  YesNoOptions,
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -21,6 +21,7 @@ import {
   VisaSponsorship,
   YOE_RANGE,
 } from '@/lib/enums';
+import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
 import {
   CommitmentType,
   NewRoleType,
@@ -401,7 +402,9 @@ const RoleForm: React.FC<IRoleForm> = ({
                 label={ORG_ROLE_FORM_TEXT.BUTTONS.review.label}
                 onClick={() => {
                   reviewReadyRef.current = isValid;
-                  submit();
+                  submit().then(() => {
+                    jumpToFirstErrorMessage();
+                  });
                 }}
                 type="button"
               />
