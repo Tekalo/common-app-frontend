@@ -33,10 +33,7 @@ export default function Document() {
         <Script id="set-consent" strategy="afterInteractive">{`
             function consentGranted() {
 
-            gtag('consent', 'update', {
-              'ad_storage': 'granted',
-              'analytics_storage': 'granted'
-            });
+            window.dataLayer.push({'event':'consent_form_submit', 'accept':true});
         }`}</Script>
         <meta name="description" content={META_DESCRIPTION} />
         <link
