@@ -346,7 +346,42 @@ const APPLICANT_FORM_TEXT = {
   },
   EXPERIENCE: 'Your experience',
   INTERESTS: 'Your interests',
-  IFORG: ["If you're an organization, ", 'apply here', '.'],
+  IFORG: ["If you're an organization, ", 'apply here'],
+  FIELDS: {
+    name: {
+      label: 'Name',
+      placeholder: 'Full name',
+    },
+    email: {
+      label: 'Email',
+      placeholder: 'Your email address',
+      tooltipText:
+        "Your email will be used to contact you about your application. It won't be used for marketing unless you opt in below.",
+    },
+    pronouns: {
+      label: 'Pronouns (optional)',
+      placeholder: 'E.g. she/her',
+    },
+    searchStatus: {
+      label: 'Which describes you best?',
+    },
+    preferredContact: {
+      label: 'Preferred contact method to receive matches',
+      placeholder: 'Choose one',
+    },
+    phone: {
+      label: 'Phone number',
+      labelOptional: 'Phone number (optional)',
+      placeholder: '+1 (555) 555-5555',
+      tooltipText:
+        "If you prefer not to share your phone number, choose email as your preferred contact method. If provided, your number will be used to contact you about your application. It won't be used for marketing unless you opt in below.",
+    },
+    followUpOptIn: {
+      label:
+        "I'd like to receive electronic communications with other opportunities, news, and updates from Schmidt Futures (optional)",
+    },
+  },
+  BUTTONS: { submit: { label: 'Sign up' } },
 };
 const ORG_FORM_TEXT = {
   SUCCESS: {
@@ -800,12 +835,18 @@ const ERROR_TEXT = {
   required: 'This is a required field',
   requiredSelectGroup: 'You must select at least one option',
   roleRequired: 'Role is required',
+  somethingWrong: 'Something went wrong - please try again',
   termsRequired: 'You must agree to the Terms of Use',
   unknownError: 'An unknown error has occurred',
   userAlreadyExists: 'This account already exists, please sign in',
 };
 
 /** ENUM TEXT CONSTANTS */
+const TURNSTILE_ENUM_OPTIONS = {
+  error: 'error',
+  expired: 'expired',
+  solved: 'solved',
+};
 const ORG_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '501(c)(3)',
   '501(c)(4)',
@@ -1990,6 +2031,7 @@ export {
 };
 // ENUM EXPORTS
 export {
+  TURNSTILE_ENUM_OPTIONS,
   ORG_TYPE_ENUM_OPTIONS,
   ORG_SIZE_ENUM_OPTIONS,
   EMPLOYMENT_TYPE_ENUM_OPTIONS,
