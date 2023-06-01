@@ -25,15 +25,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <Script id="gtag-settings" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-
-            // Default ad_storage to 'denied'.
-            gtag('consent', 'default', {
-              'ad_storage': 'denied'
-            });`}
-        </Script>
         <Script id="google-tag-manager" strategy="afterInteractive">
           {process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
             ? gtmScript.prod
