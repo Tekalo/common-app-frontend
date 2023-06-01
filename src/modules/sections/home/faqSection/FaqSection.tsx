@@ -221,7 +221,7 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
     >
       <div className="w-full px-6 pb-16 pt-14 md:px-4 md:py-20 lg:px-5 lg:py-28">
         {/* TITLE */}
-        <div className="mx-auto max-w-content-area">
+        <div className="mx-auto max-w-[1024px]">
           <div className="text-black-text: text-center font-display text-h3-mobile md:text-h1-mobile lg:text-h2-desktop">
             {HOME_FAQ_TEXT.HEADER}
           </div>
