@@ -30,13 +30,15 @@ export const post = async (url: string, values: any, token = '') => {
 export const postWithTurnstile = async (
   url: string,
   values: any,
-  turnstileToken: string
+  turnstileToken: string,
+  authToken = ''
 ) => {
   return fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'x-turnstile-token': turnstileToken,
+      Authorization: generateTokenValue(authToken),
     },
     body: JSON.stringify(values),
   });

@@ -119,6 +119,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({
                 >
                   {logInOutLabel}
                 </div>
+                {/* TODO: We need to refactor this */}
                 <Link
                   href={
                     isAuthenticated

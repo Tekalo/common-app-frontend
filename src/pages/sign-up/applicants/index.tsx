@@ -19,6 +19,7 @@ import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
@@ -36,6 +37,7 @@ const privacyModalExtras = (
 );
 
 const ApplicantSignup: NextPageWithLayout = () => {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
@@ -49,11 +51,18 @@ const ApplicantSignup: NextPageWithLayout = () => {
     values: NewCandidateType,
     turnstileToken: string
   ) => {
+    let authToken = '';
+
+    if (isAuthenticated) {
+      authToken = await getAccessTokenSilently();
+    }
+
     setIsConflict(false);
     postWithTurnstile(
       applicantsEndpoint,
       stripEmptyFields(values),
-      turnstileToken
+      turnstileToken,
+      authToken
     )
       .then((res) => {
         switch (res.status) {
