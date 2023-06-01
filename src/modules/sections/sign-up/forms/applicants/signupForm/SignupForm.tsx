@@ -19,6 +19,7 @@ import {
   ToS,
   contactPhoneLinkedValidation,
 } from '@/lib/enums';
+import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
 import { NewCandidateType } from '@/lib/types';
 import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
 import {
@@ -113,6 +114,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           className="flex flex-col space-y-8"
           onSubmit={async (e) => {
             e.preventDefault();
+
             if (
               turnstileToken === '' ||
               turnstileCandidateRef.current?.getResponse() === undefined
@@ -121,7 +123,9 @@ const SignupForm: React.FC<ISignupForm> = ({
               turnstileCandidateRef.current?.reset();
               return;
             } else {
-              submit();
+              submit().then(() => {
+                jumpToFirstErrorMessage();
+              });
             }
           }}
         >
@@ -252,7 +256,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             )}
           </div>
 
-          {/* Form Cotnrol Button*/}
+          {/* Form Control Button*/}
           <Button
             className="mt-10 w-full lg:mt-14"
             label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}

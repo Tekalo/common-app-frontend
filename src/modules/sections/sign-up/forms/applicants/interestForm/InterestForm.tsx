@@ -30,6 +30,7 @@ import {
   WorkAuthorization,
 } from '@/lib/enums';
 import {
+  jumpToFirstErrorMessage,
   mapBoolToString,
   mapStringToBool,
   resetForm,
@@ -124,7 +125,9 @@ const InterestForm: React.FC<IInterestForm> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            submit();
+            submit().then(() => {
+              jumpToFirstErrorMessage();
+            });
           }}
           className="space-y-8"
         >

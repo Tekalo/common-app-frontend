@@ -8,8 +8,8 @@ import {
 import {
   Causes,
   CommitmentType,
-  Email,
   EOE,
+  Email,
   OptionalPhoneNumber,
   OrgSize,
   OrgType,
@@ -18,6 +18,7 @@ import {
 
 import Button from '@/components/buttons/Button/Button';
 import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
+import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
@@ -48,7 +49,9 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            submit();
+            submit().then(() => {
+              jumpToFirstErrorMessage();
+            });
           }}
           className="flex flex-col space-y-8 lg:space-y-7"
         >
