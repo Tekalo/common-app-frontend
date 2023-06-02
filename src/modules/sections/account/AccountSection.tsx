@@ -108,10 +108,12 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       setTimeout(() => setShowContent(true), 1000);
     };
 
-    if (!isLoading && isAuthenticated) {
-      loadUserData();
-    } else {
-      router.push(BASE_LINK);
+    if (!isLoading) {
+      if (isAuthenticated) {
+        loadUserData();
+      } else {
+        router.push(BASE_LINK);
+      }
     }
   }, [isAuthenticated, isLoading, getAccessTokenSilently, router]);
 
