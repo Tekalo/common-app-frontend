@@ -55,7 +55,7 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
     // Note: This process.env variable is picked from the Cloudflare Pages environment variables - others are set at build time in the github action
     switch (process.env.CF_PAGES_BRANCH) {
       case 'main':
-      case 'test/prelaunch':
+      case 'test/pre-launch':
         return 'https://capp-api.prod-ext.apps.futurestech.cloud';
       case 'staging':
         return 'https://capp-api.staging.apps.futurestech.cloud';
@@ -89,7 +89,10 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
 
   switch (req.method) {
     case 'POST':
-      if (params[0] === 'applicants' || params[0] === 'opportunities') {
+      if (
+        params.length === 1 &&
+        (params[0] === 'applicants' || params[0] === 'opportunities')
+      ) {
         // Validate the x-turnstile-token header when a new POST request is made to the applicants or opportunities endpoints
         return validateTurnstileAndPost(
           turnstileToken,
