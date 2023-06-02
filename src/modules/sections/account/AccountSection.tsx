@@ -156,7 +156,9 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       {showContent ? (
         <>
           <div className="mb-2 font-display text-h3-desktop text-black-text">
-            {`${ACCOUNT_PAGE_TEXT.WELCOME} ${accountName}`}
+            {`${ACCOUNT_PAGE_TEXT.WELCOME}${
+              accountName ? ', ' + accountName : accountName
+            }`}
           </div>
           <div className="mb-6 font-display text-h4-desktop text-black-text">
             {ACCOUNT_PAGE_TEXT.MANAGE}
