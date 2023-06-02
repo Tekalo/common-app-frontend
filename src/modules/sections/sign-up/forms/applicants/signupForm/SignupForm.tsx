@@ -138,7 +138,7 @@ const SignupForm: React.FC<ISignupForm> = ({
       });
     };
 
-    const checkUser = async () => {
+    const redirectUserCheck = async () => {
       const hasSubmittedApplication = await hasSubmitted();
       const hasAccount = await hasAccountData();
 
@@ -152,7 +152,7 @@ const SignupForm: React.FC<ISignupForm> = ({
     };
 
     if (!isLoading && isAuthenticated && user) {
-      checkUser();
+      redirectUserCheck();
     } else {
       setShowContent(true);
     }
