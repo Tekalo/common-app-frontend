@@ -44,6 +44,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showContent, setShowContent] = useState<boolean>(false);
 
   const handleUncaughtErrorResponse = (error: any): void => {
     setShowErrorModal(true);
@@ -100,15 +101,18 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
         .catch(handleUncaughtErrorResponse);
     };
 
-    if (!isLoading) {
-      if (isAuthenticated) {
-        getAccountData();
-        getSubmissions();
-      } else {
-        router.push(BASE_LINK);
-      }
+    const loadUserData = async () => {
+      await getAccountData();
+      await getSubmissions();
+      setTimeout(() => setShowContent(true), 1250);
+    };
+
+    if (!isLoading && isAuthenticated) {
+      loadUserData();
+    } else {
+      router.push(BASE_LINK);
     }
-  }, [isAuthenticated, isLoading, getAccessTokenSilently]);
+  }, [isAuthenticated, isLoading, getAccessTokenSilently, router]);
 
   const updateMatchStatus = async (pause: boolean): Promise<void> => {
     put(applicantStateEndpoint, { pause }, await getAccessTokenSilently())
@@ -148,160 +152,178 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
 
   return (
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
-      <div className="mb-2 font-display text-h3-desktop text-black-text">
-        {`${ACCOUNT_PAGE_TEXT.WELCOME} ${accountName}`}
-      </div>
-      <div className="mb-6 font-display text-h4-desktop text-black-text">
-        {ACCOUNT_PAGE_TEXT.MANAGE}
-      </div>
+      {showContent ? (
+        <>
+          <div className="mb-2 font-display text-h3-desktop text-black-text">
+            {`${ACCOUNT_PAGE_TEXT.WELCOME} ${accountName}`}
+          </div>
+          <div className="mb-6 font-display text-h4-desktop text-black-text">
+            {ACCOUNT_PAGE_TEXT.MANAGE}
+          </div>
+        </>
+      ) : (
+        <div className="mb-5 grid grid-cols-10 space-y-3">
+          <div className="col-span-3 animate-pulse rounded bg-gray-4 py-[9px]" />
+          <div className="row-start-2  animate-pulse rounded bg-gray-4 py-[9px]" />
+        </div>
+      )}
       {/* Bordered Settings Box */}
       <div className="border border-gray-3 p-10">
-        <div className="mb-6 font-display text-small-caption-desktop text-gray-1">
-          {ACCOUNT_PAGE_TEXT.ACCOUNT}
-        </div>
-
-        <div className="space-y-5">
-          {/* Application Status Section */}
-          <div
-            className={`space-y-2 ${
-              applicationSubmitted ? 'border-b border-gray-3 pb-9' : ''
-            }`}
-          >
-            {applicationSubmitted ? (
-              <>
-                <div className="flex items-baseline">
-                  <div className="mr-1 h-[16px] w-[16px] p-1">
-                    {
-                      <GreenCheckSvg
-                        height="12px"
-                        width="12px"
-                        color="#00A870"
-                      />
-                    }
-                  </div>
-                  <div className="">{ACCOUNT_PAGE_TEXT.APP_SUBMITTED}</div>
-                </div>
-                <div className="text-p3-desktop text-gray-1">
-                  {ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY}
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="text-component-medium text-blue-1">
-                  <Link
-                    href={
-                      applicantExists
-                        ? APPLICANT_EXPERIENCE_LINK
-                        : APPLICANT_SIGNUP_LINK
-                    }
-                  >
-                    {ACCOUNT_PAGE_TEXT.APP_CONTINUE}
-                  </Link>
-                </div>
-                <div className="text-p3-desktop text-gray-1">
-                  {ACCOUNT_PAGE_TEXT.APP_CONTINUE_BODY}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Data Control Section */}
-          <div className="space-y-5">
-            {/* Pause Status */}
-            <div className="space-y-2">
-              {matchesPaused ? (
-                <>
-                  <div
-                    className="cursor-pointer text-component-medium text-blue-1"
-                    onClick={() => setShowResumeModal(true)}
-                  >
-                    <div className="flex">
-                      {
-                        <IOutlineSVG
-                          height="16px"
-                          width="16px"
-                          color="#317BB5"
-                        />
-                      }
-                      <div className="ml-1">
-                        {ACCOUNT_PAGE_TEXT.APP_OPT_IN_TITLE}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-p3-desktop text-gray-1">
-                    {ACCOUNT_PAGE_TEXT.APP_OPT_IN_BODY}
-                  </div>
-                  <ConfirmModal
-                    bodyText={RESUME_MODAL.BODY}
-                    cancelBtnText={RESUME_MODAL.CTA_CANCEL}
-                    confirmBtnText={RESUME_MODAL.CTA_CONFIRM}
-                    headline={RESUME_MODAL.HEADER}
-                    isOpen={showResumeModal}
-                    closeModal={() => setShowResumeModal(false)}
-                    onCancel={() => setShowResumeModal(false)}
-                    onConfirm={onResumeConfirm}
-                  />
-                </>
-              ) : applicationSubmitted ? (
-                <>
-                  <div
-                    className="cursor-pointer text-component-medium text-blue-1"
-                    onClick={() => setShowPauseModal(true)}
-                  >
-                    {ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE}
-                  </div>
-                  <div className="text-p3-desktop text-gray-1">
-                    {ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY}
-                  </div>
-                  <ConfirmModal
-                    bodyText={PAUSE_MODAL.BODY}
-                    cancelBtnText={PAUSE_MODAL.CTA_CANCEL}
-                    confirmBtnText={PAUSE_MODAL.CTA_CONFIRM}
-                    headline={PAUSE_MODAL.HEADER}
-                    isOpen={showPauseModal}
-                    closeModal={() => setShowPauseModal(false)}
-                    onCancel={() => setShowPauseModal(false)}
-                    onConfirm={onPauseConfirm}
-                  />
-                </>
-              ) : (
-                <></>
-              )}
+        {showContent ? (
+          <>
+            <div className="mb-6 font-display text-small-caption-desktop text-gray-1">
+              {ACCOUNT_PAGE_TEXT.ACCOUNT}
             </div>
-            {/* Data Control */}
-            <div className="space-y-2">
+
+            <div className="space-y-5">
+              {/* Application Status Section */}
               <div
-                className="cursor-pointer text-component-medium text-blue-1"
-                onClick={() => setShowDeleteModal(true)}
+                className={`space-y-2 ${
+                  applicationSubmitted ? 'border-b border-gray-3 pb-9' : ''
+                }`}
               >
-                {ACCOUNT_PAGE_TEXT.APP_DELETE_TITLE}
+                {applicationSubmitted ? (
+                  <>
+                    <div className="flex items-baseline">
+                      <div className="mr-1 h-[16px] w-[16px] p-1">
+                        {
+                          <GreenCheckSvg
+                            height="12px"
+                            width="12px"
+                            color="#00A870"
+                          />
+                        }
+                      </div>
+                      <div className="">{ACCOUNT_PAGE_TEXT.APP_SUBMITTED}</div>
+                    </div>
+                    <div className="text-p3-desktop text-gray-1">
+                      {ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-component-medium text-blue-1">
+                      <Link
+                        href={
+                          applicantExists
+                            ? APPLICANT_EXPERIENCE_LINK
+                            : APPLICANT_SIGNUP_LINK
+                        }
+                      >
+                        {ACCOUNT_PAGE_TEXT.APP_CONTINUE}
+                      </Link>
+                    </div>
+                    <div className="text-p3-desktop text-gray-1">
+                      {ACCOUNT_PAGE_TEXT.APP_CONTINUE_BODY}
+                    </div>
+                  </>
+                )}
               </div>
-              <div className="text-p3-desktop text-gray-1">
-                {ACCOUNT_PAGE_TEXT.APP_DELETE_BODY}
+
+              {/* Data Control Section */}
+              <div className="space-y-5">
+                {/* Pause Status */}
+                <div className="space-y-2">
+                  {matchesPaused ? (
+                    <>
+                      <div
+                        className="cursor-pointer text-component-medium text-blue-1"
+                        onClick={() => setShowResumeModal(true)}
+                      >
+                        <div className="flex">
+                          {
+                            <IOutlineSVG
+                              height="16px"
+                              width="16px"
+                              color="#317BB5"
+                            />
+                          }
+                          <div className="ml-1">
+                            {ACCOUNT_PAGE_TEXT.APP_OPT_IN_TITLE}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-p3-desktop text-gray-1">
+                        {ACCOUNT_PAGE_TEXT.APP_OPT_IN_BODY}
+                      </div>
+                      <ConfirmModal
+                        bodyText={RESUME_MODAL.BODY}
+                        cancelBtnText={RESUME_MODAL.CTA_CANCEL}
+                        confirmBtnText={RESUME_MODAL.CTA_CONFIRM}
+                        headline={RESUME_MODAL.HEADER}
+                        isOpen={showResumeModal}
+                        closeModal={() => setShowResumeModal(false)}
+                        onCancel={() => setShowResumeModal(false)}
+                        onConfirm={onResumeConfirm}
+                      />
+                    </>
+                  ) : applicationSubmitted ? (
+                    <>
+                      <div
+                        className="cursor-pointer text-component-medium text-blue-1"
+                        onClick={() => setShowPauseModal(true)}
+                      >
+                        {ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE}
+                      </div>
+                      <div className="text-p3-desktop text-gray-1">
+                        {ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY}
+                      </div>
+                      <ConfirmModal
+                        bodyText={PAUSE_MODAL.BODY}
+                        cancelBtnText={PAUSE_MODAL.CTA_CANCEL}
+                        confirmBtnText={PAUSE_MODAL.CTA_CONFIRM}
+                        headline={PAUSE_MODAL.HEADER}
+                        isOpen={showPauseModal}
+                        closeModal={() => setShowPauseModal(false)}
+                        onCancel={() => setShowPauseModal(false)}
+                        onConfirm={onPauseConfirm}
+                      />
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                {/* Data Control */}
+                <div className="space-y-2">
+                  <div
+                    className="cursor-pointer text-component-medium text-blue-1"
+                    onClick={() => setShowDeleteModal(true)}
+                  >
+                    {ACCOUNT_PAGE_TEXT.APP_DELETE_TITLE}
+                  </div>
+                  <div className="text-p3-desktop text-gray-1">
+                    {ACCOUNT_PAGE_TEXT.APP_DELETE_BODY}
+                  </div>
+                </div>
+                <ConfirmModal
+                  bodyText={DELETE_MODAL.BODY}
+                  confirmBtnVariant={ButtonVariant.RED}
+                  cancelBtnText={DELETE_MODAL.CTA_CANCEL}
+                  confirmBtnText={DELETE_MODAL.CTA_CONFIRM}
+                  headline={DELETE_MODAL.HEADER}
+                  isOpen={showDeleteModal}
+                  closeModal={() => setShowDeleteModal(false)}
+                  onCancel={() => setShowDeleteModal(false)}
+                  onConfirm={onDeleteConfirm}
+                />
+                <ErrorModal
+                  isOpen={showErrorModal}
+                  titleText={ERROR_MODAL_TEXT.requestFailed}
+                  descriptionText={ERROR_MODAL_TEXT.somethingWrong}
+                  buttonText={ERROR_MODAL_TEXT.okButton}
+                  closeModal={() => {
+                    setShowErrorModal(false);
+                  }}
+                />
               </div>
             </div>
-            <ConfirmModal
-              bodyText={DELETE_MODAL.BODY}
-              confirmBtnVariant={ButtonVariant.RED}
-              cancelBtnText={DELETE_MODAL.CTA_CANCEL}
-              confirmBtnText={DELETE_MODAL.CTA_CONFIRM}
-              headline={DELETE_MODAL.HEADER}
-              isOpen={showDeleteModal}
-              closeModal={() => setShowDeleteModal(false)}
-              onCancel={() => setShowDeleteModal(false)}
-              onConfirm={onDeleteConfirm}
-            />
-            <ErrorModal
-              isOpen={showErrorModal}
-              titleText={ERROR_MODAL_TEXT.requestFailed}
-              descriptionText={ERROR_MODAL_TEXT.somethingWrong}
-              buttonText={ERROR_MODAL_TEXT.okButton}
-              closeModal={() => {
-                setShowErrorModal(false);
-              }}
-            />
+          </>
+        ) : (
+          <div className="mb-5 grid grid-cols-10 space-y-3">
+            <div className="col-span-3 animate-pulse rounded bg-gray-4 py-[9px]" />
+            <div className="row-start-2  animate-pulse rounded bg-gray-4 py-[9px]" />
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
