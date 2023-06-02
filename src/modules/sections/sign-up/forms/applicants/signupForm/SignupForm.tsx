@@ -1,5 +1,6 @@
 import Button from '@/components/buttons/Button/Button';
 import {
+  ACCOUNT_LINK,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
   CONTACT_OPTION_TEXT,
@@ -20,9 +21,13 @@ import {
   SearchStatus,
   ToS,
 } from '@/lib/enums';
-import { existingApplicantEndpoint, get } from '@/lib/helpers/apiHelpers';
+import {
+  applicantSubmissionsEndpoint,
+  existingApplicantEndpoint,
+  get,
+} from '@/lib/helpers/apiHelpers';
 import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
-import { NewCandidateType } from '@/lib/types';
+import { NewCandidateType, SubmissionResponseType } from '@/lib/types';
 import LoadingInput from '@/modules/components/loadingInput/LoadingInput';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import {
@@ -104,30 +109,54 @@ const SignupForm: React.FC<ISignupForm> = ({
   }, [showUserExistsError]);
 
   useEffect(() => {
-    // Check user for existing submission
-    if (isAuthenticated && !isLoading && user) {
-      const getSubmissions = async () => {
-        get(existingApplicantEndpoint, await getAccessTokenSilently()).then(
-          async (res) => {
-            if (res.ok) {
-              console.log('whadaup');
-              // The user has a submission so redirect them!
-              router.push(APPLICANT_EXPERIENCE_LINK);
-            } else {
-              // The user does not have a submission so show the form
-              console.log('No existing submission');
-              setShowContent(true);
-            }
-          }
-        );
-      };
-      if (isAuthenticated) {
-        getSubmissions();
+    // Check if user has submitted an application
+    const hasSubmitted = async (): Promise<boolean> => {
+      return get(
+        applicantSubmissionsEndpoint,
+        await getAccessTokenSilently()
+      ).then(async (res) => {
+        if (res.ok) {
+          const submissions = (await res.json()) as SubmissionResponseType;
+          return submissions.isFinal;
+        } else {
+          return false;
+        }
+      });
+    };
+
+    // Check if user exists
+    const hasAccountData = async (): Promise<boolean> => {
+      return get(
+        existingApplicantEndpoint,
+        await getAccessTokenSilently()
+      ).then(async (res) => {
+        if (res.ok) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    };
+
+    const checkUser = async () => {
+      const hasSubmittedApplication = await hasSubmitted();
+      const hasAccount = await hasAccountData();
+
+      if (hasSubmittedApplication) {
+        router.push(ACCOUNT_LINK);
+      } else if (hasAccount) {
+        router.push(APPLICANT_EXPERIENCE_LINK);
+      } else {
+        setShowContent(true);
       }
+    };
+
+    if (!isLoading && isAuthenticated && user) {
+      checkUser();
     } else {
       setShowContent(true);
     }
-  }, [isAuthenticated, getAccessTokenSilently, isLoading, user]);
+  }, [isLoading, isAuthenticated, user, getAccessTokenSilently]);
 
   useEffect(() => {
     // Reset Turnstile
