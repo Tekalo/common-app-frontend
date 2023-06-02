@@ -85,8 +85,8 @@ const MainNavbar: React.FC<IMainNavbar> = ({
             {isLoading ? (
               // Creates skeleton loader to handle waiting for auth check
               <div className="flex flex-auto animate-pulse flex-row space-x-4 pt-2">
-                <div className="hidden rounded bg-gray-1 px-12 py-3 md:block" />
-                <div className="rounded bg-gray-1 px-12 py-3 md:px-8 lg:px-12" />
+                <div className="hidden rounded bg-gray-4 px-12 py-3 md:block" />
+                <div className="rounded bg-gray-4 px-12 py-3 md:px-8 lg:px-12" />
                 <div className="flex h-6 w-6 items-center rounded bg-gray-1 md:hidden"></div>
               </div>
             ) : (
