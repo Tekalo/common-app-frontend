@@ -83,8 +83,9 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       get(existingApplicantEndpoint, await getAccessTokenSilently())
         .then(async (res) => {
           if (res.ok) {
-            setApplicantExists(true);
             const accountResponse = (await res.json()) as AccountResponseType;
+
+            setApplicantExists(true);
             setAccountName(accountResponse.name);
             setMatchesPaused(accountResponse.isPaused);
           } else {
@@ -104,7 +105,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
     const loadUserData = async () => {
       await getAccountData();
       await getSubmissions();
-      setTimeout(() => setShowContent(true), 1250);
+      setTimeout(() => setShowContent(true), 1000);
     };
 
     if (!isLoading && isAuthenticated) {
