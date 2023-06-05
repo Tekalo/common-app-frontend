@@ -49,9 +49,9 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
       <div className={`${p2Mobile} space-y-4`}>{TERMS_TEXT.accountText}</div>
       <div className={h4Mobile}>{TERMS_TEXT.futuresEngineTitle}</div>
       <div className={`${lightBlueBox} mb-7 text-p2-mobile`}>
-        {TERMS_TEXT.accountTitle}
+        {TERMS_TEXT.futuresEngineSummary}
       </div>
-      <div className={p2Mobile}>{TERMS_TEXT.accountTitle}</div>
+      <div className={p2Mobile}>{TERMS_TEXT.futuresEngineText}</div>
       <div className={h4Mobile}>{TERMS_TEXT.userMaterialTitle}</div>
       <div className={`${lightBlueBox} mb-7 text-p2-mobile`}>
         {TERMS_TEXT.userMaterialSummary[0]}
