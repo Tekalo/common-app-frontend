@@ -36,7 +36,7 @@ export default function Document() {
             window.dataLayer.push({'event':'consent_form_submit', 'accept':true});
         }`}</Script>
         <meta name="description" content={META_DESCRIPTION} />
-        <link
+        {/* <link
           rel="preload"
           href="/fonts/Figtree-VariableFont_wght.woff2"
           as="font"
@@ -56,7 +56,7 @@ export default function Document() {
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
-        />
+        /> */}
       </Head>
       <body>
         <Main />
