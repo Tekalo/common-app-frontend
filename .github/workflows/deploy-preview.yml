@@ -159,18 +159,18 @@ jobs:
       environment: ${{ steps.deploy.outputs.environment }}
       deployment_id: ${{ steps.deploy.outputs.id }}
 
-  comment:
-    name: Comment on PR
-    uses: actions/github-script@v6
-    needs: [deploy]
-    with:
-      script: |
-        github.rest.issues.createComment({
-          issue_number: context.issue.number,
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          body: ${{ needs.deploy.outputs.url }}
-        })
+  # comment:
+  #   name: Comment on PR
+  #   uses: actions/github-script@v6
+  #   needs: [deploy]
+  #   with:
+  #     script: |
+  #       github.rest.issues.createComment({
+  #         issue_number: context.issue.number,
+  #         owner: context.repo.owner,
+  #         repo: context.repo.repo,
+  #         body: ${{ needs.deploy.outputs.url }}
+  #       })
 
   e2e-tests:
     name: Run e2e Tests
