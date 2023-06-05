@@ -274,7 +274,7 @@ const HOME_CONTACT_TEXT = {
 
 // ACCOUNT PAGE TEXT CONSTANTS
 const ACCOUNT_PAGE_TEXT = {
-  WELCOME: 'Welcome back,',
+  WELCOME: 'Welcome back',
   MANAGE: 'Manage your settings',
   ACCOUNT: 'Your Account',
   APP_SUBMITTED: ' Application submitted',

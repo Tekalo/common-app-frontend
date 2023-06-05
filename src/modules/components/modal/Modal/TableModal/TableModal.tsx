@@ -54,7 +54,7 @@ const TableModal: React.FC<ITableModal> = ({
                 </div>
                 <ContentTable className={'w-full'} tableData={tableData} />
                 {extras}
-                <div className="fixed bottom-4 left-0 right-8 hidden md:block lg:bottom-6">
+                <div className="fixed bottom-4 right-8 hidden md:block lg:bottom-6">
                   <Button
                     className="float-right mt-8 h-[40px] px-12 text-component-large font-normal"
                     label="Close"

@@ -89,7 +89,10 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
 
   switch (req.method) {
     case 'POST':
-      if (params[0] === 'applicants' || params[0] === 'opportunities') {
+      if (
+        params.length === 1 &&
+        (params[0] === 'applicants' || params[0] === 'opportunities')
+      ) {
         // Validate the x-turnstile-token header when a new POST request is made to the applicants or opportunities endpoints
         return validateTurnstileAndPost(
           turnstileToken,

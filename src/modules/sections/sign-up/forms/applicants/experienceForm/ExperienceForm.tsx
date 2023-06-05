@@ -8,7 +8,7 @@ import {
   Skills,
   YOE,
 } from '@/lib/enums';
-import { resetForm } from '@/lib/helpers/formHelpers';
+import { jumpToFirstErrorMessage, resetForm } from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
@@ -60,7 +60,9 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            submit();
+            submit().then(() => {
+              jumpToFirstErrorMessage();
+            });
           }}
           className="space-y-8"
         >
