@@ -159,16 +159,18 @@ jobs:
       environment: ${{ steps.deploy.outputs.environment }}
       deployment_id: ${{ steps.deploy.outputs.id }}
 
-  comment:
-    name: Comment on PR
-    uses: raisedadead/portfolio/.github/workflows/comment.yml@main
-    needs: [deploy]
-    with:
-      issue-number: ${{ github.event.pull_request.number }}
-      url: ${{ needs.deploy.outputs.url }}
-      alias: ${{ needs.deploy.outputs.alias }}
-      environment: ${{ needs.deploy.outputs.environment }}
-      deployment_id: ${{ needs.deploy.outputs.deployment_id }}
+  # comment:
+  #   name: Comment on PR
+  #   uses: actions/github-script@v6
+  #   needs: [deploy]
+  #   with:
+  #     script: |
+  #       github.rest.issues.createComment({
+  #         issue_number: context.issue.number,
+  #         owner: context.repo.owner,
+  #         repo: context.repo.repo,
+  #         body: ${{ needs.deploy.outputs.url }}
+  #       })
 
   e2e-tests:
     name: Run e2e Tests
