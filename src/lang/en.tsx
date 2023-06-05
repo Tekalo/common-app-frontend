@@ -4,8 +4,12 @@ import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
 
 // META
-const META_DESCRIPTION =
-  'Now more than ever, impact-driven orgs need tech talent that is passionate about solving the world’s most pressing problems. Tekalo is an initiative that matches tech talent with impact-driven organizations.';
+const META = {
+  DESCRIPTION:
+    'Tekalo is an initiative that matches tech talent with impact-driven organizations. Now more than ever, impact-driven orgs need tech talent that is passionate about solving the world’s most pressing problems.',
+  TITLE: 'Tekalo | Do Good',
+  IMAGE: '/images/tekalo_social.png',
+};
 
 // NAV LINKS
 const BASE_LINK = '/';
@@ -2030,7 +2034,7 @@ const TERMS_TEXT = {
 
 export { COOKIE_CONSENT };
 // META
-export { META_DESCRIPTION };
+export { META };
 // PRIVACY & TERMS EXPORTS
 export {
   APPLICANT_CONTENT_TABLE_TEXT,
