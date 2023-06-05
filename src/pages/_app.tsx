@@ -13,7 +13,6 @@ import CookieConsent, {
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import './globals.css';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
