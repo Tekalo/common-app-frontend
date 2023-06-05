@@ -152,6 +152,18 @@ jobs:
           # Optional: Enable this if you want to have GitHub Deployments triggered
           # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: GitHub Script
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ steps.deploy.outputs.url }}'
+            })
+
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
       url: ${{ steps.deploy.outputs.url }}
