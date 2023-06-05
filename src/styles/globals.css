@@ -9,7 +9,7 @@
   font-family: 'Figtree';
   font-style: normal;
   font-weight: 100 900;
-  font-display: optional;
+  font-display: swap;
   font-named-instance: 'Regular';
 }
 @font-face {
@@ -17,14 +17,14 @@
   font-family: 'Figtree';
   font-style: italic;
   font-weight: 100 900;
-  font-display: optional;
+  font-display: swap;
   font-named-instance: 'Regular';
 }
 
 /* Static Fonts */
 @font-face {
   font-named-instance: 'Regular';
-  font-display: optional;
+  font-display: swap;
   font-family: 'Graphik';
   src: url(/fonts/GraphikMedium.woff2) format('woff2');
 }
