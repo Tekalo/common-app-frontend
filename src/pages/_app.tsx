@@ -7,12 +7,13 @@ import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
-  OPTIONS,
   getCookieConsentValue,
+  OPTIONS,
 } from 'react-cookie-consent';
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import './globals.css';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
