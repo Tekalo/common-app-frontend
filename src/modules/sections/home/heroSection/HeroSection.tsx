@@ -55,7 +55,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
           </div>
         </div>
         {/* IMAGE */}
-        <div className="col-start-8 col-end-13 flex items-center justify-end">
+        <div className="col-start-8 col-end-13 items-center justify-end">
           <img
             src="/images/hero_lg.png"
             alt="Tablet Hero Image"
