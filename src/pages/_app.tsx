@@ -7,8 +7,8 @@ import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
-  OPTIONS,
   getCookieConsentValue,
+  OPTIONS,
 } from 'react-cookie-consent';
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
@@ -38,7 +38,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     'mt-4 text-black-text w-full bg-blue-1 rounded font-sans text-component-large transition-colors hover:bg-blue-2 focus-visible:ring-2 focus-visible:ring-[#A7C4DB] active:border-blue-3 active:bg-blue-3 text-white py-2 px-6 md:w-auto lg:mt-0';
 
   return (
-    // TODO: Move to env variables
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
