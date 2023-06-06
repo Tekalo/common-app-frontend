@@ -55,14 +55,14 @@ const HowSection: React.FC<IHowSection> = () => {
     >
       <div className="px-6 py-14 md:px-24 md:py-16 lg:py-28">
         {/* Title */}
-        <div className="text-center font-display text-h3-mobile text-black-text lg:text-h2-desktop">
+        <h2 className="text-center font-display text-h3-mobile text-black-text lg:text-h2-desktop">
           {HOME_HOW_TEXT.TITLE}
-        </div>
+        </h2>
         {/* Toggle Menu */}
         {/* TODO: Move the toggle menu into its own component, this is identical to FAQ */}
         <div className="mt-6 flex flex-row justify-center space-x-6 md:space-x-8 lg:mt-12 lg:space-x-12">
           {toggleHeaders.map((header, i) => (
-            <div
+            <h4
               key={i}
               className={`cursor-pointer text-component-large transition-all md:text-h4-mobile lg:text-h4-desktop ${
                 (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
@@ -72,7 +72,7 @@ const HowSection: React.FC<IHowSection> = () => {
               onClick={() => setForOrgs(header.includes('organizations'))}
             >
               {header}
-            </div>
+            </h4>
           ))}
         </div>
         {/* Timeline Component */}
