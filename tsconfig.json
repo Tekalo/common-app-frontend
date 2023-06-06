@@ -3,6 +3,7 @@
     "require": ["tsconfig-paths/register"]
   },
   "compilerOptions": {
+    "typeRoots": ["src/lib/types"],
     "jsx": "preserve",
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],

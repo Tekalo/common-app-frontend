@@ -11,9 +11,9 @@ const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
 
   return (
     <div className="m-auto max-w-content-area px-6 pb-32 pt-8 md:pt-10 lg:pb-44">
-      <div className="mb-14 text-center text-h2-mobile md:mb-20 lg:mb-24 lg:text-h2-desktop">
+      <h2 className="mb-14 text-center text-h2-mobile md:mb-20 lg:mb-24 lg:text-h2-desktop">
         {TERMS_TEXT.title}
-      </div>
+      </h2>
       <div className="mb-8 text-large-caption-mobile uppercase text-gray-1 lg:text-large-caption-desktop">
         {TERMS_TEXT.lastUpdate}
       </div>
