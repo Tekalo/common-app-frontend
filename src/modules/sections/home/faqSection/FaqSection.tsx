@@ -164,7 +164,7 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
     },
     {
       questionText: HOME_FAQ_TEXT.APPLICANT_QUESTION_6,
-      answerText: HOME_FAQ_TEXT.APPLICANT_ANSWER_7,
+      answerText: HOME_FAQ_TEXT.APPLICANT_ANSWER_6,
     },
     {
       questionText: HOME_FAQ_TEXT.APPLICANT_QUESTION_7,
