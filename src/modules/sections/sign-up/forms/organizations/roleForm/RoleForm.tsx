@@ -1,5 +1,9 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { EMPLOYMENT_TYPE_TEXT, ORG_ROLE_FORM_TEXT } from '@/lang/en';
+import {
+  EMPLOYMENT_TYPE_TEXT,
+  ERROR_TEXT,
+  ORG_ROLE_FORM_TEXT,
+} from '@/lang/en';
 import {
   EmploymentOptions,
   PaidOptions,
@@ -326,7 +330,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 listOptions={YOERangeOptions}
                 isSubmitted={isSubmitted}
                 initialValue={previousForm?.desiredYoe || []}
-                validator={YOE_RANGE.array().min(1)}
+                validator={YOE_RANGE.array().min(1, ERROR_TEXT.required)}
               />
               <MultiSelectField
                 fieldName="desiredSkills"
@@ -345,7 +349,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.desiredSkills || []}
                 validator={Skills.array().optional()}
               />
-
               <FreeTagField
                 fieldName="desiredOtherSkills"
                 label={ORG_ROLE_FORM_TEXT.FIELDS.desiredOtherSkills.label}
@@ -356,7 +359,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.desiredOtherSkills || []}
                 validator={RequiredString.array().optional()}
               />
-
               <RadioSelectField
                 fieldName="similarStaffed"
                 label={ORG_ROLE_FORM_TEXT.FIELDS.similarStaffed.label}
@@ -376,7 +378,6 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.desiredImpactExp}
                 validator={OptionalEssay}
               />
-
               <LongTextField
                 fieldName="pitchEssay"
                 label={ORG_ROLE_FORM_TEXT.FIELDS.pitchEssay.label}
