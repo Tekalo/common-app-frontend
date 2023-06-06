@@ -16,9 +16,9 @@ const NavTitle: React.FC<INavTitle> = ({
   return (
     <>
       {/* Title */}
-      <div className="mb-6 px-2 text-center font-display text-h3-mobile md:mb-4 md:max-w-[584px] lg:text-h3-desktop">
+      <h3 className="mb-6 px-2 text-center font-display text-h3-mobile md:mb-4 md:max-w-[584px] lg:text-h3-desktop">
         {title}
-      </div>
+      </h3>
       {/* Navaway is an applicant*/}
       <div className="m-auto mb-8 max-w-[300px] text-center text-component-medium md:mb-10 md:max-w-[none]">
         {navawayText}
