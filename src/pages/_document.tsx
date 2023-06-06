@@ -43,11 +43,13 @@ export default function Document() {
         <meta property="og:description" content={META.DESCRIPTION} />
         <meta property="og:image" content={META.IMAGE} />
 
-        <meta property="twitter:card" content={META.IMAGE} />
+        <meta property="twitter:card" content="summary" />
         <meta property="twitter:url" content="https://www.tekalo.org/" />
         <meta property="twitter:title" content={META.TITLE} />
+        <meta property="twitter:site" content={META.TWITTER_HANDLE} />
         <meta property="twitter:description" content={META.DESCRIPTION} />
         <meta property="twitter:image" content={META.IMAGE} />
+        <meta property="twitter:image:alt" content={META.ALT_TEXT} />
         <link
           rel="preload"
           href="/fonts/Figtree-VariableFont_wght.woff2"
