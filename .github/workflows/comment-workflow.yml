@@ -7,22 +7,19 @@ on:
       url:
         type: string
         required: true
-      alias:
-        type: string
-        required: true
-      environment:
-        type: string
-        required: true
-      deployment_id:
-        type: string
+    secrets:
+      GITHUB_TOKEN:
         required: true
 jobs:
   comment:
-    name: Comment on PR
-    uses: raisedadead/portfolio/.github/workflows/comment.yml@main
+    name: GitHub Script
+    uses: actions/github-script@v6
     with:
-      issue-number: ${{ github.event.pull_request.number }}
-      url: ${{ inputs.url }}
-      alias: ${{ inputs.alias }}
-      environment: ${{ inputs.environment }}
-      deployment_id: ${{ inputs.deployment_id }}
+      github-token: ${{ secrets.GITHUB_TOKEN }}
+      script: |
+        github.rest.issues.createComment({
+          issue_number: context.issue.number,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body: '${{ inputs.url }}'
+        })

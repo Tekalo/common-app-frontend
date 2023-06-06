@@ -45,9 +45,8 @@ jobs:
     needs: [deploy]
     with:
       url: ${{ needs.deploy.outputs.url }}
-      alias: ${{ needs.deploy.outputs.alias }}
-      environment: ${{ needs.deploy.outputs.environment }}
-      deployment_id: ${{ needs.deploy.outputs.deployment_id }}
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   e2e-tests:
     name: Run e2e Tests
