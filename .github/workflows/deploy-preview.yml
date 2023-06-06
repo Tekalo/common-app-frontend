@@ -46,8 +46,6 @@ jobs:
     with:
       url: ${{ needs.deploy.outputs.url }}
       environment: 'develop'
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   e2e-tests:
     name: Run e2e Tests
