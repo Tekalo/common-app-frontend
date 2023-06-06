@@ -46,12 +46,12 @@ const TableModal: React.FC<ITableModal> = ({
             />
             <div className="absolute bottom-4 left-4 right-0 top-4 flex flex-1 flex-col justify-stretch md:left-6 md:right-6">
               <div className="overflow-y-scroll md:overflow-y-auto">
-                <div
+                <h4
                   ref={headerRef}
                   className="mb-6 mt-4 pr-2 font-display text-h4-mobile md:text-h4-desktop"
                 >
                   {headerText}
-                </div>
+                </h4>
                 <ContentTable className={'w-full'} tableData={tableData} />
                 {extras}
                 <div className="fixed bottom-4 right-8 hidden md:block lg:bottom-6">
