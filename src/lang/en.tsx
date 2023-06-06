@@ -382,7 +382,7 @@ const APPLICANT_FORM_TEXT = {
       tooltipText:
         "Your email will be used to contact you about your application. It won't be used for marketing unless you opt in below.",
     },
-    pronouns: {
+    pronoun: {
       label: 'Pronouns (optional)',
       placeholder: 'E.g. she/her',
     },

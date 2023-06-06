@@ -7,7 +7,7 @@ import { mockTooltipProps } from './Tooltip.mocks';
 const ToolTipExample: React.FC<ITooltip> = ({ text }) => {
   return (
     <Field<string>
-      name="pronouns"
+      name="pronoun"
       onSubmitValidate={z.string()}
       onChangeValidate={z.string()}
     >
@@ -15,7 +15,7 @@ const ToolTipExample: React.FC<ITooltip> = ({ text }) => {
         return (
           <div className="mt-52 p-4">
             <FreeText
-              name="input-pronouns"
+              name="input-pronoun"
               label="Phone number (optional)"
               placeholder=""
               value={value}
