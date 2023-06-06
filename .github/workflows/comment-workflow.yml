@@ -7,19 +7,31 @@ on:
       url:
         type: string
         required: true
+      environment:
+        type: string
+        required: true
     secrets:
       GITHUB_TOKEN:
         required: true
 jobs:
   comment:
-    name: GitHub Script
-    uses: actions/github-script@v6
-    with:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
-      script: |
-        github.rest.issues.createComment({
-          issue_number: context.issue.number,
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          body: '${{ inputs.url }}'
-        })
+    name: Comment
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    strategy:
+      matrix:
+        node-version: [16.19.1]
+
+    steps:
+      - name: GitHub Script
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ inputs.url }}'
+            })

@@ -28,16 +28,6 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-  comment:
-    name: Comment on PR
-    uses: ./.github/workflows/comment-workflow.yml
-    needs: [deploy]
-    with:
-      url: ${{ needs.deploy.outputs.url }}
-      alias: ${{ needs.deploy.outputs.alias }}
-      environment: ${{ needs.deploy.outputs.environment }}
-      deployment_id: ${{ needs.deploy.outputs.deployment_id }}
-
   e2e-tests:
     name: Run e2e Tests
     uses: ./.github/workflows/e2e-workflow.yml

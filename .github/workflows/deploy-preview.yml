@@ -45,6 +45,7 @@ jobs:
     needs: [deploy]
     with:
       url: ${{ needs.deploy.outputs.url }}
+      environment: 'develop'
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
