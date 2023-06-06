@@ -92,7 +92,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "parse-url": "^8.1.0",
-    "pnpm": "^8.5.1",
+    "pnpm": "^8.6.1",
     "postcss": "^8.4.23",
     "postcss-loader": "^7.3.0",
     "prettier": "^2.8.8",

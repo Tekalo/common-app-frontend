@@ -63,10 +63,6 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
         return 'http://localhost:3000';
       default:
         return 'https://capp-api.dev.apps.futurestech.cloud';
-      case 'local':
-        return 'http://localhost:3000';
-      default:
-        return 'https://capp-api.dev.apps.futurestech.cloud';
     }
   })();
 

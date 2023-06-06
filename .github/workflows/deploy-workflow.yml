@@ -54,39 +54,6 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      # Might just need to re-install pnpm before we do this
-      # - name: Restore cache
-      #   id: pnpm-next-restore
-      #   uses: actions/cache/restore@v3
-      #   with:
-      #     path: |
-      #       ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-      #     key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
-
-      # - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
-      #   name: Install pnpm
-      #   uses: pnpm/action-setup@v2
-      #   id: pnpm-install
-      #   with:
-      #     version: latest
-      #     run_install: false
-
-      # - if: steps.pnpm-next-restore.outputs.cache-hit != 'true'
-      #   name: Install dependencies and Build (for Cloudflare Pages)
-
-      #   env:
-      #     CI: true
-      #     NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
-      #     NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
-      #     NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
-      #     NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
-      #     NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
-      #     NEXT_TELEMETRY_DISABLED: 1
-
-      #   run: |
-      #     pnpm install
-      #     pnpm build:for-edge
-
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
