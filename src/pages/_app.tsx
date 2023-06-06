@@ -18,12 +18,6 @@ interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
 
-declare global {
-  interface Window {
-    consentGranted: () => void;
-  }
-}
-
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
@@ -34,7 +28,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const cookieName = 'tekalo-opt-in-cookie';
 
   if (getCookieConsentValue(cookieName) === 'true') {
-    // this fn is in _document.ts if you need to see it
+    // this fn is in `globals.d.ts` if you need to see it
     window.consentGranted();
   }
 
@@ -44,7 +38,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     'mt-4 text-black-text w-full bg-blue-1 rounded font-sans text-component-large transition-colors hover:bg-blue-2 focus-visible:ring-2 focus-visible:ring-[#A7C4DB] active:border-blue-3 active:bg-blue-3 text-white py-2 px-6 md:w-auto lg:mt-0';
 
   return (
-    // TODO: Move to env variables
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}

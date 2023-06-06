@@ -25,9 +25,9 @@ const OrgDetailReview: React.FC<IOrgDetailReview> = ({
 
   return (
     <div className="mt-8 border-b border-b-gray-3 pb-4">
-      <div className="font-display text-h4-mobile text-black-text lg:text-h4-desktop">
+      <h4 className="font-display text-h4-mobile text-black-text lg:text-h4-desktop">
         {titleText}
-      </div>
+      </h4>
       <div className="mt-4 space-y-2 md:mt-6">
         {renderRow('Organization name: ', orgInfo?.organization.name)}
         {renderRow('Organization type: ', orgInfo?.organization.type)}

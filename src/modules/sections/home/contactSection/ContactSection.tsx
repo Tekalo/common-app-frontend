@@ -7,10 +7,10 @@ const ContactSection: React.FC<IContactSection> = () => {
   return (
     <section className="grid w-full place-items-center justify-center bg-blue-1 p-10 text-center align-middle md:py-14 lg:py-20">
       <div className="m-auto max-w-[618px] font-display text-white lg:max-w-[none]">
-        <div className="mb-4 text-h2-mobile">{HOME_CONTACT_TEXT.HEADER}</div>
-        <div className="mb-6 text-h3-mobile md:mb-10 md:text-h3-mobile">
+        <h2 className="mb-4 text-h2-mobile">{HOME_CONTACT_TEXT.HEADER}</h2>
+        <h3 className="mb-6 text-h3-mobile md:mb-10 md:text-h3-mobile">
           {HOME_CONTACT_TEXT.BODY}
-        </div>
+        </h3>
         <div className="flex justify-center">
           <Button
             label={HOME_CONTACT_TEXT.CTA}
