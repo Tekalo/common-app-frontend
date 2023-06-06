@@ -116,7 +116,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
           <img
             src="/images/BenefitHero_sm.png"
             alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
-            className="relative -left-[3px] m-auto w-[101%] max-w-[315px] md:hidden"
+            className="relative -left-[3px] m-auto w-full max-w-[315px] md:hidden"
           />
           {/* Tablet Benefit Hero */}
           <img
