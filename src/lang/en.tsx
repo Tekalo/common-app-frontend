@@ -257,7 +257,7 @@ const HOME_FAQ_TEXT = {
     'Your assigned Tekalo Talent Connector will be the one reviewing your application. Other key members of the Tekalo team will also have access to your application. If you indicated an interest in state and local government opportunities, a team at U.S. Digital Response will also receive your application details. We will never share your application with any organization/ employer unless you explicitly agree by communicating to your Talent Connector that your info may be shared with that specific organization.',
   APPLICANT_QUESTION_6: 'When will I receive my matches?',
   APPLICANT_ANSWER_6:
-    "Our matchmaking process is iterative; we will generally continue to look for matches for you until you have a job or let us know that you are no longer looking for opportunities. We will aim to conduct the first round of matchmaking within 6 weeks of receiving your application. Once we conclude each matchmaking round, we will send you a list of your top matches. If you don't receive matches right away don't worry; we continue to receive new opportunities weekly.",
+    'We will reach out to you promptly after we’ve identified a potential candidate match. We will generally continue to look for candidates for you until your opportunity is filled or you opt out of the platform. If you don’t receive a match right away don’t worry; we continue to receive new candidate applications weekly.',
   APPLICANT_QUESTION_7:
     'I am no longer looking for opportunities at this time. How do I pause further matches?',
   APPLICANT_ANSWER_7:
