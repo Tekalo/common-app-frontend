@@ -16,7 +16,7 @@ const META = {
 // TRACKING
 const TRACKING = {
   CANDIDATE_APP_SUBMITTED: 'candidate_application_submitted',
-  CANDIDATE_NEXT_BTN: 'candidate_next_button',
+  CANDIDATE_NEXT_BTN: 'candidate_your_experience_next_clicked',
   CANDIDATE_SIGNUP: 'candidate_signup_complete',
 };
 
