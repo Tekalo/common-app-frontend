@@ -7,6 +7,7 @@ import {
   BASE_LINK,
   ERROR_MODAL_TEXT,
   SAVE_MODAL,
+  TRACKING,
 } from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
@@ -19,8 +20,8 @@ import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  InterestFieldsType,
   ITimelineItem,
+  InterestFieldsType,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -69,6 +70,7 @@ const ApplicantForms: NextPageWithLayout = () => {
     post(applicantSubmissionsEndpoint, finalFormValues, await getAuthToken())
       .then((res) => {
         if (res.ok) {
+          window.dataLayerEvent(TRACKING.CANDIDATE_APP_SUBMITTED);
           router.push(APPLICANT_SUCCESS_LINK);
         } else {
           setShowErrorModal(true);
@@ -107,6 +109,8 @@ const ApplicantForms: NextPageWithLayout = () => {
 
   // FUNCTION: Saves form responses to parent state
   const handleNext = (values: ExperienceFieldsType) => {
+    window.dataLayerEvent(TRACKING.CANDIDATE_NEXT_BTN);
+
     setDraftFormValues({ ...draftFormValues, ...values });
     setExperienceFields(values);
     setIsInterestFormVisible(true);

@@ -5,23 +5,25 @@ export enum ButtonVariant {
   RED,
 }
 export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
-  icon?: IconType;
   label: string;
   disabled?: boolean;
-  variant?: ButtonVariant;
-  onClick?: () => void;
+  href?: string;
+  icon?: IconType;
   name?: string;
+  onClick?: () => void;
+  variant?: ButtonVariant;
 }
 
 const Button: React.FC<IButton> = ({
-  onClick,
   label,
-  icon,
-  disabled,
-  variant,
   className,
-  type,
+  disabled,
+  href,
+  icon,
   name,
+  onClick,
+  type,
+  variant,
 }) => {
   const BASE = `group min-w-[118px] flex h-12 flex-row content-center
                 items-center justify-center rounded font-sans
@@ -50,7 +52,15 @@ const Button: React.FC<IButton> = ({
 
   const btnStyles = getButtonVariantStyles();
 
-  return (
+  // If you pass an href, this is a link. Do not also pass an onclick, it won't do anything
+  return href ? (
+    <a id={name} type={type} href={href} className={btnStyles}>
+      <div className="flex cursor-pointer items-center justify-center space-x-0">
+        {label}
+        {icon ? <>{icon}</> : null}
+      </div>
+    </a>
+  ) : (
     <button
       id={name}
       type={type}

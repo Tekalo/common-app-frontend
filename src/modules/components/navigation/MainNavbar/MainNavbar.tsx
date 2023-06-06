@@ -120,27 +120,17 @@ const MainNavbar: React.FC<IMainNavbar> = ({
                 >
                   {logInOutLabel}
                 </div>
-                {/* TODO: We need to refactor this */}
-                <Link
-                  href={
-                    isAuthenticated
-                      ? `${ACCOUNT_LINK}`
-                      : `${APPLICANT_SIGNUP_LINK}`
-                  }
-                >
-                  {isAuthenticated ? (
-                    <div className="cursor-pointer py-3 text-component-large text-black-text">
-                      {NAV_BAR_TEXT.MY_ACCOUNT}
-                    </div>
-                  ) : (
-                    <Link href={APPLICANT_SIGNUP_LINK}>
-                      <Button
-                        className="px-4 py-2 md:px-8 md:py-3"
-                        label={NAV_BAR_TEXT.GET_STARTED_CTA}
-                      />
-                    </Link>
-                  )}
-                </Link>
+                {isAuthenticated ? (
+                  <div className="cursor-pointer py-3 text-component-large text-black-text">
+                    <Link href={ACCOUNT_LINK}>{NAV_BAR_TEXT.MY_ACCOUNT}</Link>
+                  </div>
+                ) : (
+                  <Button
+                    href={APPLICANT_SIGNUP_LINK}
+                    className="px-4 py-2 md:px-8 md:py-3"
+                    label={NAV_BAR_TEXT.GET_STARTED_CTA}
+                  />
+                )}
                 {/* Mobile Menu Button */}
                 <div className="flex items-center sm:mr-0 md:hidden">
                   <div
