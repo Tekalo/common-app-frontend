@@ -30,9 +30,9 @@ const Faq: React.FC<IFaq> = ({ faqItems, className }) => {
                       open ? 'text-blue-1' : `text-black-text hover:text-blue-1`
                     } flex w-full items-start justify-between text-left`}
                   >
-                    <span className="font-display text-h4-mobile lg:text-h4-desktop">
+                    <h4 className="font-display text-h4-mobile lg:text-h4-desktop">
                       {faq.questionText}
-                    </span>
+                    </h4>
                     <span className="ml-6 flex h-7 items-center">
                       {open ? (
                         <ChevronUpIcon className="h-6 w-6" aria-hidden="true" />

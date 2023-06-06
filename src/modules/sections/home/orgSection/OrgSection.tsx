@@ -81,9 +81,9 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
           {/* Content */}
           <div className="flex flex-col items-center px-8 py-6 text-center md:px-11 md:py-10 lg:px-10 lg:py-14">
             {/* Title */}
-            <div className="text-displaytext-center px-2 text-h4-mobile text-black-text lg:text-h4-desktop">
-              <p>{HOME_ORG_TEXT.CTA_TITLE}</p>
-            </div>
+            <h4 className="text-displaytext-center px-2 text-h4-mobile text-black-text lg:text-h4-desktop">
+              {HOME_ORG_TEXT.CTA_TITLE}
+            </h4>
             <div className="pt-4 text-center font-sans text-p2-mobile text-black-text lg:px-0 lg:text-p2-desktop">
               {HOME_ORG_TEXT.CTA_BODY}
             </div>

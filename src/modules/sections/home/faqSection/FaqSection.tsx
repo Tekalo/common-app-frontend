@@ -197,7 +197,7 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
       <div className="my-8 flex flex-row justify-center space-x-8 sm:space-x-10 md:mt-2-tablet lg:mt-2-desktop">
         {toggleHeaders.map((header, i) => {
           return (
-            <div
+            <h4
               key={i}
               className={`cursor-pointer text-component-small transition-all sm:text-component-large md:text-h4-mobile lg:text-h4-desktop ${
                 (isForOrgsSelected && !i) || (!isForOrgsSelected && i)
@@ -207,7 +207,7 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
               onClick={() => setForOrgs(header.includes('organizations'))}
             >
               {header}
-            </div>
+            </h4>
           );
         })}
       </div>
@@ -222,9 +222,9 @@ const FaqSection: React.FC<IFaqSection> = ({ setShowLogoModal }) => {
       <div className="w-full px-6 pb-16 pt-14 md:px-4 md:py-20 lg:px-5 lg:py-28">
         {/* TITLE */}
         <div className="mx-auto max-w-content-area">
-          <div className="text-black-text: text-center font-display text-h3-mobile md:text-h1-mobile lg:text-h2-desktop">
+          <h2 className="text-black-text: text-center font-display text-h3-mobile md:text-h1-mobile lg:text-h2-desktop">
             {HOME_FAQ_TEXT.HEADER}
-          </div>
+          </h2>
           {renderToggle()}
           {/* FAQS */}
           <div className="mt-6 md:mt-2-tablet lg:mt-2-desktop">

@@ -19,9 +19,9 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
               } absolute -bottom-5 left-5 top-10 border-l-2 border-solid border-blue-1 pb-8 md:-bottom-6 lg:left-7`}
             ></div>
             <div className="flex-start flex items-start">
-              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-blue-1 text-center font-display text-h4-mobile leading-10 text-white lg:h-14 lg:w-14 lg:text-h4-desktop">
+              <h4 className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-blue-1 text-center font-display text-h4-mobile leading-10 text-white lg:h-14 lg:w-14 lg:text-h4-desktop">
                 {i + 1}
-              </div>
+              </h4>
               <h4 className="ml-4 mt-2 font-display text-h4-mobile text-black-text md:ml-6 lg:text-h4-desktop">
                 {item.title}
               </h4>

@@ -29,9 +29,9 @@ const HeroSection: React.FC<IHeroSection> = () => {
               className="mb-4 hidden max-w-[528px] md:block lg:hidden"
             />
             {/* Desktop Hero */}
-            <div className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
+            <h1 className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
               {HOME_HERO_TEXT.HEADER}
-            </div>
+            </h1>
             <div className="mb-6 text-center text-p1-mobile md:mb-8 md:text-left lg:mb-8 lg:text-p1-desktop">
               {HOME_HERO_TEXT.BODY}
             </div>
