@@ -1,7 +1,6 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import { HOME_ORG_TEXT, ORG_SIGNUP_LINK } from '@/lang/en';
-import Link from 'next/link';
 
 export interface IOrganizationSection {
   showLogoModal: boolean;
@@ -44,14 +43,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
     <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-center justify-items-start gap-x-20 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
       {recruitingLogos.map((logo, i) => {
         return (
-          <div
-            key={i}
-            className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px]"
-          >
-            <a href={logo.url} target="_blank" rel="noreferrer">
+          <a key={i} href={logo.url} target="_blank" rel="noreferrer">
+            <div className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px]">
               <img src={logo.src} alt={logo.alt} className="min-w-0" />
-            </a>
-          </div>
+            </div>
+          </a>
         );
       })}
     </div>
@@ -92,13 +88,14 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
               {HOME_ORG_TEXT.CTA_BODY}
             </div>
             {/* Button */}
-            <Link href={ORG_SIGNUP_LINK} className="mt-6 lg:mt-10">
+            <div className="mt-6 lg:mt-10">
               <Button
+                href={ORG_SIGNUP_LINK}
                 variant={ButtonVariant.OUTLINED}
                 label={HOME_ORG_TEXT.CTA_BUTTON}
                 className="w-full max-w-[248px] px-2 sm:px-7 md:max-w-[352px] md:px-8"
               />
-            </Link>
+            </div>
           </div>
         </div>
       </div>
