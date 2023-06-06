@@ -13,6 +13,13 @@ const META = {
   IMAGE: `https://www.tekalo.org/images/tekalo_social.png`,
 };
 
+// TRACKING
+const TRACKING = {
+  CANDIDATE_APP_SUBMITTED: 'candidate_application_submitted',
+  CANDIDATE_NEXT_BTN: 'candidate_your_experience_next_clicked',
+  CANDIDATE_SIGNUP: 'candidate_signup_complete',
+};
+
 // NAV LINKS
 const BASE_LINK = '/';
 const ACCOUNT_LINK = '/account';
@@ -2037,6 +2044,7 @@ const TERMS_TEXT = {
 export { COOKIE_CONSENT };
 // META
 export { META };
+export { TRACKING };
 // PRIVACY & TERMS EXPORTS
 export {
   APPLICANT_CONTENT_TABLE_TEXT,

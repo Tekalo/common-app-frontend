@@ -31,10 +31,14 @@ export default function Document() {
             : gtmScript.nonProd}
         </Script>
         <Script id="set-consent" strategy="afterInteractive">{`
-            function consentGranted() {
-
+          function consentGranted() {
             window.dataLayer.push({'event':'consent_form_submit', 'accept':true});
-        }`}</Script>
+          }
+
+          function dataLayerEvent(eventName) {
+            window.dataLayer.push({'event': eventName});
+          }        
+        `}</Script>
         <meta name="title" content="" />
         <meta name="description" content={META.DESCRIPTION} />
         <meta property="og:type" content="website" />

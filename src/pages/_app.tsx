@@ -7,8 +7,8 @@ import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
-  getCookieConsentValue,
   OPTIONS,
+  getCookieConsentValue,
 } from 'react-cookie-consent';
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
@@ -16,12 +16,6 @@ import { TouchBackend } from 'react-dnd-touch-backend';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
-}
-
-declare global {
-  interface Window {
-    consentGranted: () => void;
-  }
 }
 
 Sentry.init({
@@ -34,7 +28,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const cookieName = 'tekalo-opt-in-cookie';
 
   if (getCookieConsentValue(cookieName) === 'true') {
-    // this fn is in _document.ts if you need to see it
+    // this fn is in `globals.d.ts` if you need to see it
     window.consentGranted();
   }
 

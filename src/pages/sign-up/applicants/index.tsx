@@ -10,6 +10,7 @@ import {
   PRIVACY_LINK,
   PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
+  TRACKING,
 } from '@/lang/en';
 import {
   applicantsEndpoint,
@@ -70,6 +71,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .then((res) => {
         switch (res.status) {
           case 200: // good submission
+            window.dataLayerEvent(TRACKING.CANDIDATE_SIGNUP);
             router.push(APPLICANT_EXPERIENCE_LINK);
             break;
           case 418: // the user is a teapot
