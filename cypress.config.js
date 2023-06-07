@@ -6,6 +6,7 @@ module.exports = defineConfig({
   trashAssetsBeforeRuns: true,
   video: false,
   screenshotOnRunFailure: false,
+  chromeWebSecurity: false,
   e2e: {
     setupNodeEvents(_on, config) {
       config.baseUrl =

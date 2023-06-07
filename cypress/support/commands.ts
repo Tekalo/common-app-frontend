@@ -14,6 +14,14 @@ Cypress.Commands.add('bypassCloudflare', (): void => {
   );
 });
 
+Cypress.Commands.add('validateLogin', (): void => {
+  cy.visit('/account');
+  cy.get('h3[data-name=account-greeting]', { timeout: 10000 }).should(
+    'have.text',
+    'Welcome back, Test User'
+  );
+});
+
 Cypress.Commands.add('login', (): void => {
   cy.session(
     'login',
@@ -38,11 +46,7 @@ Cypress.Commands.add('login', (): void => {
     },
     {
       validate() {
-        cy.visit('/account');
-        cy.get('div[data-name=account-greeting]', { timeout: 10000 }).should(
-          'have.text',
-          'Welcome back, Test User'
-        );
+        cy.validateLogin();
       },
     }
   );

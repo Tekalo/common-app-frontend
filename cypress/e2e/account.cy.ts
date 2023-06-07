@@ -1,13 +1,7 @@
 describe('Signed In User', () => {
   beforeEach(() => {
     cy.login();
-    cy.visit('/account');
-
-    // Wait for response
-    cy.get('div[data-name=account-greeting]', { timeout: 10000 }).should(
-      'have.text',
-      'Welcome back, Test User'
-    );
+    cy.validateLogin();
   });
 
   it('should take user to candidate application page', () => {

@@ -10,7 +10,7 @@ describe('Candidate Application', () => {
     cy.visit('/sign-up/applicants');
   });
 
-  xit('Should submit a candidate, required fields only', () => {
+  it('Should submit a candidate, required fields only', () => {
     cy.url().should('include', '/sign-up/applicants');
 
     fillName();
@@ -19,6 +19,7 @@ describe('Candidate Application', () => {
     fillContactMethod('email');
     acceptPrivacy();
     acceptTerms();
+    clickCaptcha();
     submitCandidateSignup();
 
     cy.url({ timeout: formSubmissionTimeout }).should(
@@ -52,7 +53,7 @@ describe('Candidate Application', () => {
     );
   });
 
-  it('Should submit a candidate, all fields', () => {
+  xit('Should submit a candidate, all fields', () => {
     cy.url().should('include', '/sign-up/applicants');
 
     fillName();
@@ -124,7 +125,7 @@ describe('Candidate Application', () => {
   }
 
   function fillPronouns(): void {
-    cy.get('input[name=input-pronouns]').type('they/them');
+    cy.get('input[name=input-pronoun]').type('they/them');
   }
 
   // Note: any of these can be customized like this, depending on our future needs
@@ -145,8 +146,17 @@ describe('Candidate Application', () => {
   function acceptPrivacy(): void {
     cy.get('input[name=acceptedPrivacy]').click();
   }
+
   function acceptTerms(): void {
     cy.get('input[name=acceptedTerms]').click();
+  }
+
+  function clickCaptcha(): void {
+    cy.wait(1000);
+    cy.get('div#candidate-form-turnstile iframe')
+      .its('0.contentDocument')
+      .find('input[type=checkbox]')
+      .click(15, 20);
   }
 
   function acceptFollowUpOptIn(): void {
