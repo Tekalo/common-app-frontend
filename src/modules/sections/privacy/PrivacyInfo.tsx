@@ -44,8 +44,8 @@ const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
           className={'w-full'}
           tableData={
             isForOrgsSelected
-              ? APPLICANT_CONTENT_TABLE_TEXT
-              : ORG_CONTENT_TABLE_TEXT
+              ? ORG_CONTENT_TABLE_TEXT
+              : APPLICANT_CONTENT_TABLE_TEXT
           }
         />
       </div>
