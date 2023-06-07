@@ -513,7 +513,9 @@ describe('Organization Application', () => {
   }
 
   function submitOrgApplication(): void {
-    cy.wait(10000);
+    // TODO: Figure out how long this should be
+    // >3s && <10s
+    cy.wait(5000);
     cy.get('button#submit-org-form').click();
   }
 });
