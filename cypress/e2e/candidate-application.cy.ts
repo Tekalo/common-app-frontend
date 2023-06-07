@@ -19,7 +19,6 @@ describe('Candidate Application', () => {
     fillContactMethod('email');
     acceptPrivacy();
     acceptTerms();
-    clickCaptcha();
     submitCandidateSignup();
 
     cy.url({ timeout: formSubmissionTimeout }).should(
@@ -149,14 +148,6 @@ describe('Candidate Application', () => {
 
   function acceptTerms(): void {
     cy.get('input[name=acceptedTerms]').click();
-  }
-
-  function clickCaptcha(): void {
-    cy.wait(1000);
-    cy.get('div#candidate-form-turnstile iframe')
-      .its('0.contentDocument')
-      .find('input[type=checkbox]')
-      .click(15, 20);
   }
 
   function acceptFollowUpOptIn(): void {

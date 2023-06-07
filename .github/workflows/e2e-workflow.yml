@@ -23,7 +23,7 @@ jobs:
   e2e-tests:
     name: Run e2e Tests
     runs-on: ubuntu-latest
-    environment: ${{inputs.environment}}
+    environment: ${{ inputs.environment }}
 
     strategy:
       matrix:
@@ -45,10 +45,24 @@ jobs:
           version: latest
           run_install: false
 
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v3
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Restore cache
+        id: pnpm-next-restore
+        uses: actions/cache@v3
         with:
-          name: build-${{github.run_id}}
+          path: |
+            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
+      - name: Install Dependencies
+        run: pnpm install
 
       - name: Cypress run
 
@@ -58,13 +72,17 @@ jobs:
           NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
-          NEXT_PUBLIC_BASE_URL: ${{ inputs.url }}
-          NEXT_PUBLIC_TEST_USER: ${{vars.NEXT_PUBLIC_TEST_USER}}
-          NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
-          NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{vars.TURNSTILE_SITEKEY }}
+          NEXT_PUBLIC_BASE_URL: 'http://localhost:3000/'
+          NEXT_PUBLIC_TEST_USER: ${{ vars.NEXT_PUBLIC_TEST_USER }}
+          NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
+          # E2E test key so turnstile isnt active
+          NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{ vars.E2E_TURNSTILE_KEY }}
           CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
         uses: cypress-io/github-action@v5.7.2
         with:
           record: false
+          start: |
+            pnpm build
+            pnpm start
