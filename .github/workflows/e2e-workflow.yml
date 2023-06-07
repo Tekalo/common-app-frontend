@@ -75,10 +75,10 @@ jobs:
           NEXT_PUBLIC_BASE_URL: 'http://localhost:3000/'
           NEXT_PUBLIC_TEST_USER: ${{ vars.NEXT_PUBLIC_TEST_USER }}
           NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
-          # E2E test key so turnstile isnt active
           NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{ vars.E2E_TURNSTILE_KEY }}
           CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+          TURNSTILE_SECRET: '1x0000000000000000000000000000000AA'
 
         uses: cypress-io/github-action@v5.7.2
         with:

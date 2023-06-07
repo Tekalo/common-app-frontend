@@ -155,6 +155,7 @@ describe('Candidate Application', () => {
   }
 
   function submitCandidateSignup(): void {
+    cy.wait(2000);
     cy.get('button#submit-candidate-sign-up').click();
   }
 
