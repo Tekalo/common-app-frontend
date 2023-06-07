@@ -5,6 +5,7 @@ type EmploymentFillTypes = typeof EmploymentType._input;
 
 describe('Organization Application', () => {
   const formSubmissionDelay = 10000;
+  const reviewPageTitleSelector = 'h3[data-name=review-page-title]';
 
   beforeEach(() => {
     cy.bypassCloudflare();
@@ -41,7 +42,7 @@ describe('Organization Application', () => {
     goToOrgReview();
 
     // Review form
-    cy.get('div[data-name=review-page-title]').should('exist');
+    cy.get(reviewPageTitleSelector).should('exist');
     acceptPrivacy();
     submitOrgApplication();
 
@@ -85,7 +86,7 @@ describe('Organization Application', () => {
     goToOrgReview();
 
     // Review form
-    cy.get('div[data-name=review-page-title]').should('exist');
+    cy.get(reviewPageTitleSelector).should('exist');
     acceptPrivacy();
     submitOrgApplication();
 
@@ -134,7 +135,7 @@ describe('Organization Application', () => {
     goToOrgReview();
 
     // Review form
-    cy.get('div[data-name=review-page-title]').should('exist');
+    cy.get(reviewPageTitleSelector).should('exist');
     acceptPrivacy();
     submitOrgApplication();
 
@@ -192,7 +193,7 @@ describe('Organization Application', () => {
     goToOrgReview();
 
     // Review form
-    cy.get('div[data-name=review-page-title]').should('exist');
+    cy.get(reviewPageTitleSelector).should('exist');
     acceptPrivacy();
     submitOrgApplication();
 
@@ -236,7 +237,7 @@ describe('Organization Application', () => {
     goToOrgReview();
 
     // Review form
-    cy.get('div[data-name=review-page-title]').should('exist');
+    cy.get(reviewPageTitleSelector).should('exist');
     acceptPrivacy();
     submitOrgApplication();
 
@@ -286,7 +287,7 @@ describe('Organization Application', () => {
     goToOrgReview();
 
     // Review form
-    cy.get('div[data-name=review-page-title]').should('exist');
+    cy.get(reviewPageTitleSelector).should('exist');
     acceptPrivacy();
     submitOrgApplication();
 
@@ -512,6 +513,7 @@ describe('Organization Application', () => {
   }
 
   function submitOrgApplication(): void {
+    cy.wait(2000);
     cy.get('button#submit-org-form').click();
   }
 });

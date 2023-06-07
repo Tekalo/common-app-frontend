@@ -52,7 +52,7 @@ describe('Candidate Application', () => {
     );
   });
 
-  xit('Should submit a candidate, all fields', () => {
+  it('Should submit a candidate, all fields', () => {
     cy.url().should('include', '/sign-up/applicants');
 
     fillName();
