@@ -225,9 +225,9 @@ const SignupForm: React.FC<ISignupForm> = ({
 
               {/* Pronouns */}
               <FreeTextField
-                fieldName="pronouns"
-                label={APPLICANT_FORM_TEXT.FIELDS.pronouns.label}
-                placeholder={APPLICANT_FORM_TEXT.FIELDS.pronouns.placeholder}
+                fieldName="pronoun"
+                label={APPLICANT_FORM_TEXT.FIELDS.pronoun.label}
+                placeholder={APPLICANT_FORM_TEXT.FIELDS.pronoun.placeholder}
                 isSubmitted={isSubmitted}
                 initialValue={undefined}
                 validator={OptionalString}

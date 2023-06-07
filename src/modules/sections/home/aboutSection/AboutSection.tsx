@@ -99,9 +99,9 @@ const AboutSection: React.FC<IAboutSection> = () => {
         </div>
         {/* Goals */}
         <div className="mb-8">
-          <div className="text-center font-display text-h3-mobile">
+          <h3 className="text-center font-display text-h3-mobile">
             {HOME_ABOUT_TEXT.GOAL_HEADER}
-          </div>
+          </h3>
           <div className="m-auto mt-6 max-w-[590px] pl-7 text-p1-mobile">
             <ol className="list-decimal">
               <li>{HOME_ABOUT_TEXT.GOAL_1}</li>
@@ -127,9 +127,9 @@ const AboutSection: React.FC<IAboutSection> = () => {
         </div>
         {/* Roles */}
         <div className="">
-          <h3 className="mb-6 text-center font-display text-h3-mobile text-black-text md:mb-10 md:text-h4-mobile lg:mb-14 lg:text-h4-desktop">
+          <h4 className="mb-6 text-center font-display text-h3-mobile text-black-text md:mb-10 md:text-h4-mobile lg:mb-14 lg:text-h4-desktop">
             {HOME_ABOUT_TEXT.ROLE_HEADER}
-          </h3>
+          </h4>
           <div className="mx-auto flex max-w-[280px] flex-wrap justify-start gap-y-9 md:max-w-[688px] md:justify-center md:gap-x-12">
             {roles.map((role, i) => (
               <div key={i} className="flex items-center gap-x-4 md:w-[316px]">
@@ -138,9 +138,9 @@ const AboutSection: React.FC<IAboutSection> = () => {
                   alt={role.alt}
                   className={`max-w-[54px] md:max-w-[65px] md:flex-initial`}
                 />
-                <span className="font-display text-h4-mobile md:text-h4-desktop">
+                <h4 className="font-display text-h4-mobile md:text-h4-desktop">
                   {role.text}
-                </span>
+                </h4>
               </div>
             ))}
           </div>

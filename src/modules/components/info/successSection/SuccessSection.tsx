@@ -17,9 +17,9 @@ const SuccessSection: React.FC<ISuccessSection> = ({
   return (
     <div className="mx-auto px-6 pb-28 pt-10 lg:pb-48 lg:pt-16">
       {/* Title */}
-      <div className="mx-auto mb-8 px-2 text-center text-h3-mobile md:max-w-[584px] lg:text-h3-desktop">
+      <h3 className="mx-auto mb-8 px-2 text-center text-h3-mobile md:max-w-[584px] lg:text-h3-desktop">
         {title}
-      </div>
+      </h3>
       <div className="space-y-10">
         {/* Icons */}
         <div className="relative mx-auto flex items-center justify-center">

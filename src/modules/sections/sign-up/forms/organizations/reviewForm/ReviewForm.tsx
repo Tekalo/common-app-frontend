@@ -84,12 +84,9 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   return (
     <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
       {/* Header */}
-      <div
-        data-name="review-page-title"
-        className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop"
-      >
+      <h3 data-name="review-page-title" className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop">
         {REVIEW_FORM_TEXT.HEADER}
-      </div>
+      </h3>
       {/* Org Info */}
       <OrgDetailReview
         titleText={REVIEW_FORM_TEXT.ORG_DETAIL.title}
