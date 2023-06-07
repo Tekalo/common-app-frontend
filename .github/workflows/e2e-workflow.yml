@@ -8,9 +8,6 @@ on:
         description: environment name
         type: string
         required: true
-      url:
-        type: string
-        required: true
     secrets:
       NEXT_PUBLIC_TEST_PASSWORD:
         description: e2e test user pwd

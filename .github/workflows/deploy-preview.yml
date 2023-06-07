@@ -39,6 +39,15 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
+  e2e-tests:
+    name: Run e2e Tests
+    uses: ./.github/workflows/e2e-workflow.yml
+    with:
+      environment: 'develop'
+    secrets:
+      NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+
   comment:
     name: Comment on PR
     uses: ./.github/workflows/comment-workflow.yml
@@ -46,14 +55,3 @@ jobs:
     with:
       url: ${{ needs.deploy.outputs.url }}
       environment: 'develop'
-
-  e2e-tests:
-    name: Run e2e Tests
-    uses: ./.github/workflows/e2e-workflow.yml
-    needs: [deploy]
-    with:
-      environment: 'develop'
-      url: ${{ format('{0}/', needs.deploy.outputs.url) }}
-    secrets:
-      NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
-      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}

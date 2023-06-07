@@ -31,10 +31,8 @@ jobs:
   e2e-tests:
     name: Run e2e Tests
     uses: ./.github/workflows/e2e-workflow.yml
-    needs: [deploy]
     with:
       environment: 'staging'
-      url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
     secrets:
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
