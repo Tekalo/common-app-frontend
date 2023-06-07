@@ -83,6 +83,7 @@ jobs:
         uses: cypress-io/github-action@v5.7.2
         with:
           record: false
-          start: |
-            pnpm build
-            pnpm start
+          build: pnpm build:for-edge
+          start: pnpm start
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
