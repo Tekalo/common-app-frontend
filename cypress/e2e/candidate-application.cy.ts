@@ -155,11 +155,11 @@ describe('Candidate Application', () => {
   }
 
   function submitCandidateSignup(): void {
-    cy.get('#turnstile-container')
-      .invoke('attr', 'data-turnstile-ready', {
-        timeout: formSubmissionTimeout,
-      })
-      .should('eq', 'true');
+    cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
+      'have.attr',
+      'data-turnstile-ready',
+      'true'
+    );
     cy.get('button#submit-candidate-sign-up').click();
   }
 
