@@ -69,6 +69,7 @@ jobs:
         env:
           CI: true
           NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+          CF_PAGES_BRANCH: ${{ vars.CF_PAGES_BRANCH || vars.ENVIRONMENT }}
           NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
