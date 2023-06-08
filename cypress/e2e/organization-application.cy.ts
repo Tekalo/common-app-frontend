@@ -513,9 +513,9 @@ describe('Organization Application', () => {
   }
 
   function submitOrgApplication(): void {
-    // TODO: Figure out how long this should be
-    // >3s && <10s
-    cy.wait(5000);
+    cy.get('#turnstile-container', { timeout: 10000 })
+      .invoke('attr', 'data-turnstile-ready')
+      .should('eq', 'true');
     cy.get('button#submit-org-form').click();
   }
 });

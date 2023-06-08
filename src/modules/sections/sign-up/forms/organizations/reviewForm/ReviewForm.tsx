@@ -84,7 +84,10 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   return (
     <div className="mx-auto w-full max-w-content-area px-6 pb-28 pt-10 lg:pb-32">
       {/* Header */}
-      <h3 data-name="review-page-title" className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop">
+      <h3
+        data-name="review-page-title"
+        className="mx-auto text-center font-display text-h3-mobile text-black-text lg:text-h3-desktop"
+      >
         {REVIEW_FORM_TEXT.HEADER}
       </h3>
       {/* Org Info */}
@@ -136,7 +139,11 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               />
 
               {/* Turnstile */}
-              <div className="mx-auto">
+              <div
+                id="turnstile-container"
+                className="mx-auto"
+                data-turnstile-ready={turnstileToken.length > 0}
+              >
                 <Turnstile
                   id="org-form-turnstile"
                   ref={turnstileOrgRef}

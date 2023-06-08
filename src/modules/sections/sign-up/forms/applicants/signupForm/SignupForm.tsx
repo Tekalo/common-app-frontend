@@ -300,7 +300,11 @@ const SignupForm: React.FC<ISignupForm> = ({
               </div>
 
               {/* Turnstile */}
-              <div className="mx-auto">
+              <div
+                id="turnstile-container"
+                className="mx-auto"
+                data-turnstile-ready={`${turnstileToken.length > 0}`}
+              >
                 <Turnstile
                   id="candidate-form-turnstile"
                   ref={turnstileCandidateRef}
