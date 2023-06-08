@@ -17,14 +17,6 @@ jobs:
     uses: ./.github/workflows/build-workflow.yml
     with:
       environment: 'develop'
-
-  deploy:
-    name: Deploy
-    uses: ./.github/workflows/deploy-workflow.yml
-    needs: [build]
-    with:
-      environment: 'develop'
-      run_id: ${{needs.build.outputs.run_id}}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
