@@ -35,6 +35,7 @@ jobs:
     secrets:
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+      E2E_TURNSTILE_SECRET: ${{ secrets.E2E_TURNSTILE_SECRET }}
 
   comment:
     name: Comment on PR
