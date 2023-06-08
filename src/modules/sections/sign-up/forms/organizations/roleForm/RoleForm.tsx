@@ -135,6 +135,8 @@ const RoleForm: React.FC<IRoleForm> = ({
       {({ isSubmitted, isValid, submit, value: formValue }) => {
         const isPaid = formValue.paid;
         const employmentType = formValue.employmentTypeSelect;
+        const showEndDateField =
+          partTimeOnly || employmentType !== EMPLOYMENT_TYPE_TEXT.fte;
 
         return (
           <form
@@ -298,11 +300,11 @@ const RoleForm: React.FC<IRoleForm> = ({
                   ORG_ROLE_FORM_TEXT.FIELDS.desiredStartDate.placeholder
                 }
                 isSubmitted={isSubmitted}
-                initialValue={previousForm?.desiredEndDate}
+                initialValue={previousForm?.desiredStartDate}
                 validator={OptionalDate}
               />
 
-              {partTimeOnly && (
+              {showEndDateField && (
                 <FreeTextField
                   fieldName="desiredEndDate"
                   label={ORG_ROLE_FORM_TEXT.FIELDS.desiredEndDate.label}
