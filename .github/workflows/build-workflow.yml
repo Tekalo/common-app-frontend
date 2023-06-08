@@ -15,15 +15,15 @@ on:
         description: Cloudflare API Token
     outputs:
       issue-number:
-        value: ${{ jobs.deploy.outputs.issue-number }}
+        value: ${{ jobs.build.outputs.issue-number }}
       url:
-        value: ${{ jobs.deploy.outputs.url }}
+        value: ${{ jobs.build.outputs.url }}
       alias:
-        value: ${{ jobs.deploy.outputs.alias }}
+        value: ${{ jobs.build.outputs.alias }}
       environment:
-        value: ${{ jobs.deploy.outputs.environment }}
+        value: ${{ jobs.build.outputs.environment }}
       deployment_id:
-        value: ${{ jobs.deploy.outputs.deployment_id }}
+        value: ${{ jobs.build.outputs.deployment_id }}
 
 jobs:
   build:
