@@ -513,8 +513,8 @@ describe('Organization Application', () => {
   }
 
   function submitOrgApplication(): void {
-    cy.get('#turnstile-container', { timeout: 10000 })
-      .invoke('attr', 'data-turnstile-ready')
+    cy.get('#turnstile-container')
+      .invoke('attr', 'data-turnstile-ready', { timeout: formSubmissionDelay })
       .should('eq', 'true');
     cy.get('button#submit-org-form').click();
   }
