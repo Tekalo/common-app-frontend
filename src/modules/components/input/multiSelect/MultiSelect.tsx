@@ -100,6 +100,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
               <Listbox.Options className="absolute z-20 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none">
                 {selectOptions.map((option) => (
                   <Listbox.Option
+                    data-name={`${name}-${option.value}`}
                     key={option.value}
                     className={({ active }) =>
                       `flex cursor-default select-none flex-row rounded-[3px] align-middle ${

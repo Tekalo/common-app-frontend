@@ -115,6 +115,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({
                 <div
                   tabIndex={0}
                   className="my-3 hidden cursor-pointer    text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                  data-name="sign-in-out-link"
                   onClick={(e) => handleAuthentication(e)}
                 >
                   {logInOutLabel}

@@ -174,6 +174,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
               className="w-full text-component-large"
               label={ORG_SIGNUP_FORM_TEXT.BUTTONS.submit.label}
               type="submit"
+              name="submit-org-sign-up"
             />
           </div>
         </form>

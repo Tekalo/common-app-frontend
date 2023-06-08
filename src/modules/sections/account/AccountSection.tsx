@@ -157,7 +157,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
       {showContent ? (
         <>
-          <h3 className="mb-2 font-display text-h3-desktop text-black-text">
+          <h3 data-name="account-greeting" className="mb-2 font-display text-h3-desktop text-black-text">
             {`${ACCOUNT_PAGE_TEXT.WELCOME}${
               accountName ? ', ' + accountName : accountName
             }`}
@@ -209,6 +209,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                   <>
                     <div className="text-component-medium text-blue-1">
                       <Link
+                        data-name="continue-application-link"
                         href={
                           applicantExists
                             ? APPLICANT_EXPERIENCE_LINK
@@ -291,6 +292,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                 {/* Data Control */}
                 <div className="space-y-2">
                   <div
+                    data-name="show-delete-modal-link"
                     className="cursor-pointer text-component-medium text-blue-1"
                     onClick={() => setShowDeleteModal(true)}
                   >
@@ -307,6 +309,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                   confirmBtnText={DELETE_MODAL.CTA_CONFIRM}
                   headline={DELETE_MODAL.HEADER}
                   isOpen={showDeleteModal}
+                  name="delete-account-modal"
                   closeModal={() => setShowDeleteModal(false)}
                   onCancel={() => setShowDeleteModal(false)}
                   onConfirm={onDeleteConfirm}

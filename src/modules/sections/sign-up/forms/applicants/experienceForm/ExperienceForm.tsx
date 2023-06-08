@@ -217,6 +217,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Form Buttons */}
           <div className="pt-2">
             <Button
+              name="experience-save"
               className="w-full text-component-large"
               label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.save.label}
               type="button"
@@ -225,6 +226,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             />
 
             <Button
+              name="experience-next"
               type="submit"
               className="mt-4 w-full text-component-large"
               label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.submit.label}
