@@ -1,4 +1,4 @@
-Cypress.Commands.add('bypassCloudflare', (): void => {
+Cypress.Commands.add('bypassCloudflareAccess', (): void => {
   cy.session(
     'cf',
     () => {
@@ -26,10 +26,9 @@ Cypress.Commands.add('login', (): void => {
   cy.session(
     'login',
     () => {
-      cy.bypassCloudflare();
+      cy.bypassCloudflareAccess();
       cy.visit('/sign-in');
 
-      // TODO: Update this for production
       cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
         cy.url({ timeout: 10000 }).should('contain', '/u/login');
 

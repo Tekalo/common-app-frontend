@@ -70,10 +70,10 @@ jobs:
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
           NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{ vars.E2E_TURNSTILE_KEY }}
-          TURNSTILE_SECRET: '1x0000000000000000000000000000000AA'
+          TURNSTILE_SECRET: ${{ secrets.E2E_TURNSTILE_SECRET }}
           NEXT_PUBLIC_TEST_USER: ${{ vars.NEXT_PUBLIC_TEST_USER }}
           NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
-          NEXT_PUBLIC_BASE_URL: 'http://localhost:3000/'
+          NEXT_PUBLIC_BASE_URL: ${{ vars.E2E_BASE_URL }}
           CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
@@ -82,5 +82,5 @@ jobs:
           record: false
           build: pnpm build:for-edge
           start: pnpm start
-          wait-on: 'http://localhost:3000'
+          wait-on: ${{ vars.E2E_BASE_URL }}
           wait-on-timeout: 120

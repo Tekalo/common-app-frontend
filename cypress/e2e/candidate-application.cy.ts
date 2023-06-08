@@ -6,7 +6,7 @@ describe('Candidate Application', () => {
   const navigationFormFillDelay = 250;
 
   beforeEach(() => {
-    cy.bypassCloudflare();
+    cy.bypassCloudflareAccess();
     cy.visit('/sign-up/applicants');
   });
 

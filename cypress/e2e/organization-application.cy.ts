@@ -8,7 +8,7 @@ describe('Organization Application', () => {
   const reviewPageTitleSelector = 'h3[data-name=review-page-title]';
 
   beforeEach(() => {
-    cy.bypassCloudflare();
+    cy.bypassCloudflareAccess();
     cy.visit('/sign-up/organizations');
   });
 
