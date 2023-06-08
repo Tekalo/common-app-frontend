@@ -49,7 +49,7 @@ const RadioGroup: React.FC<IRadioGroup> = ({
             />
           </div>
           <label
-            htmlFor={option.displayText}
+            htmlFor={`${name}-${option.displayText}`}
             className={`text-component-medium text-black-text`}
           >
             {option.displayText}

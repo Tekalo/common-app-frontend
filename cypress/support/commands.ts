@@ -1,38 +1,54 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+Cypress.Commands.add('bypassCloudflareAccess', (): void => {
+  cy.session(
+    'cf',
+    () => {
+      cy.visit({
+        url: '/',
+        headers: {
+          'CF-Access-Client-Id': Cypress.env('cf_access_id'),
+          'CF-Access-Client-Secret': Cypress.env('cf_access_secret'),
+        },
+      });
+    },
+    { cacheAcrossSpecs: true }
+  );
+});
+
+Cypress.Commands.add('validateLogin', (): void => {
+  cy.visit('/account');
+  cy.get('h3[data-name=account-greeting]', { timeout: 10000 }).should(
+    'have.text',
+    'Welcome back, Test User'
+  );
+});
+
+Cypress.Commands.add('login', (): void => {
+  cy.session(
+    'login',
+    () => {
+      cy.bypassCloudflareAccess();
+      cy.visit('/sign-in');
+
+      cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
+        cy.url({ timeout: 10000 }).should('contain', '/u/login');
+
+        cy.get('input[name=username]').type(Cypress.env('auth0_username'));
+        cy.get('input[name=password]').type(Cypress.env('auth0_password'));
+
+        cy.get('button[name=action]').last().click();
+      });
+
+      cy.url({ timeout: 10000 }).should(
+        'equal',
+        `${Cypress.config('baseUrl')}`
+      );
+    },
+    {
+      validate() {
+        cy.validateLogin();
+      },
+    }
+  );
+});
+
 export {};

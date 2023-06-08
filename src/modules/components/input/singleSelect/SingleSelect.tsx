@@ -104,6 +104,7 @@ const SingleSelect: React.FC<ISingleSelect> = ({
               <Listbox.Options className="absolute mt-1 w-full space-y-1 rounded-[3px] bg-white px-1 pb-2 pt-1 shadow-md focus:outline-none">
                 {listOptions.map((option) => (
                   <Listbox.Option
+                    data-name={`${name}-${option.value}`}
                     key={option.value}
                     className={({ active }) =>
                       `flex cursor-default select-none flex-row justify-between rounded-sm px-1 align-middle ${

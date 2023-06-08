@@ -12,7 +12,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -20,6 +19,7 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import {
   applicantSubmissionsEndpoint,
@@ -300,7 +300,11 @@ const SignupForm: React.FC<ISignupForm> = ({
               </div>
 
               {/* Turnstile */}
-              <div className="mx-auto">
+              <div
+                id="turnstile-container"
+                className="mx-auto"
+                data-turnstile-ready={`${turnstileToken.length > 0}`}
+              >
                 <Turnstile
                   id="candidate-form-turnstile"
                   ref={turnstileCandidateRef}
@@ -321,6 +325,7 @@ const SignupForm: React.FC<ISignupForm> = ({
 
               {/* Form Control Button*/}
               <Button
+                name="submit-candidate-sign-up"
                 className="mt-10 w-full lg:mt-14"
                 label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
                 type="submit"
