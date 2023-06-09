@@ -31,7 +31,10 @@ import {
   YOE,
   YOE_RANGE,
 } from '@/lib/enums';
-import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
+import {
+  capitalizeEveryWord,
+  capitalizeFirstLetter,
+} from '@/lib/helpers/formHelpers';
 import { IBoolItem, ISelectItem } from '@/lib/types';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
@@ -298,7 +301,7 @@ const RemoteOptions = OpenToRemote.options.map((option) => {
 
 const AttributionOtpions = ReferenceAttribution.options.map((option) => ({
   value: option,
-  displayText: capitalizeFirstLetter(option),
+  displayText: capitalizeEveryWord(option),
 }));
 
 const OrgTypeOptions = OrgType.options.map((option) => ({

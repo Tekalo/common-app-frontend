@@ -1007,11 +1007,12 @@ const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'sponsorship',
 ];
 const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'website',
-  'linkedin',
-  'social media',
-  'partner organization',
-  'career fair',
+  'linkedIn',
+  'other social media',
+  'partner organization - all tech is human',
+  'partner organization - fast forward',
+  'partner organization - USDR',
+  'career fair or other event',
   'other',
   '',
 ];
