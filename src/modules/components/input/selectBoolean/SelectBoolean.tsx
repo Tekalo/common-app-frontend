@@ -80,6 +80,7 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
                 {listOptions.map((option) => (
                   <Listbox.Option
                     key={option.displayText}
+                    data-name={`${name}-${option.value}`}
                     className={({ active }) =>
                       `flex cursor-default select-none flex-row justify-between rounded-sm px-1 align-middle ${
                         active ? 'bg-light-blue' : ''

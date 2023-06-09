@@ -139,6 +139,20 @@ The "type" can be any of the following:
 - **style**: Changes that do not affect the meaning of the code (white-space, - formatting, missing semi-colons, etc)
 - **test**: Adding missing tests or correcting existing tests
 
+## E2E Tests
+
+### Overview
+
+We are using [cypress](https://www.cypress.io/) as our FE e2e framework. All of the config and tests for cypress are located in the top-level `cypress` folder. The tests themselves are located in `cypress/e2e`.
+
+### Running tests
+
+If you want to run specific tests or view them as they run, you can run `pnpm e2e`. This will open an interactive window, take screenshots as each test step runs, and, if you enable it in the config, record video and take screenshots of test failures.
+
+If you wish to run all of the tests through the command line, you can simply run `pnpm cypress run`.
+
+You will need an instance of the application running on the `NEXT_PUBLIC_BASE_URL` set in your .env.local file for the tests to run.
+
 ## Miscellaneous
 
 ### Why the project is setup this way

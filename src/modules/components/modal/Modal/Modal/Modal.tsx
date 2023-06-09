@@ -35,6 +35,7 @@ const Modal: React.FC<IModal> = ({
 
   return (
     <Dialog
+      data-name="Modal"
       initialFocus={headerRef}
       className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-black-transparent"
       open={isOpen}
@@ -83,6 +84,7 @@ const Modal: React.FC<IModal> = ({
               {/* Confirm Button */}
               {buttonText ? (
                 <button
+                  name="modal-confirm"
                   type="button"
                   className={`${buttonColor} group flex h-12 min-w-[118px] flex-row content-center items-center justify-center rounded px-2 font-sans text-component-large text-white transition-colors hover:${buttonHoverColor} focus-visible:ring-2 focus-visible:ring-[#A7C4DB] md:px-[33px]`}
                   onClick={onConfirm}

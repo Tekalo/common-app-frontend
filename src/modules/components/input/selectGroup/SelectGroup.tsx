@@ -11,6 +11,7 @@ export interface ISelectGroup {
 }
 
 const SelectGroup: React.FC<ISelectGroup> = ({
+  name,
   value,
   setValue,
   listOptions,
@@ -30,7 +31,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
           <>
             <input
               type="checkbox"
-              id={option.value}
+              id={`${name}-${option.value}`}
               value={option.value}
               checked={value && value.includes(option.value)}
               onChange={(e) => {

@@ -47,7 +47,9 @@ const Breadcrumb: React.FC<IBreadcrumb> = ({
       onClick={() => setActive(0)}
     >
       <ChevronRightIcon className="h-4 w-4 fill-gray-2" />
-      <div className="text-component-medium">{label} 1</div>
+      <div className="text-component-medium" data-name={`${label} 1`}>
+        {label} 1
+      </div>
     </div>
   );
 };
