@@ -312,7 +312,7 @@ describe('Candidate Application', () => {
 
   function selectAttribution(): void {
     cy.get('button[name=input-referenceAttribution]').click();
-    cy.get('li[data-name=input-referenceAttribution-website]').click();
+    cy.get('li[data-name=input-referenceAttribution-linkedin]').click();
   }
 
   function saveAndConfirmInterestForm(): void {
