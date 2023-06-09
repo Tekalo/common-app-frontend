@@ -1011,7 +1011,7 @@ const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'other social media',
   'partner organization - all tech is human',
   'partner organization - fast forward',
-  'partner organization - usdr',
+  'partner organization - USDR',
   'career fair or other event',
   'other',
   '',
