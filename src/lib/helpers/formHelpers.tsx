@@ -26,6 +26,15 @@ export const capitalizeFirstLetter = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+export const capitalizeEveryWord = (str: string): string => {
+  return str
+    .split(' ')
+    .map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+};
+
 // Helper to create option selects given supporting Zod enums
 export const createOptionList = (
   enumOptions: Array<string>
