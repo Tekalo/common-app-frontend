@@ -1,5 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { COOKIE_CONSENT, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
+import { COOKIE_CONSENT, ERROR_TEXT, PRIVACY_LINK } from '@/lang/en';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -7,8 +7,8 @@ import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
-  getCookieConsentValue,
   OPTIONS,
+  getCookieConsentValue,
 } from 'react-cookie-consent';
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
@@ -77,7 +77,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             {COOKIE_CONSENT.COPY[0]}
             <Link
               className="text-blue-1 underline"
-              href={TERMS_LINK}
+              href={PRIVACY_LINK}
               target="_blank"
             >
               {COOKIE_CONSENT.COPY[1]}
