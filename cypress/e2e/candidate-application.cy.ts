@@ -1,3 +1,6 @@
+import { applicantsEndpoint, deleteRequest } from '@/lib/helpers/apiHelpers';
+import { AccountSubmissionResponseType } from '@/lib/types';
+import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
 
 describe('Candidate Application', () => {
@@ -8,6 +11,30 @@ describe('Candidate Application', () => {
   beforeEach(() => {
     cy.bypassCloudflareAccess();
     cy.visit('/sign-up/applicants');
+  });
+
+  // Clean up the test users we created
+  after(() => {
+    cy.intercept({
+      method: 'POST',
+      url: 'https://capp-auth.dev.apps.futurestech.cloud/oauth/token',
+    }).as('adminLogin');
+
+    cy.login();
+
+    cy.wait('@adminLogin').then((intercept: any) => {
+      const accessToken = intercept.response.body.access_token;
+
+      cy.task('getUserIds').then((uids) => {
+        const userIds = uids as string[];
+
+        userIds.forEach((id) => {
+          deleteRequest(`${applicantsEndpoint}/${id}`, accessToken);
+        });
+
+        cy.task('clearUserIds');
+      });
+    });
   });
 
   it('Should submit a candidate, required fields only', () => {
@@ -168,9 +195,11 @@ describe('Candidate Application', () => {
     cy.get('button#submit-candidate-sign-up').click();
 
     cy.wait('@applicantCreation', { timeout: formSubmissionTimeout }).then(
-      (interception: any) => {
-        console.log(interception);
-        // assert.isNotNull(interception.response.body, '1st API call has data')
+      (interception: Interception) => {
+        const response = interception?.response
+          ?.body as AccountSubmissionResponseType;
+
+        cy.task('storeUserId', response.id);
       }
     );
   }

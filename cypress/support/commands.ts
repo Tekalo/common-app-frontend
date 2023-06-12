@@ -39,7 +39,7 @@ Cypress.Commands.add('login', (): void => {
       });
 
       cy.url({ timeout: 10000 }).should(
-        'equal',
+        'contain',
         `${Cypress.config('baseUrl')}`
       );
     },

@@ -376,7 +376,7 @@ describe('Organization Application', () => {
 
   function fillContactEmail(): void {
     cy.get('input[name="input-contact.email"]').type(
-      'mscontactemailtest@schmidtfutures.com'
+      'test-user-contact@schmidtfutures.com'
     );
   }
 
