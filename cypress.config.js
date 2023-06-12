@@ -9,6 +9,10 @@ module.exports = defineConfig({
   chromeWebSecurity: false,
   e2e: {
     setupNodeEvents(_on, config) {
+      _on('task', {
+        getUserIds: () =>  global.userIds,
+        storeUserId: (userId) => { global.userIds ? global.userIds.push(userId) = [] : global.userIds = [userId]},
+      }),
       config.baseUrl =
         process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001';
       config.env.auth0_username = process.env.NEXT_PUBLIC_TEST_USER;

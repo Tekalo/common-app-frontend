@@ -155,12 +155,24 @@ describe('Candidate Application', () => {
   }
 
   function submitCandidateSignup(): void {
+    cy.intercept({
+      method: 'POST',
+      url: '/api/applicants',
+    }).as('applicantCreation');
+
     cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
       'have.attr',
       'data-turnstile-ready',
       'true'
     );
     cy.get('button#submit-candidate-sign-up').click();
+
+    cy.wait('@applicantCreation', { timeout: formSubmissionTimeout }).then(
+      (interception: any) => {
+        console.log(interception);
+        // assert.isNotNull(interception.response.body, '1st API call has data')
+      }
+    );
   }
 
   function fillPreviousRole(): void {
