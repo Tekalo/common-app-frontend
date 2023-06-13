@@ -9,8 +9,28 @@ module.exports = defineConfig({
   chromeWebSecurity: false,
   e2e: {
     setupNodeEvents(_on, config) {
-      config.baseUrl =
-        process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001';
+      // https://stackoverflow.com/questions/52050657/what-is-the-best-practice-of-pass-states-between-tests-in-cypress
+      _on('task', {
+        clearUserIds: () => {
+          global.userIds = [];
+
+          return null;
+        },
+        getUserIds: () => {
+          return global.userIds;
+        },
+        storeUserId: (userId) => {
+          if (global.userIds) {
+            global.userIds.push(userId);
+          } else {
+            global.userIds = [userId];
+          }
+
+          return null;
+        },
+      }),
+        (config.baseUrl =
+          process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001');
       config.env.auth0_username = process.env.NEXT_PUBLIC_TEST_USER;
       config.env.auth0_password = process.env.NEXT_PUBLIC_TEST_PASSWORD;
       config.env.auth0_domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN;
