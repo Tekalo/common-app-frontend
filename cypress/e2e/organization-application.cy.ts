@@ -1,15 +1,24 @@
 import { EmploymentType } from '@/lib/enums';
+import {
+  opportunityBatchEndpoint
+} from '@/lib/helpers/apiHelpers';
+import { OrgBatchSubmissionResponseType } from '@/lib/types';
+import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
 
 type EmploymentFillTypes = typeof EmploymentType._input;
 
 describe('Organization Application', () => {
-  const formSubmissionDelay = 10000;
+  const formSubmissionTimeout = 10000;
   const reviewPageTitleSelector = 'h3[data-name=review-page-title]';
 
   beforeEach(() => {
     cy.bypassCloudflareAccess();
     cy.visit('/sign-up/organizations');
+  });
+
+  after(() => {
+    cy.deleteTestData(opportunityBatchEndpoint);
   });
 
   it('Should submit opportunity, full-time only, required only', () => {
@@ -295,7 +304,7 @@ describe('Organization Application', () => {
   });
 
   function checkSuccessPage(): void {
-    cy.url({ timeout: formSubmissionDelay }).should(
+    cy.url({ timeout: formSubmissionTimeout }).should(
       'include',
       'sign-up/organizations/success'
     );
@@ -376,7 +385,7 @@ describe('Organization Application', () => {
 
   function fillContactEmail(): void {
     cy.get('input[name="input-contact.email"]').type(
-      'mscontactemailtest@schmidtfutures.com'
+      'test-user-contact@schmidtfutures.com'
     );
   }
 
@@ -513,11 +522,25 @@ describe('Organization Application', () => {
   }
 
   function submitOrgApplication(): void {
-    cy.get('#turnstile-container', { timeout: formSubmissionDelay }).should(
+    cy.intercept({
+      method: 'POST',
+      url: opportunityBatchEndpoint,
+    }).as('opportunityCreation');
+
+    cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
       'have.attr',
       'data-turnstile-ready',
       'true'
     );
     cy.get('button#submit-org-form').click();
+
+    cy.wait('@opportunityCreation', { timeout: formSubmissionTimeout }).then(
+      (interception: Interception) => {
+        const response = interception?.response
+          ?.body as OrgBatchSubmissionResponseType;
+
+        cy.task('storeUserId', response.id);
+      }
+    );
   }
 });
