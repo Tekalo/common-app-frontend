@@ -29,8 +29,7 @@ module.exports = defineConfig({
           return null;
         },
       }),
-        (config.baseUrl =
-          process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001');
+        (config.baseUrl = process.env.NEXT_PUBLIC_BASE_URL);
       config.env.auth0_username = process.env.NEXT_PUBLIC_TEST_USER;
       config.env.auth0_password = process.env.NEXT_PUBLIC_TEST_PASSWORD;
       config.env.auth0_domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN;
