@@ -67,8 +67,8 @@ Cypress.Commands.add('deleteTestData', (deleteUrl: string) => {
     cy.task('getUserIds').then((uids) => {
       const userIds = uids as string[];
 
-      userIds.forEach((id) => {
-        deleteRequest(`${deleteUrl}/${id}`, accessToken);
+      userIds.forEach(async (id) => {
+        await deleteRequest(`${deleteUrl}/${id}`, accessToken);
       });
 
       cy.task('clearUserIds');
