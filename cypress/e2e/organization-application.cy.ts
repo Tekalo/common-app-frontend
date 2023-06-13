@@ -1,7 +1,6 @@
 import { EmploymentType } from '@/lib/enums';
 import {
-  deleteRequest,
-  opportunityBatchEndpoint,
+  opportunityBatchEndpoint
 } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
@@ -19,26 +18,7 @@ describe('Organization Application', () => {
   });
 
   after(() => {
-    cy.intercept({
-      method: 'POST',
-      url: `https://${Cypress.env('auth0_domain')}/oauth/token`,
-    }).as('adminLogin');
-
-    cy.login();
-
-    cy.wait('@adminLogin').then((intercept: any) => {
-      const accessToken = intercept.response.body.access_token;
-
-      cy.task('getUserIds').then((uids) => {
-        const userIds = uids as string[];
-
-        userIds.forEach((id) => {
-          deleteRequest(`${opportunityBatchEndpoint}/${id}`, accessToken);
-        });
-
-        cy.task('clearUserIds');
-      });
-    });
+    cy.deleteTestData(opportunityBatchEndpoint);
   });
 
   it('Should submit opportunity, full-time only, required only', () => {
