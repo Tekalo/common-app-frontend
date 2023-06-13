@@ -1,3 +1,6 @@
+import { applicantsEndpoint } from '@/lib/helpers/apiHelpers';
+import { AccountSubmissionResponseType } from '@/lib/types';
+import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
 
 describe('Candidate Application', () => {
@@ -8,6 +11,11 @@ describe('Candidate Application', () => {
   beforeEach(() => {
     cy.bypassCloudflareAccess();
     cy.visit('/sign-up/applicants');
+  });
+
+  // Clean up the test users we created
+  after(() => {
+    cy.deleteTestData(applicantsEndpoint);
   });
 
   it('Should submit a candidate, required fields only', () => {
@@ -155,12 +163,26 @@ describe('Candidate Application', () => {
   }
 
   function submitCandidateSignup(): void {
+    cy.intercept({
+      method: 'POST',
+      url: applicantsEndpoint,
+    }).as('applicantCreation');
+
     cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
       'have.attr',
       'data-turnstile-ready',
       'true'
     );
     cy.get('button#submit-candidate-sign-up').click();
+
+    cy.wait('@applicantCreation', { timeout: formSubmissionTimeout }).then(
+      (interception: Interception) => {
+        const response = interception?.response
+          ?.body as AccountSubmissionResponseType;
+
+        cy.task('storeUserId', response.id);
+      }
+    );
   }
 
   function fillPreviousRole(): void {

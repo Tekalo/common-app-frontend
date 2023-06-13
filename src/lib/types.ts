@@ -40,6 +40,26 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
 
 export type SubmissionResponseType = z.infer<typeof DraftResponseSchema>;
 
+export type AccountSubmissionResponseType = {
+  auth0Id: string;
+  email: string;
+  id: number;
+};
+
+export type OrgBatchSubmissionResponseType = {
+  id: number;
+  orgName: string;
+  orgType: string;
+  orgSize: string;
+  impactAreas: string[];
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
+  equalOpportunityEmployer: boolean;
+  acceptedPrivacy: string;
+  referenceAttribution: string;
+};
+
 export type AccountResponseType = {
   email: string;
   id: number;
