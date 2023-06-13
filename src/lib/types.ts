@@ -46,6 +46,20 @@ export type AccountSubmissionResponseType = {
   id: number;
 };
 
+export type OrgBatchSubmissionResponseType = {
+  id: number;
+  orgName: string;
+  orgType: string;
+  orgSize: string;
+  impactAreas: string[];
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
+  equalOpportunityEmployer: boolean;
+  acceptedPrivacy: string;
+  referenceAttribution: string;
+};
+
 export type AccountResponseType = {
   email: string;
   id: number;

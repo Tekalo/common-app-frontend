@@ -17,7 +17,7 @@ describe('Candidate Application', () => {
   after(() => {
     cy.intercept({
       method: 'POST',
-      url: 'https://capp-auth.dev.apps.futurestech.cloud/oauth/token',
+      url: `https://${Cypress.env('auth0_domain')}/oauth/token`,
     }).as('adminLogin');
 
     cy.login();
@@ -184,7 +184,7 @@ describe('Candidate Application', () => {
   function submitCandidateSignup(): void {
     cy.intercept({
       method: 'POST',
-      url: '/api/applicants',
+      url: applicantsEndpoint,
     }).as('applicantCreation');
 
     cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
