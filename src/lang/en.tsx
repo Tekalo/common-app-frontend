@@ -407,21 +407,6 @@ const APPLICANT_FORM_TEXT = {
   },
   BUTTONS: { submit: { label: 'Sign up' } },
 };
-const ORG_FORM_TEXT = {
-  SUCCESS: {
-    title: 'Your intake form was submitted!',
-    body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you once they have updates available. Thank you for applying to Tekalo.',
-    cta: 'Done',
-  },
-  NAV: {
-    title: 'Recruit qualified candidates from the Tekalo network',
-    navawayText: "If you're a candidate looking for opportunities, ",
-    navText: 'sign up here',
-  },
-  CONTACT: 'Contact',
-  BREADCRUMB: 'Role',
-  DELETE_ROLE: 'Delete this role',
-};
 const INTEREST_FORM_TEXT = {
   BUTTONS: {
     save: {
@@ -667,7 +652,26 @@ const ORG_SIGNUP_FORM_TEXT = {
       ),
       placeholder: 'Choose one',
     },
+    referenceAttribution: {
+      label: 'How did you hear about Tekalo? (optional)',
+      placeholder: 'Choose one',
+    },
   },
+};
+const ORG_FORM_TEXT = {
+  SUCCESS: {
+    title: 'Your intake form was submitted!',
+    body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you once they have updates available. Thank you for applying to Tekalo.',
+    cta: 'Done',
+  },
+  NAV: {
+    title: 'Recruit qualified candidates from the Tekalo network',
+    navawayText: "If you're a candidate looking for opportunities, ",
+    navText: 'sign up here',
+  },
+  CONTACT: 'Contact',
+  BREADCRUMB: 'Role',
+  DELETE_ROLE: 'Delete this role',
 };
 const ORG_ROLE_FORM_TEXT = {
   BUTTONS: {
