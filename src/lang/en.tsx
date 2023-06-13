@@ -656,6 +656,10 @@ const ORG_SIGNUP_FORM_TEXT = {
       label: 'How did you hear about Tekalo? (optional)',
       placeholder: 'Choose one',
     },
+    referenceOptional: {
+      label: 'If you chose other, please specify (optional)',
+      placeholder: 'How did you hear about Tekalo?',
+    },
   },
 };
 const ORG_FORM_TEXT = {

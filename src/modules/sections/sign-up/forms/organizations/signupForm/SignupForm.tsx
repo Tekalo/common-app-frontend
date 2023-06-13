@@ -183,6 +183,17 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             validator={ReferenceAttribution}
           />
 
+          {/* TODO: Figure out if API needs update for referenceAttributionOther*/}
+          {/* <FreeTextField
+            fieldName="referenceAttribution"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.label}
+            placeholder={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={undefined}
+          /> */}
+
           {/* Form Control Button*/}
           <div className="pt-2">
             <Button

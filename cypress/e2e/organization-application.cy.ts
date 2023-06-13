@@ -23,6 +23,7 @@ describe('Organization Application', () => {
     fillContactEmail();
     selectCommitmentTypes(['full']);
     selectEoe();
+    selectAttribution();
 
     submitOrgSignUpForm();
 
@@ -519,5 +520,10 @@ describe('Organization Application', () => {
       'true'
     );
     cy.get('button#submit-org-form').click();
+  }
+
+  function selectAttribution(): void {
+    cy.get('button[name=input-referenceAttribution]').click();
+    cy.get('li[data-name=input-referenceAttribution-linkedIn]').click();
   }
 });
