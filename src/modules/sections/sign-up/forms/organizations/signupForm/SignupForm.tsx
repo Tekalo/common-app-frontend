@@ -20,6 +20,7 @@ import {
 
 import Button from '@/components/buttons/Button/Button';
 import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
+import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
@@ -29,7 +30,7 @@ import {
   SingleSelectField,
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export interface ISignupForm {
   handleSubmit: (values: NewOrgType) => void;
@@ -40,9 +41,6 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
   const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
-  const [refAttr, setRefAttr] = useState<string>(
-    previousForm?.referenceAttribution || ''
-  );
   return (
     <Form<NewOrgType>
       onSubmit={(values) => {
@@ -53,11 +51,10 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            console.log(getFieldValue('referenceAttribution'));
             getFieldValue('otherRef')?.setValue(0, '');
-            // submit().then(() => {
-            //   jumpToFirstErrorMessage();
-            // });
+            submit().then(() => {
+              jumpToFirstErrorMessage();
+            });
           }}
           className="flex flex-col space-y-8 lg:space-y-7"
         >
@@ -176,7 +173,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
 
           {/* Reference */}
           <SingleSelectField
-            fieldName={refAttr === 'other' ? '' : 'referenceAttribution'}
+            fieldName="referenceAttribution"
             label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceAttribution.label}
             placeholder={
               ORG_SIGNUP_FORM_TEXT.FIELDS.referenceAttribution.placeholder
@@ -184,22 +181,17 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}
             initialValue={''}
-            onChange={(value) => setRefAttr(value)}
             validator={ReferenceAttribution}
           />
 
-          {/* TODO: Figure out if API needs update for referenceAttributionOther*/}
           <FreeTextField
-            fieldName={
-              refAttr === 'other' ? 'referenceAttribution' : 'otherRef'
-            }
+            fieldName="referenceAttributionOther"
             label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.label}
             placeholder={
               ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.placeholder
             }
             isSubmitted={isSubmitted}
-            initialValue={undefined}
-            disabled={refAttr !== 'other'}
+            initialValue={''}
           />
 
           {/* Form Control Button*/}
