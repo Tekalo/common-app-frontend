@@ -64,10 +64,10 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Add hosts to /etc/hosts
-        if: $${{inputs.environment == 'production'}}
-        run: |
-          sudo echo "127.0.0.1 prod-common-app-frontend.pages.dev" | sudo tee -a /etc/hosts
+      # - name: Add hosts to /etc/hosts
+      #   if: $${{inputs.environment == 'production'}}
+      #   run: |
+      #     sudo echo "127.0.0.1:3000 prod-common-app-frontend.pages.dev" | sudo tee -a /etc/hosts
 
       - name: Cypress run
 
