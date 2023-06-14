@@ -798,7 +798,7 @@ const VISA_SPONSOR_TEXT = {
 };
 const COMMITMENT_TEXT = {
   fullTime: 'Full-time employment',
-  partTime: 'Part-time/short term opportunities',
+  partTime: 'Part-time/short-term opportunities',
 };
 const ROLE_TEXT = {
   uxResearcher: 'UX researcher',
