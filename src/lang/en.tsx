@@ -60,7 +60,7 @@ const NAV_BAR_TEXT = {
   MY_ACCOUNT: 'My account',
   GET_STARTED_CTA: 'Get started',
   FOR_CANDIDATES: 'For candidates',
-  FOR_ORGS: 'For Organizations',
+  FOR_ORGS: 'For organizations',
   FAQ: 'FAQs',
   HOW_IT_WORKS: 'How it works',
 };
