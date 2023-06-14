@@ -37,6 +37,16 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       alt: 'New Data Logo',
       url: 'https://center-for-new-data.breezy.hr/',
     },
+     {
+      src: '/images/logos/Ameelio Logo (1).png',
+      alt: 'Ameelio Logo',
+      url: 'https://www.ameelio.org/',
+    },
+     {
+      src: '/images/logos/mcsilver-logo-grey (1).png',
+      alt: 'NYU McSilver Logo',
+      url: 'https://www.mcsilver.nyu.edu/',
+    },
   ];
 
   const renderLogos = () => (
