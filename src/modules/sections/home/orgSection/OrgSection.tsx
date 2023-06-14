@@ -37,31 +37,35 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       alt: 'New Data Logo',
       url: 'https://center-for-new-data.breezy.hr/',
     },
-     {
-      src: '/images/logos/Ameelio Logo (1).png',
+    {
+      src: '/images/logos/AmeelioLogo.png',
       alt: 'Ameelio Logo',
       url: 'https://www.ameelio.org/',
     },
-     {
-      src: '/images/logos/mcsilver-logo-grey (1).png',
+    {
+      src: '/images/logos/McsilverLogo.png',
       alt: 'NYU McSilver Logo',
       url: 'https://www.mcsilver.nyu.edu/',
     },
   ];
 
-  const renderLogos = () => (
-    <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-center justify-items-start gap-x-20 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
-      {recruitingLogos.map((logo, i) => {
-        return (
-          <a key={i} href={logo.url} target="_blank" rel="noreferrer">
-            <div className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px]">
-              <img src={logo.src} alt={logo.alt} className="min-w-0" />
-            </div>
-          </a>
-        );
-      })}
-    </div>
-  );
+  const renderLogos = (full = false) => {
+    const logos = full ? recruitingLogos : recruitingLogos.slice(0, 7);
+
+    return (
+      <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-center justify-items-start gap-x-20 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
+        {logos.map((logo, i) => {
+          return (
+            <a key={i} href={logo.url} target="_blank" rel="noreferrer">
+              <div className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px]">
+                <img src={logo.src} alt={logo.alt} className="min-w-0" />
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <section className="md:pb- grid w-full place-items-center px-6 pb-20 pt-16 lg:pb-36">
@@ -114,7 +118,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
         <Modal
           headline={HOME_ORG_TEXT.HEADER}
           isOpen={showLogoModal}
-          content={renderLogos()}
+          content={renderLogos(true)}
           closeModal={() => setShowLogoModal(false)}
           onConfirm={() => setShowLogoModal(false)}
         />
