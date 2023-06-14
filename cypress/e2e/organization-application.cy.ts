@@ -572,7 +572,7 @@ describe('Organization Application', () => {
   }
 
   function textAttribution(): void {
-    cy.get('button[name=input-referenceAttributionOther]').type(
+    cy.get('input[name=input-referenceAttributionOther]').type(
       'A more specific reference'
     );
   }
