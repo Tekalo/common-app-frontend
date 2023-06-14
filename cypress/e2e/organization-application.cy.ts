@@ -50,6 +50,45 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
+  it('Should submit opportunity, full-time only, required only with free text attribution', () => {
+    cy.url().should('include', '/sign-up/organizations');
+
+    fillOrgName();
+    selectOrgType();
+    selectOrgSize();
+    selectImpactAreas();
+    fillContactName();
+    fillContactEmail();
+    selectCommitmentTypes(['full']);
+    selectEoe();
+    selectOtherAttribution();
+    textAttribution();
+
+    submitOrgSignUpForm();
+
+    // Role Form
+    cy.get('div[data-name="Role 1"]').should('exist');
+    doFullTimeChecks();
+
+    selectRoleType();
+    fillPositionTitle();
+    fillSalaryRange();
+    selectFullyRemote();
+    selectVisaSponsorship();
+    selectYoe();
+    selectSimilarExperience();
+    fillRolePitch();
+
+    goToOrgReview();
+
+    // Review form
+    cy.get(reviewPageTitleSelector).should('exist');
+    acceptPrivacy();
+    submitOrgApplication();
+
+    checkSuccessPage();
+  });
+
   it('Should submit opportunity, full-time only, all fields', () => {
     cy.url().should('include', '/sign-up/organizations');
 
@@ -525,5 +564,16 @@ describe('Organization Application', () => {
   function selectAttribution(): void {
     cy.get('button[name=input-referenceAttribution]').click();
     cy.get('li[data-name=input-referenceAttribution-linkedIn]').click();
+  }
+
+  function selectOtherAttribution(): void {
+    cy.get('button[name=input-referenceAttribution]').click();
+    cy.get('li[data-name=input-referenceAttribution-other]').click();
+  }
+
+  function textAttribution(): void {
+    cy.get('button[name=input-referenceAttributionOther]').type(
+      'A more specific reference'
+    );
   }
 });
