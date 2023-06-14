@@ -18,6 +18,11 @@ on:
       E2E_TURNSTILE_SECRET:
         description: secret to disable turnstile during e2e tests
         required: true
+        # TODO: Make these not required
+      E2E_CERT:
+        required: true
+      E2E_CERT_KEY:
+        required: true
 
 jobs:
   e2e-tests:
@@ -69,16 +74,11 @@ jobs:
         run: |
           sudo echo "127.0.0.1 prod.common-app-frontend.pages.dev" | sudo tee -a /etc/hosts
 
-      - name: Install nginx
-        run: |
-          sudo apt update
-          sudo apt install nginx
-
       - name: Setup reverse proxy
         run: |
-          sed -i 's/##CERT##/test/g' ${{ secrets.E2E_CERT }}/cypress/conf/nginx.conf
-          sed -i 's/##CERT_KEY##/test/g' ${{ secrets.E2E_CERT_KEY }}/cypress/conf/nginx.conf
-          sed -i 's/##E2E_URL##/test/g' ${{ github.workspace }}/cypress/conf/nginx.conf
+          sed -i 's/##CERT##/${{ secrets.E2E_CERT }}/g' ${{ github.workspace }}/cypress/conf/nginx.conf
+          sed -i 's/##CERT_KEY##/${{ secrets.E2E_CERT_KEY }}/g' ${{ github.workspace }}/cypress/conf/nginx.conf
+          sed -i 's/##E2E_URL##/${{ vars.E2E_BASE_URL }}/g' ${{ github.workspace }}/cypress/conf/nginx.conf
           cat ./cypress/conf/nginx.conf
 
       # - name: Cypress run

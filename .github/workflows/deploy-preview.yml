@@ -27,6 +27,9 @@ jobs:
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
       E2E_TURNSTILE_SECRET: ${{ secrets.E2E_TURNSTILE_SECRET }}
+      # TODO: UNDO THIS
+      E2E_CERT: ${{ secrets.E2E_CERT }}
+      E2E_CERT_KEY: ${{ secrets.E2E_CERT_KEY }}
 
   build:
     name: Build Project
