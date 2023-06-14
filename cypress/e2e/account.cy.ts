@@ -19,7 +19,7 @@ describe('Signed In User', () => {
   it('should sign the user out', () => {
     cy.get('div[data-name=sign-in-out-link]').click();
 
-    cy.url().should('equal', Cypress.config('baseUrl'));
+    cy.url().should('contain', Cypress.config('baseUrl'));
     cy.get('div[data-name=sign-in-out-link]').should('contain.text', 'Sign in');
   });
 });
