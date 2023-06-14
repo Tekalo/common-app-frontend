@@ -882,7 +882,8 @@ const TURNSTILE_ENUM_OPTIONS = {
 const ORG_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '501(c)(3)',
   '501(c)(4)',
-  'LLC',
+  'llc',
+  'b corp',
   'other',
 ];
 const ORG_SIZE_ENUM_OPTIONS: readonly [string, ...string[]] = [
