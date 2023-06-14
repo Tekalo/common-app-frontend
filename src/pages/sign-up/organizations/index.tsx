@@ -36,6 +36,8 @@ const OrganizationSignup: NextPageWithLayout = () => {
       organization: orgInfo?.organization,
       submissions: orgRoles,
       acceptedPrivacy,
+      referenceAttribution: orgInfo?.referenceAttribution,
+      referenceAttributionOther: orgInfo?.referenceAttributionOther,
     };
 
     let authToken = '';
