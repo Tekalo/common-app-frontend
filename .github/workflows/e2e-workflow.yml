@@ -104,7 +104,6 @@ jobs:
         run: |
           sudo systemctl start nginx
 
-        #-- --key ${{ github.workspace }}/cypress/certs/e2e-key.pem --cert ${{ github.workspace }}/cypress/certs/e2e.pem
       # - name: Run local proxy
       #   run: |
       #     pnpm local-proxy
