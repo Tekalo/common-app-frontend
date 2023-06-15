@@ -31,11 +31,9 @@ import {
   YOE,
   YOE_RANGE,
 } from '@/lib/enums';
-import {
-  capitalizeEveryWord,
-  capitalizeFirstLetter,
-} from '@/lib/helpers/formHelpers';
+import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
 import { IBoolItem, ISelectItem } from '@/lib/types';
+import { capitalizeEveryWord } from './../helpers/formHelpers';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
   if (option === '<1') {
@@ -304,10 +302,25 @@ const AttributionOtpions = ReferenceAttribution.options.map((option) => ({
   displayText: capitalizeEveryWord(option),
 }));
 
-const OrgTypeOptions = OrgType.options.map((option) => ({
-  value: option,
-  displayText: capitalizeFirstLetter(option),
-}));
+const OrgTypeOptions = OrgType.options.map((option) => {
+  switch (option) {
+    case 'llc':
+      return {
+        value: option,
+        displayText: option.toUpperCase(),
+      };
+    case 'b corp':
+      return {
+        value: option,
+        displayText: capitalizeEveryWord(option),
+      };
+    default:
+      return {
+        value: option,
+        displayText: capitalizeFirstLetter(option),
+      };
+  }
+});
 
 const OrgSizeOptions = OrgSize.options.map((option) => ({
   value: option,

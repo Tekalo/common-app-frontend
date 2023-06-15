@@ -1,4 +1,5 @@
 import {
+  AttributionOtpions,
   CauseOptions,
   CommitmentOptions,
   OrgSizeOptions,
@@ -8,11 +9,12 @@ import {
 import {
   Causes,
   CommitmentType,
-  EOE,
   Email,
+  EOE,
   OptionalPhoneNumber,
   OrgSize,
   OrgType,
+  ReferenceAttribution,
   RequiredString,
 } from '@/lib/enums';
 
@@ -45,10 +47,11 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
         handleSubmit(values);
       }}
     >
-      {({ isSubmitted, submit }) => (
+      {({ isSubmitted, submit, getFieldValue }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            getFieldValue('otherRef')?.setValue(0, '');
             submit().then(() => {
               jumpToFirstErrorMessage();
             });
@@ -166,6 +169,29 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.eoe}
             validator={EOE}
+          />
+
+          {/* Reference */}
+          <SingleSelectField
+            fieldName="referenceAttribution"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceAttribution.label}
+            placeholder={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.referenceAttribution.placeholder
+            }
+            listOptions={AttributionOtpions}
+            isSubmitted={isSubmitted}
+            initialValue={''}
+            validator={ReferenceAttribution}
+          />
+
+          <FreeTextField
+            fieldName="referenceAttributionOther"
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.label}
+            placeholder={
+              ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={''}
           />
 
           {/* Form Control Button*/}
