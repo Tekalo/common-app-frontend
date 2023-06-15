@@ -22,6 +22,8 @@ import { z } from 'zod';
  */
 const NewOrgSchema = z.object({
   commitmentTypes: z.array(CommitmentType),
+  referenceAttribution: z.string().optional(),
+  referenceAttributionOther: z.string().optional(),
   organization: z.object({
     name: z.string().max(255),
     type: OrgType,
