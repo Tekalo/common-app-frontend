@@ -113,7 +113,7 @@ jobs:
         run: pnpm install
 
       - name: Disable TLS
-        run: export NODE_TLS_REJECT_UNAUTHORIZED=1
+        run: export NODE_TLS_REJECT_UNAUTHORIZED=0
 
       - name: Cypress run
 
