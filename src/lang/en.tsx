@@ -60,7 +60,7 @@ const NAV_BAR_TEXT = {
   MY_ACCOUNT: 'My account',
   GET_STARTED_CTA: 'Get started',
   FOR_CANDIDATES: 'For candidates',
-  FOR_ORGS: 'For Organizations',
+  FOR_ORGS: 'For organizations',
   FAQ: 'FAQs',
   HOW_IT_WORKS: 'How it works',
 };
@@ -307,7 +307,7 @@ const ACCOUNT_PAGE_TEXT = {
 /** MODAL TEXT CONSTANTS */
 const ERROR_MODAL_TEXT = {
   emailExists: 'Email already exists',
-  requestFailed: 'Request requestFailed',
+  requestFailed: 'Request Failed',
   signIn: 'Please sign in',
   somethingWrong: 'Something went wrong. Please try again later.',
   okButton: 'Ok',
@@ -406,21 +406,6 @@ const APPLICANT_FORM_TEXT = {
     },
   },
   BUTTONS: { submit: { label: 'Sign up' } },
-};
-const ORG_FORM_TEXT = {
-  SUCCESS: {
-    title: 'Your intake form was submitted!',
-    body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you once they have updates available. Thank you for applying to Tekalo.',
-    cta: 'Done',
-  },
-  NAV: {
-    title: 'Recruit qualified candidates from the Tekalo network',
-    navawayText: "If you're a candidate looking for opportunities, ",
-    navText: 'sign up here',
-  },
-  CONTACT: 'Contact',
-  BREADCRUMB: 'Role',
-  DELETE_ROLE: 'Delete this role',
 };
 const INTEREST_FORM_TEXT = {
   BUTTONS: {
@@ -667,7 +652,30 @@ const ORG_SIGNUP_FORM_TEXT = {
       ),
       placeholder: 'Choose one',
     },
+    referenceAttribution: {
+      label: 'How did you hear about Tekalo? (optional)',
+      placeholder: 'Choose one',
+    },
+    referenceOptional: {
+      label: 'If you chose other, please specify (optional)',
+      placeholder: 'How did you hear about Tekalo?',
+    },
   },
+};
+const ORG_FORM_TEXT = {
+  SUCCESS: {
+    title: 'Your intake form was submitted!',
+    body: 'You will receive a confirmation email shortly. Your assigned Tekalo Talent Connector will review your application and contact you once they have updates available. Thank you for applying to Tekalo.',
+    cta: 'Done',
+  },
+  NAV: {
+    title: 'Recruit qualified candidates from the Tekalo network',
+    navawayText: "If you're a candidate looking for opportunities, ",
+    navText: 'sign up here',
+  },
+  CONTACT: 'Contact',
+  BREADCRUMB: 'Role',
+  DELETE_ROLE: 'Delete this role',
 };
 const ORG_ROLE_FORM_TEXT = {
   BUTTONS: {
@@ -790,7 +798,7 @@ const VISA_SPONSOR_TEXT = {
 };
 const COMMITMENT_TEXT = {
   fullTime: 'Full-time employment',
-  partTime: 'Part-time/short term opportunities',
+  partTime: 'Part-time/short-term opportunities',
 };
 const ROLE_TEXT = {
   uxResearcher: 'UX researcher',
@@ -874,7 +882,8 @@ const TURNSTILE_ENUM_OPTIONS = {
 const ORG_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '501(c)(3)',
   '501(c)(4)',
-  'LLC',
+  'llc',
+  'b corp',
   'other',
 ];
 const ORG_SIZE_ENUM_OPTIONS: readonly [string, ...string[]] = [
@@ -1482,7 +1491,8 @@ const TERMS_TEXT = {
     </>
   ),
   minAgeTitle: 'Minimum Age',
-  minAgeSummary: 'Summary: You must be 18 or older to use Futures Engine.',
+  minAgeSummary: 
+    'Summary: You must be 18 or older to use Futures Engine.',
   minAgeText:
     'You represent that you are at least 18 years of age (or the age of majority in the jurisdiction in which you reside). The Services are not intended for anyone under 18, and you may not use the Services if you are under 18.',
   privacyInfoTitle: 'Privacy Notice',
@@ -1516,7 +1526,7 @@ const TERMS_TEXT = {
     'All information, content, images, logos, trademarks, graphics, software, and other materials made available by us in connection with Futures Engine (collectively, the “Content”) are the sole property of the owners or licensors of such Content, and are protected by copyright, trademark, and other laws. You may not reproduce, modify, republish, distribute, resell, broadcast, reverse-engineer, create derivative works from or otherwise exploit in any manner, in whole or in part, the Content, except to the extent expressly permitted by us. We do not convey any interest in or to the Content. All rights not expressly granted herein are reserved by the owners or licensors of the Content. For the sake of clarity, the Services include the Content.',
   userMaterialTitle: 'User Material',
   userMaterialSummary: [
-    'Summary: You own your User Material, but you permit us to use it in connection with providing the Services. Your information is not confidential; it will be seen by third parties who review applications or to whom you choose to share your info.',
+    'Summary: You own your User Material, but you permit us to use it in connection with providing the Services. Your information is not confidential; it will be seen by third parties who review applications or to whom you choose to share your info. ',
     'Read more',
     '. We may remove User Material from Futures Engine in our discretion. Submit your User Material at your own risk. If you give us any Feedback, we can use it for any purpose.',
   ],
