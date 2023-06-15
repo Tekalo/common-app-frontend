@@ -10,7 +10,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -18,8 +17,12 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
-import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
+import {
+  executeScroll,
+  jumpToFirstErrorMessage,
+} from '@/lib/helpers/formHelpers';
 import { NewCandidateType } from '@/lib/types';
 import {
   BooleanField,
@@ -86,7 +89,6 @@ const SignupForm: React.FC<ISignupForm> = ({
   const formRef: ForwardedRef<FormInstance<NewCandidateType>> = useRef(null);
   const turnstileCandidateRef = useRef<TurnstileInstance>(null);
 
-  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
   useEffect(() => {
