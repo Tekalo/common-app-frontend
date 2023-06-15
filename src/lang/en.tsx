@@ -307,7 +307,7 @@ const ACCOUNT_PAGE_TEXT = {
 /** MODAL TEXT CONSTANTS */
 const ERROR_MODAL_TEXT = {
   emailExists: 'Email already exists',
-  requestFailed: 'Request requestFailed',
+  requestFailed: 'Request Failed',
   signIn: 'Please sign in',
   somethingWrong: 'Something went wrong. Please try again later.',
   okButton: 'Ok',
