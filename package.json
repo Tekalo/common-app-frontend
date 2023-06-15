@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
-    "local-proxy": "next dev -p 3002 | local-ssl-proxy",
+    "local-proxy": "next dev -p 3002 | local-ssl-proxy --source 3001 --target 3002",
     "build": "next build",
     "export": "next export",
     "e2e": "npx cypress open",
