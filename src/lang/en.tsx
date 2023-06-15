@@ -1491,7 +1491,8 @@ const TERMS_TEXT = {
     </>
   ),
   minAgeTitle: 'Minimum Age',
-  minAgeSummary: 'Summary: You must be 18 or older to use Futures Engine.',
+  minAgeSummary: 
+    'Summary: You must be 18 or older to use Futures Engine.',
   minAgeText:
     'You represent that you are at least 18 years of age (or the age of majority in the jurisdiction in which you reside). The Services are not intended for anyone under 18, and you may not use the Services if you are under 18.',
   privacyInfoTitle: 'Privacy Notice',
