@@ -66,9 +66,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-
 
-      - name: Install Dependencies
-        run: pnpm install
-
       - name: Add hosts to /etc/hosts
         if: $${{inputs.environment == 'production'}}
         run: |
@@ -110,6 +107,9 @@ jobs:
       # - name: Run local proxy
       #   run: |
       #     pnpm local-proxy
+
+      - name: Install Dependencies
+        run: pnpm install
 
       - name: Cypress run
 
