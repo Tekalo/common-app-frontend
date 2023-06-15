@@ -1526,7 +1526,7 @@ const TERMS_TEXT = {
     'All information, content, images, logos, trademarks, graphics, software, and other materials made available by us in connection with Futures Engine (collectively, the “Content”) are the sole property of the owners or licensors of such Content, and are protected by copyright, trademark, and other laws. You may not reproduce, modify, republish, distribute, resell, broadcast, reverse-engineer, create derivative works from or otherwise exploit in any manner, in whole or in part, the Content, except to the extent expressly permitted by us. We do not convey any interest in or to the Content. All rights not expressly granted herein are reserved by the owners or licensors of the Content. For the sake of clarity, the Services include the Content.',
   userMaterialTitle: 'User Material',
   userMaterialSummary: [
-    'Summary: You own your User Material, but you permit us to use it in connection with providing the Services. Your information is not confidential; it will be seen by third parties who review applications or to whom you choose to share your info.',
+    'Summary: You own your User Material, but you permit us to use it in connection with providing the Services. Your information is not confidential; it will be seen by third parties who review applications or to whom you choose to share your info. ',
     'Read more',
     '. We may remove User Material from Futures Engine in our discretion. Submit your User Material at your own risk. If you give us any Feedback, we can use it for any purpose.',
   ],
