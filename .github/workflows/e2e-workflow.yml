@@ -92,6 +92,7 @@ jobs:
         run: |
           sed -i 's=##CERT_KEY##=${{ github.workspace }}/cypress/certs/e2e-key.pem=g' ${{ github.workspace }}/cypress/conf/nginx.conf
 
+        # TODO: Make this localhost a var
       - name: Set e2e url
         run: |
           sed -i 's=##E2E_URL##=https:\/\/localhost:3001=g' ${{ github.workspace }}/cypress/conf/nginx.conf
@@ -132,6 +133,6 @@ jobs:
         with:
           record: false
           build: pnpm build:for-edge
-          start: pnpm local-proxy
+          start: (pnpm local-proxy&)
           wait-on: ${{ vars.E2E_BASE_URL }}
           wait-on-timeout: 120
