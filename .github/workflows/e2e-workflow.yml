@@ -100,8 +100,15 @@ jobs:
 
       - name: Print conf contents
         run: |
+          cat ./cypress/conf/nginx.conf > /etc/nginx/nginx.conf
 
-          cat ./cypress/conf/nginx.conf
+      - name: Start nginx
+        run: |
+          sudo systemctl start nginx
+
+      - name: Run local proxy
+        run: |
+          pnpm local-proxy -- --key ${{ github.workspace }}/cypress/certs/e2e-key.pem --cert ${{ github.workspace }}/cypress/certs/e2e.pem --source 3001 --target 3002
 
       # - name: Cypress run
 
