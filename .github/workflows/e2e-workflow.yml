@@ -98,10 +98,10 @@ jobs:
         run: |
           sed -i 's=##E2E_URL##=${{ vars.E2E_BASE_URL}}=g' ${{ github.workspace }}/cypress/conf/nginx.conf
 
-      # sudo cat ./cypress/conf/nginx.conf > /etc/nginx/nginx.conf
       - name: Print conf contents
         run: |
-          sudo nginx -t -c ${{ github.workspace }}/cypress/conf/nginx.conf
+          sudo cat ./cypress/conf/nginx.conf > /etc/nginx/e2e.conf
+          sudo nginx -t -c /etc/nginx/e2e.conf
 
       - name: Start nginx
         run: |
