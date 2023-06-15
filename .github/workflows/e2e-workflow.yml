@@ -101,7 +101,7 @@ jobs:
         # sudo cat ./cypress/conf/nginx.conf > /etc/nginx/e2e.conf
       - name: Print conf contents
         run: |
-          sudo nginx -t -c /etc/nginx/e2e.conf
+          sudo nginx -t -c ${{ github.workspace }}/cypress/conf/e2e.conf
 
       - name: Start nginx
         run: |
