@@ -100,7 +100,7 @@ jobs:
 
       - name: Print conf contents
         run: |
-          cat ./cypress/conf/nginx.conf > /etc/nginx/nginx.conf
+          sudo cat ./cypress/conf/nginx.conf > /etc/nginx/nginx.conf
 
       - name: Start nginx
         run: |
