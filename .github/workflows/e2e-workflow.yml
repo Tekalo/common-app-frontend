@@ -94,11 +94,11 @@ jobs:
         run: |
           sed -i.bak 's/##CERT_KEY##/\/home\/runner\/work\/common-app-frontend\/common-app-frontend\/cypress\/certs\/e2e-key.pem/g' /home/runner/work/common-app-frontend/common-app-frontend/cypress/conf/nginx.conf
 
-      - name: Set cert key dir
+      - name: Set e2e url
         run: |
           sed -i.bak 's/##E2E_URL##/\/home\/runner\/work\/common-app-frontend\/common-app-frontend\/cypress\/certs\/e2e-key.pem/g' /home/runner/work/common-app-frontend/common-app-frontend/cypress/conf/nginx.conf
 
-          sed -i 's/##E2E_URL##/${{ vars.E2E_BASE_URL }}/g' ${{ github.workspace }}/cypress/conf/nginx.conf
+          sed -i 's=##E2E_URL##=${{ vars.E2E_BASE_URL}}=g' ${{ github.workspace }}/cypress/conf/nginx.conf
 
       - name: Print conf contents
         run: |
