@@ -67,10 +67,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-
 
-      # - name: Add hosts to /etc/hosts
-      #   if: $${{inputs.environment == 'production'}}
-      #   run: |
-      #     sudo echo "127.0.0.1 prod.common-app-frontend.pages.dev" | sudo tee -a /etc/hosts
+      - name: Add hosts to /etc/hosts
+        if: $${{inputs.environment == 'production'}}
+        run: |
+          sudo echo "127.0.0.1 prod.common-app-frontend.pages.dev" | sudo tee -a /etc/hosts
 
       - name: Make certs dir
         run: |
@@ -97,17 +97,17 @@ jobs:
           sed -i 's=##E2E_URL##=${{ vars.E2E_BASE_URL}}=g' ${{ github.workspace }}/cypress/conf/nginx.conf
           cat cypress/conf/nginx.conf
 
-      # - name: Set nginx config
-      #   run: |
-      #     sudo nginx -t -c ${{ github.workspace }}/cypress/conf/nginx.conf
+      - name: Set nginx config
+        run: |
+          sudo nginx -t -c ${{ github.workspace }}/cypress/conf/nginx.conf
 
-      # - name: Start nginx
-      #   run: |
-      #     sudo systemctl start nginx
+      - name: Start nginx
+        run: |
+          sudo systemctl start nginx
 
-      # - name: Run local proxy
-      #   run: |
-      #     pnpm local-proxy
+      - name: Run local proxy
+        run: |
+          pnpm local-proxy
 
       - name: Install Dependencies
         run: pnpm install
