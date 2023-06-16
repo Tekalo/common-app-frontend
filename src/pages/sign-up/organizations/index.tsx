@@ -6,6 +6,7 @@ import {
   opportunityBatchEndpoint,
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
+import { executeScroll } from '@/lib/helpers/formHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
@@ -84,6 +85,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
     setOrgRoles(newOpportunityList);
     setActiveIndex(newOpportunityList.length);
     setShowReview(reviewReady);
+    executeScroll();
   };
 
   const handleEditRole = (editedRole: NewRoleType, reviewReady = false) => {
@@ -92,6 +94,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
     setOrgRoles(newOpportunityList);
     setActiveIndex(activeIndex + 1);
     setShowReview(reviewReady);
+    executeScroll();
   };
 
   const handleDeleteRole = (idx: number) => {

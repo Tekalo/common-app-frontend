@@ -22,6 +22,9 @@ export const printErrorMessages = (
   return errorMessage;
 };
 
+export const executeScroll = () =>
+  window.scrollTo({ top: 0, behavior: 'auto' });
+
 export const capitalizeFirstLetter = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
