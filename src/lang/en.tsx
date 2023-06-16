@@ -833,9 +833,9 @@ const CONTACT_OPTION_TEXT = {
   whatsapp: 'WhatsApp message',
 };
 const REMOTE_OPTION_TEXT = {
-  remoteOnly: 'Only open to remote',
-  notRemote: 'Not open to remote',
-  both: 'Open to remote or in-person',
+  remote: 'Only open to remote',
+  inPerson: 'Not open to remote',
+  hybrid: 'Open to remote or in-person',
 };
 const ORG_SIZE_LABEL_TEXT = {
   employees: ' employees',
@@ -1005,9 +1005,9 @@ const RELOCATION_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'not sure',
 ];
 const REMOTE_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'only remote',
-  'no remote',
-  'both',
+  'remote',
+  'in-person',
+  'hybrid',
   'not sure',
 ];
 const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
@@ -1491,8 +1491,7 @@ const TERMS_TEXT = {
     </>
   ),
   minAgeTitle: 'Minimum Age',
-  minAgeSummary: 
-    'Summary: You must be 18 or older to use Futures Engine.',
+  minAgeSummary: 'Summary: You must be 18 or older to use Futures Engine.',
   minAgeText:
     'You represent that you are at least 18 years of age (or the age of majority in the jurisdiction in which you reside). The Services are not intended for anyone under 18, and you may not use the Services if you are under 18.',
   privacyInfoTitle: 'Privacy Notice',
@@ -2054,59 +2053,58 @@ const TERMS_TEXT = {
 
 export { COOKIE_CONSENT };
 // META
-export { META };
-export { TRACKING };
+export { META, TRACKING };
 // PRIVACY & TERMS EXPORTS
 export {
   APPLICANT_CONTENT_TABLE_TEXT,
-  ORG_CONTENT_TABLE_TEXT,
   BASIS_TABLE_TEXT,
-  ORG_FAQ_TEXT,
   CANDIDATE_FAQ_TEXT,
+  ORG_CONTENT_TABLE_TEXT,
+  ORG_FAQ_TEXT,
   PRIVACY_TEXT,
   TERMS_TEXT,
 };
 // ENUM EXPORTS
 export {
-  TURNSTILE_ENUM_OPTIONS,
-  ORG_TYPE_ENUM_OPTIONS,
-  ORG_SIZE_ENUM_OPTIONS,
-  EMPLOYMENT_TYPE_ENUM_OPTIONS,
-  COMMITMENT_ENUM_OPTIONS,
-  PAID_ENUM_OPTIONS,
-  YOE_ENUM_OPTIONS,
-  YOE_RANGE_ENUM_OPTIONS,
   BOOL_ENUM_OPTIONS,
-  SKILL_ENUM_OPTIONS,
-  ROLE_ENUM_OPTIONS,
   CAUSE_ENUM_OPTIONS,
-  VISA_ENUM_OPTIONS,
+  COMMITMENT_ENUM_OPTIONS,
+  COMMITMENT_ENUM_TEXT,
+  CONTACT_ENUM_OPTIONS,
+  EMPLOYMENT_TYPE_ENUM_OPTIONS,
+  EMPLOYMENT_TYPE_TEXT,
+  ORG_SIZE_ENUM_OPTIONS,
+  ORG_TYPE_ENUM_OPTIONS,
+  PAID_ENUM_OPTIONS,
+  REF_ENUM_OPTIONS,
   RELOCATION_ENUM_OPTIONS,
   REMOTE_ENUM_OPTIONS,
-  WORKAUTH_ENUM_OPTIONS,
-  REF_ENUM_OPTIONS,
-  CONTACT_ENUM_OPTIONS,
-  SEARCH_STATUS_ENUM_OPTIONS,
-  EMPLOYMENT_TYPE_TEXT,
-  COMMITMENT_ENUM_TEXT,
+  ROLE_ENUM_OPTIONS,
   ROLE_ENUM_TEXT,
+  SEARCH_STATUS_ENUM_OPTIONS,
+  SKILL_ENUM_OPTIONS,
+  TURNSTILE_ENUM_OPTIONS,
+  VISA_ENUM_OPTIONS,
+  WORKAUTH_ENUM_OPTIONS,
+  YOE_ENUM_OPTIONS,
+  YOE_RANGE_ENUM_OPTIONS,
 };
 // APP EXPORTS
-export { HEAD_TEXT, ERROR_TEXT };
+export { ERROR_TEXT, HEAD_TEXT };
 // SELECT EXPORTS
 export {
-  YOE_OPTION_TEXT,
-  VISA_SPONSOR_TEXT,
   COMMITMENT_TEXT,
-  ROLE_TEXT,
-  YES_NO_TEXT,
-  PAID_TEXT,
-  USDR_TEXT,
-  WORK_AUTHORIZATION_TEXT,
-  SEARCH_STATUS_TEXT,
   CONTACT_OPTION_TEXT,
-  REMOTE_OPTION_TEXT,
   ORG_SIZE_LABEL_TEXT,
+  PAID_TEXT,
+  REMOTE_OPTION_TEXT,
+  ROLE_TEXT,
+  SEARCH_STATUS_TEXT,
+  USDR_TEXT,
+  VISA_SPONSOR_TEXT,
+  WORK_AUTHORIZATION_TEXT,
+  YES_NO_TEXT,
+  YOE_OPTION_TEXT,
 };
 // INTERNAL LINK EXPORTS
 export {
@@ -2114,21 +2112,21 @@ export {
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
+  BASE_LINK,
   CONTACT_US_MAILTO_LINK,
   ORG_SIGNUP_LINK,
   ORG_SUCCESS_LINK,
   PRIVACY_LINK,
   SIGN_IN_LINK,
   TERMS_LINK,
-  BASE_LINK,
 };
 // EXTERNAL LINK EXPORTS
 export {
-  SCHMIDT_FUTURES_URL,
   ALL_TECH_IS_HUMAN_URL,
-  FAST_FORWARD_URL,
-  US_DIGITAL_RESPONSE_URL,
   EEOC_URL,
+  FAST_FORWARD_URL,
+  SCHMIDT_FUTURES_URL,
+  US_DIGITAL_RESPONSE_URL,
 };
 // NAV EXPORTS
 export {
@@ -2139,32 +2137,32 @@ export {
 };
 // HOME PAGE EXPORTS
 export {
-  HOME_HERO_TEXT,
   HOME_ABOUT_TEXT,
+  HOME_CONTACT_TEXT,
+  HOME_FAQ_TEXT,
+  HOME_HERO_TEXT,
   HOME_HOW_TEXT,
   HOME_ORG_TEXT,
-  HOME_FAQ_TEXT,
-  HOME_CONTACT_TEXT,
 };
 // ACCOUNT PAGE EXPORTS
 export { ACCOUNT_PAGE_TEXT };
 // FORM EXPORTS
 export {
+  APPLICANT_EXPERIENCE_FORM_TEXT,
   APPLICANT_FORM_TEXT,
   INTEREST_FORM_TEXT,
-  APPLICANT_EXPERIENCE_FORM_TEXT,
-  REVIEW_FORM_TEXT,
-  ORG_SIGNUP_FORM_TEXT,
   ORG_FORM_TEXT,
   ORG_ROLE_FORM_TEXT,
+  ORG_SIGNUP_FORM_TEXT,
+  REVIEW_FORM_TEXT,
 };
 // MODAL EXPORTS
 export {
-  PRIVACY_MODAL_TEXT,
-  SAVE_MODAL,
   CONFIRM_MODAL,
-  PAUSE_MODAL,
-  RESUME_MODAL,
   DELETE_MODAL,
   ERROR_MODAL_TEXT,
+  PAUSE_MODAL,
+  PRIVACY_MODAL_TEXT,
+  RESUME_MODAL,
+  SAVE_MODAL,
 };
