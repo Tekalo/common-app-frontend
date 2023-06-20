@@ -9,8 +9,8 @@ import {
 import {
   Causes,
   CommitmentType,
-  Email,
   EOE,
+  Email,
   OptionalPhoneNumber,
   OrgSize,
   OrgType,
@@ -20,7 +20,10 @@ import {
 
 import Button from '@/components/buttons/Button/Button';
 import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
-import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
+import {
+  executeScroll,
+  jumpToFirstErrorMessage,
+} from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
@@ -38,7 +41,6 @@ export interface ISignupForm {
 }
 
 const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
-  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
   return (

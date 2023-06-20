@@ -8,7 +8,10 @@ import {
   REVIEW_FORM_TEXT,
 } from '@/lang/en';
 import { PrivacyPolicy } from '@/lib/enums';
-import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
+import {
+  executeScroll,
+  jumpToFirstErrorMessage,
+} from '@/lib/helpers/formHelpers';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import { BooleanField } from '@/sections/sign-up/fields';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
@@ -68,7 +71,6 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
   isTurnstileValid,
   setIsTurnstileValid,
 }) => {
-  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
   const turnstileOrgRef = useRef<TurnstileInstance>(null);
 
