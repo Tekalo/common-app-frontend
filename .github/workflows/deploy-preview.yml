@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - test/*
-      - '!test/pre-launch'
 
   pull_request:
     types: [opened, synchronize, reopened]
