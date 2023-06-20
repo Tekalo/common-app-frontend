@@ -274,20 +274,20 @@ const RelocationOptions = OpenToRelocate.options.map((option) => ({
 }));
 
 const RemoteOptions = OpenToRemote.options.map((option) => {
-  if (option === 'remote') {
+  if (option === 'only remote') {
     return {
       value: option,
-      displayText: REMOTE_OPTION_TEXT.remote,
+      displayText: REMOTE_OPTION_TEXT.remoteOnly,
     };
-  } else if (option === 'in-person') {
+  } else if (option === 'no remote') {
     return {
       value: option,
-      displayText: REMOTE_OPTION_TEXT.inPerson,
+      displayText: REMOTE_OPTION_TEXT.notRemote,
     };
-  } else if (option === 'hybrid') {
+  } else if (option === 'both') {
     return {
       value: option,
-      displayText: REMOTE_OPTION_TEXT.hybrid,
+      displayText: REMOTE_OPTION_TEXT.both,
     };
   } else {
     return {
@@ -328,24 +328,24 @@ const OrgSizeOptions = OrgSize.options.map((option) => ({
 }));
 
 export {
-  AttributionOtpions,
-  AuthorizationOptions,
-  CauseOptions,
+  YOEOptions,
+  YOERangeOptions,
+  VisaSponsorshipOptions,
+  SkillOptions,
   CommitmentOptions,
   EmploymentOptions,
-  OrgSizeOptions,
-  OrgTypeOptions,
+  RoleOptions,
+  CauseOptions,
+  YesNoOptions,
   PaidOptions,
+  TrueFalseOptions,
+  USDROptions,
+  AuthorizationOptions,
+  SearchStatusOptions,
   PreferredContactOptions,
   RelocationOptions,
   RemoteOptions,
-  RoleOptions,
-  SearchStatusOptions,
-  SkillOptions,
-  TrueFalseOptions,
-  USDROptions,
-  VisaSponsorshipOptions,
-  YOEOptions,
-  YOERangeOptions,
-  YesNoOptions,
+  AttributionOtpions,
+  OrgTypeOptions,
+  OrgSizeOptions,
 };
