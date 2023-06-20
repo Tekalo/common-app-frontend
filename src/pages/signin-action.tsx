@@ -1,3 +1,4 @@
+import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en';
 import { applicantSubmissionsEndpoint, get } from '@/lib/helpers/apiHelpers';
 import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
@@ -11,7 +12,7 @@ const SignInActionPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     const goHome = () => {
-      router.push('/');
+      router.push(BASE_LINK);
     };
 
     const handleSuccess = async (res: Response) => {
@@ -20,7 +21,7 @@ const SignInActionPage: NextPageWithLayout = () => {
       if (submissionResponse.isFinal) {
         goHome();
       } else {
-        router.push('/account');
+        router.push(ACCOUNT_LINK);
       }
     };
 
