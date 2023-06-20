@@ -25,7 +25,10 @@ import {
   VisaSponsorship,
   YOE_RANGE,
 } from '@/lib/enums';
-import { jumpToFirstErrorMessage } from '@/lib/helpers/formHelpers';
+import {
+  executeScroll,
+  jumpToFirstErrorMessage,
+} from '@/lib/helpers/formHelpers';
 import {
   CommitmentType,
   NewRoleType,
@@ -96,7 +99,6 @@ const RoleForm: React.FC<IRoleForm> = ({
   const formRef = useRef<RoleRefType>(null);
   const reviewReadyRef = useRef<boolean>(false);
 
-  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
   const doSubmit = (values: any) => {
@@ -397,7 +399,11 @@ const RoleForm: React.FC<IRoleForm> = ({
                 label={ORG_ROLE_FORM_TEXT.BUTTONS.addRole.label}
                 variant={ButtonVariant.OUTLINED}
                 disabled={activeIndex >= 3}
-                type="submit"
+                onClick={() => {
+                  submit().then(() => {
+                    jumpToFirstErrorMessage();
+                  });
+                }}
               />
               <Button
                 name="review"
