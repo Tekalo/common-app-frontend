@@ -55,7 +55,6 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
     // Note: This process.env variable is picked from the Cloudflare Pages environment variables - others are set at build time in the github action
     switch (process.env.CF_PAGES_BRANCH) {
       case 'main':
-      case 'test/pre-launch':
         return 'https://capp-api.prod-ext.apps.futurestech.cloud';
       case 'staging':
         return 'https://capp-api.staging.apps.futurestech.cloud';
