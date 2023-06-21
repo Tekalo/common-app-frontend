@@ -1,5 +1,6 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
 import { COOKIE_CONSENT, ERROR_TEXT, PRIVACY_LINK } from '@/lang/en';
+import UserProvider from '@/lib/providers/userProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -60,7 +61,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           backend={TouchBackend}
           options={{ enableMouseEvents: true }}
         >
-          {getLayout(<Component {...pageProps} />)}
+          <UserProvider>{getLayout(<Component {...pageProps} />)}</UserProvider>
           <CookieConsent
             onAccept={() => window.consentGranted()}
             enableDeclineButton
