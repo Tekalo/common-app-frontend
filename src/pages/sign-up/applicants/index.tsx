@@ -14,8 +14,8 @@ import {
   TRACKING,
 } from '@/lang/en';
 import {
-  applicantsEndpoint,
   applicantSubmissionsEndpoint,
+  applicantsEndpoint,
   existingApplicantEndpoint,
   get,
   postWithTurnstile,
@@ -76,6 +76,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
     };
 
     // Check if user exists
+    // TODO: Maybe this too?
     const hasAccountData = async (): Promise<boolean> => {
       return get(
         existingApplicantEndpoint,
