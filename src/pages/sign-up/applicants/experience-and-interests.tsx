@@ -51,7 +51,7 @@ const ApplicantForms: NextPageWithLayout = () => {
   }, [isSubmitted]);
 
   useEffect(() => {
-    setIsInterestFormStarted(interestFormFieldCheck(draftFormValues));
+    setIsInterestFormStarted(interestFormHasBeenStarted(draftFormValues));
   }, [draftFormValues]);
 
   useEffect(() => {
@@ -64,9 +64,21 @@ const ApplicantForms: NextPageWithLayout = () => {
     return isAuthenticated ? await getAccessTokenSilently() : '';
   };
 
-  const interestFormFieldCheck = (values?: DraftSubmissionType) => {
+  const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
+    const isFilled = (val: string | string[] | boolean | null | undefined) => {
+      switch (typeof val) {
+        case 'object':
+        case 'string':
+          return val?.length !== 0 && val !== null;
+        case 'boolean':
+          return val !== false;
+        default:
+          return val !== undefined;
+      }
+    };
+
     if (values) {
-      return ![
+      return [
         values.interestEmploymentType,
         values.hoursPerWeek,
         values.interestRoles,
@@ -82,17 +94,7 @@ const ApplicantForms: NextPageWithLayout = () => {
         values.workAuthorization,
         values.essayResponse,
         values.referenceAttribution,
-      ].every((val) => {
-        switch (typeof val) {
-          case 'object':
-          case 'string':
-            return val?.length === 0 || val === null;
-          case 'boolean':
-            return val === false;
-          default:
-            return val === undefined;
-        }
-      });
+      ].some(isFilled);
     }
 
     return false;
@@ -168,7 +170,9 @@ const ApplicantForms: NextPageWithLayout = () => {
       .then(async (res) => {
         if (res.ok) {
           const response: SubmissionResponseType = await res.json();
-          const interestStarted = interestFormFieldCheck(response.submission);
+          const interestStarted = interestFormHasBeenStarted(
+            response.submission
+          );
 
           setDraftFormValues(response.submission);
           setIsInterestFormVisible(interestStarted);
