@@ -37,6 +37,7 @@ const ApplicantForms: NextPageWithLayout = () => {
   const [experienceFields, setExperienceFields] =
     useState<ExperienceFieldsType>();
   const [interestFields, setInterestFields] = useState<InterestFieldsType>();
+  const [isInterestFormStarted, setIsInterestFormStarted] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -50,6 +51,10 @@ const ApplicantForms: NextPageWithLayout = () => {
   }, [isSubmitted]);
 
   useEffect(() => {
+    setIsInterestFormStarted(interestFormHasBeenStarted(draftFormValues));
+  }, [draftFormValues]);
+
+  useEffect(() => {
     if (!isLoading) {
       getSubmissions();
     }
@@ -57,6 +62,42 @@ const ApplicantForms: NextPageWithLayout = () => {
 
   const getAuthToken = async () => {
     return isAuthenticated ? await getAccessTokenSilently() : '';
+  };
+
+  const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
+    const isFilled = (val: string | string[] | boolean | null | undefined) => {
+      switch (typeof val) {
+        case 'object':
+        case 'string':
+          return val?.length !== 0 && val !== null;
+        case 'boolean':
+          return val !== false;
+        default:
+          return val !== undefined;
+      }
+    };
+
+    if (values) {
+      return [
+        values.interestEmploymentType,
+        values.hoursPerWeek,
+        values.interestRoles,
+        values.currentLocation,
+        values.openToRelocate,
+        values.openToRemote,
+        values.desiredSalary,
+        values.interestCauses,
+        values.otherCauses,
+        values.interestGovt,
+        values.interestGovtEmplTypes,
+        values.previousImpactExperience,
+        values.workAuthorization,
+        values.essayResponse,
+        values.referenceAttribution,
+      ].some(isFilled);
+    }
+
+    return false;
   };
 
   // Hits the submission endpoint to submit the form
@@ -129,7 +170,12 @@ const ApplicantForms: NextPageWithLayout = () => {
       .then(async (res) => {
         if (res.ok) {
           const response: SubmissionResponseType = await res.json();
+          const interestStarted = interestFormHasBeenStarted(
+            response.submission
+          );
+
           setDraftFormValues(response.submission);
+          setIsInterestFormVisible(interestStarted);
         } else if (res.status === 401) {
           router.push(BASE_LINK);
         } else {
@@ -147,17 +193,32 @@ const ApplicantForms: NextPageWithLayout = () => {
     {
       content: (
         <div
-          className={isInterestFormVisible ? `cursor-pointer text-blue-1` : ''}
-          onClick={() => setIsInterestFormVisible(false)}
+          onClick={
+            isInterestFormVisible
+              ? () => setIsInterestFormVisible(false)
+              : () => void {}
+          }
         >
           {APPLICANT_FORM_TEXT.EXPERIENCE}
         </div>
       ),
-      isActive: true,
+      isEnabled: true,
+      isCurrent: !isInterestFormVisible,
     },
     {
-      content: APPLICANT_FORM_TEXT.INTERESTS,
-      isActive: isInterestFormVisible,
+      content: (
+        <div
+          onClick={
+            !isInterestFormVisible && isInterestFormStarted
+              ? () => setIsInterestFormVisible(true)
+              : () => void {}
+          }
+        >
+          {APPLICANT_FORM_TEXT.INTERESTS}
+        </div>
+      ),
+      isEnabled: isInterestFormVisible || isInterestFormStarted,
+      isCurrent: isInterestFormVisible,
     },
   ];
 

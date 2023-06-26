@@ -8,7 +8,11 @@ import {
   Skills,
   YOE,
 } from '@/lib/enums';
-import { jumpToFirstErrorMessage, resetForm } from '@/lib/helpers/formHelpers';
+import {
+  executeScroll,
+  jumpToFirstErrorMessage,
+  resetForm,
+} from '@/lib/helpers/formHelpers';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
@@ -34,7 +38,6 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   handleSave,
   savedForm,
 }) => {
-  const executeScroll = () => window.scrollTo({ top: 0, behavior: 'auto' });
   useEffect(executeScroll, []);
 
   useEffect(() => {
