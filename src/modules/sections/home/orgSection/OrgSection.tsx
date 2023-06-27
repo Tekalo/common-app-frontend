@@ -18,6 +18,9 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       url: 'https://www.mcgovern.org/',
     },
     {
+      test: true,
+    },
+    {
       src: '/images/logos/Humans_of_Public_Service.jpeg',
       alt: 'Humans of Public Service Logo',
       url: 'https://humansofpublicservice.org/about',
