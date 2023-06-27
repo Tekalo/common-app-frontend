@@ -37,6 +37,18 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
     </div>
   );
 
+  const getLabelClasses = (item: ITimelineItem) => {
+    if (item.isEnabled) {
+      if (item.isCurrent) {
+        return `text-black-text underline underline-offset-4`;
+      } else {
+        return `text-black-text hover:text-blue-1 hover:underline hover:underline-offset-4 cursor-pointer`;
+      }
+    } else {
+      return 'text-gray-2';
+    }
+  };
+
   /** NOTE:
    * This horizontal timeline sets the column count to be double the input
    * length - 1 to give us the correct number of columns to put the lines in
@@ -55,13 +67,13 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
               {/* Bubble */}
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-full ${
-                  item.isActive
+                  item.isEnabled
                     ? 'bg-blue-1 text-white'
                     : 'bg-gray-4 text-gray-2'
                 } text-center font-display text-component-extra-large`}
               >
                 {/* If the next item in timelineItems has property of isActive=true then display heroicon checkmark otherwise display the current index plus 1 as a string*/}
-                {timelineItems[i + 1] && timelineItems[i + 1].isActive ? (
+                {timelineItems[i + 1] && timelineItems[i + 1].isEnabled ? (
                   <CheckIcon className="h-[18px] w-[18px] stroke-2" />
                 ) : (
                   `${i + 1}`
@@ -70,9 +82,9 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
               {/* Label */}
               <div className="-mx-8 mt-4">
                 <div
-                  className={`font-sans text-p3-desktop ${
-                    item.isActive ? 'text-black-text' : 'text-gray-2'
-                  }`}
+                  className={`font-sans text-p3-desktop ${getLabelClasses(
+                    item
+                  )}`}
                 >
                   {item.content}
                 </div>
@@ -84,7 +96,7 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
             {i !== timelineItems.length - 1 ? (
               <div
                 className={`mb-8 h-[2px] w-[124px] rounded-full ${
-                  timelineItems[i + 1].isActive ? 'bg-blue-1' : 'bg-gray-4'
+                  timelineItems[i + 1].isEnabled ? 'bg-blue-1' : 'bg-gray-4'
                 }`}
               />
             ) : null}

@@ -102,7 +102,8 @@ export interface ITimelineItem {
   title?: string;
   content: string | ReactElement;
   className?: string;
-  isActive?: boolean;
+  isEnabled?: boolean;
+  isCurrent?: boolean;
 }
 export interface IFaqItem {
   questionText: string;

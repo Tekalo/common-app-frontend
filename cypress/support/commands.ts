@@ -17,7 +17,7 @@ Cypress.Commands.add('bypassCloudflareAccess', (): void => {
 });
 
 Cypress.Commands.add('validateLogin', (): void => {
-  cy.visit('/account');
+  cy.visit('account');
   cy.get('h3[data-name=account-greeting]', { timeout: 10000 }).should(
     'have.text',
     'Welcome back, Test User'
@@ -40,10 +40,7 @@ Cypress.Commands.add('login', (): void => {
         cy.get('button[name=action]').last().click();
       });
 
-      cy.url({ timeout: 10000 }).should(
-        'contain',
-        `${Cypress.config('baseUrl')}`
-      );
+      cy.url({ timeout: 10000 }).should('contain', `/account`);
     },
     {
       validate() {
