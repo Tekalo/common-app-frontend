@@ -283,6 +283,7 @@ describe('Candidate Application', () => {
   function fillOpenToRemote(): void {
     cy.get('button[name=input-openToRemote]').click();
     cy.get('li[data-name="input-openToRemote-remote"]').click();
+    cy.get('button[name=input-openToRemote]').click();
   }
 
   function fillDesiredSalary(): void {
