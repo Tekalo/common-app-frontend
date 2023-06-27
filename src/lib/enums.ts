@@ -154,6 +154,10 @@ const OpenToRemote = z.enum(REMOTE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
+const RemoteValidator = OpenToRemote.array().refine((v) => !!v.length, {
+  message: ERROR_TEXT.requiredSelectGroup,
+});
+
 const WorkAuthorization = z.enum(WORKAUTH_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
@@ -220,6 +224,7 @@ export {
   GovtJobType,
   OpenToRelocate,
   OpenToRemote,
+  RemoteValidator,
   OptionalDate,
   OptionalEssay,
   OptionalPhoneNumber,

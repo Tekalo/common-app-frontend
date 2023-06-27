@@ -20,9 +20,9 @@ import {
   CommitmentTypeValidator,
   GovtJobType,
   OpenToRelocate,
-  OpenToRemote,
   OptionalString,
   ReferenceAttribution,
+  RemoteValidator,
   RequiredEssay,
   RequiredString,
   RolesValidator,
@@ -211,7 +211,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={RemoteOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.openToRemote || []}
-            validator={OpenToRemote}
+            validator={RemoteValidator}
           />
           {/* Salary*/}
           <FreeTextField
