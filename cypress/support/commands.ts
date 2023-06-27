@@ -1,12 +1,13 @@
 import { deleteRequest } from '@/lib/helpers/apiHelpers';
 
-Cypress.Commands.add('bypassCloudflareAccess', (): void => {
+Cypress.Commands.add('setupTestingEnvironment', (): void => {
   cy.session(
     'cf',
     () => {
       cy.visit({
         url: '/',
         headers: {
+          'Debug-Mode-Secret': Cypress.env('debug_mode_secret'),
           'CF-Access-Client-Id': Cypress.env('cf_access_id'),
           'CF-Access-Client-Secret': Cypress.env('cf_access_secret'),
         },
@@ -28,7 +29,7 @@ Cypress.Commands.add('login', (): void => {
   cy.session(
     'login',
     () => {
-      cy.bypassCloudflareAccess();
+      cy.setupTestingEnvironment();
       cy.visit('/sign-in');
 
       cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {

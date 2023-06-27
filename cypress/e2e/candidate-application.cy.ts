@@ -9,7 +9,7 @@ describe('Candidate Application', () => {
   const navigationFormFillDelay = 250;
 
   beforeEach(() => {
-    cy.bypassCloudflareAccess();
+    cy.setupTestingEnvironment();
     cy.visit('/sign-up/applicants');
   });
 

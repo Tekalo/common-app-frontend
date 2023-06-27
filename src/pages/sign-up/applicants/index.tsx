@@ -14,8 +14,8 @@ import {
   TRACKING,
 } from '@/lang/en';
 import {
-  applicantsEndpoint,
   applicantSubmissionsEndpoint,
+  applicantsEndpoint,
   existingApplicantEndpoint,
   get,
   postWithTurnstile,
@@ -60,6 +60,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   /** Get user data on page load */
   useEffect(() => {
+    console.log(document.cookie);
     // Check if user has  an application
     const hasSubmitted = async (): Promise<boolean> => {
       return get(

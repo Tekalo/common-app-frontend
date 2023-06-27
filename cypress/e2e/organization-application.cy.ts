@@ -1,7 +1,5 @@
 import { EmploymentType } from '@/lib/enums';
-import {
-  opportunityBatchEndpoint
-} from '@/lib/helpers/apiHelpers';
+import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
@@ -13,7 +11,7 @@ describe('Organization Application', () => {
   const reviewPageTitleSelector = 'h3[data-name=review-page-title]';
 
   beforeEach(() => {
-    cy.bypassCloudflareAccess();
+    cy.setupTestingEnvironment();
     cy.visit('/sign-up/organizations');
   });
 
