@@ -23,19 +23,14 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       url: 'https://humansofpublicservice.org/about',
     },
     {
-      src: '/images/logos/Agency_Fund.png',
-      alt: 'Agency Fund Logo',
-      url: 'https://www.agency.fund/',
+      src: '/images/logos/Avela.png',
+      alt: 'Avela',
+      url: 'https://avela.org/',
     },
     {
       src: '/images/logos/Project_Tech4Dev.png',
       alt: 'Project Tech 4 Dev Logo',
       url: 'https://projecttech4dev.org/',
-    },
-    {
-      src: '/images/logos/new_data.png',
-      alt: 'New Data Logo',
-      url: 'https://center-for-new-data.breezy.hr/',
     },
     {
       src: '/images/logos/AmeelioLogo.png',
@@ -46,6 +41,46 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       src: '/images/logos/McsilverLogo.png',
       alt: 'NYU McSilver Logo',
       url: 'https://www.mcsilver.nyu.edu/',
+    },
+    {
+      src: '/images/logos/New_Public_Logo.png',
+      alt: 'New_ Public',
+      url: 'https://newpublic.org/',
+    },
+    {
+      src: '/images/logos/Lead_For_America.jpg',
+      alt: 'Lead for America Logo',
+      url: 'https://www.leadforamerica.org/',
+    },
+    {
+      src: '/images/logos/new_data.png',
+      alt: 'New Data Logo',
+      url: 'https://center-for-new-data.breezy.hr/',
+    },
+    {
+      src: '/images/logos/GTSSE.png',
+      alt: 'Scientific Software Engineering Center at Georgia Tech',
+      url: 'https://ssecenter.cc.gatech.edu/',
+    },
+    {
+      src: '/images/logos/schoolhouse.png',
+      alt: 'Schoolhouse',
+      url: 'https://schoolhouse.world/',
+    },
+    {
+      src: '/images/logos/Agency_Fund.png',
+      alt: 'Agency Fund Logo',
+      url: 'https://www.agency.fund/',
+    },
+    {
+      src: '/images/logos/Run_the_Future_logo.png',
+      alt: 'Run the Future',
+      url: 'https://formation.ventures/',
+    },
+    {
+      src: '/images/logos/I_CAN_HELP_HOST.png',
+      alt: 'I CAN HELP HOST',
+      url: 'https://icanhelp.host/',
     },
   ];
 

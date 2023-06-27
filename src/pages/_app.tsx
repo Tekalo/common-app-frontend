@@ -1,6 +1,9 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
 import { COOKIE_CONSENT, ERROR_TEXT, PRIVACY_LINK } from '@/lang/en';
 import UserProvider from '@/lib/providers/userProvider';
+
+import { SIGN_IN_REDIRECT } from '@/lang/en';
+
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -45,7 +48,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       authorizationParams={{
         audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
         redirect_uri:
-          typeof window === 'undefined' ? undefined : window.location.origin,
+          typeof window === 'undefined'
+            ? undefined
+            : `${window.location.origin}${SIGN_IN_REDIRECT}`,
       }}
     >
       <Sentry.ErrorBoundary // Enable Sentry by wrapping component with ErrorBoundary
