@@ -1,6 +1,7 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
   COMMITMENT_ENUM_TEXT,
+  EMPLOYMENT_TYPE_TEXT,
   INTEREST_FORM_TEXT,
   ROLE_ENUM_TEXT,
 } from '@/lang/en';
@@ -9,6 +10,7 @@ import {
   AuthorizationOptions,
   CauseOptions,
   CommitmentOptions,
+  EmploymentOptions,
   RelocationOptions,
   RemoteOptions,
   RoleOptions,
@@ -18,6 +20,7 @@ import {
 import {
   CausesValidator,
   CommitmentTypeValidator,
+  EmploymentType,
   GovtJobType,
   OpenToRelocate,
   OptionalString,
@@ -146,6 +149,36 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={employmentType}
             validator={CommitmentTypeValidator}
           />
+          {/* TODO: CAPP-825 */}
+          {employmentType.includes(COMMITMENT_ENUM_TEXT.part) && (
+            <MultiSelectField
+              fieldName="employmentTypeSelect"
+              label={INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect.label}
+              placeholder={
+                INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect.placeholder
+              }
+              selectionLabelMulti={
+                INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect
+                  .selectionLabelMulti
+              }
+              selectionLabelSingle={
+                INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect
+                  .selectionLabelSingle
+              }
+              listOptions={EmploymentOptions.sort((a, b) => {
+                if (a.displayText > b.displayText) return 1;
+                if (a.displayText < b.displayText) return -1;
+                return 0;
+              }).filter(
+                (option) =>
+                  option.value !== EMPLOYMENT_TYPE_TEXT.fte &&
+                  option.value !== EMPLOYMENT_TYPE_TEXT.other
+              )}
+              isSubmitted={isSubmitted}
+              initialValue={savedForm?.employmentTypeSelect || []}
+              validator={EmploymentType}
+            />
+          )}
           {/* Hours per week */}
           <FreeTextField
             fieldName="hoursPerWeek"

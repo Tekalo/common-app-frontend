@@ -1,6 +1,7 @@
 import {
   Causes,
   CommitmentType,
+  EmploymentType,
   GovtJobType,
   OpenToRelocate,
   OpenToRemote,
@@ -89,6 +90,7 @@ const CandidateExperienceSchema = z.object({
 
 const CandidateInterestsSchema = z.object({
   hoursPerWeek: z.string().nullable().optional(),
+  employmentTypeSelect: z.array(EmploymentType),
   interestEmploymentType: z.array(CommitmentType),
   interestRoles: z.array(Roles), // keep this as non-zod-enum?
   currentLocation: z.string(),
