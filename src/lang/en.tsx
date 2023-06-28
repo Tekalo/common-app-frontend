@@ -871,8 +871,7 @@ const ERROR_TEXT = {
   somethingWrong: 'Something went wrong - please try again',
   termsRequired: 'You must agree to the Terms of Use',
   unhandledCode: '500',
-  unhandledText:
-    'Error! Something has gone wrong. Please try again. If the issue persists, try back in a little while.',
+  unhandledText: 'Oops something went wrong. Please try again later.',
   unknownError: 'An unknown error has occurred',
   userAlreadyExists: 'This account already exists, please sign in',
 };
