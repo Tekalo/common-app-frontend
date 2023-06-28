@@ -444,8 +444,10 @@ const INTEREST_FORM_TEXT = {
       placeholder: 'Choose one',
     },
     openToRemote: {
-      label: 'Open to remote?',
+      label: 'Prefer to be remote or in person?',
       placeholder: 'Choose one',
+      selectionLabelMulti: ' Options selected',
+      selectionLabelSingle: ' Option selected',
     },
     desiredSalary: {
       label: 'Desired salary (optional)',
@@ -1008,9 +1010,9 @@ const RELOCATION_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'not sure',
 ];
 const REMOTE_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'only remote',
-  'no remote',
-  'both',
+  'remote',
+  'in-person',
+  'hybrid',
   'not sure',
 ];
 const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
