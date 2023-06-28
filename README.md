@@ -153,6 +153,10 @@ If you wish to run all of the tests through the command line, you can simply run
 
 You will need an instance of the application running on the `NEXT_PUBLIC_BASE_URL` set in your .env.local file for the tests to run.
 
+### Known Pitfalls
+
+If your tests are unexpectedly failing when you've re-ordered some components or added new form fields, ensure that you are closing any dropdown menus or other objects that sit on top of other fields. Failing to do so may cause tests to be unable to see and update inputs that are covered
+
 ## Miscellaneous
 
 ### Why the project is setup this way

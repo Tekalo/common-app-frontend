@@ -109,6 +109,11 @@ const EmploymentType = z.enum(EMPLOYMENT_TYPE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
+const EmploymentTypeValidator = EmploymentType.array().refine(
+  (v) => !!v.length,
+  { message: ERROR_TEXT.requiredSelectGroup }
+);
+
 const CommitmentType = z.enum(COMMITMENT_ENUM_OPTIONS, {
   errorMap: chooseOneErrorMap,
 });
@@ -152,6 +157,10 @@ const OpenToRelocate = z.enum(RELOCATION_ENUM_OPTIONS, {
 
 const OpenToRemote = z.enum(REMOTE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
+});
+
+const RemoteValidator = OpenToRemote.array().refine((v) => !!v.length, {
+  message: ERROR_TEXT.requiredSelectGroup,
 });
 
 const WorkAuthorization = z.enum(WORKAUTH_ENUM_OPTIONS, {
@@ -217,9 +226,11 @@ export {
   EOE,
   Email,
   EmploymentType,
+  EmploymentTypeValidator,
   GovtJobType,
   OpenToRelocate,
   OpenToRemote,
+  RemoteValidator,
   OptionalDate,
   OptionalEssay,
   OptionalPhoneNumber,
