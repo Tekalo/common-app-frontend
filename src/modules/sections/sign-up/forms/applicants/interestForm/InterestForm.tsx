@@ -149,7 +149,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={employmentType}
             validator={CommitmentTypeValidator}
           />
-          {/* TODO: CAPP-825 */}
+          {/* Interest Work Arrangement */}
           {employmentType.includes(COMMITMENT_ENUM_TEXT.part) && (
             <MultiSelectField
               fieldName="interestWorkArrangement"
