@@ -44,6 +44,7 @@ describe('Candidate Application', () => {
 
     cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
+    selectWorkArrangement();
     selectRoleInterest();
     fillCurrentLocation();
     fillOpenToRelocation();
@@ -97,6 +98,7 @@ describe('Candidate Application', () => {
 
     cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
+    selectWorkArrangement();
     fillHoursPerWeek();
     selectRoleInterest();
     fillCurrentLocation();
@@ -252,6 +254,12 @@ describe('Candidate Application', () => {
     cy.get('input[name=input-hoursPerWeek]').should('not.be.disabled');
   }
 
+  function selectWorkArrangement(): void {
+    cy.get('button[name="input-interestWorkArrangement"]').click();
+    cy.get('li[data-name="input-interestWorkArrangement-advisor"]').click();
+    cy.get('button[name="input-interestWorkArrangement"]').click();
+  }
+
   function fillHoursPerWeek(): void {
     cy.get('input[name=input-hoursPerWeek]').type('40hrs');
   }
@@ -282,7 +290,8 @@ describe('Candidate Application', () => {
 
   function fillOpenToRemote(): void {
     cy.get('button[name=input-openToRemote]').click();
-    cy.get('li[data-name="input-openToRemote-only remote"]').click();
+    cy.get('li[data-name="input-openToRemote-remote"]').click();
+    cy.get('button[name=input-openToRemote]').click();
   }
 
   function fillDesiredSalary(): void {

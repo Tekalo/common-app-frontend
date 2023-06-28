@@ -1,6 +1,7 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
   COMMITMENT_ENUM_TEXT,
+  EMPLOYMENT_TYPE_TEXT,
   INTEREST_FORM_TEXT,
   ROLE_ENUM_TEXT,
 } from '@/lang/en';
@@ -9,6 +10,7 @@ import {
   AuthorizationOptions,
   CauseOptions,
   CommitmentOptions,
+  EmploymentOptions,
   RelocationOptions,
   RemoteOptions,
   RoleOptions,
@@ -18,11 +20,12 @@ import {
 import {
   CausesValidator,
   CommitmentTypeValidator,
+  EmploymentTypeValidator,
   GovtJobType,
   OpenToRelocate,
-  OpenToRemote,
   OptionalString,
   ReferenceAttribution,
+  RemoteValidator,
   RequiredEssay,
   RequiredString,
   RolesValidator,
@@ -146,6 +149,36 @@ const InterestForm: React.FC<IInterestForm> = ({
             initialValue={employmentType}
             validator={CommitmentTypeValidator}
           />
+          {/* Interest Work Arrangement */}
+          {employmentType.includes(COMMITMENT_ENUM_TEXT.part) && (
+            <MultiSelectField
+              fieldName="interestWorkArrangement"
+              label={INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement.label}
+              placeholder={
+                INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement.placeholder
+              }
+              selectionLabelMulti={
+                INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement
+                  .selectionLabelMulti
+              }
+              selectionLabelSingle={
+                INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement
+                  .selectionLabelSingle
+              }
+              listOptions={EmploymentOptions.sort((a, b) => {
+                if (a.displayText > b.displayText) return 1;
+                if (a.displayText < b.displayText) return -1;
+                return 0;
+              }).filter(
+                (option) =>
+                  option.value !== EMPLOYMENT_TYPE_TEXT.fte &&
+                  option.value !== EMPLOYMENT_TYPE_TEXT.other
+              )}
+              isSubmitted={isSubmitted}
+              initialValue={savedForm?.interestWorkArrangement || []}
+              validator={EmploymentTypeValidator}
+            />
+          )}
           {/* Hours per week */}
           <FreeTextField
             fieldName="hoursPerWeek"
@@ -198,14 +231,20 @@ const InterestForm: React.FC<IInterestForm> = ({
             validator={OpenToRelocate}
           />
           {/* Remote */}
-          <SingleSelectField
+          <MultiSelectField
             fieldName="openToRemote"
             label={INTEREST_FORM_TEXT.FIELDS.openToRemote.label}
             placeholder={INTEREST_FORM_TEXT.FIELDS.openToRemote.placeholder}
+            selectionLabelMulti={
+              INTEREST_FORM_TEXT.FIELDS.openToRemote.selectionLabelMulti
+            }
+            selectionLabelSingle={
+              INTEREST_FORM_TEXT.FIELDS.openToRemote.selectionLabelSingle
+            }
             listOptions={RemoteOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.openToRemote}
-            validator={OpenToRemote}
+            initialValue={savedForm?.openToRemote || []}
+            validator={RemoteValidator}
           />
           {/* Salary*/}
           <FreeTextField
