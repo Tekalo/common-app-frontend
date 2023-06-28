@@ -11,6 +11,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
+import { CookiesProvider } from 'react-cookie';
 import CookieConsent, {
   OPTIONS,
   getCookieConsentValue,
@@ -67,6 +68,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           backend={TouchBackend}
           options={{ enableMouseEvents: true }}
         >
+          <CookiesProvider />
           {getLayout(<Component {...pageProps} />)}
           <CookieConsent
             onAccept={() => window.consentGranted()}

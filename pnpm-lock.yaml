@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 overrides:
   webpack: ^5
@@ -43,9 +47,15 @@ dependencies:
   react:
     specifier: 18.2.0
     version: 18.2.0
+  react-cookie:
+    specifier: ^4.1.1
+    version: 4.1.1(react@18.2.0)
   react-cookie-consent:
     specifier: ^8.0.1
     version: 8.0.1(react@18.2.0)
+  react-cookies:
+    specifier: ^0.1.1
+    version: 0.1.1
   react-dnd:
     specifier: ^16.0.1
     version: 16.0.1(@types/node@18.13.0)(@types/react@18.0.28)(react@18.2.0)
@@ -268,7 +278,7 @@ packages:
       '@babel/parser': 7.22.5
       '@babel/template': 7.22.5
       '@babel/traverse': 7.22.5
-      '@babel/types': 7.21.5
+      '@babel/types': 7.22.5
       convert-source-map: 1.9.0
       debug: 4.3.4(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
@@ -2308,7 +2318,7 @@ packages:
       '@babel/plugin-transform-unicode-escapes': 7.22.5(@babel/core@7.21.8)
       '@babel/plugin-transform-unicode-regex': 7.22.5(@babel/core@7.21.8)
       '@babel/preset-modules': 0.1.5(@babel/core@7.21.8)
-      '@babel/types': 7.21.5
+      '@babel/types': 7.22.5
       babel-plugin-polyfill-corejs2: 0.3.3(@babel/core@7.21.8)
       babel-plugin-polyfill-corejs3: 0.6.0(@babel/core@7.21.8)
       babel-plugin-polyfill-regenerator: 0.4.1(@babel/core@7.21.8)
@@ -2886,7 +2896,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-arm64@0.17.6:
@@ -2920,7 +2929,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-arm@0.17.6:
@@ -2945,7 +2953,6 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-x64@0.17.6:
@@ -2970,7 +2977,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/darwin-arm64@0.17.6:
@@ -2995,7 +3001,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/darwin-x64@0.17.6:
@@ -3020,7 +3025,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/freebsd-arm64@0.17.6:
@@ -3045,7 +3049,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/freebsd-x64@0.17.6:
@@ -3070,7 +3073,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-arm64@0.17.6:
@@ -3095,7 +3097,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-arm@0.17.6:
@@ -3120,7 +3121,6 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-ia32@0.17.6:
@@ -3154,7 +3154,6 @@ packages:
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-loong64@0.17.6:
@@ -3179,7 +3178,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-mips64el@0.17.6:
@@ -3204,7 +3202,6 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-ppc64@0.17.6:
@@ -3229,7 +3226,6 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-riscv64@0.17.6:
@@ -3254,7 +3250,6 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-s390x@0.17.6:
@@ -3279,7 +3274,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-x64@0.17.6:
@@ -3304,7 +3298,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/netbsd-x64@0.17.6:
@@ -3329,7 +3322,6 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/openbsd-x64@0.17.6:
@@ -3354,7 +3346,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/sunos-x64@0.17.6:
@@ -3379,7 +3370,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-arm64@0.17.6:
@@ -3404,7 +3394,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-ia32@0.17.6:
@@ -3429,7 +3418,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-x64@0.17.6:
@@ -4007,7 +3995,7 @@ packages:
     resolution: {integrity: sha512-8KG5RD0GVP4ydEzRn/I4BNDuxDtqVbOdm8675T49OIG/NGhaK0pjPX7ZcDlvKYbA+ulvVK3ztfcF4uBdOxuJbQ==}
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.3.8
+      semver: 7.5.1
 
   /@npmcli/move-file@1.1.2:
     resolution: {integrity: sha512-1SUf/Cg2GzGDyaf15aR9St9TWlb+XvbZXWpDx8YKs7MLzMH/BCeopv+y9vzrzgkfykCGuWOlSu3mZhj2+FQcrg==}
@@ -4917,11 +4905,11 @@ packages:
       telejson: 7.1.0
     dev: true
 
-  /@storybook/channel-postmessage@7.1.0-alpha.34:
-    resolution: {integrity: sha512-5H2XCeEeKUTkG/4bbMD+xM3DWbIC+4DXwnd0aLN8BxHqjlWxD83m95i05eCZAZ+VlM40UocDvLeZYr1menrvZQ==}
+  /@storybook/channel-postmessage@7.1.0-alpha.40:
+    resolution: {integrity: sha512-BzktCTkfAHjPM3pXF+9gqqV9yd95o0q6Yo502n+tnyvQl+LvsGEzVb1UXyaF2Vve0lfcqXz5Ge3W18zcm7x12g==}
     dependencies:
-      '@storybook/channels': 7.1.0-alpha.34
-      '@storybook/client-logger': 7.1.0-alpha.34
+      '@storybook/channels': 7.1.0-alpha.40
+      '@storybook/client-logger': 7.1.0-alpha.40
     dev: true
 
   /@storybook/channel-websocket@7.0.0-rc.10:
@@ -4957,11 +4945,11 @@ packages:
     resolution: {integrity: sha512-AL5GGSQ8WTDUoh3gitKEzo3fu7Vq5okXq2pAknAZlQA2Oio+HHO5nMeXvOfGdvo/tzbpNE3n5utmCJz006xrCA==}
     dev: true
 
-  /@storybook/channels@7.1.0-alpha.34:
-    resolution: {integrity: sha512-lC8EwBYacTFEQ+tG0tyPfW/05XrsSt0+glAIBgAaDKggRLvdYUP6oukvsz0Zw6vDxSIJol6kF1WB0BTXb07Tig==}
+  /@storybook/channels@7.1.0-alpha.40:
+    resolution: {integrity: sha512-GMbuR8M/idzCjwWVpBu6yCtkolFhfJDX7/61Y/RAfj8yToJ1BvfaO66Ur8pjfm6Y3q1gxJxvRNyFGAixUCqULw==}
     dependencies:
-      '@storybook/client-logger': 7.1.0-alpha.34
-      '@storybook/core-events': 7.1.0-alpha.34
+      '@storybook/client-logger': 7.1.0-alpha.40
+      '@storybook/core-events': 7.1.0-alpha.40
       '@storybook/global': 5.0.0
       qs: 6.11.2
       telejson: 7.1.0
@@ -5074,8 +5062,8 @@ packages:
       '@storybook/global': 5.0.0
     dev: true
 
-  /@storybook/client-logger@7.1.0-alpha.34:
-    resolution: {integrity: sha512-bb740Ex080V7/SgcxTVohO+aPFE0pHA4lkRAJEEKZkfluzBZrNTJzgT+THIdxHPux/EyKGHL2wS1wdREdcgfhw==}
+  /@storybook/client-logger@7.1.0-alpha.40:
+    resolution: {integrity: sha512-j6nPSGAZM88nC5bKMhQfZW3jeK2XoizAZO9zbojb3znDMqbjPeOWqtc1JPOgsTS8bYEMgYfc727k75rqnaywGA==}
     dependencies:
       '@storybook/global': 5.0.0
     dev: true
@@ -5202,8 +5190,8 @@ packages:
     resolution: {integrity: sha512-Z4S6H1E5FuG7eiVozqcqNBSADt0kCDZeXlpR/gIOYLmTd/BDIQ2QhLt+G41BbEvck8nRnC7lZ9DXuref8V3pDA==}
     dev: true
 
-  /@storybook/core-events@7.1.0-alpha.34:
-    resolution: {integrity: sha512-b9+2dm8kz7d1DzyhCjhgWAwbOSvKakI/Jcnp/ml4CEZhOTx77fHgfRxEPwxMc1g+xHM8YZGSLgAb857ShJwfEw==}
+  /@storybook/core-events@7.1.0-alpha.40:
+    resolution: {integrity: sha512-mP8OfPtHILDTrKrDv7u1V0qWjXwwRrh4ZYY5TOzOox5UmOy9/u02Yv7K8iDhmCYjMXmKOyzEKI9Wb/3URzAZBg==}
     dev: true
 
   /@storybook/core-server@7.0.0-rc.10:
@@ -5388,14 +5376,14 @@ packages:
       '@storybook/preview-api': 7.0.0-rc.10
     dev: true
 
-  /@storybook/instrumenter@7.1.0-alpha.34:
-    resolution: {integrity: sha512-F4mZ0QOL/0p1EBhhRi8fRIiwl6ZJKnwc4sleQaut4tNukXwJArdiKMaa7dzBBPbrG446BTefnU72puqgMwjCAw==}
+  /@storybook/instrumenter@7.1.0-alpha.40:
+    resolution: {integrity: sha512-Pnl/r1d/Lgmp5nLLhQiYSjJVYJAJO2yuO20z7LpjkekgkdzLN8cMQvQyeHYQpamqpa+rd965kBfZ8mstCwfo2Q==}
     dependencies:
-      '@storybook/channels': 7.1.0-alpha.34
-      '@storybook/client-logger': 7.1.0-alpha.34
-      '@storybook/core-events': 7.1.0-alpha.34
+      '@storybook/channels': 7.1.0-alpha.40
+      '@storybook/client-logger': 7.1.0-alpha.40
+      '@storybook/core-events': 7.1.0-alpha.40
       '@storybook/global': 5.0.0
-      '@storybook/preview-api': 7.1.0-alpha.34
+      '@storybook/preview-api': 7.1.0-alpha.40
     dev: true
 
   /@storybook/manager-api@7.0.0-rc.10(react-dom@18.2.0)(react@18.2.0):
@@ -5608,16 +5596,16 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /@storybook/preview-api@7.1.0-alpha.34:
-    resolution: {integrity: sha512-oJeM+TM4Ma/2BtvPonvy6sxZwheLAFHbVhY+jO/L6SGuIJGVmCbxBh7k+LV4LbZR2RuXMMAFFOb7EjMrLcX+0A==}
+  /@storybook/preview-api@7.1.0-alpha.40:
+    resolution: {integrity: sha512-dE+j+2hwg0GO43BctZGvkkJvDjLwUWJd0PSG07l26iAmNvDjMD9Npa3lii2mqDjrtdZWNSGNz7hhqt9WpWAYBQ==}
     dependencies:
-      '@storybook/channel-postmessage': 7.1.0-alpha.34
-      '@storybook/channels': 7.1.0-alpha.34
-      '@storybook/client-logger': 7.1.0-alpha.34
-      '@storybook/core-events': 7.1.0-alpha.34
+      '@storybook/channel-postmessage': 7.1.0-alpha.40
+      '@storybook/channels': 7.1.0-alpha.40
+      '@storybook/client-logger': 7.1.0-alpha.40
+      '@storybook/core-events': 7.1.0-alpha.40
       '@storybook/csf': 0.1.1
       '@storybook/global': 5.0.0
-      '@storybook/types': 7.1.0-alpha.34
+      '@storybook/types': 7.1.0-alpha.40
       '@types/qs': 6.9.7
       dequal: 2.0.3
       lodash: 4.17.21
@@ -5860,8 +5848,8 @@ packages:
   /@storybook/testing-library@0.0.14-next.1:
     resolution: {integrity: sha512-1CAl40IKIhcPaCC4pYCG0b9IiYNymktfV/jTrX7ctquRY3akaN7f4A1SippVHosksft0M+rQTFE0ccfWW581fw==}
     dependencies:
-      '@storybook/client-logger': 7.1.0-alpha.34
-      '@storybook/instrumenter': 7.1.0-alpha.34
+      '@storybook/client-logger': 7.1.0-alpha.40
+      '@storybook/instrumenter': 7.1.0-alpha.40
       '@testing-library/dom': 8.20.0
       '@testing-library/user-event': 13.5.0(@testing-library/dom@8.20.0)
       ts-dedent: 2.2.0
@@ -5926,10 +5914,10 @@ packages:
       file-system-cache: 2.3.0
     dev: true
 
-  /@storybook/types@7.1.0-alpha.34:
-    resolution: {integrity: sha512-edgqqXNsk3DXknZt0oq8NlCxJK7vY4bpRSAevxUp35dvL/t9WodebyjUKeDBhh8wf9kZAOvtFZBou8NlA5flcg==}
+  /@storybook/types@7.1.0-alpha.40:
+    resolution: {integrity: sha512-+q0COxGmoLFCYfULp2rTY3W5FVmbHxyxLM62uD2Jpf+PZ+gdNjvxj0KcvimfGLZkbCeqSYidsJl2hmMoQi+5Gg==}
     dependencies:
-      '@storybook/channels': 7.1.0-alpha.34
+      '@storybook/channels': 7.1.0-alpha.40
       '@types/babel__core': 7.20.1
       '@types/express': 4.17.17
       file-system-cache: 2.3.0
@@ -6068,6 +6056,10 @@ packages:
       '@types/node': 18.13.0
     dev: true
 
+  /@types/cookie@0.3.3:
+    resolution: {integrity: sha512-LKVP3cgXBT9RYj+t+9FDKwS5tdI+rPBXaNSkma7hvqy35lc7mAokC2zsqWJH0LaqIt3B962nuYI77hsJoT1gow==}
+    dev: false
+
   /@types/cookie@0.4.1:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
     dev: true
@@ -6173,6 +6165,13 @@ packages:
     resolution: {integrity: sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==}
     dependencies:
       '@types/unist': 2.0.6
+
+  /@types/hoist-non-react-statics@3.3.1:
+    resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
+    dependencies:
+      '@types/react': 18.0.28
+      hoist-non-react-statics: 3.3.2
+    dev: false
 
   /@types/html-minifier-terser@6.1.0:
     resolution: {integrity: sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg==}
@@ -6917,7 +6916,7 @@ packages:
       recast: 0.21.5
       remark-frontmatter: 4.0.1
       remark-mdx-frontmatter: 1.1.1
-      semver: 7.3.8
+      semver: 7.5.1
       sort-package-json: 1.57.0
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
@@ -6994,7 +6993,7 @@ packages:
       recast: 0.21.5
       remark-frontmatter: 4.0.1
       remark-mdx-frontmatter: 1.1.1
-      semver: 7.3.8
+      semver: 7.5.1
       sort-package-json: 1.57.0
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
@@ -8564,6 +8563,11 @@ packages:
   /cookie-signature@1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
 
+  /cookie@0.3.1:
+    resolution: {integrity: sha512-+IJOX0OqlHCszo2mBUq+SrEbCj6w7Kpffqx60zYbPTFaO4+yYgRjHwcZNpWvaTylDHaV7PPmBHzSecZiMhtPgw==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
   /cookie@0.4.2:
     resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
     engines: {node: '>= 0.6'}
@@ -9776,7 +9780,6 @@ packages:
       '@esbuild/win32-arm64': 0.17.19
       '@esbuild/win32-ia32': 0.17.19
       '@esbuild/win32-x64': 0.17.19
-    dev: true
 
   /esbuild@0.17.6:
     resolution: {integrity: sha512-TKFRp9TxrJDdRWfSsSERKEovm6v30iHnrjlcGhLBOtReE28Yp1VSBRfO3GTaOFMoxsNerx4TjrhzSuma9ha83Q==}
@@ -11024,7 +11027,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.2.12
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
@@ -12525,7 +12528,7 @@ packages:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
     dependencies:
-      semver: 6.1.1
+      semver: 6.3.0
 
   /make-error@1.3.6:
     resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
@@ -14525,6 +14528,24 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-cookie@4.1.1(react@18.2.0):
+    resolution: {integrity: sha512-ffn7Y7G4bXiFbnE+dKhHhbP+b8I34mH9jqnm8Llhj89zF4nPxPutxHT1suUqMeCEhLDBI7InYwf1tpaSoK5w8A==}
+    peerDependencies:
+      react: '>= 16.3.0'
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.1
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      universal-cookie: 4.0.4
+    dev: false
+
+  /react-cookies@0.1.1:
+    resolution: {integrity: sha512-PP75kJ4vtoHuuTdq0TAD3RmlAv7vuDQh9fkC4oDlhntgs9vX1DmREomO0Y1mcQKR9nMZ6/zxoflaMJ3MAmF5KQ==}
+    dependencies:
+      cookie: 0.3.1
+      object-assign: 4.1.1
+    dev: false
+
   /react-dnd-preview@8.0.0(react-dnd@16.0.1)(react@18.2.0):
     resolution: {integrity: sha512-pKDpJxaGya00tqPqswGHN6d1lmXe26gGkiXSb9xsDGEXMS+efjz4YAid9tKyaKNWJMU8hJOcUmJWTQpdi22P2g==}
     peerDependencies:
@@ -16460,6 +16481,13 @@ packages:
       unist-util-is: 5.2.1
       unist-util-visit-parents: 5.1.3
 
+  /universal-cookie@4.0.4:
+    resolution: {integrity: sha512-lbRVHoOMtItjWbM7TwDLdl8wug7izB0tq3/YVKhT/ahB4VDvWMyvnADfnJI8y6fSvsjh51Ix7lTGC6Tn4rMPhw==}
+    dependencies:
+      '@types/cookie': 0.3.3
+      cookie: 0.4.2
+    dev: false
+
   /universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
     engines: {node: '>= 4.0.0'}
@@ -16692,7 +16720,7 @@ packages:
         optional: true
     dependencies:
       '@types/node': 18.13.0
-      esbuild: 0.17.6
+      esbuild: 0.17.19
       postcss: 8.4.24
       rollup: 3.25.1
     optionalDependencies:
