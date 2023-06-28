@@ -424,7 +424,7 @@ const INTEREST_FORM_TEXT = {
       helperText:
         'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.',
     },
-    employmentTypeSelect: {
+    interestWorkArrangement: {
       label:
         'What type of part-time or short-term opportunities are you interested in?',
       placeholder: 'Choose all that apply',

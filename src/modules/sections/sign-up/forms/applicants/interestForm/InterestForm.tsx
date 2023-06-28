@@ -20,7 +20,7 @@ import {
 import {
   CausesValidator,
   CommitmentTypeValidator,
-  EmploymentType,
+  EmploymentTypeValidator,
   GovtJobType,
   OpenToRelocate,
   OptionalString,
@@ -152,17 +152,17 @@ const InterestForm: React.FC<IInterestForm> = ({
           {/* TODO: CAPP-825 */}
           {employmentType.includes(COMMITMENT_ENUM_TEXT.part) && (
             <MultiSelectField
-              fieldName="employmentTypeSelect"
-              label={INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect.label}
+              fieldName="interestWorkArrangement"
+              label={INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement.label}
               placeholder={
-                INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect.placeholder
+                INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement.placeholder
               }
               selectionLabelMulti={
-                INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect
+                INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement
                   .selectionLabelMulti
               }
               selectionLabelSingle={
-                INTEREST_FORM_TEXT.FIELDS.employmentTypeSelect
+                INTEREST_FORM_TEXT.FIELDS.interestWorkArrangement
                   .selectionLabelSingle
               }
               listOptions={EmploymentOptions.sort((a, b) => {
@@ -175,8 +175,8 @@ const InterestForm: React.FC<IInterestForm> = ({
                   option.value !== EMPLOYMENT_TYPE_TEXT.other
               )}
               isSubmitted={isSubmitted}
-              initialValue={savedForm?.employmentTypeSelect || []}
-              validator={EmploymentType}
+              initialValue={savedForm?.interestWorkArrangement || []}
+              validator={EmploymentTypeValidator}
             />
           )}
           {/* Hours per week */}
