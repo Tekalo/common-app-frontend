@@ -18,6 +18,7 @@ import {
   applicantsEndpoint,
   existingApplicantEndpoint,
   get,
+  post,
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
 import {
@@ -25,6 +26,7 @@ import {
   stripEmptyFields,
 } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import { DebugContext } from '@/lib/providers/debugProvider';
 import {
   NewCandidateType,
   NextPageWithLayout,
@@ -35,8 +37,7 @@ import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import router from 'next/router';
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useContext, useEffect, useState } from 'react';
 
 const privacyModalExtras = (
   <div className="text-p3-desktop">
@@ -51,19 +52,17 @@ const privacyModalExtras = (
 );
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  const cookieName = 'tekalo-db';
   const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
     useAuth0();
+  const debugCtx = useContext(DebugContext);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
   const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
   const [showContent, setShowContent] = useState<boolean>(false);
-  const [cookies, setCookie] = useCookies([cookieName]);
 
   /** Get user data on page load */
   useEffect(() => {
-    console.log(document.cookie);
     // Check if user has  an application
     const hasSubmitted = async (): Promise<boolean> => {
       return get(
@@ -106,14 +105,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
       }
     };
 
-    // TODO: Move cookie stuff to a provider so we can use it all over
-    setCookie(cookieName, 'someValue');
-    console.log('!!', cookies);
+    console.log('debugState: ', debugCtx.debugIsActive);
 
     if (!isLoading && isAuthenticated && user) {
       redirectUserCheck();
     } else {
-      // TODO: Remove
       setShowContent(true);
     }
   }, [isLoading, isAuthenticated, user, getAccessTokenSilently]);
@@ -133,12 +129,21 @@ const ApplicantSignup: NextPageWithLayout = () => {
     }
 
     setIsConflict(false);
-    postWithTurnstile(
-      applicantsEndpoint,
-      stripEmptyFields(values),
-      turnstileToken,
-      authToken
-    )
+
+    let req;
+
+    if (debugCtx.debugIsActive) {
+      req = post(applicantsEndpoint, stripEmptyFields(values), authToken, true);
+    } else {
+      req = postWithTurnstile(
+        applicantsEndpoint,
+        stripEmptyFields(values),
+        turnstileToken,
+        authToken
+      );
+    }
+
+    req
       .then((res) => {
         switch (res.status) {
           case 200: // good submission
@@ -191,6 +196,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 <ApplicantSignupForm
                   showUserExistsError={isConflict}
                   isAuthenticated={isAuthenticated}
+                  debugIsActive={debugCtx.debugIsActive}
                   user={user}
                   handleSubmit={handleSubmit}
                   setShowPrivacyModal={setShowPrivacyModal}

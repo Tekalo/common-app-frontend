@@ -37,13 +37,14 @@ import Link from 'next/link';
 import { ForwardedRef, useEffect, useRef, useState } from 'react';
 
 export interface ISignupForm {
-  showUserExistsError: boolean;
+  debugIsActive: boolean;
   isAuthenticated: boolean;
+  isTurnstileValid: boolean;
+  showUserExistsError: boolean;
   user: User | undefined;
   handleSubmit: (_values: NewCandidateType, _turnstileToken: string) => void;
-  setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
-  isTurnstileValid: boolean;
   setIsTurnstileValid: (_isTurnstileValid: boolean) => void;
+  setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
 }
 
 const TERMS_DISCLAIMER = (
@@ -75,13 +76,14 @@ const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
 };
 
 const SignupForm: React.FC<ISignupForm> = ({
-  showUserExistsError,
+  debugIsActive,
   isAuthenticated,
+  isTurnstileValid,
+  showUserExistsError,
   user,
   handleSubmit,
-  setShowPrivacyModal,
-  isTurnstileValid,
   setIsTurnstileValid,
+  setShowPrivacyModal,
 }) => {
   const [contactValue, setContactValue] = useState<string>();
   const [turnstileToken, setTurnstileToken] = useState<string>('');
@@ -90,6 +92,11 @@ const SignupForm: React.FC<ISignupForm> = ({
   const turnstileCandidateRef = useRef<TurnstileInstance>(null);
 
   useEffect(executeScroll, []);
+  useEffect(() => {
+    console.log('debug effect: ', debugIsActive);
+    formRef.current?.reset();
+    console.log(formRef.current, turnstileCandidateRef);
+  }, [debugIsActive]);
 
   useEffect(() => {
     // Check if user exists when submitting
@@ -111,7 +118,10 @@ const SignupForm: React.FC<ISignupForm> = ({
     <>
       <Form<NewCandidateType>
         ref={formRef}
-        onSubmit={(values) => handleSubmit(values, turnstileToken)}
+        onSubmit={(values) => {
+          console.log(1);
+          handleSubmit(values, turnstileToken);
+        }}
       >
         {({ isValid, isSubmitted, submit }) => (
           <form
@@ -235,35 +245,41 @@ const SignupForm: React.FC<ISignupForm> = ({
             </div>
 
             {/* Turnstile */}
-            <div
-              id="turnstile-container"
-              className="mx-auto"
-              data-turnstile-ready={`${turnstileToken.length > 0}`}
-            >
-              <Turnstile
-                id="candidate-form-turnstile"
-                ref={turnstileCandidateRef}
-                onSuccess={setTurnstileToken}
-                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
-                onAfterInteractive={() => setIsTurnstileValid(true)}
-              />
-              {isTurnstileValid ? null : (
-                <div
-                  className={
-                    'mt-1 text-center text-component-small text-red-error'
-                  }
-                >
-                  {ERROR_TEXT.somethingWrong}
-                </div>
-              )}
-            </div>
+            {debugIsActive ? (
+              ''
+            ) : (
+              <div
+                id="turnstile-container"
+                className="mx-auto"
+                data-turnstile-ready={`${turnstileToken.length > 0}`}
+              >
+                <Turnstile
+                  id="candidate-form-turnstile"
+                  ref={turnstileCandidateRef}
+                  onSuccess={setTurnstileToken}
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
+                  onAfterInteractive={() => setIsTurnstileValid(true)}
+                />
+                {isTurnstileValid ? null : (
+                  <div
+                    className={
+                      'mt-1 text-center text-component-small text-red-error'
+                    }
+                  >
+                    {ERROR_TEXT.somethingWrong}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Form Control Button*/}
             <Button
               name="submit-candidate-sign-up"
               className="mt-10 w-full lg:mt-14"
               label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
-              type="submit"
+              onClick={() => {
+                submit();
+              }}
               disabled={isSubmitted && !isValid}
             />
           </form>

@@ -5,13 +5,13 @@ import {
   PRIVACY_LINK,
   SIGN_IN_REDIRECT,
 } from '@/lang/en';
+import DebugProvider from '@/lib/providers/debugProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
-import { CookiesProvider } from 'react-cookie';
 import CookieConsent, {
   OPTIONS,
   getCookieConsentValue,
@@ -68,8 +68,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           backend={TouchBackend}
           options={{ enableMouseEvents: true }}
         >
-          <CookiesProvider />
-          {getLayout(<Component {...pageProps} />)}
+          <DebugProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </DebugProvider>
           <CookieConsent
             onAccept={() => window.consentGranted()}
             enableDeclineButton

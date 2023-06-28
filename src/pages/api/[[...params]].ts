@@ -65,12 +65,13 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
     }
   })();
 
-  const url = `${BASE_URL}/${params.join('/')}`;
-  const sessionCookie = req.cookies.get('connect.sid');
-  const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
   const authToken = req.headers.get('Authorization');
-  const turnstileToken = req.headers.get('x-turnstile-token') || '';
+  const sessionCookie = req.cookies.get('connect.sid');
+  const debugHeader = req.headers.get('Debug');
+  const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
   const turnstileSecret = process.env.TURNSTILE_SECRET || '';
+  const turnstileToken = req.headers.get('x-turnstile-token') || '';
+  const url = `${BASE_URL}/${params.join('/')}`;
   const turnstileEndpoint =
     'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
@@ -84,9 +85,12 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
     headers.Cookie = cookieHeader;
   }
 
+  console.log(debugHeader);
+
   switch (req.method) {
     case 'POST':
       if (
+        !debugHeader &&
         params.length === 1 &&
         (params[0] === 'applicants' || params[0] === 'opportunities')
       ) {

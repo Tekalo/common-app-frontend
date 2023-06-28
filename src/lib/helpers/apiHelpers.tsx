@@ -16,13 +16,24 @@ export const get = async (url: string, token = '') => {
   });
 };
 
-export const post = async (url: string, values: any, token = '') => {
+export const post = async (
+  url: string,
+  values: any,
+  token = '',
+  debug = false
+) => {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+    Authorization: generateTokenValue(token),
+  };
+
+  if (debug) {
+    headers.Debug = 'true';
+  }
+
   return fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: generateTokenValue(token),
-    },
+    headers,
     body: JSON.stringify(values),
   });
 };

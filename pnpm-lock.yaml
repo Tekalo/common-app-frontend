@@ -53,9 +53,6 @@ dependencies:
   react-cookie-consent:
     specifier: ^8.0.1
     version: 8.0.1(react@18.2.0)
-  react-cookies:
-    specifier: ^0.1.1
-    version: 0.1.1
   react-dnd:
     specifier: ^16.0.1
     version: 16.0.1(@types/node@18.13.0)(@types/react@18.0.28)(react@18.2.0)
@@ -8563,11 +8560,6 @@ packages:
   /cookie-signature@1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
 
-  /cookie@0.3.1:
-    resolution: {integrity: sha512-+IJOX0OqlHCszo2mBUq+SrEbCj6w7Kpffqx60zYbPTFaO4+yYgRjHwcZNpWvaTylDHaV7PPmBHzSecZiMhtPgw==}
-    engines: {node: '>= 0.6'}
-    dev: false
-
   /cookie@0.4.2:
     resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
     engines: {node: '>= 0.6'}
@@ -14537,13 +14529,6 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       universal-cookie: 4.0.4
-    dev: false
-
-  /react-cookies@0.1.1:
-    resolution: {integrity: sha512-PP75kJ4vtoHuuTdq0TAD3RmlAv7vuDQh9fkC4oDlhntgs9vX1DmREomO0Y1mcQKR9nMZ6/zxoflaMJ3MAmF5KQ==}
-    dependencies:
-      cookie: 0.3.1
-      object-assign: 4.1.1
     dev: false
 
   /react-dnd-preview@8.0.0(react-dnd@16.0.1)(react@18.2.0):
