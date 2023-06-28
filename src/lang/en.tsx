@@ -878,6 +878,8 @@ const ERROR_TEXT = {
   roleRequired: 'Role is required',
   somethingWrong: 'Something went wrong - please try again',
   termsRequired: 'You must agree to the Terms of Use',
+  unhandledCode: '500',
+  unhandledText: 'Oops something went wrong. Please try again later.',
   unknownError: 'An unknown error has occurred',
   userAlreadyExists: 'This account already exists, please sign in',
 };
