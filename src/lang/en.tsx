@@ -424,13 +424,19 @@ const INTEREST_FORM_TEXT = {
       helperText:
         'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.',
     },
+    interestWorkArrangement: {
+      label:
+        'What type of part-time or short-term opportunities are you interested in?',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Types selected',
+      selectionLabelSingle: ' Type selected',
+    },
     interestRoles: {
       label: 'What role(s) are you interested in?',
       placeholder: 'Choose all that apply',
       selectionLabelMulti: ' Roles selected',
       selectionLabelSingle: ' Role selected',
     },
-
     hoursPerWeek: {
       label: 'Hours per week you are able to commit (optional)',
       placeholder: 'Approximate number of hours',

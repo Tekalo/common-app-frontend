@@ -109,6 +109,11 @@ const EmploymentType = z.enum(EMPLOYMENT_TYPE_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
+const EmploymentTypeValidator = EmploymentType.array().refine(
+  (v) => !!v.length,
+  { message: ERROR_TEXT.requiredSelectGroup }
+);
+
 const CommitmentType = z.enum(COMMITMENT_ENUM_OPTIONS, {
   errorMap: chooseOneErrorMap,
 });
@@ -221,6 +226,7 @@ export {
   EOE,
   Email,
   EmploymentType,
+  EmploymentTypeValidator,
   GovtJobType,
   OpenToRelocate,
   OpenToRemote,
