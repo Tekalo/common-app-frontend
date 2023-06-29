@@ -42,6 +42,7 @@ jobs:
       environment: 'develop'
       url: ${{ format('{0}/', needs.deploy.outputs.url) }}
     secrets:
+      NEXT_PUBLIC_DEBUG_MODE_SECRET: ${{ secrets.NEXT_PUBLIC_DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
