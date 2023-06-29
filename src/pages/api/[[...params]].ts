@@ -85,6 +85,10 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
     headers.Cookie = cookieHeader;
   }
 
+  if (debugHeader) {
+    headers.Debug = debugHeader;
+  }
+
   switch (req.method) {
     case 'POST':
       if (
