@@ -242,11 +242,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             {debugIsActive ? (
               ''
             ) : (
-              <div
-                id="turnstile-container"
-                className="mx-auto"
-                data-turnstile-ready={`${turnstileToken.length > 0}`}
-              >
+              <div id="turnstile-container" className="mx-auto">
                 <Turnstile
                   id="candidate-form-turnstile"
                   ref={turnstileCandidateRef}

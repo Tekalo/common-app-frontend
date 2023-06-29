@@ -1,13 +1,18 @@
 import { deleteRequest } from '@/lib/helpers/apiHelpers';
+import { __DEBUG_ITEM_KEY__ } from '@/providers/debugProvider';
 
 Cypress.Commands.add('setupTestingEnvironment', (): void => {
   cy.session(
     'cf',
     () => {
+      // This enabled debug mode
+      localStorage.setItem(
+        __DEBUG_ITEM_KEY__,
+        Cypress.env('debug_mode_secret')
+      );
       cy.visit({
         url: '/',
         headers: {
-          'Debug-Mode-Secret': Cypress.env('debug_mode_secret'),
           'CF-Access-Client-Id': Cypress.env('cf_access_id'),
           'CF-Access-Client-Secret': Cypress.env('cf_access_secret'),
         },

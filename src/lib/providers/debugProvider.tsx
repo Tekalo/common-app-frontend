@@ -9,6 +9,8 @@ interface IDebugProvider {
   children: ReactNode;
 }
 
+export const __DEBUG_ITEM_KEY__ = '__tklo_DEBUG__';
+
 export const DebugContext = React.createContext<IDebugContext>(
   {} as IDebugContext
 );
@@ -21,7 +23,6 @@ const DebugProvider: React.FC<IDebugProvider> = ({ children }) => {
 
   useEffect(() => {
     const debugValue = localStorage.getItem(itemName);
-
     if (debugValue === requiredDebugValue) {
       setDebugIsActive(true);
       setDebugSecret(debugValue);

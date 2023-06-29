@@ -146,11 +146,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               {debugIsActive ? (
                 ''
               ) : (
-                <div
-                  id="turnstile-container"
-                  className="mx-auto"
-                  data-turnstile-ready={turnstileToken.length > 0}
-                >
+                <div id="turnstile-container" className="mx-auto">
                   <Turnstile
                     id="org-form-turnstile"
                     ref={turnstileOrgRef}

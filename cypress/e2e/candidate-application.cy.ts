@@ -168,11 +168,6 @@ describe('Candidate Application', () => {
       url: applicantsEndpoint,
     }).as('applicantCreation');
 
-    cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
-      'have.attr',
-      'data-turnstile-ready',
-      'true'
-    );
     cy.get('button#submit-candidate-sign-up').click();
 
     cy.wait('@applicantCreation', { timeout: formSubmissionTimeout }).then(

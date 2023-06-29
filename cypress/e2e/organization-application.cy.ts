@@ -565,11 +565,6 @@ describe('Organization Application', () => {
       url: opportunityBatchEndpoint,
     }).as('opportunityCreation');
 
-    cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
-      'have.attr',
-      'data-turnstile-ready',
-      'true'
-    );
     cy.get('button#submit-org-form').click();
 
     cy.wait('@opportunityCreation', { timeout: formSubmissionTimeout }).then(
