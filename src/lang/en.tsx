@@ -424,13 +424,19 @@ const INTEREST_FORM_TEXT = {
       helperText:
         'Part-time/short-term opportunities may include paid or unpaid positions such as contract, advisory, volunteering roles or internships.',
     },
+    interestWorkArrangement: {
+      label:
+        'What type of part-time or short-term opportunities are you interested in?',
+      placeholder: 'Choose all that apply',
+      selectionLabelMulti: ' Types selected',
+      selectionLabelSingle: ' Type selected',
+    },
     interestRoles: {
       label: 'What role(s) are you interested in?',
       placeholder: 'Choose all that apply',
       selectionLabelMulti: ' Roles selected',
       selectionLabelSingle: ' Role selected',
     },
-
     hoursPerWeek: {
       label: 'Hours per week you are able to commit (optional)',
       placeholder: 'Approximate number of hours',
@@ -872,6 +878,8 @@ const ERROR_TEXT = {
   roleRequired: 'Role is required',
   somethingWrong: 'Something went wrong - please try again',
   termsRequired: 'You must agree to the Terms of Use',
+  unhandledCode: '500',
+  unhandledText: 'Oops something went wrong. Please try again later.',
   unknownError: 'An unknown error has occurred',
   userAlreadyExists: 'This account already exists, please sign in',
 };
