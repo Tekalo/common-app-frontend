@@ -8,22 +8,9 @@ on:
         description: environment name
         type: string
         required: true
-    secrets:
-      CLOUDFLARE_ACCOUNT_ID:
-        description: Cloudflare Account ID
-      CLOUDFLARE_API_TOKEN:
-        description: Cloudflare API Token
     outputs:
-      issue-number:
-        value: ${{ jobs.build.outputs.issue-number }}
-      url:
-        value: ${{ jobs.build.outputs.url }}
-      alias:
-        value: ${{ jobs.build.outputs.alias }}
-      environment:
-        value: ${{ jobs.build.outputs.environment }}
-      deployment_id:
-        value: ${{ jobs.build.outputs.deployment_id }}
+      run_id:
+        value: ${{github.run_id}}
 
 jobs:
   build:
@@ -88,18 +75,12 @@ jobs:
           pnpm install
           pnpm build:for-edge
 
-      - name: Publish to Cloudflare Pages
-        id: deploy
-        uses: cloudflare/pages-action@c2ad89679f0dee1ff4bcf9b8bbe1cf52d176cb29 # v1
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: common-app-frontend
-          directory: .vercel/output/static
-
-    outputs:
-      issue-number: ${{ github.event.pull_request.number }}
-      url: ${{ steps.deploy.outputs.url }}
-      alias: ${{ steps.deploy.outputs.alias }}
-      environment: ${{ steps.deploy.outputs.environment }}
-      deployment_id: ${{ steps.deploy.outputs.id }}
+          name: build-${{github.run_id}}
+          path: |
+            .next
+            .vercel
+            public
+          retention-days: 1

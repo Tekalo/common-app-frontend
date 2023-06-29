@@ -8,6 +8,9 @@ on:
         description: environment name
         type: string
         required: true
+      url:
+        type: string
+        required: true
     secrets:
       NEXT_PUBLIC_TEST_PASSWORD:
         description: e2e test user pwd
@@ -15,15 +18,12 @@ on:
       CF_ACCESS_CLIENT_SECRET:
         description: cloudflare access secret
         required: true
-      E2E_TURNSTILE_SECRET:
-        description: secret to disable turnstile during e2e tests
-        required: true
 
 jobs:
   e2e-tests:
     name: Run e2e Tests
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: ${{inputs.environment}}
 
     strategy:
       matrix:
@@ -45,51 +45,26 @@ jobs:
           version: latest
           run_install: false
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Restore cache
-        id: pnpm-next-restore
-        uses: actions/cache@v3
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
         with:
-          path: |
-            ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-
-
-      - name: Install Dependencies
-        run: pnpm install
-
-      - name: Add hosts to /etc/hosts
-        if: $${{inputs.environment == 'production'}}
-        run: |
-          sudo echo "127.0.0.1 prod-common-app-frontend.pages.dev" | sudo tee -a /etc/hosts
+          name: build-${{github.run_id}}
 
       - name: Cypress run
 
         env:
           CI: true
           NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
-          CF_PAGES_BRANCH: ${{ vars.E2E_PAGES_BRANCH }}
           NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
-          NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{ vars.E2E_TURNSTILE_KEY }}
-          TURNSTILE_SECRET: ${{ secrets.E2E_TURNSTILE_SECRET }}
-          NEXT_PUBLIC_TEST_USER: ${{ vars.NEXT_PUBLIC_TEST_USER }}
-          NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
-          NEXT_PUBLIC_BASE_URL: ${{ vars.E2E_BASE_URL }}
+          NEXT_PUBLIC_BASE_URL: ${{ inputs.url }}
+          NEXT_PUBLIC_TEST_USER: ${{vars.NEXT_PUBLIC_TEST_USER}}
+          NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
+          NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{vars.TURNSTILE_SITEKEY }}
           CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
         uses: cypress-io/github-action@v5.7.2
         with:
           record: false
-          build: pnpm build:for-edge
-          start: pnpm start
-          wait-on: ${{ vars.E2E_BASE_URL }}
-          wait-on-timeout: 120
