@@ -173,6 +173,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center justify-center">
+      {debugCtx.debugIsActive ? 'DEBUG IS ACTIVE' : 'DEBUG NOT ACTIVE'}
       {isLoading ? (
         <div className="mb-1/2 space-y-3">
           <LoadingSpinner />
