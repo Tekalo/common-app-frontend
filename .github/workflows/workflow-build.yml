@@ -8,6 +8,10 @@ on:
         description: environment name
         type: string
         required: true
+    secrets:
+      NEXT_PUBLIC_DEBUG_MODE_SECRET:
+        description: used to enable debug mode
+        required: true
     outputs:
       run_id:
         value: ${{github.run_id}}

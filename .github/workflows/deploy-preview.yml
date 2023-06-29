@@ -22,6 +22,8 @@ jobs:
     uses: ./.github/workflows/workflow-build.yml
     with:
       environment: 'develop'
+    secrets:
+      NEXT_PUBLIC_DEBUG_MODE_SECRET: ${{ secrets.NEXT_PUBLIC_DEBUG_MODE_SECRET }}
 
   deploy:
     name: Deploy
