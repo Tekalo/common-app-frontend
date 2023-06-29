@@ -12,22 +12,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  e2e-tests:
-    name: Run e2e Tests
-    uses: ./.github/workflows/e2e-workflow.yml
+  build:
+    name: Build Project
+    uses: ./.github/workflows/workflow-build.yml
     with:
       environment: 'develop'
     secrets:
+      NEXT_PUBLIC_DEBUG_MODE_SECRET: ${{ secrets.NEXT_PUBLIC_DEBUG_MODE_SECRET }}
+
+  e2e-tests:
+    name: Run e2e Tests
+    uses: ./.github/workflows/workflow-e2e.yml
+    needs: [build]
+    with:
+      environment: 'develop'
+      url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+    secrets:
+      NEXT_PUBLIC_DEBUG_MODE_SECRET: ${{ secrets.NEXT_PUBLIC_DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-      E2E_TURNSTILE_SECRET: ${{ secrets.E2E_TURNSTILE_SECRET }}
 
-  build:
-    name: Build Project
-    uses: ./.github/workflows/build-workflow.yml
+  deploy:
+    name: Deploy
+    uses: ./.github/workflows/workflow-deploy.yml
     needs: [e2e-tests]
     with:
       environment: 'develop'
+      run_id: ${{needs.build.outputs.run_id}}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
