@@ -122,15 +122,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
     values: NewCandidateType,
     turnstileToken: string
   ) => {
+    // TODO: This and the organization form function are identical with
+    // different value types, we can refactor these
     let authToken = '';
+    let req;
 
     if (isAuthenticated) {
       authToken = await getAccessTokenSilently();
     }
 
     setIsConflict(false);
-
-    let req;
 
     if (debugCtx.debugIsActive) {
       req = post(applicantsEndpoint, stripEmptyFields(values), authToken, true);
