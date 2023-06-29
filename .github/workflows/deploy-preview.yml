@@ -23,27 +23,27 @@ jobs:
     with:
       environment: 'develop'
 
-  e2e-tests:
-    name: Run e2e Tests
-    uses: ./.github/workflows/workflow-e2e.yml
-    needs: [build]
-    with:
-      environment: 'develop'
-      url: ${{ format('{0}/', needs.deploy.outputs.url) }}
-    secrets:
-      NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
-      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-
   deploy:
     name: Deploy
     uses: ./.github/workflows/workflow-deploy.yml
-    needs: [e2e-tests]
+    needs: [build]
     with:
       environment: 'develop'
       run_id: ${{needs.build.outputs.run_id}}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+  e2e-tests:
+    name: Run e2e Tests
+    uses: ./.github/workflows/workflow-e2e.yml
+    needs: [deploy]
+    with:
+      environment: 'develop'
+      url: ${{ format('{0}/', needs.deploy.outputs.url) }}
+    secrets:
+      NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
   comment:
     name: Comment on PR
