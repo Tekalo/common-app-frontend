@@ -92,11 +92,6 @@ const SignupForm: React.FC<ISignupForm> = ({
   const turnstileCandidateRef = useRef<TurnstileInstance>(null);
 
   useEffect(executeScroll, []);
-  useEffect(() => {
-    console.log('debug effect: ', debugIsActive);
-    formRef.current?.reset();
-    console.log(formRef.current, turnstileCandidateRef);
-  }, [debugIsActive]);
 
   useEffect(() => {
     // Check if user exists when submitting
@@ -119,7 +114,6 @@ const SignupForm: React.FC<ISignupForm> = ({
       <Form<NewCandidateType>
         ref={formRef}
         onSubmit={(values) => {
-          console.log(1);
           handleSubmit(values, turnstileToken);
         }}
       >

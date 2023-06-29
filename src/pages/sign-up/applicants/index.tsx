@@ -105,8 +105,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
       }
     };
 
-    console.log('debugState: ', debugCtx.debugIsActive);
-
     if (!isLoading && isAuthenticated && user) {
       redirectUserCheck();
     } else {
