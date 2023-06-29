@@ -23,6 +23,9 @@ const DebugProvider: React.FC<IDebugProvider> = ({ children }) => {
 
   useEffect(() => {
     const debugValue = localStorage.getItem(itemName);
+
+    console.log('provider: ', debugValue, requiredDebugValue);
+
     if (debugValue === requiredDebugValue) {
       setDebugIsActive(true);
       setDebugSecret(debugValue);
