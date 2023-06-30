@@ -8,18 +8,19 @@ export const config = {
 
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
 
-const turnstileRejectionResponse = new Response(
-  JSON.stringify({
-    message:
-      'Our robot guardians determined that you are likely a teapot - please try again and do your best to not be a teapot this time',
-  }),
-  {
-    status: 418,
-    headers: {
-      'content-type': 'application/json',
-    },
-  }
-);
+const getTurnstileRejectionResponse = () =>
+  new Response(
+    JSON.stringify({
+      message:
+        'Our robot guardians determined that you are likely a teapot - please try again and do your best to not be a teapot this time',
+    }),
+    {
+      status: 418,
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+  );
 
 const validateTurnstileAndPost = async (
   turnstileToken: string,
@@ -49,7 +50,7 @@ const validateTurnstileAndPost = async (
     });
   }
   // Otherwise return an error
-  return turnstileRejectionResponse;
+  return getTurnstileRejectionResponse();
 };
 
 const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
@@ -93,7 +94,7 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
       headers['X-Debug'] = debugHeader;
     } else {
       // reject request
-      return turnstileRejectionResponse;
+      return getTurnstileRejectionResponse();
     }
   }
 
