@@ -132,7 +132,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
     setIsConflict(false);
 
     if (debugCtx.debugIsActive) {
-      req = post(applicantsEndpoint, stripEmptyFields(values), authToken, true);
+      req = post(
+        applicantsEndpoint,
+        stripEmptyFields(values),
+        authToken,
+        debugCtx.debugSecret
+      );
     } else {
       req = postWithTurnstile(
         applicantsEndpoint,

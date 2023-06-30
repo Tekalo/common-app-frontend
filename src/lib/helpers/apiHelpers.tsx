@@ -20,15 +20,15 @@ export const post = async (
   url: string,
   values: any,
   token = '',
-  debug = false
+  debug = ''
 ) => {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     Authorization: generateTokenValue(token),
   };
 
-  if (debug) {
-    headers.Debug = 'true';
+  if (debug.length) {
+    headers['X-Debug'] = debug;
   }
 
   return fetch(url, {

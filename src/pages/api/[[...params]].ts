@@ -8,6 +8,19 @@ export const config = {
 
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
 
+const turnstileRejectionResponse = new Response(
+  JSON.stringify({
+    message:
+      'Our robot guardians determined that you are likely a teapot - please try again and do your best to not be a teapot this time',
+  }),
+  {
+    status: 418,
+    headers: {
+      'content-type': 'application/json',
+    },
+  }
+);
+
 const validateTurnstileAndPost = async (
   turnstileToken: string,
   turnstileSecret: string,
@@ -36,18 +49,7 @@ const validateTurnstileAndPost = async (
     });
   }
   // Otherwise return an error
-  return new Response(
-    JSON.stringify({
-      message:
-        'Our robot guardians determined that you are likely a teapot - please try again and do your best to not be a teapot this time',
-    }),
-    {
-      status: 418,
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
-  );
+  return turnstileRejectionResponse;
 };
 
 const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
@@ -67,7 +69,7 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
 
   const authToken = req.headers.get('Authorization');
   const sessionCookie = req.cookies.get('connect.sid');
-  const debugHeader = req.headers.get('Debug');
+  const debugHeader = req.headers.get('X-Debug');
   const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
   const turnstileSecret = process.env.TURNSTILE_SECRET || '';
   const turnstileToken = req.headers.get('x-turnstile-token') || '';
@@ -86,7 +88,13 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
   }
 
   if (debugHeader) {
-    headers.Debug = debugHeader;
+    if (debugHeader === process.env.DEBUG_MODE_SECRET) {
+      // Set debug header and continue
+      headers['X-Debug'] = debugHeader;
+    } else {
+      // reject request
+      return turnstileRejectionResponse;
+    }
   }
 
   switch (req.method) {
