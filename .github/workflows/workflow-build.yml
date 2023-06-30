@@ -9,9 +9,6 @@ on:
         type: string
         required: true
     secrets:
-      DEBUG_MODE_SECRET:
-        description: used to enable debug mode
-        required: true
       CLOUDFLARE_ACCOUNT_ID:
         description: Cloudflare Account ID
       CLOUDFLARE_API_TOKEN:
@@ -73,7 +70,6 @@ jobs:
           NEXT_PUBLIC_BASE_URL: ${{ vars.NEXT_PUBLIC_BASE_URL }}
           NEXT_PUBLIC_TEST_USER: ${{vars.NEXT_PUBLIC_TEST_USER}}
           NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
-          DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
           NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
           NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{vars.TURNSTILE_SITEKEY }}
           CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
