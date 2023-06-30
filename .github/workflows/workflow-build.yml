@@ -16,6 +16,9 @@ on:
         description: Cloudflare Account ID
       CLOUDFLARE_API_TOKEN:
         description: Cloudflare API Token
+    outputs:
+      url:
+        value: ${{ jobs.build.outputs.url }}
 
 jobs:
   build:
