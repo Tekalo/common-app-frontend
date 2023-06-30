@@ -17,22 +17,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build Project
+  deploy:
+    name: Build and Deploy Project
     uses: ./.github/workflows/workflow-build.yml
     with:
       environment: 'develop'
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
-
-  deploy:
-    name: Deploy
-    uses: ./.github/workflows/workflow-deploy.yml
-    needs: [build]
-    with:
-      environment: 'develop'
-      run_id: ${{needs.build.outputs.run_id}}
-    secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 

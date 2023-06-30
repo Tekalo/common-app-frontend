@@ -11,18 +11,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build Project
+  deploy:
+    name: Build and Deploy Project
     uses: ./.github/workflows/workflow-build.yml
     with:
       environment: 'production'
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
   e2e-tests:
     name: Run e2e Tests
     uses: ./.github/workflows/workflow-e2e.yml
-    needs: [build]
+    needs: [deploy]
     with:
       environment: 'production'
       url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
@@ -30,14 +32,3 @@ jobs:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-
-  deploy:
-    name: Deploy
-    uses: ./.github/workflows/workflow-deploy.yml
-    needs: [e2e-tests]
-    with:
-      environment: 'production'
-      run_id: ${{needs.build.outputs.run_id}}
-    secrets:
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

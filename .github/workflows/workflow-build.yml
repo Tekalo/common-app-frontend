@@ -12,9 +12,10 @@ on:
       DEBUG_MODE_SECRET:
         description: used to enable debug mode
         required: true
-    outputs:
-      run_id:
-        value: ${{github.run_id}}
+      CLOUDFLARE_ACCOUNT_ID:
+        description: Cloudflare Account ID
+      CLOUDFLARE_API_TOKEN:
+        description: Cloudflare API Token
 
 jobs:
   build:
@@ -80,12 +81,17 @@ jobs:
           pnpm install
           pnpm build:for-edge
 
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+      - name: Publish to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/pages-action@c2ad89679f0dee1ff4bcf9b8bbe1cf52d176cb29 # v1
         with:
-          name: build-${{github.run_id}}
-          path: |
-            .next
-            .vercel
-            public
-          retention-days: 1
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: common-app-frontend
+          directory: .vercel/output/static
+    outputs:
+      issue-number: ${{ github.event.pull_request.number }}
+      url: ${{ steps.deploy.outputs.url }}
+      alias: ${{ steps.deploy.outputs.alias }}
+      environment: ${{ steps.deploy.outputs.environment }}
+      deployment_id: ${{ steps.deploy.outputs.id }}

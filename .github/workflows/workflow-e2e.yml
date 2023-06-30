@@ -48,11 +48,6 @@ jobs:
           version: latest
           run_install: false
 
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build-${{github.run_id}}
-
       - name: Cypress run
 
         env:
