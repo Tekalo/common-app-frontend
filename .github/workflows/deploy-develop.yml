@@ -18,7 +18,7 @@ jobs:
     with:
       environment: 'develop'
     secrets:
-      NEXT_PUBLIC_DEBUG_MODE_SECRET: ${{ secrets.NEXT_PUBLIC_DEBUG_MODE_SECRET }}
+      DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
 
   e2e-tests:
     name: Run e2e Tests
@@ -28,7 +28,7 @@ jobs:
       environment: 'develop'
       url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
     secrets:
-      NEXT_PUBLIC_DEBUG_MODE_SECRET: ${{ secrets.NEXT_PUBLIC_DEBUG_MODE_SECRET }}
+      DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 

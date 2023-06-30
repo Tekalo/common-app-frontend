@@ -17,14 +17,13 @@ export const DebugContext = React.createContext<IDebugContext>(
 
 const DebugProvider: React.FC<IDebugProvider> = ({ children }) => {
   const itemName = '__tklo_DEBUG__';
-  const requiredDebugValue = process.env.NEXT_PUBLIC_DEBUG_MODE_SECRET;
   const [debugIsActive, setDebugIsActive] = useState<boolean>(false);
   const [debugSecret, setDebugSecret] = useState<string>('');
 
   useEffect(() => {
     const debugValue = localStorage.getItem(itemName);
 
-    if (debugValue === requiredDebugValue) {
+    if (debugValue) {
       setDebugIsActive(true);
       setDebugSecret(debugValue);
     }
