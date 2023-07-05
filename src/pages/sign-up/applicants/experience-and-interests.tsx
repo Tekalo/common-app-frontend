@@ -179,7 +179,6 @@ const ApplicantForms: NextPageWithLayout = () => {
 
           setDraftFormValues(response.submission);
           setIsInterestFormVisible(interestStarted);
-          console.log(experienceFields);
         } else if (res.status === 401) {
           router.push(BASE_LINK);
         } else {
