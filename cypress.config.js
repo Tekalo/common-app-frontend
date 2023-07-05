@@ -7,6 +7,7 @@ module.exports = defineConfig({
   video: false,
   screenshotOnRunFailure: false,
   chromeWebSecurity: false,
+
   e2e: {
     setupNodeEvents(_on, config) {
       // https://stackoverflow.com/questions/52050657/what-is-the-best-practice-of-pass-states-between-tests-in-cypress
@@ -40,5 +41,13 @@ module.exports = defineConfig({
 
       return config;
     },
+  },
+
+  component: {
+    devServer: {
+      framework: 'next',
+      bundler: 'webpack',
+    },
+    specPattern: ['cypress/component/**/*.cy.tsx'],
   },
 });
