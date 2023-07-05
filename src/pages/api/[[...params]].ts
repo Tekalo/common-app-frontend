@@ -81,6 +81,7 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
   const headers: any = {
     'Content-Type': 'application/json',
   };
+  let debugValueIsValid = false;
 
   if (authToken) {
     headers.Authorization = authToken;
@@ -90,7 +91,8 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
 
   if (debugHeader) {
     if (debugHeader === process.env.DEBUG_MODE_SECRET) {
-      // Set debug header and continue
+      // Set debug header, mark it as valid, and continue
+      debugValueIsValid = true;
       headers['X-Debug'] = debugHeader;
     } else {
       // reject request
@@ -101,7 +103,7 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
   switch (req.method) {
     case 'POST':
       if (
-        !debugHeader &&
+        !debugValueIsValid &&
         params.length === 1 &&
         (params[0] === 'applicants' || params[0] === 'opportunities')
       ) {
