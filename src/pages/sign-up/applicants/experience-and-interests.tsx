@@ -50,6 +50,8 @@ const ApplicantForms: NextPageWithLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted]);
 
+  // TODO: Commenting this out for now as the first page values are not being
+  // set if we skip the first page, we have to click "Next" button or it breaks
   // useEffect(() => {
   //   setIsInterestFormStarted(interestFormHasBeenStarted(draftFormValues));
   // }, [draftFormValues]);
