@@ -44,10 +44,21 @@ module.exports = defineConfig({
   },
 
   component: {
+    setupNodeEvents(_on, config) {
+      require('@cypress/code-coverage/task')(_on, config);
+      _on('file:preprocessor', require('@cypress/code-coverage/use-babelrc'));
+
+      return config;
+    },
     devServer: {
       framework: 'next',
       bundler: 'webpack',
     },
     specPattern: ['cypress/component/**/*.cy.tsx'],
+    env: {
+      codeCoverage: {
+        exclude: ['cypress/**/*.*', 'src/**/*.mocks.*', 'src/**/*.stories.*'],
+      },
+    },
   },
 });
