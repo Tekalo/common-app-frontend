@@ -9,19 +9,20 @@
     "node": "16"
   },
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
-    "export": "next export",
-    "e2e": "npx cypress open",
+    "build-storybook": "storybook build -o .storybook/build",
     "build:for-edge": "pnpx @cloudflare/next-on-pages",
-    "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out",
-    "start": "next start",
+    "build": "next build",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "e2e:debug": "cypress open",
+    "e2e": "cypress run",
+    "export": "next export",
     "lint": "next lint",
-    "prettier": "prettier --write .",
-    "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install",
+    "prettier": "prettier --write .",
+    "start": "next start",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o .storybook/build"
+    "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
