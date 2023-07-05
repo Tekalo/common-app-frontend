@@ -50,9 +50,11 @@ const ApplicantForms: NextPageWithLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted]);
 
-  useEffect(() => {
-    setIsInterestFormStarted(interestFormHasBeenStarted(draftFormValues));
-  }, [draftFormValues]);
+  // TODO: Commenting this out for now as the first page values are not being
+  // set if we skip the first page, we have to click "Next" button or it breaks
+  // useEffect(() => {
+  //   setIsInterestFormStarted(interestFormHasBeenStarted(draftFormValues));
+  // }, [draftFormValues]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -64,41 +66,41 @@ const ApplicantForms: NextPageWithLayout = () => {
     return isAuthenticated ? await getAccessTokenSilently() : '';
   };
 
-  const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
-    const isFilled = (val: string | string[] | boolean | null | undefined) => {
-      switch (typeof val) {
-        case 'object':
-        case 'string':
-          return val?.length !== 0 && val !== null;
-        case 'boolean':
-          return val !== false;
-        default:
-          return val !== undefined;
-      }
-    };
+  // const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
+  //   const isFilled = (val: string | string[] | boolean | null | undefined) => {
+  //     switch (typeof val) {
+  //       case 'object':
+  //       case 'string':
+  //         return val?.length !== 0 && val !== null;
+  //       case 'boolean':
+  //         return val !== false;
+  //       default:
+  //         return val !== undefined;
+  //     }
+  //   };
 
-    if (values) {
-      return [
-        values.interestEmploymentType,
-        values.hoursPerWeek,
-        values.interestRoles,
-        values.currentLocation,
-        values.openToRelocate,
-        values.openToRemote,
-        values.desiredSalary,
-        values.interestCauses,
-        values.otherCauses,
-        values.interestGovt,
-        values.interestGovtEmplTypes,
-        values.previousImpactExperience,
-        values.workAuthorization,
-        values.essayResponse,
-        values.referenceAttribution,
-      ].some(isFilled);
-    }
+  //   if (values) {
+  //     return [
+  //       values.interestEmploymentType,
+  //       values.hoursPerWeek,
+  //       values.interestRoles,
+  //       values.currentLocation,
+  //       values.openToRelocate,
+  //       values.openToRemote,
+  //       values.desiredSalary,
+  //       values.interestCauses,
+  //       values.otherCauses,
+  //       values.interestGovt,
+  //       values.interestGovtEmplTypes,
+  //       values.previousImpactExperience,
+  //       values.workAuthorization,
+  //       values.essayResponse,
+  //       values.referenceAttribution,
+  //     ].some(isFilled);
+  //   }
 
-    return false;
-  };
+  //   return false;
+  // };
 
   // Hits the submission endpoint to submit the form
   const doSubmit = async () => {
@@ -170,9 +172,10 @@ const ApplicantForms: NextPageWithLayout = () => {
       .then(async (res) => {
         if (res.ok) {
           const response: SubmissionResponseType = await res.json();
-          const interestStarted = interestFormHasBeenStarted(
-            response.submission
-          );
+          // const interestStarted = interestFormHasBeenStarted(
+          //   response.submission
+          // );
+          const interestStarted = false;
 
           setDraftFormValues(response.submission);
           setIsInterestFormVisible(interestStarted);
