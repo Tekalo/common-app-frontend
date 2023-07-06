@@ -27,7 +27,7 @@ jobs:
     needs: [deploy]
     with:
       environment: 'develop'
-      url: ${{ vars.NEXT_PUBLIC_BASE_URL }}
+      url: '${{ vars.NEXT_PUBLIC_BASE_URL }}'
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
