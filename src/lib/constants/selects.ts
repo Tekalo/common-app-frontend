@@ -4,7 +4,7 @@ import {
   ORG_SIZE_LABEL_TEXT,
   PAID_TEXT,
   REMOTE_OPTION_TEXT,
-  ROLE_TEXT,
+  ROLE_ENUM_TEXT,
   SEARCH_STATUS_TEXT,
   USDR_TEXT,
   VISA_SPONSOR_TEXT,
@@ -31,11 +31,17 @@ import {
   YOE,
   YOE_RANGE,
 } from '@/lib/enums';
-import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
+import {
+  capitalizeEveryWord,
+  capitalizeFirstLetter,
+  capitalizeFirstWord,
+} from '@/lib/helpers/formHelpers';
 import { IBoolItem, ISelectItem } from '@/lib/types';
-import { capitalizeEveryWord } from './../helpers/formHelpers';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
+  // TODO: We should move all of these options to either have the text be an
+  // enum, like we do for roles, OR we should add a 'key' or 'id field
+  // so that if they change, we still apply the correct transformations
   if (option === '<1') {
     return {
       value: option,
@@ -119,15 +125,20 @@ const EmploymentOptions: Array<ISelectItem> = EmploymentType.options.map(
 );
 
 const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
-  if (option === 'ux researcher') {
+  if (option === ROLE_ENUM_TEXT.vpProduct || option === ROLE_ENUM_TEXT.vpEng) {
     return {
       value: option,
-      displayText: ROLE_TEXT.uxResearcher,
+      displayText: capitalizeFirstWord(option),
     };
-  } else if (option === 'ux/ui designer') {
+  } else if (option === ROLE_ENUM_TEXT.uxResearcher) {
     return {
       value: option,
-      displayText: ROLE_TEXT.uxDesigner,
+      displayText: capitalizeFirstWord(option),
+    };
+  } else if (option === ROLE_ENUM_TEXT.ux) {
+    return {
+      value: option,
+      displayText: capitalizeFirstWord(option),
     };
   } else {
     return {
@@ -137,10 +148,19 @@ const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
   }
 });
 
-const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => ({
-  value: option,
-  displayText: capitalizeFirstLetter(option),
-}));
+const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => {
+  if (option === 'lgbtqia+ rights') {
+    return {
+      value: option,
+      displayText: capitalizeFirstWord(option),
+    };
+  } else {
+    return {
+      value: option,
+      displayText: capitalizeFirstLetter(option),
+    };
+  }
+});
 
 const YesNoOptions: Array<ISelectItem> = [
   {
@@ -328,24 +348,25 @@ const OrgSizeOptions = OrgSize.options.map((option) => ({
 }));
 
 export {
-  YOEOptions,
-  YOERangeOptions,
-  VisaSponsorshipOptions,
-  SkillOptions,
+  AttributionOtpions,
+  AuthorizationOptions,
+  CauseOptions,
   CommitmentOptions,
   EmploymentOptions,
-  RoleOptions,
-  CauseOptions,
-  YesNoOptions,
+  OrgSizeOptions,
+  OrgTypeOptions,
   PaidOptions,
-  TrueFalseOptions,
-  USDROptions,
-  AuthorizationOptions,
-  SearchStatusOptions,
   PreferredContactOptions,
   RelocationOptions,
   RemoteOptions,
-  AttributionOtpions,
-  OrgTypeOptions,
-  OrgSizeOptions,
+  RoleOptions,
+  SearchStatusOptions,
+  SkillOptions,
+  TrueFalseOptions,
+  USDROptions,
+  VisaSponsorshipOptions,
+  YOEOptions,
+  YOERangeOptions,
+  YesNoOptions
 };
+
