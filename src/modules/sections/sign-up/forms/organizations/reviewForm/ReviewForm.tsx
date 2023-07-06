@@ -143,9 +143,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               />
 
               {/* Turnstile */}
-              {debugIsActive ? (
-                ''
-              ) : (
+              {!debugIsActive ? (
                 <div id="turnstile-container" className="mx-auto">
                   <Turnstile
                     id="org-form-turnstile"
@@ -164,7 +162,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                     </div>
                   )}
                 </div>
-              )}
+              ) : null}
 
               {/* Form Control Button*/}
               <div className="mt-10">

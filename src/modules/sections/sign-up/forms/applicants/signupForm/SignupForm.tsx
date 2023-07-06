@@ -239,9 +239,7 @@ const SignupForm: React.FC<ISignupForm> = ({
             </div>
 
             {/* Turnstile */}
-            {debugIsActive ? (
-              ''
-            ) : (
+            {!debugIsActive ? (
               <div id="turnstile-container" className="mx-auto">
                 <Turnstile
                   id="candidate-form-turnstile"
@@ -260,7 +258,7 @@ const SignupForm: React.FC<ISignupForm> = ({
                   </div>
                 )}
               </div>
-            )}
+            ) : null }
 
             {/* Form Control Button*/}
             <Button
