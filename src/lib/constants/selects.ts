@@ -4,7 +4,7 @@ import {
   ORG_SIZE_LABEL_TEXT,
   PAID_TEXT,
   REMOTE_OPTION_TEXT,
-  ROLE_TEXT,
+  ROLE_ENUM_TEXT,
   SEARCH_STATUS_TEXT,
   USDR_TEXT,
   VISA_SPONSOR_TEXT,
@@ -39,6 +39,9 @@ import {
 import { IBoolItem, ISelectItem } from '@/lib/types';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
+  // TODO: We should move all of these options to either have the text be an
+  // enum, like we do for roles, OR we should add a 'key' or 'id field
+  // so that if they change, we still apply the correct transformations
   if (option === '<1') {
     return {
       value: option,
@@ -122,15 +125,20 @@ const EmploymentOptions: Array<ISelectItem> = EmploymentType.options.map(
 );
 
 const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
-  if (option === 'ux researcher') {
+  if (option === ROLE_ENUM_TEXT.vpProduct || option === ROLE_ENUM_TEXT.vpEng) {
     return {
       value: option,
-      displayText: ROLE_TEXT.uxResearcher,
+      displayText: capitalizeFirstWord(option),
     };
-  } else if (option === 'ux/ui designer') {
+  } else if (option === ROLE_ENUM_TEXT.uxResearcher) {
     return {
       value: option,
-      displayText: ROLE_TEXT.uxDesigner,
+      displayText: capitalizeFirstWord(option),
+    };
+  } else if (option === ROLE_ENUM_TEXT.ux) {
+    return {
+      value: option,
+      displayText: capitalizeFirstWord(option),
     };
   } else {
     return {
@@ -359,5 +367,6 @@ export {
   VisaSponsorshipOptions,
   YOEOptions,
   YOERangeOptions,
-  YesNoOptions,
+  YesNoOptions
 };
+
