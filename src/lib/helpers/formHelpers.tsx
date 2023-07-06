@@ -29,6 +29,13 @@ export const capitalizeFirstLetter = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+export const capitalizeFirstWord = (str: string): string => {
+  const strArray = str.split(' ');
+  strArray[0] = strArray[0].toUpperCase();
+
+  return strArray.join(' ');
+};
+
 export const capitalizeEveryWord = (str: string): string => {
   return str
     .split(' ')
