@@ -57,6 +57,7 @@ jobs:
         with:
           path: |
             ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+            ~/.cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-
@@ -88,6 +89,7 @@ jobs:
 
         uses: cypress-io/github-action@v5.7.2
         with:
+          command: pnpm e2e:ci
           record: false
           build: pnpm build:for-edge
           start: pnpm start

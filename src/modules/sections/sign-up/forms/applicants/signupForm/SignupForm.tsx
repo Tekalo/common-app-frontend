@@ -37,13 +37,13 @@ import Link from 'next/link';
 import { ForwardedRef, useEffect, useRef, useState } from 'react';
 
 export interface ISignupForm {
-  showUserExistsError: boolean;
   isAuthenticated: boolean;
+  isTurnstileValid: boolean;
+  showUserExistsError: boolean;
   user: User | undefined;
   handleSubmit: (_values: NewCandidateType, _turnstileToken: string) => void;
-  setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
-  isTurnstileValid: boolean;
   setIsTurnstileValid: (_isTurnstileValid: boolean) => void;
+  setShowPrivacyModal: (_showPrivacyModal: boolean) => void;
 }
 
 const TERMS_DISCLAIMER = (

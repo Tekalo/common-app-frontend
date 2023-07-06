@@ -7,6 +7,7 @@ module.exports = defineConfig({
   video: false,
   screenshotOnRunFailure: false,
   chromeWebSecurity: false,
+
   e2e: {
     setupNodeEvents(_on, config) {
       // https://stackoverflow.com/questions/52050657/what-is-the-best-practice-of-pass-states-between-tests-in-cypress
@@ -39,6 +40,24 @@ module.exports = defineConfig({
       config.env.cf_access_secret = process.env.CF_ACCESS_CLIENT_SECRET;
 
       return config;
+    },
+  },
+
+  component: {
+    setupNodeEvents(_on, config) {
+      require('@cypress/code-coverage/task')(_on, config);
+
+      return config;
+    },
+    devServer: {
+      framework: 'next',
+      bundler: 'webpack',
+    },
+    specPattern: ['cypress/component/**/*.cy.tsx'],
+    env: {
+      codeCoverage: {
+        exclude: ['cypress/**/*.*', 'src/**/*.mocks.*', 'src/**/*.stories.*'],
+      },
     },
   },
 });
