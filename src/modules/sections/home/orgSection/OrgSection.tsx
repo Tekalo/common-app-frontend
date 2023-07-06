@@ -88,7 +88,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
     const logos = full ? recruitingLogos : recruitingLogos.slice(0, 7);
 
     return (
-      <div className="flex w-full max-w-[870px] flex-row flex-wrap items-center justify-center justify-items-start gap-x-20 gap-y-6 px-4 md:gap-y-8 lg:gap-y-10">
+      <div className="flex max-h-[65vh] w-full max-w-[870px] flex-row flex-wrap items-center justify-center justify-items-start gap-x-20 gap-y-6 overflow-y-auto px-4 md:gap-y-8 lg:gap-y-10">
         {logos.map((logo, i) => {
           return (
             <a key={i} href={logo.url} target="_blank" rel="noreferrer">
