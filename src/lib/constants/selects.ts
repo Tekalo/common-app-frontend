@@ -32,11 +32,11 @@ import {
   YOE_RANGE,
 } from '@/lib/enums';
 import {
+  capitalizeEveryWord,
   capitalizeFirstLetter,
   capitalizeFirstWord,
 } from '@/lib/helpers/formHelpers';
 import { IBoolItem, ISelectItem } from '@/lib/types';
-import { capitalizeEveryWord } from './../helpers/formHelpers';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
   // TODO: We should move all of these options to either have the text be an
@@ -148,10 +148,19 @@ const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
   }
 });
 
-const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => ({
-  value: option,
-  displayText: capitalizeFirstLetter(option),
-}));
+const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => {
+  if (option === 'lgbtqia+ rights') {
+    return {
+      value: option,
+      displayText: capitalizeFirstWord(option),
+    };
+  } else {
+    return {
+      value: option,
+      displayText: capitalizeFirstLetter(option),
+    };
+  }
+});
 
 const YesNoOptions: Array<ISelectItem> = [
   {
@@ -358,5 +367,6 @@ export {
   VisaSponsorshipOptions,
   YOEOptions,
   YOERangeOptions,
-  YesNoOptions,
+  YesNoOptions
 };
+

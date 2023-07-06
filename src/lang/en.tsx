@@ -1002,15 +1002,25 @@ const ROLE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   ROLE_ENUM_TEXT.other,
 ];
 const CAUSE_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  'algorithmic fairness',
+  'arts & culture',
+  'benefits access',
   'climate change',
+  'democracy & voting rights',
   'environment',
   'human rights & social justice',
   'international development',
+  'economic mobility',
   'education',
   'health & well being',
+  'immigration',
   'government tech',
+  'lgbtqia+ rights',
+  'public infrastructure',
+  'racial justice',
   'tech policy',
   'trust & safety',
+  "women's rights",
   'other',
 ];
 const VISA_ENUM_OPTIONS: readonly [string, ...string[]] = [
