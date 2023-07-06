@@ -25,10 +25,6 @@ export const printErrorMessages = (
 export const executeScroll = () =>
   window.scrollTo({ top: 0, behavior: 'auto' });
 
-export const capitalizeFirstLetter = (str: string): string => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-
 export const capitalizeEveryWord = (str: string): string => {
   return str
     .split(' ')
@@ -36,6 +32,17 @@ export const capitalizeEveryWord = (str: string): string => {
       return word.charAt(0).toUpperCase() + word.slice(1);
     })
     .join(' ');
+};
+
+export const capitalizeFirstLetter = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+export const capitalizeFirstWord = (str: string): string => {
+  const strArray = str.split(' ');
+  strArray[0] = strArray[0].toUpperCase();
+
+  return strArray.join(' ');
 };
 
 // Helper to create option selects given supporting Zod enums
