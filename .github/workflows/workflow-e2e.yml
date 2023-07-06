@@ -50,7 +50,7 @@ jobs:
 
       - name: Debug
         run: |
-          echo "${{ inputs }}, ${{ vars.NEXT_PUBLIC_BASE_URL }}"
+          echo "${{ toJSON(inputs) }}, ${{ vars.NEXT_PUBLIC_BASE_URL }}"
 
       - name: Cypress run
         uses: cypress-io/github-action@v5.7.2
