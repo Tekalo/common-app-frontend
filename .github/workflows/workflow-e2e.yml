@@ -26,7 +26,7 @@ jobs:
   e2e-tests:
     name: Run e2e Tests
     runs-on: ubuntu-latest
-    environment: ${{inputs.environment}}
+    environment: ${{ inputs.environment }}
 
     strategy:
       matrix:
@@ -50,7 +50,7 @@ jobs:
 
       - name: Debug
         run: |
-          echo "${{ inputs.url }}, ${{ vars.NEXT_PUBLIC_BASE_URL }}"
+          echo "${{ inputs }}, ${{ vars.NEXT_PUBLIC_BASE_URL }}"
 
       - name: Cypress run
         uses: cypress-io/github-action@v5.7.2
@@ -64,8 +64,8 @@ jobs:
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
           NEXT_PUBLIC_BASE_URL: ${{ inputs.url }}
-          NEXT_PUBLIC_TEST_USER: ${{vars.NEXT_PUBLIC_TEST_USER}}
-          NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
+          NEXT_PUBLIC_TEST_USER: ${{ vars.NEXT_PUBLIC_TEST_USER }}
+          NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
           DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
           CF_ACCESS_CLIENT_ID: ${{ vars.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
