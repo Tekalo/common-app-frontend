@@ -258,7 +258,7 @@ const SignupForm: React.FC<ISignupForm> = ({
                   </div>
                 )}
               </div>
-            ) : null }
+            ) : null}
 
             {/* Form Control Button*/}
             <Button

@@ -1,10 +1,15 @@
 /// <reference types="cypress" />
 
-declare namespace Cypress {
-  interface Chainable {
-    deleteTestData(deleteUrl: string): Chainable<void>;
-    login(): Chainable<void>;
-    setupTestingEnvironment(): Chainable<void>;
-    validateLogin(): Chainable<void>;
+import { mount } from 'cypress/react';
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      setupTestingEnvironment(): Chainable<void>;
+      deleteTestData(deleteUrl: string): Chainable<void>;
+      login(): Chainable<void>;
+      validateLogin(): Chainable<void>;
+      mount: typeof mount;
+    }
   }
 }

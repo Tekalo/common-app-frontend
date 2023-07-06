@@ -65,4 +65,5 @@ jobs:
 
         uses: cypress-io/github-action@v5.7.2
         with:
+          command: pnpm e2e:ci
           record: false
