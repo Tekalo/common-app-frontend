@@ -31,9 +31,12 @@ import {
   YOE,
   YOE_RANGE,
 } from '@/lib/enums';
-import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
+import {
+  capitalizeEveryWord,
+  capitalizeFirstLetter,
+  capitalizeFirstWord,
+} from '@/lib/helpers/formHelpers';
 import { IBoolItem, ISelectItem } from '@/lib/types';
-import { capitalizeEveryWord } from './../helpers/formHelpers';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
   if (option === '<1') {
@@ -137,10 +140,19 @@ const RoleOptions: Array<ISelectItem> = Roles.options.map((option) => {
   }
 });
 
-const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => ({
-  value: option,
-  displayText: capitalizeFirstLetter(option),
-}));
+const CauseOptions: Array<ISelectItem> = Causes.options.map((option) => {
+  if (option === 'lgbtqia+ rights') {
+    return {
+      value: option,
+      displayText: capitalizeFirstWord(option),
+    };
+  } else {
+    return {
+      value: option,
+      displayText: capitalizeFirstLetter(option),
+    };
+  }
+});
 
 const YesNoOptions: Array<ISelectItem> = [
   {
@@ -328,24 +340,24 @@ const OrgSizeOptions = OrgSize.options.map((option) => ({
 }));
 
 export {
-  YOEOptions,
-  YOERangeOptions,
-  VisaSponsorshipOptions,
-  SkillOptions,
+  AttributionOtpions,
+  AuthorizationOptions,
+  CauseOptions,
   CommitmentOptions,
   EmploymentOptions,
-  RoleOptions,
-  CauseOptions,
-  YesNoOptions,
+  OrgSizeOptions,
+  OrgTypeOptions,
   PaidOptions,
-  TrueFalseOptions,
-  USDROptions,
-  AuthorizationOptions,
-  SearchStatusOptions,
   PreferredContactOptions,
   RelocationOptions,
   RemoteOptions,
-  AttributionOtpions,
-  OrgTypeOptions,
-  OrgSizeOptions,
+  RoleOptions,
+  SearchStatusOptions,
+  SkillOptions,
+  TrueFalseOptions,
+  USDROptions,
+  VisaSponsorshipOptions,
+  YOEOptions,
+  YOERangeOptions,
+  YesNoOptions,
 };
