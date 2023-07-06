@@ -133,9 +133,6 @@ devDependencies:
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.24)
-  babel-plugin-istanbul:
-    specifier: ^6.1.1
-    version: 6.1.1
   chromatic:
     specifier: ^6.18.0
     version: 6.18.0
