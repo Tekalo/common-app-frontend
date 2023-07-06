@@ -14,10 +14,11 @@ import {
   TRACKING,
 } from '@/lang/en';
 import {
-  applicantsEndpoint,
   applicantSubmissionsEndpoint,
+  applicantsEndpoint,
   existingApplicantEndpoint,
   get,
+  post,
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
 import {
@@ -25,6 +26,7 @@ import {
   stripEmptyFields,
 } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import { DebugContext } from '@/lib/providers/debugProvider';
 import {
   NewCandidateType,
   NextPageWithLayout,
@@ -35,7 +37,7 @@ import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import router from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const privacyModalExtras = (
   <div className="text-p3-desktop">
@@ -52,6 +54,7 @@ const privacyModalExtras = (
 const ApplicantSignup: NextPageWithLayout = () => {
   const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
     useAuth0();
+  const debugCtx = useContext(DebugContext);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
@@ -117,19 +120,34 @@ const ApplicantSignup: NextPageWithLayout = () => {
     values: NewCandidateType,
     turnstileToken: string
   ) => {
+    // TODO: This and the organization form function are identical with
+    // different value types, we can refactor these
     let authToken = '';
+    let req;
 
     if (isAuthenticated) {
       authToken = await getAccessTokenSilently();
     }
 
     setIsConflict(false);
-    postWithTurnstile(
-      applicantsEndpoint,
-      stripEmptyFields(values),
-      turnstileToken,
-      authToken
-    )
+
+    if (debugCtx.debugIsActive) {
+      req = post(
+        applicantsEndpoint,
+        stripEmptyFields(values),
+        authToken,
+        debugCtx.debugSecret
+      );
+    } else {
+      req = postWithTurnstile(
+        applicantsEndpoint,
+        stripEmptyFields(values),
+        turnstileToken,
+        authToken
+      );
+    }
+
+    req
       .then((res) => {
         switch (res.status) {
           case 200: // good submission
@@ -182,6 +200,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 <ApplicantSignupForm
                   showUserExistsError={isConflict}
                   isAuthenticated={isAuthenticated}
+                  debugIsActive={debugCtx.debugIsActive}
                   user={user}
                   handleSubmit={handleSubmit}
                   setShowPrivacyModal={setShowPrivacyModal}

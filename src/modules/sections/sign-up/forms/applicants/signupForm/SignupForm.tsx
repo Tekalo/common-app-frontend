@@ -37,6 +37,7 @@ import Link from 'next/link';
 import { ForwardedRef, useEffect, useRef, useState } from 'react';
 
 export interface ISignupForm {
+  debugIsActive: boolean;
   isAuthenticated: boolean;
   isTurnstileValid: boolean;
   showUserExistsError: boolean;
@@ -75,13 +76,14 @@ const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
 };
 
 const SignupForm: React.FC<ISignupForm> = ({
-  showUserExistsError,
+  debugIsActive,
   isAuthenticated,
+  isTurnstileValid,
+  showUserExistsError,
   user,
   handleSubmit,
-  setShowPrivacyModal,
-  isTurnstileValid,
   setIsTurnstileValid,
+  setShowPrivacyModal,
 }) => {
   const [contactValue, setContactValue] = useState<string>();
   const [turnstileToken, setTurnstileToken] = useState<string>('');
@@ -111,7 +113,9 @@ const SignupForm: React.FC<ISignupForm> = ({
     <>
       <Form<NewCandidateType>
         ref={formRef}
-        onSubmit={(values) => handleSubmit(values, turnstileToken)}
+        onSubmit={(values) => {
+          handleSubmit(values, turnstileToken);
+        }}
       >
         {({ isValid, isSubmitted, submit }) => (
           <form
@@ -235,35 +239,35 @@ const SignupForm: React.FC<ISignupForm> = ({
             </div>
 
             {/* Turnstile */}
-            <div
-              id="turnstile-container"
-              className="mx-auto"
-              data-turnstile-ready={`${turnstileToken.length > 0}`}
-            >
-              <Turnstile
-                id="candidate-form-turnstile"
-                ref={turnstileCandidateRef}
-                onSuccess={setTurnstileToken}
-                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
-                onAfterInteractive={() => setIsTurnstileValid(true)}
-              />
-              {isTurnstileValid ? null : (
-                <div
-                  className={
-                    'mt-1 text-center text-component-small text-red-error'
-                  }
-                >
-                  {ERROR_TEXT.somethingWrong}
-                </div>
-              )}
-            </div>
+            {!debugIsActive ? (
+              <div id="turnstile-container" className="mx-auto">
+                <Turnstile
+                  id="candidate-form-turnstile"
+                  ref={turnstileCandidateRef}
+                  onSuccess={setTurnstileToken}
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
+                  onAfterInteractive={() => setIsTurnstileValid(true)}
+                />
+                {isTurnstileValid ? null : (
+                  <div
+                    className={
+                      'mt-1 text-center text-component-small text-red-error'
+                    }
+                  >
+                    {ERROR_TEXT.somethingWrong}
+                  </div>
+                )}
+              </div>
+            ) : null}
 
             {/* Form Control Button*/}
             <Button
               name="submit-candidate-sign-up"
               className="mt-10 w-full lg:mt-14"
               label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
-              type="submit"
+              onClick={() => {
+                submit();
+              }}
               disabled={isSubmitted && !isValid}
             />
           </form>

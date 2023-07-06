@@ -4,20 +4,23 @@ import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import { CONFIRM_MODAL, ERROR_MODAL_TEXT, ORG_SUCCESS_LINK } from '@/lang/en';
 import {
   opportunityBatchEndpoint,
+  post,
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
 import { executeScroll } from '@/lib/helpers/formHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
+import { DebugContext } from '@/lib/providers/debugProvider';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 const OrganizationSignup: NextPageWithLayout = () => {
   const router = useRouter();
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const debugCtx = useContext(DebugContext);
 
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
   const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -41,19 +44,28 @@ const OrganizationSignup: NextPageWithLayout = () => {
       referenceAttributionOther: orgInfo?.referenceAttributionOther,
     };
 
+    // TODO: This and the candidate form function are identical with
+    // different value types, we can refactor these
     let authToken = '';
+    let req;
 
     if (isAuthenticated) {
       authToken = await getAccessTokenSilently();
     }
 
     // Send the payload to the API
-    postWithTurnstile(
-      opportunityBatchEndpoint,
-      values,
-      turnstileToken,
-      authToken
-    )
+    if (debugCtx.debugIsActive) {
+      req = post(opportunityBatchEndpoint, values, authToken);
+    } else {
+      req = postWithTurnstile(
+        opportunityBatchEndpoint,
+        values,
+        turnstileToken,
+        authToken
+      );
+    }
+
+    req
       .then((res) => {
         switch (res.status) {
           case 200: // good submission
@@ -124,6 +136,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
     <>
       {showReview ? (
         <ReviewForm
+          debugIsActive={debugCtx.debugIsActive}
           orgInfo={orgInfo}
           orgRoles={orgRoles}
           handleGoToOrg={handleGoToOrg}

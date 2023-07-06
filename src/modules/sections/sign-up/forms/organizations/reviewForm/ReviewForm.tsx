@@ -22,13 +22,14 @@ import OrgDetailReview from './sections/OrgDetailReview';
 import RoleDetailReview from './sections/RoleDetailReview';
 
 export interface IReviewFormPage {
+  debugIsActive: boolean;
+  isTurnstileValid: boolean;
   orgInfo: NewOrgType | undefined;
   orgRoles: NewRoleType[];
+  handleDeleteRole: (idx: number) => void;
   handleGoToOrg: () => void;
   handleGoToRole: (idx: number) => void;
-  handleDeleteRole: (idx: number) => void;
   handleSubmit: (privacyAcceptance: boolean, _turnstileToken: string) => void;
-  isTurnstileValid: boolean;
   setIsTurnstileValid: (_isTurnstileValid: boolean) => void;
 }
 
@@ -62,13 +63,14 @@ const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
 };
 
 const ReviewFormPage: React.FC<IReviewFormPage> = ({
+  debugIsActive,
+  isTurnstileValid,
   orgInfo,
   orgRoles,
+  handleDeleteRole,
   handleGoToOrg,
   handleGoToRole,
-  handleDeleteRole,
   handleSubmit,
-  isTurnstileValid,
   setIsTurnstileValid,
 }) => {
   useEffect(executeScroll, []);
@@ -141,37 +143,37 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
               />
 
               {/* Turnstile */}
-              <div
-                id="turnstile-container"
-                className="mx-auto"
-                data-turnstile-ready={turnstileToken.length > 0}
-              >
-                <Turnstile
-                  id="org-form-turnstile"
-                  ref={turnstileOrgRef}
-                  onSuccess={setTurnstileToken}
-                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
-                  onAfterInteractive={() => setIsTurnstileValid(true)}
-                />
-                {isTurnstileValid ? null : (
-                  <div
-                    className={
-                      'mt-1 text-left text-component-small text-red-error'
-                    }
-                  >
-                    {ERROR_TEXT.somethingWrong}
-                  </div>
-                )}
-              </div>
+              {!debugIsActive ? (
+                <div id="turnstile-container" className="mx-auto">
+                  <Turnstile
+                    id="org-form-turnstile"
+                    ref={turnstileOrgRef}
+                    onSuccess={setTurnstileToken}
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''}
+                    onAfterInteractive={() => setIsTurnstileValid(true)}
+                  />
+                  {isTurnstileValid ? null : (
+                    <div
+                      className={
+                        'mt-1 text-left text-component-small text-red-error'
+                      }
+                    >
+                      {ERROR_TEXT.somethingWrong}
+                    </div>
+                  )}
+                </div>
+              ) : null}
 
-              {/* Form Cotnrol Button*/}
+              {/* Form Control Button*/}
               <div className="mt-10">
                 <Button
                   className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
                   label={REVIEW_FORM_TEXT.BUTTONS.submit.label}
-                  type="submit"
                   name="submit-org-form"
                   disabled={isSubmitted && !isValid}
+                  onClick={() => {
+                    submit();
+                  }}
                 />
               </div>
             </form>
