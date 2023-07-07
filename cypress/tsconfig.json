@@ -1,8 +1,9 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "./**/*.tsx"],
   "exclude": [],
   "compilerOptions": {
-    "types": ["cypress", "node"]
+    "types": ["cypress", "node"],
+    "jsx": "react"
   }
 }

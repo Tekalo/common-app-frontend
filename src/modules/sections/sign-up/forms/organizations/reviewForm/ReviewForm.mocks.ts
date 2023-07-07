@@ -1,13 +1,14 @@
 import { IReviewFormPage } from './ReviewForm';
 
 const base: IReviewFormPage = {
+  debugIsActive: false,
+  isTurnstileValid: true,
   orgInfo: undefined,
   orgRoles: [],
+  handleDeleteRole: (idx) => void {},
   handleGoToOrg: () => void {},
   handleGoToRole: (idx) => void {},
-  handleDeleteRole: (idx) => void {},
   handleSubmit: (val) => void {},
-  isTurnstileValid: true,
   setIsTurnstileValid: () => void {},
 };
 

@@ -1,7 +1,5 @@
 import { EmploymentType } from '@/lib/enums';
-import {
-  opportunityBatchEndpoint
-} from '@/lib/helpers/apiHelpers';
+import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
@@ -13,7 +11,7 @@ describe('Organization Application', () => {
   const reviewPageTitleSelector = 'h3[data-name=review-page-title]';
 
   beforeEach(() => {
-    cy.bypassCloudflareAccess();
+    cy.setupTestingEnvironment();
     cy.visit('/sign-up/organizations');
   });
 
@@ -567,11 +565,6 @@ describe('Organization Application', () => {
       url: opportunityBatchEndpoint,
     }).as('opportunityCreation');
 
-    cy.get('#turnstile-container', { timeout: formSubmissionTimeout }).should(
-      'have.attr',
-      'data-turnstile-ready',
-      'true'
-    );
     cy.get('button#submit-org-form').click();
 
     cy.wait('@opportunityCreation', { timeout: formSubmissionTimeout }).then(
