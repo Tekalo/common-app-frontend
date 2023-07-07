@@ -10,7 +10,6 @@ on:
         required: true
       url:
         type: string
-        required: true
     secrets:
       DEBUG_MODE_SECRET:
         description: secret to bypass cloudflare
@@ -63,7 +62,7 @@ jobs:
           NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
-          NEXT_PUBLIC_BASE_URL: ${{ inputs.url }}
+          NEXT_PUBLIC_BASE_URL: ${{ inputs.url || vars.NEXT_PUBLIC_BASE_URL }}
           NEXT_PUBLIC_TEST_USER: ${{ vars.NEXT_PUBLIC_TEST_USER }}
           NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
           DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
