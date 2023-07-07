@@ -1,13 +1,14 @@
 import { ISignupForm } from './SignupForm';
 
 const base: ISignupForm = {
+  debugIsActive: false,
   isAuthenticated: false,
-  user: undefined,
-  showUserExistsError: false,
-  handleSubmit: () => void {},
-  setShowPrivacyModal: () => void {},
   isTurnstileValid: true,
+  showUserExistsError: false,
+  user: undefined,
+  handleSubmit: () => void {},
   setIsTurnstileValid: () => void {},
+  setShowPrivacyModal: () => void {},
 };
 
 export const mockSignupFormProps = {

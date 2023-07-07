@@ -14,16 +14,8 @@ on:
       CLOUDFLARE_API_TOKEN:
         description: Cloudflare API Token
     outputs:
-      issue-number:
-        value: ${{ jobs.build.outputs.issue-number }}
       url:
         value: ${{ jobs.build.outputs.url }}
-      alias:
-        value: ${{ jobs.build.outputs.alias }}
-      environment:
-        value: ${{ jobs.build.outputs.environment }}
-      deployment_id:
-        value: ${{ jobs.build.outputs.deployment_id }}
 
 jobs:
   build:
@@ -63,6 +55,7 @@ jobs:
         with:
           path: |
             ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+            ~/.cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-
@@ -96,7 +89,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: common-app-frontend
           directory: .vercel/output/static
-
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
       url: ${{ steps.deploy.outputs.url }}

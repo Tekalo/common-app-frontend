@@ -1,9 +1,15 @@
 import { deleteRequest } from '@/lib/helpers/apiHelpers';
+import { __DEBUG_ITEM_KEY__ } from '@/providers/debugProvider';
 
-Cypress.Commands.add('bypassCloudflareAccess', (): void => {
+Cypress.Commands.add('setupTestingEnvironment', (): void => {
   cy.session(
     'cf',
     () => {
+      // This enabled debug mode
+      localStorage.setItem(
+        __DEBUG_ITEM_KEY__,
+        Cypress.env('debug_mode_secret')
+      );
       cy.visit({
         url: '/',
         headers: {
@@ -28,7 +34,7 @@ Cypress.Commands.add('login', (): void => {
   cy.session(
     'login',
     () => {
-      cy.bypassCloudflareAccess();
+      cy.setupTestingEnvironment();
       cy.visit('/sign-in');
 
       cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {

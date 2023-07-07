@@ -5,6 +5,7 @@ import {
   PRIVACY_LINK,
   SIGN_IN_REDIRECT,
 } from '@/lang/en';
+import DebugProvider from '@/lib/providers/debugProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -67,7 +68,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           backend={TouchBackend}
           options={{ enableMouseEvents: true }}
         >
-          {getLayout(<Component {...pageProps} />)}
+          <DebugProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </DebugProvider>
           <CookieConsent
             onAccept={() => window.consentGranted()}
             enableDeclineButton
