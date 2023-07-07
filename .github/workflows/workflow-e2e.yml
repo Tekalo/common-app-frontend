@@ -50,7 +50,7 @@ jobs:
 
       - name: Debug
         run: |
-          echo "${{ toJSON(github.event.inputs) }}, ${{ toJSON(vars) }}"
+          echo "${{ toJSON(inputs) }}, ${{ toJSON(vars) }}"
 
       - name: Cypress run
         uses: cypress-io/github-action@v5.7.2
