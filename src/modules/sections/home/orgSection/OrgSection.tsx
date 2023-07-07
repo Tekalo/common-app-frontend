@@ -28,6 +28,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       url: 'https://avela.org/',
     },
     {
+      src: '/images/logos/koko.png',
+      alt: 'Koko',
+      url: 'https://www.kokocares.org',
+    },
+    {
       src: '/images/logos/Project_Tech4Dev.png',
       alt: 'Project Tech 4 Dev Logo',
       url: 'https://projecttech4dev.org/',
@@ -36,6 +41,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       src: '/images/logos/AmeelioLogo.png',
       alt: 'Ameelio Logo',
       url: 'https://www.ameelio.org/',
+    },
+    {
+      src: '/images/logos/Ello.gif',
+      alt: 'Ello',
+      url: 'https://www.helloello.com',
     },
     {
       src: '/images/logos/McsilverLogo.png',
@@ -81,6 +91,21 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       src: '/images/logos/I_CAN_HELP_HOST.png',
       alt: 'I CAN HELP HOST',
       url: 'https://icanhelp.host/',
+    },
+    {
+      src: '/images/logos/DataKind.png',
+      alt: 'DataKind',
+      url: 'https://www.datakind.org',
+    },
+    {
+      src: '/images/logos/CommunityShare.png',
+      alt: 'CommunityShare',
+      url: 'https://www.communityshare.org',
+    },
+    {
+      src: '/images/logos/Teaching_Lab.png',
+      alt: 'Teaching Lab',
+      url: 'https://www.teachinglab.org',
     },
   ];
 
