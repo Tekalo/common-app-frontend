@@ -119,8 +119,9 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                 e.preventDefault();
 
                 if (
-                  turnstileToken === '' ||
-                  turnstileOrgRef.current?.getResponse() === undefined
+                  !debugIsActive &&
+                  (turnstileToken === '' ||
+                    turnstileOrgRef.current?.getResponse() === undefined)
                 ) {
                   setIsTurnstileValid(false);
                   turnstileOrgRef.current?.reset();
@@ -171,9 +172,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                   label={REVIEW_FORM_TEXT.BUTTONS.submit.label}
                   name="submit-org-form"
                   disabled={isSubmitted && !isValid}
-                  onClick={() => {
-                    submit();
-                  }}
+                  type="submit"
                 />
               </div>
             </form>
