@@ -20,6 +20,8 @@ const FreeTagField: React.FC<IFreeTagField> = ({
   initialValue,
   validator,
 }) => {
+  const inputId = `input-${fieldName}`;
+
   return (
     <Field<string[]>
       name={fieldName}
@@ -31,13 +33,14 @@ const FreeTagField: React.FC<IFreeTagField> = ({
         return (
           <div>
             <FreeTag
-              name={`input-${fieldName}`}
+              errors={errors}
               label={label}
+              name={inputId}
               placeholder={placeholder}
-              value={value}
               setValue={setValue}
+              value={value}
             />
-            {printErrorMessages(isSubmitted, errors)}
+            {printErrorMessages(inputId, isSubmitted, errors)}
           </div>
         );
       }}

@@ -22,26 +22,29 @@ const LongTextField: React.FC<ILongTextField> = ({
   tooltipText,
   validator,
 }) => {
+  const inputId = `input-${fieldName}`;
+
   return (
     <Field<string>
-      name={fieldName}
       initialValue={initialValue}
-      onSubmitValidate={validator}
+      name={fieldName}
       onChangeValidate={validator}
+      onSubmitValidate={validator}
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
           <div>
             <LongText
-              name={`input-${fieldName}`}
+              errors={errors}
               label={label}
-              placeholder={placeholder}
-              value={value}
-              tooltipText={tooltipText}
-              setValue={setValue}
+              name={inputId}
               onBlur={onBlur}
+              placeholder={placeholder}
+              setValue={setValue}
+              tooltipText={tooltipText}
+              value={value}
             />
-            {printErrorMessages(isSubmitted, errors)}
+            {printErrorMessages(inputId, isSubmitted, errors)}
           </div>
         );
       }}

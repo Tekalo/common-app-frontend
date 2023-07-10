@@ -8,6 +8,7 @@ import {
 import { ReactElement } from 'react';
 
 export interface ISelectBoolean {
+  errors: string[];
   name: string;
   value: boolean;
   label: string | ReactElement;
@@ -21,6 +22,7 @@ export interface ISelectBoolean {
 }
 
 const SelectBoolean: React.FC<ISelectBoolean> = ({
+  errors,
   name,
   value,
   placeholder,
@@ -30,8 +32,16 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
   labelClassName,
   buttonClassName,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
-    <Listbox value={value} onChange={setValue} name={name}>
+    <Listbox
+      aria-errormessage={errorMessageId}
+      aria-invalid={!!errors.length}
+      value={value}
+      onChange={setValue}
+      name={name}
+    >
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label

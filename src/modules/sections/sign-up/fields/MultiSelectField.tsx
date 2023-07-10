@@ -30,6 +30,8 @@ const MultiSelectField: React.FC<IMultiSelectField> = ({
   validator,
   disabled = false,
 }) => {
+  const inputId = `input-${fieldName}`;
+
   return (
     <Field<string[]>
       name={fieldName}
@@ -41,18 +43,19 @@ const MultiSelectField: React.FC<IMultiSelectField> = ({
         return (
           <div>
             <MultiSelect
+              errors={errors}
               disabled={disabled}
-              name={`input-${fieldName}`}
               label={label}
+              listOptions={listOptions}
+              name={inputId}
+              onBlur={onBlur}
               placeholder={placeholder}
               selectionLabelMulti={selectionLabelMulti}
               selectionLabelSingle={selectionLabelSingle}
-              value={value}
               setValue={setValue}
-              onBlur={onBlur}
-              listOptions={listOptions}
+              value={value}
             />
-            {printErrorMessages(isSubmitted, errors, disabled)}
+            {printErrorMessages(inputId, isSubmitted, errors, disabled)}
           </div>
         );
       }}

@@ -1,6 +1,7 @@
 import { ISelectItem } from '@/lib/types';
 
 export interface ISelectGroup {
+  errors: string[];
   name: string;
   label?: string;
   value: string[];
@@ -11,6 +12,7 @@ export interface ISelectGroup {
 }
 
 const SelectGroup: React.FC<ISelectGroup> = ({
+  errors,
   name,
   value,
   setValue,
@@ -18,6 +20,8 @@ const SelectGroup: React.FC<ISelectGroup> = ({
   label,
   onChange,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
     <fieldset className="space-y-4 text-left">
       <legend className="text-component-extra-small text-black-text">
@@ -30,6 +34,8 @@ const SelectGroup: React.FC<ISelectGroup> = ({
         >
           <>
             <input
+              aria-errormessage={errorMessageId}
+              aria-invalid={!!errors.length}
               type="checkbox"
               id={`${name}-${option.value}`}
               value={option.value}

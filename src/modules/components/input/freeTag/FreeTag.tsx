@@ -1,30 +1,34 @@
 import Tooltip from '@/components/tooltip/Tooltip';
 
 export interface IFreeTag {
+  errors: string[];
   name: string;
-  value: string[];
-  label?: string;
   setValue: (_val: string[]) => void;
+  value: string[];
+  disabled?: boolean;
+  inputClassName?: string;
+  label?: string;
+  labelClassName?: string;
   onBlur?: () => void;
   placeholder?: string;
-  labelClassName?: string;
-  inputClassName?: string;
   tooltipText?: string;
-  disabled?: boolean;
 }
 
 const FreeText: React.FC<IFreeTag> = ({
+  errors,
   name,
-  label,
-  value,
   setValue,
+  value,
+  disabled,
+  inputClassName,
+  label,
+  labelClassName,
   onBlur,
   placeholder,
-  labelClassName,
-  inputClassName,
   tooltipText,
-  disabled,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
     <div className="space-y-2 text-left">
       <label
@@ -41,6 +45,8 @@ const FreeText: React.FC<IFreeTag> = ({
                     border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2
                     focus:border-2 focus:border-blue-1 focus:p-[7px]
                     active:border active:border-blue-1 active:p-2 ${inputClassName}}`}
+        aria-errormessage={errorMessageId}
+        aria-invalid={!!errors.length}
         value={value ? value.join(', ') : ''}
         onBlur={(e) =>
           setValue(

@@ -34,6 +34,8 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
   validator,
   disabled = false,
 }) => {
+  const inputId = `input-${fieldName}`;
+
   const mapValueToItems = (value: string[]): ISelectItem[] => {
     if (value && value.length) {
       return value.map((s) => {
@@ -61,18 +63,19 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
           <>
             <div>
               <MultiSelect
+                errors={errors}
                 disabled={disabled}
-                name={`input-${fieldName}`}
                 label={selectLabel}
+                listOptions={listOptions}
+                name={inputId}
+                onBlur={onBlur}
                 placeholder={placeholder}
                 selectionLabelMulti={selectionLabelMulti}
                 selectionLabelSingle={selectionLabelSingle}
-                value={value || []}
                 setValue={setValue}
-                onBlur={onBlur}
-                listOptions={listOptions}
+                value={value || []}
               />
-              {printErrorMessages(isSubmitted, errors, disabled)}
+              {printErrorMessages(inputId, isSubmitted, errors, disabled)}
             </div>
             <RankChoice
               label={rankLabel}

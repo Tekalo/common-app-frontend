@@ -33,6 +33,7 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
       tooltipText,
       validator,
     } = props;
+    const inputId = `input-${fieldName}`;
 
     return (
       <Field<string>
@@ -46,18 +47,19 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
           return (
             <div>
               <SingleSelect
-                name={`input-${fieldName}`}
+                errors={errors}
+                disabled={disabled}
                 label={label}
-                placeholder={placeholder}
-                value={value}
-                setValue={setValue}
-                tooltipText={tooltipText}
+                listOptions={listOptions}
+                name={inputId}
                 onBlur={onBlur}
                 onChange={onChange}
-                listOptions={listOptions}
-                disabled={disabled}
+                placeholder={placeholder}
+                setValue={setValue}
+                tooltipText={tooltipText}
+                value={value}
               />
-              {printErrorMessages(isSubmitted, errors, disabled)}
+              {printErrorMessages(inputId, isSubmitted, errors, disabled)}
             </div>
           );
         }}

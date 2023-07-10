@@ -30,6 +30,8 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
   validator,
   onChange,
 }) => {
+  const inputId = `input-${fieldName}`;
+
   return (
     <Field<string>
       name={fieldName}
@@ -42,22 +44,22 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
         return (
           <div className="space-y-2">
             <RadioGroup
-              name={`input-${fieldName}`}
+              errors={errors}
               label={label}
-              value={String(value)}
+              listOptions={listOptions}
+              name={inputId}
+              onBlur={onBlur}
               onChange={(val) => {
                 setValue(val);
-
                 if (onChange) {
                   onChange(val);
                 }
               }}
-              onBlur={onBlur}
               rowAlign={rowAlign}
-              listOptions={listOptions}
+              value={String(value)}
             />
             {helperText ? <>{helperText}</> : null}
-            {printErrorMessages(isSubmitted, errors)}
+            {printErrorMessages(inputId, isSubmitted, errors)}
           </div>
         );
       }}

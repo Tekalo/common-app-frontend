@@ -26,28 +26,31 @@ const FreeTextField: React.FC<IFreeTextField> = ({
   tooltipText,
   disabled = false,
 }) => {
+  const inputId = `input-${fieldName}`;
+
   return (
     <Field<string>
+      initialValue={initialValue}
       listenTo={listenTo}
       name={fieldName}
-      initialValue={initialValue}
-      onSubmitValidate={validator}
       onChangeValidate={validator}
+      onSubmitValidate={validator}
     >
       {({ value, setValue, onBlur, errors }) => {
         return (
           <div>
             <FreeText
-              name={`input-${fieldName}`}
+              errors={errors}
               disabled={disabled}
-              tooltipText={tooltipText}
               label={label}
-              placeholder={placeholder}
-              value={value}
-              setValue={setValue}
+              name={inputId}
               onBlur={onBlur}
+              placeholder={placeholder}
+              setValue={setValue}
+              tooltipText={tooltipText}
+              value={value}
             />
-            {printErrorMessages(isSubmitted, errors, disabled)}
+            {printErrorMessages(inputId, isSubmitted, errors, disabled)}
           </div>
         );
       }}

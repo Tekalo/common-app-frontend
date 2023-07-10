@@ -30,6 +30,8 @@ const SelectGroupField = React.forwardRef<FieldInstance, ISelectGroupField>(
       onChange,
     } = props;
 
+    const inputId = `input-${fieldName}`;
+
     return (
       <Field<string[]>
         name={fieldName}
@@ -42,20 +44,21 @@ const SelectGroupField = React.forwardRef<FieldInstance, ISelectGroupField>(
           return (
             <div>
               <SelectGroup
-                name={`input-${fieldName}`}
+                errors={errors}
                 label={label}
-                value={value}
-                setValue={setValue}
+                listOptions={listOptions}
+                name={inputId}
                 onBlur={onBlur}
                 onChange={onChange}
-                listOptions={listOptions}
+                setValue={setValue}
+                value={value}
               />
               {helperText ? (
                 <div className="mt-2 text-left text-component-extra-small-helper-text">
                   {helperText}
                 </div>
               ) : null}
-              {printErrorMessages(isSubmitted, errors)}
+              {printErrorMessages(inputId, isSubmitted, errors)}
             </div>
           );
         }}

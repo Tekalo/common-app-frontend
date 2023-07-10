@@ -29,6 +29,7 @@ const RadioSelectField = React.forwardRef<FieldInstance, IRadioSelectField>(
       initialValue,
       validator,
     } = props;
+    const inputId = `input-${fieldName}`;
 
     return (
       <Field<boolean>
@@ -42,18 +43,19 @@ const RadioSelectField = React.forwardRef<FieldInstance, IRadioSelectField>(
           return (
             <div className="space-y-2">
               <RadioGroup
-                name={`input-${fieldName}`}
+                errors={errors}
                 label={label}
-                value={String(value)}
-                onChange={(val) => setValue(val === 'true')}
-                onBlur={onBlur}
-                rowAlign={rowAlign}
                 listOptions={listOptions}
+                name={inputId}
+                onBlur={onBlur}
+                onChange={(val) => setValue(val === 'true')}
+                rowAlign={rowAlign}
+                value={String(value)}
               />
 
               {helperText ? <>{helperText}</> : null}
 
-              {printErrorMessages(isSubmitted, errors)}
+              {printErrorMessages(inputId, isSubmitted, errors)}
             </div>
           );
         }}

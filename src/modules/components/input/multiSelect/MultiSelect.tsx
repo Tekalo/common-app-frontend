@@ -3,6 +3,7 @@ import { Listbox, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 export interface IMultiSelect {
+  errors: string[];
   name: string;
   value: string[];
   label: string;
@@ -19,6 +20,7 @@ export interface IMultiSelect {
 }
 
 const MultiSelect: React.FC<IMultiSelect> = ({
+  errors,
   disabled,
   name,
   value,
@@ -33,6 +35,8 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   setValue,
   onBlur,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
     <Listbox
       disabled={disabled}
@@ -40,6 +44,8 @@ const MultiSelect: React.FC<IMultiSelect> = ({
       onChange={setValue}
       name={name}
       multiple={true}
+      aria-errormessage={errorMessageId}
+      aria-invalid={!!errors.length}
     >
       {({ open }) => (
         <div className="text-left">

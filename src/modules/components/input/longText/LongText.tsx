@@ -1,6 +1,7 @@
 import Tooltip from '@/components/tooltip/Tooltip';
 
 export interface ILongText {
+  errors: string[];
   name: string;
   value: string;
   label?: string;
@@ -13,6 +14,7 @@ export interface ILongText {
 }
 
 const LongText: React.FC<ILongText> = ({
+  errors,
   name,
   label,
   value,
@@ -23,6 +25,8 @@ const LongText: React.FC<ILongText> = ({
   inputClassName,
   tooltipText,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
     <div className="space-y-2 text-left">
       <label
@@ -42,6 +46,8 @@ const LongText: React.FC<ILongText> = ({
         )}
       </label>
       <textarea
+        aria-errormessage={errorMessageId}
+        aria-invalid={!!errors.length}
         name={name}
         className={`box-border max-h-[364px] min-h-[194px] w-full resize-y rounded-[3px]
                     border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2

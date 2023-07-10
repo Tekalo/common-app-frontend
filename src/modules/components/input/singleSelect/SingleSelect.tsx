@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 export interface ISingleSelect {
+  errors: string[];
   label: string;
   listOptions: ISelectItem[];
   name: string;
@@ -24,6 +25,7 @@ export interface ISingleSelect {
 }
 
 const SingleSelect: React.FC<ISingleSelect> = ({
+  errors,
   name,
   value,
   placeholder,
@@ -37,8 +39,12 @@ const SingleSelect: React.FC<ISingleSelect> = ({
   tooltipText,
   onChange,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
     <Listbox
+      aria-errormessage={errorMessageId}
+      aria-invalid={!!errors.length}
       value={value}
       onChange={(val) => {
         setValue(val);

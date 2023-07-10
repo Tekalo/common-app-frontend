@@ -1,6 +1,7 @@
 import { ISelectItem } from '@/lib/types';
 
 export interface IRadioGroup {
+  errors: string[];
   name?: string;
   label?: string;
   value: string;
@@ -11,6 +12,7 @@ export interface IRadioGroup {
 }
 
 const RadioGroup: React.FC<IRadioGroup> = ({
+  errors,
   name,
   value,
   label,
@@ -18,6 +20,8 @@ const RadioGroup: React.FC<IRadioGroup> = ({
   rowAlign = false,
   listOptions,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
     <fieldset
       className={`text-left ${rowAlign ? 'flex flex-row' : 'space-y-2'}`}
@@ -35,6 +39,8 @@ const RadioGroup: React.FC<IRadioGroup> = ({
         >
           <div className="flex h-[16px] w-[16px] items-center justify-center">
             <input
+              aria-errormessage={errorMessageId}
+              aria-invalid={!!errors.length}
               className={`form-radio h-[16px] w-[16px] 
                           appearance-none align-middle checked:m-1 checked:h-[10px] checked:w-[10px]
                           checked:bg-blue-1 checked:bg-none checked:ring-1 checked:ring-blue-1 checked:ring-offset-2

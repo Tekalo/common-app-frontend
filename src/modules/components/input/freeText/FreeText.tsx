@@ -1,6 +1,7 @@
 import Tooltip from '@/components/tooltip/Tooltip';
 
 export interface IFreeText {
+  errors: string[];
   name: string;
   value: string;
   label?: string;
@@ -12,6 +13,7 @@ export interface IFreeText {
 }
 
 const FreeText: React.FC<IFreeText> = ({
+  errors,
   name,
   label,
   value,
@@ -21,6 +23,8 @@ const FreeText: React.FC<IFreeText> = ({
   tooltipText,
   disabled,
 }) => {
+  const errorMessageId = `errorMessage-${name}`;
+
   return (
     <div className="space-y-2 text-left">
       <label
@@ -33,6 +37,8 @@ const FreeText: React.FC<IFreeText> = ({
         {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
       <input
+        aria-errormessage={errorMessageId}
+        aria-invalid={!!errors.length}
         disabled={disabled}
         name={name}
         className={`${
