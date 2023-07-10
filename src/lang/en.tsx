@@ -832,7 +832,7 @@ const WORK_AUTHORIZATION_TEXT = {
     'I will now or in the future require sponsorship to work in the U.S.',
 };
 const SEARCH_STATUS_TEXT = {
-  active: "I'm actively looking for a new role",
+  active: "I'm actively looking for opportunities",
   passive: "I'm flexible, casually looking for opportunities",
   future: 'I want to stay in touch for opportunities in the future',
 };
