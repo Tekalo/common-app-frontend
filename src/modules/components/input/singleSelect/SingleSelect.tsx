@@ -1,4 +1,5 @@
 import Tooltip from '@/components/tooltip/Tooltip';
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import {
@@ -39,8 +40,6 @@ const SingleSelect: React.FC<ISingleSelect> = ({
   tooltipText,
   onChange,
 }) => {
-  const errorMessageId = `errorMessage-${name}`;
-
   return (
     <Listbox
       value={value}
@@ -65,7 +64,7 @@ const SingleSelect: React.FC<ISingleSelect> = ({
           </Listbox.Label>
           <div className="mt-2">
             <Listbox.Button
-              aria-describedby={errorMessageId}
+              aria-describedby={getErrorMessageId(name)}
               aria-invalid={!!errors.length}
               name={name}
               className={`${

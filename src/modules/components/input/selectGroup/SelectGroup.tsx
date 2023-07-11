@@ -1,3 +1,4 @@
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 
 export interface ISelectGroup {
@@ -20,8 +21,6 @@ const SelectGroup: React.FC<ISelectGroup> = ({
   label,
   onChange,
 }) => {
-  const errorMessageId = `errorMessage-${name}`;
-
   return (
     <fieldset className="space-y-4 text-left">
       <legend className="text-component-extra-small text-black-text">
@@ -34,7 +33,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
         >
           <>
             <input
-              aria-describedby={errorMessageId}
+              aria-describedby={getErrorMessageId(name)}
               aria-invalid={!!errors.length}
               type="checkbox"
               id={`${name}-${option.value}`}

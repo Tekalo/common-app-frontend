@@ -1,4 +1,5 @@
 import Tooltip from '@/components/tooltip/Tooltip';
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 
 export interface ILongText {
   errors: string[];
@@ -25,8 +26,6 @@ const LongText: React.FC<ILongText> = ({
   inputClassName,
   tooltipText,
 }) => {
-  const errorMessageId = `errorMessage-${name}`;
-
   return (
     <div className="space-y-2 text-left">
       <label
@@ -46,7 +45,7 @@ const LongText: React.FC<ILongText> = ({
         )}
       </label>
       <textarea
-        aria-describedby={errorMessageId}
+        aria-describedby={getErrorMessageId(name)}
         aria-invalid={!!errors.length}
         name={name}
         className={`box-border max-h-[364px] min-h-[194px] w-full resize-y rounded-[3px]

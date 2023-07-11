@@ -1,4 +1,8 @@
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import {
+  getErrorMessageId,
+  getInputId,
+  printErrorMessages,
+} from '@/lib/helpers/formHelpers';
 import { Field } from 'houseform';
 import { ReactElement } from 'react';
 import { z } from 'zod';
@@ -19,8 +23,7 @@ const BooleanField: React.FC<IBooleanField> = ({
   initialValue,
   validator,
 }) => {
-  const inputId = `${fieldName}-checkbox`;
-  const errorMessageId = `errorMessage-${inputId}`;
+  const inputId = getInputId(fieldName);
 
   return (
     <Field<boolean>
@@ -35,7 +38,7 @@ const BooleanField: React.FC<IBooleanField> = ({
             <fieldset className="space-y-3">
               <div className="flex space-x-2 align-middle">
                 <input
-                  aria-describedby={errorMessageId}
+                  aria-describedby={getErrorMessageId(inputId)}
                   aria-invalid={!!errors.length}
                   checked={value}
                   className="form-checkbox h-4 w-4 appearance-none rounded-[3px] align-middle checked:bg-blue-1 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"

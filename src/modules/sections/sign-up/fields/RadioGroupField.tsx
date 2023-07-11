@@ -1,5 +1,5 @@
 import RadioGroup from '@/components/input/radioGroup/RadioGroup';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance } from 'houseform';
 import React, { ReactElement, RefObject } from 'react';
@@ -30,7 +30,7 @@ const RadioGroupField: React.FC<IRadioGroupField> = ({
   validator,
   onChange,
 }) => {
-  const inputId = `input-${fieldName}`;
+  const inputId = getInputId(fieldName);
 
   return (
     <Field<string>

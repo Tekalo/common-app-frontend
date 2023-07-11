@@ -1,5 +1,5 @@
 import LongText from '@/components/input/longText/LongText';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
@@ -22,7 +22,7 @@ const LongTextField: React.FC<ILongTextField> = ({
   tooltipText,
   validator,
 }) => {
-  const inputId = `input-${fieldName}`;
+  const inputId = getInputId(fieldName);
 
   return (
     <Field<string>

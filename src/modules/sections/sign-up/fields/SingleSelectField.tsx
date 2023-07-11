@@ -1,5 +1,5 @@
 import SingleSelect from '@/components/input/singleSelect/SingleSelect';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance } from 'houseform';
 import { RefObject, forwardRef } from 'react';
@@ -33,7 +33,7 @@ const SingleSelectField = forwardRef<FieldInstance, ISingleSelectField>(
       tooltipText,
       validator,
     } = props;
-    const inputId = `input-${fieldName}`;
+    const inputId = getInputId(fieldName);
 
     return (
       <Field<string>

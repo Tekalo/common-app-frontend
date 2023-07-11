@@ -1,5 +1,5 @@
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { z } from 'zod';
@@ -30,7 +30,7 @@ const MultiSelectField: React.FC<IMultiSelectField> = ({
   validator,
   disabled = false,
 }) => {
-  const inputId = `input-${fieldName}`;
+  const inputId = getInputId(fieldName);
 
   return (
     <Field<string[]>

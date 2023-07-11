@@ -1,3 +1,4 @@
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { IBoolItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import {
@@ -32,8 +33,6 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
   labelClassName,
   buttonClassName,
 }) => {
-  const errorMessageId = `errorMessage-${name}`;
-
   return (
     <Listbox value={value} onChange={setValue} name={name}>
       {({ open }) => (
@@ -46,7 +45,7 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
           </Listbox.Label>
           <div className="mt-2">
             <Listbox.Button
-              aria-describedby={errorMessageId}
+              aria-describedby={getErrorMessageId(name)}
               aria-invalid={!!errors.length}
               name={name}
               className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${

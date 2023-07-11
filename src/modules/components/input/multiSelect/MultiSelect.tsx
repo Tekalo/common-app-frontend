@@ -1,3 +1,4 @@
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
@@ -35,8 +36,6 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   setValue,
   onBlur,
 }) => {
-  const errorMessageId = `errorMessage-${name}`;
-
   return (
     <Listbox
       disabled={disabled}
@@ -57,7 +56,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
           </Listbox.Label>
           <div className={`mt-2 ${disabled ? 'bg-gray-4' : ''}`}>
             <Listbox.Button
-              aria-describedby={errorMessageId}
+              aria-describedby={getErrorMessageId(name)}
               aria-invalid={!!errors.length}
               name={name}
               className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${

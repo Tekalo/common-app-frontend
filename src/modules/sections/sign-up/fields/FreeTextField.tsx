@@ -1,5 +1,5 @@
 import FreeText from '@/components/input/freeText/FreeText';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { Field, FormInstance } from 'houseform';
 import { z } from 'zod';
 
@@ -26,7 +26,7 @@ const FreeTextField: React.FC<IFreeTextField> = ({
   tooltipText,
   disabled = false,
 }) => {
-  const inputId = `input-${fieldName}`;
+  const inputId = getInputId(fieldName);
 
   return (
     <Field<string>

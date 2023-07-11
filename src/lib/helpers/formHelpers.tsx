@@ -57,6 +57,11 @@ export const createOptionList = (
   }));
 };
 
+export const getErrorMessageId = (inputId: string): string =>
+  `errorMessage-${inputId}`;
+
+export const getInputId = (fieldName: string): string => `input-${fieldName}`;
+
 export const stripEmptyFields = (obj: any): any => {
   const result = Object.fromEntries(
     Object.entries(obj).filter(([_, v]) => v != null && v !== '')
