@@ -44,8 +44,6 @@ const MultiSelect: React.FC<IMultiSelect> = ({
       onChange={setValue}
       name={name}
       multiple={true}
-      aria-errormessage={errorMessageId}
-      aria-invalid={!!errors.length}
     >
       {({ open }) => (
         <div className="text-left">
@@ -59,6 +57,8 @@ const MultiSelect: React.FC<IMultiSelect> = ({
           </Listbox.Label>
           <div className={`mt-2 ${disabled ? 'bg-gray-4' : ''}`}>
             <Listbox.Button
+              aria-describedby={errorMessageId}
+              aria-invalid={!!errors.length}
               name={name}
               className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${
                 open ? 'border-blue-1' : 'border-gray-2'

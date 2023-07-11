@@ -46,7 +46,7 @@ const LongText: React.FC<ILongText> = ({
         )}
       </label>
       <textarea
-        aria-errormessage={errorMessageId}
+        aria-describedby={errorMessageId}
         aria-invalid={!!errors.length}
         name={name}
         className={`box-border max-h-[364px] min-h-[194px] w-full resize-y rounded-[3px]

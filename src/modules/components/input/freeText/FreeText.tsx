@@ -37,7 +37,7 @@ const FreeText: React.FC<IFreeText> = ({
         {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
       <input
-        aria-errormessage={errorMessageId}
+        aria-describedby={errorMessageId}
         aria-invalid={!!errors.length}
         disabled={disabled}
         name={name}

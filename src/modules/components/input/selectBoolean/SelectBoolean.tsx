@@ -35,13 +35,7 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
   const errorMessageId = `errorMessage-${name}`;
 
   return (
-    <Listbox
-      aria-errormessage={errorMessageId}
-      aria-invalid={!!errors.length}
-      value={value}
-      onChange={setValue}
-      name={name}
-    >
+    <Listbox value={value} onChange={setValue} name={name}>
       {({ open }) => (
         <div className="text-left">
           <Listbox.Label
@@ -52,6 +46,8 @@ const SelectBoolean: React.FC<ISelectBoolean> = ({
           </Listbox.Label>
           <div className="mt-2">
             <Listbox.Button
+              aria-describedby={errorMessageId}
+              aria-invalid={!!errors.length}
               name={name}
               className={`flex w-full flex-row items-center justify-between rounded-[3px] border ${
                 open ? 'border-blue-1' : 'border-gray-2'

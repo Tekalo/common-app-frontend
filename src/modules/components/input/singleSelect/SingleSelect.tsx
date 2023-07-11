@@ -43,8 +43,6 @@ const SingleSelect: React.FC<ISingleSelect> = ({
 
   return (
     <Listbox
-      aria-errormessage={errorMessageId}
-      aria-invalid={!!errors.length}
       value={value}
       onChange={(val) => {
         setValue(val);
@@ -67,6 +65,8 @@ const SingleSelect: React.FC<ISingleSelect> = ({
           </Listbox.Label>
           <div className="mt-2">
             <Listbox.Button
+              aria-describedby={errorMessageId}
+              aria-invalid={!!errors.length}
               name={name}
               className={`${
                 disabled ? ' bg-gray-4' : ''

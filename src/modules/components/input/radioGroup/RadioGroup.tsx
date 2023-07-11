@@ -39,7 +39,7 @@ const RadioGroup: React.FC<IRadioGroup> = ({
         >
           <div className="flex h-[16px] w-[16px] items-center justify-center">
             <input
-              aria-errormessage={errorMessageId}
+              aria-describedby={errorMessageId}
               aria-invalid={!!errors.length}
               className={`form-radio h-[16px] w-[16px] 
                           appearance-none align-middle checked:m-1 checked:h-[10px] checked:w-[10px]

@@ -34,7 +34,7 @@ const SelectGroup: React.FC<ISelectGroup> = ({
         >
           <>
             <input
-              aria-errormessage={errorMessageId}
+              aria-describedby={errorMessageId}
               aria-invalid={!!errors.length}
               type="checkbox"
               id={`${name}-${option.value}`}

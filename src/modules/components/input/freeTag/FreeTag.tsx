@@ -45,7 +45,7 @@ const FreeText: React.FC<IFreeTag> = ({
                     border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2
                     focus:border-2 focus:border-blue-1 focus:p-[7px]
                     active:border active:border-blue-1 active:p-2 ${inputClassName}}`}
-        aria-errormessage={errorMessageId}
+        aria-describedby={errorMessageId}
         aria-invalid={!!errors.length}
         value={value ? value.join(', ') : ''}
         onBlur={(e) =>

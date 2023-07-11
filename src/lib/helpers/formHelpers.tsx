@@ -11,7 +11,7 @@ export const printErrorMessages = (
 ) => {
   const errorMessage =
     !disabled && isSubmitted && errors.length ? (
-      <div
+      <p
         id={`errorMessage-${inputId}`}
         className={
           'form-error-message mt-1 text-left text-component-small text-red-error'
@@ -19,7 +19,7 @@ export const printErrorMessages = (
         key={errors[0]}
       >
         {errors[0]}
-      </div>
+      </p>
     ) : null;
   return errorMessage;
 };
@@ -67,9 +67,12 @@ export const stripEmptyFields = (obj: any): any => {
 
 export const jumpToFirstErrorMessage = (): void => {
   const scrollOffset = 150;
-  const firstError = document.querySelector('.form-error-message');
+  const firstError = document.querySelector(
+    'input[aria-invalid=true], button[aria-invalid=true]'
+  ) as HTMLElement;
 
   if (firstError) {
+    firstError.focus();
     const scrollTop =
       firstError.getBoundingClientRect().top + window.scrollY - scrollOffset;
 
