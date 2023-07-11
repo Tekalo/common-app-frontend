@@ -1,6 +1,7 @@
 import { ISelectGroup } from './SelectGroup';
 
 const base: ISelectGroup = {
+  errors: [],
   name: 'test',
   value: ['test'],
   setValue: () => void {},

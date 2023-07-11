@@ -1,4 +1,5 @@
 import Tooltip from '@/components/tooltip/Tooltip';
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import {
@@ -8,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 export interface ISingleSelect {
+  errors: string[];
   label: string;
   listOptions: ISelectItem[];
   name: string;
@@ -24,6 +26,7 @@ export interface ISingleSelect {
 }
 
 const SingleSelect: React.FC<ISingleSelect> = ({
+  errors,
   name,
   value,
   placeholder,
@@ -61,6 +64,8 @@ const SingleSelect: React.FC<ISingleSelect> = ({
           </Listbox.Label>
           <div className="mt-2">
             <Listbox.Button
+              aria-describedby={getErrorMessageId(name)}
+              aria-invalid={!!errors.length}
               name={name}
               className={`${
                 disabled ? ' bg-gray-4' : ''

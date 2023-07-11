@@ -1,6 +1,7 @@
 import { ISingleSelect } from './SingleSelect';
 
 const base: ISingleSelect = {
+  errors: [],
   name: 'test',
   placeholder: 'test',
   value: 'test',

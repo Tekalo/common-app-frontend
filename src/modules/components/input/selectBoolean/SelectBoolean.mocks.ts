@@ -1,6 +1,7 @@
 import { ISelectBoolean } from './SelectBoolean';
 
 const base: ISelectBoolean = {
+  errors: [],
   name: 'test',
   placeholder: 'test',
   value: true,
