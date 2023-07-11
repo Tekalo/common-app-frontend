@@ -43,7 +43,7 @@ const BooleanField: React.FC<IBooleanField> = ({
                   checked={value}
                   className="form-checkbox h-4 w-4 appearance-none rounded-[3px] align-middle checked:bg-blue-1 checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
                   id={inputId}
-                  name={fieldName}
+                  name={inputId}
                   onChange={(e) => setValue(e.target.checked)}
                   type="checkbox"
                 />

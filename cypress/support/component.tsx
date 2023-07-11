@@ -14,8 +14,10 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import SignupForm, {
+  ISignupForm,
+} from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import '@cypress/code-coverage/support';
-import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -23,6 +25,21 @@ import './commands';
 import { mount } from 'cypress/react18';
 
 Cypress.Commands.add('mount', mount);
+
+Cypress.Commands.add('mountSignupForm', (props: ISignupForm) => {
+  return cy.mount(
+    <SignupForm
+      debugIsActive={props.debugIsActive}
+      isAuthenticated={props.isAuthenticated}
+      isTurnstileValid={props.isTurnstileValid}
+      showUserExistsError={props.showUserExistsError}
+      user={props.user}
+      handleSubmit={props.handleSubmit}
+      setIsTurnstileValid={props.setIsTurnstileValid}
+      setShowPrivacyModal={props.setShowPrivacyModal}
+    />
+  );
+});
 
 // Example use:
 // cy.mount(<MyComponent />)
