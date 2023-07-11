@@ -4,6 +4,6 @@
   "exclude": [],
   "compilerOptions": {
     "types": ["cypress", "node"],
-    "jsx": "react"
+    "jsx": "react-jsx"
   }
 }
