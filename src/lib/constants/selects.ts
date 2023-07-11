@@ -17,7 +17,7 @@ import {
   EmploymentType,
   GovtJobType,
   OpenToRelocate,
-  OpenToRemote,
+  openToRemoteMulti,
   OrgSize,
   OrgType,
   PreferredContact,
@@ -292,7 +292,7 @@ const RelocationOptions = OpenToRelocate.options.map((option) => ({
   displayText: capitalizeFirstLetter(option),
 }));
 
-const RemoteOptions = OpenToRemote.options.map((option) => {
+const RemoteOptions = openToRemoteMulti.options.map((option) => {
   return {
     value: option,
     displayText: capitalizeFirstLetter(option),

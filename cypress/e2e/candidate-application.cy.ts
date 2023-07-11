@@ -48,7 +48,7 @@ describe('Candidate Application', () => {
     selectRoleInterest();
     fillCurrentLocation();
     fillOpenToRelocation();
-    fillOpenToRemote();
+    fillopenToRemoteMulti();
     selectInterestCauses();
     fillEssay();
     saveAndConfirmInterestForm();
@@ -103,7 +103,7 @@ describe('Candidate Application', () => {
     selectRoleInterest();
     fillCurrentLocation();
     fillOpenToRelocation();
-    fillOpenToRemote();
+    fillopenToRemoteMulti();
     fillDesiredSalary();
     selectInterestCauses();
     fillOtherCauses();
@@ -283,10 +283,10 @@ describe('Candidate Application', () => {
     cy.get('li[data-name=input-openToRelocate-yes]').click();
   }
 
-  function fillOpenToRemote(): void {
-    cy.get('button[name=input-openToRemote]').click();
-    cy.get('li[data-name="input-openToRemote-remote"]').click();
-    cy.get('button[name=input-openToRemote]').click();
+  function fillopenToRemoteMulti(): void {
+    cy.get('button[name=input-openToRemoteMulti]').click();
+    cy.get('li[data-name="input-openToRemoteMulti-remote"]').click();
+    cy.get('button[name=input-openToRemoteMulti]').click();
   }
 
   function fillDesiredSalary(): void {
