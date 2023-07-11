@@ -132,5 +132,16 @@ describe('<SignupForm />', () => {
         TERMS_LINK
       );
     });
+
+    // TODO: this doesn't work, idk how to force a re-render of the form from here
+    // it('should show user exists error', () => {
+    //   props.showUserExistsError = true;
+    //   cy.mountSignupForm(props);
+
+    //   cy.get('#errorMessage-input-email').should(
+    //     'have.text',
+    //     ERROR_TEXT.userAlreadyExists
+    //   );
+    // });
   });
 });
