@@ -134,6 +134,7 @@ describe('<SignupForm />', () => {
     });
 
     // TODO: this doesn't work, idk how to force a re-render of the form from here
+    // Look into how we can handle this in another way, look at turnstile error msg
     // it('should show user exists error', () => {
     //   props.showUserExistsError = true;
     //   cy.mountSignupForm(props);
@@ -143,5 +144,42 @@ describe('<SignupForm />', () => {
     //     ERROR_TEXT.userAlreadyExists
     //   );
     // });
+
+    it('should display user info if already authenticated and it is present', () => {
+      const name = 'TEST NAME';
+      const email = 'TEST@EMAIL.COM';
+      props.user = {
+        name,
+        email,
+      };
+      props.isAuthenticated = true;
+      cy.mountSignupForm(props);
+
+      const nameInput = cy.get('[name=input-name]');
+      nameInput.should('be.disabled');
+      nameInput.should('have.value', name);
+      const emailInput = cy.get('[name=input-email]');
+      emailInput.should('be.disabled');
+      emailInput.should('have.value', email);
+    });
+
+    it('should disable name and email with empty values if they are not present', () => {
+      props.isAuthenticated = true;
+      cy.mountSignupForm(props);
+
+      const nameInput = cy.get('[name=input-name]');
+      nameInput.should('be.disabled');
+      nameInput.should('have.value', '');
+      const emailInput = cy.get('[name=input-email]');
+      emailInput.should('be.disabled');
+      emailInput.should('have.value', '');
+    });
+
+    it('should display turnstile error if it is not valid', () => {
+      props.isTurnstileValid = false;
+      cy.mountSignupForm(props);
+
+      cy.get('#candidate-form-turnstile__error-message').should('be.visible');
+    });
   });
 });

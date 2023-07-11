@@ -146,7 +146,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             }}
           >
             {/* Name */}
-
             <FreeTextField
               fieldName="name"
               label={APPLICANT_FORM_TEXT.FIELDS.name.label}
@@ -258,6 +257,7 @@ const SignupForm: React.FC<ISignupForm> = ({
                 />
                 {isTurnstileValid ? null : (
                   <div
+                    id="candidate-form-turnstile__error-message"
                     className={
                       'mt-1 text-center text-component-small text-red-error'
                     }
