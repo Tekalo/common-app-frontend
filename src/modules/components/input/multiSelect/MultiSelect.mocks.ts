@@ -1,6 +1,7 @@
 import { IMultiSelect } from './MultiSelect';
 
 const base: IMultiSelect = {
+  errors: [],
   name: 'test',
   label: 'test label',
   placeholder: 'Hello!',
