@@ -449,7 +449,7 @@ const INTEREST_FORM_TEXT = {
       label: 'Open to relocating?',
       placeholder: 'Choose one',
     },
-    openToRemote: {
+    openToRemoteMulti: {
       label: 'Prefer to be remote or in person?',
       placeholder: 'Choose one',
       selectionLabelMulti: ' Options selected',

@@ -4,7 +4,7 @@ import {
   EmploymentType,
   GovtJobType,
   OpenToRelocate,
-  OpenToRemote,
+  openToRemoteMulti,
   OrgSize,
   OrgType,
   PreferredContact,
@@ -95,7 +95,7 @@ const CandidateInterestsSchema = z.object({
   interestRoles: z.array(Roles), // keep this as non-zod-enum?
   currentLocation: z.string(),
   openToRelocate: OpenToRelocate,
-  openToRemote: z.array(OpenToRemote),
+  openToRemoteMulti: z.array(openToRemoteMulti),
   desiredSalary: z.string().nullable().optional(),
   interestCauses: z.array(z.string()), // order matters
   otherCauses: z.array(z.string()).nullable().optional(),
