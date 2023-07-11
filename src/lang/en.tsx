@@ -841,11 +841,7 @@ const CONTACT_OPTION_TEXT = {
   sms: 'Text message',
   whatsapp: 'WhatsApp message',
 };
-const REMOTE_OPTION_TEXT = {
-  remoteOnly: 'Only open to remote',
-  notRemote: 'Not open to remote',
-  both: 'Open to remote or in-person',
-};
+
 const ORG_SIZE_LABEL_TEXT = {
   employees: ' employees',
 };
@@ -2126,7 +2122,6 @@ export {
   CONTACT_OPTION_TEXT,
   ORG_SIZE_LABEL_TEXT,
   PAID_TEXT,
-  REMOTE_OPTION_TEXT,
   ROLE_TEXT,
   SEARCH_STATUS_TEXT,
   USDR_TEXT,
