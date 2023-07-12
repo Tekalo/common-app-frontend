@@ -4,10 +4,11 @@ import {
   HOME_HERO_TEXT,
   ORG_SIGNUP_LINK,
 } from '@/lang/en';
+import Image from 'next/image';
 
 export interface IHeroSection {}
 
-// TODO: Replace images with next/image --> figure out cloudflare + next/image
+// TODO: Refactor to one image component using CSS to move it to correct location
 
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
@@ -17,16 +18,20 @@ const HeroSection: React.FC<IHeroSection> = () => {
         <div className="col-span-8 lg:col-span-7">
           <div className="max-w-2xl mx-auto md:mx-0">
             {/* Mobile Hero */}
-            <img
-              src="/images/hero_sm.png"
+            <Image
+              src="/images/hero_lg.png"
               alt="Mobile Hero Image"
               className="m-auto mb-6 w-auto max-w-[277px] md:hidden"
+              width={783}
+              height={644}
             />
             {/* Tablet Hero */}
-            <img
-              src="/images/hero_md.png"
+            <Image
+              src="/images/hero_lg.png"
               alt="Tablet Hero Image"
               className="mb-4 hidden max-w-[528px] md:block lg:hidden"
+              width={783}
+              height={644}
             />
             {/* Desktop Hero */}
             <h1 className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
@@ -53,10 +58,12 @@ const HeroSection: React.FC<IHeroSection> = () => {
         </div>
         {/* IMAGE */}
         <div className="col-start-8 col-end-13 items-center justify-end">
-          <img
-            src="/images/hero_lg.png"
+          <Image
+            src={'/images/hero.png'}
             alt="Tablet Hero Image"
             className="hidden max-w-[391px] lg:block"
+            width={783}
+            height={644}
           />
         </div>
       </div>
