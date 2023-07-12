@@ -232,18 +232,20 @@ const InterestForm: React.FC<IInterestForm> = ({
           />
           {/* Remote */}
           <MultiSelectField
-            fieldName="openToRemote"
-            label={INTEREST_FORM_TEXT.FIELDS.openToRemote.label}
-            placeholder={INTEREST_FORM_TEXT.FIELDS.openToRemote.placeholder}
+            fieldName="openToRemoteMulti"
+            label={INTEREST_FORM_TEXT.FIELDS.openToRemoteMulti.label}
+            placeholder={
+              INTEREST_FORM_TEXT.FIELDS.openToRemoteMulti.placeholder
+            }
             selectionLabelMulti={
-              INTEREST_FORM_TEXT.FIELDS.openToRemote.selectionLabelMulti
+              INTEREST_FORM_TEXT.FIELDS.openToRemoteMulti.selectionLabelMulti
             }
             selectionLabelSingle={
-              INTEREST_FORM_TEXT.FIELDS.openToRemote.selectionLabelSingle
+              INTEREST_FORM_TEXT.FIELDS.openToRemoteMulti.selectionLabelSingle
             }
             listOptions={RemoteOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.openToRemote || []}
+            initialValue={savedForm?.openToRemoteMulti || []}
             validator={RemoteValidator}
           />
           {/* Salary*/}
