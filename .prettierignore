@@ -4,6 +4,7 @@ coverage
 
 .next
 .vercel
+.github/CODEOWNERS
 dist
 node_modules
 
