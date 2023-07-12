@@ -1,5 +1,5 @@
 import SelectBoolean from '@/components/input/selectBoolean/SelectBoolean';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { IBoolItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { ReactElement } from 'react';
@@ -24,6 +24,8 @@ const SelectBooleanField: React.FC<ISelectBooleanField> = ({
   initialValue,
   validator,
 }) => {
+  const inputId = getInputId(fieldName);
+
   return (
     <Field<boolean>
       name={fieldName}
@@ -35,15 +37,16 @@ const SelectBooleanField: React.FC<ISelectBooleanField> = ({
         return (
           <div>
             <SelectBoolean
-              name={`input-${fieldName}`}
+              errors={errors}
               label={label}
-              placeholder={placeholder}
-              value={value}
-              setValue={setValue}
-              onBlur={onBlur}
               listOptions={listOptions}
+              name={inputId}
+              onBlur={onBlur}
+              placeholder={placeholder}
+              setValue={setValue}
+              value={value}
             />
-            {printErrorMessages(isSubmitted, errors)}
+            {printErrorMessages(inputId, isSubmitted, errors)}
           </div>
         );
       }}

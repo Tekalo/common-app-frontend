@@ -4,20 +4,22 @@ import { RefObject } from 'react';
 
 // Helper that prints error messages from Houseforms consistently
 export const printErrorMessages = (
+  inputId: string,
   isSubmitted: boolean,
   errors: string[],
   disabled?: boolean
 ) => {
   const errorMessage =
     !disabled && isSubmitted && errors.length ? (
-      <div
+      <p
+        id={`errorMessage-${inputId}`}
         className={
           'form-error-message mt-1 text-left text-component-small text-red-error'
         }
         key={errors[0]}
       >
         {errors[0]}
-      </div>
+      </p>
     ) : null;
   return errorMessage;
 };
@@ -55,6 +57,11 @@ export const createOptionList = (
   }));
 };
 
+export const getErrorMessageId = (inputId: string): string =>
+  `errorMessage-${inputId}`;
+
+export const getInputId = (fieldName: string): string => `input-${fieldName}`;
+
 export const stripEmptyFields = (obj: any): any => {
   const result = Object.fromEntries(
     Object.entries(obj).filter(([_, v]) => v != null && v !== '')
@@ -65,9 +72,12 @@ export const stripEmptyFields = (obj: any): any => {
 
 export const jumpToFirstErrorMessage = (): void => {
   const scrollOffset = 150;
-  const firstError = document.querySelector('.form-error-message');
+  const firstError = document.querySelector(
+    'input[aria-invalid=true], button[aria-invalid=true]'
+  ) as HTMLElement;
 
   if (firstError) {
+    firstError.focus();
     const scrollTop =
       firstError.getBoundingClientRect().top + window.scrollY - scrollOffset;
 

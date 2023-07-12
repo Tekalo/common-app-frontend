@@ -1,6 +1,8 @@
 import Tooltip from '@/components/tooltip/Tooltip';
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 
 export interface IFreeText {
+  errors: string[];
   name: string;
   value: string;
   label?: string;
@@ -12,6 +14,7 @@ export interface IFreeText {
 }
 
 const FreeText: React.FC<IFreeText> = ({
+  errors,
   name,
   label,
   value,
@@ -33,6 +36,8 @@ const FreeText: React.FC<IFreeText> = ({
         {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
       <input
+        aria-describedby={getErrorMessageId(name)}
+        aria-invalid={!!errors.length}
         disabled={disabled}
         name={name}
         className={`${
