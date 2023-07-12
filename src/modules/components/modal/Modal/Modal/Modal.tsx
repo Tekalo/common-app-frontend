@@ -11,6 +11,7 @@ export interface IModal {
   cancelButtonText?: string;
   headline?: string | ReactElement;
   isOpen: boolean;
+  positionStyles: string;
   closeModal: () => void;
   onConfirm: () => void;
   onCancel?: () => void;
@@ -25,6 +26,7 @@ const Modal: React.FC<IModal> = ({
   content,
   headline,
   isOpen,
+  positionStyles,
   closeModal,
   onConfirm,
   onCancel,
@@ -41,7 +43,7 @@ const Modal: React.FC<IModal> = ({
       open={isOpen}
       onClose={closeModal}
     >
-      <div className="absolute left-6 right-6 top-10 z-50 md:top-48">
+      <div className={positionStyles}>
         <Dialog.Panel className="m-auto max-w-[736px] rounded bg-white px-6 pb-8 pt-6 md:px-8">
           <div className="relative">
             {/* Exit Icon */}
