@@ -262,6 +262,7 @@ const ApplicantForms: NextPageWithLayout = () => {
         bodyText={SAVE_MODAL.BODY}
         buttonText={SAVE_MODAL.CTA}
         isOpen={showSaveModal}
+        positionStyles="absolute left-6 right-6 top-10 z-50 md:top-48"
         closeModal={() => setShowSaveModal(false)}
         onConfirm={() => setShowSaveModal(false)}
       />
