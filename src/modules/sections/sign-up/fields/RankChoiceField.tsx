@@ -1,7 +1,7 @@
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import RankChoice from '@/components/input/rankChoice/RankChoice';
 import { CauseOptions } from '@/lib/constants/selects';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { z } from 'zod';
@@ -34,6 +34,8 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
   validator,
   disabled = false,
 }) => {
+  const inputId = getInputId(fieldName);
+
   const mapValueToItems = (value: string[]): ISelectItem[] => {
     if (value && value.length) {
       return value.map((s) => {
@@ -61,18 +63,19 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
           <>
             <div>
               <MultiSelect
+                errors={errors}
                 disabled={disabled}
-                name={`input-${fieldName}`}
                 label={selectLabel}
+                listOptions={listOptions}
+                name={inputId}
+                onBlur={onBlur}
                 placeholder={placeholder}
                 selectionLabelMulti={selectionLabelMulti}
                 selectionLabelSingle={selectionLabelSingle}
-                value={value || []}
                 setValue={setValue}
-                onBlur={onBlur}
-                listOptions={listOptions}
+                value={value || []}
               />
-              {printErrorMessages(isSubmitted, errors, disabled)}
+              {printErrorMessages(inputId, isSubmitted, errors, disabled)}
             </div>
             <RankChoice
               label={rankLabel}

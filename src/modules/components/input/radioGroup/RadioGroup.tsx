@@ -1,7 +1,9 @@
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 
 export interface IRadioGroup {
-  name?: string;
+  errors: string[];
+  name: string;
   label?: string;
   value: string;
   onChange: (_val: string) => void;
@@ -11,6 +13,7 @@ export interface IRadioGroup {
 }
 
 const RadioGroup: React.FC<IRadioGroup> = ({
+  errors,
   name,
   value,
   label,
@@ -35,6 +38,8 @@ const RadioGroup: React.FC<IRadioGroup> = ({
         >
           <div className="flex h-[16px] w-[16px] items-center justify-center">
             <input
+              aria-describedby={getErrorMessageId(name)}
+              aria-invalid={!!errors.length}
               className={`form-radio h-[16px] w-[16px] 
                           appearance-none align-middle checked:m-1 checked:h-[10px] checked:w-[10px]
                           checked:bg-blue-1 checked:bg-none checked:ring-1 checked:ring-blue-1 checked:ring-offset-2

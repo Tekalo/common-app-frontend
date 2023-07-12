@@ -1,5 +1,5 @@
 import FreeTag from '@/components/input/freeTag/FreeTag';
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
@@ -20,6 +20,8 @@ const FreeTagField: React.FC<IFreeTagField> = ({
   initialValue,
   validator,
 }) => {
+  const inputId = getInputId(fieldName);
+
   return (
     <Field<string[]>
       name={fieldName}
@@ -31,13 +33,14 @@ const FreeTagField: React.FC<IFreeTagField> = ({
         return (
           <div>
             <FreeTag
-              name={`input-${fieldName}`}
+              errors={errors}
               label={label}
+              name={inputId}
               placeholder={placeholder}
-              value={value}
               setValue={setValue}
+              value={value}
             />
-            {printErrorMessages(isSubmitted, errors)}
+            {printErrorMessages(inputId, isSubmitted, errors)}
           </div>
         );
       }}
