@@ -1,8 +1,18 @@
 import { CandidateSignupSelectors as Selectors } from '@/cypress/support/selectors/candidate-signup.selectors';
-import { APPLICANT_FORM_TEXT, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
+import {
+  APPLICANT_FORM_TEXT,
+  CONTACT_ENUM_OPTIONS,
+  ERROR_TEXT,
+  SEARCH_STATUS_ENUM_OPTIONS,
+  TERMS_LINK,
+} from '@/lang/en';
 import { ISignupForm } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 
 describe('<SignupForm />', () => {
+  const name = 'Test Name';
+  const email = 'test-email@schmidtfutures.com';
+  const pronoun = 'they/them';
+  const phone = '+18101110001';
   const voidFn = () => void {};
 
   describe('debug', () => {
@@ -100,7 +110,7 @@ describe('<SignupForm />', () => {
 
       const preferredContactField = cy.get(Selectors.contact.input);
       preferredContactField.click();
-      cy.get('li[data-name=input-preferredContact-email]').click();
+      cy.get(Selectors.contact.options.email).click();
 
       cy.get(Selectors.buttons.submit).click();
       cy.get('label[for=input-phone]').should(
@@ -108,6 +118,102 @@ describe('<SignupForm />', () => {
         APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
       );
       cy.get('#errorMessage-input-phone').should('not.exist');
+    });
+
+    it('should submit values - required only', () => {
+      props.handleSubmit = cy.stub().as('submit');
+      cy.mountSignupForm(props);
+
+      cy.get(Selectors.name.input).type(name);
+      cy.get(Selectors.email.input).type(email);
+      cy.get(Selectors.searchStatus.input.active).click();
+      cy.get(Selectors.contact.input).click();
+      cy.get(Selectors.contact.options.email).click();
+      cy.get(Selectors.privacy.input).click();
+      cy.get(Selectors.terms.input).click();
+      cy.get(Selectors.buttons.submit).click();
+
+      cy.get('@submit').should(
+        'be.calledOnceWithExactly',
+        {
+          acceptedPrivacy: true,
+          acceptedTerms: true,
+          email,
+          followUpOptIn: '',
+          name,
+          phone: '',
+          preferredContact: CONTACT_ENUM_OPTIONS[0],
+          pronoun: '',
+          searchStatus: SEARCH_STATUS_ENUM_OPTIONS[0],
+        },
+        ''
+      );
+    });
+
+    it('should submit values - all values', () => {
+      props.handleSubmit = cy.stub().as('submit');
+      cy.mountSignupForm(props);
+
+      cy.get(Selectors.name.input).type(name);
+      cy.get(Selectors.email.input).type(email);
+      cy.get(Selectors.pronoun.input).type(pronoun);
+      cy.get(Selectors.searchStatus.input.passive).click();
+      cy.get(Selectors.contact.input).click();
+      cy.get(Selectors.contact.options.sms).click();
+      cy.get(Selectors.phone.input).type(phone);
+      cy.get(Selectors.privacy.input).click();
+      cy.get(Selectors.terms.input).click();
+      cy.get(Selectors.followUp.input).click();
+      cy.get(Selectors.buttons.submit).click();
+
+      cy.get('@submit').should(
+        'be.calledOnceWithExactly',
+        {
+          acceptedPrivacy: true,
+          acceptedTerms: true,
+          email,
+          followUpOptIn: true,
+          name,
+          phone,
+          preferredContact: CONTACT_ENUM_OPTIONS[1],
+          pronoun,
+          searchStatus: SEARCH_STATUS_ENUM_OPTIONS[1],
+        },
+        ''
+      );
+    });
+
+    it('should submit values - all values, last options', () => {
+      props.handleSubmit = cy.stub().as('submit');
+      cy.mountSignupForm(props);
+
+      cy.get(Selectors.name.input).type(name);
+      cy.get(Selectors.email.input).type(email);
+      cy.get(Selectors.pronoun.input).type(pronoun);
+      cy.get(Selectors.searchStatus.input.future).click();
+      cy.get(Selectors.contact.input).click();
+      cy.get(Selectors.contact.options.whatsapp).click();
+      cy.get(Selectors.phone.input).type(phone);
+      cy.get(Selectors.privacy.input).click();
+      cy.get(Selectors.terms.input).click();
+      cy.get(Selectors.followUp.input).click();
+      cy.get(Selectors.buttons.submit).click();
+
+      cy.get('@submit').should(
+        'be.calledOnceWithExactly',
+        {
+          acceptedPrivacy: true,
+          acceptedTerms: true,
+          email,
+          followUpOptIn: true,
+          name,
+          phone,
+          preferredContact: CONTACT_ENUM_OPTIONS[2],
+          pronoun,
+          searchStatus: SEARCH_STATUS_ENUM_OPTIONS[2],
+        },
+        ''
+      );
     });
   });
 
@@ -196,8 +302,6 @@ describe('<SignupForm />', () => {
     // });
 
     it('should display user info if already authenticated and it is present', () => {
-      const name = 'TEST NAME';
-      const email = 'TEST@EMAIL.COM';
       props.user = {
         name,
         email,
@@ -230,6 +334,46 @@ describe('<SignupForm />', () => {
       cy.mountSignupForm(props);
 
       cy.get('#candidate-form-turnstile__error-message').should('be.visible');
+    });
+
+    it('should submit values with turnstile token - required only', () => {
+      const turnstileToken = 'XXXX.DUMMY.TOKEN.XXXX';
+
+      props.handleSubmit = cy.stub().as('submit');
+      cy.mountSignupForm(props);
+
+      cy.get(Selectors.name.input).type(name);
+      cy.get(Selectors.email.input).type(email);
+      cy.get(Selectors.searchStatus.input.active).click();
+      cy.get(Selectors.contact.input).click();
+      cy.get(Selectors.contact.options.email).click();
+      cy.get(Selectors.privacy.input).click();
+      cy.get(Selectors.terms.input).click();
+
+      // Have to wait for turnstile to be ready to submit
+      cy.get('#turnstile-container').should(
+        'have.attr',
+        'data-turnstile-ready',
+        'true'
+      );
+
+      cy.get(Selectors.buttons.submit).click();
+
+      cy.get('@submit').should(
+        'be.calledOnceWithExactly',
+        {
+          acceptedPrivacy: true,
+          acceptedTerms: true,
+          email,
+          followUpOptIn: '',
+          name,
+          phone: '',
+          preferredContact: CONTACT_ENUM_OPTIONS[0],
+          pronoun: '',
+          searchStatus: SEARCH_STATUS_ENUM_OPTIONS[0],
+        },
+        turnstileToken
+      );
     });
   });
 });

@@ -17,6 +17,11 @@ export const CandidateSignupSelectors = {
   },
   contact: {
     input: 'button[name=input-preferredContact]',
+    options: {
+      email: 'li[data-name=input-preferredContact-email]',
+      sms: 'li[data-name=input-preferredContact-sms]',
+      whatsapp: 'li[data-name=input-preferredContact-whatsapp]',
+    },
   },
   phone: {
     input: 'input[name=input-phone]',

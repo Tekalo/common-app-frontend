@@ -128,8 +128,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             onSubmit={async (e) => {
               e.preventDefault();
 
-              console.log(turnstileToken, '!');
-
               if (
                 !debugIsActive &&
                 (turnstileToken === '' ||
@@ -247,7 +245,11 @@ const SignupForm: React.FC<ISignupForm> = ({
 
             {/* Turnstile */}
             {!debugIsActive ? (
-              <div id="turnstile-container" className="mx-auto">
+              <div
+                id="turnstile-container"
+                className="mx-auto"
+                data-turnstile-ready={`${turnstileToken.length > 0}`}
+              >
                 <Turnstile
                   id="candidate-form-turnstile"
                   ref={turnstileCandidateRef}
