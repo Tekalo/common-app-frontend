@@ -1,29 +1,28 @@
-import { TERMS_LINK } from '@/lang/en';
-import SignupForm, {
-  ISignupForm,
-} from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import { APPLICANT_FORM_TEXT, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
+import { ISignupForm } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 
 describe('<SignupForm />', () => {
-  describe('debug', () => {
-    beforeEach(() => {
-      const turnstileIsValidSpy = cy.stub();
-      const voidFn = () => void {};
+  const voidFn = () => void {};
 
-      cy.mount(
-        <SignupForm
-          debugIsActive={true}
-          isAuthenticated={false}
-          isTurnstileValid={true}
-          showUserExistsError={false}
-          user={undefined}
-          handleSubmit={voidFn}
-          setIsTurnstileValid={turnstileIsValidSpy}
-          setShowPrivacyModal={voidFn}
-        />
-      );
+  describe('debug', () => {
+    let props: ISignupForm;
+
+    beforeEach(() => {
+      props = {
+        debugIsActive: true,
+        isAuthenticated: false,
+        isTurnstileValid: true,
+        showUserExistsError: false,
+        user: undefined,
+        handleSubmit: voidFn,
+        setIsTurnstileValid: voidFn,
+        setShowPrivacyModal: voidFn,
+      };
     });
 
     it('renders', () => {
+      cy.mountSignupForm(props);
+
       // Fields
       cy.get('input[name=input-name]').should('exist');
       cy.get('input[name=input-email]').should('exist');
@@ -43,6 +42,8 @@ describe('<SignupForm />', () => {
     });
 
     it('has correct required fields', () => {
+      cy.mountSignupForm(props);
+
       const requiredFields = [
         'input-name',
         'input-email',
@@ -58,10 +59,64 @@ describe('<SignupForm />', () => {
         cy.get(`p#errorMessage-${field}`).should('be.visible');
       });
     });
+
+    it('should make phone number required by selecting phone contact method', () => {
+      cy.mountSignupForm(props);
+
+      const preferredContactField = cy.get(
+        'button[name=input-preferredContact]'
+      );
+      preferredContactField.click();
+      cy.get('li[data-name=input-preferredContact-sms]').click();
+
+      cy.get('button#submit-candidate-sign-up').click();
+      cy.get('label[for=input-phone]').should(
+        'contain.text',
+        APPLICANT_FORM_TEXT.FIELDS.phone.label
+      );
+      const phoneErrorMessage = cy.get('#errorMessage-input-phone');
+      phoneErrorMessage.should('exist');
+      phoneErrorMessage.should('contain.text', ERROR_TEXT.required);
+    });
+
+    it('should make phone number required by selecting whatsapp contact method', () => {
+      cy.mountSignupForm(props);
+
+      const preferredContactField = cy.get(
+        'button[name=input-preferredContact]'
+      );
+      preferredContactField.click();
+      cy.get('li[data-name=input-preferredContact-whatsapp]').click();
+
+      cy.get('button#submit-candidate-sign-up').click();
+      cy.get('label[for=input-phone]').should(
+        'contain.text',
+        APPLICANT_FORM_TEXT.FIELDS.phone.label
+      );
+      const phoneErrorMessage = cy.get('#errorMessage-input-phone');
+      phoneErrorMessage.should('exist');
+      phoneErrorMessage.should('contain.text', ERROR_TEXT.required);
+    });
+
+    it('should make phone number optional by selecting email contact method', () => {
+      cy.mountSignupForm(props);
+
+      const preferredContactField = cy.get(
+        'button[name=input-preferredContact]'
+      );
+      preferredContactField.click();
+      cy.get('li[data-name=input-preferredContact-email]').click();
+
+      cy.get('button#submit-candidate-sign-up').click();
+      cy.get('label[for=input-phone]').should(
+        'contain.text',
+        APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
+      );
+      cy.get('#errorMessage-input-phone').should('not.exist');
+    });
   });
 
   describe('no debug', () => {
-    const voidFn = () => void {};
     let props: ISignupForm;
 
     beforeEach(() => {
