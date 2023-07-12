@@ -1,4 +1,9 @@
 import { CandidateSignupSelectors as Selectors } from '@/cypress/support/selectors/candidate-signup.selectors';
+import {
+  APPLICANT_EXPERIENCE_LINK,
+  APPLICANT_SIGNUP_LINK,
+  APPLICANT_SUCCESS_LINK,
+} from '@/lang/en';
 import { applicantsEndpoint } from '@/lib/helpers/apiHelpers';
 import { AccountSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
@@ -20,7 +25,7 @@ describe('Candidate Application', () => {
   });
 
   it('Should submit a candidate, required fields only', () => {
-    cy.url().should('include', '/sign-up/applicants');
+    cy.url().should('include', APPLICANT_SIGNUP_LINK);
 
     fillName();
     fillEmail();
@@ -32,7 +37,7 @@ describe('Candidate Application', () => {
 
     cy.url({ timeout: formSubmissionTimeout }).should(
       'include',
-      '/sign-up/applicants/experience-and-interests'
+      APPLICANT_EXPERIENCE_LINK
     );
 
     cy.wait(navigationFormFillDelay);
@@ -49,7 +54,7 @@ describe('Candidate Application', () => {
     selectRoleInterest();
     fillCurrentLocation();
     fillOpenToRelocation();
-    fillopenToRemoteMulti();
+    fillOpenToRemoteMulti();
     selectInterestCauses();
     fillEssay();
     saveAndConfirmInterestForm();
@@ -58,12 +63,12 @@ describe('Candidate Application', () => {
     // Confirm success
     cy.url({ timeout: formSubmissionTimeout }).should(
       'include',
-      '/sign-up/applicants/success'
+      APPLICANT_SUCCESS_LINK
     );
   });
 
   it('Should submit a candidate, all fields', () => {
-    cy.url().should('include', '/sign-up/applicants');
+    cy.url().should('include', APPLICANT_SIGNUP_LINK);
 
     fillName();
     fillEmail();
@@ -78,7 +83,7 @@ describe('Candidate Application', () => {
 
     cy.url({ timeout: formSubmissionTimeout }).should(
       'include',
-      '/sign-up/applicants/experience-and-interests'
+      APPLICANT_EXPERIENCE_LINK
     );
 
     cy.wait(navigationFormFillDelay);
@@ -104,7 +109,7 @@ describe('Candidate Application', () => {
     selectRoleInterest();
     fillCurrentLocation();
     fillOpenToRelocation();
-    fillopenToRemoteMulti();
+    fillOpenToRemoteMulti();
     fillDesiredSalary();
     selectInterestCauses();
     fillOtherCauses();
@@ -121,7 +126,7 @@ describe('Candidate Application', () => {
     // Confirm success
     cy.url({ timeout: formSubmissionTimeout }).should(
       'include',
-      '/sign-up/applicants/success'
+      APPLICANT_SUCCESS_LINK
     );
   });
 
@@ -154,15 +159,15 @@ describe('Candidate Application', () => {
   }
 
   function acceptPrivacy(): void {
-    cy.get('input[name=acceptedPrivacy]').click();
+    cy.get(Selectors.privacy.input).click();
   }
 
   function acceptTerms(): void {
-    cy.get('input[name=acceptedTerms]').click();
+    cy.get(Selectors.terms.input).click();
   }
 
   function acceptFollowUpOptIn(): void {
-    cy.get('input[name=followUpOptIn]').click();
+    cy.get(Selectors.followUp.input).click();
   }
 
   function submitCandidateSignup(): void {
@@ -284,7 +289,7 @@ describe('Candidate Application', () => {
     cy.get('li[data-name=input-openToRelocate-yes]').click();
   }
 
-  function fillopenToRemoteMulti(): void {
+  function fillOpenToRemoteMulti(): void {
     cy.get('button[name=input-openToRemoteMulti]').click();
     cy.get('li[data-name="input-openToRemoteMulti-remote"]').click();
     cy.get('button[name=input-openToRemoteMulti]').click();
