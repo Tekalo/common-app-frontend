@@ -20,8 +20,8 @@ import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  ITimelineItem,
   InterestFieldsType,
+  ITimelineItem,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -86,7 +86,7 @@ const ApplicantForms: NextPageWithLayout = () => {
   //       values.interestRoles,
   //       values.currentLocation,
   //       values.openToRelocate,
-  //       values.openToRemote,
+  //       values.openToRemoteMulti,
   //       values.desiredSalary,
   //       values.interestCauses,
   //       values.otherCauses,
