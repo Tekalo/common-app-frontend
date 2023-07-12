@@ -3,7 +3,6 @@ import {
   CONTACT_OPTION_TEXT,
   ORG_SIZE_LABEL_TEXT,
   PAID_TEXT,
-  REMOTE_OPTION_TEXT,
   ROLE_ENUM_TEXT,
   SEARCH_STATUS_TEXT,
   USDR_TEXT,
@@ -18,7 +17,7 @@ import {
   EmploymentType,
   GovtJobType,
   OpenToRelocate,
-  OpenToRemote,
+  openToRemoteMulti,
   OrgSize,
   OrgType,
   PreferredContact,
@@ -293,28 +292,11 @@ const RelocationOptions = OpenToRelocate.options.map((option) => ({
   displayText: capitalizeFirstLetter(option),
 }));
 
-const RemoteOptions = OpenToRemote.options.map((option) => {
-  if (option === 'only remote') {
-    return {
-      value: option,
-      displayText: REMOTE_OPTION_TEXT.remoteOnly,
-    };
-  } else if (option === 'no remote') {
-    return {
-      value: option,
-      displayText: REMOTE_OPTION_TEXT.notRemote,
-    };
-  } else if (option === 'both') {
-    return {
-      value: option,
-      displayText: REMOTE_OPTION_TEXT.both,
-    };
-  } else {
-    return {
-      value: option,
-      displayText: capitalizeFirstLetter(option),
-    };
-  }
+const RemoteOptions = openToRemoteMulti.options.map((option) => {
+  return {
+    value: option,
+    displayText: capitalizeFirstLetter(option),
+  };
 });
 
 const AttributionOtpions = ReferenceAttribution.options.map((option) => ({
@@ -367,6 +349,5 @@ export {
   VisaSponsorshipOptions,
   YOEOptions,
   YOERangeOptions,
-  YesNoOptions
+  YesNoOptions,
 };
-

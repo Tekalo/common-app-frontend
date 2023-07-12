@@ -15,6 +15,7 @@ const ToolTipExample: React.FC<ITooltip> = ({ text }) => {
         return (
           <div className="mt-52 p-4">
             <FreeText
+              errors={errors}
               name="input-pronoun"
               label="Phone number (optional)"
               placeholder=""
