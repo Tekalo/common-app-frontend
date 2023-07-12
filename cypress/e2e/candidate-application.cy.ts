@@ -1,3 +1,4 @@
+import { CandidateSignupSelectors as Selectors } from '@/cypress/support/selectors/candidate-signup.selectors';
 import { applicantsEndpoint } from '@/lib/helpers/apiHelpers';
 import { AccountSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
@@ -125,16 +126,16 @@ describe('Candidate Application', () => {
   });
 
   function fillName(): void {
-    cy.get('input[name=input-name]').type('Test User Name');
+    cy.get(Selectors.name.input).type('Test User Name');
   }
 
   function fillEmail(): void {
     const randomEmail = `test-user-${new Date().getTime()}@schmidtfutures.com`;
-    cy.get('input[name=input-email]').type(randomEmail);
+    cy.get(Selectors.email.input).type(randomEmail);
   }
 
   function fillPronouns(): void {
-    cy.get('input[name=input-pronoun]').type('they/them');
+    cy.get(Selectors.pronoun.input).type('they/them');
   }
 
   // Note: any of these can be customized like this, depending on our future needs
@@ -144,12 +145,12 @@ describe('Candidate Application', () => {
   }
 
   function fillContactMethod(method: 'email' | 'sms' | 'whatsapp'): void {
-    cy.get('button[name=input-preferredContact]').click();
+    cy.get(Selectors.contact.input).click();
     cy.get(`li[data-name=input-preferredContact-${method}]`).click();
   }
 
   function fillPhoneNumber(): void {
-    cy.get('input[name=input-phone]').type('+1 8102410001');
+    cy.get(Selectors.phone.input).type('+1 8102410001');
   }
 
   function acceptPrivacy(): void {
@@ -170,7 +171,7 @@ describe('Candidate Application', () => {
       url: applicantsEndpoint,
     }).as('applicantCreation');
 
-    cy.get('button#submit-candidate-sign-up').click();
+    cy.get(Selectors.buttons.submit).click();
 
     cy.wait('@applicantCreation', { timeout: formSubmissionTimeout }).then(
       (interception: Interception) => {

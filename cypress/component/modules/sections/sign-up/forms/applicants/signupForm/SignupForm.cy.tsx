@@ -1,3 +1,4 @@
+import { CandidateSignupSelectors as Selectors } from '@/cypress/support/selectors/candidate-signup.selectors';
 import { APPLICANT_FORM_TEXT, ERROR_TEXT, TERMS_LINK } from '@/lang/en';
 import { ISignupForm } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 
@@ -24,21 +25,21 @@ describe('<SignupForm />', () => {
       cy.mountSignupForm(props);
 
       // Fields
-      cy.get('input[name=input-name]').should('exist');
-      cy.get('input[name=input-email]').should('exist');
-      cy.get('input[name=input-pronoun]').should('exist');
-      cy.get('input[name=input-searchStatus-active]').should('exist');
-      cy.get('input[name=input-searchStatus-passive]').should('exist');
-      cy.get('input[name=input-searchStatus-future]').should('exist');
-      cy.get('button[name=input-preferredContact]').should('exist');
-      cy.get('input[name=input-phone]').should('exist');
-      cy.get('input[name=input-acceptedPrivacy]').should('exist');
-      cy.get('input[name=input-acceptedTerms]').should('exist');
-      cy.get('input[name=input-followUpOptIn]').should('exist');
-      // cy.get('#candidate-form-turnstile').should('exist');
+      cy.get(Selectors.name.input).should('exist');
+      cy.get(Selectors.email.input).should('exist');
+      cy.get(Selectors.pronoun.input).should('exist');
+      cy.get(Selectors.searchStatus.input.active).should('exist');
+      cy.get(Selectors.searchStatus.input.passive).should('exist');
+      cy.get(Selectors.searchStatus.input.future).should('exist');
+      cy.get(Selectors.contact.input).should('exist');
+      cy.get(Selectors.phone.input).should('exist');
+      cy.get(Selectors.privacy.input).should('exist');
+      cy.get(Selectors.terms.input).should('exist');
+      cy.get(Selectors.followUp.input).should('exist');
+      cy.get(Selectors.turnstile.input).should('not.exist');
 
       // Button
-      cy.get('#submit-candidate-sign-up').should('exist');
+      cy.get(Selectors.buttons.submit).should('exist');
     });
 
     it('has correct required fields', () => {
@@ -53,7 +54,7 @@ describe('<SignupForm />', () => {
         'input-acceptedTerms',
       ];
 
-      cy.get('button#submit-candidate-sign-up').click();
+      cy.get(Selectors.buttons.submit).click();
 
       requiredFields.forEach((field) => {
         cy.get(`p#errorMessage-${field}`).should('be.visible');
@@ -63,13 +64,11 @@ describe('<SignupForm />', () => {
     it('should make phone number required by selecting phone contact method', () => {
       cy.mountSignupForm(props);
 
-      const preferredContactField = cy.get(
-        'button[name=input-preferredContact]'
-      );
+      const preferredContactField = cy.get(Selectors.contact.input);
       preferredContactField.click();
       cy.get('li[data-name=input-preferredContact-sms]').click();
 
-      cy.get('button#submit-candidate-sign-up').click();
+      cy.get(Selectors.buttons.submit).click();
       cy.get('label[for=input-phone]').should(
         'contain.text',
         APPLICANT_FORM_TEXT.FIELDS.phone.label
@@ -82,13 +81,11 @@ describe('<SignupForm />', () => {
     it('should make phone number required by selecting whatsapp contact method', () => {
       cy.mountSignupForm(props);
 
-      const preferredContactField = cy.get(
-        'button[name=input-preferredContact]'
-      );
+      const preferredContactField = cy.get(Selectors.contact.input);
       preferredContactField.click();
       cy.get('li[data-name=input-preferredContact-whatsapp]').click();
 
-      cy.get('button#submit-candidate-sign-up').click();
+      cy.get(Selectors.buttons.submit).click();
       cy.get('label[for=input-phone]').should(
         'contain.text',
         APPLICANT_FORM_TEXT.FIELDS.phone.label
@@ -101,13 +98,11 @@ describe('<SignupForm />', () => {
     it('should make phone number optional by selecting email contact method', () => {
       cy.mountSignupForm(props);
 
-      const preferredContactField = cy.get(
-        'button[name=input-preferredContact]'
-      );
+      const preferredContactField = cy.get(Selectors.contact.input);
       preferredContactField.click();
       cy.get('li[data-name=input-preferredContact-email]').click();
 
-      cy.get('button#submit-candidate-sign-up').click();
+      cy.get(Selectors.buttons.submit).click();
       cy.get('label[for=input-phone]').should(
         'contain.text',
         APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
@@ -136,28 +131,28 @@ describe('<SignupForm />', () => {
       cy.mountSignupForm(props);
 
       // Fields
-      cy.get('input[name=input-name]').should('exist');
-      cy.get('input[name=input-email]').should('exist');
-      cy.get('input[name=input-pronoun]').should('exist');
-      cy.get('input[name=input-searchStatus-active]').should('exist');
-      cy.get('input[name=input-searchStatus-passive]').should('exist');
-      cy.get('input[name=input-searchStatus-future]').should('exist');
-      cy.get('button[name=input-preferredContact]').should('exist');
-      cy.get('input[name=input-phone]').should('exist');
-      cy.get('input[name=input-acceptedPrivacy]').should('exist');
-      cy.get('input[name=input-acceptedTerms]').should('exist');
-      cy.get('input[name=input-followUpOptIn]').should('exist');
-      cy.get('#candidate-form-turnstile').should('exist');
+      cy.get(Selectors.name.input).should('exist');
+      cy.get(Selectors.email.input).should('exist');
+      cy.get(Selectors.pronoun.input).should('exist');
+      cy.get(Selectors.searchStatus.input.active).should('exist');
+      cy.get(Selectors.searchStatus.input.passive).should('exist');
+      cy.get(Selectors.searchStatus.input.future).should('exist');
+      cy.get(Selectors.contact.input).should('exist');
+      cy.get(Selectors.phone.input).should('exist');
+      cy.get(Selectors.privacy.input).should('exist');
+      cy.get(Selectors.terms.input).should('exist');
+      cy.get(Selectors.followUp.input).should('exist');
+      cy.get(Selectors.turnstile.input).should('exist');
 
       // Button
-      cy.get('#submit-candidate-sign-up').should('exist');
+      cy.get(Selectors.buttons.submit).should('exist');
     });
 
     it('should set turnstileIsValid to false', () => {
       cy.stub(props, 'setIsTurnstileValid').as('setTurnstileSpy');
       cy.mountSignupForm(props);
 
-      cy.get('#submit-candidate-sign-up')
+      cy.get(Selectors.buttons.submit)
         .click()
         .then(() => {
           expect(props.setIsTurnstileValid).to.be.calledOnceWithExactly(false);
