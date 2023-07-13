@@ -397,7 +397,7 @@ const APPLICANT_FORM_TEXT = {
     phone: {
       label: 'Phone number',
       labelOptional: 'Phone number (optional)',
-      placeholder: '+1 (555) 555-5555',
+      placeholder: '+1 555 555 5555',
       tooltipText:
         "If you prefer not to share your phone number, choose email as your preferred contact method. If provided, your number will be used to contact you about your application. It won't be used for marketing unless you opt in below.",
     },
@@ -864,7 +864,8 @@ const ERROR_TEXT = {
   interestRoles: 'You must select at least one role',
   invalidDate: 'Invalid date',
   invalidEmail: 'This must be a valid email address',
-  invalidPhone: 'This must be a valid phone number',
+  invalidPhone:
+    "This must be a valid phone number, please use only '+', numbers, and spaces",
   notFoundCode: '404',
   notFoundText: "Sorry, we couldn't find this page.",
   orgRequired: 'Organization is required',
