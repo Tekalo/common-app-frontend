@@ -428,7 +428,7 @@ describe('Organization Application', () => {
   }
 
   function fillContactPhone(): void {
-    cy.get('input[name="input-contact.phone"]').type('1212110009');
+    cy.get('input[name="input-contact.phone"]').type('+1212110009');
   }
 
   function selectCommitmentTypes(types: ('full' | 'part')[]): void {
