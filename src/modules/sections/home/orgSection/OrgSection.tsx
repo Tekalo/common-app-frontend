@@ -117,7 +117,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
         {logos.map((logo, i) => {
           return (
             <a key={i} href={logo.url} target="_blank" rel="noreferrer">
-              <div className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[155px]">
+              <div className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[148px]">
                 <img src={logo.src} alt={logo.alt} className="min-w-0" />
               </div>
             </a>
