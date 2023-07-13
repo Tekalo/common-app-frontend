@@ -356,6 +356,8 @@ const RESUME_MODAL = {
 /** FORM TEXT CONSTANTS */
 const APPLICANT_FORM_TEXT = {
   HEADER: 'Join a network of impact-driven organizations to find your match.',
+  NAVAWAY: 'Already have an account? ',
+  SIGN_IN_LINK_COPY: 'Sign in',
   PRIVACY_DISCLAIMER: {
     text: 'I confirm that I have reviewed the ',
     linkText: 'Privacy Info',

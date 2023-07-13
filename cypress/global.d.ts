@@ -13,7 +13,10 @@ declare global {
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
-      mountSignupForm(props: ISignupForm): Chainable<MountReturn>;
+      mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
+      mountCandidateSignupFormPage(
+        auth0Context: Auth0ContextInterface<User>
+      ): Chainable<ISignupForm>;
     }
   }
 }

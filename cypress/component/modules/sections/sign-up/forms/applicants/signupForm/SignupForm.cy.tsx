@@ -32,7 +32,7 @@ describe('<SignupForm />', () => {
     });
 
     it('renders', () => {
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       // Fields
       cy.get(Selectors.name.input).should('exist');
@@ -53,7 +53,7 @@ describe('<SignupForm />', () => {
     });
 
     it('has correct required fields', () => {
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       const requiredFields = [
         'input-name',
@@ -72,7 +72,7 @@ describe('<SignupForm />', () => {
     });
 
     it('should make phone number required by selecting phone contact method', () => {
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       const preferredContactField = cy.get(Selectors.contact.input);
       preferredContactField.click();
@@ -89,7 +89,7 @@ describe('<SignupForm />', () => {
     });
 
     it('should make phone number required by selecting whatsapp contact method', () => {
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       const preferredContactField = cy.get(Selectors.contact.input);
       preferredContactField.click();
@@ -106,7 +106,7 @@ describe('<SignupForm />', () => {
     });
 
     it('should make phone number optional by selecting email contact method', () => {
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       const preferredContactField = cy.get(Selectors.contact.input);
       preferredContactField.click();
@@ -122,7 +122,7 @@ describe('<SignupForm />', () => {
 
     it('should submit values - required only', () => {
       props.handleSubmit = cy.stub().as('submit');
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get(Selectors.name.input).type(name);
       cy.get(Selectors.email.input).type(email);
@@ -152,7 +152,7 @@ describe('<SignupForm />', () => {
 
     it('should submit values - all values', () => {
       props.handleSubmit = cy.stub().as('submit');
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get(Selectors.name.input).type(name);
       cy.get(Selectors.email.input).type(email);
@@ -185,7 +185,7 @@ describe('<SignupForm />', () => {
 
     it('should submit values - all values, last options', () => {
       props.handleSubmit = cy.stub().as('submit');
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get(Selectors.name.input).type(name);
       cy.get(Selectors.email.input).type(email);
@@ -234,7 +234,7 @@ describe('<SignupForm />', () => {
     });
 
     it('renders', () => {
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       // Fields
       cy.get(Selectors.name.input).should('exist');
@@ -256,7 +256,7 @@ describe('<SignupForm />', () => {
 
     it('should set turnstileIsValid to false', () => {
       cy.stub(props, 'setIsTurnstileValid').as('setTurnstileSpy');
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get(Selectors.buttons.submit)
         .click()
@@ -268,7 +268,7 @@ describe('<SignupForm />', () => {
 
     it('should show privacy modal', () => {
       cy.stub(props, 'setShowPrivacyModal').as('privacyModalSpy');
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get('#candidate-sign-up__privacy-modal-trigger')
         .click()
@@ -280,7 +280,7 @@ describe('<SignupForm />', () => {
     });
 
     it('should have correct terms link', () => {
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get('#candidate-sign-up__terms-of-use-link').should(
         'have.attr',
@@ -307,7 +307,7 @@ describe('<SignupForm />', () => {
         email,
       };
       props.isAuthenticated = true;
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       const nameInput = cy.get('[name=input-name]');
       nameInput.should('be.disabled');
@@ -319,7 +319,7 @@ describe('<SignupForm />', () => {
 
     it('should disable name and email with empty values if they are not present', () => {
       props.isAuthenticated = true;
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       const nameInput = cy.get('[name=input-name]');
       nameInput.should('be.disabled');
@@ -331,7 +331,7 @@ describe('<SignupForm />', () => {
 
     it('should display turnstile error if it is not valid', () => {
       props.isTurnstileValid = false;
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get('#candidate-form-turnstile__error-message').should('be.visible');
     });
@@ -340,7 +340,7 @@ describe('<SignupForm />', () => {
       const turnstileToken = 'XXXX.DUMMY.TOKEN.XXXX';
 
       props.handleSubmit = cy.stub().as('submit');
-      cy.mountSignupForm(props);
+      cy.mountCandidateSignupForm(props);
 
       cy.get(Selectors.name.input).type(name);
       cy.get(Selectors.email.input).type(email);
