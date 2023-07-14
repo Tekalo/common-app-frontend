@@ -867,7 +867,7 @@ const ERROR_TEXT = {
   invalidDate: 'Invalid date',
   invalidEmail: 'This must be a valid email address',
   invalidPhone:
-    "This must be a valid phone number, please use only '+', numbers, and spaces",
+    "This must be a valid phone number that includes the country code; please use only '+', numbers, and spaces",
   notFoundCode: '404',
   notFoundText: "Sorry, we couldn't find this page.",
   orgRequired: 'Organization is required',
