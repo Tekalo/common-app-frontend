@@ -43,7 +43,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       url: 'https://www.ameelio.org/',
     },
     {
-      src: '/images/logos/Ello.gif',
+      src: '/images/logos/ello_logo.png',
       alt: 'Ello',
       url: 'https://www.helloello.com',
     },
