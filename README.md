@@ -37,7 +37,7 @@ In general, this project conforms to a standard Next.js project structure. We do
 
 #### `components`
 
-Contains all re-usable components that can be dropped into a page. All components follow the same structure based off the baseTemplate
+Contains all re-usable components that can be dropped into a page. All components follow the same structure based off the baseTemplate.
 
 #### `layouts`
 
