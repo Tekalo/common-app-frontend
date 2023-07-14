@@ -16,7 +16,7 @@ describe('Candidate Application', () => {
 
   beforeEach(() => {
     cy.setupTestingEnvironment();
-    cy.visit('/sign-up/applicants');
+    cy.visit(APPLICANT_SIGNUP_LINK);
   });
 
   // Clean up the test users we created

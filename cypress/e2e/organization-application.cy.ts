@@ -1,3 +1,4 @@
+import { ORG_SIGNUP_LINK } from '@/lang/en';
 import { EmploymentType } from '@/lib/enums';
 import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
@@ -12,7 +13,7 @@ describe('Organization Application', () => {
 
   beforeEach(() => {
     cy.setupTestingEnvironment();
-    cy.visit('/sign-up/organizations');
+    cy.visit(ORG_SIGNUP_LINK);
   });
 
   after(() => {
@@ -20,7 +21,7 @@ describe('Organization Application', () => {
   });
 
   it('Should submit opportunity, full-time only, required only', () => {
-    cy.url().should('include', '/sign-up/organizations');
+    cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
@@ -58,7 +59,7 @@ describe('Organization Application', () => {
   });
 
   it('Should submit opportunity, full-time only, required only with free text attribution', () => {
-    cy.url().should('include', '/sign-up/organizations');
+    cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
@@ -97,7 +98,7 @@ describe('Organization Application', () => {
   });
 
   it('Should submit opportunity, full-time only, all fields', () => {
-    cy.url().should('include', '/sign-up/organizations');
+    cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
@@ -149,7 +150,7 @@ describe('Organization Application', () => {
         Fill required fields
     */
 
-    cy.url().should('include', '/sign-up/organizations');
+    cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
@@ -198,7 +199,7 @@ describe('Organization Application', () => {
         Fill all fields
     */
 
-    cy.url().should('include', '/sign-up/organizations');
+    cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
@@ -248,7 +249,7 @@ describe('Organization Application', () => {
   });
 
   it('Should submit opportunity, part and full-time, required only', () => {
-    cy.url().should('include', '/sign-up/organizations');
+    cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
@@ -292,7 +293,7 @@ describe('Organization Application', () => {
   });
 
   it('Should submit opportunity, part and full-time, all fields', () => {
-    cy.url().should('include', '/sign-up/organizations');
+    cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
@@ -556,7 +557,7 @@ describe('Organization Application', () => {
   }
 
   function acceptPrivacy(): void {
-    cy.get('input[name=acceptedPrivacy]').click();
+    cy.get('input[name=input-acceptedPrivacy]').click();
   }
 
   function submitOrgApplication(): void {
