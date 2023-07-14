@@ -179,7 +179,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center justify-center">
       {isLoading ? (
-        <div className="mb-1/2 space-y-3">
+        <div id="loading-spinner" className="mb-1/2 space-y-3">
           <LoadingSpinner />
           <h3 className="text-component-small-desktop text-center ">
             {'Hang tight'}

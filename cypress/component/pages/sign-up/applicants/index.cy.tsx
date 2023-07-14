@@ -1,5 +1,6 @@
 import {
   ACCOUNT_LINK,
+  APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
   ORG_SIGNUP_LINK,
   PRIVACY_MODAL_TEXT,
@@ -18,9 +19,48 @@ describe('Applicant Signup Page', () => {
   const testToken = '123';
 
   let mockAuth0Context: Auth0ContextInterface<User>;
+  // https://devdocs.io/cypress/api/commands/intercept#Providing-a-stub-response-with-req-reply
+  let mockHasSubmittedRes: any;
+  let mockApplicantRes: any;
 
   beforeEach(() => {
     cy.stub(router, 'push').as('routerPush');
+
+    mockHasSubmittedRes = {
+      statusCode: 200,
+      body: {
+        isFinal: true,
+      },
+    };
+    mockApplicantRes = {
+      statusCode: 200,
+      body: {},
+    };
+
+    cy.intercept(
+      {
+        method: 'GET',
+        url: applicantSubmissionsEndpoint,
+      },
+      cy
+        .stub()
+        .as('submittedCall')
+        .callsFake((req) => {
+          console.log(req);
+          req.reply(mockHasSubmittedRes);
+        })
+    ).as('hasSubmitted');
+
+    cy.intercept(
+      {
+        method: 'GET',
+        url: existingApplicantEndpoint,
+      },
+      cy
+        .stub()
+        .as('dataCall')
+        .callsFake((req) => req.reply(mockApplicantRes))
+    ).as('hasData');
 
     mockAuth0Context = {
       getAccessTokenSilently: () =>
@@ -57,7 +97,15 @@ describe('Applicant Signup Page', () => {
     );
   });
 
-  it('should show privacy modal', () => {
+  it('should show the spinner while loading', () => {
+    mockAuth0Context.isLoading = true;
+
+    cy.mountCandidateSignupFormPage(mockAuth0Context);
+
+    cy.get('#loading-spinner').should('be.visible');
+  });
+
+  it('should show privacy modal and close it', () => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.setShowPrivacyModal(true);
 
@@ -65,42 +113,17 @@ describe('Applicant Signup Page', () => {
         'have.text',
         PRIVACY_MODAL_TEXT.HEADER
       );
+
+      cy.get('#close-table-modal').click();
+
+      cy.get('#table-modal-header').should('not.exist');
     });
   });
 
-  it.only('should redirect the user to the account page', () => {
+  it('should redirect the user to the account page', () => {
     mockAuth0Context.isAuthenticated = true;
     mockAuth0Context.isLoading = false;
     mockAuth0Context.user = {};
-    const mockHasSubmittedRes = {
-      ok: true,
-      body: { isFinal: true },
-    };
-    const mockApplicantRes = {
-      ok: true,
-    };
-
-    cy.intercept(
-      {
-        method: 'GET',
-        url: applicantSubmissionsEndpoint,
-      },
-      cy
-        .stub()
-        .as('submittedCall')
-        .callsFake((req) => req.reply(mockHasSubmittedRes))
-    ).as('hasSubmitted');
-
-    cy.intercept(
-      {
-        method: 'GET',
-        url: existingApplicantEndpoint,
-      },
-      cy
-        .stub()
-        .as('dataCall')
-        .callsFake((req) => req.reply(mockApplicantRes))
-    ).as('hasData');
 
     cy.mountCandidateSignupFormPage(mockAuth0Context);
 
@@ -115,16 +138,42 @@ describe('Applicant Signup Page', () => {
     );
   });
 
-  // it('should take form values on submission', () => {
-  //   console.log(apiHelpers);
+  it('should redirect the user to the experience form', () => {
+    mockAuth0Context.isAuthenticated = true;
+    mockAuth0Context.isLoading = false;
+    mockAuth0Context.user = {};
+    mockHasSubmittedRes = { isFinal: false };
 
-  //   cy.stub(apiHelpers, 'get')
-  //     .as('hasSubmitted')
-  //     .withArgs(applicantSubmissionsEndpoint, '')
-  //     .returns(
-  //       Promise.resolve({
-  //         ok: true,
-  //       })
-  //     );
-  // });
+    cy.mountCandidateSignupFormPage(mockAuth0Context);
+
+    cy.wait(['@hasSubmitted', '@hasData']);
+
+    cy.get('@submittedCall').should('have.been.calledOnce');
+    cy.get('@dataCall').should('have.been.calledOnce');
+
+    cy.get('@routerPush').should(
+      'have.been.calledOnceWithExactly',
+      APPLICANT_EXPERIENCE_LINK
+    );
+  });
+
+  it('should show the content after redirect check', () => {
+    mockAuth0Context.isAuthenticated = true;
+    mockAuth0Context.isLoading = false;
+    mockAuth0Context.user = {};
+    mockHasSubmittedRes = { isFinal: false };
+    mockApplicantRes = {
+      statusCode: 404,
+      body: {},
+    };
+
+    cy.mountCandidateSignupFormPage(mockAuth0Context);
+
+    cy.wait(['@hasSubmitted', '@hasData']);
+
+    cy.get('@submittedCall').should('have.been.calledOnce');
+    cy.get('@dataCall').should('have.been.calledOnce');
+
+    cy.get('#mockContent').should('be.visible');
+  });
 });

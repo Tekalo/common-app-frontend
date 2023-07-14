@@ -65,7 +65,7 @@ Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
       setShowPrivacyModal,
     };
 
-    return <>Mock Child Component</>;
+    return <div id="mockContent">Mock Child Component</div>;
   };
 
   // Mocking the child form so we don't have to deal with its imp. details
