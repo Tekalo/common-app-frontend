@@ -116,7 +116,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
         <div className="mb-16 md:mb-16 lg:mb-28">
           {/* Benefit Hero */}
           <Image
-            src="/images/BenefitHero.png"
+            src="/images/BenefitHero_lg.png"
             alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
             className="relative -left-[3px] m-auto w-full max-w-[315px] md:block md:max-w-[610px] lg:mb-24 lg:max-w-[928px]"
             width={1856}
