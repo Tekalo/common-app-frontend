@@ -4,6 +4,7 @@ import Button from '@/components/buttons/Button/Button';
 import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK, NAV_BAR_TEXT } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 import Link from 'next/link';
 import { SyntheticEvent, useState } from 'react';
 
@@ -73,10 +74,12 @@ const MainNavbar: React.FC<IMainNavbar> = ({
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
             {/* Logo */}
             <Link href="/">
-              <img
+              <Image
                 src="/images/logo_nav.png"
                 alt="Tekalo Logo"
                 className="max-w-[96px] py-1 md:max-w-[132px]"
+                width={264}
+                height={56}
               />
             </Link>
             <div className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-10 md:pt-2 lg:text-p2-desktop"></div>

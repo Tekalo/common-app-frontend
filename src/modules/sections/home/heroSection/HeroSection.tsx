@@ -19,7 +19,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
           <div className="max-w-2xl mx-auto md:mx-0">
             {/* Mobile Hero */}
             <Image
-              src="/images/hero_lg.png"
+              src="/images/hero.png"
               alt="Mobile Hero Image"
               className="m-auto mb-6 w-auto max-w-[277px] md:hidden"
               width={783}
@@ -27,7 +27,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
             />
             {/* Tablet Hero */}
             <Image
-              src="/images/hero_lg.png"
+              src="/images/hero.png"
               alt="Tablet Hero Image"
               className="mb-4 hidden max-w-[528px] md:block lg:hidden"
               width={783}
@@ -59,7 +59,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
         {/* IMAGE */}
         <div className="col-start-8 col-end-13 items-center justify-end">
           <Image
-            src={'/images/hero.png'}
+            src="/images/hero.png"
             alt="Tablet Hero Image"
             className="hidden max-w-[391px] lg:block"
             width={783}
