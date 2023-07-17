@@ -464,7 +464,7 @@ const INTEREST_FORM_TEXT = {
         'Which causes are you interested in hearing opportunities for?',
       rankLabel:
         'Rank the causes you would be interested in working on with 1 being the highest.',
-      placeholder: 'Choose all that apply',
+      placeholder: 'Choose up to 5 causes',
       selectionLabelMulti: ' Causes selected',
       selectionLabelSingle: ' Cause selected',
     },
