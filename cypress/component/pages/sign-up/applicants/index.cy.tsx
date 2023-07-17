@@ -197,7 +197,7 @@ describe('Applicant Signup Page', () => {
     cy.get('#mockContent').should('be.visible');
   });
 
-  it('should submit a regular, non-debug submission', () => {
+  it('should submit a regular, non-debug submission with all fields filled out', () => {
     cy.intercept(
       {
         method: 'POST',
@@ -208,6 +208,54 @@ describe('Applicant Signup Page', () => {
         .as('submissionResponse')
         .callsFake((req) => {
           expect(req.body).to.deep.equal(mockFormValues);
+          expect(req.headers['content-type']).to.equal('application/json');
+          expect(req.headers['x-turnstile-token']).to.equal(mockTurnstileToken);
+
+          req.reply({ statusCode: 200 });
+        })
+    ).as('applicantSubmission');
+
+    cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
+      testProps.handleSubmit(mockFormValues, mockTurnstileToken);
+
+      cy.wait('@applicantSubmission').then(() => {
+        cy.get('@submissionResponse').should('have.been.calledOnce');
+
+        expect(window.dataLayerEvent).to.have.been.calledOnceWithExactly(
+          TRACKING.CANDIDATE_SIGNUP
+        );
+        expect(router.push).to.have.been.calledOnceWithExactly(
+          APPLICANT_EXPERIENCE_LINK
+        );
+      });
+    });
+  });
+
+  it('should submit a regular, non-debug submission with only required fields', () => {
+    mockFormValues.followUpOptIn = false;
+    mockFormValues.pronoun = '';
+
+    const expectedFormValues = {
+      acceptedPrivacy: true,
+      acceptedTerms: true,
+      email: 'test-user-607@schmidtfutures.com',
+      followUpOptIn: false,
+      name: 'Test User',
+      phone: '+18102410000',
+      preferredContact: 'sms',
+      searchStatus: 'active',
+    };
+
+    cy.intercept(
+      {
+        method: 'POST',
+        url: applicantsEndpoint,
+      },
+      cy
+        .stub()
+        .as('submissionResponse')
+        .callsFake((req) => {
+          expect(req.body).to.deep.equal(expectedFormValues);
           expect(req.headers['content-type']).to.equal('application/json');
           expect(req.headers['x-turnstile-token']).to.equal(mockTurnstileToken);
 
@@ -299,6 +347,11 @@ describe('Applicant Signup Page', () => {
           'have.text',
           ERROR_MODAL_TEXT.somethingWrong
         );
+
+        // Close modal
+        cy.get('#error-modal-button-container button').click();
+        cy.get('#error-modal-title').should('not.exist');
+        cy.get('#error-modal-description').should('not.exist');
       });
     });
   });

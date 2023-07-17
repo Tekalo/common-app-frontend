@@ -240,9 +240,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
               descriptionText={ERROR_MODAL_TEXT.somethingWrong}
               buttonText={ERROR_MODAL_TEXT.okButton}
               buttonHandler={() => {
-                isConflict
-                  ? router.push(SIGN_IN_LINK)
-                  : setShowErrorModal(false);
+                setShowErrorModal(false);
               }}
               closeModal={() => {
                 setShowErrorModal(false);
