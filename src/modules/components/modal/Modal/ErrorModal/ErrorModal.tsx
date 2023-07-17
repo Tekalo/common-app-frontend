@@ -30,20 +30,25 @@ const ErrorModal: React.FC<IErrorModal> = ({
     >
       <Dialog.Panel className="relative mx-2 mt-20 max-w-[352px] rounded bg-white p-6 sm:mx-auto">
         <XMarkIcon
+          id="error-modal-x"
           className="absolute right-5 top-5 h-[26px] w-[26px] cursor-pointer"
           onClick={() => closeModal()}
         />
         <Dialog.Title
+          id="error-modal-title"
           ref={headerRef}
           className="mb-4 font-display text-h4-mobile"
         >
           {titleText}
         </Dialog.Title>
-        <Dialog.Description className="text-p2-mobile">
+        <Dialog.Description
+          id="error-modal-description"
+          className="text-p2-mobile"
+        >
           {descriptionText}
         </Dialog.Description>
 
-        <div className="flex justify-end">
+        <div id="error-modal-button-container" className="flex justify-end">
           <Button
             onClick={() => (buttonHandler ? buttonHandler() : closeModal())}
             label={buttonText}
