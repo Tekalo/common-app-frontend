@@ -48,7 +48,6 @@ describe('phone regex', () => {
     ];
 
     numbers.forEach((num: string) => {
-      console.log(num);
       expect(validator.parse(num)).to.equal(num);
     });
   });

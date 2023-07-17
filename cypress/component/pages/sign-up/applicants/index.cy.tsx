@@ -2,28 +2,36 @@ import {
   ACCOUNT_LINK,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_FORM_TEXT,
+  ERROR_MODAL_TEXT,
   ORG_SIGNUP_LINK,
   PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
+  TRACKING,
 } from '@/lang/en';
 import {
   applicantSubmissionsEndpoint,
+  applicantsEndpoint,
   existingApplicantEndpoint,
 } from '@/lib/helpers/apiHelpers';
+import { NewCandidateType } from '@/lib/types';
 
 import { Auth0ContextInterface, User } from '@auth0/auth0-react';
 import router from 'next/router';
 
 describe('Applicant Signup Page', () => {
   const voidFn = () => void {};
-  const testToken = '123';
+  const mockAuthToken = 'MOCK_AUTH_TOKEN';
+  const mockTurnstileToken = 'XXX_TURNSTILE_XXX';
 
   let mockAuth0Context: Auth0ContextInterface<User>;
   // https://devdocs.io/cypress/api/commands/intercept#Providing-a-stub-response-with-req-reply
   let mockHasSubmittedRes: any;
   let mockApplicantRes: any;
+  let mockFormValues: NewCandidateType;
 
+  // Set up all our mocks
   beforeEach(() => {
+    window.dataLayerEvent = cy.stub();
     cy.stub(router, 'push').as('routerPush');
 
     mockHasSubmittedRes = {
@@ -64,7 +72,7 @@ describe('Applicant Signup Page', () => {
 
     mockAuth0Context = {
       getAccessTokenSilently: () =>
-        cy.stub().returns(Promise.resolve(testToken)),
+        cy.stub().returns(Promise.resolve(mockAuthToken)),
       getAccessTokenWithPopup: voidFn,
       getIdTokenClaims: voidFn,
       handleRedirectCallback: voidFn,
@@ -75,6 +83,18 @@ describe('Applicant Signup Page', () => {
       logout: voidFn,
       user: undefined,
     } as unknown as Auth0ContextInterface<User>;
+
+    mockFormValues = {
+      acceptedPrivacy: true,
+      acceptedTerms: true,
+      email: 'test-user-607@schmidtfutures.com',
+      followUpOptIn: true,
+      name: 'Test User',
+      phone: '+18102410000',
+      preferredContact: 'sms',
+      pronoun: 'she/her',
+      searchStatus: 'active',
+    } as NewCandidateType;
   });
 
   it('should render', () => {
@@ -175,5 +195,111 @@ describe('Applicant Signup Page', () => {
     cy.get('@dataCall').should('have.been.calledOnce');
 
     cy.get('#mockContent').should('be.visible');
+  });
+
+  it('should submit a regular, non-debug submission', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: applicantsEndpoint,
+      },
+      cy
+        .stub()
+        .as('submissionResponse')
+        .callsFake((req) => {
+          expect(req.body).to.deep.equal(mockFormValues);
+          expect(req.headers['content-type']).to.equal('application/json');
+          expect(req.headers['x-turnstile-token']).to.equal(mockTurnstileToken);
+
+          req.reply({ statusCode: 200 });
+        })
+    ).as('applicantSubmission');
+
+    cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
+      testProps.handleSubmit(mockFormValues, mockTurnstileToken);
+
+      cy.wait('@applicantSubmission').then(() => {
+        cy.get('@submissionResponse').should('have.been.calledOnce');
+
+        expect(window.dataLayerEvent).to.have.been.calledOnceWithExactly(
+          TRACKING.CANDIDATE_SIGNUP
+        );
+        expect(router.push).to.have.been.calledOnceWithExactly(
+          APPLICANT_EXPERIENCE_LINK
+        );
+      });
+    });
+  });
+
+  it('should reject with bad turnstile token', () => {
+    cy.stub(console, 'error');
+    cy.intercept(
+      {
+        method: 'POST',
+        url: applicantsEndpoint,
+      },
+      (req) =>
+        req.reply({
+          statusCode: 418,
+        })
+    ).as('badTurnstileSubmission');
+
+    cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
+      testProps.handleSubmit(mockFormValues, mockTurnstileToken);
+
+      cy.wait('@badTurnstileSubmission').then(() => {
+        expect(console.error).to.have.been.called.calledOnce;
+        cy.get('#turnstile-not-valid').should('be.visible');
+      });
+    });
+  });
+
+  it('should notify the user that their account already exists', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: applicantsEndpoint,
+      },
+      (req) =>
+        req.reply({
+          statusCode: 409,
+        })
+    ).as('userConflictSubmission');
+
+    cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
+      testProps.handleSubmit(mockFormValues, mockTurnstileToken);
+
+      cy.wait('@userConflictSubmission').then(() => {
+        cy.get('#conflict-error').should('be.visible');
+      });
+    });
+  });
+
+  it('should should show error modal', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: applicantsEndpoint,
+      },
+      (req) =>
+        req.reply({
+          statusCode: 500,
+        })
+    ).as('otherErrorSubmission');
+
+    cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
+      testProps.handleSubmit(mockFormValues, mockTurnstileToken);
+
+      cy.wait('@otherErrorSubmission').then(() => {
+        cy.get('#error-modal-title').should(
+          'have.text',
+          ERROR_MODAL_TEXT.requestFailed
+        );
+        cy.get('#error-modal-description').should(
+          'have.text',
+          ERROR_MODAL_TEXT.somethingWrong
+        );
+      });
+    });
   });
 });

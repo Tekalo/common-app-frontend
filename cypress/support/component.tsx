@@ -65,7 +65,17 @@ Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
       setShowPrivacyModal,
     };
 
-    return <div id="mockContent">Mock Child Component</div>;
+    return (
+      <div id="mockContent">
+        {showUserExistsError ? (
+          <p id="conflict-error">User exists error</p>
+        ) : null}
+        {!isTurnstileValid ? (
+          <p id="turnstile-not-valid">Turnstile not valid</p>
+        ) : null}
+        <p>Mock Child Component</p>
+      </div>
+    );
   };
 
   // Mocking the child form so we don't have to deal with its imp. details

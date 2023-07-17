@@ -34,12 +34,16 @@ const ErrorModal: React.FC<IErrorModal> = ({
           onClick={() => closeModal()}
         />
         <Dialog.Title
+          id="error-modal-title"
           ref={headerRef}
           className="mb-4 font-display text-h4-mobile"
         >
           {titleText}
         </Dialog.Title>
-        <Dialog.Description className="text-p2-mobile">
+        <Dialog.Description
+          id="error-modal-description"
+          className="text-p2-mobile"
+        >
           {descriptionText}
         </Dialog.Description>
 
