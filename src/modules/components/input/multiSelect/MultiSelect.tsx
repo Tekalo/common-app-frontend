@@ -118,43 +118,46 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                   const isSelected = value.includes(option.value);
 
                   return (
-                    <Listbox.Option
-                      data-name={`${name}-${option.value}`}
-                      key={option.value}
-                      className={({ active }) =>
-                        `flex cursor-default select-none flex-row rounded-[3px] align-middle ${
-                          active ? 'bg-light-blue' : ''
-                        }`
-                      }
-                      value={option.value}
-                      disabled={!canSelectMore && !isSelected}
-                    >
-                      {() => {
-                        const isDisabled = !isSelected && !canSelectMore;
+                    <>
+                      <Listbox.Label>Assignee:</Listbox.Label>
+                      <Listbox.Option
+                        data-name={`${name}-${option.value}`}
+                        key={option.value}
+                        className={({ active }) =>
+                          `flex cursor-default select-none flex-row rounded-[3px] align-middle ${
+                            active ? 'bg-light-blue' : ''
+                          }`
+                        }
+                        value={option.value}
+                        disabled={!canSelectMore && !isSelected}
+                      >
+                        {() => {
+                          const isDisabled = !isSelected && !canSelectMore;
 
-                        return (
-                          <div className="flex flex-row space-x-2 px-2 py-2 align-middle">
-                            <input
-                              name={option.value}
-                              className="form-checkbox appearance-none rounded-[3px] align-middle checked:bg-blue-1 
+                          return (
+                            <div className="flex flex-row space-x-2 px-2 py-2 align-middle">
+                              <input
+                                name={option.value}
+                                className="form-checkbox appearance-none rounded-[3px] align-middle checked:bg-blue-1 
                              checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
-                              type="checkbox"
-                              checked={isSelected}
-                              disabled={isDisabled}
-                              readOnly
-                            />
-                            <label
-                              htmlFor={option.value}
-                              className={`text-component-small text-black-text ${
-                                isDisabled ? 'text-gray-2' : ''
-                              }`}
-                            >
-                              {option.displayText}
-                            </label>
-                          </div>
-                        );
-                      }}
-                    </Listbox.Option>
+                                type="checkbox"
+                                checked={isSelected}
+                                disabled={isDisabled}
+                                readOnly
+                              />
+                              <label
+                                htmlFor={option.value}
+                                className={`text-component-small text-black-text ${
+                                  isDisabled ? 'text-gray-2' : ''
+                                }`}
+                              >
+                                {option.displayText}
+                              </label>
+                            </div>
+                          );
+                        }}
+                      </Listbox.Option>
+                    </>
                   );
                 })}
               </Listbox.Options>

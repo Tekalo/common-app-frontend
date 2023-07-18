@@ -1,7 +1,7 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import CustomImage from '@/components/customImage/CustomImage';
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import { HOME_ORG_TEXT, ORG_SIGNUP_LINK } from '@/lang/en';
-import Image from 'next/image';
 
 export interface IOrganizationSection {
   showLogoModal: boolean;
@@ -119,7 +119,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
           return (
             <a key={i} href={logo.url} target="_blank" rel="noreferrer">
               <div className="flex h-auto max-w-[110px] items-center overflow-hidden sm:max-w-[130px] md:max-w-[148px]">
-                <Image
+                <CustomImage
                   src={logo.src}
                   alt={logo.alt}
                   className="min-w-0"

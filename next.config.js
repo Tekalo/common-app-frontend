@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    loader: 'custom',
-    loaderFile: 'src/lib/imageLoader.ts',
-  },
   reactStrictMode: true,
   async redirects() {
     return [

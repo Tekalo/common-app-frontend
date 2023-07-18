@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 import Button from '@/components/buttons/Button/Button';
+import CustomImage from '@/components/customImage/CustomImage';
 import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK, NAV_BAR_TEXT } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import Image from 'next/image';
 import Link from 'next/link';
 import { SyntheticEvent, useState } from 'react';
 
@@ -74,7 +74,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
             {/* Logo */}
             <Link href="/">
-              <Image
+              <CustomImage
                 src="/images/logo_nav.png"
                 alt="Tekalo Logo"
                 className="max-w-[96px] py-1 md:max-w-[132px]"

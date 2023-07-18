@@ -1,5 +1,5 @@
+import CustomImage from '@/components/customImage/CustomImage';
 import { NAV_FOOTER_TEXT } from '@/lang/en';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export interface IMainFooter {}
@@ -11,7 +11,7 @@ const MainFooter: React.FC<IMainFooter> = () => {
         <div className="mx-auto flex flex-col md:flex-row md:items-start md:justify-between lg:max-w-content-area lg:justify-between">
           {/* Logo */}
           <div className="mb-14 items-center md:flex md:flex-none">
-            <Image
+            <CustomImage
               src="/images/logo_footer.png"
               alt="Tekalo Logo"
               className="w-auto max-w-[152px]"
