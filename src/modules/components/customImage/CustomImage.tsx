@@ -12,7 +12,7 @@ import Image from 'next/image';
 export interface ICustomImage {
   src: string;
   alt: string;
-  className: string;
+  className?: string;
   width: number;
   height: number;
 }
