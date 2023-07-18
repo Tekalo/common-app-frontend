@@ -1,4 +1,5 @@
 import { HOME_ABOUT_TEXT } from '@/lang/en';
+import Image from 'next/image';
 
 export interface IAboutSection {}
 
@@ -64,11 +65,13 @@ const AboutSection: React.FC<IAboutSection> = () => {
                 className="flex h-10 max-w-[130px] flex-initial items-center overflow-hidden lg:h-16 lg:max-w-[208px]"
               >
                 {/* TODO: Replace images with next/image --> figure out cloudflare + next/image */}
-                <img
+                <Image
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
                   className={`${logo.classes} max-w-[100%]`}
+                  width={416}
+                  height={128}
                 />
               </div>
             ))}
@@ -113,16 +116,20 @@ const AboutSection: React.FC<IAboutSection> = () => {
         {/* Benefits Image */}
         <div className="mb-16 md:mb-16 lg:mb-28">
           {/* Mobile Benefit Hero */}
-          <img
+          <Image
             src="/images/BenefitHero_sm.png"
             alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
             className="relative -left-[3px] m-auto w-full max-w-[315px] md:hidden"
+            width={633}
+            height={479}
           />
           {/* Tablet Benefit Hero */}
-          <img
+          <Image
             src="/images/BenefitHero_lg.png"
             alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
             className="m-auto hidden max-w-[610px] md:block lg:mb-24 lg:max-w-[928px]"
+            width={1856}
+            height={930}
           />
         </div>
         {/* Roles */}
@@ -133,10 +140,12 @@ const AboutSection: React.FC<IAboutSection> = () => {
           <div className="mx-auto flex max-w-[280px] flex-wrap justify-start gap-y-9 md:max-w-[688px] md:justify-center md:gap-x-12">
             {roles.map((role, i) => (
               <div key={i} className="flex items-center gap-x-4 md:w-[316px]">
-                <img
+                <Image
                   src={role.src}
                   alt={role.alt}
                   className={`max-w-[54px] md:max-w-[65px] md:flex-initial`}
+                  width={130}
+                  height={130}
                 />
                 <h4 className="font-display text-h4-mobile md:text-h4-desktop">
                   {role.text}

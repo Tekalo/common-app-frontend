@@ -4,6 +4,7 @@ import {
   HOME_HERO_TEXT,
   ORG_SIGNUP_LINK,
 } from '@/lang/en';
+import Image from 'next/image';
 
 export interface IHeroSection {}
 
@@ -17,16 +18,20 @@ const HeroSection: React.FC<IHeroSection> = () => {
         <div className="col-span-8 lg:col-span-7">
           <div className="max-w-2xl mx-auto md:mx-0">
             {/* Mobile Hero */}
-            <img
-              src="/images/hero_sm.png"
+            <Image
+              src="/images/hero_lg.png"
               alt="Mobile Hero Image"
               className="m-auto mb-6 w-auto max-w-[277px] md:hidden"
+              width={783}
+              height={644}
             />
             {/* Tablet Hero */}
-            <img
+            <Image
               src="/images/hero_md.png"
               alt="Tablet Hero Image"
               className="mb-4 hidden max-w-[528px] md:block lg:hidden"
+              width={1056}
+              height={382}
             />
             {/* Desktop Hero */}
             <h1 className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
@@ -53,10 +58,12 @@ const HeroSection: React.FC<IHeroSection> = () => {
         </div>
         {/* IMAGE */}
         <div className="col-start-8 col-end-13 items-center justify-end">
-          <img
+          <Image
             src="/images/hero_lg.png"
             alt="Tablet Hero Image"
             className="hidden max-w-[391px] lg:block"
+            width={783}
+            height={644}
           />
         </div>
       </div>
