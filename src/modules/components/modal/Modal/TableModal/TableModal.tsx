@@ -36,9 +36,10 @@ const TableModal: React.FC<ITableModal> = ({
             !showTableModal ? 'hidden' : ''
           }`}
         />
-        <div className="fixed bottom-0 left-[50%] right-4 top-[50%] z-50 mx-auto h-[calc(100%-20px)] max-h-[680px] w-[calc(100%-20px)] max-w-[722px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white">
+        <div className="fixed bottom-0 left-[50%] right-[50%] top-[50%] z-50 mx-auto h-[calc(100%-20px)] max-h-[680px] w-[calc(100%-20px)] max-w-[722px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white">
           <Dialog.Panel>
             <XMarkIcon
+              id="close-table-modal"
               className="absolute right-2 top-4 z-50 h-6 w-6 cursor-pointer stroke-2 text-black-text md:right-7 md:top-7"
               onClick={() => {
                 closeTableModal();
@@ -47,6 +48,7 @@ const TableModal: React.FC<ITableModal> = ({
             <div className="absolute bottom-4 left-4 right-0 top-4 flex flex-1 flex-col justify-stretch md:left-6 md:right-6">
               <div className="overflow-y-scroll md:overflow-y-auto">
                 <h4
+                  id="table-modal-header"
                   ref={headerRef}
                   className="mb-6 mt-4 pr-2 font-display text-h4-mobile md:text-h4-desktop"
                 >

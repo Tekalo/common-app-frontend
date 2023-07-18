@@ -16,14 +16,22 @@ const NavTitle: React.FC<INavTitle> = ({
   return (
     <>
       {/* Title */}
-      <h3 className="mb-6 px-2 text-center font-display text-h3-mobile md:mb-4 md:max-w-[584px] lg:text-h3-desktop">
+      <h3
+        id="nav-title-header"
+        className="mb-6 px-2 text-center font-display text-h3-mobile md:mb-4 md:max-w-[584px] lg:text-h3-desktop"
+      >
         {title}
       </h3>
       {/* Navaway is an applicant*/}
-      <div className="m-auto mb-8 max-w-[300px] text-center text-component-medium md:mb-10 md:max-w-[none]">
+      <div
+        id="nav-title-sign-in"
+        className="m-auto mb-8 max-w-[300px] text-center text-component-medium md:mb-10 md:max-w-[none]"
+      >
         {navawayText}
         <span className="text-blue-1 underline underline-offset-4">
-          <Link href={navLink}>{navText}</Link>
+          <Link id="nav-title-sign-in-link" href={navLink}>
+            {navText}
+          </Link>
         </span>
       </div>
     </>
