@@ -27,13 +27,15 @@ const CustomImage: React.FC<ICustomImage> = ({
   switch (process.env.NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV) {
     case 'preview':
       // eslint-disable-next-line @next/next/no-img-element
-      return <img src={src} alt={alt} className={className} />;
+      return (
+        <img src={src} alt={alt + ' (unoptimized)'} className={className} />
+      );
 
     case 'production':
       return (
         <Image
           src={src}
-          alt={alt}
+          alt={alt + ' (Cloudflare optimized)'}
           className={className}
           width={width}
           height={height}
@@ -45,7 +47,7 @@ const CustomImage: React.FC<ICustomImage> = ({
       return (
         <Image
           src={src}
-          alt={alt}
+          alt={alt + ' (Next optimized)'}
           className={className}
           width={width}
           height={height}
