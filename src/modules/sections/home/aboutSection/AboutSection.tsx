@@ -64,6 +64,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
                 key={i}
                 className="flex h-10 max-w-[130px] flex-initial items-center overflow-hidden lg:h-16 lg:max-w-[208px]"
               >
+                {/* TODO: Replace images with next/image --> figure out cloudflare + next/image */}
                 <Image
                   key={i}
                   src={logo.src}
@@ -114,11 +115,19 @@ const AboutSection: React.FC<IAboutSection> = () => {
         </div>
         {/* Benefits Image */}
         <div className="mb-16 md:mb-16 lg:mb-28">
-          {/* Benefit Hero */}
+          {/* Mobile Benefit Hero */}
+          <Image
+            src="/images/BenefitHero_sm.png"
+            alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
+            className="relative -left-[3px] m-auto w-full max-w-[315px] md:hidden"
+            width={633}
+            height={479}
+          />
+          {/* Tablet Benefit Hero */}
           <Image
             src="/images/BenefitHero_lg.png"
             alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
-            className="relative -left-[3px] m-auto w-full max-w-[315px] md:block md:max-w-[610px] lg:mb-24 lg:max-w-[928px]"
+            className="m-auto hidden max-w-[610px] md:block lg:mb-24 lg:max-w-[928px]"
             width={1856}
             height={930}
           />
