@@ -6,7 +6,24 @@ import {
   SEARCH_STATUS_ENUM_OPTIONS,
   TERMS_LINK,
 } from '@/lang/en';
-import { ISignupForm } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import SignupForm, {
+  ISignupForm,
+} from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+
+Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
+  return cy.mount(
+    <SignupForm
+      debugIsActive={props.debugIsActive}
+      isAuthenticated={props.isAuthenticated}
+      isTurnstileValid={props.isTurnstileValid}
+      showUserExistsError={props.showUserExistsError}
+      user={props.user}
+      handleSubmit={props.handleSubmit}
+      setIsTurnstileValid={props.setIsTurnstileValid}
+      setShowPrivacyModal={props.setShowPrivacyModal}
+    />
+  );
+});
 
 describe('<SignupForm />', () => {
   const name = 'Test Name';

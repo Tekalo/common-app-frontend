@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { mount } from 'cypress/react';
 
@@ -17,6 +18,7 @@ declare global {
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
+      mountMultiSelect(props: IMultiSelect): Chainable<void>;
     }
   }
 }

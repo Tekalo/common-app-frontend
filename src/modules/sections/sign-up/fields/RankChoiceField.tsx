@@ -66,6 +66,7 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
                 errors={errors}
                 disabled={disabled}
                 label={selectLabel}
+                limit={5}
                 listOptions={listOptions}
                 name={inputId}
                 onBlur={onBlur}
