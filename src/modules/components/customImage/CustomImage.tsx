@@ -24,7 +24,7 @@ const CustomImage: React.FC<ICustomImage> = ({
   width,
   height,
 }) => {
-  switch (process.env.IMAGE_OPTIMIZATION_ENV) {
+  switch (process.env.NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV) {
     case 'preview':
       // eslint-disable-next-line @next/next/no-img-element
       return <img src={src} alt={alt} className={className} />;

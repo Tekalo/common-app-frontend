@@ -25,6 +25,7 @@ jobs:
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV: 'preview'
 
   e2e-tests:
     name: Run e2e Tests
