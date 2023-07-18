@@ -51,6 +51,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
       {({ open, value }) => (
         <div className="text-left">
           <Listbox.Label
+            data-name="label"
             className={`text-component-extra-small ${
               disabled ? 'text-gray-2' : 'text-black-text'
             } ${labelStyles}}`}
@@ -60,6 +61,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
           </Listbox.Label>
           <div className={`mt-2 ${disabled ? 'bg-gray-4' : ''}`}>
             <Listbox.Button
+              data-name="button"
               aria-describedby={getErrorMessageId(name)}
               aria-invalid={!!errors.length}
               name={name}
@@ -79,7 +81,9 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                   </span>
                 </div>
               ) : (
-                <span className="text-gray-2">{placeholder}</span>
+                <span data-name="placeholder" className="text-gray-2">
+                  {placeholder}
+                </span>
               )}
               {open ? (
                 <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
@@ -106,7 +110,10 @@ const MultiSelect: React.FC<IMultiSelect> = ({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="absolute z-20 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none">
+              <Listbox.Options
+                data-name="list-options"
+                className="absolute z-20 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none"
+              >
                 {selectOptions.map((option) => {
                   const isSelected = value.includes(option.value);
 

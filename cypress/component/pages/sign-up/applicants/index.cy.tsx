@@ -14,9 +14,63 @@ import {
   existingApplicantEndpoint,
 } from '@/lib/helpers/apiHelpers';
 import { NewCandidateType } from '@/lib/types';
+import * as SignupFormModule from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import ApplicantSignup from '@/pages/sign-up/applicants';
 
-import { Auth0ContextInterface, User } from '@auth0/auth0-react';
+import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import router from 'next/router';
+
+Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
+  // TODO: We are setting childProps to the props passed into the child component
+  // This way we can access them from the test file
+  let childProps: ISignupForm;
+  const MockSignupForm: React.FC<ISignupForm> = ({
+    debugIsActive,
+    isAuthenticated,
+    isTurnstileValid,
+    showUserExistsError,
+    user,
+    handleSubmit,
+    setIsTurnstileValid,
+    setShowPrivacyModal,
+  }) => {
+    childProps = {
+      debugIsActive,
+      isAuthenticated,
+      isTurnstileValid,
+      showUserExistsError,
+      user,
+      handleSubmit,
+      setIsTurnstileValid,
+      setShowPrivacyModal,
+    };
+
+    return (
+      <div id="mockContent">
+        {showUserExistsError ? (
+          <p id="conflict-error">User exists error</p>
+        ) : null}
+        {!isTurnstileValid ? (
+          <p id="turnstile-not-valid">Turnstile not valid</p>
+        ) : null}
+        <p>Mock Child Component</p>
+      </div>
+    );
+  };
+
+  // Mocking the child form so we don't have to deal with its imp. details
+  // and we can grab the props passed to it
+  cy.stub(SignupFormModule, 'default').callsFake(MockSignupForm);
+
+  cy.mount(
+    <Auth0Context.Provider value={auth0Context}>
+      <ApplicantSignup />
+    </Auth0Context.Provider>
+  ).then(() => {
+    return childProps;
+  });
+});
 
 describe('Applicant Signup Page', () => {
   const voidFn = () => void {};
