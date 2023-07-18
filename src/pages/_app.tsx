@@ -79,7 +79,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             location={OPTIONS.BOTTOM}
             buttonText={COOKIE_CONSENT.ACCEPT_BTN}
             cookieName={cookieName}
-            containerClasses="text-black-text text-p3-mobile px-6 py-4 items-center bg-gray-4 flex flex-col justify-between fixed bottom-0 left-0 right-0 z-50 md:py-6 lg:flex-row lg:items-start lg:text-p3-desktop"
+            containerClasses="text-black-text text-p3-mobile px-6 py-4 items-center bg-gray-4 flex flex-col justify-between fixed bottom-0 left-0 right-0 z-40 md:py-6 lg:flex-row lg:items-start lg:text-p3-desktop"
             buttonWrapperClasses="w-full mt-2 md:flex md:justify-end md:gap-x-4 md:mt-0 lg:flex-1 lg:ml-10"
             buttonClasses={cookieBtnClasses}
             declineButtonClasses={cookieBtnClasses}

@@ -179,7 +179,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center justify-center">
       {isLoading ? (
-        <div className="mb-1/2 space-y-3">
+        <div id="loading-spinner" className="mb-1/2 space-y-3">
           <LoadingSpinner />
           <h3 className="text-component-small-desktop text-center ">
             {'Hang tight'}
@@ -188,12 +188,15 @@ const ApplicantSignup: NextPageWithLayout = () => {
       ) : (
         { showContent } && (
           <>
-            <div className="px-6 pb-28 pt-10 md:px-24">
+            <div
+              id="applicant-signup-page"
+              className="px-6 pb-28 pt-10 md:px-24"
+            >
               <NavTitle
                 title={APPLICANT_FORM_TEXT.HEADER}
-                navawayText={'Already have an account? '}
+                navawayText={APPLICANT_FORM_TEXT.NAVAWAY}
                 navLink={SIGN_IN_LINK}
-                navText={'Sign in'}
+                navText={APPLICANT_FORM_TEXT.SIGN_IN_LINK_COPY}
               />
               <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
                 {/* New user form */}
@@ -209,7 +212,10 @@ const ApplicantSignup: NextPageWithLayout = () => {
                 />
               </div>
               {/* Navaway for organizations */}
-              <div className="mt-6 text-center">
+              <div
+                id="applicant-signup-org-navaway"
+                className="mt-6 text-center"
+              >
                 {APPLICANT_FORM_TEXT.IFORG[0]}
                 <span className="text-blue-1 underline underline-offset-4">
                   <Link href={ORG_SIGNUP_LINK}>
@@ -234,9 +240,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
               descriptionText={ERROR_MODAL_TEXT.somethingWrong}
               buttonText={ERROR_MODAL_TEXT.okButton}
               buttonHandler={() => {
-                isConflict
-                  ? router.push(SIGN_IN_LINK)
-                  : setShowErrorModal(false);
+                setShowErrorModal(false);
               }}
               closeModal={() => {
                 setShowErrorModal(false);
