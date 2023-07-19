@@ -25,6 +25,7 @@ export const CandidateSignupSelectors = {
   },
   phone: {
     input: 'input[name=input-phone]',
+    label: 'label[for=input-phone] span[data-name=label]',
   },
   privacy: {
     input: 'input[name=input-acceptedPrivacy]',

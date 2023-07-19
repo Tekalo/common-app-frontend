@@ -208,6 +208,7 @@ const SignupForm: React.FC<ISignupForm> = ({
               fieldName="phone"
               tooltipText={APPLICANT_FORM_TEXT.FIELDS.phone.tooltipText}
               label={
+                !contactValue ||
                 contactValue === CONTACT_OPTION_TEXT.email.toLowerCase()
                   ? APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
                   : APPLICANT_FORM_TEXT.FIELDS.phone.label
