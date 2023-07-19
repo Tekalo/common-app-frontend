@@ -700,6 +700,8 @@ const ORG_ROLE_FORM_TEXT = {
   FIELDS: {
     paid: {
       label: 'Is this role paid or unpaid?',
+      tooltip:
+        'We suggest that unpaid roles should not require a commitment of more than 8-10hrs per week',
     },
     roleType: {
       label: 'What type of role is this?',
