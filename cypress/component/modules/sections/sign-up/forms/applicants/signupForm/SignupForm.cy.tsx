@@ -88,6 +88,15 @@ describe('<SignupForm />', () => {
       });
     });
 
+    it('have phone number as optional by default', () => {
+      cy.mountCandidateSignupForm(props);
+
+      cy.get(Selectors.phone.label).should(
+        'have.text',
+        APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
+      );
+    });
+
     it('should make phone number required by selecting phone contact method', () => {
       cy.mountCandidateSignupForm(props);
 
@@ -98,6 +107,11 @@ describe('<SignupForm />', () => {
       cy.get(Selectors.buttons.submit).click();
       cy.get('label[for=input-phone]').should(
         'contain.text',
+        APPLICANT_FORM_TEXT.FIELDS.phone.label
+      );
+
+      cy.get(Selectors.phone.label).should(
+        'have.text',
         APPLICANT_FORM_TEXT.FIELDS.phone.label
       );
       const phoneErrorMessage = cy.get('#errorMessage-input-phone');
