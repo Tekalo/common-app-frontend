@@ -59,6 +59,7 @@
     "react-dnd-preview": "^8.0.0",
     "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "18.2.0",
+    "react-phone-input-2": "^2.15.1",
     "wrangler": "^2.20.0",
     "zod": "^3.21.4"
   },

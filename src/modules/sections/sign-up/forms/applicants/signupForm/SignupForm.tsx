@@ -27,6 +27,7 @@ import { NewCandidateType } from '@/lib/types';
 import {
   BooleanField,
   FreeTextField,
+  PhoneNumberField,
   RadioGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
@@ -203,7 +204,8 @@ const SignupForm: React.FC<ISignupForm> = ({
               validator={PreferredContact}
             />
             {/* Phone Number */}
-            <FreeTextField
+
+            <PhoneNumberField
               listenTo={['preferredContact']}
               fieldName="phone"
               tooltipText={APPLICANT_FORM_TEXT.FIELDS.phone.tooltipText}
