@@ -16,9 +16,11 @@ const cloudflareLoader = ({ src, width, quality }: LoaderOptions): string => {
 
   const paramsString = params.join(',');
 
-  return `https://tekalo.org/cdn-cgi/image/${paramsString}/${normalizeSrc(
-    src
-  )}`;
+  if (process.env.NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV === 'production') {
+    return `/cdn-cgi/image/${paramsString}/${normalizeSrc(src)}`;
+  } else {
+    return src;
+  }
 };
 
 export default cloudflareLoader;
