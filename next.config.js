@@ -4,7 +4,6 @@ const nextConfig = {
     loader: 'custom',
     loaderFile: 'src/lib/imageLoader.ts',
   },
-
   reactStrictMode: true,
   async redirects() {
     return [
