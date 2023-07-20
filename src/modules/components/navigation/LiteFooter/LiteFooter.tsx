@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 export interface ILiteFooter {
@@ -12,10 +13,12 @@ const LiteFooter: React.FC<ILiteFooter> = ({ footerText, links }) => {
         <div className="m-auto flex max-w-content-area flex-col flex-wrap items-start gap-x-14 gap-y-7 md:flex-row md:items-center md:justify-between">
           {/* Logo */}
           <div className="">
-            <img
+            <Image
               src="/images/logo_lite_footer.png"
               alt="Tekalo Logo"
               className="max-w-[65px] py-1"
+              width={129}
+              height={60}
             />
           </div>
           {/* Menu Col 1 */}

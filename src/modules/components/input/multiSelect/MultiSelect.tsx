@@ -14,6 +14,7 @@ export interface IMultiSelect {
   labelStyles?: string;
   buttonStyles?: string;
   optionStyles?: string;
+  limit?: number;
   listOptions: ISelectItem[];
   setValue: (_val: string[]) => void;
   onBlur?: () => void;
@@ -29,6 +30,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   selectionLabelSingle,
   selectionLabelMulti,
   label,
+  limit,
   listOptions: selectOptions,
   labelStyles,
   optionStyles,
@@ -36,6 +38,8 @@ const MultiSelect: React.FC<IMultiSelect> = ({
   setValue,
   onBlur,
 }) => {
+  const canSelectMore = limit ? value.length < limit : true;
+
   return (
     <Listbox
       disabled={disabled}
@@ -44,9 +48,10 @@ const MultiSelect: React.FC<IMultiSelect> = ({
       name={name}
       multiple={true}
     >
-      {({ open }) => (
+      {({ open, value }) => (
         <div className="text-left">
           <Listbox.Label
+            data-name="label"
             className={`text-component-extra-small ${
               disabled ? 'text-gray-2' : 'text-black-text'
             } ${labelStyles}}`}
@@ -56,6 +61,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
           </Listbox.Label>
           <div className={`mt-2 ${disabled ? 'bg-gray-4' : ''}`}>
             <Listbox.Button
+              data-name="button"
               aria-describedby={getErrorMessageId(name)}
               aria-invalid={!!errors.length}
               name={name}
@@ -75,7 +81,9 @@ const MultiSelect: React.FC<IMultiSelect> = ({
                   </span>
                 </div>
               ) : (
-                <span className="text-gray-2">{placeholder}</span>
+                <span data-name="placeholder" className="text-gray-2">
+                  {placeholder}
+                </span>
               )}
               {open ? (
                 <span className="pointer-events-none inset-y-0 right-0 flex items-center pr-2">
@@ -102,38 +110,53 @@ const MultiSelect: React.FC<IMultiSelect> = ({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="absolute z-20 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none">
-                {selectOptions.map((option) => (
-                  <Listbox.Option
-                    data-name={`${name}-${option.value}`}
-                    key={option.value}
-                    className={({ active }) =>
-                      `flex cursor-default select-none flex-row rounded-[3px] align-middle ${
-                        active ? 'bg-light-blue' : ''
-                      }`
-                    }
-                    value={option.value}
-                  >
-                    {({ selected }) => (
-                      <div className="flex flex-row space-x-2 px-2 py-2 align-middle">
-                        <input
-                          name={option.value}
-                          className="form-checkbox appearance-none rounded-[3px] align-middle checked:bg-blue-1 
+              <Listbox.Options
+                data-name="list-options"
+                className="absolute z-20 w-full rounded-[3px] bg-white px-3 py-2 shadow-md focus:outline-none"
+              >
+                {selectOptions.map((option) => {
+                  const isSelected = value.includes(option.value);
+
+                  return (
+                    <Listbox.Option
+                      data-name={`${name}-${option.value}`}
+                      key={option.value}
+                      className={({ active }) =>
+                        `flex cursor-default select-none flex-row rounded-[3px] align-middle ${
+                          active ? 'bg-light-blue' : ''
+                        }`
+                      }
+                      value={option.value}
+                      disabled={!canSelectMore && !isSelected}
+                    >
+                      {() => {
+                        const isDisabled = !isSelected && !canSelectMore;
+
+                        return (
+                          <div className="flex flex-row space-x-2 px-2 py-2 align-middle">
+                            <input
+                              name={option.value}
+                              className="form-checkbox appearance-none rounded-[3px] align-middle checked:bg-blue-1 
                              checked:hover:bg-blue-2 checked:hover:ring-blue-2 focus:ring-1 focus:ring-blue-2 checked:focus:bg-blue-2 checked:focus:ring-blue-2"
-                          type="checkbox"
-                          checked={selected}
-                          readOnly
-                        />
-                        <label
-                          htmlFor={option.value}
-                          className="text-component-small text-black-text"
-                        >
-                          {option.displayText}
-                        </label>
-                      </div>
-                    )}
-                  </Listbox.Option>
-                ))}
+                              type="checkbox"
+                              checked={isSelected}
+                              disabled={isDisabled}
+                              readOnly
+                            />
+                            <label
+                              htmlFor={option.value}
+                              className={`text-component-small text-black-text ${
+                                isDisabled ? 'text-gray-2' : ''
+                              }`}
+                            >
+                              {option.displayText}
+                            </label>
+                          </div>
+                        );
+                      }}
+                    </Listbox.Option>
+                  );
+                })}
               </Listbox.Options>
             </Transition>
           </div>

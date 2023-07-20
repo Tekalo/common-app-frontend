@@ -24,6 +24,7 @@
       "@/api/*": ["./src/api/*"],
       "@/components/*": ["src/modules/components/*"],
       "@/constants/*": ["src/lib/constants/*"],
+      "@/cypress/*": ["cypress/*"],
       "@/layouts/*": ["src/lib/layouts/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/providers/*": ["src/lib/providers/*"],

@@ -11,8 +11,13 @@ on:
     secrets:
       CLOUDFLARE_ACCOUNT_ID:
         description: Cloudflare Account ID
+        required: true
       CLOUDFLARE_API_TOKEN:
         description: Cloudflare API Token
+        required: true
+      NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV:
+        description: Image Optimization Environment
+        required: false
     outputs:
       url:
         value: ${{ jobs.build.outputs.url }}
@@ -64,6 +69,7 @@ jobs:
 
         env:
           CI: true
+          NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV: ${{ secrets.NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV }}
           NEXT_PUBLIC_ENVIRONMENT: ${{ vars.ENVIRONMENT }}
           NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}

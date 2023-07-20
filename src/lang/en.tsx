@@ -356,6 +356,8 @@ const RESUME_MODAL = {
 /** FORM TEXT CONSTANTS */
 const APPLICANT_FORM_TEXT = {
   HEADER: 'Join a network of impact-driven organizations to find your match.',
+  NAVAWAY: 'Already have an account? ',
+  SIGN_IN_LINK_COPY: 'Sign in',
   PRIVACY_DISCLAIMER: {
     text: 'I confirm that I have reviewed the ',
     linkText: 'Privacy Info',
@@ -464,7 +466,7 @@ const INTEREST_FORM_TEXT = {
         'Which causes are you interested in hearing opportunities for?',
       rankLabel:
         'Rank the causes you would be interested in working on with 1 being the highest.',
-      placeholder: 'Choose all that apply',
+      placeholder: 'Choose up to 5 causes',
       selectionLabelMulti: ' Causes selected',
       selectionLabelSingle: ' Cause selected',
     },
@@ -698,6 +700,8 @@ const ORG_ROLE_FORM_TEXT = {
   FIELDS: {
     paid: {
       label: 'Is this role paid or unpaid?',
+      tooltip:
+        'We suggest that unpaid roles should not require a commitment of more than 8-10hrs per week',
     },
     roleType: {
       label: 'What type of role is this?',

@@ -51,7 +51,11 @@ const TERMS_DISCLAIMER = (
   <>
     {APPLICANT_FORM_TEXT.TERMS_DISCLAIMER.text}
     <span className="text-blue-1 underline underline-offset-4">
-      <Link target="_blank" href={TERMS_LINK}>
+      <Link
+        id="candidate-sign-up__terms-of-use-link"
+        target="_blank"
+        href={TERMS_LINK}
+      >
         {APPLICANT_FORM_TEXT.TERMS_DISCLAIMER.linkText}
       </Link>
     </span>
@@ -63,6 +67,7 @@ const PRIVACY_DISCLAIMER = (setShowPrivacyModal: (_arg: boolean) => void) => {
     <>
       {APPLICANT_FORM_TEXT.PRIVACY_DISCLAIMER.text}
       <span
+        id="candidate-sign-up__privacy-modal-trigger"
         className="cursor-pointer whitespace-nowrap text-blue-1 underline underline-offset-4"
         onClick={(e) => {
           e.preventDefault();
@@ -139,7 +144,6 @@ const SignupForm: React.FC<ISignupForm> = ({
             }}
           >
             {/* Name */}
-
             <FreeTextField
               fieldName="name"
               label={APPLICANT_FORM_TEXT.FIELDS.name.label}
@@ -204,7 +208,8 @@ const SignupForm: React.FC<ISignupForm> = ({
               fieldName="phone"
               tooltipText={APPLICANT_FORM_TEXT.FIELDS.phone.tooltipText}
               label={
-                contactValue === CONTACT_OPTION_TEXT.email
+                !contactValue ||
+                contactValue === CONTACT_OPTION_TEXT.email.toLowerCase()
                   ? APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
                   : APPLICANT_FORM_TEXT.FIELDS.phone.label
               }
@@ -241,7 +246,11 @@ const SignupForm: React.FC<ISignupForm> = ({
 
             {/* Turnstile */}
             {!debugIsActive ? (
-              <div id="turnstile-container" className="mx-auto">
+              <div
+                id="turnstile-container"
+                className="mx-auto"
+                data-turnstile-ready={`${turnstileToken.length > 0}`}
+              >
                 <Turnstile
                   id="candidate-form-turnstile"
                   ref={turnstileCandidateRef}
@@ -251,6 +260,7 @@ const SignupForm: React.FC<ISignupForm> = ({
                 />
                 {isTurnstileValid ? null : (
                   <div
+                    id="candidate-form-turnstile__error-message"
                     className={
                       'mt-1 text-center text-component-small text-red-error'
                     }

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export interface ITestimonial {
   className?: string;
 }
@@ -6,12 +8,14 @@ const Testimonial: React.FC<ITestimonial> = ({ className }) => {
   return (
     <div className={`relative flex flex-row justify-center ${className}`}>
       {/* Photo */}
-      <img
+      <Image
         src="/images/PhotoPlaceholder.png"
         alt="Reboot RX Logo"
         className="h-[337px] w-[354px] object-cover"
+        width={354}
+        height={337}
       />
-      <span className="absolute top-1/2 left-[26%]">PHOTO</span>
+      <span className="absolute left-[26%] top-1/2">PHOTO</span>
       {/* Text */}
       <div className="flex flex-col items-start justify-center pl-32 align-middle">
         <div className="w-[500px] font-sans text-p1-desktop font-normal text-black-text">

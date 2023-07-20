@@ -158,6 +158,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                   listOptions={PaidOptions}
                   isSubmitted={isSubmitted}
                   initialValue={previousForm?.paid ?? true}
+                  tooltipText={ORG_ROLE_FORM_TEXT.FIELDS.paid.tooltip}
                   validator={z.boolean()}
                 />
               </div>
