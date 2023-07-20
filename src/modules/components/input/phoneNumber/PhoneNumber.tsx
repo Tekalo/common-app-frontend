@@ -1,6 +1,6 @@
 import Tooltip from '@/components/tooltip/Tooltip';
 import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import 'react-phone-input-2/lib/plain.css';
 
 interface IPhoneNumber {
   errors: string[];
@@ -40,6 +40,12 @@ const PhoneNumber: React.FC<IPhoneNumber> = ({
         inputProps={{
           name: name,
         }}
+        inputClass={`${
+          disabled ? 'bg-gray-4' : ''
+        } box-border h-[32px] w-full rounded-[3px]
+                    border border-gray-2 p-2 text-component-medium outline-0 placeholder:text-gray-2 focus:border-2 focus:border-blue-1 focus:p-[7px] active:border active:border-blue-1 active:p-2`}
+        buttonClass="border border-gray-2"
+        dropdownClass="border border-gray-2 w-[327px] md:w-[344px]"
         country={'us'}
         value={value}
         placeholder={placeholder}
