@@ -7,13 +7,14 @@ import { z } from 'zod';
 
 interface IRadioSelectField {
   fieldName: string;
+  initialValue: boolean | undefined;
+  isSubmitted: boolean;
   label: string;
+  listOptions: ISelectItem[];
   helperText?: string | ReactElement;
   ref?: RefObject<FieldInstance>;
   rowAlign?: boolean;
-  listOptions: ISelectItem[];
-  isSubmitted: boolean;
-  initialValue: boolean | undefined;
+  tooltipText?: string;
   validator?: z.ZodSchema;
 }
 
@@ -21,12 +22,13 @@ const RadioSelectField = React.forwardRef<FieldInstance, IRadioSelectField>(
   (props, ref) => {
     const {
       fieldName,
+      initialValue,
+      isSubmitted,
       label,
+      listOptions,
       helperText,
       rowAlign,
-      listOptions,
-      isSubmitted,
-      initialValue,
+      tooltipText,
       validator,
     } = props;
     const inputId = getInputId(fieldName);
@@ -50,6 +52,7 @@ const RadioSelectField = React.forwardRef<FieldInstance, IRadioSelectField>(
                 onBlur={onBlur}
                 onChange={(val) => setValue(val === 'true')}
                 rowAlign={rowAlign}
+                tooltipText={tooltipText}
                 value={String(value)}
               />
 

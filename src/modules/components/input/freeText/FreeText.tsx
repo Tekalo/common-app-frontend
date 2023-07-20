@@ -32,7 +32,7 @@ const FreeText: React.FC<IFreeText> = ({
         } flex items-center text-component-extra-small`}
         htmlFor={name}
       >
-        {label}
+        <span data-name="label">{label}</span>
         {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
       <input

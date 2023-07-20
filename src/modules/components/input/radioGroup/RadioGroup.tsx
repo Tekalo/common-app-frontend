@@ -1,32 +1,38 @@
+import Tooltip from '@/components/tooltip/Tooltip';
 import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 
 export interface IRadioGroup {
   errors: string[];
+  listOptions: ISelectItem[];
   name: string;
-  label?: string;
-  value: string;
   onChange: (_val: string) => void;
+  value: string;
+  label?: string;
   onBlur?: () => void;
   rowAlign?: boolean;
-  listOptions: ISelectItem[];
+  tooltipText?: string;
 }
 
 const RadioGroup: React.FC<IRadioGroup> = ({
   errors,
+  listOptions,
   name,
+  onChange,
   value,
   label,
-  onChange,
   rowAlign = false,
-  listOptions,
+  tooltipText,
 }) => {
   return (
     <fieldset
       className={`text-left ${rowAlign ? 'flex flex-row' : 'space-y-2'}`}
     >
-      <legend className={`pb-2 text-component-extra-small text-black-text`}>
-        {label}
+      <legend
+        className={`flex pb-2 text-component-extra-small text-black-text`}
+      >
+        <span data-name="label">{label}</span>
+        {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </legend>
       {/* RADIO OPTIONS */}
       {listOptions.map((option, idx) => (
