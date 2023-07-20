@@ -1,5 +1,5 @@
-import CustomImage from '@/components/customImage/CustomImage';
 import { HOME_ABOUT_TEXT } from '@/lang/en';
+import Image from 'next/image';
 
 export interface IAboutSection {}
 
@@ -65,7 +65,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
                 className="flex h-10 max-w-[130px] flex-initial items-center overflow-hidden lg:h-16 lg:max-w-[208px]"
               >
                 {/* TODO: Replace images with next/image --> figure out cloudflare + next/image */}
-                <CustomImage
+                <Image
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
@@ -116,7 +116,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
         {/* Benefits Image */}
         <div className="mb-16 md:mb-16 lg:mb-28">
           {/* Mobile Benefit Hero */}
-          <CustomImage
+          <Image
             src="/images/BenefitHero_sm.png"
             alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
             className="relative -left-[3px] m-auto w-full max-w-[315px] md:hidden"
@@ -124,7 +124,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
             height={479}
           />
           {/* Tablet Benefit Hero */}
-          <CustomImage
+          <Image
             src="/images/BenefitHero_lg.png"
             alt="Benefits Image: One application, Vetting & screening, Assigned talent connector, Curated matches"
             className="m-auto hidden max-w-[610px] md:block lg:mb-24 lg:max-w-[928px]"
@@ -140,7 +140,7 @@ const AboutSection: React.FC<IAboutSection> = () => {
           <div className="mx-auto flex max-w-[280px] flex-wrap justify-start gap-y-9 md:max-w-[688px] md:justify-center md:gap-x-12">
             {roles.map((role, i) => (
               <div key={i} className="flex items-center gap-x-4 md:w-[316px]">
-                <CustomImage
+                <Image
                   src={role.src}
                   alt={role.alt}
                   className={`max-w-[54px] md:max-w-[65px] md:flex-initial`}

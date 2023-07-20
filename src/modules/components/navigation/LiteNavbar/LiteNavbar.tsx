@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
-import CustomImage from '@/components/customImage/CustomImage';
 import { CONTACT_US_MAILTO_LINK, NAV_LITE_HEADER_TEXT } from '@/lang/en';
 import { useAuth0 } from '@auth0/auth0-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export interface ILiteNavbar extends React.ComponentPropsWithoutRef<'header'> {
@@ -23,7 +23,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
             {/* Logo */}
             <Link href="/" className="">
-              <CustomImage
+              <Image
                 src="/images/logo_nav.png"
                 alt="Tekalo Logo"
                 className="max-w-[96px] py-1 md:max-w-[132px]"

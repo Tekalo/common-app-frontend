@@ -1,10 +1,10 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import CustomImage from '@/components/customImage/CustomImage';
 import {
   APPLICANT_SIGNUP_LINK,
   HOME_HERO_TEXT,
   ORG_SIGNUP_LINK,
 } from '@/lang/en';
+import Image from 'next/image';
 
 export interface IHeroSection {}
 
@@ -18,7 +18,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
         <div className="col-span-8 lg:col-span-7">
           <div className="max-w-2xl mx-auto md:mx-0">
             {/* Mobile Hero */}
-            <CustomImage
+            <Image
               src="/images/hero_lg.png"
               alt="Mobile Hero Image"
               className="m-auto mb-6 w-auto max-w-[277px] md:hidden"
@@ -26,7 +26,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
               height={644}
             />
             {/* Tablet Hero */}
-            <CustomImage
+            <Image
               src="/images/hero_md.png"
               alt="Tablet Hero Image"
               className="mb-4 hidden max-w-[528px] md:block lg:hidden"
@@ -58,7 +58,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
         </div>
         {/* IMAGE */}
         <div className="col-start-8 col-end-13 items-center justify-end">
-          <CustomImage
+          <Image
             src="/images/hero_lg.png"
             alt="Tablet Hero Image"
             className="hidden max-w-[391px] lg:block"

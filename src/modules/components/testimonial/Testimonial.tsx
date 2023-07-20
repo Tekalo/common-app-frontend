@@ -1,4 +1,4 @@
-import CustomImage from '@/components/customImage/CustomImage';
+import Image from 'next/image';
 
 export interface ITestimonial {
   className?: string;
@@ -8,7 +8,7 @@ const Testimonial: React.FC<ITestimonial> = ({ className }) => {
   return (
     <div className={`relative flex flex-row justify-center ${className}`}>
       {/* Photo */}
-      <CustomImage
+      <Image
         src="/images/PhotoPlaceholder.png"
         alt="Reboot RX Logo"
         className="h-[337px] w-[354px] object-cover"
