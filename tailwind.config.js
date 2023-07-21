@@ -3,7 +3,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  important: true,
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     // Mirroring: https://www.figma.com/file/CCE0TsuhSMnDb2X0287IXX/%F0%9F%8E%A8-Common-App-Components?node-id=22%3A404&t=KfRuKN24GmEy0KBa-0
