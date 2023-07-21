@@ -43,10 +43,7 @@ const PhoneNumber: React.FC<IPhoneNumber> = ({
         value={value}
         placeholder={placeholder}
         copyNumbersOnly={false}
-        onChange={(v) => {
-          console.log(v);
-          setValue(v);
-        }}
+        onChange={(v) => setValue(v)}
       />
     </div>
   );

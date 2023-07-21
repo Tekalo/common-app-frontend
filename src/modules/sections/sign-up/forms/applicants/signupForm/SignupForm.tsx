@@ -204,7 +204,6 @@ const SignupForm: React.FC<ISignupForm> = ({
               validator={PreferredContact}
             />
             {/* Phone Number */}
-
             <PhoneNumberField
               listenTo={['preferredContact']}
               fieldName="phone"

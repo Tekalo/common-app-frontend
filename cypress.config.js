@@ -56,10 +56,5 @@ module.exports = defineConfig({
       bundler: 'webpack',
     },
     specPattern: ['cypress/component/**/*.cy.tsx'],
-    env: {
-      codeCoverage: {
-        exclude: ['cypress/**/*.*', 'src/**/*.mocks.*', 'src/**/*.stories.*'],
-      },
-    },
   },
 });

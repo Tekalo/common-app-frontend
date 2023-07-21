@@ -15,6 +15,7 @@ interface IPhoneNumberField {
   disabled?: boolean;
 }
 
+// TODO: We might be able to genericize all fields into one
 const PhoneNumberField: React.FC<IPhoneNumberField> = ({
   fieldName,
   listenTo,

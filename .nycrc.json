@@ -1,8 +1,7 @@
 {
   "extension": [".js", ".jsx", ".ts", ".tsx"],
-
   "include": ["src/**/*"],
-  "exclude": [],
+  "exclude": ["cypress/**/*", "src/**/*.mocks.ts", "src/**/*.stories.tsx"],
   "all": true,
   "sourceMap": true,
   "instrument": true

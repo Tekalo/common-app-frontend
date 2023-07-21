@@ -19,12 +19,12 @@
     "lint": "next lint",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
-    "pretest-cleanup": "rm -rf .next .nyc_output coverage && mv _babelrc .babelrc",
+    "pretest-cleanup": "rm -rf .next .nyc_output coverage ; mv _babelrc .babelrc",
     "prettier": "prettier --write .",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "test:e2e": "start-test dev 3000 e2e:ci",
-    "test:unit": "pnpm pretest-cleanup && BABEL_ENV=unit cypress run --component && mv .babelrc _babelrc",
+    "test:unit": "pnpm pretest-cleanup ; BABEL_ENV=unit cypress run --component ; mv .babelrc _babelrc",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out"
   },
   "lint-staged": {
