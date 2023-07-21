@@ -24,6 +24,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
               className="m-auto mb-6 w-auto max-w-[277px] md:hidden"
               width={783}
               height={644}
+              priority={true}
             />
             {/* Tablet Hero */}
             <Image
@@ -32,6 +33,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
               className="mb-4 hidden max-w-[528px] md:block lg:hidden"
               width={1056}
               height={382}
+              priority={true}
             />
             {/* Desktop Hero */}
             <h1 className="mb-6 text-center font-display text-h2-mobile text-black-text sm:text-h1-mobile md:mb-4 md:text-left md:text-h1-mobile lg:text-h1-desktop">
@@ -64,6 +66,7 @@ const HeroSection: React.FC<IHeroSection> = () => {
             className="hidden max-w-[391px] lg:block"
             width={783}
             height={644}
+            priority={true}
           />
         </div>
       </div>
