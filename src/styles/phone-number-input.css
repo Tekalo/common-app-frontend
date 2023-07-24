@@ -741,8 +741,8 @@
 }
 
 .react-tel-input .form-control[disabled] {
-  color: #9FA4AE;
-  background: #EFF0F2;
+  color: #9fa4ae;
+  background: #eff0f2;
 }
 .react-tel-input .form-control.invalid-number {
   border: 1px solid #d50000;
@@ -819,9 +819,12 @@
   list-style: none;
   position: absolute;
   padding: 0;
-  margin: 0 0 10px -1px;
+  margin: 10px 0 10px -1px;
   background-color: white;
-  border: 1px solid #9fa4ae;
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: 0 0 4px 4px;
   width: max-content;
   max-height: 282px;
   max-width: 272px;
