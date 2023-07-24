@@ -740,6 +740,14 @@
   outline: none;
 }
 
+.react-tel-input .form-control:focus {
+  border: 2px solid #317bb5;
+  --tw-ring-color: transparent;
+  /* padding-top: 7px;
+  padding-bottom: 7px; */
+  padding-left: 47px;
+}
+
 .react-tel-input .form-control[disabled] {
   color: #9fa4ae;
   background: #eff0f2;
@@ -761,7 +769,23 @@
   padding: 0;
   border: 1px solid #9fa4ae;
   border-radius: 3px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
+
+.react-tel-input .form-control:focus + .flag-dropdown {
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  width: 40px;
+}
+
+.react-tel-input .form-control:focus + .flag-dropdown .selected-flag {
+  padding-left: 9px;
+}
+
 .react-tel-input .flag-dropdown:hover,
 .react-tel-input .flag-dropdown:focus,
 .react-tel-input .flag-dropdown.open {
@@ -822,8 +846,10 @@
   margin: 10px 0 10px -1px;
   background-color: white;
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+    0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   border-radius: 0 0 4px 4px;
   width: max-content;
   max-height: 282px;
