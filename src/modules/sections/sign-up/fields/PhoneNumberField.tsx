@@ -1,31 +1,31 @@
 import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import PhoneNumber from '@/modules/components/input/phoneNumber/PhoneNumber';
+import '@/styles/phone-number-input.css';
 import { Field, FormInstance } from 'houseform';
 import { z } from 'zod';
 
-interface IPhoneNumberField {
+export interface IPhoneNumberField {
   fieldName: string;
-  listenTo?: string[];
+  initialValue: string | undefined;
+  isSubmitted: boolean;
   label: string;
   placeholder: string;
-  isSubmitted: boolean;
-  initialValue: string | undefined;
+  disabled?: boolean;
+  listenTo?: string[];
   tooltipText?: string;
   validator?: z.ZodSchema | ((v: string, f: FormInstance) => Promise<boolean>);
-  disabled?: boolean;
 }
 
-// TODO: We might be able to genericize all fields into one
 const PhoneNumberField: React.FC<IPhoneNumberField> = ({
   fieldName,
-  listenTo,
+  initialValue,
+  isSubmitted,
   label,
   placeholder,
-  isSubmitted,
-  initialValue,
-  validator,
-  tooltipText,
   disabled = false,
+  listenTo,
+  tooltipText,
+  validator,
 }) => {
   const inputId = getInputId(fieldName);
 

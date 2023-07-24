@@ -4,25 +4,25 @@ import PhoneInput from 'react-phone-input-2';
 interface IPhoneNumber {
   errors: string[];
   name: string;
-  value: string;
-  label?: string;
-  setValue: (_val: string) => void;
   onBlur: () => void;
+  setValue: (_val: string) => void;
+  value: string;
+  disabled?: boolean;
+  label?: string;
   placeholder?: string;
   tooltipText?: string;
-  disabled?: boolean;
 }
 
 const PhoneNumber: React.FC<IPhoneNumber> = ({
   errors,
   name,
-  label,
-  value,
-  setValue,
   onBlur,
+  setValue,
+  value,
+  disabled,
+  label,
   placeholder,
   tooltipText,
-  disabled,
 }) => {
   return (
     <div className="space-y-2 text-left">
