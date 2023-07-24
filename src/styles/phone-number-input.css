@@ -739,6 +739,11 @@
   width: 100%;
   outline: none;
 }
+
+.react-tel-input .form-control[disabled] {
+  color: #9FA4AE;
+  background: #EFF0F2;
+}
 .react-tel-input .form-control.invalid-number {
   border: 1px solid #d50000;
   background-color: #faf0f0;

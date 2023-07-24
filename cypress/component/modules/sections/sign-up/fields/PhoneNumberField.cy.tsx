@@ -2,6 +2,7 @@ import { OptionalPhoneNumber } from '@/lib/enums';
 import PhoneNumberField, {
   IPhoneNumberField,
 } from '@/modules/sections/sign-up/fields/PhoneNumberField';
+import '@/styles/phone-number-input.css';
 
 Cypress.Commands.add('mountPhoneNumberField', (props: IPhoneNumberField) => {
   cy.mount(
@@ -72,5 +73,12 @@ describe('<PhoneNumberField />', () => {
     cy.get('input[name=input-test]').type(' x!@#$%^&*()');
 
     cy.get('input[name=input-test]').should('have.value', '+1');
+  });
+
+  it('should be disabled', () => {
+    props.disabled = true;
+    cy.mountPhoneNumberField(props);
+
+    cy.get('input[name=input-test]').should('be.disabled');
   });
 });

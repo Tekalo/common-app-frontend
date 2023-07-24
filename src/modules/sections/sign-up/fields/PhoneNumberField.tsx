@@ -1,6 +1,5 @@
 import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import PhoneNumber from '@/modules/components/input/phoneNumber/PhoneNumber';
-import '@/styles/phone-number-input.css';
 import { Field, FormInstance } from 'houseform';
 import { z } from 'zod';
 

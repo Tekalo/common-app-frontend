@@ -40,6 +40,7 @@ const PhoneNumber: React.FC<IPhoneNumber> = ({
           name: name,
         }}
         country={'us'}
+        disabled={disabled}
         value={value}
         placeholder={placeholder}
         copyNumbersOnly={false}
