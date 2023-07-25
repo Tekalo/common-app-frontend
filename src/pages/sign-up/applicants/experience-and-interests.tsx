@@ -20,8 +20,8 @@ import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  InterestFieldsType,
   ITimelineItem,
+  InterestFieldsType,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -228,7 +228,7 @@ const ApplicantForms: NextPageWithLayout = () => {
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center px-6">
       {/* Form Content */}
-      <div className="flex max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
+      <div className="flex w-full max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
         {/* Title */}
         <h3 className="max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
           {APPLICANT_FORM_TEXT.HEADER}
