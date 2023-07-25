@@ -2,6 +2,7 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
 import {
+  OptionalLongString,
   OptionalString,
   OptionalStringArr,
   RequiredString,
@@ -202,7 +203,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumeUrl || ''}
-            validator={OptionalString}
+            validator={OptionalLongString}
           />
 
           {/* Resume Password */}
