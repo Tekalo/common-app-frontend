@@ -34,7 +34,7 @@ export const maxLengthString = (len: number): ZodString =>
     })
     .max(
       len,
-      `${ERROR_TEXT.lengthError[0]} ${len} ${ERROR_TEXT.lengthError[1]}}`
+      `${ERROR_TEXT.lengthError[0]}${len}${ERROR_TEXT.lengthError[1]}}`
     );
 
 const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {

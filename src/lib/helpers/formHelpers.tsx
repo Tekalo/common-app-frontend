@@ -1,4 +1,3 @@
-import { ERROR_TEXT } from '@/lang/en';
 import { ISelectItem } from '@/lib/types';
 import { FormInstance } from 'houseform';
 import { RefObject } from 'react';
@@ -10,13 +9,10 @@ export const printErrorMessages = (
   errors: string[],
   disabled?: boolean
 ) => {
-  let errorText: string;
-
   // Check if errors array contains length error
   const hasLengthError = errors.some((e) => {
     const match = e.match(/Cannot be over (\d+) characters/);
     if (match) {
-      errorText = `${ERROR_TEXT.lengthError[0]}${match[1]}${ERROR_TEXT.lengthError[1]}`;
       return true;
     }
   });
@@ -30,7 +26,7 @@ export const printErrorMessages = (
         }
         key={error}
       >
-        {hasLengthError ? errorText : error}
+        {error}
       </p>
     ));
   }
