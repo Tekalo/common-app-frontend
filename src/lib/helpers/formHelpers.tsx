@@ -1,3 +1,4 @@
+import { ERROR_TEXT } from '@/lang/en';
 import { ISelectItem } from '@/lib/types';
 import { FormInstance } from 'houseform';
 import { RefObject } from 'react';
@@ -9,19 +10,24 @@ export const printErrorMessages = (
   errors: string[],
   disabled?: boolean
 ) => {
-  const errorMessage =
-    !disabled && isSubmitted && errors.length ? (
+  // Check if errors array contains 255 char string
+  const hasLengthError = errors.some((e) =>
+    e.includes('String must contain at most 255 character(s)')
+  );
+
+  if (hasLengthError || (!disabled && isSubmitted && errors.length)) {
+    return errors.map((error) => (
       <p
         id={`errorMessage-${inputId}`}
         className={
           'form-error-message mt-1 text-left text-component-small text-red-error'
         }
-        key={errors[0]}
+        key={error}
       >
-        {errors[0]}
+        {hasLengthError ? ERROR_TEXT.lengthError : error}
       </p>
-    ) : null;
-  return errorMessage;
+    ));
+  }
 };
 
 export const executeScroll = () =>

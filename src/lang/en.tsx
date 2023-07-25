@@ -883,6 +883,7 @@ const ERROR_TEXT = {
   unhandledText: 'Oops something went wrong. Please try again later.',
   unknownError: 'An unknown error has occurred',
   userAlreadyExists: 'This account already exists, please sign in',
+  lengthError: 'Cannot be over 255 characters',
 };
 
 /** ENUM TEXT CONSTANTS */
