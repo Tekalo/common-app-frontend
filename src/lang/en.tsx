@@ -588,6 +588,11 @@ const APPLICANT_EXPERIENCE_FORM_TEXT = {
       label: 'Resume password (optional)',
       placeholder: 'Password to view resume',
     },
+    fileUpload: {
+      label: 'Resume or CV',
+      selectFileBtn: 'Choose file',
+      supportedFormats: 'Attach up to 5 MB in PDF, DOCx, PNG or JPG format',
+    },
   },
 };
 const ORG_SIGNUP_FORM_TEXT = {
