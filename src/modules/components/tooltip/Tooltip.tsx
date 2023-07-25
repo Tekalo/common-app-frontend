@@ -10,7 +10,7 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
 
   return (
     <>
-      <div className="flex items-center align-text-top">
+      <div data-name="tooltip" className="flex items-center align-text-top">
         <div
           className="ml-1 h-[16px] w-[16px] cursor-pointer"
           onMouseEnter={() => setIsHovered(true)}
@@ -24,6 +24,7 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
           )}
         </div>
         <div
+          data-name="tooltip-content"
           className={`${
             isHovered ? '' : 'hidden'
           } tooltip-box absolute ml-6 max-w-[350px] flex-1 rounded-sm bg-illustration-black px-2 py-1 text-component-extra-small text-white shadow

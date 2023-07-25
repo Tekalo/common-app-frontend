@@ -28,6 +28,7 @@ import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
   MultiSelectField,
+  PhoneNumberField,
   SelectBooleanField,
   SelectGroupField,
   SingleSelectField,
@@ -135,7 +136,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           />
 
           {/* Contact number */}
-          <FreeTextField
+          <PhoneNumberField
             fieldName="contact.phone"
             label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactPhone.label}
             placeholder={
