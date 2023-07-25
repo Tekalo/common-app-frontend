@@ -8,6 +8,7 @@ import {
 import DebugProvider from '@/lib/providers/debugProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
+import '@/styles/phone-number-input.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';

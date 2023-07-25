@@ -179,7 +179,7 @@ const SearchStatus = z.enum(SEARCH_STATUS_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const phoneRegex = /^\+(?:[0-9] ?){6,14}[0-9]$/g;
+const phoneRegex = /^(?:[0-9] ?){6,14}[0-9]$/g;
 
 const PhoneNumber = z.string().refine((phoneNumber: string) => {
   return new RegExp(phoneRegex, 'g').test(phoneNumber);

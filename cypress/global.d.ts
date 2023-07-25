@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
+import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { mount } from 'cypress/react';
 
@@ -19,6 +20,7 @@ declare global {
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
+      mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
     }
   }
 }
