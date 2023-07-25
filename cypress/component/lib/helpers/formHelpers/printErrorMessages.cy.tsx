@@ -22,7 +22,7 @@ describe('printErrorMessages prior to submitting', () => {
   });
 });
 
-describe('printErrorMessages prior after submitting', () => {
+describe('printErrorMessages after submitting', () => {
   const inputid = 'test-id';
   const isSubmitted = true;
   const expectedError = 'This is a required field';
