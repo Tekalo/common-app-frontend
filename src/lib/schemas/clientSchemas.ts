@@ -84,7 +84,7 @@ const CandidateExperienceSchema = z.object({
   githubUrl: z.string().url().nullable().optional(),
   portfolioUrl: z.string().url().nullable().optional(),
   portfolioPassword: z.string().nullable().optional(),
-  resumeUrl: z.string().url(),
+  resumeUrl: z.string().max(500).url(),
   resumePassword: z.string().nullable().optional(),
 });
 

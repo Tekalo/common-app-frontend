@@ -80,7 +80,7 @@ const OptionalEssay = z
   .optional();
 const RequiredString = z.string().nonempty(ERROR_TEXT.required).max(255);
 const OptionalString = z.string().max(255).optional();
-
+const OptionalLongString = z.string().max(500).optional();
 const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
   message: ERROR_TEXT.interestCauses,
 });
@@ -233,6 +233,7 @@ export {
   OptionalEssay,
   OptionalPhoneNumber,
   OptionalString,
+  OptionalLongString,
   OptionalStringArr,
   OrgSize,
   OrgType,

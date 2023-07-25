@@ -10,10 +10,16 @@ export const printErrorMessages = (
   errors: string[],
   disabled?: boolean
 ) => {
+  let errorText: string;
+
   // Check if errors array contains 255 char string
-  const hasLengthError = errors.some((e) =>
-    e.includes('String must contain at most 255 character(s)')
-  );
+  const hasLengthError = errors.some((e) => {
+    const match = e.match(/String must contain at most (\d+) character\(s\)/);
+    if (match) {
+      errorText = `${ERROR_TEXT.lengthError[0]} ${match[1]} ${ERROR_TEXT.lengthError[1]}`;
+      return true;
+    }
+  });
 
   if (hasLengthError || (!disabled && isSubmitted && errors.length)) {
     return errors.map((error) => (
@@ -24,7 +30,7 @@ export const printErrorMessages = (
         }
         key={error}
       >
-        {hasLengthError ? ERROR_TEXT.lengthError : error}
+        {hasLengthError ? errorText : error}
       </p>
     ));
   }
