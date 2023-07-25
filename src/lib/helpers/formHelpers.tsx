@@ -12,11 +12,11 @@ export const printErrorMessages = (
 ) => {
   let errorText: string;
 
-  // Check if errors array contains 255 char string
+  // Check if errors array contains length error
   const hasLengthError = errors.some((e) => {
-    const match = e.match(/String must contain at most (\d+) character\(s\)/);
+    const match = e.match(/Cannot be over (\d+) characters/);
     if (match) {
-      errorText = `${ERROR_TEXT.lengthError[0]} ${match[1]} ${ERROR_TEXT.lengthError[1]}`;
+      errorText = `${ERROR_TEXT.lengthError[0]}${match[1]}${ERROR_TEXT.lengthError[1]}`;
       return true;
     }
   });
