@@ -8,7 +8,8 @@ export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   label: string;
   disabled?: boolean;
   href?: string;
-  icon?: IconType;
+  iconBefore?: IconType;
+  iconAfter?: IconType;
   name?: string;
   onClick?: () => void;
   variant?: ButtonVariant;
@@ -19,7 +20,8 @@ const Button: React.FC<IButton> = ({
   className,
   disabled,
   href,
-  icon,
+  iconBefore,
+  iconAfter,
   name,
   onClick,
   type,
@@ -55,10 +57,11 @@ const Button: React.FC<IButton> = ({
   // If you pass an href, this is a link. Do not also pass an onclick, it won't do anything
   return href ? (
     <a id={name} type={type} href={href} className={btnStyles}>
-      <div className="flex cursor-pointer items-center justify-center space-x-0">
-        {label}
-        {icon ? <>{icon}</> : null}
-      </div>
+      <>
+        {iconBefore ? <>{iconBefore}</> : null}
+        {<div>{label}</div>}
+        {iconAfter ? <>{iconAfter}</> : null}
+      </>
     </a>
   ) : (
     <button
@@ -68,10 +71,11 @@ const Button: React.FC<IButton> = ({
       disabled={disabled}
       className={btnStyles}
     >
-      <div className="flex items-center justify-center space-x-0">
-        {label}
-        {icon ? <>{icon}</> : null}
-      </div>
+      <>
+        {iconBefore ? <>{iconBefore}</> : null}
+        {<div>{label}</div>}
+        {iconAfter ? <>{iconAfter}</> : null}
+      </>
     </button>
   );
 };
