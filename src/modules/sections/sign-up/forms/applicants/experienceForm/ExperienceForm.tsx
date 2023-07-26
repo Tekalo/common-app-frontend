@@ -2,6 +2,7 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
 import {
+  OptionalLongString,
   OptionalString,
   OptionalStringArr,
   RequiredString,
@@ -10,6 +11,7 @@ import {
 } from '@/lib/enums';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
   resetForm,
 } from '@/lib/helpers/formHelpers';
@@ -59,7 +61,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
       onSubmit={(values) => handleNext(values)}
       ref={formRef}
     >
-      {({ isSubmitted, submit }) => (
+      {({ isSubmitted, submit, errors }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -202,7 +204,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             }
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumeUrl || ''}
-            validator={OptionalString}
+            validator={OptionalLongString}
           />
 
           {/* Resume Password */}
@@ -220,6 +222,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           {/* Form Buttons */}
           <div className="pt-2">
             <Button
+              disabled={hasLengthError(errors)}
               name="experience-save"
               className="w-full text-component-large"
               label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.save.label}
@@ -229,6 +232,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             />
 
             <Button
+              disabled={hasLengthError(errors)}
               name="experience-next"
               type="submit"
               className="mt-4 w-full text-component-large"
