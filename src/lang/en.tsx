@@ -313,6 +313,10 @@ const ERROR_MODAL_TEXT = {
   somethingWrong: 'Something went wrong. Please try again later.',
   okButton: 'Ok',
 };
+const UPLOAD_ERROR_TEXT = {
+  header: 'Upload failed',
+  bodyText: 'Upload failed message TBD',
+};
 const PRIVACY_MODAL_TEXT = {
   HEADER: 'Privacy Info',
   BODY: 'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.',
@@ -2206,4 +2210,5 @@ export {
   PRIVACY_MODAL_TEXT,
   RESUME_MODAL,
   SAVE_MODAL,
+  UPLOAD_ERROR_TEXT,
 };

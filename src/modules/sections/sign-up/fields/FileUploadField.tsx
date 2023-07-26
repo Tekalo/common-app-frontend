@@ -7,6 +7,7 @@ export interface IFileUploadField {
   fieldName: string;
   initialValue: string | undefined;
   label: string;
+  showUploadErrorModal: () => void;
   tooltipText?: string;
 }
 
@@ -14,6 +15,7 @@ const FileUploadField: React.FC<IFileUploadField> = ({
   fieldName,
   initialValue,
   label,
+  showUploadErrorModal,
   tooltipText,
 }) => {
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
@@ -26,6 +28,7 @@ const FileUploadField: React.FC<IFileUploadField> = ({
         return (
           <div>
             <FileUpload
+              showUploadErrorModal={showUploadErrorModal}
               id={inputId}
               initialValue={initialValue}
               label={label}

@@ -18,6 +18,7 @@ interface IFileUpload {
   initialValue: string | undefined;
   label: string;
   setFieldErrors: (errs: string[]) => void;
+  showUploadErrorModal: () => void;
   tooltipText?: string;
 }
 
@@ -26,6 +27,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   initialValue,
   label,
   setFieldErrors,
+  showUploadErrorModal,
   tooltipText,
 }) => {
   const [uploadFile, setUploadFile] = useState<File>();
@@ -47,7 +49,15 @@ const FileUpload: React.FC<IFileUpload> = ({
 
         // TODO: Remove once service is in place
         setTimeout(() => {
-          setUploadState(FileUploadState.UPLOAD_COMPLETE);
+          const shouldFail = true;
+
+          if (shouldFail) {
+            showUploadErrorModal();
+            setUploadState(FileUploadState.INITIAL);
+            clearUploadInput();
+          } else {
+            setUploadState(FileUploadState.UPLOAD_COMPLETE);
+          }
         }, tmpTimeoutDelay);
       }
     };
@@ -62,9 +72,13 @@ const FileUpload: React.FC<IFileUpload> = ({
 
     // TODO: Remove
     setTimeout(() => {
-      (document.getElementById(uploadButtonId) as HTMLInputElement).value = '';
+      clearUploadInput();
       setUploadState(FileUploadState.INITIAL);
     }, tmpTimeoutDelay);
+  };
+
+  const clearUploadInput = () => {
+    (document.getElementById(uploadButtonId) as HTMLInputElement).value = '';
   };
 
   const getActionSection = (): JSX.Element => {

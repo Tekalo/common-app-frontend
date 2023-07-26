@@ -8,6 +8,7 @@ import {
   ERROR_MODAL_TEXT,
   SAVE_MODAL,
   TRACKING,
+  UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
@@ -42,6 +43,7 @@ const ApplicantForms: NextPageWithLayout = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
+  const [showUploadErrorModal, setShowUploadErrorModal] = useState(false);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -250,6 +252,7 @@ const ApplicantForms: NextPageWithLayout = () => {
           ) : (
             <ExperienceForm
               savedForm={draftFormValues}
+              showUploadErrorModal={() => setShowUploadErrorModal(true)}
               handleNext={handleNext}
               handleSave={handleSave}
             />
@@ -267,12 +270,22 @@ const ApplicantForms: NextPageWithLayout = () => {
         onConfirm={() => setShowSaveModal(false)}
       />
       <ErrorModal
-        isOpen={showErrorModal}
-        titleText={ERROR_MODAL_TEXT.requestFailed}
-        descriptionText={ERROR_MODAL_TEXT.somethingWrong}
+        isOpen={showErrorModal || showUploadErrorModal}
+        titleText={
+          showErrorModal
+            ? ERROR_MODAL_TEXT.requestFailed
+            : UPLOAD_ERROR_TEXT.header
+        }
+        descriptionText={
+          showErrorModal
+            ? ERROR_MODAL_TEXT.somethingWrong
+            : UPLOAD_ERROR_TEXT.bodyText
+        }
         buttonText={ERROR_MODAL_TEXT.okButton}
         closeModal={() => {
-          setShowErrorModal(false);
+          showErrorModal
+            ? setShowErrorModal(false)
+            : setShowUploadErrorModal(false);
         }}
       />
     </div>
