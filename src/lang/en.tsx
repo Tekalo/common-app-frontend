@@ -592,6 +592,13 @@ const APPLICANT_EXPERIENCE_FORM_TEXT = {
       label: 'Resume or CV',
       selectFileBtn: 'Choose file',
       supportedFormats: 'Attach up to 5 MB in PDF, DOCx, PNG or JPG format',
+      errors: {
+        tooLarge: 'File exceeds 5 MB',
+      },
+      actions: {
+        uploading: 'Uploading',
+        removing: 'Removing',
+      },
     },
   },
 };

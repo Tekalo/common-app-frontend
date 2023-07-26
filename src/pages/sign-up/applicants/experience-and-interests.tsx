@@ -230,7 +230,7 @@ const ApplicantForms: NextPageWithLayout = () => {
       {/* Form Content */}
       <div className="flex w-full max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
         {/* Title */}
-        <h3 className="max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
+        <h3 className="mx-auto max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
           {APPLICANT_FORM_TEXT.HEADER}
         </h3>
 
