@@ -84,6 +84,7 @@ const CandidateExperienceSchema = z.object({
   githubUrl: z.string().url().nullable().optional(),
   portfolioUrl: z.string().url().nullable().optional(),
   portfolioPassword: z.string().nullable().optional(),
+  // TODO: Update schema here with file upload
   resumeUrl: z.string().url(),
   resumePassword: z.string().nullable().optional(),
 });
@@ -112,10 +113,10 @@ const CandidateDraftSchema = CandidateExperienceSchema.merge(
 ).partial();
 
 export {
-  NewOrgSchema,
-  NewRoleSchema,
-  NewCandidateSchema,
   CandidateDraftSchema,
   CandidateExperienceSchema,
   CandidateInterestsSchema,
+  NewCandidateSchema,
+  NewOrgSchema,
+  NewRoleSchema,
 };

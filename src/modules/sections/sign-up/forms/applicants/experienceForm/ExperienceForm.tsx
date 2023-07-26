@@ -6,6 +6,7 @@ import {
   OptionalStringArr,
   RequiredString,
   Skills,
+  UploadedFileId,
   YOE,
 } from '@/lib/enums';
 import {
@@ -198,6 +199,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             fieldName="resume-upload"
             initialValue={undefined}
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
+            validator={UploadedFileId}
           />
 
           {/* Resume

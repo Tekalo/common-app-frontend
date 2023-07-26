@@ -3,7 +3,8 @@ import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { CircledXSvg, FileSvg } from '@/lib/constants/svgs';
-import { useEffect, useState } from 'react';
+import { FileUploadContext } from '@/lib/providers/fileUploadProvider';
+import { useContext, useEffect, useState } from 'react';
 
 enum FileUploadState {
   INITIAL = 1,
@@ -18,6 +19,7 @@ interface IFileUpload {
   initialValue: string | undefined;
   label: string;
   setFieldErrors: (errs: string[]) => void;
+  setValue: (val: string) => void;
   showUploadErrorModal: () => void;
   tooltipText?: string;
 }
@@ -27,38 +29,57 @@ const FileUpload: React.FC<IFileUpload> = ({
   initialValue,
   label,
   setFieldErrors,
+  setValue,
   showUploadErrorModal,
   tooltipText,
 }) => {
+  // TODO: How do we handle when users come back?
+  // Will we have to retrieve the file name for display in the uploader?
+  // Will that be included in the form params?
+  // If so, we will need to make the schema an object with two properties,
+  // One with fileId and one with fileName
+  const fileUploadCtx = useContext(FileUploadContext);
+
   const [uploadFile, setUploadFile] = useState<File>();
   const [uploadState, setUploadState] = useState<FileUploadState>(
     FileUploadState.INITIAL
   );
+  const [uploadedFileId, setUploadedFileId] = useState<string>('');
 
   const uploadButtonId = `upload-button-${id}`;
   const fiveMB = 5242880;
-  // TODO: Remove
-  const tmpTimeoutDelay = 2000;
 
+  const errorHandler = () => {
+    showUploadErrorModal();
+    setUploadState(FileUploadState.INITIAL);
+    clearUploadInput();
+  };
+
+  // Our file id (or url, not exactly sure which we'll be submitting here)
+  // is our value, so whenever it changes, we should set the value in the form
+  useEffect(() => {
+    setValue(uploadedFileId);
+  }, [uploadedFileId]);
+
+  // When a file is selected to upload
+  // and we are not in an error state
+  // then upload it
   useEffect(() => {
     const onFileSelected = () => {
-      if (uploadState !== FileUploadState.INVALID_FILE) {
+      if (uploadFile && uploadState !== FileUploadState.INVALID_FILE) {
         setUploadState(FileUploadState.UPLOADING);
 
-        // TODO: Upload service calls
-
-        // TODO: Remove once service is in place
-        setTimeout(() => {
-          const shouldFail = true;
-
-          if (shouldFail) {
-            showUploadErrorModal();
-            setUploadState(FileUploadState.INITIAL);
-            clearUploadInput();
-          } else {
-            setUploadState(FileUploadState.UPLOAD_COMPLETE);
-          }
-        }, tmpTimeoutDelay);
+        fileUploadCtx
+          .uploadFile(uploadFile)
+          .then((res) => {
+            if (res.ok) {
+              setUploadedFileId(res.fileId);
+              setUploadState(FileUploadState.UPLOAD_COMPLETE);
+            } else {
+              errorHandler();
+            }
+          })
+          .catch(errorHandler);
       }
     };
 
@@ -70,11 +91,19 @@ const FileUpload: React.FC<IFileUpload> = ({
   const removeUploadedFile = () => {
     setUploadState(FileUploadState.REMOVING);
 
-    // TODO: Remove
-    setTimeout(() => {
-      clearUploadInput();
-      setUploadState(FileUploadState.INITIAL);
-    }, tmpTimeoutDelay);
+    fileUploadCtx
+      .deleteFile(uploadedFileId)
+      .then((res) => {
+        if (res.ok) {
+          setUploadedFileId('');
+          clearUploadInput();
+          setUploadState(FileUploadState.INITIAL);
+          setUploadFile(undefined);
+        } else {
+          errorHandler();
+        }
+      })
+      .catch(errorHandler);
   };
 
   const clearUploadInput = () => {
@@ -200,7 +229,6 @@ const FileUpload: React.FC<IFileUpload> = ({
               setUploadState(FileUploadState.INITIAL);
               setUploadFile(fileToUpload);
             } else {
-              // TODO: Set size error
               setUploadState(FileUploadState.INVALID_FILE);
               setUploadFile(fileToUpload);
               setFieldErrors([

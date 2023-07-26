@@ -6,6 +6,7 @@ import {
   SIGN_IN_REDIRECT,
 } from '@/lang/en';
 import DebugProvider from '@/lib/providers/debugProvider';
+import FileUploadProvider from '@/lib/providers/fileUploadProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
@@ -69,9 +70,13 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           backend={TouchBackend}
           options={{ enableMouseEvents: true }}
         >
+          {/* START Our Local Providers */}
           <DebugProvider>
-            {getLayout(<Component {...pageProps} />)}
+            <FileUploadProvider>
+              {getLayout(<Component {...pageProps} />)}
+            </FileUploadProvider>
           </DebugProvider>
+          {/* END Our Local Providers */}
           <CookieConsent
             onAccept={() => window.consentGranted()}
             enableDeclineButton
