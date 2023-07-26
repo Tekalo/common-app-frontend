@@ -272,6 +272,7 @@ const ApplicantForms: NextPageWithLayout = () => {
       <ErrorModal
         isOpen={showErrorModal || showUploadErrorModal}
         titleText={
+          // TODO: Should we change the headline when a file deletion fails?
           showErrorModal
             ? ERROR_MODAL_TEXT.requestFailed
             : UPLOAD_ERROR_TEXT.header
