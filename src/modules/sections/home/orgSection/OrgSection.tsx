@@ -14,9 +14,9 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
 }) => {
   const recruitingLogos = [
     {
-      src: '/images/logos/Patrick_J_McGovern.png',
-      alt: 'Patrick J McGovern Logo',
-      url: 'https://www.mcgovern.org/',
+      src: '/images/logos/recidiviz.png',
+      alt: 'Recidiviz',
+      url: 'https://www.recidiviz.org/',
     },
     {
       src: '/images/logos/Humans_of_Public_Service.jpeg',
@@ -31,17 +31,17 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
     {
       src: '/images/logos/koko.png',
       alt: 'Koko',
-      url: 'https://www.kokocares.org',
-    },
-    {
-      src: '/images/logos/Project_Tech4Dev.png',
-      alt: 'Project Tech 4 Dev Logo',
-      url: 'https://projecttech4dev.org/',
+      url: 'https://www.kokocares.org/',
     },
     {
       src: '/images/logos/AmeelioLogo.png',
       alt: 'Ameelio Logo',
       url: 'https://www.ameelio.org/',
+    },
+    {
+      src: '/images/logos/Patrick_J_McGovern.png',
+      alt: 'Patrick J McGovern Logo',
+      url: 'https://www.mcgovern.org/',
     },
     {
       src: '/images/logos/ello_logo.png',
@@ -74,6 +74,16 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       url: 'https://ssecenter.cc.gatech.edu/',
     },
     {
+      src: '/images/logos/Project_Tech4Dev.png',
+      alt: 'Project Tech 4 Dev Logo',
+      url: 'https://projecttech4dev.org/',
+    },
+    {
+      src: '/images/logos/benetech.png',
+      alt: 'Benetech',
+      url: 'https://benetech.org/',
+    },
+    {
       src: '/images/logos/schoolhouse.png',
       alt: 'Schoolhouse',
       url: 'https://schoolhouse.world/',
@@ -89,6 +99,16 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       url: 'https://formation.ventures/',
     },
     {
+      src: '/images/logos/FairOpportunityProject.png',
+      alt: 'Fair Opportunity Project',
+      url: 'https://www.fairopportunityproject.org/',
+    },
+    {
+      src: '/images/logos/giveinternet_logo.png',
+      alt: 'GiveInternet',
+      url: 'https://giveinternet.org/',
+    },
+    {
       src: '/images/logos/I_CAN_HELP_HOST.png',
       alt: 'I CAN HELP HOST',
       url: 'https://icanhelp.host/',
@@ -96,17 +116,22 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
     {
       src: '/images/logos/DataKind.png',
       alt: 'DataKind',
-      url: 'https://www.datakind.org',
+      url: 'https://www.datakind.org/',
     },
     {
       src: '/images/logos/CommunityShare.png',
       alt: 'CommunityShare',
-      url: 'https://www.communityshare.org',
+      url: 'https://www.communityshare.org/',
     },
     {
       src: '/images/logos/Teaching_Lab.png',
       alt: 'Teaching Lab',
-      url: 'https://www.teachinglab.org',
+      url: 'https://www.teachinglab.org/',
+    },
+    {
+      src: '/images/logos/Uprooted.png',
+      alt: 'The Uprooted Way',
+      url: 'https://www.uprootedacademy.org/home/',
     },
   ];
 
