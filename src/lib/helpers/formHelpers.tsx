@@ -2,6 +2,15 @@ import { ISelectItem } from '@/lib/types';
 import { FormInstance } from 'houseform';
 import { RefObject } from 'react';
 
+export const hasLengthError = (errors: string[]): boolean => {
+  return errors.some((e) => {
+    const match = e.match(/Cannot be over (\d+) characters/);
+    if (match) {
+      return true;
+    }
+  });
+};
+
 // Helper that prints error messages from Houseforms consistently
 export const printErrorMessages = (
   inputId: string,
@@ -9,15 +18,7 @@ export const printErrorMessages = (
   errors: string[],
   disabled?: boolean
 ) => {
-  // Check if errors array contains length error
-  const hasLengthError = errors.some((e) => {
-    const match = e.match(/Cannot be over (\d+) characters/);
-    if (match) {
-      return true;
-    }
-  });
-
-  if (hasLengthError || (!disabled && isSubmitted && errors.length)) {
+  if (hasLengthError(errors) || (!disabled && isSubmitted && errors.length)) {
     return errors.map((error) => (
       <p
         id={`errorMessage-${inputId}`}

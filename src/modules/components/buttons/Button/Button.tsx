@@ -30,7 +30,7 @@ const Button: React.FC<IButton> = ({
                 text-component-large transition-colors hover:bg-blue-2
                 focus-visible:ring-2 focus-visible:ring-[#A7C4DB]
                 active:border-blue-3 active:bg-blue-3 disabled:border-blue-4
-                disabled:bg-blue-4 disabled:text-white group ${className}`;
+                disabled:bg-blue-4 disabled:text-white group  disabled:cursor-not-allowed ${className}`;
 
   const DEFAULT = `${BASE} bg-blue-1 text-white`;
 

@@ -32,10 +32,7 @@ export const maxLengthString = (len: number): ZodString =>
         message: ERROR_TEXT.unknownError,
       }),
     })
-    .max(
-      len,
-      `${ERROR_TEXT.lengthError[0]}${len}${ERROR_TEXT.lengthError[1]}}`
-    );
+    .max(len, `${ERROR_TEXT.lengthError[0]}${len}${ERROR_TEXT.lengthError[1]}`);
 
 const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
   const errorMsg =
