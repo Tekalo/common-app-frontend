@@ -1,4 +1,5 @@
 import {
+  maxLengthString,
   OrgSize,
   OrgType,
   Roles,
@@ -11,51 +12,51 @@ import { CandidateDraftSchema } from './clientSchemas';
 
 const SubmissionResponseSchema = z.object({
   roleType: Roles,
-  positionTitle: z.string().max(255),
+  positionTitle: maxLengthString(255),
   fullyRemote: z.boolean(),
-  location: z.string(),
+  location: maxLengthString(255),
   paid: z.boolean(),
-  pitchEssay: z.string().max(5000),
-  source: z.string(),
-  employmentType: z.string().max(255),
-  salaryRange: z.string().max(255),
-  desiredHoursPerWeek: z.string().max(255).nullable().optional(),
+  pitchEssay: maxLengthString(5000),
+  source: maxLengthString(2048),
+  employmentType: maxLengthString(255),
+  salaryRange: maxLengthString(255),
+  desiredHoursPerWeek: maxLengthString(255).nullable().optional(),
   desiredStartDate: z.coerce.date().optional(),
   desiredEndDate: z.coerce.date().optional(),
-  jdUrl: z.string().max(500).optional(),
+  jdUrl: maxLengthString(500).optional(),
   desiredYoe: z.array(YOE_RANGE),
   desiredSkills: z.array(Skills),
-  desiredOtherSkills: z.string().max(255).optional(),
+  desiredOtherSkills: maxLengthString(255).optional(),
   visaSponsorship: VisaSponsorship,
   similarStaffed: z.boolean(),
-  desiredImpactExp: z.string().max(5000).optional(),
+  desiredImpactExp: maxLengthString(5000).optional(),
 });
 
 const NewOrgOppSchema = z.object({
   organization: z.object({
-    name: z.string().max(255),
+    name: maxLengthString(255),
     type: OrgType,
     size: OrgSize,
-    impactAreas: z.array(z.string().max(255)),
+    impactAreas: z.array(maxLengthString(255)),
     eoe: z.boolean(),
   }),
   contact: z.object({
-    name: z.string().max(255),
-    email: z.string().max(255),
-    phone: z.string().max(255).nullable().optional(),
+    name: maxLengthString(255),
+    email: maxLengthString(255),
+    phone: maxLengthString(255).nullable().optional(),
   }),
   submissions: z.array(SubmissionResponseSchema),
 });
 
 const NewOrgOppResponseSchema = z.object({
   id: z.number(),
-  contactEmail: z.string(),
-  contactName: z.string(),
-  contactPhone: z.string().nullable(),
-  impactAreas: z.array(z.string()),
-  orgName: z.string(),
-  orgSize: z.string(),
-  orgType: z.string(),
+  contactEmail: maxLengthString(2048),
+  contactName: maxLengthString(2048),
+  contactPhone: maxLengthString(2048).nullable(),
+  impactAreas: z.array(maxLengthString(2048)),
+  orgName: maxLengthString(2048),
+  orgSize: maxLengthString(2048),
+  orgType: maxLengthString(2048),
 });
 
 const DraftResponseSchema = z.object({
