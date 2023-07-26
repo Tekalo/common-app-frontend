@@ -3,6 +3,7 @@ import {
   CommitmentType,
   EmploymentType,
   GovtJobType,
+  maxLengthString,
   OpenToRelocate,
   openToRemoteMulti,
   OrgSize,
@@ -18,7 +19,6 @@ import {
   YOE_RANGE,
 } from '@/lib/enums';
 import { z } from 'zod';
-import { maxLengthString } from './../enums';
 
 /** Organization Schemas
  */
