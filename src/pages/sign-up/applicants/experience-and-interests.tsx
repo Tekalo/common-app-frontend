@@ -276,11 +276,7 @@ const ApplicantForms: NextPageWithLayout = () => {
             ? ERROR_MODAL_TEXT.requestFailed
             : UPLOAD_ERROR_TEXT.header
         }
-        descriptionText={
-          showErrorModal
-            ? ERROR_MODAL_TEXT.somethingWrong
-            : UPLOAD_ERROR_TEXT.bodyText
-        }
+        descriptionText={ERROR_MODAL_TEXT.somethingWrong}
         buttonText={ERROR_MODAL_TEXT.okButton}
         closeModal={() => {
           showErrorModal
