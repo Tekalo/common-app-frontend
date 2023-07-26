@@ -2,12 +2,51 @@ import { GreenCircleCheck } from '@/lib/constants/svgs';
 import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
+/**
+ * TODO: 
+ * 
+ * We should generally look to consolidate text as part of the tech debt week. 
+ * I parsed this file into an LLM and it presented the following as a recommendation for consolidation. 
+ * 
+ * Here are the key changes I would make to consolidate duplicate language:
 
+**Move shared privacy/terms language to separate constants**
+
+- Created PRIVACY_TEXT and TERMS_TEXT objects with shared content like Privacy Info, Terms of Use, etc.
+
+- Reference these constants instead of duplicating (e.g. in disclaimers) 
+
+**Consolidate FAQ answers**
+
+- Moved CANDIDATE_FAQ_TEXT and ORG_FAQ_TEXT to reuse identical Q&A pairs
+
+- Used React components to render shared content
+
+**Combined form texts** 
+
+- Merged interest form texts that were almost identical
+
+- Reduced redundancy in other form texts
+
+**Moved navbar/footer items to shared objects**
+
+- NAV_BAR_TEXT, NAV_FOOTER_TEXT constants for common nav content 
+
+- NAV_LITE versions for secondary navs
+
+**Misc consolidations**
+
+- GROUPED_ENUM_OPTIONS for reusable enums
+- ERROR_TEXT for shared error messages
+- HEAD_TEXT for common title strings
+
+In summary, I tried to identify repetitive content sections and pull them out into reusable constants. The goal was to reduce duplication and improve maintainability of the content. Let me know if you would like me to explain or expand on any part of the reorganization.
+ * 
+ */
 // GLOBAL TEXT CONSTANTS
 const GLOBAL_TEXT = {
   noOptionSelected: 'No option selected',
 };
-
 // META
 const META = {
   ALT_TEXT: 'Tekalo: Match to what matters; build a better world.',
