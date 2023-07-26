@@ -2,6 +2,7 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
   COMMITMENT_ENUM_TEXT,
   EMPLOYMENT_TYPE_TEXT,
+  GENERAL_FORM_TEXT_CONSTANTS,
   INTEREST_FORM_TEXT,
   ROLE_ENUM_TEXT,
 } from '@/lang/en';
@@ -125,7 +126,7 @@ const InterestForm: React.FC<IInterestForm> = ({
       onSubmit={(values) => doSubmit(values)}
       ref={formRef}
     >
-      {({ isSubmitted, submit, errors }) => (
+      {({ isSubmitted, submit, value, errors }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -371,6 +372,18 @@ const InterestForm: React.FC<IInterestForm> = ({
             }
             validator={ReferenceAttribution}
           />
+
+          {value.referenceAttribution === 'other' && (
+            <FreeTextField
+              fieldName="referenceAttributionOther"
+              label={GENERAL_FORM_TEXT_CONSTANTS.referenceOptional.label}
+              placeholder={
+                GENERAL_FORM_TEXT_CONSTANTS.referenceOptional.placeholder
+              }
+              isSubmitted={isSubmitted}
+              initialValue={''}
+            />
+          )}
           {/* Form Control Buttons */}
           <div className="pt-2">
             <Button

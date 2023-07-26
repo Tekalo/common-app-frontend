@@ -359,6 +359,12 @@ const RESUME_MODAL = {
 };
 
 /** FORM TEXT CONSTANTS */
+const GENERAL_FORM_TEXT_CONSTANTS = {
+  referenceOptional: {
+    label: 'If you chose other, please specify (optional)',
+    placeholder: 'How did you hear about Tekalo?',
+  },
+};
 const APPLICANT_FORM_TEXT = {
   HEADER: 'Join a network of impact-driven organizations to find your match.',
   NAVAWAY: 'Already have an account? ',
@@ -2184,6 +2190,7 @@ export {
 export { ACCOUNT_PAGE_TEXT };
 // FORM EXPORTS
 export {
+  GENERAL_FORM_TEXT_CONSTANTS,
   APPLICANT_EXPERIENCE_FORM_TEXT,
   APPLICANT_FORM_TEXT,
   INTEREST_FORM_TEXT,
