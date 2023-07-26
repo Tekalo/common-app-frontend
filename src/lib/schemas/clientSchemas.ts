@@ -24,8 +24,8 @@ import { maxLengthString } from './../enums';
  */
 const NewOrgSchema = z.object({
   commitmentTypes: z.array(CommitmentType),
-  referenceAttribution: z.string().optional(),
-  referenceAttributionOther: z.string().optional(),
+  referenceAttribution: maxLengthString(2048).optional(),
+  referenceAttributionOther: maxLengthString(2048).optional(),
   organization: z.object({
     name: maxLengthString(255),
     type: OrgType,
@@ -44,15 +44,15 @@ const NewRoleSchema = z.object({
   roleType: Roles,
   positionTitle: maxLengthString(255),
   fullyRemote: z.boolean(),
-  location: z.string(),
+  location: maxLengthString(255),
   paid: z.boolean(),
   pitchEssay: maxLengthString(5000),
   employmentType: maxLengthString(255),
-  source: z.string(),
+  source: maxLengthString(2048),
   salaryRange: maxLengthString(255),
   desiredHoursPerWeek: maxLengthString(255).optional(),
-  desiredStartDate: z.string().optional(),
-  desiredEndDate: z.string().optional(),
+  desiredStartDate: maxLengthString(2048).optional(),
+  desiredEndDate: maxLengthString(2048).optional(),
   jdUrl: maxLengthString(500).url().optional(),
   desiredYoe: z.array(YOE_RANGE).optional(),
   desiredSkills: z.array(Skills).optional(),
@@ -84,27 +84,27 @@ const CandidateExperienceSchema = z.object({
   linkedInUrl: maxLengthString(500).url().nullable().optional(),
   githubUrl: maxLengthString(500).url().nullable().optional(),
   portfolioUrl: maxLengthString(500).url().nullable().optional(),
-  portfolioPassword: maxLengthString(500).nullable().optional(),
+  portfolioPassword: maxLengthString(255).nullable().optional(),
   resumeUrl: maxLengthString(500).url(),
-  resumePassword: maxLengthString(500).nullable().optional(),
+  resumePassword: maxLengthString(255).nullable().optional(),
 });
 
 const CandidateInterestsSchema = z.object({
-  hoursPerWeek: z.string().nullable().optional(),
+  hoursPerWeek: maxLengthString(255).nullable().optional(),
   interestWorkArrangement: z.array(EmploymentType),
   interestEmploymentType: z.array(CommitmentType),
   interestRoles: z.array(Roles), // keep this as non-zod-enum?
-  currentLocation: z.string(),
+  currentLocation: maxLengthString(255),
   openToRelocate: OpenToRelocate,
   openToRemoteMulti: z.array(openToRemoteMulti),
-  desiredSalary: z.string().nullable().optional(),
-  interestCauses: z.array(z.string()), // order matters
-  otherCauses: z.array(z.string()).nullable().optional(),
+  desiredSalary: maxLengthString(255).nullable().optional(),
+  interestCauses: z.array(maxLengthString(255)), // order matters
+  otherCauses: z.array(maxLengthString(255)).nullable().optional(),
   workAuthorization: WorkAuthorization,
   interestGovt: z.boolean(),
   interestGovtEmplTypes: z.array(GovtJobType).optional(),
   previousImpactExperience: z.boolean(),
-  essayResponse: z.string(),
+  essayResponse: maxLengthString(5000),
   referenceAttribution: ReferenceAttribution.nullable().optional(),
 });
 
