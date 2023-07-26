@@ -79,9 +79,7 @@ const EOE = z.literal(true, {
 });
 
 const RequiredEssay = maxLengthString(5000).nonempty(ERROR_TEXT.required);
-const OptionalEssay = maxLengthString(5000)
-  .nonempty(ERROR_TEXT.required)
-  .optional();
+const OptionalEssay = maxLengthString(5000).optional();
 const RequiredString = maxLengthString(255).nonempty(ERROR_TEXT.required);
 const OptionalString = maxLengthString(255).optional();
 const OptionalLongString = maxLengthString(500).optional();
