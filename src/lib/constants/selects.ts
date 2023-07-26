@@ -1,4 +1,5 @@
 import {
+  ATTRIBUTION_TEXT,
   COMMITMENT_TEXT,
   CONTACT_OPTION_TEXT,
   ORG_SIZE_LABEL_TEXT,
@@ -299,10 +300,19 @@ const RemoteOptions = openToRemoteMulti.options.map((option) => {
   };
 });
 
-const AttributionOtpions = ReferenceAttribution.options.map((option) => ({
-  value: option,
-  displayText: capitalizeEveryWord(option),
-}));
+const AttributionOtpions = ReferenceAttribution.options.map((option) => {
+  if (option === '') {
+    return {
+      value: '',
+      displayText: ATTRIBUTION_TEXT.noAnswer,
+    };
+  } else {
+    return {
+      value: option,
+      displayText: capitalizeEveryWord(option),
+    };
+  }
+});
 
 const OrgTypeOptions = OrgType.options.map((option) => {
   switch (option) {

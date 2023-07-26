@@ -525,6 +525,7 @@ const INTEREST_FORM_TEXT = {
     referenceAttribution: {
       label: 'How did you hear about Tekalo? (optional)',
       placeholder: 'Choose one',
+      noAnswer: 'No option selected',
     },
   },
 };
@@ -835,6 +836,9 @@ const WORK_AUTHORIZATION_TEXT = {
   sponsorship:
     'I will now or in the future require sponsorship to work in the U.S.',
 };
+const ATTRIBUTION_TEXT = {
+  noAnswer: 'No option selected',
+};
 const SEARCH_STATUS_TEXT = {
   active: "I'm actively looking for opportunities",
   passive: "I'm flexible, casually looking for opportunities",
@@ -1046,6 +1050,7 @@ const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'sponsorship',
 ];
 const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '',
   'linkedIn',
   'other social media',
   'partner organization - all tech is human',
@@ -1053,7 +1058,6 @@ const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'partner organization - USDR',
   'career fair or other event',
   'other',
-  '',
 ];
 const CONTACT_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'email',
@@ -2132,6 +2136,7 @@ export {
   USDR_TEXT,
   VISA_SPONSOR_TEXT,
   WORK_AUTHORIZATION_TEXT,
+  ATTRIBUTION_TEXT,
   YES_NO_TEXT,
   YOE_OPTION_TEXT,
 };
