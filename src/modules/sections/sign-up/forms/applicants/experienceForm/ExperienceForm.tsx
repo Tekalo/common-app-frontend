@@ -195,10 +195,11 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           />
 
           {/* <FileUploadField
-            showUploadErrorModal={showUploadErrorModal}
             fieldName="resume-upload"
             initialValue={undefined}
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
+            showUploadErrorModal={showUploadErrorModal}
+            submitted={isSubmitted}
             validator={UploadedFileId}
           /> */}
 

@@ -9,6 +9,7 @@ export interface IFileUploadField {
   initialValue: string | undefined;
   label: string;
   showUploadErrorModal: () => void;
+  submitted: boolean;
   validator: z.ZodSchema;
   tooltipText?: string;
 }
@@ -18,6 +19,7 @@ const FileUploadField: React.FC<IFileUploadField> = ({
   initialValue,
   label,
   showUploadErrorModal,
+  submitted,
   validator,
   tooltipText,
 }) => {
@@ -34,7 +36,7 @@ const FileUploadField: React.FC<IFileUploadField> = ({
         const inputId = getInputId(fieldName);
 
         return (
-          <div>
+          <div data-name="file-upload-field">
             <FileUpload
               showUploadErrorModal={showUploadErrorModal}
               id={inputId}
@@ -44,7 +46,10 @@ const FileUploadField: React.FC<IFileUploadField> = ({
               setValue={setValue}
               tooltipText={tooltipText}
             />
-            {printErrorMessages(inputId, true, [...errors, ...fieldErrors])}
+            {printErrorMessages(inputId, submitted || !!fieldErrors.length, [
+              ...errors,
+              ...fieldErrors,
+            ])}
           </div>
         );
       }}

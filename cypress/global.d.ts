@@ -2,6 +2,7 @@
 
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
+import { IFileUploadField } from '@/modules/sections/sign-up/fields/FileUploadField';
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { mount } from 'cypress/react';
@@ -21,6 +22,7 @@ declare global {
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
       mountFileUpload(props: IFileUpload): Chainable<void>;
+      mountFileUploadField(props: IFileUploadField): Chainable<IFileUpload>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
     }
