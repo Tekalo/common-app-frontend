@@ -1,6 +1,7 @@
 import {
   COMMITMENT_TEXT,
   CONTACT_OPTION_TEXT,
+  GLOBAL_TEXT,
   ORG_SIZE_LABEL_TEXT,
   PAID_TEXT,
   ROLE_ENUM_TEXT,
@@ -218,7 +219,7 @@ const AuthorizationOptions: Array<ISelectItem> = WorkAuthorization.options.map(
     if (option === '') {
       return {
         value: '',
-        displayText: WORK_AUTHORIZATION_TEXT.noAnswer,
+        displayText: GLOBAL_TEXT.noOptionSelected,
       };
     } else if (option === 'authorized') {
       return {
@@ -299,10 +300,19 @@ const RemoteOptions = openToRemoteMulti.options.map((option) => {
   };
 });
 
-const AttributionOtpions = ReferenceAttribution.options.map((option) => ({
-  value: option,
-  displayText: capitalizeEveryWord(option),
-}));
+const AttributionOtpions = ReferenceAttribution.options.map((option) => {
+  if (option === '') {
+    return {
+      value: '',
+      displayText: GLOBAL_TEXT.noOptionSelected,
+    };
+  } else {
+    return {
+      value: option,
+      displayText: capitalizeEveryWord(option),
+    };
+  }
+});
 
 const OrgTypeOptions = OrgType.options.map((option) => {
   switch (option) {
