@@ -3,6 +3,7 @@ import SignupForm, {
 } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 
 import { OrganizationSignupSelectors as Selectors } from '@/cypress/support/selectors/organization-signup.selectors';
+
 Cypress.Commands.add('mountOrganizationSignupForm', (props: ISignupForm) => {
   return cy.mount(
     <SignupForm handleSubmit={props.handleSubmit} previousForm={undefined} />
