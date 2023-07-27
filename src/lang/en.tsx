@@ -530,7 +530,6 @@ const INTEREST_FORM_TEXT = {
     referenceAttribution: {
       label: 'How did you hear about Tekalo? (optional)',
       placeholder: 'Choose one',
-      noAnswer: 'No option selected',
     },
   },
 };
@@ -836,13 +835,9 @@ const USDR_TEXT = {
   unpaid: 'Volunteer (unpaid) roles with USDR to support government partners',
 };
 const WORK_AUTHORIZATION_TEXT = {
-  noAnswer: 'No option selected',
   authorized: 'I am authorized to work in the U.S.',
   sponsorship:
     'I will now or in the future require sponsorship to work in the U.S.',
-};
-const ATTRIBUTION_TEXT = {
-  noAnswer: 'No option selected',
 };
 const SEARCH_STATUS_TEXT = {
   active: "I'm actively looking for opportunities",
@@ -2143,7 +2138,6 @@ export {
   USDR_TEXT,
   VISA_SPONSOR_TEXT,
   WORK_AUTHORIZATION_TEXT,
-  ATTRIBUTION_TEXT,
   YES_NO_TEXT,
   YOE_OPTION_TEXT,
 };
