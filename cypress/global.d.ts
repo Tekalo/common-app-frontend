@@ -3,7 +3,6 @@
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
-import { IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { mount } from 'cypress/react';
 
 declare global {
@@ -20,8 +19,6 @@ declare global {
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
-      mountOrgSignupForm(props: IOrgSignupForm): Chainable<MountReturn>;
-
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
     }
