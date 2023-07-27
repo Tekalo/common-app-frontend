@@ -129,7 +129,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({
                   <Button
                     variant={ButtonVariant.OUTLINED}
                     label={NAV_BAR_TEXT.MY_ACCOUNT}
-                    iconBefore={
+                    prefixedIcon={
                       (
                         <UserCircleIcon className="w-6" />
                       ) as unknown as IconType

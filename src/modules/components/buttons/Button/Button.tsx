@@ -8,8 +8,8 @@ export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   label: string;
   disabled?: boolean;
   href?: string;
-  iconBefore?: IconType;
-  iconAfter?: IconType;
+  prefixedIcon?: IconType;
+  affixedIcon?: IconType;
   name?: string;
   onClick?: () => void;
   variant?: ButtonVariant;
@@ -20,8 +20,8 @@ const Button: React.FC<IButton> = ({
   className,
   disabled,
   href,
-  iconBefore,
-  iconAfter,
+  prefixedIcon,
+  affixedIcon,
   name,
   onClick,
   type,
@@ -58,9 +58,9 @@ const Button: React.FC<IButton> = ({
   return href ? (
     <a id={name} type={type} href={href} className={btnStyles}>
       <>
-        {iconBefore ? <>{iconBefore}</> : null}
+        {prefixedIcon ? <>{prefixedIcon}</> : null}
         {<div>{label}</div>}
-        {iconAfter ? <>{iconAfter}</> : null}
+        {affixedIcon ? <>{affixedIcon}</> : null}
       </>
     </a>
   ) : (
@@ -72,9 +72,9 @@ const Button: React.FC<IButton> = ({
       className={btnStyles}
     >
       <>
-        {iconBefore ? <>{iconBefore}</> : null}
+        {prefixedIcon ? <>{prefixedIcon}</> : null}
         {<div>{label}</div>}
-        {iconAfter ? <>{iconAfter}</> : null}
+        {affixedIcon ? <>{affixedIcon}</> : null}
       </>
     </button>
   );
