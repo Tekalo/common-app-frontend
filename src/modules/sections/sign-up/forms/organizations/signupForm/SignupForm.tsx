@@ -9,8 +9,8 @@ import {
 import {
   Causes,
   CommitmentType,
-  EOE,
   Email,
+  EOE,
   OptionalPhoneNumber,
   OrgSize,
   OrgType,
@@ -22,6 +22,7 @@ import Button from '@/components/buttons/Button/Button';
 import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
@@ -50,7 +51,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
         handleSubmit(values);
       }}
     >
-      {({ isSubmitted, submit, getFieldValue }) => (
+      {({ isSubmitted, submit, getFieldValue, errors }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -200,6 +201,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           {/* Form Control Button*/}
           <div className="pt-2">
             <Button
+              disabled={hasLengthError(errors)}
               className="w-full text-component-large"
               label={ORG_SIGNUP_FORM_TEXT.BUTTONS.submit.label}
               type="submit"

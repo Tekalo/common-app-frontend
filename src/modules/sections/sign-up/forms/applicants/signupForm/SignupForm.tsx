@@ -10,6 +10,7 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -17,10 +18,10 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import { NewCandidateType } from '@/lib/types';
@@ -123,7 +124,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           handleSubmit(values, turnstileToken);
         }}
       >
-        {({ isValid, isSubmitted, submit }) => (
+        {({ isValid, isSubmitted, submit, errors }) => (
           <form
             className="flex flex-col space-y-8"
             onSubmit={async (e) => {
@@ -278,7 +279,7 @@ const SignupForm: React.FC<ISignupForm> = ({
               className="mt-10 w-full lg:mt-14"
               label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
               type="submit"
-              disabled={isSubmitted && !isValid}
+              disabled={(isSubmitted && !isValid) || hasLengthError(errors)}
             />
           </form>
         )}
