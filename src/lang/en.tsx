@@ -3,6 +3,11 @@ import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
 
+// GLOBAL TEXT CONSTANTS
+const GLOBAL_TEXT = {
+  noOptionSelected: 'No option selected',
+};
+
 // META
 const META = {
   ALT_TEXT: 'Tekalo: Match to what matters; build a better world.',
@@ -846,7 +851,6 @@ const USDR_TEXT = {
   unpaid: 'Volunteer (unpaid) roles with USDR to support government partners',
 };
 const WORK_AUTHORIZATION_TEXT = {
-  noAnswer: 'No option selected',
   authorized: 'I am authorized to work in the U.S.',
   sponsorship:
     'I will now or in the future require sponsorship to work in the U.S.',
@@ -1062,6 +1066,7 @@ const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'sponsorship',
 ];
 const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '',
   'linkedIn',
   'other social media',
   'partner organization - all tech is human',
@@ -1069,7 +1074,6 @@ const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'partner organization - USDR',
   'career fair or other event',
   'other',
-  '',
 ];
 const CONTACT_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'email',
@@ -2097,6 +2101,8 @@ const TERMS_TEXT = {
   ),
 };
 
+// GLOBALS
+export { GLOBAL_TEXT };
 export { COOKIE_CONSENT };
 // META
 export { META, TRACKING };
