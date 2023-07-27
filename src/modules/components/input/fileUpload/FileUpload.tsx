@@ -14,7 +14,7 @@ enum FileUploadState {
   UPLOAD_COMPLETE,
 }
 
-interface IFileUpload {
+export interface IFileUpload {
   id: string;
   initialValue: string | undefined;
   label: string;
@@ -46,7 +46,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   );
   const [uploadedFileId, setUploadedFileId] = useState<string>('');
 
-  const uploadButtonId = `upload-button-${id}`;
+  const uploadInputId = `upload-button-${id}`;
   const fiveMB = 5242880;
 
   const errorHandler = () => {
@@ -107,12 +107,13 @@ const FileUpload: React.FC<IFileUpload> = ({
   };
 
   const clearUploadInput = () => {
-    (document.getElementById(uploadButtonId) as HTMLInputElement).value = '';
+    (document.getElementById(uploadInputId) as HTMLInputElement).value = '';
   };
 
   const getActionSection = (): JSX.Element => {
     const uploadFileButton = (
       <Button
+        name="upload-file-button"
         label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.selectFileBtn}
         variant={ButtonVariant.OUTLINED}
         className="h-10 max-h-[40px] min-w-[115px]"
@@ -122,13 +123,14 @@ const FileUpload: React.FC<IFileUpload> = ({
           uploadState === FileUploadState.REMOVING
         }
         onClick={() => {
-          document.getElementById(uploadButtonId)?.click();
+          document.getElementById(uploadInputId)?.click();
         }}
       ></Button>
     );
 
     const removeFileBtn = (
       <button
+        data-name="remove-file-button"
         className="flex cursor-pointer items-center"
         onClick={removeUploadedFile}
         type="button"
@@ -161,7 +163,9 @@ const FileUpload: React.FC<IFileUpload> = ({
     );
 
     const supportedFormatMessage = (
-      <>{APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.supportedFormats}</>
+      <span data-name="file-format-message">
+        {APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.supportedFormats}
+      </span>
     );
 
     const fileInfoColor =
@@ -206,14 +210,17 @@ const FileUpload: React.FC<IFileUpload> = ({
       </label>
 
       <div data-name="file-uploader" className="flex min-h-[40px] items-center">
-        <div className="mr-4 flex-1 overflow-hidden text-component-small text-black-text">
+        <div
+          data-name="description-section"
+          className="mr-4 flex-1 overflow-hidden text-component-small text-black-text"
+        >
           {getDescriptionSection()}
         </div>
         {getActionSection()}
       </div>
 
       <input
-        id={uploadButtonId}
+        id={uploadInputId}
         accept=".pdf,.docx,.png,.jpeg,.jpg"
         multiple={false}
         type="file"

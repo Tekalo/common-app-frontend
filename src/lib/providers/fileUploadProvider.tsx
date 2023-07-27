@@ -9,7 +9,7 @@ interface IFileDeletionResponse {
   ok: boolean;
 }
 
-interface IFileUploadContext {
+export interface IFileUploadContext {
   deleteFile: (id: string) => Promise<IFileDeletionResponse>;
   uploadFile: (file: File) => Promise<IFileUploadResponse>;
 }
