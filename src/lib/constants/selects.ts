@@ -1,7 +1,7 @@
 import {
-  ATTRIBUTION_TEXT,
   COMMITMENT_TEXT,
   CONTACT_OPTION_TEXT,
+  GLOBAL_TEXT,
   ORG_SIZE_LABEL_TEXT,
   PAID_TEXT,
   ROLE_ENUM_TEXT,
@@ -219,7 +219,7 @@ const AuthorizationOptions: Array<ISelectItem> = WorkAuthorization.options.map(
     if (option === '') {
       return {
         value: '',
-        displayText: WORK_AUTHORIZATION_TEXT.noAnswer,
+        displayText: GLOBAL_TEXT.noOptionSelected,
       };
     } else if (option === 'authorized') {
       return {
@@ -304,7 +304,7 @@ const AttributionOtpions = ReferenceAttribution.options.map((option) => {
   if (option === '') {
     return {
       value: '',
-      displayText: ATTRIBUTION_TEXT.noAnswer,
+      displayText: GLOBAL_TEXT.noOptionSelected,
     };
   } else {
     return {

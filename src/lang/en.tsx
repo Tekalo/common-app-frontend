@@ -3,6 +3,11 @@ import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
 
+// GLOBAL TEXT CONSTANTS
+const GLOBAL_TEXT = {
+  noOptionSelected: 'No option selected',
+};
+
 // META
 const META = {
   ALT_TEXT: 'Tekalo: Match to what matters; build a better world.',
@@ -2085,6 +2090,8 @@ const TERMS_TEXT = {
   ),
 };
 
+// GLOBALS
+export { GLOBAL_TEXT };
 export { COOKIE_CONSENT };
 // META
 export { META, TRACKING };
