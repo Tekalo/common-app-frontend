@@ -367,7 +367,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}
             initialValue={
-              savedForm ? savedForm.referenceAttribution?.toString() : ''
+              savedForm ? savedForm.referenceAttribution?.toString() : undefined
             }
             validator={ReferenceAttribution}
           />
