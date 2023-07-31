@@ -64,8 +64,6 @@ describe('Applicant <InterestForm />', () => {
 
     it('renders all fields including work arrangement when part time selected and not referenceAttributionOther', () => {
       cy.mountInterestForm(props);
-      // TODO select part time
-
       // Fields
       cy.get(Selectors.employmentType.fullTime).should('exist');
       cy.get(Selectors.employmentType.partTime).should('exist').click();
@@ -94,7 +92,6 @@ describe('Applicant <InterestForm />', () => {
 
     it('renders all fields including work arrangement when part time selected and referenceAttributionOther when referenceAttribution is "Other"', () => {
       cy.mountInterestForm(props);
-      // TODO
       // Fields
       cy.get(Selectors.employmentType.fullTime).should('exist');
       cy.get(Selectors.employmentType.partTime).should('exist');
