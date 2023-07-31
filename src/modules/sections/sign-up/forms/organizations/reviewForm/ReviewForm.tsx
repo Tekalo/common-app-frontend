@@ -10,6 +10,7 @@ import {
 import { PrivacyPolicy } from '@/lib/enums';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import { NewOrgType, NewRoleType } from '@/lib/types';
@@ -113,7 +114,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
             handleSubmit(values.acceptedPrivacy, turnstileToken);
           }}
         >
-          {({ isValid, isSubmitted, submit }) => (
+          {({ isValid, isSubmitted, submit, errors }) => (
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
@@ -171,7 +172,7 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
                   className="mt-10 w-full flex-none md:w-auto md:px-36 lg:mt-14"
                   label={REVIEW_FORM_TEXT.BUTTONS.submit.label}
                   name="submit-org-form"
-                  disabled={isSubmitted && !isValid}
+                  disabled={(isSubmitted && !isValid) || hasLengthError(errors)}
                   type="submit"
                 />
               </div>

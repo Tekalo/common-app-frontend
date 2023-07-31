@@ -2,6 +2,7 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
   COMMITMENT_ENUM_TEXT,
   EMPLOYMENT_TYPE_TEXT,
+  GENERAL_FORM_TEXT_CONSTANTS,
   INTEREST_FORM_TEXT,
   ROLE_ENUM_TEXT,
 } from '@/lang/en';
@@ -34,6 +35,7 @@ import {
 } from '@/lib/enums';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
   mapBoolToString,
   mapStringToBool,
@@ -124,7 +126,7 @@ const InterestForm: React.FC<IInterestForm> = ({
       onSubmit={(values) => doSubmit(values)}
       ref={formRef}
     >
-      {({ isSubmitted, submit }) => (
+      {({ isSubmitted, submit, value, errors }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -366,13 +368,30 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={AttributionOtpions}
             isSubmitted={isSubmitted}
             initialValue={
-              savedForm ? savedForm.referenceAttribution?.toString() : ''
+              savedForm ? savedForm.referenceAttribution?.toString() : undefined
             }
             validator={ReferenceAttribution}
           />
+
+          {value.referenceAttribution === 'other' && (
+            <FreeTextField
+              fieldName="referenceAttributionOther"
+              label={GENERAL_FORM_TEXT_CONSTANTS.referenceOptional.label}
+              placeholder={
+                GENERAL_FORM_TEXT_CONSTANTS.referenceOptional.placeholder
+              }
+              isSubmitted={isSubmitted}
+              initialValue={
+                savedForm
+                  ? savedForm.referenceAttributionOther?.toString()
+                  : undefined
+              }
+            />
+          )}
           {/* Form Control Buttons */}
           <div className="pt-2">
             <Button
+              disabled={hasLengthError(errors)}
               className="w-full text-component-large"
               label={INTEREST_FORM_TEXT.BUTTONS.save.label}
               type="button"
@@ -381,6 +400,7 @@ const InterestForm: React.FC<IInterestForm> = ({
               onClick={doSave}
             />
             <Button
+              disabled={hasLengthError(errors)}
               className="mt-4 w-full text-component-large"
               label={INTEREST_FORM_TEXT.BUTTONS.submit.label}
               name="candidate-application-submit"

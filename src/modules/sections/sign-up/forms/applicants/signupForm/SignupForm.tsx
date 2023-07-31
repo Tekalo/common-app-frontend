@@ -10,6 +10,7 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
+  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -17,16 +18,17 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
-  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import { NewCandidateType } from '@/lib/types';
 import {
   BooleanField,
   FreeTextField,
+  PhoneNumberField,
   RadioGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
@@ -122,7 +124,7 @@ const SignupForm: React.FC<ISignupForm> = ({
           handleSubmit(values, turnstileToken);
         }}
       >
-        {({ isValid, isSubmitted, submit }) => (
+        {({ isValid, isSubmitted, submit, errors }) => (
           <form
             className="flex flex-col space-y-8"
             onSubmit={async (e) => {
@@ -203,7 +205,7 @@ const SignupForm: React.FC<ISignupForm> = ({
               validator={PreferredContact}
             />
             {/* Phone Number */}
-            <FreeTextField
+            <PhoneNumberField
               listenTo={['preferredContact']}
               fieldName="phone"
               tooltipText={APPLICANT_FORM_TEXT.FIELDS.phone.tooltipText}
@@ -277,7 +279,7 @@ const SignupForm: React.FC<ISignupForm> = ({
               className="mt-10 w-full lg:mt-14"
               label={APPLICANT_FORM_TEXT.BUTTONS.submit.label}
               type="submit"
-              disabled={isSubmitted && !isValid}
+              disabled={(isSubmitted && !isValid) || hasLengthError(errors)}
             />
           </form>
         )}

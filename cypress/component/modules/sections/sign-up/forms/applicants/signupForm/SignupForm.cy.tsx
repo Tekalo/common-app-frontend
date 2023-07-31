@@ -29,7 +29,7 @@ describe('<SignupForm />', () => {
   const name = 'Test Name';
   const email = 'test-email@schmidtfutures.com';
   const pronoun = 'they/them';
-  const phone = '+18101110001';
+  const phone = '8101110001';
   const voidFn = () => void {};
 
   describe('debug', () => {
@@ -205,7 +205,7 @@ describe('<SignupForm />', () => {
           email,
           followUpOptIn: true,
           name,
-          phone,
+          phone: `1${phone}`,
           preferredContact: CONTACT_ENUM_OPTIONS[1],
           pronoun,
           searchStatus: SEARCH_STATUS_ENUM_OPTIONS[1],
@@ -238,7 +238,7 @@ describe('<SignupForm />', () => {
           email,
           followUpOptIn: true,
           name,
-          phone,
+          phone: `1${phone}`,
           preferredContact: CONTACT_ENUM_OPTIONS[2],
           pronoun,
           searchStatus: SEARCH_STATUS_ENUM_OPTIONS[2],

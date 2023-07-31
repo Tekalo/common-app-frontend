@@ -20,10 +20,19 @@ import {
   YOE_RANGE_ENUM_OPTIONS,
 } from '@/lang/en';
 import { FormInstance } from 'houseform';
-import { z } from 'zod';
+import { z, ZodString } from 'zod';
 
 /** Helpers
  */
+
+export const maxLengthString = (len: number): ZodString =>
+  z
+    .string({
+      errorMap: () => ({
+        message: ERROR_TEXT.unknownError,
+      }),
+    })
+    .max(len, ERROR_TEXT.lengthError.replace('{{CHAR_LIMIT}}', `${len}`));
 
 const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
   const errorMsg =
@@ -69,18 +78,11 @@ const EOE = z.literal(true, {
   }),
 });
 
-const RequiredEssay = z.string().nonempty(ERROR_TEXT.required).max(5000);
-const OptionalEssay = z
-  .string({
-    errorMap: () => ({
-      message: ERROR_TEXT.unknownError,
-    }),
-  })
-  .max(5000)
-  .optional();
-const RequiredString = z.string().nonempty(ERROR_TEXT.required).max(255);
-const OptionalString = z.string().max(255).optional();
-
+const RequiredEssay = maxLengthString(5000).nonempty(ERROR_TEXT.required);
+const OptionalEssay = maxLengthString(5000).optional();
+const RequiredString = maxLengthString(255).nonempty(ERROR_TEXT.required);
+const OptionalString = maxLengthString(255).optional();
+const OptionalLongString = maxLengthString(500).optional();
 const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
   message: ERROR_TEXT.interestCauses,
 });
@@ -179,7 +181,7 @@ const SearchStatus = z.enum(SEARCH_STATUS_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const phoneRegex = /^\+(?:[0-9] ?){6,14}[0-9]$/g;
+const phoneRegex = /^(?:[0-9] ?){6,14}[0-9]$/g;
 
 const PhoneNumber = z.string().refine((phoneNumber: string) => {
   return new RegExp(phoneRegex, 'g').test(phoneNumber);
@@ -231,6 +233,7 @@ export {
   OpenToRelocate,
   OptionalDate,
   OptionalEssay,
+  OptionalLongString,
   OptionalPhoneNumber,
   OptionalString,
   OptionalStringArr,

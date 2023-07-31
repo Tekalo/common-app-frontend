@@ -14,6 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import '@/styles/globals.css';
 import '@cypress/code-coverage/support';
 import { mount } from 'cypress/react18';
 
