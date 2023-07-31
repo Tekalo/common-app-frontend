@@ -39,7 +39,7 @@ export const CandidateInterestSelectors = {
     },
   },
   location: {
-    input: 'button[name="input-currentLocation"]',
+    input: 'input[name="input-currentLocation"]',
   },
   relocation: {
     input: 'button[name="input-openToRelocate"]',
