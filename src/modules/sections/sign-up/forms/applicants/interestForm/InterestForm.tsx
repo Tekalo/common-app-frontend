@@ -381,11 +381,7 @@ const InterestForm: React.FC<IInterestForm> = ({
                 GENERAL_FORM_TEXT_CONSTANTS.referenceOptional.placeholder
               }
               isSubmitted={isSubmitted}
-              initialValue={
-                savedForm
-                  ? savedForm.referenceAttributionOther?.toString()
-                  : undefined
-              }
+              initialValue={''}
             />
           )}
           {/* Form Control Buttons */}

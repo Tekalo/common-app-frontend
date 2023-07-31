@@ -106,7 +106,6 @@ const CandidateInterestsSchema = z.object({
   previousImpactExperience: z.boolean(),
   essayResponse: maxLengthString(5000),
   referenceAttribution: ReferenceAttribution.nullable().optional(),
-  referenceAttributionOther: maxLengthString(2048).nullable().optional(),
 });
 
 const CandidateDraftSchema = CandidateExperienceSchema.merge(
