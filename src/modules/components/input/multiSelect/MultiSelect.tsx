@@ -109,6 +109,7 @@ const MultiSelect: React.FC<IMultiSelect> = ({
               leave="transition duration-100 ease-out"
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
+              className={`${open ? 'relative z-10' : null}`}
             >
               <Listbox.Options
                 data-name="list-options"

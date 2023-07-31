@@ -10,8 +10,8 @@ import {
   RoleOptions,
   SkillOptions,
   VisaSponsorshipOptions,
-  YOERangeOptions,
   YesNoOptions,
+  YOERangeOptions,
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -27,6 +27,7 @@ import {
 } from '@/lib/enums';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import {
@@ -134,7 +135,7 @@ const RoleForm: React.FC<IRoleForm> = ({
       key={activeIndex}
       ref={formRef}
     >
-      {({ isSubmitted, isValid, submit, value: formValue }) => {
+      {({ isSubmitted, isValid, submit, value: formValue, errors }) => {
         const isPaid = formValue.paid;
         const employmentType = formValue.employmentTypeSelect;
         const showEndDateField =
@@ -399,7 +400,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 className="mt-4 w-full text-component-large"
                 label={ORG_ROLE_FORM_TEXT.BUTTONS.addRole.label}
                 variant={ButtonVariant.OUTLINED}
-                disabled={activeIndex >= 3}
+                disabled={activeIndex >= 3 || hasLengthError(errors)}
                 onClick={() => {
                   submit().then(() => {
                     jumpToFirstErrorMessage();
@@ -407,6 +408,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 }}
               />
               <Button
+                disabled={hasLengthError(errors)}
                 name="review"
                 className="mt-4 w-full text-component-large"
                 label={ORG_ROLE_FORM_TEXT.BUTTONS.review.label}

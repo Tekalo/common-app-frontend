@@ -3,6 +3,10 @@ import { BasisTableData, ContentTableData, IFaqItem } from '@/lib/types';
 import BasisTable from '@/modules/components/tables/BasisTable/BasisTable';
 import Link from 'next/link';
 
+// GLOBAL TEXT CONSTANTS
+const GLOBAL_TEXT = {
+  noOptionSelected: 'No option selected',
+};
 // META
 const META = {
   ALT_TEXT: 'Tekalo: Match to what matters; build a better world.',
@@ -354,6 +358,12 @@ const RESUME_MODAL = {
 };
 
 /** FORM TEXT CONSTANTS */
+const GENERAL_FORM_TEXT_CONSTANTS = {
+  referenceOptional: {
+    label: 'If you chose other, please specify (optional)',
+    placeholder: 'How did you hear about Tekalo?',
+  },
+};
 const APPLICANT_FORM_TEXT = {
   HEADER: 'Join a network of impact-driven organizations to find your match.',
   NAVAWAY: 'Already have an account? ',
@@ -399,7 +409,7 @@ const APPLICANT_FORM_TEXT = {
     phone: {
       label: 'Phone number',
       labelOptional: 'Phone number (optional)',
-      placeholder: '+1 555 555 5555',
+      placeholder: '+1 (555) 555-5555',
       tooltipText:
         "If you prefer not to share your phone number, choose email as your preferred contact method. If provided, your number will be used to contact you about your application. It won't be used for marketing unless you opt in below.",
     },
@@ -830,7 +840,6 @@ const USDR_TEXT = {
   unpaid: 'Volunteer (unpaid) roles with USDR to support government partners',
 };
 const WORK_AUTHORIZATION_TEXT = {
-  noAnswer: 'No option selected',
   authorized: 'I am authorized to work in the U.S.',
   sponsorship:
     'I will now or in the future require sponsorship to work in the U.S.',
@@ -868,8 +877,7 @@ const ERROR_TEXT = {
   interestRoles: 'You must select at least one role',
   invalidDate: 'Invalid date',
   invalidEmail: 'This must be a valid email address',
-  invalidPhone:
-    "This must be a valid phone number that includes the country code; please use only '+', numbers, and spaces",
+  invalidPhone: 'This must be a valid phone number',
   notFoundCode: '404',
   notFoundText: "Sorry, we couldn't find this page.",
   orgRequired: 'Organization is required',
@@ -883,6 +891,7 @@ const ERROR_TEXT = {
   unhandledText: 'Oops something went wrong. Please try again later.',
   unknownError: 'An unknown error has occurred',
   userAlreadyExists: 'This account already exists, please sign in',
+  lengthError: 'Cannot be over {{CHAR_LIMIT}} characters',
 };
 
 /** ENUM TEXT CONSTANTS */
@@ -1046,6 +1055,7 @@ const WORKAUTH_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'sponsorship',
 ];
 const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
+  '',
   'linkedIn',
   'other social media',
   'partner organization - all tech is human',
@@ -1053,7 +1063,6 @@ const REF_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'partner organization - USDR',
   'career fair or other event',
   'other',
-  '',
 ];
 const CONTACT_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'email',
@@ -2081,6 +2090,8 @@ const TERMS_TEXT = {
   ),
 };
 
+// GLOBALS
+export { GLOBAL_TEXT };
 export { COOKIE_CONSENT };
 // META
 export { META, TRACKING };
@@ -2178,6 +2189,7 @@ export {
 export { ACCOUNT_PAGE_TEXT };
 // FORM EXPORTS
 export {
+  GENERAL_FORM_TEXT_CONSTANTS,
   APPLICANT_EXPERIENCE_FORM_TEXT,
   APPLICANT_FORM_TEXT,
   INTEREST_FORM_TEXT,

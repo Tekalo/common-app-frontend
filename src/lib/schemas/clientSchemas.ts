@@ -3,6 +3,7 @@ import {
   CommitmentType,
   EmploymentType,
   GovtJobType,
+  maxLengthString,
   OpenToRelocate,
   openToRemoteMulti,
   OrgSize,
@@ -23,50 +24,50 @@ import { z } from 'zod';
  */
 const NewOrgSchema = z.object({
   commitmentTypes: z.array(CommitmentType),
-  referenceAttribution: z.string().optional(),
-  referenceAttributionOther: z.string().optional(),
+  referenceAttribution: maxLengthString(2048).optional(),
+  referenceAttributionOther: maxLengthString(2048).optional(),
   organization: z.object({
-    name: z.string().max(255),
+    name: maxLengthString(255),
     type: OrgType,
     size: OrgSize,
     impactAreas: Causes.array(),
     eoe: z.boolean(),
   }),
   contact: z.object({
-    name: z.string().max(255),
-    email: z.string().max(255).email(),
-    phone: z.string().max(255).optional(),
+    name: maxLengthString(255),
+    email: maxLengthString(255).email(),
+    phone: maxLengthString(255).optional(),
   }),
 });
 
 const NewRoleSchema = z.object({
   roleType: Roles,
-  positionTitle: z.string().max(255),
+  positionTitle: maxLengthString(255),
   fullyRemote: z.boolean(),
-  location: z.string(),
+  location: maxLengthString(255),
   paid: z.boolean(),
-  pitchEssay: z.string().max(5000),
-  employmentType: z.string().max(255),
-  source: z.string(),
-  salaryRange: z.string().max(255),
-  desiredHoursPerWeek: z.string().max(255).optional(),
-  desiredStartDate: z.string().optional(),
-  desiredEndDate: z.string().optional(),
-  jdUrl: z.string().url().max(500).optional(),
+  pitchEssay: maxLengthString(5000),
+  employmentType: maxLengthString(255),
+  source: maxLengthString(2048),
+  salaryRange: maxLengthString(255),
+  desiredHoursPerWeek: maxLengthString(255).optional(),
+  desiredStartDate: maxLengthString(2048).optional(),
+  desiredEndDate: maxLengthString(2048).optional(),
+  jdUrl: maxLengthString(500).url().optional(),
   desiredYoe: z.array(YOE_RANGE).optional(),
   desiredSkills: z.array(Skills).optional(),
-  desiredOtherSkills: z.string().max(255).array().optional(),
+  desiredOtherSkills: maxLengthString(255).array().optional(),
   visaSponsorship: VisaSponsorship.optional(),
   similarStaffed: z.boolean(),
-  desiredImpactExp: z.string().max(5000).optional(),
+  desiredImpactExp: maxLengthString(5000).optional(),
 });
 
 /** Candidate Schemas
  */
 const NewCandidateSchema = z.object({
-  name: z.string().max(255),
-  email: z.string().email().max(255),
-  pronoun: z.string().max(255).optional(),
+  name: maxLengthString(255),
+  email: maxLengthString(255),
+  pronoun: maxLengthString(255).optional(),
   preferredContact: PreferredContact,
   searchStatus: SearchStatus,
   acceptedTerms: z.literal(true),
@@ -75,35 +76,35 @@ const NewCandidateSchema = z.object({
 });
 
 const CandidateExperienceSchema = z.object({
-  lastRole: z.string(),
-  lastOrg: z.string(),
+  lastRole: maxLengthString(255),
+  lastOrg: maxLengthString(255),
   yoe: YOE,
   skills: z.array(Skills),
-  otherSkills: z.array(z.string()),
-  linkedInUrl: z.string().url().nullable().optional(),
-  githubUrl: z.string().url().nullable().optional(),
-  portfolioUrl: z.string().url().nullable().optional(),
-  portfolioPassword: z.string().nullable().optional(),
-  resumeUrl: z.string().url(),
-  resumePassword: z.string().nullable().optional(),
+  otherSkills: z.array(maxLengthString(255)),
+  linkedInUrl: maxLengthString(500).url().nullable().optional(),
+  githubUrl: maxLengthString(500).url().nullable().optional(),
+  portfolioUrl: maxLengthString(500).url().nullable().optional(),
+  portfolioPassword: maxLengthString(255).nullable().optional(),
+  resumeUrl: maxLengthString(500).url(),
+  resumePassword: maxLengthString(255).nullable().optional(),
 });
 
 const CandidateInterestsSchema = z.object({
-  hoursPerWeek: z.string().nullable().optional(),
+  hoursPerWeek: maxLengthString(255).nullable().optional(),
   interestWorkArrangement: z.array(EmploymentType),
   interestEmploymentType: z.array(CommitmentType),
   interestRoles: z.array(Roles), // keep this as non-zod-enum?
-  currentLocation: z.string(),
+  currentLocation: maxLengthString(255),
   openToRelocate: OpenToRelocate,
   openToRemoteMulti: z.array(openToRemoteMulti),
-  desiredSalary: z.string().nullable().optional(),
-  interestCauses: z.array(z.string()), // order matters
-  otherCauses: z.array(z.string()).nullable().optional(),
+  desiredSalary: maxLengthString(255).nullable().optional(),
+  interestCauses: z.array(maxLengthString(255)), // order matters
+  otherCauses: z.array(maxLengthString(255)).nullable().optional(),
   workAuthorization: WorkAuthorization,
   interestGovt: z.boolean(),
   interestGovtEmplTypes: z.array(GovtJobType).optional(),
   previousImpactExperience: z.boolean(),
-  essayResponse: z.string(),
+  essayResponse: maxLengthString(5000),
   referenceAttribution: ReferenceAttribution.nullable().optional(),
 });
 

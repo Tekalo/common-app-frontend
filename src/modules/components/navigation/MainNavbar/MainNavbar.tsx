@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
-import Button from '@/components/buttons/Button/Button';
+import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK, NAV_BAR_TEXT } from '@/lang/en';
+import { IconType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -124,15 +126,27 @@ const MainNavbar: React.FC<IMainNavbar> = ({
                   {logInOutLabel}
                 </div>
                 {isAuthenticated ? (
-                  <div className="cursor-pointer py-3 text-component-large text-black-text">
-                    <Link href={ACCOUNT_LINK}>{NAV_BAR_TEXT.MY_ACCOUNT}</Link>
-                  </div>
+                  <Link href={ACCOUNT_LINK}>
+                    <Button
+                      variant={ButtonVariant.OUTLINED}
+                      label={NAV_BAR_TEXT.MY_ACCOUNT}
+                      prefixedIcon={
+                        (
+                          <UserCircleIcon className="w-6" />
+                        ) as unknown as IconType
+                      }
+                      className="flex cursor-pointer items-center justify-center space-x-1 px-4 py-2 font-sans text-component-large md:px-6 md:py-3"
+                    >
+                      {NAV_BAR_TEXT.MY_ACCOUNT}
+                    </Button>
+                  </Link>
                 ) : (
-                  <Button
-                    href={APPLICANT_SIGNUP_LINK}
-                    className="px-4 py-2 md:px-8 md:py-3"
-                    label={NAV_BAR_TEXT.GET_STARTED_CTA}
-                  />
+                  <Link href={APPLICANT_SIGNUP_LINK}>
+                    <Button
+                      className="px-4 py-2 md:px-8 md:py-3"
+                      label={NAV_BAR_TEXT.GET_STARTED_CTA}
+                    />
+                  </Link>
                 )}
                 {/* Mobile Menu Button */}
                 <div className="flex items-center sm:mr-0 md:hidden">

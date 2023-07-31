@@ -9,8 +9,8 @@ import {
 import {
   Causes,
   CommitmentType,
-  EOE,
   Email,
+  EOE,
   OptionalPhoneNumber,
   OrgSize,
   OrgType,
@@ -22,12 +22,14 @@ import Button from '@/components/buttons/Button/Button';
 import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
 import {
   executeScroll,
+  hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
 import {
   FreeTextField,
   MultiSelectField,
+  PhoneNumberField,
   SelectBooleanField,
   SelectGroupField,
   SingleSelectField,
@@ -49,7 +51,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
         handleSubmit(values);
       }}
     >
-      {({ isSubmitted, submit, getFieldValue }) => (
+      {({ isSubmitted, submit, getFieldValue, value, errors }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -135,7 +137,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           />
 
           {/* Contact number */}
-          <FreeTextField
+          <PhoneNumberField
             fieldName="contact.phone"
             label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgContactPhone.label}
             placeholder={
@@ -186,19 +188,22 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             validator={ReferenceAttribution}
           />
 
-          <FreeTextField
-            fieldName="referenceAttributionOther"
-            label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.label}
-            placeholder={
-              ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.placeholder
-            }
-            isSubmitted={isSubmitted}
-            initialValue={''}
-          />
+          {value.referenceAttribution === 'other' && (
+            <FreeTextField
+              fieldName="referenceAttributionOther"
+              label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.label}
+              placeholder={
+                ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.placeholder
+              }
+              isSubmitted={isSubmitted}
+              initialValue={''}
+            />
+          )}
 
           {/* Form Control Button*/}
           <div className="pt-2">
             <Button
+              disabled={hasLengthError(errors)}
               className="w-full text-component-large"
               label={ORG_SIGNUP_FORM_TEXT.BUTTONS.submit.label}
               type="submit"
