@@ -8,8 +8,6 @@ import Image from 'next/image';
 
 export interface IHeroSection {}
 
-// TODO: Replace images with next/image --> figure out cloudflare + next/image
-
 const HeroSection: React.FC<IHeroSection> = () => {
   return (
     <div className="bg-light-blue px-6 pb-10 pt-6 md:px-24 md:pb-20 md:pt-16 lg:pt-24">
