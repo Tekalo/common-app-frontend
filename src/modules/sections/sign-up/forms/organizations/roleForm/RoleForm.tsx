@@ -29,6 +29,7 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
+  mapYOEHelper,
 } from '@/lib/helpers/formHelpers';
 import {
   CommitmentType,
@@ -85,35 +86,6 @@ const getEmploymentOptions = (isPaid = true, isPartTime: boolean) => {
   } else {
     return EmploymentOptions;
   }
-};
-
-/** YOE Transition Helper
- * maps previous YOE to the correct YOE range. Temporary until we can get the
- * backend to return the correct YOE range at all times.
- *
- * TODO: REMOVE ME WHEN BACKEND IS FIXED
- * TODO: Write a test to validate I work like you think I do ;)
- */
-const mapYOEHelper = (yoe_array: string[] | undefined) => {
-  if (yoe_array) {
-    yoe_array.forEach((yoe) => {
-      if (yoe === '0-2') {
-        return '0-2';
-      } else if (yoe === '2-4' || yoe === '3-5') {
-        return '3-5';
-      } else if (yoe === '4-8' || yoe === '6-8') {
-        return '6-8';
-      } else if (yoe === '8-12' || yoe === '9-12') {
-        return '9-12';
-      } else if (yoe === '12-15' || yoe === '13-15') {
-        return '13-15';
-      } else if (yoe === '15+') {
-        return '15+';
-      }
-    });
-    return yoe_array;
-  }
-  return;
 };
 
 const RoleForm: React.FC<IRoleForm> = ({
