@@ -19,10 +19,10 @@ describe('mapYOEHelper', () => {
     expect(expected).eql(['3-5']);
   });
 
-  it('should map 4-8 to 6-8', () => {
+  it('should map 4-8 to 3-5 and 6-8', () => {
     const yoe = ['4-8'];
     const expected = mapYOEHelper(yoe);
-    expect(expected).eql(['6-8']);
+    expect(expected).eql(['3-5', '6-8']);
   });
 
   it('should map 6-8 to 6-8', () => {

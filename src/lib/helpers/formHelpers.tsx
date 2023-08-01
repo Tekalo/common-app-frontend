@@ -155,24 +155,29 @@ export const resetForm = (formRef: RefObject<FormInstance<any>>): void => {
 export const mapYOEHelper = (
   yoe_array: string[] | undefined
 ): string[] | undefined => {
+  const yoeMap: { [key: string]: string[] } = {
+    '0-2': ['0-2'],
+    '2-4': ['3-5'],
+    '3-5': ['3-5'],
+    '4-8': ['3-5', '6-8'],
+    '6-8': ['6-8'],
+    '8-12': ['9-12'],
+    '9-12': ['9-12'],
+    '12-15': ['13-15'],
+    '13-15': ['13-15'],
+    '15+': ['15+'],
+  };
+
   if (yoe_array !== undefined) {
-    const newArr = yoe_array.map((yoe) => {
-      if (yoe === '0-2') {
-        return '0-2';
-      } else if (yoe === '2-4' || yoe === '3-5') {
-        return '3-5';
-      } else if (yoe === '4-8' || yoe === '6-8') {
-        return '6-8';
-      } else if (yoe === '8-12' || yoe === '9-12') {
-        return '9-12';
-      } else if (yoe === '12-15' || yoe === '13-15') {
-        return '13-15';
-      } else if (yoe === '15+') {
-        return '15+';
-      } else {
-        return yoe;
-      }
+    let newArr: string[] = [];
+
+    yoe_array.forEach((yoe) => {
+      const mappedVal = yoeMap[yoe];
+      newArr = newArr.concat(mappedVal);
     });
-    return newArr;
+
+    const deduped = [...new Set(newArr)];
+
+    return deduped;
   }
 };
