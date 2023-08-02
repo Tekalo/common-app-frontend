@@ -25,10 +25,11 @@ const Tooltip: React.FC<ITooltip> = ({ text }) => {
         </div>
         <div
           data-name="tooltip-content"
-          className={`${
-            isHovered ? '' : 'hidden'
-          } tooltip-box absolute ml-6 max-w-[350px] flex-1 rounded-sm bg-illustration-black px-2 py-1 text-component-extra-small text-white shadow
-            after:absolute after:left-0 after:top-[calc(50%-5px)] after:-ml-[10px] after:border-[5px] after:border-solid after:border-[transparent] after:border-r-illustration-black after:content-['']`}
+          className={
+            isHovered
+              ? "tooltip-box absolute z-10 ml-6 max-w-[350px] flex-1 rounded-sm bg-illustration-black px-2 py-1 text-component-extra-small text-white shadow after:absolute after:left-0 after:top-[calc(50%-5px)] after:-ml-[10px] after:border-[5px] after:border-solid after:border-[transparent] after:border-r-illustration-black after:content-['']"
+              : 'hidden'
+          }
         >
           {text}
         </div>
