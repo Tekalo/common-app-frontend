@@ -958,10 +958,10 @@ const YOE_ENUM_OPTIONS: readonly [string, ...string[]] = [
 ];
 const YOE_RANGE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '0-2',
-  '2-4',
-  '4-8',
-  '8-12',
-  '12-15',
+  '3-5',
+  '6-8',
+  '9-12',
+  '13-15',
   '15+',
 ];
 const BOOL_ENUM_OPTIONS: readonly [string, ...string[]] = ['true', 'false'];
