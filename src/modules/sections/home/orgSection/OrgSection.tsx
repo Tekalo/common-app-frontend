@@ -142,7 +142,6 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       src: '/images/logos/ProtectDemocracy.png',
       alt: 'Protect Democracy Logo',
       url: 'https://protectdemocracy.org/',
-
     },
   ];
 
