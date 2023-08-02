@@ -29,7 +29,6 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-  mapYOEHelper,
 } from '@/lib/helpers/formHelpers';
 import {
   CommitmentType,
@@ -336,7 +335,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 }
                 listOptions={YOERangeOptions}
                 isSubmitted={isSubmitted}
-                initialValue={mapYOEHelper(previousForm?.desiredYoe) || []}
+                initialValue={previousForm?.desiredYoe || []}
                 validator={YOE_RANGE.array().min(1, ERROR_TEXT.required)}
               />
               <MultiSelectField
