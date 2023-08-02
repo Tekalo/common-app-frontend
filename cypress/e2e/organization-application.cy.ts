@@ -515,8 +515,8 @@ describe('Organization Application', () => {
     const input = cy.get('button[name=input-desiredYoe');
 
     input.click();
-    cy.get('li[data-name=input-desiredYoe-2-4]').click();
-    cy.get('li[data-name=input-desiredYoe-8-12]').click();
+    cy.get('li[data-name=input-desiredYoe-3-5]').click();
+    cy.get('li[data-name=input-desiredYoe-9-12]').click();
     input.click();
   }
 
