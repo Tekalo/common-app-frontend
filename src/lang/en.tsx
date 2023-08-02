@@ -1022,7 +1022,7 @@ const CAUSE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'international development',
   'economic mobility',
   'education',
-  'health & well being',
+  'health & well-being',
   'immigration',
   'government tech',
   'lgbtqia+ rights',
