@@ -42,6 +42,7 @@ const NewOrgSchema = z.object({
 
 const NewRoleSchema = z.object({
   roleType: Roles,
+  otherRoleType: maxLengthString(2048).optional().nullable(),
   positionTitle: maxLengthString(255),
   fullyRemote: z.boolean(),
   location: maxLengthString(255),
