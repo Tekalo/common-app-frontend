@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 export interface IFileUploadField {
   fieldName: string;
-  initialValue: string | undefined;
+  initialValue: number | undefined;
   label: string;
   showUploadErrorModal: () => void;
   submitted: boolean;
@@ -26,7 +26,7 @@ const FileUploadField: React.FC<IFileUploadField> = ({
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   return (
-    <Field<string>
+    <Field<number>
       initialValue={initialValue}
       onChangeValidate={validator}
       onSubmitValidate={validator}

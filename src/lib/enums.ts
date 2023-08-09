@@ -83,7 +83,7 @@ const OptionalEssay = maxLengthString(5000).optional();
 const RequiredString = maxLengthString(255).nonempty(ERROR_TEXT.required);
 const OptionalString = maxLengthString(255).optional();
 const OptionalLongString = maxLengthString(500).optional();
-const UploadedFileId = z.string().nonempty(ERROR_TEXT.required).max(255);
+const UploadedFileId = z.number();
 
 const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
   message: ERROR_TEXT.interestCauses,

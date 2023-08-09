@@ -16,7 +16,7 @@ enum FileUploadState {
 
 export interface IFileUpload {
   id: string;
-  initialValue: string | undefined;
+  initialValue: number | undefined;
   label: string;
   setFieldErrors: (errs: string[]) => void;
   setValue: (val: number) => void;
