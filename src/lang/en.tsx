@@ -7,7 +7,6 @@ import Link from 'next/link';
 const GLOBAL_TEXT = {
   noOptionSelected: 'No option selected',
 };
-
 // META
 const META = {
   ALT_TEXT: 'Tekalo: Match to what matters; build a better world.',
@@ -274,7 +273,7 @@ const HOME_FAQ_TEXT = {
   APPLICANT_QUESTION_7:
     'I am no longer looking for opportunities at this time. How do I pause further matches?',
   APPLICANT_ANSWER_7:
-    'If you are no longer looking for opportunities, you can log in to your account by clicking "Sign in" at the top of this page, and choose to pause your matches. If you would like to be considered for opportunities again, you can simply sign in and click "resume my matches." If you would like to fully delete your account and data, see the FAQ titled ("How can I delete my account and data?").',
+    'If you are no longer looking for opportunities, you can log in to your account by clicking "Sign in" at the top of this page, and choose to pause your account. If you would like to be considered for opportunities again, you can simply sign in and click "Unpause my matches." If you would like to fully delete your account and data, see the FAQ titled ("How can I delete my account and data?").',
   APPLICANT_QUESTION_8: 'Is Tekalo free?',
   APPLICANT_ANSWER_8:
     'Yes! Tekalo is a free resource. We will never ask you for payment information.',
@@ -301,9 +300,9 @@ const ACCOUNT_PAGE_TEXT = {
     "You're all set. We'll contact you via your preferred method.",
   APP_CONTINUE: 'Continue my application >',
   APP_CONTINUE_BODY: 'Your application has not been submitted yet',
-  APP_OPT_IN_TITLE: 'Opt back in for matches >',
-  APP_OPT_IN_BODY: 'Your matches are paused until you opt back in.',
-  APP_PAUSE_TITLE: 'Pause my matches >',
+  APP_OPT_IN_TITLE: 'Unpause my account >',
+  APP_OPT_IN_BODY: 'Your account is paused until you opt back in.',
+  APP_PAUSE_TITLE: 'Pause my account >',
   APP_PAUSE_BODY:
     "If you're not looking for matches now, we'll stop contacting you until you opt back in.",
   APP_DELETE_TITLE: 'Delete my account and data >',
@@ -350,19 +349,25 @@ const DELETE_MODAL = {
   BODY: 'Are you sure you want to permanently delete your account and data? This may take up to 30 days. Choose "delete account" to start deletion.',
 };
 const PAUSE_MODAL = {
-  CTA_CONFIRM: 'Pause matches',
+  CTA_CONFIRM: 'Pause account',
   CTA_CANCEL: 'Cancel',
-  HEADER: 'Pause your matches',
-  BODY: 'Are you sure you want to pause your matches?',
+  HEADER: 'Pause your account',
+  BODY: 'Are you sure you want to pause your account?',
 };
 const RESUME_MODAL = {
-  CTA_CONFIRM: 'Resume matches',
+  CTA_CONFIRM: 'Unpause account',
   CTA_CANCEL: 'Cancel',
-  HEADER: 'Resume your matches',
-  BODY: 'Are you sure you want to resume your matches?',
+  HEADER: 'Unpause your account',
+  BODY: 'Are you sure you want to unpause your account?',
 };
 
 /** FORM TEXT CONSTANTS */
+const GENERAL_FORM_TEXT_CONSTANTS = {
+  referenceOptional: {
+    label: 'If you chose other, please specify (optional)',
+    placeholder: 'How did you hear about Tekalo?',
+  },
+};
 const APPLICANT_FORM_TEXT = {
   HEADER: 'Join a network of impact-driven organizations to find your match.',
   NAVAWAY: 'Already have an account? ',
@@ -969,10 +974,10 @@ const YOE_ENUM_OPTIONS: readonly [string, ...string[]] = [
 ];
 const YOE_RANGE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '0-2',
-  '2-4',
-  '4-8',
-  '8-12',
-  '12-15',
+  '3-5',
+  '6-8',
+  '9-12',
+  '13-15',
   '15+',
 ];
 const BOOL_ENUM_OPTIONS: readonly [string, ...string[]] = ['true', 'false'];
@@ -1033,7 +1038,7 @@ const CAUSE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   'international development',
   'economic mobility',
   'education',
-  'health & well being',
+  'health & well-being',
   'immigration',
   'government tech',
   'lgbtqia+ rights',
@@ -2200,6 +2205,7 @@ export {
 export { ACCOUNT_PAGE_TEXT };
 // FORM EXPORTS
 export {
+  GENERAL_FORM_TEXT_CONSTANTS,
   APPLICANT_EXPERIENCE_FORM_TEXT,
   APPLICANT_FORM_TEXT,
   INTEREST_FORM_TEXT,

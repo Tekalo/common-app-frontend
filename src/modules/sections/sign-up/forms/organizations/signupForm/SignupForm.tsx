@@ -51,7 +51,7 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
         handleSubmit(values);
       }}
     >
-      {({ isSubmitted, submit, getFieldValue, errors }) => (
+      {({ isSubmitted, submit, getFieldValue, value, errors }) => (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -188,15 +188,17 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
             validator={ReferenceAttribution}
           />
 
-          <FreeTextField
-            fieldName="referenceAttributionOther"
-            label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.label}
-            placeholder={
-              ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.placeholder
-            }
-            isSubmitted={isSubmitted}
-            initialValue={''}
-          />
+          {value.referenceAttribution === 'other' && (
+            <FreeTextField
+              fieldName="referenceAttributionOther"
+              label={ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.label}
+              placeholder={
+                ORG_SIGNUP_FORM_TEXT.FIELDS.referenceOptional.placeholder
+              }
+              isSubmitted={isSubmitted}
+              initialValue={''}
+            />
+          )}
 
           {/* Form Control Button*/}
           <div className="pt-2">

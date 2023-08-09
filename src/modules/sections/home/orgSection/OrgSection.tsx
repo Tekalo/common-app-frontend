@@ -133,6 +133,16 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       alt: 'The Uprooted Way',
       url: 'https://www.uprootedacademy.org/home/',
     },
+    {
+      src: '/images/logos/ChangeMachine.png',
+      alt: 'Change Machine Logo',
+      url: 'https://change-machine.org/',
+    },
+    {
+      src: '/images/logos/ProtectDemocracy.png',
+      alt: 'Protect Democracy Logo',
+      url: 'https://protectdemocracy.org/',
+    },
   ];
 
   const renderLogos = (full = false) => {

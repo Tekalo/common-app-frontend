@@ -64,7 +64,6 @@ const AboutSection: React.FC<IAboutSection> = () => {
                 key={i}
                 className="flex h-10 max-w-[130px] flex-initial items-center overflow-hidden lg:h-16 lg:max-w-[208px]"
               >
-                {/* TODO: Replace images with next/image --> figure out cloudflare + next/image */}
                 <Image
                   key={i}
                   src={logo.src}

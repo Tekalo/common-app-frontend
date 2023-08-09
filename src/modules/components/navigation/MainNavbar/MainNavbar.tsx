@@ -126,24 +126,27 @@ const MainNavbar: React.FC<IMainNavbar> = ({
                   {logInOutLabel}
                 </div>
                 {isAuthenticated ? (
-                  <Button
-                    variant={ButtonVariant.OUTLINED}
-                    label={NAV_BAR_TEXT.MY_ACCOUNT}
-                    prefixedIcon={
-                      (
-                        <UserCircleIcon className="w-6" />
-                      ) as unknown as IconType
-                    }
-                    className="flex cursor-pointer items-center justify-center space-x-1 px-4 py-2 font-sans text-component-large md:px-6 md:py-3"
-                  >
-                    <Link href={ACCOUNT_LINK}>{NAV_BAR_TEXT.MY_ACCOUNT}</Link>
-                  </Button>
+                  <Link href={ACCOUNT_LINK}>
+                    <Button
+                      variant={ButtonVariant.OUTLINED}
+                      label={NAV_BAR_TEXT.MY_ACCOUNT}
+                      prefixedIcon={
+                        (
+                          <UserCircleIcon className="w-6" />
+                        ) as unknown as IconType
+                      }
+                      className="flex cursor-pointer items-center justify-center space-x-1 px-4 py-2 font-sans text-component-large md:px-6 md:py-3"
+                    >
+                      {NAV_BAR_TEXT.MY_ACCOUNT}
+                    </Button>
+                  </Link>
                 ) : (
-                  <Button
-                    href={APPLICANT_SIGNUP_LINK}
-                    className="px-4 py-2 md:px-8 md:py-3"
-                    label={NAV_BAR_TEXT.GET_STARTED_CTA}
-                  />
+                  <Link href={APPLICANT_SIGNUP_LINK}>
+                    <Button
+                      className="px-4 py-2 md:px-8 md:py-3"
+                      label={NAV_BAR_TEXT.GET_STARTED_CTA}
+                    />
+                  </Link>
                 )}
                 {/* Mobile Menu Button */}
                 <div className="flex items-center sm:mr-0 md:hidden">
