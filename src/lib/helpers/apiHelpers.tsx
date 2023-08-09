@@ -6,6 +6,7 @@ export const existingApplicantEndpoint = `${applicantsEndpoint}/me`;
 export const applicantStateEndpoint = `${existingApplicantEndpoint}/state`;
 export const applicantSubmissionsEndpoint = `${existingApplicantEndpoint}/submissions`;
 export const applicantDraftSubmissionsEndpoint = `${existingApplicantEndpoint}/submissions/draft`;
+export const resumeUploadRequestEndpoint = `${existingApplicantEndpoint}/resume`;
 
 export const get = async (url: string, token = '') => {
   return fetch(url, {

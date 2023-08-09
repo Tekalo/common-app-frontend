@@ -19,7 +19,7 @@ export interface IFileUpload {
   initialValue: string | undefined;
   label: string;
   setFieldErrors: (errs: string[]) => void;
-  setValue: (val: string) => void;
+  setValue: (val: number) => void;
   showUploadErrorModal: () => void;
   tooltipText?: string;
 }
@@ -44,7 +44,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   const [uploadState, setUploadState] = useState<FileUploadState>(
     FileUploadState.INITIAL
   );
-  const [uploadedFileId, setUploadedFileId] = useState<string>('');
+  const [uploadedFileId, setUploadedFileId] = useState<number>();
 
   const uploadInputId = `upload-button-${id}`;
   const fiveMB = 5242880;
@@ -58,7 +58,11 @@ const FileUpload: React.FC<IFileUpload> = ({
   // Our file id (or url, not exactly sure which we'll be submitting here)
   // is our value, so whenever it changes, we should set the value in the form
   useEffect(() => {
-    setValue(uploadedFileId);
+    if (uploadedFileId) {
+      // TODO: Remove
+      console.log('fileId', uploadedFileId);
+      setValue(uploadedFileId);
+    }
   }, [uploadedFileId]);
 
   // When a file is selected to upload
@@ -71,9 +75,9 @@ const FileUpload: React.FC<IFileUpload> = ({
 
         fileUploadCtx
           .uploadFile(uploadFile)
-          .then((res) => {
-            if (res.ok) {
-              setUploadedFileId(res.fileId);
+          .then((isSuccess) => {
+            if (isSuccess) {
+              setUploadedFileId(isSuccess.fileId || -1);
               setUploadState(FileUploadState.UPLOAD_COMPLETE);
             } else {
               errorHandler();
@@ -88,23 +92,23 @@ const FileUpload: React.FC<IFileUpload> = ({
     }
   }, [uploadFile]);
 
-  const removeUploadedFile = () => {
-    setUploadState(FileUploadState.REMOVING);
+  // const removeUploadedFile = () => {
+  //   setUploadState(FileUploadState.REMOVING);
 
-    fileUploadCtx
-      .deleteFile(uploadedFileId)
-      .then((res) => {
-        if (res.ok) {
-          setUploadedFileId('');
-          clearUploadInput();
-          setUploadState(FileUploadState.INITIAL);
-          setUploadFile(undefined);
-        } else {
-          errorHandler();
-        }
-      })
-      .catch(errorHandler);
-  };
+  //   fileUploadCtx
+  //     .deleteFile(uploadedFileId)
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         setUploadedFileId('');
+  //         clearUploadInput();
+  //         setUploadState(FileUploadState.INITIAL);
+  //         setUploadFile(undefined);
+  //       } else {
+  //         errorHandler();
+  //       }
+  //     })
+  //     .catch(errorHandler);
+  // };
 
   const clearUploadInput = () => {
     (document.getElementById(uploadInputId) as HTMLInputElement).value = '';
@@ -132,7 +136,7 @@ const FileUpload: React.FC<IFileUpload> = ({
       <button
         data-name="remove-file-button"
         className="flex cursor-pointer items-center"
-        onClick={removeUploadedFile}
+        // onClick={removeUploadedFile}
         type="button"
       >
         <span className="mr-2">
