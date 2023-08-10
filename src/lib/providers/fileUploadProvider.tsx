@@ -2,19 +2,30 @@ import { post, resumeUploadRequestEndpoint } from '@/lib/helpers/apiHelpers';
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { ReactNode } from 'react';
 
+// To request file upload
+interface IFileUploadRequestBody {
+  originalFilename: string;
+  contentType: string;
+}
+
+// Response from upload request
 interface IFileUploadRequestResponse {
   id: number;
   signedLink: string;
 }
 
-interface FileUploadStatusResponse {
-  isSuccess: boolean;
-  fileId?: number;
+// AWS upload payload
+export interface IFileUploadBody {
+  file: string;
+  type: string;
+  signedLink: string;
 }
 
-interface IFileUploadRequestBody {
-  originalFilename: string;
-  contentType: string;
+// After AWS upload status and details
+interface IFileUploadCompleteResponse {
+  isSuccess: boolean;
+  fileId?: number;
+  fileName?: string;
 }
 
 interface IFileDeletionResponse {
@@ -23,7 +34,7 @@ interface IFileDeletionResponse {
 
 export interface IFileUploadContext {
   deleteFile: (id: string) => Promise<IFileDeletionResponse>;
-  uploadFile: (file: File) => Promise<FileUploadStatusResponse>;
+  uploadFile: (file: File) => Promise<IFileUploadCompleteResponse>;
 }
 
 interface IFileUploadProvider {
@@ -83,7 +94,8 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
   };
 
   const uploadFile = async (file: File) => {
-    const failureResponse: FileUploadStatusResponse = { isSuccess: false };
+    const failureResponse: IFileUploadCompleteResponse = { isSuccess: false };
+
     try {
       const res = await requestFileUpload(file);
       const uploadRequestBody =

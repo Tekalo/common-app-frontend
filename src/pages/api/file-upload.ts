@@ -1,3 +1,4 @@
+import { IFileUploadBody } from '@/lib/providers/fileUploadProvider';
 import { NextRequest } from 'next/server';
 
 export const config = {
@@ -5,7 +6,7 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest): Promise<Response> {
-  const fileDetails = await req.json();
+  const fileDetails = (await req.json()) as IFileUploadBody;
 
   return await fetch(fileDetails.signedLink, {
     method: 'PUT',
