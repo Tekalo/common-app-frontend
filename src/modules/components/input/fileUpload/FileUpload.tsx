@@ -40,7 +40,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   // One with fileId and one with fileName
   const fileUploadCtx = useContext(FileUploadContext);
 
-  const [uploadFile, setUploadFile] = useState<File>();
+  const [fileToUpload, setFileToUpload] = useState<File>();
   const [uploadState, setUploadState] = useState<FileUploadState>(
     FileUploadState.INITIAL
   );
@@ -70,11 +70,11 @@ const FileUpload: React.FC<IFileUpload> = ({
   // then upload it
   useEffect(() => {
     const onFileSelected = () => {
-      if (uploadFile && uploadState !== FileUploadState.INVALID_FILE) {
+      if (fileToUpload && uploadState !== FileUploadState.INVALID_FILE) {
         setUploadState(FileUploadState.UPLOADING);
 
         fileUploadCtx
-          .uploadFile(uploadFile)
+          .uploadFile(fileToUpload)
           .then((isSuccess) => {
             if (isSuccess) {
               setUploadedFileId(isSuccess.fileId || -1);
@@ -87,28 +87,30 @@ const FileUpload: React.FC<IFileUpload> = ({
       }
     };
 
-    if (uploadFile) {
+    if (fileToUpload) {
       onFileSelected();
     }
-  }, [uploadFile]);
+  }, [fileToUpload]);
 
-  // const removeUploadedFile = () => {
-  //   setUploadState(FileUploadState.REMOVING);
+  const removeUploadedFile = () => {
+    setUploadState(FileUploadState.REMOVING);
 
-  //   fileUploadCtx
-  //     .deleteFile(uploadedFileId)
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         setUploadedFileId('');
-  //         clearUploadInput();
-  //         setUploadState(FileUploadState.INITIAL);
-  //         setUploadFile(undefined);
-  //       } else {
-  //         errorHandler();
-  //       }
-  //     })
-  //     .catch(errorHandler);
-  // };
+    if (uploadedFileId) {
+      fileUploadCtx
+        .deleteFile(uploadedFileId)
+        .then((res) => {
+          if (res.ok) {
+            setUploadedFileId(undefined);
+            setFileToUpload(undefined);
+            clearUploadInput();
+            setUploadState(FileUploadState.INITIAL);
+          } else {
+            errorHandler();
+          }
+        })
+        .catch(errorHandler);
+    }
+  };
 
   const clearUploadInput = () => {
     (document.getElementById(uploadInputId) as HTMLInputElement).value = '';
@@ -136,7 +138,7 @@ const FileUpload: React.FC<IFileUpload> = ({
       <button
         data-name="remove-file-button"
         className="flex cursor-pointer items-center"
-        // onClick={removeUploadedFile}
+        onClick={removeUploadedFile}
         type="button"
       >
         <span className="mr-2">
@@ -186,7 +188,7 @@ const FileUpload: React.FC<IFileUpload> = ({
           data-name="file-name"
           className="flex-[0_1_100%] overflow-hidden text-ellipsis whitespace-nowrap"
         >
-          {uploadFile?.name}
+          {fileToUpload?.name}
         </span>
       </div>
     );
@@ -238,10 +240,10 @@ const FileUpload: React.FC<IFileUpload> = ({
 
             if (fileToUpload.size <= fiveMB) {
               setUploadState(FileUploadState.INITIAL);
-              setUploadFile(fileToUpload);
+              setFileToUpload(fileToUpload);
             } else {
               setUploadState(FileUploadState.INVALID_FILE);
-              setUploadFile(fileToUpload);
+              setFileToUpload(fileToUpload);
               setFieldErrors([
                 APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors
                   .tooLarge,

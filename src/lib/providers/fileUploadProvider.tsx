@@ -14,13 +14,6 @@ interface IFileUploadRequestResponse {
   signedLink: string;
 }
 
-// AWS upload payload
-export interface IFileUploadBody {
-  file: string;
-  type: string;
-  signedLink: string;
-}
-
 // After AWS upload status and details
 interface IFileUploadCompleteResponse {
   isSuccess: boolean;
@@ -33,7 +26,7 @@ interface IFileDeletionResponse {
 }
 
 export interface IFileUploadContext {
-  deleteFile: (id: string) => Promise<IFileDeletionResponse>;
+  deleteFile: (id: number) => Promise<IFileDeletionResponse>;
   uploadFile: (file: File) => Promise<IFileUploadCompleteResponse>;
 }
 
@@ -46,7 +39,7 @@ export const FileUploadContext = React.createContext<IFileUploadContext>(
 );
 
 const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   const tmpDelay = 2000;
 
@@ -57,16 +50,13 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
   */
 
   const requestFileUpload = async (file: File) => {
+    const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
     const reqBody: IFileUploadRequestBody = {
       originalFilename: file.name,
       contentType: file.type,
     };
 
-    return post(
-      resumeUploadRequestEndpoint,
-      reqBody,
-      await getAccessTokenSilently()
-    );
+    return post(resumeUploadRequestEndpoint, reqBody, authToken);
   };
 
   const uploadFileToAWS = async (
@@ -96,7 +86,7 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
       const isSuccess = await uploadFileToAWS(file, uploadRequestBody);
 
       if (isSuccess) {
-        return { isSuccess, fileId: uploadRequestBody.id };
+        return { isSuccess, fileId: uploadRequestBody.id, fileName: file.name };
       } else {
         return failureResponse;
       }
@@ -105,7 +95,7 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
     }
   };
 
-  const deleteFile = () =>
+  const deleteFile = (fileId: number) =>
     new Promise<IFileDeletionResponse>((resolve) => {
       setTimeout(() => {
         resolve({ ok: true });
