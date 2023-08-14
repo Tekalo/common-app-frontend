@@ -1,5 +1,7 @@
 import { ERROR_TEXT } from '@/lang/en';
-import { UploadedFileId } from '@/lib/enums';
+import { UploadedFile } from '@/lib/enums';
+import { UploadedFileType } from '@/lib/types';
+
 import * as FileUploadModule from '@/modules/components/input/fileUpload/FileUpload';
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import FileUploadField, {
@@ -61,7 +63,7 @@ describe('FileUploadField', () => {
       label,
       showUploadErrorModal: () => void {},
       submitted: false,
-      validator: UploadedFileId,
+      validator: UploadedFile,
       tooltipText: undefined,
     };
   });
@@ -76,7 +78,7 @@ describe('FileUploadField', () => {
     props.submitted = true;
 
     cy.mountFileUploadField(props).then((childProps) => {
-      childProps.setValue('');
+      childProps.setValue({} as UploadedFileType);
 
       cy.get('p#errorMessage-input-example-field-name').should(
         'have.text',

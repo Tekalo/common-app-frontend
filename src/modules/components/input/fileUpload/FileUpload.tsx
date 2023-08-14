@@ -4,6 +4,7 @@ import Tooltip from '@/components/tooltip/Tooltip';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { CircledXSvg, FileSvg } from '@/lib/constants/svgs';
 import { FileUploadContext } from '@/lib/providers/fileUploadProvider';
+import { UploadedFileType } from '@/lib/types';
 import { useContext, useEffect, useState } from 'react';
 
 enum FileUploadState {
@@ -16,10 +17,10 @@ enum FileUploadState {
 
 export interface IFileUpload {
   id: string;
-  initialValue: number | undefined;
+  initialValue: UploadedFileType | undefined;
   label: string;
   setFieldErrors: (errs: string[]) => void;
-  setValue: (val: number) => void;
+  setValue: (val: UploadedFileType) => void;
   showUploadErrorModal: () => void;
   tooltipText?: string;
 }
@@ -58,10 +59,8 @@ const FileUpload: React.FC<IFileUpload> = ({
   // Our file id (or url, not exactly sure which we'll be submitting here)
   // is our value, so whenever it changes, we should set the value in the form
   useEffect(() => {
-    if (uploadedFileId) {
-      // TODO: Remove
-      console.log('fileId', uploadedFileId);
-      setValue(uploadedFileId);
+    if (uploadedFileId && fileToUpload) {
+      setValue({ id: uploadedFileId, fileName: fileToUpload.type });
     }
   }, [uploadedFileId]);
 

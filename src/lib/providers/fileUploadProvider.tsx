@@ -13,13 +13,13 @@ interface IFileUploadRequestBody {
 }
 
 // Response from upload request
-interface IFileUploadRequestResponse {
+export interface IFileUploadRequestResponse {
   id: number;
   signedLink: string;
 }
 
 // After AWS upload status and details
-interface IFileUploadCompleteResponse {
+export interface IFileUploadCompleteResponse {
   isSuccess: boolean;
   fileId?: number;
 }
@@ -59,7 +59,7 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
     return post(uploadCompleteEndpoint, reqBody, authToken);
   };
 
-  const requestFileUpload = async (file: File) => {
+  const requestFileUpload = async (file: File): Promise<Response> => {
     const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
     const reqBody: IFileUploadRequestBody = {
       originalFilename: file.name,

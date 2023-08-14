@@ -36,8 +36,6 @@ const MockFileUploadProvider: React.FC<IFileUploadProvider> = ({
 
 Cypress.Commands.add('mountFileUpload', (props: IFileUpload) => {
   cy.mount(
-    // TODO: We will replace this provider with a mock once we actually implement it
-    // For now, it is basically already a mock in its current state
     <MockFileUploadProvider>
       <FileUpload
         id={props.id}

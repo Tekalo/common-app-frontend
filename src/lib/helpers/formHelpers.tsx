@@ -29,7 +29,7 @@ export const printErrorMessages = (
       >
         {error}
       </p>
-    ));
+    ))[0];
   }
 };
 

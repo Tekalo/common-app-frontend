@@ -83,7 +83,12 @@ const OptionalEssay = maxLengthString(5000).optional();
 const RequiredString = maxLengthString(255).nonempty(ERROR_TEXT.required);
 const OptionalString = maxLengthString(255).optional();
 const OptionalLongString = maxLengthString(500).optional();
-const UploadedFileId = z.number();
+const UploadedFile = z
+  .object({
+    id: z.number({ required_error: ERROR_TEXT.required }).min(1),
+    fileName: z.string({ required_error: ERROR_TEXT.required }).nonempty(),
+  })
+  .required();
 
 const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
   message: ERROR_TEXT.interestCauses,
@@ -254,7 +259,7 @@ export {
   SearchStatus,
   Skills,
   ToS,
-  UploadedFileId,
+  UploadedFile,
   VisaSponsorship,
   WorkAuthorization,
   YOE,

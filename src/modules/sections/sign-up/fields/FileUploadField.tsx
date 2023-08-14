@@ -1,4 +1,5 @@
 import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
+import { UploadedFileType } from '@/lib/types';
 import FileUpload from '@/modules/components/input/fileUpload/FileUpload';
 import { Field } from 'houseform';
 import { useState } from 'react';
@@ -6,7 +7,7 @@ import { z } from 'zod';
 
 export interface IFileUploadField {
   fieldName: string;
-  initialValue: number | undefined;
+  initialValue: UploadedFileType | undefined;
   label: string;
   showUploadErrorModal: () => void;
   submitted: boolean;
@@ -26,7 +27,7 @@ const FileUploadField: React.FC<IFileUploadField> = ({
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   return (
-    <Field<number>
+    <Field<UploadedFileType>
       initialValue={initialValue}
       onChangeValidate={validator}
       onSubmitValidate={validator}
