@@ -74,22 +74,15 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
     uploadDetails: IFileUploadRequestResponse
   ): Promise<boolean> => {
     return new Promise((resolve) => {
-      const fileReader = new FileReader();
-
-      fileReader.onload = async () => {
-        fetch('/api/file-upload', {
-          method: 'PUT',
-          body: JSON.stringify({
-            file: fileReader.result,
-            type: file.type,
-            signedLink: uploadDetails.signedLink,
-          }),
-        }).then(async (res) => {
-          resolve(res.status === 200);
-        });
-      };
-
-      fileReader.readAsDataURL(file);
+      fetch(uploadDetails.signedLink, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type,
+        },
+      }).then(async (res) => {
+        resolve(res.status === 200);
+      });
     });
   };
 
