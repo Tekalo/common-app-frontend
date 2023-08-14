@@ -1,4 +1,8 @@
-import { post, resumeUploadRequestEndpoint } from '@/lib/helpers/apiHelpers';
+import {
+  post,
+  resumeUploadCompleteEndpoint,
+  resumeUploadRequestEndpoint,
+} from '@/lib/helpers/apiHelpers';
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { ReactNode } from 'react';
 
@@ -18,7 +22,6 @@ interface IFileUploadRequestResponse {
 interface IFileUploadCompleteResponse {
   isSuccess: boolean;
   fileId?: number;
-  fileName?: string;
 }
 
 interface IFileDeletionResponse {
@@ -30,7 +33,7 @@ export interface IFileUploadContext {
   uploadFile: (file: File) => Promise<IFileUploadCompleteResponse>;
 }
 
-interface IFileUploadProvider {
+export interface IFileUploadProvider {
   children: ReactNode;
 }
 
@@ -43,11 +46,18 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
 
   const tmpDelay = 2000;
 
-  /* TODO
-    3. HIT COMPLETE ENDPOINT
-    POST /applicants/me/uploads/:id/complete
-    Body: { status: 'success' | 'failure' }
-  */
+  const markUploadStatus = async (isSuccess: boolean, fileId: number) => {
+    const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
+    const uploadCompleteEndpoint = resumeUploadCompleteEndpoint.replace(
+      '{{FILE_ID}}',
+      fileId.toString()
+    );
+    const reqBody = {
+      status: isSuccess ? 'SUCCESS' : 'FAILURE',
+    };
+
+    return post(uploadCompleteEndpoint, reqBody, authToken);
+  };
 
   const requestFileUpload = async (file: File) => {
     const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
@@ -63,16 +73,14 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
     file: File,
     uploadDetails: IFileUploadRequestResponse
   ): Promise<boolean> => {
-    return new Promise((resolve) => {
-      fetch(uploadDetails.signedLink, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': file.type,
-        },
-      }).then(async (res) => {
-        resolve(res.status === 200);
-      });
+    return fetch(uploadDetails.signedLink, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type,
+      },
+    }).then(async (res) => {
+      return res.status === 200;
     });
   };
 
@@ -80,16 +88,23 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
     const failureResponse: IFileUploadCompleteResponse = { isSuccess: false };
 
     try {
+      // Request upload
       const res = await requestFileUpload(file);
+
+      // Upload file to presigned url
       const uploadRequestBody =
         (await res.json()) as IFileUploadRequestResponse;
-      const isSuccess = await uploadFileToAWS(file, uploadRequestBody);
+      const awsUploadSuccess = await uploadFileToAWS(file, uploadRequestBody);
 
-      if (isSuccess) {
-        return { isSuccess, fileId: uploadRequestBody.id, fileName: file.name };
-      } else {
-        return failureResponse;
-      }
+      // Mark with status
+      await markUploadStatus(awsUploadSuccess, uploadRequestBody.id);
+
+      const successResponse = {
+        isSuccess: awsUploadSuccess,
+        fileId: uploadRequestBody.id,
+      };
+
+      return awsUploadSuccess ? successResponse : failureResponse;
     } catch {
       return failureResponse;
     }

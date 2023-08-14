@@ -1,14 +1,44 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
-import FileUploadProvider from '@/lib/providers/fileUploadProvider';
+import {
+  FileUploadContext,
+  IFileUploadProvider,
+} from '@/lib/providers/fileUploadProvider';
 import FileUpload, {
   IFileUpload,
 } from '@/modules/components/input/fileUpload/FileUpload';
+import React from 'react';
+
+const mockFileId = 123;
+
+const MockFileUploadProvider: React.FC<IFileUploadProvider> = ({
+  children,
+}) => {
+  return (
+    <FileUploadContext.Provider
+      value={{
+        deleteFile: () => Promise.resolve({ ok: true }),
+        uploadFile: async () => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({
+                isSuccess: true,
+                fileId: mockFileId,
+              });
+            }, 1000);
+          });
+        },
+      }}
+    >
+      {children}
+    </FileUploadContext.Provider>
+  );
+};
 
 Cypress.Commands.add('mountFileUpload', (props: IFileUpload) => {
   cy.mount(
     // TODO: We will replace this provider with a mock once we actually implement it
     // For now, it is basically already a mock in its current state
-    <FileUploadProvider>
+    <MockFileUploadProvider>
       <FileUpload
         id={props.id}
         initialValue={props.initialValue}
@@ -18,7 +48,7 @@ Cypress.Commands.add('mountFileUpload', (props: IFileUpload) => {
         showUploadErrorModal={props.showUploadErrorModal}
         tooltipText={props.tooltipText}
       ></FileUpload>
-    </FileUploadProvider>
+    </MockFileUploadProvider>
   );
 });
 

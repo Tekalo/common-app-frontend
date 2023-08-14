@@ -75,9 +75,9 @@ const FileUpload: React.FC<IFileUpload> = ({
 
         fileUploadCtx
           .uploadFile(fileToUpload)
-          .then((isSuccess) => {
-            if (isSuccess) {
-              setUploadedFileId(isSuccess.fileId || -1);
+          .then((response) => {
+            if (response.isSuccess) {
+              setUploadedFileId(response.fileId || undefined);
               setUploadState(FileUploadState.UPLOAD_COMPLETE);
             } else {
               errorHandler();
