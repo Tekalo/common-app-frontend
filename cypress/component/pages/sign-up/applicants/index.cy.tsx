@@ -22,7 +22,7 @@ import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import router from 'next/router';
 
 Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
-  // TODO: We are setting childProps to the props passed into the child component
+  // We are setting childProps to the props passed into the child component
   // This way we can access them from the test file
   let childProps: ISignupForm;
   const MockSignupForm: React.FC<ISignupForm> = ({
