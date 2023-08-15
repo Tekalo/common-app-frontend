@@ -108,7 +108,6 @@ describe('Applicant Signup Page', () => {
         .stub()
         .as('submittedCall')
         .callsFake((req) => {
-          console.log(req);
           req.reply(mockHasSubmittedRes);
         })
     ).as('hasSubmitted');

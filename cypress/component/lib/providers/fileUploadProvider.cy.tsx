@@ -17,7 +17,7 @@ describe('FileUploadProvider', () => {
   const mockFileType = 'applicaiton/pdf';
   const mockFileContents = '123';
 
-  it.only('should make file upload request', (done) => {
+  it('should make file upload request', (done) => {
     mockFile = new File([mockFileContents], mockFileName, {
       type: mockFileType,
     });

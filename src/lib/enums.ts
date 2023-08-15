@@ -44,7 +44,6 @@ const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
 };
 
 const chooseOneErrorMap = (err: z.ZodIssueOptionalMessage) => {
-  console.log(err);
   const errorMsg =
     err.code === 'invalid_type'
       ? ERROR_TEXT.chooseOne
