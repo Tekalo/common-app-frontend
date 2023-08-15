@@ -24,7 +24,7 @@ export interface IFileUploadCompleteResponse {
   fileId?: number;
 }
 
-interface IFileDeletionResponse {
+export interface IFileDeletionResponse {
   ok: boolean;
 }
 
@@ -44,7 +44,7 @@ export const FileUploadContext = React.createContext<IFileUploadContext>(
 const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  const tmpDelay = 2000;
+  const tmpDelay = 1000;
 
   const markUploadStatus = async (isSuccess: boolean, fileId: number) => {
     const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
@@ -79,9 +79,14 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
       headers: {
         'Content-Type': file.type,
       },
-    }).then(async (res) => {
-      return res.status === 200;
-    });
+    }).then(
+      async (res) => {
+        return res.status === 200;
+      },
+      async () => {
+        return false;
+      }
+    );
   };
 
   const uploadFile = async (file: File) => {
@@ -94,6 +99,8 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
       // Upload file to presigned url
       const uploadRequestBody =
         (await res.json()) as IFileUploadRequestResponse;
+      // AWS upload will never throw an uncaught error, it should always return
+      // false if something goes wrong so we can update the status below
       const awsUploadSuccess = await uploadFileToAWS(file, uploadRequestBody);
 
       // Mark with status

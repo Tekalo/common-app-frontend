@@ -8,6 +8,7 @@ import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/inter
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
+import { Auth0ContextInterface } from '@auth0/auth0-react';
 import { mount } from 'cypress/react';
 
 declare global {
@@ -30,6 +31,10 @@ declare global {
       ): Chainable<ISignupForm>;
       mountFileUpload(props: IFileUpload): Chainable<void>;
       mountFileUploadField(props: IFileUploadField): Chainable<IFileUpload>;
+      mountFileUploadProvider(
+        action: 'upload' | 'delete',
+        auth0Context: Auth0ContextInterface<User>
+      ): Chainable<void>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
     }
