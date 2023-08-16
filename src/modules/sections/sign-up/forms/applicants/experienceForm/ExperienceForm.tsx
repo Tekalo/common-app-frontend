@@ -33,12 +33,14 @@ export interface IExperienceForm {
   handleNext: (_values: ExperienceFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
   savedForm: DraftSubmissionType | undefined;
+  showUploadErrorModal: () => void;
 }
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
   handleNext,
   handleSave,
   savedForm,
+  showUploadErrorModal,
 }) => {
   useEffect(executeScroll, []);
 
@@ -191,6 +193,16 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             initialValue={savedForm?.githubUrl || ''}
             validator={OptionalString}
           />
+
+          {/* Resume Upload */}
+          {/* <FileUploadField
+            fieldName="resume-upload"
+            initialValue={undefined}
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
+            showUploadErrorModal={showUploadErrorModal}
+            submitted={isSubmitted}
+            validator={UploadedFile}
+          /> */}
 
           {/* Resume */}
           <FreeTextField

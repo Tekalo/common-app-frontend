@@ -19,7 +19,9 @@ export const printErrorMessages = (
   disabled?: boolean
 ) => {
   if (hasLengthError(errors) || (!disabled && isSubmitted && errors.length)) {
-    return errors.map((error) => (
+    const error = errors[0];
+
+    return (
       <p
         id={`errorMessage-${inputId}`}
         className={
@@ -29,7 +31,7 @@ export const printErrorMessages = (
       >
         {error}
       </p>
-    ));
+    );
   }
 };
 

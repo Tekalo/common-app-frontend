@@ -293,7 +293,6 @@ describe('<SignupForm />', () => {
         .click()
         .then(() => {
           expect(props.setIsTurnstileValid).to.be.calledOnceWithExactly(false);
-          // TODO: Can we check turnstile ref is reset?
         });
     });
 
