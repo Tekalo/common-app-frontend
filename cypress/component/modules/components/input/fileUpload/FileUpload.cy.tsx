@@ -16,7 +16,6 @@ const MockFileUploadProvider: React.FC<IFileUploadProvider> = ({
   return (
     <FileUploadContext.Provider
       value={{
-        deleteFile: () => Promise.resolve({ ok: true }),
         uploadFile: async () => {
           return new Promise((resolve) => {
             setTimeout(() => {

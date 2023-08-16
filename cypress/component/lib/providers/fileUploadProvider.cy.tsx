@@ -4,7 +4,6 @@ import {
 } from '@/lib/helpers/apiHelpers';
 import FileUploadProvider, {
   FileUploadContext,
-  IFileDeletionResponse,
   IFileUploadCompleteResponse,
   IFileUploadRequestResponse,
 } from '@/lib/providers/fileUploadProvider';
@@ -22,16 +21,9 @@ describe('FileUploadProvider', () => {
   const mockAuthToken = 'MOCK_AUTH_TOKEN';
   const voidFn = () => void {};
 
-  const MockComponent: React.FC<{ action: 'upload' | 'delete' }> = ({
-    action,
-  }) => {
+  const MockComponent: React.FC = () => {
     const context = useContext(FileUploadContext);
-
-    if (action === 'delete') {
-      context.deleteFile(mockFileId).then(componentDeleteCheckFn);
-    } else {
-      context.uploadFile(mockFile).then(componentUploadCheckFn);
-    }
+    context.uploadFile(mockFile).then(componentUploadCheckFn);
 
     return <></>;
   };
@@ -39,15 +31,14 @@ describe('FileUploadProvider', () => {
   // Things you can change per-test
   let mockAuth0Context: Auth0ContextInterface<User>;
   let componentUploadCheckFn: (res: IFileUploadCompleteResponse) => void;
-  let componentDeleteCheckFn: (res: IFileDeletionResponse) => void;
   let mockFile: File;
   let mockUploadRequestResponse: IFileUploadRequestResponse;
 
-  Cypress.Commands.add('mountFileUploadProvider', (action, auth0Context) => {
+  Cypress.Commands.add('mountFileUploadProvider', (auth0Context) => {
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
         <FileUploadProvider>
-          <MockComponent action={action} />
+          <MockComponent />
         </FileUploadProvider>
       </Auth0Context.Provider>
     );
@@ -111,7 +102,7 @@ describe('FileUploadProvider', () => {
       })
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider('upload', mockAuth0Context);
+    cy.mountFileUploadProvider(mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (intercepts: Interception[]) => {
@@ -158,7 +149,7 @@ describe('FileUploadProvider', () => {
         })
     ).as('uploadRequested');
 
-    cy.mountFileUploadProvider('upload', mockAuth0Context);
+    cy.mountFileUploadProvider(mockAuth0Context);
 
     cy.wait('@uploadRequested').then((i: Interception) => {
       expect(i.request.headers.authorization).to.equal('');
@@ -212,7 +203,7 @@ describe('FileUploadProvider', () => {
         })
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider('upload', mockAuth0Context);
+    cy.mountFileUploadProvider(mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (i: Interception[]) => {
@@ -267,7 +258,7 @@ describe('FileUploadProvider', () => {
         })
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider('upload', mockAuth0Context);
+    cy.mountFileUploadProvider(mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (i: Interception[]) => {
@@ -311,7 +302,7 @@ describe('FileUploadProvider', () => {
       { forceNetworkError: true }
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider('upload', mockAuth0Context);
+    cy.mountFileUploadProvider(mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (intercepts: Interception[]) => {
@@ -339,14 +330,5 @@ describe('FileUploadProvider', () => {
         done();
       }
     );
-  });
-
-  it('should make file deletion request', (done) => {
-    componentDeleteCheckFn = (res) => {
-      expect(res.ok).to.equal(true);
-      done();
-    };
-
-    cy.mountFileUploadProvider('delete', mockAuth0Context);
   });
 });

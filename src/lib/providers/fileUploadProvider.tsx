@@ -29,7 +29,6 @@ export interface IFileDeletionResponse {
 }
 
 export interface IFileUploadContext {
-  deleteFile: (id: number) => Promise<IFileDeletionResponse>;
   uploadFile: (file: File) => Promise<IFileUploadCompleteResponse>;
 }
 
@@ -43,8 +42,6 @@ export const FileUploadContext = React.createContext<IFileUploadContext>(
 
 const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-
-  const tmpDelay = 1000;
 
   const markUploadStatus = async (isSuccess: boolean, fileId: number) => {
     const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
@@ -117,17 +114,9 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
     }
   };
 
-  const deleteFile = (fileId: number) =>
-    new Promise<IFileDeletionResponse>((resolve) => {
-      setTimeout(() => {
-        resolve({ ok: true });
-      }, tmpDelay);
-    });
-
   return (
     <FileUploadContext.Provider
       value={{
-        deleteFile,
         uploadFile,
       }}
     >
