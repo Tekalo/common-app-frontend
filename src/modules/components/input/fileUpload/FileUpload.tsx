@@ -60,6 +60,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   // is our value, so whenever it changes, we should set the value in the form
   useEffect(() => {
     if (uploadedFileId && fileToUpload) {
+      // TODO: Check file signature: https://hectorguo.com/en/file-signature-check/
       setValue({ id: uploadedFileId, fileName: fileToUpload.type });
     }
   }, [uploadedFileId]);
