@@ -197,7 +197,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
 
           {/* Resume Upload */}
           <FileUploadField
-            fieldName="resume-upload"
+            fieldName="resumeUpload"
             initialValue={savedForm?.resumeUpload || undefined}
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
             showUploadErrorModal={showUploadErrorModal}

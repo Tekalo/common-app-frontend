@@ -62,6 +62,9 @@ const FileUpload: React.FC<IFileUpload> = ({
     if (uploadValue?.id && uploadValue.fileName) {
       // TODO: Check file signature: https://hectorguo.com/en/file-signature-check/
       setValue({ id: uploadValue.id, fileName: uploadValue.fileName });
+    } else {
+      // Clear value
+      setValue({} as UploadedFileType);
     }
   }, [uploadValue]);
 

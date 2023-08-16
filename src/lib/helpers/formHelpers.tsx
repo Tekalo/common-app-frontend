@@ -75,7 +75,14 @@ export const getInputId = (fieldName: string): string => `input-${fieldName}`;
 
 export const stripEmptyFields = (obj: any): any => {
   const result = Object.fromEntries(
-    Object.entries(obj).filter(([_, v]) => v != null && v !== '')
+    Object.entries(obj).filter(([_, v]) => {
+      // This strips out empty objects
+      if (!Array.isArray(v) && typeof v === 'object' && v !== null) {
+        return Object.keys(v).length;
+      } else {
+        return v != null && v !== '';
+      }
+    })
   );
 
   return result;
