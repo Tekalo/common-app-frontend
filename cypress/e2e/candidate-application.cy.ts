@@ -44,6 +44,7 @@ describe('Candidate Application', () => {
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
+    uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
@@ -96,8 +97,7 @@ describe('Candidate Application', () => {
     fillPortfolio();
     fillPortfolioPwd();
     fillGithub();
-    fillResume();
-    fillResumePwd();
+    uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
@@ -354,6 +354,24 @@ describe('Candidate Application', () => {
 
   function submitInterestForm(): void {
     cy.get('button#candidate-application-submit').click();
+  }
+
+  function uploadDocXFile(): void {
+    const fileName = 'example_file.docx';
+
+    cy.get('#upload-button-input-resumeUpload').selectFile(
+      {
+        contents: Cypress.Buffer.from([
+          0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00,
+        ]),
+        fileName,
+      },
+      { force: true }
+    );
+
+    cy.get('span[data-name=file-name]')
+      .should('be.visible')
+      .should('have.text', fileName);
   }
 });
 
