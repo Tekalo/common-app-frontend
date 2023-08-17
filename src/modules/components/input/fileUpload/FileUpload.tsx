@@ -34,11 +34,6 @@ const FileUpload: React.FC<IFileUpload> = ({
   showUploadErrorModal,
   tooltipText,
 }) => {
-  // TODO: How do we handle when users come back?
-  // Will we have to retrieve the file name for display in the uploader?
-  // Will that be included in the form params?
-  // If so, we will need to make the schema an object with two properties,
-  // One with fileId and one with fileName
   const fileUploadCtx = useContext(FileUploadContext);
 
   const [fileToUpload, setFileToUpload] = useState<File>();
@@ -60,7 +55,6 @@ const FileUpload: React.FC<IFileUpload> = ({
   // we should set the value in the form
   useEffect(() => {
     if (uploadValue?.id && uploadValue.fileName) {
-      // TODO: Check file signature: https://hectorguo.com/en/file-signature-check/
       setValue({ id: uploadValue.id, fileName: uploadValue.fileName });
     } else {
       // Clear value
