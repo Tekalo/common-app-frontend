@@ -608,6 +608,7 @@ const APPLICANT_EXPERIENCE_FORM_TEXT = {
       supportedFormats: 'Attach up to 5 MB in PDF, DOCx, PNG or JPG format',
       errors: {
         tooLarge: 'File exceeds 5 MB',
+        invalid: 'File is invalid',
       },
       actions: {
         uploading: 'Uploading',
@@ -2107,8 +2108,7 @@ const TERMS_TEXT = {
 };
 
 // GLOBALS
-export { GLOBAL_TEXT };
-export { COOKIE_CONSENT };
+export { COOKIE_CONSENT, GLOBAL_TEXT };
 // META
 export { META, TRACKING };
 // PRIVACY & TERMS EXPORTS
@@ -2205,9 +2205,9 @@ export {
 export { ACCOUNT_PAGE_TEXT };
 // FORM EXPORTS
 export {
-  GENERAL_FORM_TEXT_CONSTANTS,
   APPLICANT_EXPERIENCE_FORM_TEXT,
   APPLICANT_FORM_TEXT,
+  GENERAL_FORM_TEXT_CONSTANTS,
   INTEREST_FORM_TEXT,
   ORG_FORM_TEXT,
   ORG_ROLE_FORM_TEXT,

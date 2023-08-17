@@ -214,6 +214,12 @@ const FileUpload: React.FC<IFileUpload> = ({
     }
   };
 
+  const setInvalidFileState = (upFile: File): void => {
+    setUploadState(FileUploadState.INVALID_FILE);
+    setFileToUpload(upFile);
+    setUploadValue({ fileName: upFile.name, id: 0 });
+  };
+
   return (
     <div className="space-y-2 text-left">
       <label className="mb-4 flex items-center text-component-extra-small text-black-text">
@@ -238,24 +244,31 @@ const FileUpload: React.FC<IFileUpload> = ({
         type="file"
         disabled={uploadState === FileUploadState.UPLOADING}
         className="hidden"
-        onChange={(e) => {
+        onChange={async (e) => {
           if (e.target.files) {
             const upFile = e.target.files[0];
 
             setFieldErrors([]);
+            const fileIsInvalid = !(await fileUploadCtx.validateFile(upFile));
 
-            if (upFile.size <= fiveMB) {
-              setUploadState(FileUploadState.INITIAL);
-              setFileToUpload(upFile);
-              setUploadValue({ fileName: upFile.name, id: 0 });
-            } else {
-              setUploadState(FileUploadState.INVALID_FILE);
-              setFileToUpload(upFile);
-              setUploadValue({ fileName: upFile.name, id: 0 });
+            if (upFile.size > fiveMB) {
+              // File too large
+              setInvalidFileState(upFile);
               setFieldErrors([
                 APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors
                   .tooLarge,
               ]);
+            } else if (fileIsInvalid) {
+              // Invalid file signature
+              setInvalidFileState(upFile);
+              setFieldErrors([
+                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors.invalid,
+              ]);
+            } else {
+              // Valid!
+              setUploadState(FileUploadState.INITIAL);
+              setFileToUpload(upFile);
+              setUploadValue({ fileName: upFile.name, id: 0 });
             }
           }
 

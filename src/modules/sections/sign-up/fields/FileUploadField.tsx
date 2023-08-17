@@ -48,8 +48,8 @@ const FileUploadField: React.FC<IFileUploadField> = ({
               tooltipText={tooltipText}
             />
             {printErrorMessages(inputId, submitted || !!fieldErrors.length, [
-              ...errors,
               ...fieldErrors,
+              ...errors,
             ])}
           </div>
         );
