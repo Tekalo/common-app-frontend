@@ -116,38 +116,39 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
     }
   };
 
+  const validateDocxSignature = (fileContents: ArrayBuffer): boolean => {
+    const docxSignature = [0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00];
+    const uint8Array = new Uint8Array(fileContents);
+
+    return docxSignature.every((byte, index) => byte === uint8Array[index]);
+  };
+
   const validateFile = async (file: File): Promise<boolean> => {
     // .pdf,.docx,.png,.jpeg,.jpg
     const acceptedTypes = ['jpeg', 'png', 'pdf'];
 
     return new Promise((resolve) => {
-      const docxMimeType =
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+      const reader = new FileReader();
 
-      // The library can't validate the signatures of .docx files
-      // so we just have to accept it
-      if (file.type === docxMimeType) {
-        resolve(true);
-      } else {
-        const reader = new FileReader();
+      reader.onload = () => {
+        const fileContents = reader.result as ArrayBuffer;
 
-        reader.onload = () => {
-          const fileContents = reader.result;
+        const docxMimeType =
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
-          if (fileContents?.constructor === ArrayBuffer) {
-            const isValid = fileTypeChecker.validateFileType(
-              fileContents,
-              acceptedTypes
-            );
+        if (file.type === docxMimeType) {
+          // The library can't validate the signatures of .docx files
+          // so we have to manually validate it
+          // https://www.garykessler.net/library/file_sigs.html
+          resolve(validateDocxSignature(fileContents));
+        } else {
+          resolve(
+            fileTypeChecker.validateFileType(fileContents, acceptedTypes)
+          );
+        }
+      };
 
-            resolve(isValid);
-          } else {
-            resolve(false);
-          }
-        };
-
-        reader.readAsArrayBuffer(file);
-      }
+      reader.readAsArrayBuffer(file);
     });
   };
 

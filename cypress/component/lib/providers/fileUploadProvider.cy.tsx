@@ -9,6 +9,7 @@ import FileUploadProvider, {
 } from '@/lib/providers/fileUploadProvider';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import { Interception } from 'cypress/types/net-stubbing';
+import * as FileTypeCheckerModule from 'file-type-checker';
 import React, { useContext } from 'react';
 
 describe('FileUploadProvider', () => {
@@ -21,9 +22,19 @@ describe('FileUploadProvider', () => {
   const mockAuthToken = 'MOCK_AUTH_TOKEN';
   const voidFn = () => void {};
 
-  const MockComponent: React.FC = () => {
+  const MockComponent: React.FC<{ action: 'upload' | 'validate' }> = ({
+    action,
+  }) => {
     const context = useContext(FileUploadContext);
-    context.uploadFile(mockFile).then(componentUploadCheckFn);
+
+    switch (action) {
+      case 'upload':
+        context.uploadFile(mockFile).then(componentUploadCheckFn);
+        break;
+      case 'validate':
+        context.validateFile(mockFile).then(componentValidationCheckFn);
+        break;
+    }
 
     return <></>;
   };
@@ -31,14 +42,15 @@ describe('FileUploadProvider', () => {
   // Things you can change per-test
   let mockAuth0Context: Auth0ContextInterface<User>;
   let componentUploadCheckFn: (res: IFileUploadCompleteResponse) => void;
+  let componentValidationCheckFn: (res: boolean) => void;
   let mockFile: File;
   let mockUploadRequestResponse: IFileUploadRequestResponse;
 
-  Cypress.Commands.add('mountFileUploadProvider', (auth0Context) => {
+  Cypress.Commands.add('mountFileUploadProvider', (action, auth0Context) => {
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
         <FileUploadProvider>
-          <MockComponent />
+          <MockComponent action={action} />
         </FileUploadProvider>
       </Auth0Context.Provider>
     );
@@ -102,7 +114,7 @@ describe('FileUploadProvider', () => {
       })
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider(mockAuth0Context);
+    cy.mountFileUploadProvider('upload', mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (intercepts: Interception[]) => {
@@ -149,7 +161,7 @@ describe('FileUploadProvider', () => {
         })
     ).as('uploadRequested');
 
-    cy.mountFileUploadProvider(mockAuth0Context);
+    cy.mountFileUploadProvider('upload', mockAuth0Context);
 
     cy.wait('@uploadRequested').then((i: Interception) => {
       expect(i.request.headers.authorization).to.equal('');
@@ -203,7 +215,7 @@ describe('FileUploadProvider', () => {
         })
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider(mockAuth0Context);
+    cy.mountFileUploadProvider('upload', mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (i: Interception[]) => {
@@ -258,7 +270,7 @@ describe('FileUploadProvider', () => {
         })
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider(mockAuth0Context);
+    cy.mountFileUploadProvider('upload', mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (i: Interception[]) => {
@@ -302,7 +314,7 @@ describe('FileUploadProvider', () => {
       { forceNetworkError: true }
     ).as('uploadCompleted');
 
-    cy.mountFileUploadProvider(mockAuth0Context);
+    cy.mountFileUploadProvider('upload', mockAuth0Context);
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (intercepts: Interception[]) => {
@@ -330,5 +342,70 @@ describe('FileUploadProvider', () => {
         done();
       }
     );
+  });
+
+  it('should validate a file successfully', () => {
+    const expectedResult = true;
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => expectedResult);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(expectedResult);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+    cy.get('@fileLibCheck').should('have.been.calledOnce');
+  });
+
+  it('should validate a file unsuccessfully', () => {
+    const expectedResult = false;
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => expectedResult);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(expectedResult);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+
+    cy.get('@fileLibCheck').should('have.been.calledOnce');
+  });
+
+  it('should accept a docx file type', () => {
+    const data = new Uint8Array([
+      0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00,
+    ]);
+    mockFile = new File([data], mockFileName, {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => false);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(true);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+
+    cy.get('@fileLibCheck').should('not.have.been.called');
+  });
+
+  it('should reject a bad docx file', () => {
+    const data = new Uint8Array([0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00]);
+    mockFile = new File([data], mockFileName, {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => true);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(false);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+
+    cy.get('@fileLibCheck').should('not.have.been.called');
   });
 });

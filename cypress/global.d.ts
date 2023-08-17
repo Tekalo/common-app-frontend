@@ -32,6 +32,7 @@ declare global {
       mountFileUpload(props: IFileUpload): Chainable<void>;
       mountFileUploadField(props: IFileUploadField): Chainable<IFileUpload>;
       mountFileUploadProvider(
+        action: 'upload' | 'validate',
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
