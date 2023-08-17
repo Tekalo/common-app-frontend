@@ -16,6 +16,7 @@ const MockFileUploadProvider: React.FC<IFileUploadProvider> = ({
   return (
     <FileUploadContext.Provider
       value={{
+        validateFile: async () => Promise.resolve(true),
         uploadFile: async () => {
           return new Promise((resolve) => {
             setTimeout(() => {
