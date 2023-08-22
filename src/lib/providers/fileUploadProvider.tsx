@@ -93,24 +93,28 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
 
     try {
       // Request upload
-      const res = await requestFileUpload(file);
+      const requestUploadResponse = await requestFileUpload(file);
 
       // Upload file to presigned url
       const uploadRequestBody =
-        (await res.json()) as IFileUploadRequestResponse;
+        (await requestUploadResponse.json()) as IFileUploadRequestResponse;
       // AWS upload will never throw an uncaught error, it should always return
       // false if something goes wrong so we can update the status below
       const awsUploadSuccess = await uploadFileToAWS(file, uploadRequestBody);
 
       // Mark with status
-      await markUploadStatus(awsUploadSuccess, uploadRequestBody.id);
+      const statusResponseSuccess = (
+        await markUploadStatus(awsUploadSuccess, uploadRequestBody.id)
+      ).ok;
 
       const successResponse = {
         isSuccess: awsUploadSuccess,
         fileId: uploadRequestBody.id,
       };
 
-      return awsUploadSuccess ? successResponse : failureResponse;
+      return awsUploadSuccess && statusResponseSuccess
+        ? successResponse
+        : failureResponse;
     } catch {
       return failureResponse;
     }
