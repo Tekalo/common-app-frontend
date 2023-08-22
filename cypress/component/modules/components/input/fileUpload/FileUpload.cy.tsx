@@ -201,7 +201,7 @@ describe('FileUpload', () => {
 
   it('should set correct values and display when file has already been uploaded', (done) => {
     props.initialValue = {
-      fileName: mockFileName,
+      originalFilename: mockFileName,
       id: mockFileId,
     };
 
@@ -216,7 +216,7 @@ describe('FileUpload', () => {
       .then(() => {
         const setCallArg = setValueSpy.getCall(1).args[0];
 
-        assert(setCallArg.fileName === mockFileName);
+        assert(setCallArg.originalFilename === mockFileName);
         assert(setCallArg.id === mockFileId);
         done();
       });

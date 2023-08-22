@@ -282,7 +282,7 @@ describe('FileUploadProvider', () => {
     );
   });
 
-  it('should fail when status call fails', (done) => {
+  it('should fail when status call fails (reject)', (done) => {
     componentUploadCheckFn = (res) => {
       expect(res.isSuccess).to.equal(false);
       expect(res.fileId).to.equal(undefined);
@@ -312,6 +312,70 @@ describe('FileUploadProvider', () => {
         ),
       },
       { forceNetworkError: true }
+    ).as('uploadCompleted');
+
+    cy.mountFileUploadProvider('upload', mockAuth0Context);
+
+    cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
+      (intercepts: Interception[]) => {
+        // Check upload request
+        const uploadRequestBody = intercepts[0].request.body;
+
+        expect(uploadRequestBody.contentType).to.equal(mockFileType);
+        expect(uploadRequestBody.originalFilename).to.equal(mockFileName);
+        expect(intercepts[0].request.headers.authorization).to.equal(
+          `Bearer ${mockAuthToken}`
+        );
+
+        // Check aws file upload
+        const fileUploadRequestBody = intercepts[1].request.body;
+        const fileUploadRequestHeaders = intercepts[1].request.headers;
+
+        expect(fileUploadRequestBody).to.equal(mockFileContents);
+        expect(fileUploadRequestHeaders['content-type']).to.equal(mockFileType);
+
+        // Check complete
+        const completeRequestBody = intercepts[2].request.body;
+
+        expect(completeRequestBody.status).to.equal('SUCCESS');
+
+        done();
+      }
+    );
+  });
+
+  it('should fail when status call fails (bad status)', (done) => {
+    componentUploadCheckFn = (res) => {
+      expect(res.isSuccess).to.equal(false);
+      expect(res.fileId).to.equal(undefined);
+    };
+
+    cy.intercept(
+      { method: 'POST', url: resumeUploadRequestEndpoint },
+      cy.stub().callsFake((req) => {
+        req.reply(mockUploadRequestResponse);
+      })
+    ).as('uploadRequested');
+
+    cy.intercept(
+      {
+        method: 'PUT',
+        url: mockSignedLink,
+      },
+      cy.stub().callsFake((res) => res.reply({ statusCode: 200 }))
+    ).as('fileUploaded');
+
+    cy.intercept(
+      {
+        method: 'POST',
+        url: resumeUploadCompleteEndpoint.replace(
+          '{{FILE_ID}}',
+          mockFileId.toString()
+        ),
+      },
+      cy.stub().callsFake((req) => {
+        req.reply({ statusCode: 500, ok: false });
+      })
     ).as('uploadCompleted');
 
     cy.mountFileUploadProvider('upload', mockAuth0Context);
