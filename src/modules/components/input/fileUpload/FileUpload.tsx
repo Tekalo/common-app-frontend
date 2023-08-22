@@ -54,8 +54,11 @@ const FileUpload: React.FC<IFileUpload> = ({
   // Our file id and name is our value, so whenever it changes,
   // we should set the value in the form
   useEffect(() => {
-    if (uploadValue?.id && uploadValue.fileName) {
-      setValue({ id: uploadValue.id, fileName: uploadValue.fileName });
+    if (uploadValue?.id && uploadValue.originalFilename) {
+      setValue({
+        id: uploadValue.id,
+        originalFilename: uploadValue.originalFilename,
+      });
     } else {
       // Clear value
       setValue({} as UploadedFileType);
@@ -63,8 +66,11 @@ const FileUpload: React.FC<IFileUpload> = ({
   }, [uploadValue]);
 
   useEffect(() => {
-    if (initialValue && initialValue.fileName && initialValue.id) {
-      setUploadValue({ id: initialValue.id, fileName: initialValue.fileName });
+    if (initialValue && initialValue.originalFilename && initialValue.id) {
+      setUploadValue({
+        id: initialValue.id,
+        originalFilename: initialValue.originalFilename,
+      });
       setUploadState(FileUploadState.UPLOAD_COMPLETE);
     }
   }, [initialValue]);
@@ -83,11 +89,11 @@ const FileUpload: React.FC<IFileUpload> = ({
             if (
               response.isSuccess &&
               response.fileId &&
-              uploadValue?.fileName
+              uploadValue?.originalFilename
             ) {
               setUploadValue({
                 id: response.fileId,
-                fileName: uploadValue.fileName,
+                originalFilename: uploadValue.originalFilename,
               });
               setUploadState(FileUploadState.UPLOAD_COMPLETE);
             } else {
@@ -188,7 +194,7 @@ const FileUpload: React.FC<IFileUpload> = ({
           data-name="file-name"
           className="flex-[0_1_100%] overflow-hidden text-ellipsis whitespace-nowrap"
         >
-          {uploadValue?.fileName}
+          {uploadValue?.originalFilename}
         </span>
       </div>
     );
@@ -211,7 +217,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   const setInvalidFileState = (upFile: File): void => {
     setUploadState(FileUploadState.INVALID_FILE);
     setFileToUpload(upFile);
-    setUploadValue({ fileName: upFile.name, id: 0 });
+    setUploadValue({ originalFilename: upFile.name, id: 0 });
   };
 
   return (
@@ -262,7 +268,7 @@ const FileUpload: React.FC<IFileUpload> = ({
               // Valid!
               setUploadState(FileUploadState.INITIAL);
               setFileToUpload(upFile);
-              setUploadValue({ fileName: upFile.name, id: 0 });
+              setUploadValue({ originalFilename: upFile.name, id: 0 });
             }
           }
 

@@ -85,7 +85,9 @@ const OptionalLongString = maxLengthString(500).optional();
 const UploadedFile = z
   .object({
     id: z.number({ required_error: ERROR_TEXT.required }).min(1),
-    fileName: z.string({ required_error: ERROR_TEXT.required }).nonempty(),
+    originalFilename: z
+      .string({ required_error: ERROR_TEXT.required })
+      .nonempty(),
   })
   .required();
 
