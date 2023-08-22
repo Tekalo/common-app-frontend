@@ -1,11 +1,16 @@
-export interface ILoadingSpinner {}
+export interface ILoadingSpinner {
+  // The size in px you want the spinner to be
+  size?: number;
+}
 
-const LoadingSpinner: React.FC<ILoadingSpinner> = () => {
+const LoadingSpinner: React.FC<ILoadingSpinner> = ({ size }) => {
+  const dimensions = size ? `h-[${size}px] w-[${size}px]` : 'h-10 w-10';
+
   return (
     <div className="text-center">
       <svg
         aria-hidden="true"
-        className="inline h-10 w-10 animate-spin justify-center fill-blue-1 text-center align-middle text-white"
+        className={`inline ${dimensions} animate-spin justify-center fill-blue-1 text-center align-middle text-white`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

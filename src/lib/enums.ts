@@ -20,7 +20,7 @@ import {
   YOE_RANGE_ENUM_OPTIONS,
 } from '@/lang/en';
 import { FormInstance } from 'houseform';
-import { z, ZodString } from 'zod';
+import { ZodString, z } from 'zod';
 
 /** Helpers
  */
@@ -44,7 +44,6 @@ const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {
 };
 
 const chooseOneErrorMap = (err: z.ZodIssueOptionalMessage) => {
-  console.log(err);
   const errorMsg =
     err.code === 'invalid_type'
       ? ERROR_TEXT.chooseOne
@@ -83,6 +82,15 @@ const OptionalEssay = maxLengthString(5000).optional();
 const RequiredString = maxLengthString(255).nonempty(ERROR_TEXT.required);
 const OptionalString = maxLengthString(255).optional();
 const OptionalLongString = maxLengthString(500).optional();
+const UploadedFile = z
+  .object({
+    id: z.number({ required_error: ERROR_TEXT.required }).min(1),
+    originalFilename: z
+      .string({ required_error: ERROR_TEXT.required })
+      .nonempty(),
+  })
+  .required();
+
 const CausesValidator = RequiredString.array().refine((v) => !!v.length, {
   message: ERROR_TEXT.interestCauses,
 });
@@ -252,6 +260,7 @@ export {
   SearchStatus,
   Skills,
   ToS,
+  UploadedFile,
   VisaSponsorship,
   WorkAuthorization,
   YOE,

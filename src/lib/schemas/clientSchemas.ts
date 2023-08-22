@@ -13,6 +13,7 @@ import {
   Roles,
   SearchStatus,
   Skills,
+  UploadedFile,
   VisaSponsorship,
   WorkAuthorization,
   YOE,
@@ -85,8 +86,9 @@ const CandidateExperienceSchema = z.object({
   githubUrl: maxLengthString(500).url().nullable().optional(),
   portfolioUrl: maxLengthString(500).url().nullable().optional(),
   portfolioPassword: maxLengthString(255).nullable().optional(),
-  resumeUrl: maxLengthString(500).url(),
-  resumePassword: maxLengthString(255).nullable().optional(),
+  resumeUpload: UploadedFile,
+  // resumeUrl: maxLengthString(500).url(),
+  // resumePassword: maxLengthString(255).nullable().optional(),
 });
 
 const CandidateInterestsSchema = z.object({
@@ -114,10 +116,10 @@ const CandidateDraftSchema = CandidateExperienceSchema.merge(
 ).partial();
 
 export {
-  NewOrgSchema,
-  NewRoleSchema,
-  NewCandidateSchema,
   CandidateDraftSchema,
   CandidateExperienceSchema,
   CandidateInterestsSchema,
+  NewCandidateSchema,
+  NewOrgSchema,
+  NewRoleSchema,
 };

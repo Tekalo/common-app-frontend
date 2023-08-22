@@ -1,11 +1,14 @@
 /// <reference types="cypress" />
 
+import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
+import { IFileUploadField } from '@/modules/sections/sign-up/fields/FileUploadField';
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
 import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
+import { Auth0ContextInterface } from '@auth0/auth0-react';
 import { mount } from 'cypress/react';
 
 declare global {
@@ -26,6 +29,12 @@ declare global {
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
+      mountFileUpload(props: IFileUpload): Chainable<void>;
+      mountFileUploadField(props: IFileUploadField): Chainable<IFileUpload>;
+      mountFileUploadProvider(
+        action: 'upload' | 'validate',
+        auth0Context: Auth0ContextInterface<User>
+      ): Chainable<void>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
     }

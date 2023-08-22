@@ -8,6 +8,7 @@ import {
   ERROR_MODAL_TEXT,
   SAVE_MODAL,
   TRACKING,
+  UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
@@ -20,8 +21,8 @@ import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  InterestFieldsType,
   ITimelineItem,
+  InterestFieldsType,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -30,6 +31,11 @@ import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/Inter
 import { useAuth0 } from '@auth0/auth0-react';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
+
+enum MODAL_ERROR_TYPE {
+  GENERAL = 1,
+  UPLOAD,
+}
 
 const ApplicantForms: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
@@ -40,7 +46,7 @@ const ApplicantForms: NextPageWithLayout = () => {
   const [isInterestFormStarted, setIsInterestFormStarted] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [modalError, setModalError] = useState<MODAL_ERROR_TYPE>();
   const [showSaveModal, setShowSaveModal] = useState(false);
 
   useEffect(() => {
@@ -61,10 +67,6 @@ const ApplicantForms: NextPageWithLayout = () => {
       getSubmissions();
     }
   }, [isAuthenticated, isLoading, getAccessTokenSilently]);
-
-  const getAuthToken = async () => {
-    return isAuthenticated ? await getAccessTokenSilently() : '';
-  };
 
   // const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
   //   const isFilled = (val: string | string[] | boolean | null | undefined) => {
@@ -116,14 +118,27 @@ const ApplicantForms: NextPageWithLayout = () => {
           window.dataLayerEvent(TRACKING.CANDIDATE_APP_SUBMITTED);
           router.push(APPLICANT_SUCCESS_LINK);
         } else {
-          setShowErrorModal(true);
+          setModalError(MODAL_ERROR_TYPE.GENERAL);
           console.error(res.statusText);
         }
       })
       .catch((error) => {
-        setShowErrorModal(true);
+        setModalError(MODAL_ERROR_TYPE.GENERAL);
         console.error('Failed to submit', error);
       });
+  };
+
+  const getAuthToken = async () => {
+    return isAuthenticated ? await getAccessTokenSilently() : '';
+  };
+
+  // FUNCTION: Saves form responses to parent state
+  const handleNext = (values: ExperienceFieldsType) => {
+    window.dataLayerEvent(TRACKING.CANDIDATE_NEXT_BTN);
+
+    setDraftFormValues({ ...draftFormValues, ...values });
+    setExperienceFields(values);
+    setIsInterestFormVisible(true);
   };
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
@@ -140,23 +155,14 @@ const ApplicantForms: NextPageWithLayout = () => {
         if (res.ok) {
           setShowSaveModal(true);
         } else {
-          setShowErrorModal(true);
+          setModalError(MODAL_ERROR_TYPE.GENERAL);
           console.error(res.statusText);
         }
       })
       .catch((error) => {
-        setShowErrorModal(true);
+        setModalError(MODAL_ERROR_TYPE.GENERAL);
         console.error('failed to save form', error);
       });
-  };
-
-  // FUNCTION: Saves form responses to parent state
-  const handleNext = (values: ExperienceFieldsType) => {
-    window.dataLayerEvent(TRACKING.CANDIDATE_NEXT_BTN);
-
-    setDraftFormValues({ ...draftFormValues, ...values });
-    setExperienceFields(values);
-    setIsInterestFormVisible(true);
   };
 
   // FUNCTION: Saves form responses to parent state and generates final form
@@ -165,6 +171,17 @@ const ApplicantForms: NextPageWithLayout = () => {
     setDraftFormValues(newFormState);
     setInterestFields(values);
     setIsSubmitted(true);
+  };
+
+  const getErrorModalHeader = (): string => {
+    switch (modalError) {
+      case MODAL_ERROR_TYPE.GENERAL:
+        return ERROR_MODAL_TEXT.requestFailed;
+      case MODAL_ERROR_TYPE.UPLOAD:
+        return UPLOAD_ERROR_TEXT.header;
+      default:
+        return '';
+    }
   };
 
   async function getSubmissions(): Promise<void> {
@@ -182,12 +199,12 @@ const ApplicantForms: NextPageWithLayout = () => {
         } else if (res.status === 401) {
           router.push(BASE_LINK);
         } else {
-          setShowErrorModal(true);
+          setModalError(MODAL_ERROR_TYPE.GENERAL);
           console.error(res.statusText);
         }
       })
       .catch((error) => {
-        setShowErrorModal(true);
+        setModalError(MODAL_ERROR_TYPE.GENERAL);
         console.error('failed to fetch submissions', error);
       });
   }
@@ -228,9 +245,9 @@ const ApplicantForms: NextPageWithLayout = () => {
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center px-6">
       {/* Form Content */}
-      <div className="flex max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
+      <div className="flex w-full max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
         {/* Title */}
-        <h3 className="max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
+        <h3 className="mx-auto max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
           {APPLICANT_FORM_TEXT.HEADER}
         </h3>
 
@@ -250,6 +267,9 @@ const ApplicantForms: NextPageWithLayout = () => {
           ) : (
             <ExperienceForm
               savedForm={draftFormValues}
+              showUploadErrorModal={() =>
+                setModalError(MODAL_ERROR_TYPE.UPLOAD)
+              }
               handleNext={handleNext}
               handleSave={handleSave}
             />
@@ -267,12 +287,12 @@ const ApplicantForms: NextPageWithLayout = () => {
         onConfirm={() => setShowSaveModal(false)}
       />
       <ErrorModal
-        isOpen={showErrorModal}
-        titleText={ERROR_MODAL_TEXT.requestFailed}
+        isOpen={!!modalError}
+        titleText={getErrorModalHeader()}
         descriptionText={ERROR_MODAL_TEXT.somethingWrong}
         buttonText={ERROR_MODAL_TEXT.okButton}
         closeModal={() => {
-          setShowErrorModal(false);
+          setModalError(undefined);
         }}
       />
     </div>
