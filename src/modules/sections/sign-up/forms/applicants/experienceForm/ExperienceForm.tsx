@@ -2,11 +2,11 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
 import {
-  OptionalLongString,
   OptionalString,
   OptionalStringArr,
   RequiredString,
   Skills,
+  UploadedFile,
   YOE,
 } from '@/lib/enums';
 import {
@@ -26,6 +26,7 @@ import {
   MultiSelectField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
+import FileUploadField from '@/sections/sign-up/fields/FileUploadField';
 import { Form } from 'houseform';
 import { useEffect, useRef } from 'react';
 
@@ -195,17 +196,17 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           />
 
           {/* Resume Upload */}
-          {/* <FileUploadField
-            fieldName="resume-upload"
-            initialValue={undefined}
+          <FileUploadField
+            fieldName="resumeUpload"
+            initialValue={savedForm?.resumeUpload || undefined}
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
             showUploadErrorModal={showUploadErrorModal}
             submitted={isSubmitted}
             validator={UploadedFile}
-          /> */}
+          />
 
           {/* Resume */}
-          <FreeTextField
+          {/* <FreeTextField
             fieldName="resumeUrl"
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumeUrl.label}
             placeholder={
@@ -217,10 +218,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumeUrl || ''}
             validator={OptionalLongString}
-          />
+          /> */}
 
           {/* Resume Password */}
-          <FreeTextField
+          {/* <FreeTextField
             fieldName="resumePassword"
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumePassword.label}
             placeholder={
@@ -229,7 +230,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             isSubmitted={isSubmitted}
             initialValue={savedForm?.resumePassword || ''}
             validator={OptionalString}
-          />
+          /> */}
 
           {/* Form Buttons */}
           <div className="pt-2">

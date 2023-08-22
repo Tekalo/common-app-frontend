@@ -312,6 +312,8 @@ describe('<SignupForm />', () => {
     it('should have correct terms link', () => {
       cy.mountCandidateSignupForm(props);
 
+      cy.wait(250);
+
       cy.get('#candidate-sign-up__terms-of-use-link').should(
         'have.attr',
         'href',

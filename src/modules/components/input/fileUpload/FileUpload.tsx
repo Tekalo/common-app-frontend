@@ -34,18 +34,13 @@ const FileUpload: React.FC<IFileUpload> = ({
   showUploadErrorModal,
   tooltipText,
 }) => {
-  // TODO: How do we handle when users come back?
-  // Will we have to retrieve the file name for display in the uploader?
-  // Will that be included in the form params?
-  // If so, we will need to make the schema an object with two properties,
-  // One with fileId and one with fileName
   const fileUploadCtx = useContext(FileUploadContext);
 
   const [fileToUpload, setFileToUpload] = useState<File>();
   const [uploadState, setUploadState] = useState<FileUploadState>(
     FileUploadState.INITIAL
   );
-  const [uploadedFileId, setUploadedFileId] = useState<number>();
+  const [uploadValue, setUploadValue] = useState<UploadedFileType>();
 
   const uploadInputId = `upload-button-${id}`;
   const fiveMB = 5242880;
@@ -56,14 +51,29 @@ const FileUpload: React.FC<IFileUpload> = ({
     clearUploadInput();
   };
 
-  // Our file id (or url, not exactly sure which we'll be submitting here)
-  // is our value, so whenever it changes, we should set the value in the form
+  // Our file id and name is our value, so whenever it changes,
+  // we should set the value in the form
   useEffect(() => {
-    if (uploadedFileId && fileToUpload) {
-      // TODO: Check file signature: https://hectorguo.com/en/file-signature-check/
-      setValue({ id: uploadedFileId, fileName: fileToUpload.type });
+    if (uploadValue?.id && uploadValue.originalFilename) {
+      setValue({
+        id: uploadValue.id,
+        originalFilename: uploadValue.originalFilename,
+      });
+    } else {
+      // Clear value
+      setValue({} as UploadedFileType);
     }
-  }, [uploadedFileId]);
+  }, [uploadValue]);
+
+  useEffect(() => {
+    if (initialValue && initialValue.originalFilename && initialValue.id) {
+      setUploadValue({
+        id: initialValue.id,
+        originalFilename: initialValue.originalFilename,
+      });
+      setUploadState(FileUploadState.UPLOAD_COMPLETE);
+    }
+  }, [initialValue]);
 
   // When a file is selected to upload
   // and we are not in an error state
@@ -76,8 +86,15 @@ const FileUpload: React.FC<IFileUpload> = ({
         fileUploadCtx
           .uploadFile(fileToUpload)
           .then((response) => {
-            if (response.isSuccess) {
-              setUploadedFileId(response.fileId || undefined);
+            if (
+              response.isSuccess &&
+              response.fileId &&
+              uploadValue?.originalFilename
+            ) {
+              setUploadValue({
+                id: response.fileId,
+                originalFilename: uploadValue.originalFilename,
+              });
               setUploadState(FileUploadState.UPLOAD_COMPLETE);
             } else {
               errorHandler();
@@ -87,28 +104,17 @@ const FileUpload: React.FC<IFileUpload> = ({
       }
     };
 
-    if (fileToUpload) {
-      onFileSelected();
-    }
+    onFileSelected();
   }, [fileToUpload]);
 
   const removeUploadedFile = () => {
     setUploadState(FileUploadState.REMOVING);
 
-    if (uploadedFileId) {
-      fileUploadCtx
-        .deleteFile(uploadedFileId)
-        .then((res) => {
-          if (res.ok) {
-            setUploadedFileId(undefined);
-            setFileToUpload(undefined);
-            clearUploadInput();
-            setUploadState(FileUploadState.INITIAL);
-          } else {
-            errorHandler();
-          }
-        })
-        .catch(errorHandler);
+    if (uploadValue) {
+      setUploadValue(undefined);
+      setFileToUpload(undefined);
+      clearUploadInput();
+      setUploadState(FileUploadState.INITIAL);
     }
   };
 
@@ -188,7 +194,7 @@ const FileUpload: React.FC<IFileUpload> = ({
           data-name="file-name"
           className="flex-[0_1_100%] overflow-hidden text-ellipsis whitespace-nowrap"
         >
-          {fileToUpload?.name}
+          {uploadValue?.originalFilename}
         </span>
       </div>
     );
@@ -206,6 +212,12 @@ const FileUpload: React.FC<IFileUpload> = ({
     } else {
       return supportedFormatMessage;
     }
+  };
+
+  const setInvalidFileState = (upFile: File): void => {
+    setUploadState(FileUploadState.INVALID_FILE);
+    setFileToUpload(upFile);
+    setUploadValue({ originalFilename: upFile.name, id: 0 });
   };
 
   return (
@@ -232,22 +244,31 @@ const FileUpload: React.FC<IFileUpload> = ({
         type="file"
         disabled={uploadState === FileUploadState.UPLOADING}
         className="hidden"
-        onChange={(e) => {
+        onChange={async (e) => {
           if (e.target.files) {
-            const fileToUpload = e.target.files[0];
+            const upFile = e.target.files[0];
 
             setFieldErrors([]);
+            const fileIsInvalid = !(await fileUploadCtx.validateFile(upFile));
 
-            if (fileToUpload.size <= fiveMB) {
-              setUploadState(FileUploadState.INITIAL);
-              setFileToUpload(fileToUpload);
-            } else {
-              setUploadState(FileUploadState.INVALID_FILE);
-              setFileToUpload(fileToUpload);
+            if (upFile.size > fiveMB) {
+              // File too large
+              setInvalidFileState(upFile);
               setFieldErrors([
                 APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors
                   .tooLarge,
               ]);
+            } else if (fileIsInvalid) {
+              // Invalid file signature
+              setInvalidFileState(upFile);
+              setFieldErrors([
+                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors.invalid,
+              ]);
+            } else {
+              // Valid!
+              setUploadState(FileUploadState.INITIAL);
+              setFileToUpload(upFile);
+              setUploadValue({ originalFilename: upFile.name, id: 0 });
             }
           }
 

@@ -4,6 +4,7 @@ import {
   resumeUploadRequestEndpoint,
 } from '@/lib/helpers/apiHelpers';
 import { useAuth0 } from '@auth0/auth0-react';
+import fileTypeChecker from 'file-type-checker';
 import React, { ReactNode } from 'react';
 
 // To request file upload
@@ -29,8 +30,8 @@ export interface IFileDeletionResponse {
 }
 
 export interface IFileUploadContext {
-  deleteFile: (id: number) => Promise<IFileDeletionResponse>;
   uploadFile: (file: File) => Promise<IFileUploadCompleteResponse>;
+  validateFile: (file: File) => Promise<boolean>;
 }
 
 export interface IFileUploadProvider {
@@ -43,8 +44,6 @@ export const FileUploadContext = React.createContext<IFileUploadContext>(
 
 const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-
-  const tmpDelay = 1000;
 
   const markUploadStatus = async (isSuccess: boolean, fileId: number) => {
     const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
@@ -94,41 +93,74 @@ const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
 
     try {
       // Request upload
-      const res = await requestFileUpload(file);
+      const requestUploadResponse = await requestFileUpload(file);
 
       // Upload file to presigned url
       const uploadRequestBody =
-        (await res.json()) as IFileUploadRequestResponse;
+        (await requestUploadResponse.json()) as IFileUploadRequestResponse;
       // AWS upload will never throw an uncaught error, it should always return
       // false if something goes wrong so we can update the status below
       const awsUploadSuccess = await uploadFileToAWS(file, uploadRequestBody);
 
       // Mark with status
-      await markUploadStatus(awsUploadSuccess, uploadRequestBody.id);
+      const statusResponseSuccess = (
+        await markUploadStatus(awsUploadSuccess, uploadRequestBody.id)
+      ).ok;
 
       const successResponse = {
         isSuccess: awsUploadSuccess,
         fileId: uploadRequestBody.id,
       };
 
-      return awsUploadSuccess ? successResponse : failureResponse;
+      return awsUploadSuccess && statusResponseSuccess
+        ? successResponse
+        : failureResponse;
     } catch {
       return failureResponse;
     }
   };
 
-  const deleteFile = (fileId: number) =>
-    new Promise<IFileDeletionResponse>((resolve) => {
-      setTimeout(() => {
-        resolve({ ok: true });
-      }, tmpDelay);
+  const validateDocxSignature = (fileContents: ArrayBuffer): boolean => {
+    const docxSignature = [0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00];
+    const uint8Array = new Uint8Array(fileContents);
+
+    return docxSignature.every((byte, index) => byte === uint8Array[index]);
+  };
+
+  const validateFile = async (file: File): Promise<boolean> => {
+    // .pdf,.docx,.png,.jpeg,.jpg
+    const acceptedTypes = ['jpeg', 'png', 'pdf'];
+
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const fileContents = reader.result as ArrayBuffer;
+
+        const docxMimeType =
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+        if (file.type === docxMimeType) {
+          // The library can't validate the signatures of .docx files
+          // so we have to manually validate it
+          // https://www.garykessler.net/library/file_sigs.html
+          resolve(validateDocxSignature(fileContents));
+        } else {
+          resolve(
+            fileTypeChecker.validateFileType(fileContents, acceptedTypes)
+          );
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
     });
+  };
 
   return (
     <FileUploadContext.Provider
       value={{
-        deleteFile,
         uploadFile,
+        validateFile,
       }}
     >
       {children}

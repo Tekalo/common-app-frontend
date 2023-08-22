@@ -6,9 +6,13 @@ import {
 import FileUpload, {
   IFileUpload,
 } from '@/modules/components/input/fileUpload/FileUpload';
+import { SinonSpy } from 'cypress/types/sinon';
 import React from 'react';
 
 const mockFileId = 123;
+const mockFileName = 'example_resume.pdf';
+let fileIsValid: boolean;
+let setValueSpy: SinonSpy;
 
 const MockFileUploadProvider: React.FC<IFileUploadProvider> = ({
   children,
@@ -16,7 +20,7 @@ const MockFileUploadProvider: React.FC<IFileUploadProvider> = ({
   return (
     <FileUploadContext.Provider
       value={{
-        deleteFile: () => Promise.resolve({ ok: true }),
+        validateFile: async () => Promise.resolve(fileIsValid),
         uploadFile: async () => {
           return new Promise((resolve) => {
             setTimeout(() => {
@@ -58,15 +62,18 @@ describe('FileUpload', () => {
   let props: IFileUpload;
 
   beforeEach(() => {
+    setValueSpy = cy.stub().as('setValue');
+
     props = {
       id,
       initialValue: undefined,
       label,
-      setFieldErrors: () => void {},
-      setValue: () => void {},
+      setFieldErrors: cy.stub().as('setFieldErrors'),
+      setValue: setValueSpy,
       showUploadErrorModal: () => void {},
       tooltipText: undefined,
     };
+    fileIsValid = true;
   });
 
   it('should render', () => {
@@ -138,7 +145,7 @@ describe('FileUpload', () => {
     cy.get('#upload-file-button').should('be.visible');
   });
 
-  it('should show an error message on uploading a file that is over 5MB', () => {
+  it('should enter error state on uploading a file that is over 5MB', () => {
     cy.mountFileUpload(props);
 
     cy.get('#upload-button-example-id').selectFile(
@@ -154,5 +161,64 @@ describe('FileUpload', () => {
       'text-gray-2'
     );
     cy.get('#upload-file-button').should('be.visible');
+    cy.get('@setFieldErrors')
+      .should('have.callCount', 2)
+      .should('have.been.calledWith', [])
+      .should('have.been.calledWith', [
+        APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors.tooLarge,
+      ]);
+  });
+
+  it('should enter error state when file signature is not verified', (done) => {
+    fileIsValid = false;
+    cy.mountFileUpload(props);
+
+    cy.get('#upload-button-example-id').selectFile(
+      {
+        contents: ['0'],
+        fileName,
+      },
+      { force: true }
+    );
+
+    cy.get('div[data-name=description-section] > div').should(
+      'have.class',
+      'text-gray-2'
+    );
+    cy.get('#upload-file-button').should('be.visible');
+    cy.get('@setFieldErrors')
+      .should('have.callCount', 2)
+      .should('have.been.calledWith', [])
+      .should('have.been.calledWith', [
+        APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors.invalid,
+      ])
+      .then(() => {
+        console.log(setValueSpy.getCall(1).args);
+        assert(JSON.stringify(setValueSpy.getCall(1).args[0]) === '{}');
+        done();
+      });
+  });
+
+  it('should set correct values and display when file has already been uploaded', (done) => {
+    props.initialValue = {
+      originalFilename: mockFileName,
+      id: mockFileId,
+    };
+
+    cy.mountFileUpload(props);
+
+    cy.get('span[data-name=file-name]')
+      .should('be.visible')
+      .should('have.text', mockFileName);
+    cy.get('button[data-name=remove-file-button]')
+      .should('be.visible')
+      .should('contain.text', 'Remove')
+      .then(() => {
+        const setCallArg = setValueSpy.getCall(1).args[0];
+
+        assert(setCallArg.originalFilename === mockFileName);
+        assert(setCallArg.id === mockFileId);
+        done();
+      });
   });
 });

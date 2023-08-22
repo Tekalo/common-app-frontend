@@ -4,12 +4,12 @@ import {
 } from '@/lib/helpers/apiHelpers';
 import FileUploadProvider, {
   FileUploadContext,
-  IFileDeletionResponse,
   IFileUploadCompleteResponse,
   IFileUploadRequestResponse,
 } from '@/lib/providers/fileUploadProvider';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import { Interception } from 'cypress/types/net-stubbing';
+import * as FileTypeCheckerModule from 'file-type-checker';
 import React, { useContext } from 'react';
 
 describe('FileUploadProvider', () => {
@@ -22,15 +22,18 @@ describe('FileUploadProvider', () => {
   const mockAuthToken = 'MOCK_AUTH_TOKEN';
   const voidFn = () => void {};
 
-  const MockComponent: React.FC<{ action: 'upload' | 'delete' }> = ({
+  const MockComponent: React.FC<{ action: 'upload' | 'validate' }> = ({
     action,
   }) => {
     const context = useContext(FileUploadContext);
 
-    if (action === 'delete') {
-      context.deleteFile(mockFileId).then(componentDeleteCheckFn);
-    } else {
-      context.uploadFile(mockFile).then(componentUploadCheckFn);
+    switch (action) {
+      case 'upload':
+        context.uploadFile(mockFile).then(componentUploadCheckFn);
+        break;
+      case 'validate':
+        context.validateFile(mockFile).then(componentValidationCheckFn);
+        break;
     }
 
     return <></>;
@@ -39,7 +42,7 @@ describe('FileUploadProvider', () => {
   // Things you can change per-test
   let mockAuth0Context: Auth0ContextInterface<User>;
   let componentUploadCheckFn: (res: IFileUploadCompleteResponse) => void;
-  let componentDeleteCheckFn: (res: IFileDeletionResponse) => void;
+  let componentValidationCheckFn: (res: boolean) => void;
   let mockFile: File;
   let mockUploadRequestResponse: IFileUploadRequestResponse;
 
@@ -279,7 +282,7 @@ describe('FileUploadProvider', () => {
     );
   });
 
-  it('should fail when status call fails', (done) => {
+  it('should fail when status call fails (reject)', (done) => {
     componentUploadCheckFn = (res) => {
       expect(res.isSuccess).to.equal(false);
       expect(res.fileId).to.equal(undefined);
@@ -341,12 +344,132 @@ describe('FileUploadProvider', () => {
     );
   });
 
-  it('should make file deletion request', (done) => {
-    componentDeleteCheckFn = (res) => {
-      expect(res.ok).to.equal(true);
-      done();
+  it('should fail when status call fails (bad status)', (done) => {
+    componentUploadCheckFn = (res) => {
+      expect(res.isSuccess).to.equal(false);
+      expect(res.fileId).to.equal(undefined);
     };
 
-    cy.mountFileUploadProvider('delete', mockAuth0Context);
+    cy.intercept(
+      { method: 'POST', url: resumeUploadRequestEndpoint },
+      cy.stub().callsFake((req) => {
+        req.reply(mockUploadRequestResponse);
+      })
+    ).as('uploadRequested');
+
+    cy.intercept(
+      {
+        method: 'PUT',
+        url: mockSignedLink,
+      },
+      cy.stub().callsFake((res) => res.reply({ statusCode: 200 }))
+    ).as('fileUploaded');
+
+    cy.intercept(
+      {
+        method: 'POST',
+        url: resumeUploadCompleteEndpoint.replace(
+          '{{FILE_ID}}',
+          mockFileId.toString()
+        ),
+      },
+      cy.stub().callsFake((req) => {
+        req.reply({ statusCode: 500, ok: false });
+      })
+    ).as('uploadCompleted');
+
+    cy.mountFileUploadProvider('upload', mockAuth0Context);
+
+    cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
+      (intercepts: Interception[]) => {
+        // Check upload request
+        const uploadRequestBody = intercepts[0].request.body;
+
+        expect(uploadRequestBody.contentType).to.equal(mockFileType);
+        expect(uploadRequestBody.originalFilename).to.equal(mockFileName);
+        expect(intercepts[0].request.headers.authorization).to.equal(
+          `Bearer ${mockAuthToken}`
+        );
+
+        // Check aws file upload
+        const fileUploadRequestBody = intercepts[1].request.body;
+        const fileUploadRequestHeaders = intercepts[1].request.headers;
+
+        expect(fileUploadRequestBody).to.equal(mockFileContents);
+        expect(fileUploadRequestHeaders['content-type']).to.equal(mockFileType);
+
+        // Check complete
+        const completeRequestBody = intercepts[2].request.body;
+
+        expect(completeRequestBody.status).to.equal('SUCCESS');
+
+        done();
+      }
+    );
+  });
+
+  it('should validate a file successfully', () => {
+    const expectedResult = true;
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => expectedResult);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(expectedResult);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+    cy.get('@fileLibCheck').should('have.been.calledOnce');
+  });
+
+  it('should validate a file unsuccessfully', () => {
+    const expectedResult = false;
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => expectedResult);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(expectedResult);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+
+    cy.get('@fileLibCheck').should('have.been.calledOnce');
+  });
+
+  it('should accept a docx file type', () => {
+    const data = new Uint8Array([
+      0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00,
+    ]);
+    mockFile = new File([data], mockFileName, {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => false);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(true);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+
+    cy.get('@fileLibCheck').should('not.have.been.called');
+  });
+
+  it('should reject a bad docx file', () => {
+    const data = new Uint8Array([0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00]);
+    mockFile = new File([data], mockFileName, {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+
+    cy.stub(FileTypeCheckerModule, 'validateFileType')
+      .as('fileLibCheck')
+      .callsFake(() => true);
+    componentValidationCheckFn = (res) => {
+      expect(res).to.equal(false);
+    };
+
+    cy.mountFileUploadProvider('validate', mockAuth0Context);
+
+    cy.get('@fileLibCheck').should('not.have.been.called');
   });
 });
