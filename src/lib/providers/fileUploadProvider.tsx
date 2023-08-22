@@ -25,10 +25,6 @@ export interface IFileUploadCompleteResponse {
   fileId?: number;
 }
 
-export interface IFileDeletionResponse {
-  ok: boolean;
-}
-
 export interface IFileUploadContext {
   uploadFile: (file: File) => Promise<IFileUploadCompleteResponse>;
   validateFile: (file: File) => Promise<boolean>;

@@ -49,7 +49,7 @@ const FileUpload: React.FC<IFileUpload> = ({
     clearUploadInput();
   };
 
-  // Our file id and name is our value, so whenever it changes,
+  // Our file id and name are our values, so whenever they change,
   // we should set the value in the form
   useEffect(() => {
     if (uploadValue?.id && uploadValue.originalFilename) {
