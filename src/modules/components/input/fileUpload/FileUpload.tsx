@@ -43,7 +43,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   const uploadInputId = `upload-button-${id}`;
   const fiveMB = 5242880;
 
-  const errorHandler = () => {
+  const uploadErrorHandler = () => {
     showUploadErrorModal();
     setUploadState(FileUploadState.INITIAL);
     clearUploadInput();
@@ -77,32 +77,28 @@ const FileUpload: React.FC<IFileUpload> = ({
   // and we are not in an error state
   // then upload it
   useEffect(() => {
-    const onFileSelected = () => {
-      if (fileToUpload && uploadState !== FileUploadState.INVALID_FILE) {
-        setUploadState(FileUploadState.UPLOADING);
+    if (fileToUpload && uploadState !== FileUploadState.INVALID_FILE) {
+      setUploadState(FileUploadState.UPLOADING);
 
-        fileUploadCtx
-          .uploadFile(fileToUpload)
-          .then((response) => {
-            if (
-              response.isSuccess &&
-              response.fileId &&
-              uploadValue?.originalFilename
-            ) {
-              setUploadValue({
-                id: response.fileId,
-                originalFilename: uploadValue.originalFilename,
-              });
-              setUploadState(FileUploadState.UPLOAD_COMPLETE);
-            } else {
-              errorHandler();
-            }
-          })
-          .catch(errorHandler);
-      }
-    };
-
-    onFileSelected();
+      fileUploadCtx
+        .uploadFile(fileToUpload)
+        .then((response) => {
+          if (
+            response.isSuccess &&
+            response.fileId &&
+            uploadValue?.originalFilename
+          ) {
+            setUploadValue({
+              id: response.fileId,
+              originalFilename: uploadValue.originalFilename,
+            });
+            setUploadState(FileUploadState.UPLOAD_COMPLETE);
+          } else {
+            uploadErrorHandler();
+          }
+        })
+        .catch(uploadErrorHandler);
+    }
   }, [fileToUpload]);
 
   const removeUploadedFile = () => {
