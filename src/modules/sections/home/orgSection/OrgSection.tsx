@@ -143,6 +143,16 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       alt: 'Protect Democracy Logo',
       url: 'https://protectdemocracy.org/',
     },
+    {
+      src: '/images/logos/MurmurationLogo.png',
+      alt: 'Murmuration Logo',
+      url: 'https://murmuration.org/',
+    },
+    {
+      src: '/images/logos/PropelLogo.png',
+      alt: 'Propel Logo',
+      url: 'https://www.joinpropel.com/',
+    },
   ];
 
   const renderLogos = (full = false) => {
