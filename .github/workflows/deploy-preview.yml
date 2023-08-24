@@ -28,7 +28,7 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
   e2e-tests:
-    name: Run e2e Tests
+    name: Run Unit and E2E Tests
     uses: ./.github/workflows/workflow-run-tests.yml
     needs: [deploy]
     with:

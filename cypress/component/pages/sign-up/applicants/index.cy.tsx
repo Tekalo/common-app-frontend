@@ -332,7 +332,7 @@ describe('Applicant Signup Page', () => {
     });
   });
 
-  it('should reject with bad turnstile token', () => {
+  it('should reject with bad turnstile token', (done) => {
     cy.stub(console, 'error');
     cy.intercept(
       {
@@ -349,9 +349,12 @@ describe('Applicant Signup Page', () => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
       cy.wait('@badTurnstileSubmission').then(() => {
+        cy.wait(1000);
         expect(console.error).to.have.been.called.calledOnce;
         cy.get('#turnstile-not-valid').should('be.visible');
       });
+
+      done();
     });
   });
 
