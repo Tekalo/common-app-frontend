@@ -24,7 +24,7 @@ Cypress.Commands.add('setupTestingEnvironment', (): void => {
 
 Cypress.Commands.add('validateLogin', (): void => {
   cy.visit('account');
-  cy.get('h3[data-name=account-greeting]', { timeout: 10000 }).should(
+  cy.get('h3[data-name=account-greeting]').should(
     'have.text',
     'Welcome back, Test User'
   );
@@ -38,7 +38,7 @@ Cypress.Commands.add('login', (): void => {
       cy.visit('/sign-in');
 
       cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
-        cy.url({ timeout: 10000 }).should('contain', '/u/login');
+        cy.url().should('contain', '/u/login');
 
         cy.get('input[name=username]').type(Cypress.env('auth0_username'));
         cy.get('input[name=password]').type(Cypress.env('auth0_password'));
@@ -46,7 +46,7 @@ Cypress.Commands.add('login', (): void => {
         cy.get('button[name=action]').last().click();
       });
 
-      cy.url({ timeout: 10000 }).should('contain', `/account`);
+      cy.url().should('contain', `/account`);
     },
     {
       validate() {

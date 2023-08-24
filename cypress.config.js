@@ -9,6 +9,7 @@ module.exports = defineConfig({
   chromeWebSecurity: false,
 
   e2e: {
+    defaultCommandTimeout: 10000,
     setupNodeEvents(_on, config) {
       // https://stackoverflow.com/questions/52050657/what-is-the-best-practice-of-pass-states-between-tests-in-cypress
       _on('task', {
@@ -45,6 +46,7 @@ module.exports = defineConfig({
   },
 
   component: {
+    defaultCommandTimeout: 10000,
     setupNodeEvents(_on, config) {
       require('@cypress/code-coverage/task')(_on, config);
       _on('file:preprocessor', require('@cypress/code-coverage/use-babelrc'));

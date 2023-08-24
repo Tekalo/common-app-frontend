@@ -348,7 +348,7 @@ describe('Applicant Signup Page', () => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
-      cy.wait('@badTurnstileSubmission', { timeout: 10000 }).then(() => {
+      cy.wait('@badTurnstileSubmission').then(() => {
         expect(console.error).to.have.been.called.calledOnce;
         cy.get('#turnstile-not-valid').should('be.visible');
       });
