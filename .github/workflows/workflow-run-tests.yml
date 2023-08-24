@@ -22,8 +22,8 @@ on:
         required: true
 
 jobs:
-  e2e-tests:
-    name: Run e2e Tests
+  run-tests:
+    name: Run Tests
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
@@ -52,8 +52,6 @@ jobs:
         with:
           record: false
           component: true
-        env:
-          CI: true
 
       - name: Run E2E Tests
         uses: cypress-io/github-action@v5.7.2
