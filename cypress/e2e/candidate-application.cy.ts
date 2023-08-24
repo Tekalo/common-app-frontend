@@ -40,7 +40,10 @@ describe('Candidate Application', () => {
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
-    uploadDocXFile();
+    // TODO: RESUME_UPLOAD
+    fillResume();
+    fillResumePwd();
+    // uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
@@ -87,7 +90,10 @@ describe('Candidate Application', () => {
     fillPortfolio();
     fillPortfolioPwd();
     fillGithub();
-    uploadDocXFile();
+    // TODO: RESUME_UPLOAD
+    fillResume();
+    fillResumePwd();
+    // uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
