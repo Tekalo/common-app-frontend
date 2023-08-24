@@ -178,7 +178,7 @@ describe('Applicant Signup Page', () => {
     cy.get('#loading-spinner').should('be.visible');
   });
 
-  it('should show privacy modal and close it', () => {
+  it('should show privacy modal and close it', (done) => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.setShowPrivacyModal(true);
 
@@ -190,6 +190,8 @@ describe('Applicant Signup Page', () => {
       cy.get('#close-table-modal').click();
 
       cy.get('#table-modal-header').should('not.exist');
+
+      done();
     });
   });
 
@@ -250,7 +252,7 @@ describe('Applicant Signup Page', () => {
     cy.get('#mockContent').should('be.visible');
   });
 
-  it('should submit a regular, non-debug submission with all fields filled out', () => {
+  it('should submit a regular, non-debug submission with all fields filled out', (done) => {
     cy.intercept(
       {
         method: 'POST',
@@ -280,11 +282,13 @@ describe('Applicant Signup Page', () => {
         expect(router.push).to.have.been.calledOnceWithExactly(
           APPLICANT_EXPERIENCE_LINK
         );
+
+        done();
       });
     });
   });
 
-  it('should submit a regular, non-debug submission with only required fields', () => {
+  it('should submit a regular, non-debug submission with only required fields', (done) => {
     mockFormValues.followUpOptIn = false;
     mockFormValues.pronoun = '';
 
@@ -328,6 +332,8 @@ describe('Applicant Signup Page', () => {
         expect(router.push).to.have.been.calledOnceWithExactly(
           APPLICANT_EXPERIENCE_LINK
         );
+
+        done();
       });
     });
   });
@@ -352,13 +358,13 @@ describe('Applicant Signup Page', () => {
         cy.wait(1000);
         expect(console.error).to.have.been.called.calledOnce;
         cy.get('#turnstile-not-valid').should('be.visible');
-      });
 
-      done();
+        done();
+      });
     });
   });
 
-  it('should notify the user that their account already exists', () => {
+  it('should notify the user that their account already exists', (done) => {
     cy.intercept(
       {
         method: 'POST',
@@ -376,10 +382,12 @@ describe('Applicant Signup Page', () => {
       cy.wait('@userConflictSubmission').then(() => {
         cy.get('#conflict-error').should('be.visible');
       });
+
+      done();
     });
   });
 
-  it('should should show error modal', () => {
+  it('should should show error modal', (done) => {
     cy.intercept(
       {
         method: 'POST',
@@ -408,6 +416,8 @@ describe('Applicant Signup Page', () => {
         cy.get('#error-modal-button-container button').click();
         cy.get('#error-modal-title').should('not.exist');
         cy.get('#error-modal-description').should('not.exist');
+
+        done();
       });
     });
   });
