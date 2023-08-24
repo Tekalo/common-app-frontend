@@ -2,7 +2,7 @@
 name: Deploy Project to Staging
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       tag_name:
         description: The tag to be deployed
