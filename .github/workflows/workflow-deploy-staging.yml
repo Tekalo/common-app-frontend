@@ -16,7 +16,7 @@ jobs:
     name: Build and Deploy Project
     uses: ./.github/workflows/workflow-build.yml
     with:
-      environment: 'develop'
+      environment: 'staging'
       tag_name: ${{ inputs.tag_name }}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -27,7 +27,7 @@ jobs:
     uses: ./.github/workflows/workflow-run-tests.yml
     needs: ['deploy']
     with:
-      environment: 'develop'
+      environment: 'staging'
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
