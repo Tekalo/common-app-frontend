@@ -2,7 +2,7 @@ import { FieldInstance, FormInstance } from 'houseform';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { z } from 'zod';
-import { CommitmentType } from './enums';
+import { CommitmentType, UploadedFile } from './enums';
 import { DraftResponseSchema, NewOrgOppSchema } from './schemas/apiSchemas';
 import {
   CandidateDraftSchema,
@@ -37,6 +37,7 @@ export type IconType = (_props: IIconItem) => React.ReactNode;
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (_page: ReactElement) => ReactNode;
 };
+export type UploadedFileType = z.infer<typeof UploadedFile>;
 
 export type SubmissionResponseType = z.infer<typeof DraftResponseSchema>;
 

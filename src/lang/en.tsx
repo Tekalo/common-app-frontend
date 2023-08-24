@@ -317,6 +317,10 @@ const ERROR_MODAL_TEXT = {
   somethingWrong: 'Something went wrong. Please try again later.',
   okButton: 'Ok',
 };
+const UPLOAD_ERROR_TEXT = {
+  header: 'Upload failed',
+  bodyText: 'Upload failed message TBD',
+};
 const PRIVACY_MODAL_TEXT = {
   HEADER: 'Privacy Info',
   BODY: 'This Privacy Info is meant to help you understand what information we collect, why we collect it, and how you can manage and delete your information lorem.',
@@ -597,6 +601,19 @@ const APPLICANT_EXPERIENCE_FORM_TEXT = {
     resumePassword: {
       label: 'Resume password (optional)',
       placeholder: 'Password to view resume',
+    },
+    fileUpload: {
+      label: 'Resume or CV',
+      selectFileBtn: 'Choose file',
+      supportedFormats: 'Attach up to 5 MB in PDF, DOCx, PNG or JPG format',
+      errors: {
+        tooLarge: 'File exceeds 5 MB',
+        invalid: 'File is invalid',
+      },
+      actions: {
+        uploading: 'Uploading',
+        removing: 'Removing',
+      },
     },
   },
 };
@@ -2091,8 +2108,7 @@ const TERMS_TEXT = {
 };
 
 // GLOBALS
-export { GLOBAL_TEXT };
-export { COOKIE_CONSENT };
+export { COOKIE_CONSENT, GLOBAL_TEXT };
 // META
 export { META, TRACKING };
 // PRIVACY & TERMS EXPORTS
@@ -2189,9 +2205,9 @@ export {
 export { ACCOUNT_PAGE_TEXT };
 // FORM EXPORTS
 export {
-  GENERAL_FORM_TEXT_CONSTANTS,
   APPLICANT_EXPERIENCE_FORM_TEXT,
   APPLICANT_FORM_TEXT,
+  GENERAL_FORM_TEXT_CONSTANTS,
   INTEREST_FORM_TEXT,
   ORG_FORM_TEXT,
   ORG_ROLE_FORM_TEXT,
@@ -2207,4 +2223,5 @@ export {
   PRIVACY_MODAL_TEXT,
   RESUME_MODAL,
   SAVE_MODAL,
+  UPLOAD_ERROR_TEXT,
 };
