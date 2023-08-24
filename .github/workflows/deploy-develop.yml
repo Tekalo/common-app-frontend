@@ -28,6 +28,7 @@ jobs:
     needs: [deploy]
     with:
       environment: 'develop'
+      tag_name: ${{ github.sha }}
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}

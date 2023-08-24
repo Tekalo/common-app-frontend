@@ -34,6 +34,7 @@ jobs:
     with:
       environment: 'develop'
       url: ${{ format('{0}/', needs.deploy.outputs.url) }}
+      tag_name: ${{ github.event.pull_request.head.sha }}
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
