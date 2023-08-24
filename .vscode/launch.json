@@ -12,21 +12,21 @@
       "name": "Next.js: debug server-side",
       "type": "node-terminal",
       "request": "launch",
-      "runtimeVersion": "16.19.1",
+      "runtimeVersion": "18.17.1",
       "command": "npm run dev"
     },
     {
       "name": "Next.js: debug client-side",
       "type": "chrome",
       "request": "launch",
-      "runtimeVersion": "16.19.1",
+      "runtimeVersion": "18.17.1",
       "url": "http://localhost:3001"
     },
     {
       "name": "Next.js: debug full stack",
       "type": "node-terminal",
       "request": "launch",
-      "runtimeVersion": "16.19.1",
+      "runtimeVersion": "18.17.1",
       "command": "npm run dev",
       "serverReadyAction": {
         "pattern": "started server on .+, url: (https?://.+)",
