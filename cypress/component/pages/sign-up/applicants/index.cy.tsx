@@ -85,7 +85,7 @@ describe('Applicant Signup Page', () => {
 
   // Set up all our mocks
   beforeEach(() => {
-    window.dataLayerEvent = cy.stub();
+    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
     cy.stub(router, 'push').as('routerPush');
 
     mockHasSubmittedRes = {
@@ -178,7 +178,7 @@ describe('Applicant Signup Page', () => {
     cy.get('#loading-spinner').should('be.visible');
   });
 
-  it('should show privacy modal and close it', () => {
+  it('should show privacy modal and close it', (done) => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.setShowPrivacyModal(true);
 
@@ -190,6 +190,8 @@ describe('Applicant Signup Page', () => {
       cy.get('#close-table-modal').click();
 
       cy.get('#table-modal-header').should('not.exist');
+
+      done();
     });
   });
 
@@ -250,7 +252,7 @@ describe('Applicant Signup Page', () => {
     cy.get('#mockContent').should('be.visible');
   });
 
-  it('should submit a regular, non-debug submission with all fields filled out', () => {
+  it('should submit a regular, non-debug submission with all fields filled out', (done) => {
     cy.intercept(
       {
         method: 'POST',
@@ -274,17 +276,22 @@ describe('Applicant Signup Page', () => {
       cy.wait('@applicantSubmission').then(() => {
         cy.get('@submissionResponse').should('have.been.calledOnce');
 
-        expect(window.dataLayerEvent).to.have.been.calledOnceWithExactly(
+        cy.get('dataLayerEvent').should(
+          'have.been.calledOnceWithExactly',
           TRACKING.CANDIDATE_SIGNUP
         );
-        expect(router.push).to.have.been.calledOnceWithExactly(
+
+        cy.get('routerPush').should(
+          'have.been.calledOnceWithExactly',
           APPLICANT_EXPERIENCE_LINK
         );
+
+        done();
       });
     });
   });
 
-  it('should submit a regular, non-debug submission with only required fields', () => {
+  it('should submit a regular, non-debug submission with only required fields', (done) => {
     mockFormValues.followUpOptIn = false;
     mockFormValues.pronoun = '';
 
@@ -322,18 +329,23 @@ describe('Applicant Signup Page', () => {
       cy.wait('@applicantSubmission').then(() => {
         cy.get('@submissionResponse').should('have.been.calledOnce');
 
-        expect(window.dataLayerEvent).to.have.been.calledOnceWithExactly(
+        cy.get('dataLayerEvent').should(
+          'have.been.calledOnceWithExactly',
           TRACKING.CANDIDATE_SIGNUP
         );
-        expect(router.push).to.have.been.calledOnceWithExactly(
+
+        cy.get('routerPush').should(
+          'have.been.calledOnceWithExactly',
           APPLICANT_EXPERIENCE_LINK
         );
+
+        done();
       });
     });
   });
 
-  it('should reject with bad turnstile token', () => {
-    cy.stub(console, 'error');
+  it('should reject with bad turnstile token', (done) => {
+    cy.stub(console, 'error').as('consoleError');
     cy.intercept(
       {
         method: 'POST',
@@ -349,13 +361,15 @@ describe('Applicant Signup Page', () => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
       cy.wait('@badTurnstileSubmission').then(() => {
-        expect(console.error).to.have.been.called.calledOnce;
+        cy.get('consoleError').should('have.been.calledOnce');
         cy.get('#turnstile-not-valid').should('be.visible');
+
+        done();
       });
     });
   });
 
-  it('should notify the user that their account already exists', () => {
+  it('should notify the user that their account already exists', (done) => {
     cy.intercept(
       {
         method: 'POST',
@@ -373,10 +387,12 @@ describe('Applicant Signup Page', () => {
       cy.wait('@userConflictSubmission').then(() => {
         cy.get('#conflict-error').should('be.visible');
       });
+
+      done();
     });
   });
 
-  it('should should show error modal', () => {
+  it('should should show error modal', (done) => {
     cy.intercept(
       {
         method: 'POST',
@@ -405,6 +421,8 @@ describe('Applicant Signup Page', () => {
         cy.get('#error-modal-button-container button').click();
         cy.get('#error-modal-title').should('not.exist');
         cy.get('#error-modal-description').should('not.exist');
+
+        done();
       });
     });
   });

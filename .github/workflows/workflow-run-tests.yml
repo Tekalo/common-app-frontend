@@ -1,5 +1,5 @@
 ---
-name: Run E2E Tests
+name: Run E2E and Unit Tests
 
 on:
   workflow_call:
@@ -10,6 +10,10 @@ on:
         required: true
       url:
         type: string
+      tag_name:
+        description: The tag to be tested
+        type: string
+        required: true
     secrets:
       DEBUG_MODE_SECRET:
         description: secret to bypass cloudflare
@@ -22,8 +26,8 @@ on:
         required: true
 
 jobs:
-  e2e-tests:
-    name: Run e2e Tests
+  run-tests:
+    name: Run Tests
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
@@ -34,6 +38,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        with:
+          fetch-depth: 0
+
+      - name: Checkout Tag
+        run: |
+          git checkout ${{ inputs.tag_name }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
@@ -47,7 +57,16 @@ jobs:
           version: latest
           run_install: false
 
-      - name: Cypress run
+      - name: Run Unit Tests
+        uses: cypress-io/github-action@v5.7.2
+        with:
+          record: false
+          component: true
+        env:
+          CI: true
+          NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{ vars.E2E_TURNSTILE_KEY }}
+
+      - name: Run E2E Tests
         uses: cypress-io/github-action@v5.7.2
         with:
           command: pnpm e2e:ci

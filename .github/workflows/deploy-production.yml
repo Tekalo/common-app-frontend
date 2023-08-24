@@ -16,6 +16,7 @@ jobs:
     uses: ./.github/workflows/workflow-build.yml
     with:
       environment: 'production'
+      tag_name: ${{ github.sha }}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -27,6 +28,7 @@ jobs:
     needs: [deploy]
     with:
       environment: 'production'
+      tag_name: ${{ github.sha }}
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}

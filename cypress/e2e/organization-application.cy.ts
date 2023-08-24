@@ -10,7 +10,6 @@ import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/select
 type EmploymentFillTypes = typeof EmploymentType._input;
 
 describe('Organization Application', () => {
-  const formSubmissionTimeout = 10000;
   const reviewPageTitleSelector = 'h3[data-name=review-page-title]';
 
   beforeEach(() => {
@@ -395,10 +394,7 @@ describe('Organization Application', () => {
   });
 
   function checkSuccessPage(): void {
-    cy.url({ timeout: formSubmissionTimeout }).should(
-      'include',
-      'sign-up/organizations/success'
-    );
+    cy.url().should('include', 'sign-up/organizations/success');
   }
 
   function doFullTimeChecks(): void {
@@ -629,14 +625,12 @@ describe('Organization Application', () => {
 
     cy.get('button#submit-org-form').click();
 
-    cy.wait('@opportunityCreation', { timeout: formSubmissionTimeout }).then(
-      (interception: Interception) => {
-        const response = interception?.response
-          ?.body as OrgBatchSubmissionResponseType;
+    cy.wait('@opportunityCreation').then((interception: Interception) => {
+      const response = interception?.response
+        ?.body as OrgBatchSubmissionResponseType;
 
-        cy.task('storeUserId', response.id);
-      }
-    );
+      cy.task('storeUserId', response.id);
+    });
   }
 
   function selectAttribution(): void {

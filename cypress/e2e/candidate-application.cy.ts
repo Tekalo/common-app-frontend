@@ -11,7 +11,6 @@ import '../support/commands';
 
 describe('Candidate Application', () => {
   // Just a little extra wait time for local api, it can be slow
-  const formSubmissionTimeout = 10000;
   const navigationFormFillDelay = 250;
 
   beforeEach(() => {
@@ -35,10 +34,7 @@ describe('Candidate Application', () => {
     acceptTerms();
     submitCandidateSignup();
 
-    cy.url({ timeout: formSubmissionTimeout }).should(
-      'include',
-      APPLICANT_EXPERIENCE_LINK
-    );
+    cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
 
     cy.wait(navigationFormFillDelay);
     fillPreviousRole();
@@ -65,10 +61,7 @@ describe('Candidate Application', () => {
     submitInterestForm();
 
     // Confirm success
-    cy.url({ timeout: formSubmissionTimeout }).should(
-      'include',
-      APPLICANT_SUCCESS_LINK
-    );
+    cy.url().should('include', APPLICANT_SUCCESS_LINK);
   });
 
   it('Should submit a candidate, all fields', () => {
@@ -85,10 +78,7 @@ describe('Candidate Application', () => {
     acceptFollowUpOptIn();
     submitCandidateSignup();
 
-    cy.url({ timeout: formSubmissionTimeout }).should(
-      'include',
-      APPLICANT_EXPERIENCE_LINK
-    );
+    cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
 
     cy.wait(navigationFormFillDelay);
     fillPreviousRole();
@@ -130,10 +120,7 @@ describe('Candidate Application', () => {
     submitInterestForm();
 
     // Confirm success
-    cy.url({ timeout: formSubmissionTimeout }).should(
-      'include',
-      APPLICANT_SUCCESS_LINK
-    );
+    cy.url().should('include', APPLICANT_SUCCESS_LINK);
   });
 
   function fillName(): void {
@@ -184,14 +171,12 @@ describe('Candidate Application', () => {
 
     cy.get(Selectors.buttons.submit).click();
 
-    cy.wait('@applicantCreation', { timeout: formSubmissionTimeout }).then(
-      (interception: Interception) => {
-        const response = interception?.response
-          ?.body as AccountSubmissionResponseType;
+    cy.wait('@applicantCreation').then((interception: Interception) => {
+      const response = interception?.response
+        ?.body as AccountSubmissionResponseType;
 
-        cy.task('storeUserId', response.id);
-      }
-    );
+      cy.task('storeUserId', response.id);
+    });
   }
 
   function fillPreviousRole(): void {
