@@ -1,4 +1,4 @@
-# name: Staging
+name: Staging
 
 # This workflow is triggered on a push to the staging branch.
 # Latest deployment: https://staging.common-app-frontend.pages.dev/
