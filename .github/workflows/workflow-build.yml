@@ -8,6 +8,10 @@ on:
         description: environment name
         type: string
         required: true
+      tag_name:
+        description: The tag to be deployed
+        type: string
+        required: true
     secrets:
       CLOUDFLARE_ACCOUNT_ID:
         description: Cloudflare Account ID
@@ -35,6 +39,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        with:
+          fetch-depth: 0
+
+      - name: Checkout Tag
+        run: |
+          git checkout ${{ inputs.tag_name }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3

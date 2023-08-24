@@ -1,15 +1,15 @@
-name: Develop
-
-# This workflow is triggered on a push to the develop branch.
-# Latest deployment: https://develop.common-app-frontend.pages.dev/
+---
+name: Deploy Project to Staging
 
 on:
-  # Trigger the workflow on a push to a branch that starts with `test/`
-  push:
-    branches:
-      - develop
+  workflow_call:
+    inputs:
+      tag_name:
+        description: The tag to be deployed
+        type: string
+        required: true
 
-  workflow_dispatch:
+# TODO: Run the tests locally before we deploy to staging
 
 jobs:
   deploy:
@@ -17,15 +17,15 @@ jobs:
     uses: ./.github/workflows/workflow-build.yml
     with:
       environment: 'develop'
-      tag_name: ${{ github.sha }}
+      tag_name: ${{ inputs.tag_name }}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-  e2e-tests:
-    name: Run e2e Tests
+  run-tests:
+    name: Run E2E and Unit Tests
     uses: ./.github/workflows/workflow-run-tests.yml
-    needs: [deploy]
+    needs: ['deploy']
     with:
       environment: 'develop'
     secrets:

@@ -47,7 +47,15 @@ jobs:
           version: latest
           run_install: false
 
-      - name: Cypress run
+      - name: Run Unit Tests
+        uses: cypress-io/github-action@v5.7.2
+        with:
+          record: false
+          component: true
+        env:
+          CI: true
+
+      - name: Run E2E Tests
         uses: cypress-io/github-action@v5.7.2
         with:
           command: pnpm e2e:ci
