@@ -85,7 +85,7 @@ describe('Applicant Signup Page', () => {
 
   // Set up all our mocks
   beforeEach(() => {
-    window.dataLayerEvent = cy.stub();
+    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
     cy.stub(router, 'push').as('routerPush');
 
     mockHasSubmittedRes = {
@@ -276,10 +276,13 @@ describe('Applicant Signup Page', () => {
       cy.wait('@applicantSubmission').then(() => {
         cy.get('@submissionResponse').should('have.been.calledOnce');
 
-        expect(window.dataLayerEvent).to.have.been.calledOnceWithExactly(
+        cy.get('dataLayerEvent').should(
+          'have.been.calledOnceWithExactly',
           TRACKING.CANDIDATE_SIGNUP
         );
-        expect(router.push).to.have.been.calledOnceWithExactly(
+
+        cy.get('routerPush').should(
+          'have.been.calledOnceWithExactly',
           APPLICANT_EXPERIENCE_LINK
         );
 
@@ -326,10 +329,13 @@ describe('Applicant Signup Page', () => {
       cy.wait('@applicantSubmission').then(() => {
         cy.get('@submissionResponse').should('have.been.calledOnce');
 
-        expect(window.dataLayerEvent).to.have.been.calledOnceWithExactly(
+        cy.get('dataLayerEvent').should(
+          'have.been.calledOnceWithExactly',
           TRACKING.CANDIDATE_SIGNUP
         );
-        expect(router.push).to.have.been.calledOnceWithExactly(
+
+        cy.get('routerPush').should(
+          'have.been.calledOnceWithExactly',
           APPLICANT_EXPERIENCE_LINK
         );
 
@@ -339,7 +345,7 @@ describe('Applicant Signup Page', () => {
   });
 
   it('should reject with bad turnstile token', (done) => {
-    cy.stub(console, 'error');
+    cy.stub(console, 'error').as('consoleError');
     cy.intercept(
       {
         method: 'POST',
@@ -355,8 +361,7 @@ describe('Applicant Signup Page', () => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
       cy.wait('@badTurnstileSubmission').then(() => {
-        cy.wait(1000);
-        expect(console.error).to.have.been.called.calledOnce;
+        cy.get('consoleError').should('have.been.calledOnce');
         cy.get('#turnstile-not-valid').should('be.visible');
 
         done();
