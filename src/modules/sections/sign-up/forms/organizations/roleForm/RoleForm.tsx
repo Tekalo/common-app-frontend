@@ -174,6 +174,17 @@ const RoleForm: React.FC<IRoleForm> = ({
                 validator={Roles}
               />
 
+              {formValue.roleType === 'other' && (
+                <FreeTextField
+                  fieldName="otherRoleType"
+                  label="If you chose other, please specify"
+                  placeholder="What type of role is this?"
+                  isSubmitted={isSubmitted}
+                  initialValue={previousForm?.otherRoleType || ''}
+                  validator={OptionalString}
+                />
+              )}
+
               {/* // HACK: Using the includes is risky here if we ever add a role with a " - " in it it may throw this component off */}
               <div className={fullTimeOnly ? 'hidden' : 'space-y-8'}>
                 <SingleSelectField

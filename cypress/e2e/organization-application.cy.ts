@@ -5,6 +5,8 @@ import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
 
+import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
+
 type EmploymentFillTypes = typeof EmploymentType._input;
 
 describe('Organization Application', () => {
@@ -341,6 +343,56 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
+  it('Should submit opportunity, part and full-time, all fields with other role type filled out', () => {
+    cy.url().should('include', ORG_SIGNUP_LINK);
+
+    fillOrgName();
+    selectOrgType();
+    selectOrgSize();
+    selectImpactAreas();
+    fillContactName();
+    fillContactEmail();
+    fillContactPhone();
+    selectCommitmentTypes(['full', 'part']);
+    selectEoe();
+
+    submitOrgSignUpForm();
+
+    // Role form
+    cy.get('div[data-name="Role 1"]').should('exist');
+    doPartTimeUnpaidChecks();
+
+    selectPaidOrUnpaid('paid');
+
+    selectOtherRoleType();
+
+    fillEmploymentType(['internship']);
+    cy.get('input[name=input-desiredHoursPerWeek]').should('not.be.disabled');
+    fillOtherRoleType();
+    fillPositionTitle();
+    fillJobDescriptionLink();
+    fillSalaryRange();
+    fillHoursPerWeek();
+    selectFullyRemote();
+    selectVisaSponsorship();
+    fillStartDate();
+    selectYoe();
+    selectDesiredSkills();
+    fillOtherSkills();
+    selectSimilarExperience();
+    fillDesiredImpactExperience();
+    fillRolePitch();
+
+    goToOrgReview();
+
+    // Review form
+    cy.get(reviewPageTitleSelector).should('exist');
+    acceptPrivacy();
+    submitOrgApplication();
+
+    checkSuccessPage();
+  });
+
   function checkSuccessPage(): void {
     cy.url().should('include', 'sign-up/organizations/success');
   }
@@ -452,6 +504,15 @@ describe('Organization Application', () => {
   function selectRoleType(): void {
     cy.get('button[name=input-roleType]').click();
     cy.get('li[data-name="input-roleType-software engineer"').click();
+  }
+
+  function selectOtherRoleType(): void {
+    cy.get(Selectors.roleType.input).click();
+    cy.get(Selectors.roleType.options.other).click();
+    cy.get(Selectors.roleType.input).should('have.text', 'Other');
+    cy.wait(1000); // wait for animation to finish
+    cy.get(Selectors.roleTypeOther.input).should('exist');
+    cy.get(Selectors.roleTypeOther.input).type('Other role type');
   }
 
   function fillEmploymentType(types: EmploymentFillTypes[]): void {
