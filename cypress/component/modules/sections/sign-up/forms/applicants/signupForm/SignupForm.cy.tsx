@@ -383,7 +383,7 @@ describe('<SignupForm />', () => {
       cy.get(Selectors.terms.input).click();
 
       // Have to wait for turnstile to be ready to submit
-      cy.get('#turnstile-container').should(
+      cy.get('#turnstile-container', { timeout: 10000 }).should(
         'have.attr',
         'data-turnstile-ready',
         'true'
