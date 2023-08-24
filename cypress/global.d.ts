@@ -6,6 +6,7 @@ import { IFileUploadField } from '@/modules/sections/sign-up/fields/FileUploadFi
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
 import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import { IRoleForm } from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { Auth0ContextInterface } from '@auth0/auth0-react';
@@ -25,6 +26,7 @@ declare global {
       mountOrganizationSignupForm(
         props: IOrgSignupForm
       ): Chainable<MountReturn>;
+      mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
       mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
