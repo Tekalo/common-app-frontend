@@ -1,32 +1,34 @@
 # name: Staging
 
-# # This workflow is triggered on a push to the staging branch.
-# # Latest deployment: https://staging.common-app-frontend.pages.dev/
+# This workflow is triggered on a push to the staging branch.
+# Latest deployment: https://staging.common-app-frontend.pages.dev/
 
-# on:
-#   push:
-#     branches:
-#       - staging
+on:
+  push:
+    branches:
+      - staging
 
-#   workflow_dispatch:
+  workflow_dispatch:
 
-# jobs:
-#   deploy:
-#     name: Build and Deploy Project
-#     uses: ./.github/workflows/workflow-build.yml
-#     with:
-#       environment: 'staging'
-#     secrets:
-#       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-#       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+jobs:
+  deploy:
+    name: Build and Deploy Project
+    uses: ./.github/workflows/workflow-build.yml
+    with:
+      environment: 'staging'
+      tag_name: ${{ github.sha }}
+    secrets:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-#   e2e-tests:
-#     name: Run e2e Tests
-#     uses: ./.github/workflows/workflow-e2e.yml
-#     needs: [deploy]
-#     with:
-#       environment: 'staging'
-#     secrets:
-#       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
-#       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
-#       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+  e2e-tests:
+    name: Run e2e Tests
+    uses: ./.github/workflows/workflow-e2e.yml
+    needs: [deploy]
+    with:
+      environment: 'staging'
+      tag_name: ${{ github.sha }}
+    secrets:
+      DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
+      NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}

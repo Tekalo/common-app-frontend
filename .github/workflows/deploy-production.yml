@@ -1,33 +1,35 @@
-# name: Deploy main to Cloudflare Pages
+name: Deploy main to Cloudflare Pages
 
-# # This workflow triggers when a push happens on on main
-# # Latest deployment: https://main.common-app-frontend.pages.dev/
+# This workflow triggers when a push happens on on main
+# Latest deployment: https://main.common-app-frontend.pages.dev/
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-#   workflow_dispatch:
+  workflow_dispatch:
 
-# jobs:
-#   deploy:
-#     name: Build and Deploy Project
-#     uses: ./.github/workflows/workflow-build.yml
-#     with:
-#       environment: 'production'
-#     secrets:
-#       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-#       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-#       NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV: 'production'
+jobs:
+  deploy:
+    name: Build and Deploy Project
+    uses: ./.github/workflows/workflow-build.yml
+    with:
+      environment: 'production'
+      tag_name: ${{ github.sha }}
+    secrets:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV: 'production'
 
-#   e2e-tests:
-#     name: Run e2e Tests
-#     uses: ./.github/workflows/workflow-e2e.yml
-#     needs: [deploy]
-#     with:
-#       environment: 'production'
-#     secrets:
-#       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
-#       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
-#       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+  e2e-tests:
+    name: Run e2e Tests
+    uses: ./.github/workflows/workflow-e2e.yml
+    needs: [deploy]
+    with:
+      environment: 'production'
+      tag_name: ${{ github.sha }}
+    secrets:
+      DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
+      NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
