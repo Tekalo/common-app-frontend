@@ -1,5 +1,5 @@
 ---
-name: Build Project
+name: Job - Build Project for Develop
 
 on:
   workflow_call:

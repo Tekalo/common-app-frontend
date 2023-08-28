@@ -1,5 +1,5 @@
 ---
-name: Build Project for Release
+name: Job - Build Project for Release
 
 on:
   workflow_call:
