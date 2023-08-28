@@ -14,7 +14,7 @@ on:
 jobs:
   deploy:
     name: Build and Deploy Project
-    uses: ./.github/workflows/workflow-build.yml
+    uses: ./.github/workflows/workflow-build-release.yml
     with:
       environment: 'staging'
       tag_name: ${{ inputs.tag_name }}
