@@ -16,6 +16,7 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <div>
+      YEAP
       <HeroSection />
       <AboutSection />
       <HowSection />
