@@ -19,7 +19,7 @@ on:
 jobs:
   deploy:
     name: Build and Deploy Project
-    uses: ./.github/workflows/workflow-build-develop.yml
+    uses: ./.github/workflows/job-build-develop.yml
     with:
       environment: 'develop'
     secrets:
@@ -28,7 +28,7 @@ jobs:
 
   e2e-tests:
     name: Run Unit and E2E Tests
-    uses: ./.github/workflows/workflow-run-tests.yml
+    uses: ./.github/workflows/job-run-tests.yml
     needs: [deploy]
     with:
       environment: 'develop'
@@ -41,7 +41,7 @@ jobs:
 
   comment:
     name: Comment on PR
-    uses: ./.github/workflows/workflow-comment.yml
+    uses: ./.github/workflows/job-comment-pr.yml
     needs: [deploy]
     with:
       url: ${{ needs.deploy.outputs.url }}

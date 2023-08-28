@@ -1,33 +1,45 @@
-name: Staging
-
-# This workflow is triggered on a push to the staging branch.
-# Latest deployment: https://staging.common-app-frontend.pages.dev/
+---
+name: Deploy Project to Staging
 
 on:
-  push:
-    branches:
-      - staging
-
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: The tag to be deployed
+        type: string
+        required: true
+
+# TODO: Run the tests locally before we deploy to staging
 
 jobs:
-  deploy:
-    name: Build and Deploy Project
-    uses: ./.github/workflows/workflow-build.yml
+  check-tag:
+    name: Check Tag Format
+    uses: ./.github/workflows/job-check-tag.yml
     with:
       environment: 'staging'
-      tag_name: ${{ github.sha }}
+      tag_name: ${{ inputs.tag_name }}
+
+  deploy:
+    if: ${{ needs.check-tag.outputs.success }}
+    needs: [check-tag]
+    name: Build and Deploy Project
+    uses: ./.github/workflows/job-build-release.yml
+    with:
+      branch_name: 'staging'
+      environment: 'staging'
+      tag_name: ${{ inputs.tag_name }}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-  e2e-tests:
-    name: Run e2e Tests
-    uses: ./.github/workflows/workflow-e2e.yml
-    needs: [deploy]
+  run-tests:
+    if: ${{ needs.check-tag.outputs.success }}
+    name: Run E2E and Unit Tests
+    uses: ./.github/workflows/job-run-tests.yml
+    needs: ['check-tag', 'deploy']
     with:
       environment: 'staging'
-      tag_name: ${{ github.sha }}
+      tag_name: ${{ inputs.tag_name }}
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
