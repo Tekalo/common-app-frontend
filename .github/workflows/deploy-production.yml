@@ -34,7 +34,7 @@ jobs:
     if: needs.check-tag.outputs.success == 'true'
     name: Run E2E and Unit Tests
     uses: ./.github/workflows/job-run-tests.yml
-    needs: ['deploy']
+    needs: ['check-tag', 'deploy']
     with:
       environment: 'production'
       tag_name: ${{ inputs.tag_name }}
