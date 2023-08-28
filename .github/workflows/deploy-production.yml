@@ -1,5 +1,6 @@
 ---
 name: Deploy Project to Production
+run-name: Deploy Tag '${{ inputs.tag_name }}' to Production
 
 on:
   workflow_dispatch:
