@@ -12,6 +12,10 @@ on:
         description: The tag to be deployed
         type: string
         required: true
+      branch_name:
+        description: The branch to be deployed to
+        type: string
+        required: true
     secrets:
       CLOUDFLARE_ACCOUNT_ID:
         description: Cloudflare Account ID
@@ -37,6 +41,16 @@ jobs:
         node-version: [16.19.1]
 
     steps:
+      - name: Check Tag
+        id: check-tag
+        run: |
+          if [[ ${{ inputs.environment }} == 'production' && ${{ inputs.tag_name }} =~ ^[0-9]+.[0-9]+.[0-9]+$ || ${{ inputs.environment }} == 'staging' ]]; then
+              echo "match=true" >> $GITHUB_OUTPUT
+          else
+              echo "Passed tag does not match expected pattern for ${{ inputs.environment }}"
+              exit 1
+          fi
+
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
         with:
@@ -47,14 +61,14 @@ jobs:
         run: |
           git checkout ${{ inputs.tag_name }}
 
-      - name: Push Tag to Staging
+      - name: Push Tag to ${{ inputs.branch_name }}
         run: |
-          ${{ format('git push --force origin refs/tags/{0}:refs/heads/staging', inputs.tag_name) }}
+          ${{ format('git push --force origin refs/tags/{0}:refs/heads/{1}', inputs.tag_name, inputs.branch_name) }}
 
-      - name: Checkout Staging branch
+      - name: Checkout ${{ inputs.branch_name }} branch
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
         with:
-          ref: staging
+          ref: ${{ inputs.branch_name }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
@@ -115,7 +129,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: common-app-frontend
           directory: .vercel/output/static
-          branch: staging
+          branch: ${{ inputs.branch_name }}
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
       url: ${{ steps.deploy.outputs.url }}
