@@ -1,4 +1,5 @@
-name: Deploy Storybook to Chromatic
+name: OnHook - Deploy Storybook to Chromatic
+run-name: Deploy PR#${{ github.event.number }} Chromatic
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -9,7 +10,7 @@ on:
     branches:
       - develop
 
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   build-and-deploy:

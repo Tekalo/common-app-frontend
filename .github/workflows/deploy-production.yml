@@ -1,34 +1,44 @@
-name: Deploy main to Cloudflare Pages
-
-# This workflow triggers when a push happens on on main
-# Latest deployment: https://main.common-app-frontend.pages.dev/
+---
+name: Deploy Project to Production
+run-name: Deploy Tag '${{ inputs.tag_name }}' to Production
 
 on:
-  push:
-    branches:
-      - main
-
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: The tag to be deployed
+        type: string
+        required: true
 
 jobs:
-  deploy:
-    name: Build and Deploy Project
-    uses: ./.github/workflows/workflow-build.yml
+  check-tag:
+    name: Check Tag Format
+    uses: ./.github/workflows/job-check-tag.yml
     with:
       environment: 'production'
-      tag_name: ${{ github.sha }}
+      tag_name: ${{ inputs.tag_name }}
+
+  deploy:
+    if: needs.check-tag.outputs.success == 'true'
+    needs: [check-tag]
+    name: Build and Deploy Project
+    uses: ./.github/workflows/job-build-release.yml
+    with:
+      branch_name: 'main'
+      environment: 'production'
+      tag_name: ${{ inputs.tag_name }}
     secrets:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV: 'production'
 
-  e2e-tests:
-    name: Run e2e Tests
-    uses: ./.github/workflows/workflow-e2e.yml
-    needs: [deploy]
+  run-tests:
+    if: needs.check-tag.outputs.success == 'true'
+    name: Run E2E and Unit Tests
+    uses: ./.github/workflows/job-run-tests.yml
+    needs: ['check-tag', 'deploy']
     with:
       environment: 'production'
-      tag_name: ${{ github.sha }}
+      tag_name: ${{ inputs.tag_name }}
     secrets:
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}

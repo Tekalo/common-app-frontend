@@ -1,5 +1,5 @@
 ---
-name: Build Project
+name: Job - Build Project for Release
 
 on:
   workflow_call:
@@ -10,6 +10,10 @@ on:
         required: true
       tag_name:
         description: The tag to be deployed
+        type: string
+        required: true
+      branch_name:
+        description: The branch to be deployed to
         type: string
         required: true
     secrets:
@@ -34,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.17.1]
+        node-version: [16.19.1]
 
     steps:
       - name: Checkout
@@ -42,9 +46,19 @@ jobs:
         with:
           fetch-depth: 0
 
+        # We just want to make sure the tag exists here
       - name: Checkout Tag
         run: |
           git checkout ${{ inputs.tag_name }}
+
+      - name: Push Tag to ${{ inputs.branch_name }}
+        run: |
+          ${{ format('git push --force origin refs/tags/{0}:refs/heads/{1}', inputs.tag_name, inputs.branch_name) }}
+
+      - name: Checkout ${{ inputs.branch_name }} branch
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        with:
+          ref: ${{ inputs.branch_name }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
@@ -80,7 +94,7 @@ jobs:
         env:
           CI: true
           NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV: ${{ secrets.NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV }}
-          NEXT_PUBLIC_ENVIRONMENT: ${{ vars.environment }}
+          NEXT_PUBLIC_ENVIRONMENT: ${{ inputs.environment }}
           NEXT_PUBLIC_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
           NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ vars.AUTH0_CLIENT_ID }}
           NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
@@ -105,6 +119,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: common-app-frontend
           directory: .vercel/output/static
+          branch: ${{ inputs.branch_name }}
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
       url: ${{ steps.deploy.outputs.url }}

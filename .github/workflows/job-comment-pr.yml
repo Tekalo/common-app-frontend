@@ -1,5 +1,5 @@
 ---
-name: Comment on PR
+name: Job - Comment on PR
 
 on:
   workflow_call:
