@@ -1,3 +1,6 @@
+import { APPLICANT_FORM_TEXT } from '@/lang/en';
+import { applicantSubmissionsEndpoint } from '@/lib/helpers/apiHelpers';
+import { SubmissionResponseType } from '@/lib/types';
 import * as ExperienceFormModule from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import { IExperienceForm } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import * as InterestFormModule from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
@@ -57,8 +60,22 @@ describe('Experience and Interest Page', () => {
   const voidFn = () => void {};
   const mockAuthToken = 'MOCK_AUTH_TOKEN';
   let mockAuth0Context: Auth0ContextInterface<User>;
+  const mockSubmissionResponse: SubmissionResponseType = {
+    submission: {},
+    isFinal: false,
+  };
 
   beforeEach(() => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: applicantSubmissionsEndpoint,
+      },
+      cy.stub().callsFake((req) => {
+        req.reply(mockSubmissionResponse);
+      })
+    );
+
     mockAuth0Context = {
       getAccessTokenSilently: () =>
         cy.stub().returns(Promise.resolve(mockAuthToken)),
@@ -75,10 +92,25 @@ describe('Experience and Interest Page', () => {
   });
 
   it('should render', () => {
-    cy.mountExperienceAndInterestFormPage(mockAuth0Context).then(
-      (childProps: ExperienceAndInterestProps) => {
-        console.log(childProps);
-      }
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.get('h3[data-name=page-header]').should(
+      'contain.text',
+      APPLICANT_FORM_TEXT.HEADER
+    );
+    cy.get('[data-name=timeline] li[data-index=0]').should(
+      'have.attr',
+      'data-state',
+      'enabled'
+    );
+    cy.get('[data-name=timeline] li[data-index=1]').should(
+      'have.attr',
+      'data-state',
+      'disabled'
+    );
+    cy.get('div[data-name=form-area]').should(
+      'contain.text',
+      'Experience Form'
     );
   });
 });

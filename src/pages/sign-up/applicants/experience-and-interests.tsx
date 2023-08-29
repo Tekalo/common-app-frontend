@@ -247,17 +247,26 @@ const ApplicantForms: NextPageWithLayout = () => {
       {/* Form Content */}
       <div className="flex w-full max-w-[1120px] flex-col justify-center gap-8 pb-28 text-center md:pb-32">
         {/* Title */}
-        <h3 className="mx-auto max-w-[584px] pt-16 font-display text-h3-desktop text-black-text">
+        <h3
+          data-name="page-header"
+          className="mx-auto max-w-[584px] pt-16 font-display text-h3-desktop text-black-text"
+        >
           {APPLICANT_FORM_TEXT.HEADER}
         </h3>
 
         {/* Breadcrumb Timeline */}
-        <div className="mb-12 mt-10 flex content-center justify-center">
+        <div
+          data-name="timeline"
+          className="mb-12 mt-10 flex content-center justify-center"
+        >
           <Timeline timelineItems={timelineItems} horizontal={true} />
         </div>
 
         {/* Form Area */}
-        <div className="m-auto w-full max-w-[344px] space-y-8">
+        <div
+          data-name="form-area"
+          className="m-auto w-full max-w-[344px] space-y-8"
+        >
           {isInterestFormVisible ? (
             <InterestForm
               savedForm={draftFormValues}
