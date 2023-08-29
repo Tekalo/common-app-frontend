@@ -11,6 +11,7 @@ import { IRoleForm } from '@/modules/sections/sign-up/forms/organizations/roleFo
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { Auth0ContextInterface } from '@auth0/auth0-react';
 import { mount } from 'cypress/react';
+import { ExperienceAndInterestProps } from './component/pages/sign-up/applicants/experience-and-interests.cy';
 
 declare global {
   namespace Cypress {
@@ -23,21 +24,24 @@ declare global {
       // Unit test methods
       mount: typeof mount;
       mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
-      mountOrganizationSignupForm(
-        props: IOrgSignupForm
-      ): Chainable<MountReturn>;
-      mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
-      mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
+      mountExperienceAndInterestFormPage(
+        auth0Context: Auth0ContextInterface<User>
+      ): Chainable<ExperienceAndInterestProps>;
       mountFileUpload(props: IFileUpload): Chainable<void>;
       mountFileUploadField(props: IFileUploadField): Chainable<IFileUpload>;
       mountFileUploadProvider(
         action: 'upload' | 'validate',
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;
+      mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
+      mountOrganizationSignupForm(
+        props: IOrgSignupForm
+      ): Chainable<MountReturn>;
+      mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
     }
   }
