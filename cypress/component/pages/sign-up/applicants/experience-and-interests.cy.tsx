@@ -1,71 +1,98 @@
-import { APPLICANT_FORM_TEXT } from '@/lang/en';
+import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
+import {
+  APPLICANT_FORM_TEXT,
+  BASE_LINK,
+  ERROR_MODAL_TEXT,
+  TRACKING,
+} from '@/lang/en';
 import { applicantSubmissionsEndpoint } from '@/lib/helpers/apiHelpers';
-import { SubmissionResponseType } from '@/lib/types';
+import { ExperienceFieldsType, SubmissionResponseType } from '@/lib/types';
 import * as ExperienceFormModule from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import { IExperienceForm } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import * as InterestFormModule from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import ApplicantForms from '@/pages/sign-up/applicants/experience-and-interests';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
+import router from 'next/router';
 
 export interface ExperienceAndInterestProps {
   experience: IExperienceForm;
   interest: IInterestForm;
 }
 
-Cypress.Commands.add('mountExperienceAndInterestFormPage', (auth0Context) => {
-  let experienceProps: IExperienceForm;
-  let interestProps: IInterestForm;
+describe('Experience and Interest Page', () => {
+  let mockAuth0Context: Auth0ContextInterface<User>;
+  let mockSubmissionResponse: SubmissionResponseType;
+  const childProps: ExperienceAndInterestProps =
+    {} as unknown as ExperienceAndInterestProps;
 
-  const MockExperienceForm: React.FC<IExperienceForm> = ({
-    handleNext,
-    handleSave,
-    savedForm,
-    showUploadErrorModal,
-  }) => {
-    experienceProps = {
+  Cypress.Commands.add('mountExperienceAndInterestFormPage', (auth0Context) => {
+    const MockExperienceForm: React.FC<IExperienceForm> = ({
       handleNext,
       handleSave,
       savedForm,
       showUploadErrorModal,
+    }) => {
+      const setExpProps = cy
+        .stub()
+        .as('setExpProps')
+        .callsFake(() => {
+          // TODO: RM
+          console.log('mounting exp', savedForm);
+
+          childProps.experience = {
+            handleNext,
+            handleSave,
+            savedForm,
+            showUploadErrorModal,
+          };
+        });
+
+      setExpProps();
+
+      return <>Experience Form</>;
     };
-    return <>Experience Form</>;
-  };
-  const MockInterestForm: React.FC<IInterestForm> = ({
-    handleSubmit,
-    handleSave,
-    savedForm,
-  }) => {
-    interestProps = {
+
+    const MockInterestForm: React.FC<IInterestForm> = ({
       handleSubmit,
       handleSave,
       savedForm,
+    }) => {
+      const setIntProps = cy
+        .stub()
+        .as('setIntProps')
+        .callsFake(() => {
+          // TODO: RM
+          console.log('mounting int', savedForm);
+
+          childProps.interest = {
+            handleSubmit,
+            handleSave,
+            savedForm,
+          };
+        });
+
+      setIntProps();
+
+      return <>Interest Form</>;
     };
-    return <>Interest Form</>;
-  };
 
-  cy.stub(ExperienceFormModule, 'default').callsFake(MockExperienceForm);
-  cy.stub(InterestFormModule, 'default').callsFake(MockInterestForm);
+    cy.stub(ExperienceFormModule, 'default').callsFake(MockExperienceForm);
+    cy.stub(InterestFormModule, 'default').callsFake(MockInterestForm);
+    cy.stub(router, 'push').as('routerPush');
 
-  cy.mount(
-    <Auth0Context.Provider value={auth0Context}>
-      <ApplicantForms />
-    </Auth0Context.Provider>
-  ).then(() => {
-    return { experience: experienceProps, interest: interestProps };
+    cy.mount(
+      <Auth0Context.Provider value={auth0Context}>
+        <ApplicantForms />
+      </Auth0Context.Provider>
+    );
   });
-});
-
-describe('Experience and Interest Page', () => {
-  const voidFn = () => void {};
-  const mockAuthToken = 'MOCK_AUTH_TOKEN';
-  let mockAuth0Context: Auth0ContextInterface<User>;
-  const mockSubmissionResponse: SubmissionResponseType = {
-    submission: {},
-    isFinal: false,
-  };
 
   beforeEach(() => {
+    cy.fixture('candidate-submission').then(
+      (res) => (mockSubmissionResponse = res.maxSubmissionResponse)
+    );
+
     cy.intercept(
       {
         method: 'GET',
@@ -74,21 +101,9 @@ describe('Experience and Interest Page', () => {
       cy.stub().callsFake((req) => {
         req.reply(mockSubmissionResponse);
       })
-    );
+    ).as('getSubmissions');
 
-    mockAuth0Context = {
-      getAccessTokenSilently: () =>
-        cy.stub().returns(Promise.resolve(mockAuthToken)),
-      getAccessTokenWithPopup: voidFn,
-      getIdTokenClaims: voidFn,
-      handleRedirectCallback: voidFn,
-      isAuthenticated: false,
-      isLoading: false,
-      loginWithPopup: voidFn,
-      loginWithRedirect: voidFn,
-      logout: voidFn,
-      user: undefined,
-    } as unknown as Auth0ContextInterface<User>;
+    mockAuth0Context = getMockAuth0Context();
   });
 
   it('should render', () => {
@@ -112,5 +127,129 @@ describe('Experience and Interest Page', () => {
       'contain.text',
       'Experience Form'
     );
+  });
+
+  it('should get submissions and pass values to the savedForm', () => {
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.wait('@getSubmissions').then(() => {
+      expect(JSON.stringify(childProps.experience.savedForm)).to.eq(
+        JSON.stringify(mockSubmissionResponse.submission)
+      );
+    });
+  });
+
+  it('should redirect the user to the home page if unauthorized', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: applicantSubmissionsEndpoint,
+      },
+      cy.stub().callsFake((req) => {
+        req.reply({ statusCode: 401 });
+      })
+    ).as('getSubmissions');
+
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.wait('@getSubmissions').then(() => {
+      cy.get('@routerPush').should('have.been.calledWithExactly', BASE_LINK);
+    });
+  });
+
+  it('should how error modal if there is a problem getting submissions (bad code)', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: applicantSubmissionsEndpoint,
+      },
+      cy.stub().callsFake((req) => {
+        req.reply({ statusCode: 500 });
+      })
+    ).as('getSubmissions');
+
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.wait('@getSubmissions').then(() => {
+      cy.get('#error-modal-title')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+      cy.get('#error-modal-description')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+      cy.get('#error-modal-button-container button').click();
+
+      cy.get('#error-modal-title').should('not.exist');
+      cy.get('#error-modal-description').should('not.exist');
+    });
+  });
+
+  it('should how error modal if there is a problem getting submissions (rejection)', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: applicantSubmissionsEndpoint,
+      },
+      { forceNetworkError: true }
+    ).as('getSubmissions');
+
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.wait('@getSubmissions').then(() => {
+      cy.get('#error-modal-title')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+      cy.get('#error-modal-description')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+      cy.get('#error-modal-button-container button').click();
+
+      cy.get('#error-modal-title').should('not.exist');
+      cy.get('#error-modal-description').should('not.exist');
+    });
+  });
+
+  it('should handle next button click', (done) => {
+    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.wait('@getSubmissions').then(() => {
+      const mockExperienceFields: ExperienceFieldsType = {
+        lastRole: 'new role',
+        lastOrg: 'new org',
+        yoe: '2',
+        skills: ['react'],
+        otherSkills: ['new skill 1', 'new skill 2'],
+        linkedInUrl: 'new linkedin url',
+        githubUrl: 'new github url',
+        portfolioUrl: 'new portfolio url',
+        portfolioPassword: 'new portfolio password',
+        resumeUrl: 'new resume url',
+        resumePassword: 'new resume password',
+      };
+
+      console.log(childProps.experience.handleNext);
+      childProps.experience.handleNext(mockExperienceFields);
+
+      cy.get('div[data-name=form-area]')
+        .should('contain.text', 'Interest Form')
+        .then(() => {
+          cy.get('@dataLayerEvent').should(
+            'have.been.calledOnceWithExactly',
+            TRACKING.CANDIDATE_NEXT_BTN
+          );
+
+          expect(JSON.stringify(childProps.interest.savedForm)).to.eq(
+            JSON.stringify({
+              ...mockSubmissionResponse.submission,
+              ...mockExperienceFields,
+            })
+          );
+
+          done();
+        });
+    });
   });
 });

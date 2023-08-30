@@ -1,3 +1,4 @@
+import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
 import {
   ACCOUNT_LINK,
   APPLICANT_EXPERIENCE_LINK,
@@ -123,19 +124,7 @@ describe('Applicant Signup Page', () => {
         .callsFake((req) => req.reply(mockApplicantRes))
     ).as('hasData');
 
-    mockAuth0Context = {
-      getAccessTokenSilently: () =>
-        cy.stub().returns(Promise.resolve(mockAuthToken)),
-      getAccessTokenWithPopup: voidFn,
-      getIdTokenClaims: voidFn,
-      handleRedirectCallback: voidFn,
-      isAuthenticated: false,
-      isLoading: false,
-      loginWithPopup: voidFn,
-      loginWithRedirect: voidFn,
-      logout: voidFn,
-      user: undefined,
-    } as unknown as Auth0ContextInterface<User>;
+    mockAuth0Context = getMockAuth0Context();
 
     mockFormValues = {
       acceptedPrivacy: true,

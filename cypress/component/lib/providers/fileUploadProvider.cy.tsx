@@ -1,3 +1,4 @@
+import { getMockAuth0Context, mockAuthToken } from '@/cypress/fixtures/mocks';
 import {
   resumeUploadCompleteEndpoint,
   resumeUploadRequestEndpoint,
@@ -19,8 +20,6 @@ describe('FileUploadProvider', () => {
   const mockFileName = 'exampleFile.pdf';
   const mockFileType = 'application/pdf';
   const mockFileContents = '123';
-  const mockAuthToken = 'MOCK_AUTH_TOKEN';
-  const voidFn = () => void {};
 
   const MockComponent: React.FC<{ action: 'upload' | 'validate' }> = ({
     action,
@@ -66,18 +65,8 @@ describe('FileUploadProvider', () => {
       type: mockFileType,
     });
 
-    mockAuth0Context = {
-      getAccessTokenSilently: () => Promise.resolve(mockAuthToken),
-      getAccessTokenWithPopup: voidFn,
-      getIdTokenClaims: voidFn,
-      handleRedirectCallback: voidFn,
-      isAuthenticated: true,
-      isLoading: false,
-      loginWithPopup: voidFn,
-      loginWithRedirect: voidFn,
-      logout: voidFn,
-      user: undefined,
-    } as unknown as Auth0ContextInterface<User>;
+    mockAuth0Context = getMockAuth0Context();
+    mockAuth0Context.isAuthenticated = true;
   });
 
   it('should make file upload request', (done) => {

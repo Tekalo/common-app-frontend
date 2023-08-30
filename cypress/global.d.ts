@@ -11,7 +11,6 @@ import { IRoleForm } from '@/modules/sections/sign-up/forms/organizations/roleFo
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { Auth0ContextInterface } from '@auth0/auth0-react';
 import { mount } from 'cypress/react';
-import { ExperienceAndInterestProps } from './component/pages/sign-up/applicants/experience-and-interests.cy';
 
 declare global {
   namespace Cypress {
@@ -29,7 +28,7 @@ declare global {
       ): Chainable<ISignupForm>;
       mountExperienceAndInterestFormPage(
         auth0Context: Auth0ContextInterface<User>
-      ): Chainable<ExperienceAndInterestProps>;
+      ): Chainable<void>;
       mountFileUpload(props: IFileUpload): Chainable<void>;
       mountFileUploadField(props: IFileUploadField): Chainable<IFileUpload>;
       mountFileUploadProvider(
