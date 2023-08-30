@@ -6,7 +6,7 @@
   "engines": {
     "npm": "please-use-pnpm",
     "pnpm": ">=7",
-    "node": "16"
+    "node": "18"
   },
   "scripts": {
     "build-storybook": "storybook build -o .storybook/build",
