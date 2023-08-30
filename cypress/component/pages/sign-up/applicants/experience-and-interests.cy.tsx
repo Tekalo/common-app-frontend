@@ -3,9 +3,14 @@ import {
   APPLICANT_FORM_TEXT,
   BASE_LINK,
   ERROR_MODAL_TEXT,
+  SAVE_MODAL,
   TRACKING,
 } from '@/lang/en';
-import { applicantSubmissionsEndpoint } from '@/lib/helpers/apiHelpers';
+import {
+  applicantDraftSubmissionsEndpoint,
+  applicantSubmissionsEndpoint,
+} from '@/lib/helpers/apiHelpers';
+import { stripEmptyFields } from '@/lib/helpers/formHelpers';
 import { ExperienceFieldsType, SubmissionResponseType } from '@/lib/types';
 import * as ExperienceFormModule from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import { IExperienceForm } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
@@ -13,6 +18,7 @@ import * as InterestFormModule from '@/modules/sections/sign-up/forms/applicants
 import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import ApplicantForms from '@/pages/sign-up/applicants/experience-and-interests';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
+import { Interception } from 'cypress/types/net-stubbing';
 import { SinonSpy } from 'cypress/types/sinon';
 import router from 'next/router';
 
@@ -84,7 +90,7 @@ describe('Experience and Interest Page', () => {
       .as('setExpProps')
       .callsFake((handleNext, handleSave, savedForm, showUploadErrorModal) => {
         // TODO: RM
-        console.log('mounting exp', savedForm);
+        // console.log('mounting exp', savedForm);
 
         childProps.experience = {
           handleNext,
@@ -99,7 +105,7 @@ describe('Experience and Interest Page', () => {
       .as('setIntProps')
       .callsFake((handleSubmit, handleSave, savedForm) => {
         // TODO: RM
-        console.log('mounting int', savedForm);
+        // console.log('mounting int', savedForm);
 
         childProps.interest = {
           handleSubmit,
@@ -132,7 +138,7 @@ describe('Experience and Interest Page', () => {
     );
   });
 
-  it('should get submissions and pass values to the savedForm', (done) => {
+  it('should get submissions and pass values to the savedForm', () => {
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
     cy.wait('@getSubmissions');
@@ -143,8 +149,6 @@ describe('Experience and Interest Page', () => {
         expect(JSON.stringify(childProps.experience.savedForm)).to.eq(
           JSON.stringify(mockSubmissionResponse.submission)
         );
-
-        done();
       });
   });
 
@@ -219,14 +223,7 @@ describe('Experience and Interest Page', () => {
     cy.get('#error-modal-description').should('not.exist');
   });
 
-  it('should handle next button click', (done) => {
-    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
-
-    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
-
-    cy.wait('@getSubmissions');
-    cy.get('@setExpProps').should('have.been.calledTwice');
-
+  it('should handle next button click', () => {
     const mockExperienceFields: ExperienceFieldsType = {
       lastRole: 'new role',
       lastOrg: 'new org',
@@ -240,8 +237,16 @@ describe('Experience and Interest Page', () => {
       resumeUrl: 'new resume url',
       resumePassword: 'new resume password',
     };
+    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
 
-    childProps.experience.handleNext(mockExperienceFields);
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.wait('@getSubmissions');
+    cy.get('@setExpProps')
+      .should('have.been.calledTwice')
+      .then(() => {
+        childProps.experience.handleNext(mockExperienceFields);
+      });
 
     cy.get('@setIntProps')
       .should('have.been.calledOnce')
@@ -253,7 +258,7 @@ describe('Experience and Interest Page', () => {
 
         cy.get('@dataLayerEvent').should(
           'have.been.calledOnceWithExactly',
-          `ax${TRACKING.CANDIDATE_NEXT_BTN}`
+          TRACKING.CANDIDATE_NEXT_BTN
         );
 
         expect(JSON.stringify(childProps.interest.savedForm)).to.eq(
@@ -262,8 +267,55 @@ describe('Experience and Interest Page', () => {
             ...mockExperienceFields,
           })
         );
+      });
+  });
 
-        done();
+  it('should handle save on experience form', () => {
+    const newLocation = 'new Location!';
+
+    cy.intercept(
+      {
+        method: 'POST',
+        url: applicantDraftSubmissionsEndpoint,
+      },
+      cy.stub().callsFake((req) => {
+        req.reply({ statusCode: 200 });
+      })
+    ).as('saveDraft');
+
+    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+    cy.get('@setExpProps')
+      .should('have.been.calledTwice')
+      .then(() => {
+        mockSubmissionResponse.submission.currentLocation = newLocation;
+        childProps.experience.handleSave(mockSubmissionResponse.submission);
+
+        cy.wait('@saveDraft').then((i: Interception) => {
+          const expectedObj = stripEmptyFields({
+            ...mockSubmissionResponse.submission,
+            currentLocation: newLocation,
+          });
+
+          expect(JSON.stringify(i.request.body)).to.eq(
+            JSON.stringify(expectedObj)
+          );
+
+          cy.get('div[data-name=Modal]').should('be.visible');
+          cy.get('h2[data-name=modal-header]').should(
+            'contain.text',
+            'Your progress has been saved!'
+          );
+          cy.get('p[data-name=modal-description]').should(
+            'have.text',
+            SAVE_MODAL.BODY
+          );
+          cy.get('button[name=modal-confirm]')
+            .should('have.text', SAVE_MODAL.CTA)
+            .click();
+
+          cy.get('div[data-name=Modal]').should('not.exist');
+        });
       });
   });
 });

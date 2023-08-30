@@ -19,3 +19,12 @@ import '@cypress/code-coverage/support';
 import { mount } from 'cypress/react18';
 
 Cypress.Commands.add('mount', mount);
+
+// You can uncomment this to get console logs about how long each test takes
+// Cypress.on('test:after:run', (attributes) => {
+//   console.log(
+//     'Test "%s" has finished in %dms',
+//     attributes.title,
+//     attributes.duration
+//   );
+// });

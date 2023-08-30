@@ -55,6 +55,7 @@ const Modal: React.FC<IModal> = ({
             {/* Title */}
             {headline && (
               <Dialog.Title
+                data-name="modal-header"
                 className="mb-4 font-display text-h4-desktop text-black-text"
                 ref={headerRef}
               >
@@ -63,7 +64,10 @@ const Modal: React.FC<IModal> = ({
             )}
             {/* Body */}
             {bodyText && (
-              <Dialog.Description className="mb-4 text-p2-desktop text-black-text">
+              <Dialog.Description
+                data-name="modal-description"
+                className="mb-4 text-p2-desktop text-black-text"
+              >
                 {bodyText}
               </Dialog.Description>
             )}
@@ -76,6 +80,7 @@ const Modal: React.FC<IModal> = ({
               {/* Cancel Button */}
               {cancelButtonText && (
                 <button
+                  name="modal-cancel"
                   type="button"
                   className="cursor-pointer text-component-extra-large"
                   onClick={onCancel}
