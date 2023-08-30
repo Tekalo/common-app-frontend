@@ -5,13 +5,18 @@ import {
   ERROR_MODAL_TEXT,
   SAVE_MODAL,
   TRACKING,
+  UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
-import { ExperienceFieldsType, SubmissionResponseType } from '@/lib/types';
+import {
+  ExperienceFieldsType,
+  InterestFieldsType,
+  SubmissionResponseType,
+} from '@/lib/types';
 import * as ExperienceFormModule from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import { IExperienceForm } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import * as InterestFormModule from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
@@ -28,10 +33,42 @@ export interface ExperienceAndInterestProps {
 }
 
 describe('Experience and Interest Page', () => {
-  let mockAuth0Context: Auth0ContextInterface<User>;
-  let mockSubmissionResponse: SubmissionResponseType;
   const childProps: ExperienceAndInterestProps =
     {} as unknown as ExperienceAndInterestProps;
+  const mockExperienceFields: ExperienceFieldsType = {
+    lastRole: 'new role',
+    lastOrg: 'new org',
+    yoe: '2',
+    skills: ['react'],
+    otherSkills: ['new skill 1', 'new skill 2'],
+    linkedInUrl: 'new linkedin url',
+    githubUrl: 'new github url',
+    portfolioUrl: 'new portfolio url',
+    portfolioPassword: 'new portfolio password',
+    resumeUrl: 'new resume url',
+    resumePassword: 'new resume password',
+  };
+  const mockInterestFields: InterestFieldsType = {
+    hoursPerWeek: '40',
+    interestWorkArrangement: ['full-time employee'],
+    interestEmploymentType: ['full'],
+    interestRoles: ['data analyst', 'product designer'],
+    currentLocation: 'test location',
+    openToRelocate: 'not sure',
+    openToRemoteMulti: ['remote', 'hybrid'],
+    desiredSalary: '200k',
+    interestCauses: ['int 1', 'int 2'],
+    otherCauses: ['other 1', 'other 2'],
+    workAuthorization: 'authorized',
+    interestGovt: true,
+    interestGovtEmplTypes: ['paid', 'unpaid'],
+    previousImpactExperience: false,
+    essayResponse: 'essay response',
+    referenceAttribution: 'linkedIn',
+    referenceAttributionOther: null,
+  };
+  let mockAuth0Context: Auth0ContextInterface<User>;
+  let mockSubmissionResponse: SubmissionResponseType;
   let setExpProps: SinonSpy;
   let setIntProps: SinonSpy;
 
@@ -69,6 +106,8 @@ describe('Experience and Interest Page', () => {
   });
 
   beforeEach(() => {
+    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
+
     cy.fixture('candidate-submission').then(
       (res) => (mockSubmissionResponse = res.maxSubmissionResponse)
     );
@@ -138,107 +177,7 @@ describe('Experience and Interest Page', () => {
     );
   });
 
-  it('should get submissions and pass values to the savedForm', () => {
-    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
-
-    cy.wait('@getSubmissions');
-
-    cy.get('@setExpProps')
-      .should('have.been.calledTwice')
-      .then(() => {
-        expect(JSON.stringify(childProps.experience.savedForm)).to.eq(
-          JSON.stringify(mockSubmissionResponse.submission)
-        );
-      });
-  });
-
-  it('should redirect the user to the home page if unauthorized', () => {
-    cy.intercept(
-      {
-        method: 'GET',
-        url: applicantSubmissionsEndpoint,
-      },
-      cy.stub().callsFake((req) => {
-        req.reply({ statusCode: 401 });
-      })
-    ).as('getSubmissions');
-
-    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
-
-    cy.wait('@getSubmissions');
-    cy.get('@routerPush').should('have.been.calledWithExactly', BASE_LINK);
-  });
-
-  it('should how error modal if there is a problem getting submissions (bad code)', () => {
-    cy.intercept(
-      {
-        method: 'GET',
-        url: applicantSubmissionsEndpoint,
-      },
-      cy.stub().callsFake((req) => {
-        req.reply({ statusCode: 500 });
-      })
-    ).as('getSubmissions');
-
-    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
-
-    cy.wait('@getSubmissions');
-
-    cy.get('#error-modal-title')
-      .should('be.visible')
-      .should('have.text', ERROR_MODAL_TEXT.requestFailed);
-    cy.get('#error-modal-description')
-      .should('be.visible')
-      .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
-
-    cy.get('#error-modal-button-container button').click();
-
-    cy.get('#error-modal-title').should('not.exist');
-    cy.get('#error-modal-description').should('not.exist');
-  });
-
-  it('should how error modal if there is a problem getting submissions (rejection)', () => {
-    cy.intercept(
-      {
-        method: 'GET',
-        url: applicantSubmissionsEndpoint,
-      },
-      { forceNetworkError: true }
-    ).as('getSubmissions');
-
-    cy.mountExperienceAndInterestFormPage(mockAuth0Context);
-
-    cy.wait('@getSubmissions');
-
-    cy.get('#error-modal-title')
-      .should('be.visible')
-      .should('have.text', ERROR_MODAL_TEXT.requestFailed);
-    cy.get('#error-modal-description')
-      .should('be.visible')
-      .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
-
-    cy.get('#error-modal-button-container button').click();
-
-    cy.get('#error-modal-title').should('not.exist');
-    cy.get('#error-modal-description').should('not.exist');
-  });
-
-  it('should handle next button click', () => {
-    const mockExperienceFields: ExperienceFieldsType = {
-      lastRole: 'new role',
-      lastOrg: 'new org',
-      yoe: '2',
-      skills: ['react'],
-      otherSkills: ['new skill 1', 'new skill 2'],
-      linkedInUrl: 'new linkedin url',
-      githubUrl: 'new github url',
-      portfolioUrl: 'new portfolio url',
-      portfolioPassword: 'new portfolio password',
-      resumeUrl: 'new resume url',
-      resumePassword: 'new resume password',
-    };
-    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
-
+  it('should handle next button click and pass form values to interest form', () => {
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
     cy.wait('@getSubmissions');
@@ -270,52 +209,338 @@ describe('Experience and Interest Page', () => {
       });
   });
 
-  it('should handle save on experience form', () => {
-    const newLocation = 'new Location!';
-
-    cy.intercept(
-      {
-        method: 'POST',
-        url: applicantDraftSubmissionsEndpoint,
-      },
-      cy.stub().callsFake((req) => {
-        req.reply({ statusCode: 200 });
-      })
-    ).as('saveDraft');
-
+  it('should show upload error modal when an upload error occurs', () => {
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
     cy.get('@setExpProps')
       .should('have.been.calledTwice')
       .then(() => {
-        mockSubmissionResponse.submission.currentLocation = newLocation;
-        childProps.experience.handleSave(mockSubmissionResponse.submission);
+        childProps.experience.showUploadErrorModal();
 
-        cy.wait('@saveDraft').then((i: Interception) => {
-          const expectedObj = stripEmptyFields({
-            ...mockSubmissionResponse.submission,
-            currentLocation: newLocation,
-          });
+        cy.get('#error-modal-title')
+          .should('be.visible')
+          .should('have.text', UPLOAD_ERROR_TEXT.header);
+        cy.get('#error-modal-description')
+          .should('be.visible')
+          .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-          expect(JSON.stringify(i.request.body)).to.eq(
-            JSON.stringify(expectedObj)
-          );
+        cy.get('#error-modal-button-container button').click();
 
-          cy.get('div[data-name=Modal]').should('be.visible');
-          cy.get('h2[data-name=modal-header]').should(
-            'contain.text',
-            'Your progress has been saved!'
-          );
-          cy.get('p[data-name=modal-description]').should(
-            'have.text',
-            SAVE_MODAL.BODY
-          );
-          cy.get('button[name=modal-confirm]')
-            .should('have.text', SAVE_MODAL.CTA)
-            .click();
-
-          cy.get('div[data-name=Modal]').should('not.exist');
-        });
+        cy.get('#error-modal-title').should('not.exist');
+        cy.get('#error-modal-description').should('not.exist');
       });
+  });
+
+  describe('get submissions', () => {
+    it('should get submissions and pass values to the savedForm', () => {
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.wait('@getSubmissions');
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          expect(JSON.stringify(childProps.experience.savedForm)).to.eq(
+            JSON.stringify(mockSubmissionResponse.submission)
+          );
+        });
+    });
+
+    it('should redirect the user to the home page if unauthorized', () => {
+      cy.intercept(
+        {
+          method: 'GET',
+          url: applicantSubmissionsEndpoint,
+        },
+        cy.stub().callsFake((req) => {
+          req.reply({ statusCode: 401 });
+        })
+      ).as('getSubmissions');
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.wait('@getSubmissions');
+      cy.get('@routerPush').should('have.been.calledWithExactly', BASE_LINK);
+    });
+
+    it('should how error modal if there is a problem getting submissions (bad code)', () => {
+      cy.intercept(
+        {
+          method: 'GET',
+          url: applicantSubmissionsEndpoint,
+        },
+        cy.stub().callsFake((req) => {
+          req.reply({ statusCode: 500 });
+        })
+      ).as('getSubmissions');
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.wait('@getSubmissions');
+
+      cy.get('#error-modal-title')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+      cy.get('#error-modal-description')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+      cy.get('#error-modal-button-container button').click();
+
+      cy.get('#error-modal-title').should('not.exist');
+      cy.get('#error-modal-description').should('not.exist');
+    });
+
+    it('should how error modal if there is a problem getting submissions (rejection)', () => {
+      cy.intercept(
+        {
+          method: 'GET',
+          url: applicantSubmissionsEndpoint,
+        },
+        { forceNetworkError: true }
+      ).as('getSubmissions');
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.wait('@getSubmissions');
+
+      cy.get('#error-modal-title')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+      cy.get('#error-modal-description')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+      cy.get('#error-modal-button-container button').click();
+
+      cy.get('#error-modal-title').should('not.exist');
+      cy.get('#error-modal-description').should('not.exist');
+    });
+  });
+
+  describe('handleSave', () => {
+    let saveDraftResponse = { statusCode: 200 };
+
+    beforeEach(() => {
+      cy.intercept(
+        {
+          method: 'POST',
+          url: applicantDraftSubmissionsEndpoint,
+        },
+        cy.stub().callsFake((req) => {
+          req.reply(saveDraftResponse);
+        })
+      ).as('saveDraft');
+    });
+
+    it('should handle save on experience form', () => {
+      const newLocation = 'new Location!';
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          mockSubmissionResponse.submission.currentLocation = newLocation;
+          childProps.experience.handleSave(mockSubmissionResponse.submission);
+
+          cy.wait('@saveDraft').then((i: Interception) => {
+            const expectedObj = stripEmptyFields({
+              ...mockSubmissionResponse.submission,
+              currentLocation: newLocation,
+            });
+
+            expect(JSON.stringify(i.request.body)).to.eq(
+              JSON.stringify(expectedObj)
+            );
+
+            cy.get('div[data-name=Modal]').should('be.visible');
+            cy.get('h2[data-name=modal-header]').should(
+              'contain.text',
+              'Your progress has been saved!'
+            );
+            cy.get('p[data-name=modal-description]').should(
+              'have.text',
+              SAVE_MODAL.BODY
+            );
+            cy.get('button[name=modal-confirm]')
+              .should('have.text', SAVE_MODAL.CTA)
+              .click();
+
+            cy.get('div[data-name=Modal]').should('not.exist');
+          });
+        });
+    });
+
+    it('should show error modal if saving fails (bad code)', () => {
+      saveDraftResponse = { statusCode: 500 };
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.handleSave(mockSubmissionResponse.submission);
+
+          cy.wait('@saveDraft');
+
+          cy.get('#error-modal-title')
+            .should('be.visible')
+            .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+          cy.get('#error-modal-description')
+            .should('be.visible')
+            .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+          cy.get('#error-modal-button-container button').click();
+
+          cy.get('#error-modal-title').should('not.exist');
+          cy.get('#error-modal-description').should('not.exist');
+        });
+    });
+
+    it('should show error modal if saving fails (rejection)', () => {
+      cy.intercept(
+        {
+          method: 'POST',
+          url: applicantDraftSubmissionsEndpoint,
+        },
+        { forceNetworkError: true }
+      ).as('saveDraft');
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.handleSave(mockSubmissionResponse.submission);
+
+          cy.wait('@saveDraft');
+
+          cy.get('#error-modal-title')
+            .should('be.visible')
+            .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+          cy.get('#error-modal-description')
+            .should('be.visible')
+            .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+          cy.get('#error-modal-button-container button').click();
+
+          cy.get('#error-modal-title').should('not.exist');
+          cy.get('#error-modal-description').should('not.exist');
+        });
+    });
+  });
+
+  describe('submit', () => {
+    let submissionResponse = { statusCode: 200 };
+
+    beforeEach(() => {
+      cy.intercept(
+        {
+          method: 'POST',
+          url: applicantSubmissionsEndpoint,
+        },
+        cy.stub().callsFake((req) => {
+          req.reply(submissionResponse);
+        })
+      ).as('applicationSubmission');
+    });
+
+    it('should submit form values correctly', () => {
+      const expectedObj = {
+        ...stripEmptyFields(mockExperienceFields),
+        ...stripEmptyFields(mockInterestFields),
+        originTag: '',
+      };
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.handleNext(mockExperienceFields);
+
+          cy.get('@setIntProps')
+            .should('have.been.calledOnce')
+            .then(() => {
+              childProps.interest.handleSubmit(mockInterestFields);
+
+              cy.wait('@applicationSubmission').then((i: Interception) => {
+                expect(JSON.stringify(i.request.body)).to.eq(
+                  JSON.stringify(expectedObj)
+                );
+              });
+            });
+        });
+    });
+
+    it('should show error modal if submission fails (bad code)', () => {
+      submissionResponse = { statusCode: 500 };
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.handleNext(mockExperienceFields);
+
+          cy.get('@setIntProps')
+            .should('have.been.calledOnce')
+            .then(() => {
+              childProps.interest.handleSubmit(mockInterestFields);
+
+              cy.wait('@applicationSubmission').then(() => {
+                cy.get('#error-modal-title')
+                  .should('be.visible')
+                  .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+                cy.get('#error-modal-description')
+                  .should('be.visible')
+                  .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+                cy.get('#error-modal-button-container button').click();
+
+                cy.get('#error-modal-title').should('not.exist');
+                cy.get('#error-modal-description').should('not.exist');
+              });
+            });
+        });
+    });
+
+    it('should show error modal if submission fails (rejection)', () => {
+      cy.intercept(
+        {
+          method: 'POST',
+          url: applicantSubmissionsEndpoint,
+        },
+        { forceNetworkError: true }
+      ).as('applicationSubmission');
+
+      cy.mountExperienceAndInterestFormPage(mockAuth0Context);
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.handleNext(mockExperienceFields);
+
+          cy.get('@setIntProps')
+            .should('have.been.calledOnce')
+            .then(() => {
+              childProps.interest.handleSubmit(mockInterestFields);
+
+              cy.wait('@applicationSubmission').then(() => {
+                cy.get('#error-modal-title')
+                  .should('be.visible')
+                  .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+                cy.get('#error-modal-description')
+                  .should('be.visible')
+                  .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+
+                cy.get('#error-modal-button-container button').click();
+
+                cy.get('#error-modal-title').should('not.exist');
+                cy.get('#error-modal-description').should('not.exist');
+              });
+            });
+        });
+    });
   });
 });

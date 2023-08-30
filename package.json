@@ -24,7 +24,7 @@
     "storybook": "storybook dev -p 6006",
     "test:e2e": "start-test dev 3000 e2e:ci",
     "pretest:unit": "rm -rf .next .nyc_output coverage ; mv _babelrc .babelrc",
-    "test:unit": "BABEL_ENV=unit cypress run --component",
+    "test:unit": "pnpm pretest:unit ; BABEL_ENV=unit cypress run --component ; pnpm posttest:unit",
     "posttest:unit": "mv .babelrc _babelrc",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out"
   },
