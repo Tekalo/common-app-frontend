@@ -167,7 +167,7 @@ describe('Applicant Signup Page', () => {
     cy.get('#loading-spinner').should('be.visible');
   });
 
-  it('should show privacy modal and close it', (done) => {
+  it('should show privacy modal and close it', () => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.setShowPrivacyModal(true);
 
@@ -179,8 +179,6 @@ describe('Applicant Signup Page', () => {
       cy.get('#close-table-modal').click();
 
       cy.get('#table-modal-header').should('not.exist');
-
-      done();
     });
   });
 
@@ -241,7 +239,7 @@ describe('Applicant Signup Page', () => {
     cy.get('#mockContent').should('be.visible');
   });
 
-  it('should submit a regular, non-debug submission with all fields filled out', (done) => {
+  it('should submit a regular, non-debug submission with all fields filled out', () => {
     cy.intercept(
       {
         method: 'POST',
@@ -265,22 +263,20 @@ describe('Applicant Signup Page', () => {
       cy.wait('@applicantSubmission').then(() => {
         cy.get('@submissionResponse').should('have.been.calledOnce');
 
-        cy.get('dataLayerEvent').should(
+        cy.get('@dataLayerEvent').should(
           'have.been.calledOnceWithExactly',
           TRACKING.CANDIDATE_SIGNUP
         );
 
-        cy.get('routerPush').should(
+        cy.get('@routerPush').should(
           'have.been.calledOnceWithExactly',
           APPLICANT_EXPERIENCE_LINK
         );
-
-        done();
       });
     });
   });
 
-  it('should submit a regular, non-debug submission with only required fields', (done) => {
+  it('should submit a regular, non-debug submission with only required fields', () => {
     mockFormValues.followUpOptIn = false;
     mockFormValues.pronoun = '';
 
@@ -318,22 +314,20 @@ describe('Applicant Signup Page', () => {
       cy.wait('@applicantSubmission').then(() => {
         cy.get('@submissionResponse').should('have.been.calledOnce');
 
-        cy.get('dataLayerEvent').should(
+        cy.get('@dataLayerEvent').should(
           'have.been.calledOnceWithExactly',
           TRACKING.CANDIDATE_SIGNUP
         );
 
-        cy.get('routerPush').should(
+        cy.get('@routerPush').should(
           'have.been.calledOnceWithExactly',
           APPLICANT_EXPERIENCE_LINK
         );
-
-        done();
       });
     });
   });
 
-  it('should reject with bad turnstile token', (done) => {
+  it('should reject with bad turnstile token', () => {
     cy.stub(console, 'error').as('consoleError');
     cy.intercept(
       {
@@ -350,15 +344,13 @@ describe('Applicant Signup Page', () => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
       cy.wait('@badTurnstileSubmission').then(() => {
-        cy.get('consoleError').should('have.been.calledOnce');
+        cy.get('@consoleError').should('have.been.calledOnce');
         cy.get('#turnstile-not-valid').should('be.visible');
-
-        done();
       });
     });
   });
 
-  it('should notify the user that their account already exists', (done) => {
+  it('should notify the user that their account already exists', () => {
     cy.intercept(
       {
         method: 'POST',
@@ -376,12 +368,10 @@ describe('Applicant Signup Page', () => {
       cy.wait('@userConflictSubmission').then(() => {
         cy.get('#conflict-error').should('be.visible');
       });
-
-      done();
     });
   });
 
-  it('should should show error modal', (done) => {
+  it('should should show error modal', () => {
     cy.intercept(
       {
         method: 'POST',
@@ -410,8 +400,6 @@ describe('Applicant Signup Page', () => {
         cy.get('#error-modal-button-container button').click();
         cy.get('#error-modal-title').should('not.exist');
         cy.get('#error-modal-description').should('not.exist');
-
-        done();
       });
     });
   });

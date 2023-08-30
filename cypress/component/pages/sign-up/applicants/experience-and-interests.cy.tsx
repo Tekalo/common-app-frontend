@@ -13,6 +13,7 @@ import * as InterestFormModule from '@/modules/sections/sign-up/forms/applicants
 import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import ApplicantForms from '@/pages/sign-up/applicants/experience-and-interests';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
+import { SinonSpy } from 'cypress/types/sinon';
 import router from 'next/router';
 
 export interface ExperienceAndInterestProps {
@@ -25,6 +26,8 @@ describe('Experience and Interest Page', () => {
   let mockSubmissionResponse: SubmissionResponseType;
   const childProps: ExperienceAndInterestProps =
     {} as unknown as ExperienceAndInterestProps;
+  let setExpProps: SinonSpy;
+  let setIntProps: SinonSpy;
 
   Cypress.Commands.add('mountExperienceAndInterestFormPage', (auth0Context) => {
     const MockExperienceForm: React.FC<IExperienceForm> = ({
@@ -33,22 +36,7 @@ describe('Experience and Interest Page', () => {
       savedForm,
       showUploadErrorModal,
     }) => {
-      const setExpProps = cy
-        .stub()
-        .as('setExpProps')
-        .callsFake(() => {
-          // TODO: RM
-          console.log('mounting exp', savedForm);
-
-          childProps.experience = {
-            handleNext,
-            handleSave,
-            savedForm,
-            showUploadErrorModal,
-          };
-        });
-
-      setExpProps();
+      setExpProps(handleNext, handleSave, savedForm, showUploadErrorModal);
 
       return <>Experience Form</>;
     };
@@ -58,21 +46,7 @@ describe('Experience and Interest Page', () => {
       handleSave,
       savedForm,
     }) => {
-      const setIntProps = cy
-        .stub()
-        .as('setIntProps')
-        .callsFake(() => {
-          // TODO: RM
-          console.log('mounting int', savedForm);
-
-          childProps.interest = {
-            handleSubmit,
-            handleSave,
-            savedForm,
-          };
-        });
-
-      setIntProps();
+      setIntProps(handleSubmit, handleSave, savedForm);
 
       return <>Interest Form</>;
     };
@@ -104,6 +78,35 @@ describe('Experience and Interest Page', () => {
     ).as('getSubmissions');
 
     mockAuth0Context = getMockAuth0Context();
+
+    setExpProps = cy
+      .stub()
+      .as('setExpProps')
+      .callsFake((handleNext, handleSave, savedForm, showUploadErrorModal) => {
+        // TODO: RM
+        console.log('mounting exp', savedForm);
+
+        childProps.experience = {
+          handleNext,
+          handleSave,
+          savedForm,
+          showUploadErrorModal,
+        };
+      });
+
+    setIntProps = cy
+      .stub()
+      .as('setIntProps')
+      .callsFake((handleSubmit, handleSave, savedForm) => {
+        // TODO: RM
+        console.log('mounting int', savedForm);
+
+        childProps.interest = {
+          handleSubmit,
+          handleSave,
+          savedForm,
+        };
+      });
   });
 
   it('should render', () => {
@@ -129,14 +132,20 @@ describe('Experience and Interest Page', () => {
     );
   });
 
-  it('should get submissions and pass values to the savedForm', () => {
+  it('should get submissions and pass values to the savedForm', (done) => {
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
-    cy.wait('@getSubmissions').then(() => {
-      expect(JSON.stringify(childProps.experience.savedForm)).to.eq(
-        JSON.stringify(mockSubmissionResponse.submission)
-      );
-    });
+    cy.wait('@getSubmissions');
+
+    cy.get('@setExpProps')
+      .should('have.been.calledTwice')
+      .then(() => {
+        expect(JSON.stringify(childProps.experience.savedForm)).to.eq(
+          JSON.stringify(mockSubmissionResponse.submission)
+        );
+
+        done();
+      });
   });
 
   it('should redirect the user to the home page if unauthorized', () => {
@@ -152,9 +161,8 @@ describe('Experience and Interest Page', () => {
 
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
-    cy.wait('@getSubmissions').then(() => {
-      cy.get('@routerPush').should('have.been.calledWithExactly', BASE_LINK);
-    });
+    cy.wait('@getSubmissions');
+    cy.get('@routerPush').should('have.been.calledWithExactly', BASE_LINK);
   });
 
   it('should how error modal if there is a problem getting submissions (bad code)', () => {
@@ -170,19 +178,19 @@ describe('Experience and Interest Page', () => {
 
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
-    cy.wait('@getSubmissions').then(() => {
-      cy.get('#error-modal-title')
-        .should('be.visible')
-        .should('have.text', ERROR_MODAL_TEXT.requestFailed);
-      cy.get('#error-modal-description')
-        .should('be.visible')
-        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+    cy.wait('@getSubmissions');
 
-      cy.get('#error-modal-button-container button').click();
+    cy.get('#error-modal-title')
+      .should('be.visible')
+      .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+    cy.get('#error-modal-description')
+      .should('be.visible')
+      .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-      cy.get('#error-modal-title').should('not.exist');
-      cy.get('#error-modal-description').should('not.exist');
-    });
+    cy.get('#error-modal-button-container button').click();
+
+    cy.get('#error-modal-title').should('not.exist');
+    cy.get('#error-modal-description').should('not.exist');
   });
 
   it('should how error modal if there is a problem getting submissions (rejection)', () => {
@@ -196,60 +204,66 @@ describe('Experience and Interest Page', () => {
 
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
-    cy.wait('@getSubmissions').then(() => {
-      cy.get('#error-modal-title')
-        .should('be.visible')
-        .should('have.text', ERROR_MODAL_TEXT.requestFailed);
-      cy.get('#error-modal-description')
-        .should('be.visible')
-        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+    cy.wait('@getSubmissions');
 
-      cy.get('#error-modal-button-container button').click();
+    cy.get('#error-modal-title')
+      .should('be.visible')
+      .should('have.text', ERROR_MODAL_TEXT.requestFailed);
+    cy.get('#error-modal-description')
+      .should('be.visible')
+      .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-      cy.get('#error-modal-title').should('not.exist');
-      cy.get('#error-modal-description').should('not.exist');
-    });
+    cy.get('#error-modal-button-container button').click();
+
+    cy.get('#error-modal-title').should('not.exist');
+    cy.get('#error-modal-description').should('not.exist');
   });
 
   it('should handle next button click', (done) => {
     window.dataLayerEvent = cy.stub().as('dataLayerEvent');
+
     cy.mountExperienceAndInterestFormPage(mockAuth0Context);
 
-    cy.wait('@getSubmissions').then(() => {
-      const mockExperienceFields: ExperienceFieldsType = {
-        lastRole: 'new role',
-        lastOrg: 'new org',
-        yoe: '2',
-        skills: ['react'],
-        otherSkills: ['new skill 1', 'new skill 2'],
-        linkedInUrl: 'new linkedin url',
-        githubUrl: 'new github url',
-        portfolioUrl: 'new portfolio url',
-        portfolioPassword: 'new portfolio password',
-        resumeUrl: 'new resume url',
-        resumePassword: 'new resume password',
-      };
+    cy.wait('@getSubmissions');
+    cy.get('@setExpProps').should('have.been.calledTwice');
 
-      console.log(childProps.experience.handleNext);
-      childProps.experience.handleNext(mockExperienceFields);
+    const mockExperienceFields: ExperienceFieldsType = {
+      lastRole: 'new role',
+      lastOrg: 'new org',
+      yoe: '2',
+      skills: ['react'],
+      otherSkills: ['new skill 1', 'new skill 2'],
+      linkedInUrl: 'new linkedin url',
+      githubUrl: 'new github url',
+      portfolioUrl: 'new portfolio url',
+      portfolioPassword: 'new portfolio password',
+      resumeUrl: 'new resume url',
+      resumePassword: 'new resume password',
+    };
 
-      cy.get('div[data-name=form-area]')
-        .should('contain.text', 'Interest Form')
-        .then(() => {
-          cy.get('@dataLayerEvent').should(
-            'have.been.calledOnceWithExactly',
-            TRACKING.CANDIDATE_NEXT_BTN
-          );
+    childProps.experience.handleNext(mockExperienceFields);
 
-          expect(JSON.stringify(childProps.interest.savedForm)).to.eq(
-            JSON.stringify({
-              ...mockSubmissionResponse.submission,
-              ...mockExperienceFields,
-            })
-          );
+    cy.get('@setIntProps')
+      .should('have.been.calledOnce')
+      .then(() => {
+        cy.get('div[data-name=form-area]').should(
+          'contain.text',
+          'Interest Form'
+        );
 
-          done();
-        });
-    });
+        cy.get('@dataLayerEvent').should(
+          'have.been.calledOnceWithExactly',
+          `ax${TRACKING.CANDIDATE_NEXT_BTN}`
+        );
+
+        expect(JSON.stringify(childProps.interest.savedForm)).to.eq(
+          JSON.stringify({
+            ...mockSubmissionResponse.submission,
+            ...mockExperienceFields,
+          })
+        );
+
+        done();
+      });
   });
 });

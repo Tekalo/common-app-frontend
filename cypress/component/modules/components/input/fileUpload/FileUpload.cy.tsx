@@ -169,7 +169,7 @@ describe('FileUpload', () => {
       ]);
   });
 
-  it('should enter error state when file signature is not verified', (done) => {
+  it('should enter error state when file signature is not verified', () => {
     fileIsValid = false;
     cy.mountFileUpload(props);
 
@@ -193,13 +193,11 @@ describe('FileUpload', () => {
         APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.errors.invalid,
       ])
       .then(() => {
-        console.log(setValueSpy.getCall(1).args);
         assert(JSON.stringify(setValueSpy.getCall(1).args[0]) === '{}');
-        done();
       });
   });
 
-  it('should set correct values and display when file has already been uploaded', (done) => {
+  it('should set correct values and display when file has already been uploaded', () => {
     props.initialValue = {
       originalFilename: mockFileName,
       id: mockFileId,
@@ -218,7 +216,6 @@ describe('FileUpload', () => {
 
         assert(setCallArg.originalFilename === mockFileName);
         assert(setCallArg.id === mockFileId);
-        done();
       });
   });
 });
