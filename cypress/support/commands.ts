@@ -49,7 +49,7 @@ Cypress.Commands.add('login', (): void => {
         .invoke('val', auth0Password.substring(0, auth0Password.length - 1))
         .type(auth0Password.charAt(auth0Password.length - 1));
 
-      cy.get('button[name=action]').last().click();
+      cy.get('button[name=action]').last().click({ force: true });
     });
 
     cy.url().should('contain', `/account`);

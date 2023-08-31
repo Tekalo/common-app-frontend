@@ -443,27 +443,29 @@ describe('Organization Application', () => {
   }
 
   function selectOrgType(): void {
-    cy.get('button[name="input-organization.type"]').click();
-    cy.get('li[data-name="input-organization.type-501(c)(3)"]').click();
+    cy.get('button[name="input-organization.type"]').fastClick();
+    cy.get('li[data-name="input-organization.type-501(c)(3)"]').fastClick();
   }
 
   function selectOrgSize(): void {
-    cy.get('button[name="input-organization.size"]').click();
-    cy.get('li[data-name="input-organization.size-51-100"]').click();
+    cy.get('button[name="input-organization.size"]').fastClick();
+    cy.get('li[data-name="input-organization.size-51-100"]').fastClick();
   }
 
   function selectImpactAreas(): void {
     const input = cy.get('button[name="input-organization.impactAreas"]');
 
-    input.click();
+    input.fastClick();
     cy.get(
       'li[data-name="input-organization.impactAreas-climate change"]'
-    ).click();
+    ).fastClick();
     cy.get(
       'li[data-name="input-organization.impactAreas-human rights & social justice"]'
-    ).click();
-    cy.get('li[data-name="input-organization.impactAreas-education"]').click();
-    input.click();
+    ).fastClick();
+    cy.get(
+      'li[data-name="input-organization.impactAreas-education"]'
+    ).fastClick();
+    input.fastClick();
   }
 
   function fillContactName(): void {
@@ -482,33 +484,33 @@ describe('Organization Application', () => {
 
   function selectCommitmentTypes(types: ('full' | 'part')[]): void {
     types.forEach((type) => {
-      cy.get(`input#input-commitmentTypes-${type}`).click();
+      cy.get(`input#input-commitmentTypes-${type}`).fastClick();
     });
   }
 
   function selectEoe(): void {
-    cy.get('button[name="input-organization.eoe"]').click();
-    cy.get('li[data-name="input-organization.eoe-true"]').click();
+    cy.get('button[name="input-organization.eoe"]').fastClick();
+    cy.get('li[data-name="input-organization.eoe-true"]').fastClick();
   }
 
   function submitOrgSignUpForm(): void {
-    cy.get('button#submit-org-sign-up').click();
+    cy.get('button#submit-org-sign-up').fastClick();
   }
 
   function selectPaidOrUnpaid(paid: 'paid' | 'unpaid'): void {
     const selector = paid === 'paid' ? 'true' : 'false';
 
-    cy.get(`input[name=input-paid-${selector}]`).click();
+    cy.get(`input[name=input-paid-${selector}]`).fastClick();
   }
 
   function selectRoleType(): void {
-    cy.get('button[name=input-roleType]').click();
-    cy.get('li[data-name="input-roleType-software engineer"').click();
+    cy.get('button[name=input-roleType]').fastClick();
+    cy.get('li[data-name="input-roleType-software engineer"').fastClick();
   }
 
   function selectOtherRoleType(): void {
-    cy.get(Selectors.roleType.input).click();
-    cy.get(Selectors.roleType.options.other).click();
+    cy.get(Selectors.roleType.input).fastClick();
+    cy.get(Selectors.roleType.options.other).fastClick();
     cy.get(Selectors.roleType.input).should('have.text', 'Other');
     cy.wait(1000); // wait for animation to finish
     cy.get(Selectors.roleTypeOther.input).should('exist');
@@ -516,10 +518,10 @@ describe('Organization Application', () => {
   }
 
   function fillEmploymentType(types: EmploymentFillTypes[]): void {
-    cy.get('button[name=input-employmentTypeSelect]').click();
+    cy.get('button[name=input-employmentTypeSelect]').fastClick();
 
     types.forEach((type) => {
-      cy.get(`li[data-name="input-employmentTypeSelect-${type}"]`).click();
+      cy.get(`li[data-name="input-employmentTypeSelect-${type}"]`).fastClick();
     });
   }
 
@@ -550,7 +552,7 @@ describe('Organization Application', () => {
   }
 
   function selectFullyRemote(): void {
-    cy.get('input[name=input-fullyRemote-true]').click();
+    cy.get('input[name=input-fullyRemote-true]').fastClick();
   }
 
   function fillLocation(): void {
@@ -558,8 +560,8 @@ describe('Organization Application', () => {
   }
 
   function selectVisaSponsorship(): void {
-    cy.get('button[name=input-visaSponsorship]').click();
-    cy.get('li[data-name=input-visaSponsorship-no]').click();
+    cy.get('button[name=input-visaSponsorship]').fastClick();
+    cy.get('li[data-name=input-visaSponsorship-no]').fastClick();
   }
 
   function fillStartDate(): void {
@@ -573,20 +575,20 @@ describe('Organization Application', () => {
   function selectYoe(): void {
     const input = cy.get('button[name=input-desiredYoe');
 
-    input.click();
-    cy.get('li[data-name=input-desiredYoe-3-5]').click();
-    cy.get('li[data-name=input-desiredYoe-9-12]').click();
-    input.click();
+    input.fastClick();
+    cy.get('li[data-name=input-desiredYoe-3-5]').fastClick();
+    cy.get('li[data-name=input-desiredYoe-9-12]').fastClick();
+    input.fastClick();
   }
 
   function selectDesiredSkills(): void {
     const input = cy.get('button[name=input-desiredSkills]');
 
-    input.click();
-    cy.get('li[data-name=input-desiredSkills-javascript]').click();
-    cy.get('li[data-name=input-desiredSkills-python]').click();
-    cy.get('li[data-name=input-desiredSkills-sql]').click();
-    input.click();
+    input.fastClick();
+    cy.get('li[data-name=input-desiredSkills-javascript]').fastClick();
+    cy.get('li[data-name=input-desiredSkills-python]').fastClick();
+    cy.get('li[data-name=input-desiredSkills-sql]').fastClick();
+    input.fastClick();
   }
 
   function fillOtherSkills(): void {
@@ -596,7 +598,7 @@ describe('Organization Application', () => {
   }
 
   function selectSimilarExperience(): void {
-    cy.get('input[name=input-similarStaffed-true]').click();
+    cy.get('input[name=input-similarStaffed-true]').fastClick();
   }
 
   function fillDesiredImpactExperience(): void {
@@ -612,11 +614,11 @@ describe('Organization Application', () => {
   }
 
   function goToOrgReview(): void {
-    cy.get('button#review').click();
+    cy.get('button#review').fastClick();
   }
 
   function acceptPrivacy(): void {
-    cy.get('input[name=input-acceptedPrivacy]').click();
+    cy.get('input[name=input-acceptedPrivacy]').fastClick();
   }
 
   function submitOrgApplication(): void {
@@ -625,7 +627,7 @@ describe('Organization Application', () => {
       url: opportunityBatchEndpoint,
     }).as('opportunityCreation');
 
-    cy.get('button#submit-org-form').click();
+    cy.get('button#submit-org-form').fastClick();
 
     cy.wait('@opportunityCreation').then((interception: Interception) => {
       const response = interception?.response
@@ -636,13 +638,13 @@ describe('Organization Application', () => {
   }
 
   function selectAttribution(): void {
-    cy.get('button[name=input-referenceAttribution]').click();
-    cy.get('li[data-name=input-referenceAttribution-linkedIn]').click();
+    cy.get('button[name=input-referenceAttribution]').fastClick();
+    cy.get('li[data-name=input-referenceAttribution-linkedIn]').fastClick();
   }
 
   function selectOtherAttribution(): void {
-    cy.get('button[name=input-referenceAttribution]').click();
-    cy.get('li[data-name=input-referenceAttribution-other]').click();
+    cy.get('button[name=input-referenceAttribution]').fastClick();
+    cy.get('li[data-name=input-referenceAttribution-other]').fastClick();
   }
 
   function textAttribution(): void {
