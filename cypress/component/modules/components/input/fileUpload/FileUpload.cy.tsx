@@ -28,7 +28,7 @@ const MockFileUploadProvider: React.FC<IFileUploadProvider> = ({
                 isSuccess: true,
                 fileId: mockFileId,
               });
-            }, 1000);
+            }, 50);
           });
         },
       }}

@@ -60,7 +60,7 @@ describe('<PhoneNumberField />', () => {
   it('should show error message', () => {
     cy.mountPhoneNumberField(props);
 
-    cy.get('input[name=input-test]').type(' ');
+    cy.get('input[name=input-test]').type(' ', { delay: 0 });
 
     cy.get('#errorMessage-input-test')
       .should('be.visible')
@@ -70,9 +70,10 @@ describe('<PhoneNumberField />', () => {
   it('should not allow invalid characters', () => {
     cy.mountPhoneNumberField(props);
 
-    cy.get('input[name=input-test]').type(' x!@#$%^&*()');
-
-    cy.get('input[name=input-test]').should('have.value', '+1');
+    cy.get('input[name=input-test]')
+      .invoke('val', 'x!@#$%^&*(')
+      .type(')')
+      .should('have.value', '+1');
   });
 
   it('should be disabled', () => {
