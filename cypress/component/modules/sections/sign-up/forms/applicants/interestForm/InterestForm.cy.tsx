@@ -13,7 +13,7 @@ Cypress.Commands.add('mountInterestForm', (props: IInterestForm) => {
       <InterestForm
         handleSave={props.handleSave}
         handleSubmit={props.handleSubmit}
-        savedForm={undefined}
+        savedForm={props.savedForm}
       />
     </DndProvider>
   );
@@ -124,19 +124,53 @@ describe('Applicant <InterestForm />', () => {
   });
 
   describe('save', () => {
+    const mockSavedForm = {
+      interestWorkArrangement: [
+        'advisor',
+        'consultant',
+        'internship',
+        'contractor',
+        'volunteer',
+      ],
+      hoursPerWeek: '20',
+      interestEmploymentType: ['full', 'part'],
+      interestGovt: true,
+      previousImpactExperience: false,
+      interestRoles: ['product designer', 'vp of engineering (or similar)'],
+      currentLocation: 'Brooklyn, NY',
+      openToRelocate: 'yes',
+      openToRemoteMulti: ['hybrid', 'remote', 'in-person', 'not sure'],
+      desiredSalary: '100k',
+      interestCauses: [
+        'immigration',
+        'government tech',
+        'lgbtqia+ rights',
+        'public infrastructure',
+        'racial justice',
+      ],
+      otherCauses: ['cause 1', 'cause 2'],
+      workAuthorization: 'authorized',
+      interestGovtEmplTypes: ['paid', 'unpaid'],
+      essayResponse: 'This is an essay response',
+      referenceAttribution: 'other',
+      referenceAttributionOther: 'Some other place',
+    };
+
     beforeEach(() => {
       props = {
         handleSave: cy.stub().as('save'),
         handleSubmit: voidFn,
-        savedForm: {
-          interestGovt: true,
-          previousImpactExperience: false,
-        },
+        savedForm: mockSavedForm,
       };
     });
 
     it('should convert strings to bools', () => {
       cy.mountInterestForm(props);
+
+      cy.get('input[name=input-interestGovt-true]').should('be.checked');
+      cy.get('input[name=input-previousImpactExperience-false]').should(
+        'be.checked'
+      );
 
       cy.get('input[name=input-interestGovt-false]').fastClick();
       cy.get('input[name=input-interestGovt-false]')
@@ -160,5 +194,99 @@ describe('Applicant <InterestForm />', () => {
           expect(callArgs.interestGovt).to.equal(false);
         });
     });
+
+    it('should load employmentType values from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      cy.get('#input-interestEmploymentType-full').should('be.checked');
+      cy.get('#input-interestEmploymentType-part').should('be.checked');
+    });
+
+    it('should load interestWorkArrangement values from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkListHasCheckedOptions(
+        mockSavedForm.interestWorkArrangement,
+        'input-interestWorkArrangement'
+      );
+    });
+
+    it('should load hoursPerWeek value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkInputHasValue(
+        'input[name=input-hoursPerWeek]',
+        mockSavedForm.hoursPerWeek
+      );
+    });
+
+    it('should load interestRoles value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkListHasCheckedOptions(
+        mockSavedForm.interestRoles,
+        'input-interestRoles'
+      );
+    });
+
+    it('should load currentLocation value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkInputHasValue(
+        'input[name=input-currentLocation]',
+        mockSavedForm.currentLocation
+      );
+    });
+
+    it('should load openToRelocate value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkInputHasValue(
+        'input[name=input-openToRelocate]',
+        mockSavedForm.openToRelocate
+      );
+    });
+
+    it('should load openToRemoteMulti value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkListHasCheckedOptions(
+        mockSavedForm.openToRemoteMulti,
+        'input-openToRemoteMulti'
+      );
+    });
+
+    it('should load desiredSalary value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkInputHasValue(
+        'input[name=input-desiredSalary]',
+        mockSavedForm.desiredSalary
+      );
+    });
   });
+
+  function checkInputHasValue(inputSelector: string, expValue: any): void {
+    cy.get(inputSelector).should('have.value', expValue);
+  }
+
+  function checkListItemIsChecked(inputSelector: string): void {
+    cy.get(inputSelector).should('be.checked');
+  }
+
+  function checkListHasCheckedOptions(
+    savedFormProp: any[],
+    fieldSelector: string
+  ): void {
+    const dropdown = cy.get(`button[name=${fieldSelector}]`);
+    dropdown.fastClick();
+
+    savedFormProp.forEach((option) => {
+      checkListItemIsChecked(
+        `li[data-name="${fieldSelector}-${option}"] input`
+      );
+    });
+
+    dropdown.fastClick();
+  }
 });
