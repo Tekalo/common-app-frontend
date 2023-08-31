@@ -76,13 +76,10 @@ describe('Organization <RoleForm />', () => {
       cy.get(Selectors.roleType.input).click();
       cy.get(Selectors.roleType.options.other).click();
       cy.get(Selectors.roleType.input).should('have.text', 'Other');
-      cy.wait(1000); // wait for animation to finish
-      cy.get(Selectors.roleTypeOther.input).should('exist');
-      cy.get(Selectors.roleTypeOther.input).fastType('Other role type');
-      cy.get(Selectors.roleTypeOther.input).should(
-        'have.value',
-        'Other role type'
-      );
+      cy.get(Selectors.roleTypeOther.input)
+        .should('exist')
+        .fastType('Other role type')
+        .should('have.value', 'Other role type');
     });
   });
 });

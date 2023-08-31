@@ -67,9 +67,9 @@ describe('<MultiSelect />', () => {
     cy.get(`[data-name=list-options]`).should('be.visible');
 
     props.listOptions.forEach((op) => {
-      const option = cy.get(`li[data-name="${props.name}-${op.value}"]`);
-      option.should('be.visible');
-      option.should('have.text', op.displayText);
+      cy.get(`li[data-name="${props.name}-${op.value}"]`)
+        .should('be.visible')
+        .should('have.text', op.displayText);
     });
   });
 
