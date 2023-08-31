@@ -224,7 +224,7 @@ describe('Experience and Interest Page', () => {
           .should('be.visible')
           .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-        cy.get('#error-modal-button-container button').click();
+        cy.get('#error-modal-button-container button').fastClick();
 
         cy.get('#error-modal-title').should('not.exist');
         cy.get('#error-modal-description').should('not.exist');
@@ -285,7 +285,7 @@ describe('Experience and Interest Page', () => {
         .should('be.visible')
         .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-      cy.get('#error-modal-button-container button').click();
+      cy.get('#error-modal-button-container button').fastClick();
 
       cy.get('#error-modal-title').should('not.exist');
       cy.get('#error-modal-description').should('not.exist');
@@ -311,7 +311,7 @@ describe('Experience and Interest Page', () => {
         .should('be.visible')
         .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-      cy.get('#error-modal-button-container button').click();
+      cy.get('#error-modal-button-container button').fastClick();
 
       cy.get('#error-modal-title').should('not.exist');
       cy.get('#error-modal-description').should('not.exist');
@@ -365,7 +365,7 @@ describe('Experience and Interest Page', () => {
             );
             cy.get('button[name=modal-confirm]')
               .should('have.text', SAVE_MODAL.CTA)
-              .click();
+              .fastClick();
 
             cy.get('div[data-name=Modal]').should('not.exist');
           });
@@ -391,7 +391,7 @@ describe('Experience and Interest Page', () => {
             .should('be.visible')
             .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-          cy.get('#error-modal-button-container button').click();
+          cy.get('#error-modal-button-container button').fastClick();
 
           cy.get('#error-modal-title').should('not.exist');
           cy.get('#error-modal-description').should('not.exist');
@@ -423,7 +423,7 @@ describe('Experience and Interest Page', () => {
             .should('be.visible')
             .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-          cy.get('#error-modal-button-container button').click();
+          cy.get('#error-modal-button-container button').fastClick();
 
           cy.get('#error-modal-title').should('not.exist');
           cy.get('#error-modal-description').should('not.exist');
@@ -496,7 +496,7 @@ describe('Experience and Interest Page', () => {
                   .should('be.visible')
                   .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-                cy.get('#error-modal-button-container button').click();
+                cy.get('#error-modal-button-container button').fastClick();
 
                 cy.get('#error-modal-title').should('not.exist');
                 cy.get('#error-modal-description').should('not.exist');
@@ -534,7 +534,7 @@ describe('Experience and Interest Page', () => {
                   .should('be.visible')
                   .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
 
-                cy.get('#error-modal-button-container button').click();
+                cy.get('#error-modal-button-container button').fastClick();
 
                 cy.get('#error-modal-title').should('not.exist');
                 cy.get('#error-modal-description').should('not.exist');

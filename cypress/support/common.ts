@@ -14,3 +14,11 @@ Cypress.Commands.add(
     return wrappedSubject;
   }
 );
+
+Cypress.Commands.add('fastClick', { prevSubject: true }, (subject) => {
+  const wrappedSubject = cy.wrap(subject);
+
+  wrappedSubject.click({ force: true });
+
+  return wrappedSubject;
+});

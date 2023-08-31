@@ -16,7 +16,8 @@ declare global {
   namespace Cypress {
     interface Chainable {
       // common
-      fastType(text: string): Chainable<JQuery<any>>;
+      fastType(text: string): Chainable<Subject>;
+      fastClick(): Chainable<Subject>;
       // e2e test methods
       setupTestingEnvironment(): Chainable<void>;
       deleteTestData(deleteUrl: string): Chainable<void>;

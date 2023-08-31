@@ -21,10 +21,9 @@ Cypress.Commands.add('mountInterestForm', (props: IInterestForm) => {
 
 describe('Applicant <InterestForm />', () => {
   const voidFn = () => void {};
+  let props: IInterestForm;
 
   describe('initial render', () => {
-    let props: IInterestForm;
-
     beforeEach(() => {
       props = {
         handleSave: voidFn,
@@ -66,7 +65,7 @@ describe('Applicant <InterestForm />', () => {
       cy.mountInterestForm(props);
       // Fields
       cy.get(Selectors.employmentType.fullTime).should('exist');
-      cy.get(Selectors.employmentType.partTime).should('exist').click();
+      cy.get(Selectors.employmentType.partTime).should('exist').fastClick();
 
       // Only rendered if part time
       cy.get(Selectors.workArrangement.input).should('exist');
@@ -117,10 +116,49 @@ describe('Applicant <InterestForm />', () => {
       cy.get(Selectors.referenceAttribution.input).should('exist');
       cy.get(Selectors.referenceAttributionOther.input).should('not.exist');
 
-      cy.get(Selectors.referenceAttribution.input).click();
-      cy.get(Selectors.referenceAttribution.options.other).click();
+      cy.get(Selectors.referenceAttribution.input).fastClick();
+      cy.get(Selectors.referenceAttribution.options.other).fastClick();
 
       cy.get(Selectors.referenceAttributionOther.input).should('exist');
+    });
+  });
+
+  describe('save', () => {
+    beforeEach(() => {
+      props = {
+        handleSave: cy.stub().as('save'),
+        handleSubmit: voidFn,
+        savedForm: {
+          interestGovt: true,
+          previousImpactExperience: false,
+        },
+      };
+    });
+
+    it('should convert strings to bools', () => {
+      cy.mountInterestForm(props);
+
+      cy.get('input[name=input-interestGovt-false]').fastClick();
+      cy.get('input[name=input-interestGovt-false]')
+        .invoke('val')
+        .should('equal', 'false');
+
+      cy.get('input[name=input-previousImpactExperience-true]').fastClick();
+      cy.get('input[name=input-previousImpactExperience-true]')
+        .invoke('val')
+        .should('equal', 'true');
+
+      cy.get('#interest-save').fastClick();
+
+      cy.get('@save')
+        .should('have.been.calledOnce')
+        .invoke('getCall', 0)
+        .its('args')
+        .its(0)
+        .should((callArgs) => {
+          expect(callArgs.previousImpactExperience).to.equal(true);
+          expect(callArgs.interestGovt).to.equal(false);
+        });
     });
   });
 });

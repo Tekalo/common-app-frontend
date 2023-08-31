@@ -176,7 +176,7 @@ describe('Applicant Signup Page', () => {
         PRIVACY_MODAL_TEXT.HEADER
       );
 
-      cy.get('#close-table-modal').click();
+      cy.get('#close-table-modal').fastClick();
 
       cy.get('#table-modal-header').should('not.exist');
     });
@@ -397,7 +397,7 @@ describe('Applicant Signup Page', () => {
         );
 
         // Close modal
-        cy.get('#error-modal-button-container button').click();
+        cy.get('#error-modal-button-container button').fastClick();
         cy.get('#error-modal-title').should('not.exist');
         cy.get('#error-modal-description').should('not.exist');
       });

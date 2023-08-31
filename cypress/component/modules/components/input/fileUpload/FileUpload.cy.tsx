@@ -139,7 +139,9 @@ describe('FileUpload', () => {
       { force: true }
     );
 
-    cy.get('button[data-name=remove-file-button]').should('be.visible').click();
+    cy.get('button[data-name=remove-file-button]')
+      .should('be.visible')
+      .fastClick();
 
     cy.get('span[data-name=file-format-message]').should('be.visible');
     cy.get('#upload-file-button').should('be.visible');
