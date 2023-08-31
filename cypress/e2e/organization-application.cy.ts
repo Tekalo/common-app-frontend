@@ -439,7 +439,7 @@ describe('Organization Application', () => {
   }
 
   function fillOrgName(): void {
-    cy.get('input[name="input-organization.name"]').type('SF E2E Test Org');
+    cy.get('input[name="input-organization.name"]').fastType('SF E2E Test Org');
   }
 
   function selectOrgType(): void {
@@ -467,11 +467,11 @@ describe('Organization Application', () => {
   }
 
   function fillContactName(): void {
-    cy.get('input[name="input-contact.name"]').type('Contact Name');
+    cy.get('input[name="input-contact.name"]').fastType('Contact Name');
   }
 
   function fillContactEmail(): void {
-    cy.get('input[name="input-contact.email"]').type(
+    cy.get('input[name="input-contact.email"]').fastType(
       'test-user-contact@schmidtfutures.com'
     );
   }
@@ -512,7 +512,7 @@ describe('Organization Application', () => {
     cy.get(Selectors.roleType.input).should('have.text', 'Other');
     cy.wait(1000); // wait for animation to finish
     cy.get(Selectors.roleTypeOther.input).should('exist');
-    cy.get(Selectors.roleTypeOther.input).type('Other role type');
+    cy.get(Selectors.roleTypeOther.input).fastType('Other role type');
   }
 
   function fillEmploymentType(types: EmploymentFillTypes[]): void {
@@ -524,27 +524,29 @@ describe('Organization Application', () => {
   }
 
   function fillOtherRoleType(): void {
-    cy.get('input[name=input-employmentTypeText]').type(
+    cy.get('input[name=input-employmentTypeText]').fastType(
       'Other type of role explained here'
     );
   }
 
   function fillPositionTitle(): void {
-    cy.get('input[name=input-positionTitle').type(
+    cy.get('input[name=input-positionTitle').fastType(
       'Senior Software Engineer - Test'
     );
   }
 
   function fillJobDescriptionLink(): void {
-    cy.get('input[name=input-jdUrl]').type('http://www.examplejoblisting.com');
+    cy.get('input[name=input-jdUrl]').fastType(
+      'http://www.examplejoblisting.com'
+    );
   }
 
   function fillSalaryRange(): void {
-    cy.get('input[name=input-salaryRange]').type('150k - 250k');
+    cy.get('input[name=input-salaryRange]').fastType('150k - 250k');
   }
 
   function fillHoursPerWeek(): void {
-    cy.get('input[name=input-desiredHoursPerWeek]').type('30 - 40hrs');
+    cy.get('input[name=input-desiredHoursPerWeek]').fastType('30 - 40hrs');
   }
 
   function selectFullyRemote(): void {
@@ -552,7 +554,7 @@ describe('Organization Application', () => {
   }
 
   function fillLocation(): void {
-    cy.get('input[name=input-location]').type('New York, New York');
+    cy.get('input[name=input-location]').fastType('New York, New York');
   }
 
   function selectVisaSponsorship(): void {
@@ -561,11 +563,11 @@ describe('Organization Application', () => {
   }
 
   function fillStartDate(): void {
-    cy.get('input[name=input-desiredStartDate]').type('10/10/2023');
+    cy.get('input[name=input-desiredStartDate]').fastType('10/10/2023');
   }
 
   function fillEndDate(): void {
-    cy.get('input[name=input-desiredEndDate]').type('10/10/2025');
+    cy.get('input[name=input-desiredEndDate]').fastType('10/10/2025');
   }
 
   function selectYoe(): void {
@@ -588,7 +590,7 @@ describe('Organization Application', () => {
   }
 
   function fillOtherSkills(): void {
-    cy.get('input[name=input-desiredOtherSkills]').type(
+    cy.get('input[name=input-desiredOtherSkills]').fastType(
       'otherSkill1, otherSkill2'
     );
   }
@@ -598,13 +600,13 @@ describe('Organization Application', () => {
   }
 
   function fillDesiredImpactExperience(): void {
-    cy.get('textarea[name=input-desiredImpactExp]').type(
+    cy.get('textarea[name=input-desiredImpactExp]').fastType(
       'Desired impact-related experience goes here!'
     );
   }
 
   function fillRolePitch(): void {
-    cy.get('textarea[name=input-pitchEssay]').type(
+    cy.get('textarea[name=input-pitchEssay]').fastType(
       'Here is the role pitch! Give it some extra text to make it longer.'
     );
   }
@@ -644,7 +646,7 @@ describe('Organization Application', () => {
   }
 
   function textAttribution(): void {
-    cy.get('input[name=input-referenceAttributionOther]').type(
+    cy.get('input[name=input-referenceAttributionOther]').fastType(
       'A more specific reference'
     );
   }

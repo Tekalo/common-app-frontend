@@ -71,8 +71,7 @@ describe('<PhoneNumberField />', () => {
     cy.mountPhoneNumberField(props);
 
     cy.get('input[name=input-test]')
-      .invoke('val', 'x!@#$%^&*(')
-      .type(')')
+      .fastType('x!@#$%^&*()')
       .should('have.value', '+1');
   });
 

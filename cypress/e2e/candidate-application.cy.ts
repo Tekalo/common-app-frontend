@@ -124,16 +124,16 @@ describe('Candidate Application', () => {
   });
 
   function fillName(): void {
-    cy.get(Selectors.name.input).type('Test User Name');
+    cy.get(Selectors.name.input).fastType('Test User Name');
   }
 
   function fillEmail(): void {
     const randomEmail = `test-user-${new Date().getTime()}@schmidtfutures.com`;
-    cy.get(Selectors.email.input).type(randomEmail);
+    cy.get(Selectors.email.input).fastType(randomEmail);
   }
 
   function fillPronouns(): void {
-    cy.get(Selectors.pronoun.input).type('they/them');
+    cy.get(Selectors.pronoun.input).fastType('they/them');
   }
 
   // Note: any of these can be customized like this, depending on our future needs
@@ -180,11 +180,11 @@ describe('Candidate Application', () => {
   }
 
   function fillPreviousRole(): void {
-    cy.get('input[name=input-lastRole]').type('Software Engineer');
+    cy.get('input[name=input-lastRole]').fastType('Software Engineer');
   }
 
   function fillPreviousOrg(): void {
-    cy.get('input[name=input-lastOrg]').type('Schmidt Futures');
+    cy.get('input[name=input-lastOrg]').fastType('Schmidt Futures');
   }
 
   function fillYearsOfExperience(): void {
@@ -203,31 +203,33 @@ describe('Candidate Application', () => {
   }
 
   function fillOtherSkills(): void {
-    cy.get('input[name=input-otherSkills]').type('otherSkill1, otherSkill2');
+    cy.get('input[name=input-otherSkills]').fastType(
+      'otherSkill1, otherSkill2'
+    );
   }
 
   function fillLinkedIn(): void {
-    cy.get('input[name=input-linkedInUrl]').type('linkedInUrl');
+    cy.get('input[name=input-linkedInUrl]').fastType('linkedInUrl');
   }
 
   function fillPortfolio(): void {
-    cy.get('input[name=input-portfolioUrl]').type('portfolioUrl');
+    cy.get('input[name=input-portfolioUrl]').fastType('portfolioUrl');
   }
 
   function fillPortfolioPwd(): void {
-    cy.get('input[name=input-portfolioPassword]').type('portfolioPwd');
+    cy.get('input[name=input-portfolioPassword]').fastType('portfolioPwd');
   }
 
   function fillGithub(): void {
-    cy.get('input[name=input-githubUrl]').type('github');
+    cy.get('input[name=input-githubUrl]').fastType('github');
   }
 
   function fillResume(): void {
-    cy.get('input[name=input-resumeUrl]').type('resumeLink');
+    cy.get('input[name=input-resumeUrl]').fastType('resumeLink');
   }
 
   function fillResumePwd(): void {
-    cy.get('input[name=input-resumePassword]').type('resumePwd');
+    cy.get('input[name=input-resumePassword]').fastType('resumePwd');
   }
 
   function saveAndConfirmExperienceForm(): void {
@@ -253,7 +255,7 @@ describe('Candidate Application', () => {
   }
 
   function fillHoursPerWeek(): void {
-    cy.get('input[name=input-hoursPerWeek]').type('40hrs');
+    cy.get('input[name=input-hoursPerWeek]').fastType('40hrs');
   }
 
   function selectRoleInterest(): void {
@@ -272,7 +274,7 @@ describe('Candidate Application', () => {
   }
 
   function fillCurrentLocation(): void {
-    cy.get('input[name=input-currentLocation]').type('New York, New York');
+    cy.get('input[name=input-currentLocation]').fastType('New York, New York');
   }
 
   function fillOpenToRelocation(): void {
@@ -287,7 +289,7 @@ describe('Candidate Application', () => {
   }
 
   function fillDesiredSalary(): void {
-    cy.get('input[name=input-desiredSalary]').type('$200,000');
+    cy.get('input[name=input-desiredSalary]').fastType('$200,000');
   }
 
   function selectInterestCauses(): void {
@@ -304,7 +306,9 @@ describe('Candidate Application', () => {
   }
 
   function fillOtherCauses(): void {
-    cy.get('input[name=input-otherCauses]').type('otherCause1, otherCause2');
+    cy.get('input[name=input-otherCauses]').fastType(
+      'otherCause1, otherCause2'
+    );
   }
 
   function selectWorkAuthorization(): void {
@@ -330,7 +334,7 @@ describe('Candidate Application', () => {
   }
 
   function fillEssay(): void {
-    cy.get('textarea[name=input-essayResponse]').type('Essay entry.');
+    cy.get('textarea[name=input-essayResponse]').fastType('Essay entry.');
   }
 
   function selectAttribution(): void {

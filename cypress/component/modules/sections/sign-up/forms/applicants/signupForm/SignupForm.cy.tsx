@@ -9,6 +9,20 @@ import {
 import SignupForm, {
   ISignupForm,
 } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+// import { TurnstileProps } from '@marsidev/react-turnstile';
+
+const turnstileToken = 'XXXX.DUMMY.TOKEN.XXXX';
+// const MockTurnstile: React.FC<TurnstileProps> = ({
+//   onSuccess,
+//   onAfterInteractive,
+// }) => {
+//   if (onSuccess && onAfterInteractive) {
+//     onSuccess(turnstileToken);
+//     onAfterInteractive();
+//   }
+
+//   return <>MOCK TURNSTILE</>;
+// };
 
 Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
   return cy.mount(
@@ -155,8 +169,8 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
       cy.get(Selectors.searchStatus.input.active).click();
       cy.get(Selectors.contact.input).click();
       cy.get(Selectors.contact.options.email).click();
@@ -185,9 +199,9 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
-      cy.get(Selectors.pronoun.input).type(pronoun);
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
+      cy.get(Selectors.pronoun.input).fastType(pronoun);
       cy.get(Selectors.searchStatus.input.passive).click();
       cy.get(Selectors.contact.input).click();
       cy.get(Selectors.contact.options.sms).click();
@@ -218,9 +232,9 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
-      cy.get(Selectors.pronoun.input).type(pronoun);
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
+      cy.get(Selectors.pronoun.input).fastType(pronoun);
       cy.get(Selectors.searchStatus.input.future).click();
       cy.get(Selectors.contact.input).click();
       cy.get(Selectors.contact.options.whatsapp).click();
@@ -374,8 +388,8 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
       cy.get(Selectors.searchStatus.input.active).click();
       cy.get(Selectors.contact.input).click();
       cy.get(Selectors.contact.options.email).click();

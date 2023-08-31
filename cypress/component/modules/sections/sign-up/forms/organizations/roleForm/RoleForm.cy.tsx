@@ -78,7 +78,7 @@ describe('Organization <RoleForm />', () => {
       cy.get(Selectors.roleType.input).should('have.text', 'Other');
       cy.wait(1000); // wait for animation to finish
       cy.get(Selectors.roleTypeOther.input).should('exist');
-      cy.get(Selectors.roleTypeOther.input).type('Other role type');
+      cy.get(Selectors.roleTypeOther.input).fastType('Other role type');
       cy.get(Selectors.roleTypeOther.input).should(
         'have.value',
         'Other role type'

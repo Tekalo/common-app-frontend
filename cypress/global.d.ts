@@ -15,6 +15,8 @@ import { mount } from 'cypress/react';
 declare global {
   namespace Cypress {
     interface Chainable {
+      // common
+      fastType(text: string): Chainable<JQuery<any>>;
       // e2e test methods
       setupTestingEnvironment(): Chainable<void>;
       deleteTestData(deleteUrl: string): Chainable<void>;
