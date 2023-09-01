@@ -174,6 +174,8 @@ describe('Organization Application', () => {
     fillEmploymentType(['other']);
     fillOtherRoleType();
     fillPositionTitle();
+    fillSalaryRange();
+
     selectFullyRemote();
     selectVisaSponsorship();
     selectYoe();
@@ -224,6 +226,8 @@ describe('Organization Application', () => {
     fillOtherRoleType();
     fillPositionTitle();
     fillJobDescriptionLink();
+    fillSalaryRange();
+
     fillHoursPerWeek();
     selectFullyRemote();
     fillLocation();
@@ -528,9 +532,7 @@ describe('Organization Application', () => {
   }
 
   function fillPositionTitle(): void {
-    cy.get('input[name=input-positionTitle').type(
-      'Senior Software Engineer - Test'
-    );
+    cy.get('input[name=input-positionTitle').type('Software Engineer');
   }
 
   function fillJobDescriptionLink(): void {
