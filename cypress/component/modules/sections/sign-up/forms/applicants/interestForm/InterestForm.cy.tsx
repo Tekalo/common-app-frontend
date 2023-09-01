@@ -2,8 +2,12 @@ import InterestForm, {
   IInterestForm,
 } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 
-import { CandidateInterestSelectors as Selectors } from '@/cypress/support/selectors/candidate-interest.selectors';
+import {
+  CandidateInterestSelectors,
+  CandidateInterestSelectors as Selectors,
+} from '@/cypress/support/selectors/candidate-interest.selectors';
 
+import { voidFn } from '@/cypress/fixtures/mocks';
 import { ERROR_TEXT } from '@/lang/en';
 import { DraftSubmissionType } from '@/lib/types';
 import { DndProvider } from 'react-dnd';
@@ -22,9 +26,8 @@ Cypress.Commands.add('mountInterestForm', (props: IInterestForm) => {
 });
 
 describe('Applicant <InterestForm />', () => {
-  const voidFn = () => void {};
   let props: IInterestForm;
-  let mockSavedForm: DraftSubmissionType | undefined;
+  let mockSavedForm: DraftSubmissionType;
   let fullCandidateInterest: DraftSubmissionType;
 
   before(() => {
@@ -81,11 +84,13 @@ describe('Applicant <InterestForm />', () => {
     it('should have default "no" values for radio buttons', () => {
       cy.mountInterestForm(props);
 
-      cy.get('input[name=input-interestGovt-false]').should('be.checked');
-      cy.get('input[name=input-previousImpactExperience-false]').should(
+      cy.get(CandidateInterestSelectors.govInterest.no).should('be.checked');
+      cy.get(CandidateInterestSelectors.previousExperience.no).should(
         'be.checked'
       );
-      cy.get('button[name=input-interestGovtEmplTypes]').should('be.disabled');
+      cy.get(CandidateInterestSelectors.govInterestType.input).should(
+        'be.disabled'
+      );
     });
 
     it('renders all fields except work arrangement and referenceAttributionOther', () => {
@@ -179,7 +184,7 @@ describe('Applicant <InterestForm />', () => {
     });
   });
 
-  describe('Save', () => {
+  describe('Load', () => {
     beforeEach(() => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
 
@@ -193,20 +198,106 @@ describe('Applicant <InterestForm />', () => {
     it('should convert bools to strings', () => {
       cy.mountInterestForm(props);
 
-      cy.get('input[name=input-interestGovt-true]').should('be.checked');
-      cy.get('input[name=input-previousImpactExperience-false]').should(
+      cy.get(CandidateInterestSelectors.govInterest.yes).should('be.checked');
+      cy.get(CandidateInterestSelectors.previousExperience.no).should(
         'be.checked'
       );
 
-      cy.get('input[name=input-interestGovt-false]').fastClick();
-      cy.get('input[name=input-interestGovt-false]')
+      cy.get(CandidateInterestSelectors.govInterest.no).fastClick();
+      cy.get(CandidateInterestSelectors.govInterest.no)
         .invoke('val')
         .should('equal', 'false');
 
-      cy.get('input[name=input-previousImpactExperience-true]').fastClick();
-      cy.get('input[name=input-previousImpactExperience-true]')
+      cy.get(CandidateInterestSelectors.previousExperience.yes).fastClick();
+      cy.get(CandidateInterestSelectors.previousExperience.yes)
         .invoke('val')
         .should('equal', 'true');
+    });
+
+    it('should load employmentType values from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      cy.get(CandidateInterestSelectors.employmentType.fullTime).should(
+        'be.checked'
+      );
+      cy.get(CandidateInterestSelectors.employmentType.partTime).should(
+        'be.checked'
+      );
+    });
+
+    it('should load interestWorkArrangement values from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkListHasCheckedOptions(
+        mockSavedForm.interestWorkArrangement,
+        'input-interestWorkArrangement'
+      );
+    });
+
+    it('should load hoursPerWeek value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkInputHasValue(
+        CandidateInterestSelectors.hoursPerWeek.input,
+        mockSavedForm.hoursPerWeek
+      );
+    });
+
+    it('should load interestRoles value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkListHasCheckedOptions(
+        mockSavedForm.interestRoles,
+        'input-interestRoles'
+      );
+    });
+
+    it('should load currentLocation value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkInputHasValue(
+        CandidateInterestSelectors.location.input,
+        mockSavedForm.currentLocation
+      );
+    });
+
+    it('should load openToRelocate value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      cy.get(CandidateInterestSelectors.relocation.input).should(
+        'have.text',
+        mockSavedForm?.openToRelocate?.replace('y', 'Y')
+      );
+    });
+
+    it('should load openToRemoteMulti value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkListHasCheckedOptions(
+        mockSavedForm.openToRemoteMulti,
+        'input-openToRemoteMulti'
+      );
+    });
+
+    it('should load desiredSalary value from the saved form', () => {
+      cy.mountInterestForm(props);
+
+      checkInputHasValue(
+        CandidateInterestSelectors.salary.input,
+        mockSavedForm.desiredSalary
+      );
+    });
+  });
+
+  describe('Save', () => {
+    beforeEach(() => {
+      mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
+
+      props = {
+        handleSave: cy.stub().as('save'),
+        handleSubmit: voidFn,
+        savedForm: mockSavedForm,
+      };
     });
 
     it('should convert strings to bools', () => {
@@ -223,76 +314,6 @@ describe('Applicant <InterestForm />', () => {
           expect(callArgs.previousImpactExperience).to.equal(false);
           expect(callArgs.interestGovt).to.equal(true);
         });
-    });
-
-    it('should load employmentType values from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      cy.get('#input-interestEmploymentType-full').should('be.checked');
-      cy.get('#input-interestEmploymentType-part').should('be.checked');
-    });
-
-    it('should load interestWorkArrangement values from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      checkListHasCheckedOptions(
-        mockSavedForm?.interestWorkArrangement,
-        'input-interestWorkArrangement'
-      );
-    });
-
-    it('should load hoursPerWeek value from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      checkInputHasValue(
-        'input[name=input-hoursPerWeek]',
-        mockSavedForm?.hoursPerWeek
-      );
-    });
-
-    it('should load interestRoles value from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      checkListHasCheckedOptions(
-        mockSavedForm?.interestRoles,
-        'input-interestRoles'
-      );
-    });
-
-    it('should load currentLocation value from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      checkInputHasValue(
-        'input[name=input-currentLocation]',
-        mockSavedForm?.currentLocation
-      );
-    });
-
-    it('should load openToRelocate value from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      checkInputHasValue(
-        'input[name=input-openToRelocate]',
-        mockSavedForm?.openToRelocate
-      );
-    });
-
-    it('should load openToRemoteMulti value from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      checkListHasCheckedOptions(
-        mockSavedForm?.openToRemoteMulti,
-        'input-openToRemoteMulti'
-      );
-    });
-
-    it('should load desiredSalary value from the saved form', () => {
-      cy.mountInterestForm(props);
-
-      checkInputHasValue(
-        'input[name=input-desiredSalary]',
-        mockSavedForm?.desiredSalary
-      );
     });
   });
 
@@ -322,58 +343,58 @@ describe('Applicant <InterestForm />', () => {
             JSON.stringify(mockSavedForm)
           );
           expect(submissionBody.currentLocation).to.equal(
-            mockSavedForm?.currentLocation
+            mockSavedForm.currentLocation
           );
           expect(submissionBody.desiredSalary).to.equal(
-            mockSavedForm?.desiredSalary
+            mockSavedForm.desiredSalary
           );
           expect(submissionBody.essayResponse).to.equal(
-            mockSavedForm?.essayResponse
+            mockSavedForm.essayResponse
           );
           expect(submissionBody.hoursPerWeek).to.equal(
-            mockSavedForm?.hoursPerWeek
+            mockSavedForm.hoursPerWeek
           );
           expect(submissionBody.interestCauses).to.deep.equal(
-            mockSavedForm?.interestCauses
+            mockSavedForm.interestCauses
           );
           expect(submissionBody.interestEmploymentType).to.deep.equal(
-            mockSavedForm?.interestEmploymentType
+            mockSavedForm.interestEmploymentType
           );
           expect(submissionBody.interestGovt).to.equal(
-            mockSavedForm?.interestGovt
+            mockSavedForm.interestGovt
           );
           expect(submissionBody.interestRoles).to.deep.equal(
-            mockSavedForm?.interestRoles
+            mockSavedForm.interestRoles
           );
           expect(submissionBody.interestGovtEmplTypes).to.deep.equal(
-            mockSavedForm?.interestGovtEmplTypes
+            mockSavedForm.interestGovtEmplTypes
           );
           expect(submissionBody.interestRoles).to.deep.equal(
-            mockSavedForm?.interestRoles
+            mockSavedForm.interestRoles
           );
           expect(submissionBody.interestWorkArrangement).to.deep.equal(
-            mockSavedForm?.interestWorkArrangement
+            mockSavedForm.interestWorkArrangement
           );
           expect(submissionBody.openToRelocate).to.equal(
-            mockSavedForm?.openToRelocate
+            mockSavedForm.openToRelocate
           );
           expect(submissionBody.openToRemoteMulti).to.deep.equal(
-            mockSavedForm?.openToRemoteMulti
+            mockSavedForm.openToRemoteMulti
           );
           expect(submissionBody.otherCauses).to.deep.equal(
-            mockSavedForm?.otherCauses
+            mockSavedForm.otherCauses
           );
           expect(submissionBody.previousImpactExperience).to.equal(
-            mockSavedForm?.previousImpactExperience
+            mockSavedForm.previousImpactExperience
           );
           expect(submissionBody.referenceAttribution).to.equal(
-            mockSavedForm?.referenceAttribution
+            mockSavedForm.referenceAttribution
           );
           expect(submissionBody.referenceAttributionOther).to.equal(
-            mockSavedForm?.referenceAttributionOther
+            mockSavedForm.referenceAttributionOther
           );
           expect(submissionBody.workAuthorization).to.equal(
-            mockSavedForm?.workAuthorization
+            mockSavedForm.workAuthorization
           );
         });
     });

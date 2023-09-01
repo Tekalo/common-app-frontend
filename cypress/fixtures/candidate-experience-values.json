@@ -1,0 +1,28 @@
+{
+  "lastRole": "Last Role",
+  "lastOrg": "Last Org",
+  "yoe": "<1",
+  "linkedInUrl": "linkedInUrl",
+  "portfolioUrl": "portfolioUrl",
+  "portfolioPassword": "portfolioPassword",
+  "githubUrl": "githubUrl",
+  "resumeUrl": "resumeUrl",
+  "resumePassword": "resumePassword",
+  "skills": [
+    "javascript",
+    "python",
+    "react",
+    "java",
+    "sql",
+    "privacy",
+    "security",
+    "devops",
+    "figma",
+    "sketch",
+    "prototyping",
+    "user research",
+    "product development",
+    "project management"
+  ],
+  "otherSkills": ["Skill 1", "Skill 2"]
+}

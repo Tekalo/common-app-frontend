@@ -2,6 +2,7 @@ import SignupForm, {
   ISignupForm,
 } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 
+import { voidFn } from '@/cypress/fixtures/mocks';
 import { OrganizationSignupSelectors as Selectors } from '@/cypress/support/selectors/organization-signup.selectors';
 
 Cypress.Commands.add('mountOrganizationSignupForm', (props: ISignupForm) => {
@@ -11,8 +12,6 @@ Cypress.Commands.add('mountOrganizationSignupForm', (props: ISignupForm) => {
 });
 
 describe('Organization <SignupForm />', () => {
-  const voidFn = () => void {};
-
   describe('initial render', () => {
     let props: ISignupForm;
 

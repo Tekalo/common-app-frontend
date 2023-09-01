@@ -1,3 +1,4 @@
+import { voidFn } from '@/cypress/fixtures/mocks';
 import { CandidateSignupSelectors as Selectors } from '@/cypress/support/selectors/candidate-signup.selectors';
 import {
   APPLICANT_FORM_TEXT,
@@ -44,7 +45,6 @@ describe('<SignupForm />', () => {
   const email = 'test-email@schmidtfutures.com';
   const pronoun = 'they/them';
   const phone = '8101110001';
-  const voidFn = () => void {};
 
   describe('debug', () => {
     let props: ISignupForm;
