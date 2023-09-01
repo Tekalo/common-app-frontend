@@ -31,11 +31,15 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
           {renderRow('Type of opportunity: ', role.employmentType)}
           {renderRow('Type of role: ', capitalizeFirstLetter(role.roleType))}
           {renderRow(
+            'Is this role paid or unpaid?',
+            capitalizeFirstLetter(role.paid ? 'paid' : 'unpaid')
+          )}
+          {renderRow(
             'Position title: ',
             capitalizeFirstLetter(role.positionTitle)
           )}
           {renderRow('Link to job description: ', role.jdUrl)}
-          {renderRow('Salary range: ', role.salaryRange)}
+          {role.paid ? renderRow('Salary range: ', role.salaryRange) : <></>}
         </div>
         {/* Section Two: Info  */}
         <div className="mt-6 space-y-2">
