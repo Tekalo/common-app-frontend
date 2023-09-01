@@ -14,9 +14,13 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
   handleGoToRole,
   handleDeleteRole,
 }) => {
-  const renderRow = (label: string, data?: string) =>
+  console.log(orgRoles);
+  const renderRow = (label: string, propertyName: string, data?: string) =>
     data ? (
-      <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-1">
+      <div
+        className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-1"
+        id={propertyName}
+      >
         <span className="text-component-large text-black-text">{label}</span>
         <span className="">{data}</span>
       </div>
@@ -28,34 +32,55 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
       <div className="mt-6">
         {/* Section One: Details */}
         <div className="space-y-2">
-          {renderRow('Type of opportunity: ', role.employmentType)}
-          {renderRow('Type of role: ', capitalizeFirstLetter(role.roleType))}
+          {renderRow(
+            'Type of opportunity: ',
+            'employmentType',
+            capitalizeFirstLetter(role.employmentType)
+          )}
+          {renderRow(
+            'Type of role: ',
+            'roleType',
+            capitalizeFirstLetter(role.roleType)
+          )}
           {renderRow(
             'Is this role paid or unpaid?',
+            'paid',
             capitalizeFirstLetter(role.paid ? 'paid' : 'unpaid')
           )}
           {renderRow(
             'Position title: ',
+            'positionTitle',
             capitalizeFirstLetter(role.positionTitle)
           )}
-          {renderRow('Link to job description: ', role.jdUrl)}
-          {role.paid ? renderRow('Salary range: ', role.salaryRange) : <></>}
+          {renderRow('Link to job description: ', 'jdUrl', role.jdUrl)}
+          {role.paid ? (
+            renderRow('Salary range: ', 'salaryRange', role.salaryRange)
+          ) : (
+            <></>
+          )}
         </div>
         {/* Section Two: Info  */}
         <div className="mt-6 space-y-2">
-          {renderRow('Desired start date: ', role.desiredStartDate)}
+          {renderRow(
+            'Desired start date: ',
+            'desiredStartDate',
+            role.desiredStartDate
+          )}
           {renderRow(
             'Desired years of experience: ',
+            'desiredYoe',
             role.desiredYoe?.join(', ')
           )}
           {renderRow(
             'Desired skills for the role: ',
+            'desiredSkills',
             role.desiredSkills
               ?.map((skill) => capitalizeFirstLetter(skill))
               .join(', ')
           )}
           {renderRow(
             'Desired other skills: ',
+            'desiredOtherSkills',
             role.desiredOtherSkills
               ? role.desiredOtherSkills
                   .map((skill) => capitalizeFirstLetter(skill))
@@ -64,6 +89,7 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
           )}
           {renderRow(
             'Are there other employees on staff with similar roles?: ',
+            'similarStaffed',
             role.similarStaffed ? 'Yes' : 'No'
           )}
         </div>
