@@ -85,4 +85,44 @@ describe('Organization <RoleForm />', () => {
       );
     });
   });
+
+  describe('when the role is not paid', () => {
+    let props: IRoleForm;
+
+    beforeEach(() => {
+      props = {
+        formType: undefined,
+        previousForm: undefined,
+        activeIndex: 0,
+        handleNewRole: () => void {},
+        handleEditRole: () => void {},
+      };
+    });
+
+    it('does not render the "salaryRange" field', () => {
+      cy.mountOrgRoleForm(props);
+      cy.get(Selectors.roleUnpaid.input).click();
+      cy.get(Selectors.roleSalary.input).should('not.exist');
+    });
+  });
+
+  describe('when the role is paid', () => {
+    let props: IRoleForm;
+
+    beforeEach(() => {
+      props = {
+        formType: undefined,
+        previousForm: undefined,
+        activeIndex: 0,
+        handleNewRole: () => void {},
+        handleEditRole: () => void {},
+      };
+    });
+
+    it('it renders the "salaryRange" field', () => {
+      cy.mountOrgRoleForm(props);
+      cy.get(Selectors.rolePaid.input).click();
+      cy.get(Selectors.roleSalary.input).should('exist');
+    });
+  });
 });
