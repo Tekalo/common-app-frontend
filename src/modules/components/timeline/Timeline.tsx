@@ -63,7 +63,12 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
       >
         {timelineItems.map((item, i) => (
           <Fragment key={i}>
-            <li key={i} className="flex flex-col items-center">
+            <li
+              key={i}
+              data-index={i}
+              data-state={item.isEnabled ? 'enabled' : 'disabled'}
+              className="flex flex-col items-center"
+            >
               {/* Bubble */}
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-full ${

@@ -1,0 +1,82 @@
+{
+  "maxSubmissionResponse": {
+    "isFinal": false,
+    "submission": {
+      "id": 2238,
+      "applicantId": 1389,
+      "createdAt": "2023-08-30T16:29:47.325Z",
+      "updatedAt": "2023-08-30T16:30:43.485Z",
+      "originTag": null,
+      "resumeUrl": "resume",
+      "resumePassword": "res-pwd",
+      "lastOrg": "Organization",
+      "lastRole": "Software Engineer",
+      "yoe": ">11",
+      "linkedInUrl": "linkedin",
+      "githubUrl": "github",
+      "portfolioUrl": "protfolio",
+      "portfolioPassword": "password",
+      "interestEmploymentType": ["full", "part"],
+      "interestWorkArrangement": [
+        "advisor",
+        "consultant",
+        "contractor",
+        "internship",
+        "volunteer"
+      ],
+      "interestRoles": [
+        "data analyst",
+        "data scientist",
+        "product manager",
+        "vp of product (or similar)",
+        "software engineer",
+        "software engineer - backend",
+        "software engineer - frontend",
+        "engineering manager",
+        "vp of engineering (or similar)",
+        "product designer",
+        "ux/ui designer",
+        "ux researcher"
+      ],
+      "interestCauses": [
+        "algorithmic fairness",
+        "climate change",
+        "government tech",
+        "lgbtqia+ rights",
+        "education"
+      ],
+      "interestGovt": true,
+      "interestGovtEmplTypes": ["paid", "unpaid"],
+      "otherCauses": ["some other causes", "just list some here"],
+      "skills": [
+        "react",
+        "javascript",
+        "python",
+        "java",
+        "sql",
+        "privacy",
+        "security",
+        "devops",
+        "figma",
+        "sketch",
+        "prototyping",
+        "user research",
+        "product development",
+        "project management"
+      ],
+      "otherSkills": ["skill1", "skill2"],
+      "currentLocation": "Brooklyn, New York",
+      "openToRelocate": "yes",
+      "openToRemoteMulti": ["remote", "in-person", "hybrid", "not sure"],
+      "desiredSalary": "500000",
+      "previousImpactExperience": true,
+      "workAuthorization": "authorized",
+      "hoursPerWeek": "40",
+      "essayResponse": "123123123",
+      "referenceAttribution": "other",
+      "referenceAttributionOther": "Other ref",
+      "resumeUpload": null
+    }
+  },
+  "minSubmissionResponse": { "isFinal": false, "submission": null }
+}

@@ -5,7 +5,7 @@ describe('The Home Page', () => {
   });
 
   it('can navigate to the account page when logged in', () => {
-    cy.get('a[href="/account"]').click();
+    cy.get('a[href="/account"]').fastClick();
     cy.url().should('contain', '/account');
   });
 });
