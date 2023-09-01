@@ -241,19 +241,23 @@ const RoleForm: React.FC<IRoleForm> = ({
             </>
             {/* Pay Section */}
             <>
-              <FreeTextField
-                fieldName="salaryRange"
-                label={
-                  fullTimeOnly
-                    ? ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.labelFte
-                    : ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.labelPte
-                }
-                placeholder={ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.placeholder}
-                isSubmitted={isSubmitted}
-                initialValue={previousForm?.salaryRange}
-                validator={isPaid ? RequiredString : OptionalString}
-                disabled={!isPaid}
-              />
+              {isPaid ? (
+                <FreeTextField
+                  fieldName="salaryRange"
+                  label={
+                    fullTimeOnly
+                      ? ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.labelFte
+                      : ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.labelPte
+                  }
+                  placeholder={
+                    ORG_ROLE_FORM_TEXT.FIELDS.salaryRange.placeholder
+                  }
+                  isSubmitted={isSubmitted}
+                  initialValue={previousForm?.salaryRange}
+                  validator={isPaid ? RequiredString : OptionalString}
+                  disabled={!isPaid}
+                />
+              ) : null}
               {!fullTimeOnly && (
                 <FreeTextField
                   fieldName="desiredHoursPerWeek"
