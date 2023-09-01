@@ -5,7 +5,7 @@ import RoleForm, {
 import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
 
 Cypress.Commands.add('mountOrgRoleForm', (props: IRoleForm) => {
-  return cy.mount(
+  cy.mount(
     <RoleForm
       formType={props.formType}
       previousForm={props.previousForm}
@@ -51,6 +51,7 @@ describe('Organization <RoleForm />', () => {
 
     it('does not render the "roleTypeOther" field', () => {
       cy.mountOrgRoleForm(props);
+
       cy.get(Selectors.roleType.input).fastClick();
       cy.get(Selectors.roleType.options.dataAnalyst).fastClick();
       cy.get(Selectors.roleType.input).should('have.text', 'Data analyst');
@@ -73,6 +74,7 @@ describe('Organization <RoleForm />', () => {
 
     it('renders the "roleTypeOther" field', () => {
       cy.mountOrgRoleForm(props);
+
       cy.get(Selectors.roleType.input).fastClick();
       cy.get(Selectors.roleType.options.other).fastClick();
       cy.get(Selectors.roleType.input).should('have.text', 'Other');

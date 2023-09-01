@@ -25,7 +25,7 @@ const turnstileToken = 'XXXX.DUMMY.TOKEN.XXXX';
 // };
 
 Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
-  return cy.mount(
+  cy.mount(
     <SignupForm
       debugIsActive={props.debugIsActive}
       isAuthenticated={props.isAuthenticated}
@@ -325,8 +325,6 @@ describe('<SignupForm />', () => {
 
     it('should have correct terms link', () => {
       cy.mountCandidateSignupForm(props);
-
-      cy.wait(250);
 
       cy.get('#candidate-sign-up__terms-of-use-link').should(
         'have.attr',

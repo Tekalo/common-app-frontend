@@ -25,7 +25,7 @@ declare global {
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
-      mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
+      mountCandidateSignupForm(props: ISignupForm): Chainable<void>;
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
@@ -38,12 +38,12 @@ declare global {
         action: 'upload' | 'validate',
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;
-      mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
+      mountInterestForm(props: IInterestForm): Chainable<void>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
       mountOrganizationSignupForm(
         props: IOrgSignupForm
       ): Chainable<MountReturn>;
-      mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
+      mountOrgRoleForm(props: IRoleForm): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
     }
   }

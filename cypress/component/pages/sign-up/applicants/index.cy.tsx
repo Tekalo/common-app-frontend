@@ -68,14 +68,10 @@ Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
     <Auth0Context.Provider value={auth0Context}>
       <ApplicantSignup />
     </Auth0Context.Provider>
-  ).then(() => {
-    return childProps;
-  });
+  ).then(() => childProps);
 });
 
 describe('Applicant Signup Page', () => {
-  const voidFn = () => void {};
-  const mockAuthToken = 'MOCK_AUTH_TOKEN';
   const mockTurnstileToken = 'XXX_TURNSTILE_XXX';
 
   let mockAuth0Context: Auth0ContextInterface<User>;
@@ -311,19 +307,18 @@ describe('Applicant Signup Page', () => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
-      cy.wait('@applicantSubmission').then(() => {
-        cy.get('@submissionResponse').should('have.been.calledOnce');
+      cy.wait('@applicantSubmission');
+      cy.get('@submissionResponse').should('have.been.calledOnce');
 
-        cy.get('@dataLayerEvent').should(
-          'have.been.calledOnceWithExactly',
-          TRACKING.CANDIDATE_SIGNUP
-        );
+      cy.get('@dataLayerEvent').should(
+        'have.been.calledOnceWithExactly',
+        TRACKING.CANDIDATE_SIGNUP
+      );
 
-        cy.get('@routerPush').should(
-          'have.been.calledOnceWithExactly',
-          APPLICANT_EXPERIENCE_LINK
-        );
-      });
+      cy.get('@routerPush').should(
+        'have.been.calledOnceWithExactly',
+        APPLICANT_EXPERIENCE_LINK
+      );
     });
   });
 
@@ -343,10 +338,9 @@ describe('Applicant Signup Page', () => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
-      cy.wait('@badTurnstileSubmission').then(() => {
-        cy.get('@consoleError').should('have.been.calledOnce');
-        cy.get('#turnstile-not-valid').should('be.visible');
-      });
+      cy.wait('@badTurnstileSubmission');
+      cy.get('@consoleError').should('have.been.calledOnce');
+      cy.get('#turnstile-not-valid').should('be.visible');
     });
   });
 
@@ -365,9 +359,8 @@ describe('Applicant Signup Page', () => {
     cy.mountCandidateSignupFormPage(mockAuth0Context).then((testProps) => {
       testProps.handleSubmit(mockFormValues, mockTurnstileToken);
 
-      cy.wait('@userConflictSubmission').then(() => {
-        cy.get('#conflict-error').should('be.visible');
-      });
+      cy.wait('@userConflictSubmission');
+      cy.get('#conflict-error').should('be.visible');
     });
   });
 

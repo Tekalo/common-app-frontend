@@ -5,7 +5,7 @@ import SignupForm, {
 import { OrganizationSignupSelectors as Selectors } from '@/cypress/support/selectors/organization-signup.selectors';
 
 Cypress.Commands.add('mountOrganizationSignupForm', (props: ISignupForm) => {
-  return cy.mount(
+  cy.mount(
     <SignupForm handleSubmit={props.handleSubmit} previousForm={undefined} />
   );
 });
@@ -44,10 +44,8 @@ describe('Organization <SignupForm />', () => {
 
       const referenceAttribution = cy.get(Selectors.referenceAttribution.input);
       referenceAttribution.click();
-      cy.wait(1000); // wait for animation to finish
 
       cy.get(Selectors.referenceAttribution.options.other).click();
-      cy.wait(1000); // wait for animation to finish
       cy.get(Selectors.referenceAttributionOther.input).should('exist');
     });
   });

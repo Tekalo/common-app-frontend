@@ -96,7 +96,6 @@ describe('Experience and Interest Page', () => {
 
     cy.stub(ExperienceFormModule, 'default').callsFake(MockExperienceForm);
     cy.stub(InterestFormModule, 'default').callsFake(MockInterestForm);
-    cy.stub(router, 'push').as('routerPush');
 
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
@@ -107,6 +106,7 @@ describe('Experience and Interest Page', () => {
 
   beforeEach(() => {
     window.dataLayerEvent = cy.stub().as('dataLayerEvent');
+    cy.stub(router, 'push').as('routerPush');
 
     cy.fixture('candidate-submission').then(
       (res) => (mockSubmissionResponse = res.maxSubmissionResponse)
