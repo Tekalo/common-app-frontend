@@ -1,5 +1,5 @@
 name: OnHook - Deploy Preview
-run-name: Deploy PR \#${{ github.event.number }} Preview
+run-name: 'Deploy PR #${{ github.event.number }} Preview'
 
 # This workflow is triggered on pull requests against the develop branch.
 # This workflow is triggered on pushes to branches starting with test/
