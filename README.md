@@ -119,7 +119,7 @@ The general deployment process is as follows:
 1. On the main page of the repo, click [Tags -> Releases](https://github.com/schmidtfutures/common-app-frontend/releases)
 1. Click [Draft a New Release](https://github.com/schmidtfutures/common-app-frontend/releases/new)
 1. Click the dropdown that says "Choose tag" and create a new tag iterating off of last one created
-   - If you need reference on version numbers, please see [this article](https://betterprogramming.pub/better-versioning-for-frontend-applications-and-not-only-is-like-traffic-lights-for-engineers-380e9beb6a42)
+   - If you need a reference on version numbers, please see [this article](https://betterprogramming.pub/better-versioning-for-frontend-applications-and-not-only-is-like-traffic-lights-for-engineers-380e9beb6a42)
    - Bump the version number accordingly with the changes to be deployed and add the suffix `-rc1` to the end
    - If this is not the first release candidate for this set of changes, or you are adding more changes to the release, you should bump the rc number accordingly `-rc2`, `-rc3` etc
    - You should have something that looks like `1.2.0-rc1`
