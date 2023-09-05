@@ -153,6 +153,26 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       alt: 'Propel Logo',
       url: 'https://www.joinpropel.com/',
     },
+    {
+      src: '/images/logos/1000More.png',
+      alt: '1000 More Logo',
+      url: 'https://www.1000more.org/',
+    },
+    {
+      src: '/images/logos/GovernForAmerica.png',
+      alt: 'Govern For America Logo',
+      url: 'https://www.govern4america.org/',
+    },
+    {
+      src: '/images/logos/CareerVillage.png',
+      alt: 'Career Village Logo',
+      url: 'https://www.careervillage.org/',
+    },
+    {
+      src: '/images/logos/Beam.png',
+      alt: 'Beam Logo',
+      url: 'https://www.bybeam.co/',
+    },
   ];
 
   const renderLogos = (full = false) => {
