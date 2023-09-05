@@ -89,7 +89,7 @@ jobs:
 
       - name: Publish to Cloudflare Pages
         id: deploy
-        uses: cloudflare/pages-action@c2ad89679f0dee1ff4bcf9b8bbe1cf52d176cb29 # v1
+        uses: cloudflare/pages-action@f0a1cd58cd66095dee69bfa18fa5efd1dde93bca # v1.5
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
