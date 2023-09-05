@@ -136,7 +136,7 @@ The general deployment process is as follows:
 1. In the Actions list on the left-side click "Deploy Project to Staging"
 1. On the right side of the screen, click "Run workflow"
 1. Set the branch to "develop" and enter the tag number in the tag input eg: `1.2.0-rc1`
-   - Make sure there are no addition spaces, it can cause problems
+   - Make sure there are no additional spaces in the tag name as it can cause problems
 1. Click 'Run workflow"
    - This will deploy that release to the staging environment
 1. Wait for the changes to be deployed and check to make sure all of the tests pass in the workflow
