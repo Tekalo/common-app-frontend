@@ -166,7 +166,13 @@ export default async function handler(req: NextRequest): Promise<Response> {
   } else {
     // Pass the request directly the 3rd party API
     const result = await fetchAPIResponse(req, params);
-    const data: unknown = await result.json();
+    let data: unknown;
+
+    try {
+      data = await result.json();
+    } catch {
+      data = { message: 'Error decoding JSON body from API' };
+    }
 
     return new Response(JSON.stringify(data), {
       status: result.status,

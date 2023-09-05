@@ -157,7 +157,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
       {showContent ? (
         <>
-          <h3 data-name="account-greeting" className="mb-2 font-display text-h3-desktop text-black-text">
+          <h3
+            data-name="account-greeting"
+            className="mb-2 font-display text-h3-desktop text-black-text"
+          >
             {`${ACCOUNT_PAGE_TEXT.WELCOME}${
               accountName ? ', ' + accountName : accountName
             }`}
