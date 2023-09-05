@@ -125,7 +125,7 @@ The general deployment process is as follows:
    - You should have something that looks like `1.2.0-rc1`
 1. Click "Create new tag on publish" at the bottom of the tags dropdown
 1. Make sure your target is set to the correct commit. It will be the latest commit in develop by default
-1. Set the title as `Release - {date}` eg: `Release - 2023/09/05` so we can see when this set of changes is to be pushed
+1. Set the title as `Release - {YYYY/MM/DD}` eg: `Release - 2023/09/05` so we can see when this set of changes is to be pushed
 1. Next to "Generate release notes" set "Previous Tag" to the last full release and click "Generate release notes"
 1. Set the release to be a pre-release by checking the box at the bottom fo the form
 1. Click publish release
