@@ -8,12 +8,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 
-interface IResumeFetch {
+interface IResumeFetchResponse {
   id: number;
   signedLink: string;
 }
 
-const FetchResumePage: NextPageWithLayout = () => {
+const ViewResumePage: NextPageWithLayout = () => {
   const cookies = new Cookies(null, { path: '/' });
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const router = useRouter();
@@ -41,7 +41,7 @@ const FetchResumePage: NextPageWithLayout = () => {
 
     return get(url, token).then(async (res) => {
       if (res.status === 200) {
-        const resBody = (await res.json()) as IResumeFetch;
+        const resBody = (await res.json()) as IResumeFetchResponse;
         setPresignedUrl(resBody.signedLink);
       } else if (res.status === 404) {
         setErrorMessage(ERROR_TEXT.resumeNotFound);
@@ -83,8 +83,8 @@ const FetchResumePage: NextPageWithLayout = () => {
   );
 };
 
-export default FetchResumePage;
+export default ViewResumePage;
 
-FetchResumePage.getLayout = (page) => {
+ViewResumePage.getLayout = (page) => {
   return <>{page}</>;
 };
