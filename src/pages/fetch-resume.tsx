@@ -1,12 +1,20 @@
 import { ERROR_TEXT } from '@/lang/en';
+import { redirectCookieName } from '@/lib/constants/strings';
 import { applicantResumeEndpoint, get } from '@/lib/helpers/apiHelpers';
 import { NextPageWithLayout } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
+
+interface IResumeFetch {
+  id: number;
+  signedLink: string;
+}
 
 const FetchResumePage: NextPageWithLayout = () => {
+  const cookies = new Cookies(null, { path: '/' });
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const router = useRouter();
   const [presignedURL, setPresignedUrl] = useState<string>();
@@ -21,6 +29,9 @@ const FetchResumePage: NextPageWithLayout = () => {
       } else {
         setErrorMessage(ERROR_TEXT.noApplicantId);
       }
+    } else if (!isAuthenticated && !isLoading) {
+      cookies.set(redirectCookieName, window.location.href);
+      router.push('sign-in');
     }
   }, [isAuthenticated, isLoading]);
 
@@ -29,9 +40,14 @@ const FetchResumePage: NextPageWithLayout = () => {
     const url = applicantResumeEndpoint.replace(':id', applicantId);
 
     return get(url, token).then(async (res) => {
-      const resBody = await res.json();
-
-      setPresignedUrl(resBody.signedLink);
+      if (res.status === 200) {
+        const resBody = (await res.json()) as IResumeFetch;
+        setPresignedUrl(resBody.signedLink);
+      } else if (res.status === 404) {
+        setErrorMessage(ERROR_TEXT.resumeNotFound);
+      } else {
+        setErrorMessage(ERROR_TEXT.resumeFetchFailed);
+      }
     });
   };
 
@@ -52,7 +68,7 @@ const FetchResumePage: NextPageWithLayout = () => {
           target="_blank"
           download="resume.pdf"
         >
-          Download resume
+          View applicant resume
         </a>
       );
     } else {

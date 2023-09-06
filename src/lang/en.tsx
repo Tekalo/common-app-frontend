@@ -902,6 +902,8 @@ const ERROR_TEXT = {
   privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
   required: 'This is a required field',
   requiredSelectGroup: 'You must select at least one option',
+  resumeFetchFailed: 'There was an error fetching the resume',
+  resumeNotFound: 'No resume found for provided applicant id',
   roleRequired: 'Role is required',
   somethingWrong: 'Something went wrong - please try again',
   termsRequired: 'You must agree to the Terms of Use',
