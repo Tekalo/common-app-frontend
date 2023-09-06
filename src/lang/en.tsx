@@ -895,6 +895,7 @@ const ERROR_TEXT = {
   invalidDate: 'Invalid date',
   invalidEmail: 'This must be a valid email address',
   invalidPhone: 'This must be a valid phone number',
+  noApplicantId: 'Please provide an applicant id to fetch resume',
   notFoundCode: '404',
   notFoundText: "Sorry, we couldn't find this page.",
   orgRequired: 'Organization is required',
