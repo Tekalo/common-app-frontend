@@ -7,7 +7,7 @@ const LoadingSpinner: React.FC<ILoadingSpinner> = ({ size }) => {
   const dimensions = size ? `h-[${size}px] w-[${size}px]` : 'h-10 w-10';
 
   return (
-    <div className="text-center">
+    <div className="text-center" data-name="loading-spinner">
       <svg
         aria-hidden="true"
         className={`inline ${dimensions} animate-spin justify-center fill-blue-1 text-center align-middle text-white`}

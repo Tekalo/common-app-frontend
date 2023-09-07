@@ -47,6 +47,12 @@ declare global {
       ): Chainable<MountReturn>;
       mountOrgRoleForm(props: IRoleForm): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
+      mountSignInActionPage(
+        auth0Context: Auth0ContextInterface<User>
+      ): Chainable<void>;
+      mountViewResumePage(
+        auth0Context: Auth0ContextInterface<User>
+      ): Chainable<void>;
     }
   }
 }
