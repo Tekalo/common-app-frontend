@@ -33,7 +33,7 @@ const SignInActionPage: NextPageWithLayout = () => {
 
       if (redirectURL) {
         cookies.remove(redirectCookieName);
-        window.location.assign(redirectURL);
+        router.push(redirectURL);
       } else {
         get(applicantSubmissionsEndpoint, await getAccessTokenSilently())
           .then(async (res) => {
