@@ -1,5 +1,6 @@
 import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
 import { ERROR_TEXT } from '@/lang/en';
+import { redirectCookieName } from '@/lib/constants/strings';
 import { applicantResumeEndpoint } from '@/lib/helpers/apiHelpers';
 import ViewResumePage from '@/pages/view-resume';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
@@ -67,11 +68,15 @@ describe('View Resume Page', () => {
   });
 
   it('should redirect user to login', () => {
+    const expectedUrlValue = encodeURIComponent(window.location.href);
     mockAuth0Context.isAuthenticated = false;
 
     cy.mountViewResumePage(mockAuth0Context);
 
     cy.get('@routerPush').should('have.been.calledOnceWithExactly', 'sign-in');
+    cy.getCookie(redirectCookieName)
+      .its('value')
+      .should('equal', expectedUrlValue);
   });
 
   it('should display the 404 error message', () => {
