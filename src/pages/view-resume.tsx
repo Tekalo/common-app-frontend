@@ -14,11 +14,10 @@ interface IResumeFetchResponse {
 }
 
 const ViewResumePage: NextPageWithLayout = () => {
-  const cookies = new Cookies(null, { path: '/' });
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const router = useRouter();
-  const [presignedURL, setPresignedUrl] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
+  const cookies = new Cookies(null, { path: '/' });
 
   useEffect(() => {
     const applicantId = router.query.applicantId;
@@ -42,7 +41,7 @@ const ViewResumePage: NextPageWithLayout = () => {
     return get(url, token).then(async (res) => {
       if (res.status === 200) {
         const resBody = (await res.json()) as IResumeFetchResponse;
-        setPresignedUrl(resBody.signedLink);
+        window.location.assign(resBody.signedLink);
       } else if (res.status === 404) {
         setErrorMessage(ERROR_TEXT.resumeNotFound);
       } else {
@@ -54,23 +53,6 @@ const ViewResumePage: NextPageWithLayout = () => {
   const getContent = () => {
     if (errorMessage) {
       return <p>{errorMessage}</p>;
-    } else if (presignedURL?.length) {
-      return (
-        <a
-          className="group flex h-12 min-w-[118px] flex-row content-center items-center justify-center
-          rounded bg-blue-1 px-4 font-sans
-          text-component-large text-white transition-colors
-          hover:bg-blue-2 focus-visible:ring-2
-          focus-visible:ring-[#A7C4DB] active:border-blue-3 active:bg-blue-3
-          disabled:cursor-not-allowed disabled:border-blue-4 disabled:bg-blue-4  disabled:text-white"
-          href={presignedURL}
-          rel="noreferrer"
-          target="_blank"
-          download="resume.pdf"
-        >
-          View applicant resume
-        </a>
-      );
     } else {
       return <LoadingSpinner />;
     }
