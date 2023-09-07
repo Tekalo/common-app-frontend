@@ -38,21 +38,25 @@ const ViewResumePage: NextPageWithLayout = () => {
     const token = await getAccessTokenSilently();
     const url = applicantResumeEndpoint.replace(':id', applicantId);
 
-    return get(url, token).then(async (res) => {
-      if (res.status === 200) {
-        const resBody = (await res.json()) as IResumeFetchResponse;
-        window.location.assign(resBody.signedLink);
-      } else if (res.status === 404) {
-        setErrorMessage(ERROR_TEXT.resumeNotFound);
-      } else {
+    return get(url, token)
+      .then(async (res) => {
+        if (res.status === 200) {
+          const resBody = (await res.json()) as IResumeFetchResponse;
+          router.push(resBody.signedLink);
+        } else if (res.status === 404) {
+          setErrorMessage(ERROR_TEXT.resumeNotFound);
+        } else {
+          setErrorMessage(ERROR_TEXT.resumeFetchFailed);
+        }
+      })
+      .catch(() => {
         setErrorMessage(ERROR_TEXT.resumeFetchFailed);
-      }
-    });
+      });
   };
 
   const getContent = () => {
     if (errorMessage) {
-      return <p>{errorMessage}</p>;
+      return <p id="view-resume-error">{errorMessage}</p>;
     } else {
       return <LoadingSpinner />;
     }
