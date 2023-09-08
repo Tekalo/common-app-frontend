@@ -4,6 +4,7 @@ import {
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
   CAUSE_ENUM_OPTIONS,
+  SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
 import { applicantsEndpoint } from '@/lib/helpers/apiHelpers';
 import { AccountSubmissionResponseType } from '@/lib/types';
@@ -85,22 +86,7 @@ describe('Candidate Application', () => {
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
-    fillSkills([
-      'react',
-      'javascript',
-      'python',
-      'java',
-      'sql',
-      'privacy',
-      'security',
-      'devops',
-      'figma',
-      'sketch',
-      'prototyping',
-      'user research',
-      'product development',
-      'project management',
-    ]);
+    fillSkills([...SKILL_ENUM_OPTIONS]);
     fillOtherSkills();
     fillLinkedIn();
     fillPortfolio();
