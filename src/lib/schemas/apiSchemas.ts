@@ -38,6 +38,7 @@ const NewOrgOppSchema = z.object({
     type: OrgType,
     size: OrgSize,
     impactAreas: z.array(maxLengthString(255)),
+    impactAreasOther: z.array(maxLengthString(255)).nullable().optional(),
     eoe: z.boolean(),
   }),
   contact: z.object({
@@ -54,6 +55,7 @@ const NewOrgOppResponseSchema = z.object({
   contactName: maxLengthString(2048),
   contactPhone: maxLengthString(2048).nullable(),
   impactAreas: z.array(maxLengthString(2048)),
+  impactAreasOther: z.array(maxLengthString(255)).nullable().optional(),
   orgName: maxLengthString(2048),
   orgSize: maxLengthString(2048),
   orgType: maxLengthString(2048),
@@ -64,4 +66,4 @@ const DraftResponseSchema = z.object({
   isFinal: z.boolean(),
 });
 
-export { DraftResponseSchema, NewOrgOppSchema, NewOrgOppResponseSchema };
+export { DraftResponseSchema, NewOrgOppResponseSchema, NewOrgOppSchema };
