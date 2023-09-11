@@ -62,6 +62,9 @@ export const OrganizationSignupSelectors = {
       other: 'li[data-name="input-organization.impactAreas-other"]',
     },
   },
+  impactAreasOther: {
+    input: 'input[name="input-organization.impactAreasOther"]',
+  },
   phone: {
     input: 'input[name="input-contact.phone"]',
   },

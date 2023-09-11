@@ -1,4 +1,6 @@
-import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
+import '@/cypress/support/commands';
+import { OrganizationRoleSelectors as RoleSelectors } from '@/cypress/support/selectors/organization-role.selectors';
+import { OrganizationSignupSelectors } from '@/cypress/support/selectors/organization-signup.selectors';
 import {
   CAUSE_ENUM_OPTIONS,
   ORG_SIGNUP_LINK,
@@ -10,7 +12,6 @@ import { EmploymentType } from '@/lib/enums';
 import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
-import '../support/commands';
 
 type EmploymentFillTypes = typeof EmploymentType._input;
 
@@ -444,7 +445,7 @@ describe('Organization Application', () => {
   }
 
   function fillImpactAreasOther(): void {
-    cy.get('input[name="input-organization.impactAreasOther"]').fastType(
+    cy.get(OrganizationSignupSelectors.impactAreasOther.input).fastType(
       'impact Area 1, impact Area 2, impact Area 3'
     );
   }
@@ -494,11 +495,11 @@ describe('Organization Application', () => {
   }
 
   function selectOtherRoleType(): void {
-    cy.get(Selectors.roleType.input).fastClick();
-    cy.get(Selectors.roleType.options.other).fastClick();
-    cy.get(Selectors.roleType.input).should('have.text', 'Other');
-    cy.get(Selectors.roleTypeOther.input).should('exist');
-    cy.get(Selectors.roleTypeOther.input).fastType('Other role type');
+    cy.get(RoleSelectors.roleType.input).fastClick();
+    cy.get(RoleSelectors.roleType.options.other).fastClick();
+    cy.get(RoleSelectors.roleType.input).should('have.text', 'Other');
+    cy.get(RoleSelectors.roleTypeOther.input).should('exist');
+    cy.get(RoleSelectors.roleTypeOther.input).fastType('Other role type');
   }
 
   function fillEmploymentType(types: EmploymentFillTypes[]): void {
