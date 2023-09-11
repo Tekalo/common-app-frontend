@@ -3,6 +3,8 @@ import {
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
+  CAUSE_ENUM_OPTIONS,
+  SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
 import { applicantsEndpoint } from '@/lib/helpers/apiHelpers';
 import { AccountSubmissionResponseType } from '@/lib/types';
@@ -50,12 +52,12 @@ describe('Candidate Application', () => {
 
     cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
-    selectWorkArrangement();
-    selectRoleInterest();
+    selectWorkArrangement(['advisor']);
+    selectRoleInterest(['software engineer']);
     fillCurrentLocation();
     fillOpenToRelocation();
     fillOpenToRemoteMulti();
-    selectInterestCauses();
+    selectInterestCauses(['algorithmic fairness']);
     fillEssay();
     saveAndConfirmInterestForm();
     submitInterestForm();
@@ -84,7 +86,7 @@ describe('Candidate Application', () => {
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
-    fillSkills(['react', 'javascript', 'devops']);
+    fillSkills([...SKILL_ENUM_OPTIONS]);
     fillOtherSkills();
     fillLinkedIn();
     fillPortfolio();
@@ -100,9 +102,28 @@ describe('Candidate Application', () => {
 
     cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
-    selectWorkArrangement();
+    selectWorkArrangement([
+      'advisor',
+      'consultant',
+      'contractor',
+      'internship',
+      'volunteer',
+    ]);
     fillHoursPerWeek();
-    selectRoleInterest();
+    selectRoleInterest([
+      'data analyst',
+      'data scientist',
+      'engineering manager',
+      'product designer',
+      'product manager',
+      'software engineer',
+      'software engineer - backend',
+      'software engineer - frontend',
+      'ux/ui designer',
+      'ux researcher',
+      'vp of engineering (or similar)',
+      'vp of product (or similar)',
+    ]);
     fillCurrentLocation();
     fillOpenToRelocation();
     fillOpenToRemoteMulti();
@@ -114,7 +135,8 @@ describe('Candidate Application', () => {
     selectInterestGovtTypes();
     fillPreviousExperience();
     fillEssay();
-    selectAttribution();
+    selectAttribution('other');
+    fillAttributionOther();
 
     saveAndConfirmInterestForm();
     submitInterestForm();
@@ -196,7 +218,7 @@ describe('Candidate Application', () => {
     cy.get('button[name=input-skills]').fastClick();
 
     skills.forEach((skill) => {
-      cy.get(`li[data-name=input-skills-${skill}]`).fastClick();
+      cy.get(`li[data-name="input-skills-${skill}"]`).fastClick();
     });
 
     cy.get('button[name=input-skills]').fastClick();
@@ -248,9 +270,15 @@ describe('Candidate Application', () => {
     cy.get('input[name=input-hoursPerWeek]').should('not.be.disabled');
   }
 
-  function selectWorkArrangement(): void {
+  function selectWorkArrangement(emplTypes: string[]): void {
     cy.get('button[name="input-interestWorkArrangement"]').fastClick();
-    cy.get('li[data-name="input-interestWorkArrangement-advisor"]').fastClick();
+
+    emplTypes.forEach((type) => {
+      cy.get(
+        `li[data-name="input-interestWorkArrangement-${type}"]`
+      ).fastClick();
+    });
+
     cy.get('button[name="input-interestWorkArrangement"]').fastClick();
   }
 
@@ -258,18 +286,15 @@ describe('Candidate Application', () => {
     cy.get('input[name=input-hoursPerWeek]').fastType('40hrs');
   }
 
-  function selectRoleInterest(): void {
+  function selectRoleInterest(roleTypes: string[]): void {
     const input = cy.get('button[name=input-interestRoles]');
 
     input.fastClick();
-    cy.get('li[data-name="input-interestRoles-software engineer"]').fastClick();
-    cy.get(
-      'li[data-name="input-interestRoles-software engineer - backend"]'
-    ).fastClick();
-    cy.get(
-      'li[data-name="input-interestRoles-software engineer - frontend"]'
-    ).fastClick();
-    cy.get('li[data-name="input-interestRoles-data analyst"]').fastClick();
+
+    roleTypes.forEach((role) => {
+      cy.get(`li[data-name="input-interestRoles-${role}"]`).fastClick();
+    });
+
     input.fastClick();
   }
 
@@ -292,16 +317,35 @@ describe('Candidate Application', () => {
     cy.get('input[name=input-desiredSalary]').fastType('$200,000');
   }
 
-  function selectInterestCauses(): void {
+  function selectInterestCauses(selectedCauses?: string[]): void {
     const input = cy.get('button[name=input-interestCauses]');
+    let shouldSelectOther = false;
+
+    // Select 4 randomly and then other
+    if (!selectedCauses?.length) {
+      shouldSelectOther = true;
+      const allCauses = [...CAUSE_ENUM_OPTIONS];
+      selectedCauses = [];
+
+      for (let i = 0; i < 4; i++) {
+        const len = allCauses.length;
+        const rndmIndex = Math.floor(Math.random() * len);
+
+        selectedCauses.push(allCauses[rndmIndex]);
+        allCauses.splice(rndmIndex, 1);
+      }
+    }
 
     input.fastClick();
-    cy.get(
-      'li[data-name="input-interestCauses-human rights & social justice"]'
-    ).fastClick();
-    cy.get('li[data-name="input-interestCauses-climate change"]').fastClick();
-    cy.get('li[data-name="input-interestCauses-tech policy"]').fastClick();
-    cy.get('li[data-name="input-interestCauses-environment"]').fastClick();
+
+    selectedCauses.forEach((cause: string) => {
+      cy.get(`li[data-name="input-interestCauses-${cause}"]`).fastClick();
+    });
+
+    if (shouldSelectOther) {
+      cy.get(`li[data-name="input-interestCauses-other"]`).fastClick();
+    }
+
     input.fastClick();
   }
 
@@ -337,9 +381,15 @@ describe('Candidate Application', () => {
     cy.get('textarea[name=input-essayResponse]').fastType('Essay entry.');
   }
 
-  function selectAttribution(): void {
+  function selectAttribution(type: string): void {
     cy.get('button[name=input-referenceAttribution]').fastClick();
-    cy.get('li[data-name=input-referenceAttribution-linkedIn]').fastClick();
+    cy.get(`li[data-name="input-referenceAttribution-${type}"]`).fastClick();
+  }
+
+  function fillAttributionOther(): void {
+    cy.get('input[name=input-referenceAttributionOther]').fastType(
+      'Other Attribution'
+    );
   }
 
   function saveAndConfirmInterestForm(): void {
