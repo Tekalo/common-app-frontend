@@ -13,11 +13,16 @@ const OrgDetailReview: React.FC<IOrgDetailReview> = ({
   orgInfo,
   handleGoToOrg: handleEditOrg,
 }) => {
-  const renderRow = (label: string, data?: string) =>
+  const renderRow = (id: string, label: string, data?: string) =>
     data ? (
       <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-1">
-        <span className="text-component-large text-black-text">{label}</span>
-        <span className="">{data}</span>
+        <span
+          data-name={`label-${id}`}
+          className="text-component-large text-black-text"
+        >
+          {label}
+        </span>
+        <span data-name={`value-${id}`}>{data}</span>
       </div>
     ) : (
       <></>
@@ -29,10 +34,23 @@ const OrgDetailReview: React.FC<IOrgDetailReview> = ({
         {titleText}
       </h4>
       <div className="mt-4 space-y-2 md:mt-6">
-        {renderRow('Organization name: ', orgInfo?.organization.name)}
-        {renderRow('Organization type: ', orgInfo?.organization.type)}
-        {renderRow('Organization size: ', orgInfo?.organization.size)}
         {renderRow(
+          'orgName',
+          'Organization name: ',
+          orgInfo?.organization.name
+        )}
+        {renderRow(
+          'orgType',
+          'Organization type: ',
+          orgInfo?.organization.type
+        )}
+        {renderRow(
+          'orgSize',
+          'Organization size: ',
+          orgInfo?.organization.size
+        )}
+        {renderRow(
+          'orgImpactAreas',
           'Impact areas: ',
           orgInfo?.organization.impactAreas
             .map((area) => capitalizeFirstLetter(area))
@@ -40,14 +58,23 @@ const OrgDetailReview: React.FC<IOrgDetailReview> = ({
         )}
         {orgInfo?.organization.impactAreasOther &&
           renderRow(
+            'orgImpactAreasOther',
             'Other impact areas: ',
             orgInfo?.organization.impactAreasOther.join(', ')
           )}
       </div>
       <div className="mt-4 space-y-2">
-        {renderRow('Contact name: ', orgInfo?.contact.name)}
-        {renderRow('Contact number: ', orgInfo?.contact.phone)}
-        {renderRow('Contact email: ', orgInfo?.contact.email)}
+        {renderRow('orgContactName', 'Contact name: ', orgInfo?.contact.name)}
+        {renderRow(
+          'orgContactPhone',
+          'Contact number: ',
+          orgInfo?.contact.phone
+        )}
+        {renderRow(
+          'orgContactEmail',
+          'Contact email: ',
+          orgInfo?.contact.email
+        )}
       </div>
       <div
         className="mt-6 flex cursor-pointer flex-row space-x-2 align-middle text-component-small text-blue-1"

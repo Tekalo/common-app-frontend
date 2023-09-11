@@ -1,3 +1,4 @@
+import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
 import {
   CAUSE_ENUM_OPTIONS,
   ORG_SIGNUP_LINK,
@@ -10,8 +11,6 @@ import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
-
-import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
 
 type EmploymentFillTypes = typeof EmploymentType._input;
 
@@ -162,20 +161,13 @@ describe('Organization Application', () => {
   });
 
   it('Should submit opportunity, part-time only, all fields', () => {
-    /*
-      TEST FLOW:
-        Sign up
-        Check correct fields are hidden/shown
-        Check Paid/unpaid options are correct
-        Fill all fields
-    */
-
     cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
     selectOrgSize();
     selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
+    fillImpactAreasOther();
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -213,6 +205,14 @@ describe('Organization Application', () => {
 
     // Review form
     cy.get(reviewPageTitleSelector).should('exist');
+    cy.get('span[data-name="label-orgImpactAreasOther"]').should(
+      'have.text',
+      'Other impact areas: '
+    );
+    cy.get('span[data-name="value-orgImpactAreasOther"]').should(
+      'have.text',
+      'impact Area 1, impact Area 2, impact Area 3'
+    );
     acceptPrivacy();
     submitOrgApplication();
 
@@ -441,6 +441,12 @@ describe('Organization Application', () => {
     });
 
     input.fastClick();
+  }
+
+  function fillImpactAreasOther(): void {
+    cy.get('input[name="input-organization.impactAreasOther"]').fastType(
+      'impact Area 1, impact Area 2, impact Area 3'
+    );
   }
 
   function fillContactName(): void {
