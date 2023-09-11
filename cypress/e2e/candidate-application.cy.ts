@@ -42,10 +42,7 @@ describe('Candidate Application', () => {
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
-    // TODO: RESUME_UPLOAD
-    fillResume();
-    fillResumePwd();
-    // uploadDocXFile();
+    uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
@@ -92,10 +89,7 @@ describe('Candidate Application', () => {
     fillPortfolio();
     fillPortfolioPwd();
     fillGithub();
-    // TODO: RESUME_UPLOAD
-    fillResume();
-    fillResumePwd();
-    // uploadDocXFile();
+    uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
@@ -244,14 +238,6 @@ describe('Candidate Application', () => {
 
   function fillGithub(): void {
     cy.get('input[name=input-githubUrl]').fastType('github');
-  }
-
-  function fillResume(): void {
-    cy.get('input[name=input-resumeUrl]').fastType('resumeLink');
-  }
-
-  function fillResumePwd(): void {
-    cy.get('input[name=input-resumePassword]').fastType('resumePwd');
   }
 
   function saveAndConfirmExperienceForm(): void {
