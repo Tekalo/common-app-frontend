@@ -173,6 +173,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       alt: 'Beam Logo',
       url: 'https://www.bybeam.co/',
     },
+    {
+      src: '/images/logos/SolarStewards.png',
+      alt: 'Solar Stewards Logo',
+      url: 'https://solarstewards.net/',
+    },
   ];
 
   const renderLogos = (full = false) => {
