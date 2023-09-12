@@ -112,7 +112,7 @@ describe('Organization Application', () => {
     checkSuccessPage();
   });
 
-  it('Should submit opportunity, part-time only, required only', () => {
+  it('Should submit opportunity, part-time only unpaid, required only', () => {
     /*
       TEST FLOW:
         Sign up
@@ -145,6 +145,7 @@ describe('Organization Application', () => {
     fillOtherRoleType();
     fillPositionTitle();
     fillSalaryRange();
+
     selectFullyRemote();
     selectVisaSponsorship();
     selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS])]);
@@ -196,6 +197,7 @@ describe('Organization Application', () => {
     fillPositionTitle();
     fillJobDescriptionLink();
     fillSalaryRange();
+
     fillHoursPerWeek();
     selectFullyRemote();
     fillLocation();
@@ -402,7 +404,7 @@ describe('Organization Application', () => {
     cy.get('li[data-name="input-employmentTypeSelect-internship"]').should(
       'not.exist'
     );
-    cy.get('input[name=input-salaryRange]').should('be.disabled');
+    cy.get('input[name=input-salaryRange]').should('not.exist');
     fillEmploymentType(['volunteer']);
     cy.get('button[name=input-visaSponsorship]').should('be.disabled');
   }
