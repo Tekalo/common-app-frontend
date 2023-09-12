@@ -27,7 +27,7 @@ declare global {
       mountOrganizationSignupForm(
         props: IOrgSignupForm
       ): Chainable<MountReturn>;
-      mountRoleDetailReview(props: IRoleDetailReview): Chainable<MountReturn>;
+      mountRoleDetailReview(props: IRoleDetailReview): Chainable<void>;
       mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
       mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
       mountCandidateSignupFormPage(

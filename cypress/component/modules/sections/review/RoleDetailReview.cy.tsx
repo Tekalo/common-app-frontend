@@ -3,13 +3,7 @@ import RoleDetailReview, {
 } from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/RoleDetailReview';
 
 Cypress.Commands.add('mountRoleDetailReview', (props: IRoleDetailReview) => {
-  return cy.mount(
-    <RoleDetailReview
-      orgRoles={props.orgRoles}
-      handleGoToRole={props.handleGoToRole}
-      handleDeleteRole={props.handleDeleteRole}
-    />
-  );
+  cy.mount(<RoleDetailReview {...props} />);
 });
 
 describe('Organization <RoleDetailReview />', () => {
