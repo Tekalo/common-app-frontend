@@ -7,7 +7,6 @@ import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumber
 import { IExperienceForm } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
-import { IRoleDetailReview } from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/RoleDetailReview';
 import { IRoleForm } from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
@@ -27,13 +26,6 @@ declare global {
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
-      mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
-      mountOrganizationSignupForm(
-        props: IOrgSignupForm
-      ): Chainable<MountReturn>;
-      mountRoleDetailReview(props: IRoleDetailReview): Chainable<void>;
-      mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
-      mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
       mountCandidateSignupForm(props: ISignupForm): Chainable<void>;
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
