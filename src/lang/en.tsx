@@ -70,7 +70,7 @@ const NAV_BAR_TEXT = {
   HOW_IT_WORKS: 'How it works',
 };
 const NAV_FOOTER_TEXT = {
-  COPYRIGHT: '© Futures Action Nework, LLC',
+  COPYRIGHT: '© Futures Action Network, LLC',
   RESERVED_RIGHTS: '2023. All Rights Reserved.',
   LINK_BLOCKS: [
     {
