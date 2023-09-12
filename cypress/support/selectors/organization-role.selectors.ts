@@ -24,4 +24,16 @@ export const OrganizationRoleSelectors = {
   roleTypeOther: {
     input: 'input[name="input-otherRoleType"]',
   },
+
+  rolePaid: {
+    input: 'input[name="input-paid-true"]',
+  },
+
+  roleUnpaid: {
+    input: 'input[name="input-paid-false"]',
+  },
+
+  roleSalary: {
+    input: 'input[name="input-salaryRange"]',
+  },
 };
