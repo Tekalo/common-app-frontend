@@ -10,6 +10,7 @@ Cypress.Commands.add('setupTestingEnvironment', (): void => {
         __DEBUG_ITEM_KEY__,
         Cypress.env('debug_mode_secret')
       );
+
       cy.visit({
         url: '/',
         headers: {
@@ -31,29 +32,28 @@ Cypress.Commands.add('validateLogin', (): void => {
 });
 
 Cypress.Commands.add('login', (): void => {
-  cy.session(
-    'login',
-    () => {
-      cy.setupTestingEnvironment();
-      cy.visit('/sign-in');
+  cy.session('login', () => {
+    cy.setupTestingEnvironment();
+    cy.visit('/sign-in');
 
-      cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
-        cy.url().should('contain', '/u/login');
+    cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
+      cy.url().should('contain', '/u/login');
 
-        cy.get('input[name=username]').type(Cypress.env('auth0_username'));
-        cy.get('input[name=password]').type(Cypress.env('auth0_password'));
+      const auth0Username = Cypress.env('auth0_username');
+      const auth0Password = Cypress.env('auth0_password');
 
-        cy.get('button[name=action]').last().click();
-      });
+      cy.get('input[name=username]')
+        .invoke('val', auth0Username.substring(0, auth0Username.length - 1))
+        .type(auth0Username.charAt(auth0Username.length - 1));
+      cy.get('input[name=password]')
+        .invoke('val', auth0Password.substring(0, auth0Password.length - 1))
+        .type(auth0Password.charAt(auth0Password.length - 1));
 
-      cy.url().should('contain', `/account`);
-    },
-    {
-      validate() {
-        cy.validateLogin();
-      },
-    }
-  );
+      cy.get('button[name=action]').last().click({ force: true });
+    });
+
+    cy.url().should('contain', `/account`);
+  });
 });
 
 Cypress.Commands.add('deleteTestData', (deleteUrl: string) => {

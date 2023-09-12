@@ -1,3 +1,4 @@
+import { getMockAuth0Context, mockAuthToken } from '@/cypress/fixtures/mocks';
 import {
   resumeUploadCompleteEndpoint,
   resumeUploadRequestEndpoint,
@@ -19,8 +20,6 @@ describe('FileUploadProvider', () => {
   const mockFileName = 'exampleFile.pdf';
   const mockFileType = 'application/pdf';
   const mockFileContents = '123';
-  const mockAuthToken = 'MOCK_AUTH_TOKEN';
-  const voidFn = () => void {};
 
   const MockComponent: React.FC<{ action: 'upload' | 'validate' }> = ({
     action,
@@ -66,21 +65,11 @@ describe('FileUploadProvider', () => {
       type: mockFileType,
     });
 
-    mockAuth0Context = {
-      getAccessTokenSilently: () => Promise.resolve(mockAuthToken),
-      getAccessTokenWithPopup: voidFn,
-      getIdTokenClaims: voidFn,
-      handleRedirectCallback: voidFn,
-      isAuthenticated: true,
-      isLoading: false,
-      loginWithPopup: voidFn,
-      loginWithRedirect: voidFn,
-      logout: voidFn,
-      user: undefined,
-    } as unknown as Auth0ContextInterface<User>;
+    mockAuth0Context = getMockAuth0Context();
+    mockAuth0Context.isAuthenticated = true;
   });
 
-  it('should make file upload request', (done) => {
+  it('should make file upload request', () => {
     componentUploadCheckFn = (res) => {
       expect(res.isSuccess).to.equal(true);
       expect(res.fileId).to.equal(mockFileId);
@@ -138,13 +127,11 @@ describe('FileUploadProvider', () => {
         const completeRequestBody = intercepts[2].request.body;
 
         expect(completeRequestBody.status).to.equal('SUCCESS');
-
-        done();
       }
     );
   });
 
-  it('should return failure response when the request to upload fails (bad status)', (done) => {
+  it('should return failure response when the request to upload fails (bad status)', () => {
     mockAuth0Context.isAuthenticated = false;
     componentUploadCheckFn = (res) => {
       expect(res.isSuccess).to.equal(false);
@@ -166,12 +153,10 @@ describe('FileUploadProvider', () => {
     cy.wait('@uploadRequested').then((i: Interception) => {
       expect(i.request.headers.authorization).to.equal('');
       cy.get('@requestCall').should('have.been.calledOnce');
-
-      done();
     });
   });
 
-  it('should return failure response when AWS upload fails (bad status)', (done) => {
+  it('should return failure response when AWS upload fails (bad status)', () => {
     mockAuth0Context.isAuthenticated = false;
     componentUploadCheckFn = (res) => {
       expect(res.isSuccess).to.equal(false);
@@ -219,12 +204,10 @@ describe('FileUploadProvider', () => {
 
     cy.wait(['@uploadRequested', '@fileUploaded', '@uploadCompleted']).then(
       (i: Interception[]) => {
-        cy.get('@requestCall').should('have.been.calledOnce');
-        cy.get('@uploadCall').should('have.been.calledOnce');
-
         expect(i[2].request.body.status).to.equal('FAILURE');
 
-        done();
+        cy.get('@requestCall').should('have.been.calledOnce');
+        cy.get('@uploadCall').should('have.been.calledOnce');
       }
     );
   });
@@ -282,7 +265,7 @@ describe('FileUploadProvider', () => {
     );
   });
 
-  it('should fail when status call fails (reject)', (done) => {
+  it('should fail when status call fails (reject)', () => {
     componentUploadCheckFn = (res) => {
       expect(res.isSuccess).to.equal(false);
       expect(res.fileId).to.equal(undefined);
@@ -338,13 +321,11 @@ describe('FileUploadProvider', () => {
         const completeRequestBody = intercepts[2].request.body;
 
         expect(completeRequestBody.status).to.equal('SUCCESS');
-
-        done();
       }
     );
   });
 
-  it('should fail when status call fails (bad status)', (done) => {
+  it('should fail when status call fails (bad status)', () => {
     componentUploadCheckFn = (res) => {
       expect(res.isSuccess).to.equal(false);
       expect(res.fileId).to.equal(undefined);
@@ -402,8 +383,6 @@ describe('FileUploadProvider', () => {
         const completeRequestBody = intercepts[2].request.body;
 
         expect(completeRequestBody.status).to.equal('SUCCESS');
-
-        done();
       }
     );
   });

@@ -5,26 +5,25 @@
   "engineStrict": true,
   "engines": {
     "npm": "please-use-pnpm",
-    "pnpm": ">=7",
+    "pnpm": ">=8",
     "node": "18"
   },
   "scripts": {
     "build-storybook": "storybook build -o .storybook/build",
     "build:for-edge": "pnpx @cloudflare/next-on-pages",
     "build": "next build",
-    "cy": "cypress open",
+    "cy": "./cypress/scripts/setup-test-env.sh 'cypress open'",
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "e2e:ci": "cypress run --e2e",
     "export": "next export",
     "lint": "next lint",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
-    "pretest-cleanup": "rm -rf .next .nyc_output coverage ; mv _babelrc .babelrc",
     "prettier": "prettier --write .",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "test:e2e": "start-test dev 3000 e2e:ci",
-    "test:unit": "pnpm pretest-cleanup ; BABEL_ENV=unit cypress run --component ; mv .babelrc _babelrc",
+    "test:unit": "./cypress/scripts/setup-test-env.sh 'cypress run --component'",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out"
   },
   "lint-staged": {
@@ -61,6 +60,7 @@
     "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-phone-input-2": "^2.15.1",
+    "universal-cookie": "^6.1.0",
     "wrangler": "^2.20.0",
     "zod": "^3.21.4"
   },
@@ -89,7 +89,7 @@
     "chromatic": "^6.18.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
-    "cypress": "^12.13.0",
+    "cypress": "^12.17.4",
     "dotenv": "^16.1.4",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",

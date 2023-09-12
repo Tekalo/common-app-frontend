@@ -62,28 +62,28 @@ describe('<MultiSelect />', () => {
   it('should have the correct options', () => {
     cy.mountMultiSelect(props);
 
-    cy.get('[data-name=button]').click();
+    cy.get('[data-name=button]').fastClick();
 
     cy.get(`[data-name=list-options]`).should('be.visible');
 
     props.listOptions.forEach((op) => {
-      const option = cy.get(`li[data-name="${props.name}-${op.value}"]`);
-      option.should('be.visible');
-      option.should('have.text', op.displayText);
+      cy.get(`li[data-name="${props.name}-${op.value}"]`)
+        .should('be.visible')
+        .should('have.text', op.displayText);
     });
   });
 
   it('should select and unselect options', () => {
     cy.mountMultiSelect(props);
 
-    cy.get('[data-name=button]').click();
+    cy.get('[data-name=button]').fastClick();
 
     const firstInput = cy.get('[data-name=list-options] li input').eq(0);
     const secondInput = cy.get('[data-name=list-options] li input').eq(1);
 
-    firstInput.click();
-    secondInput.click();
-    firstInput.click();
+    firstInput.fastClick();
+    secondInput.fastClick();
+    firstInput.fastClick();
 
     cy.then(() => {
       expect(setValueSpy).to.have.callCount(3);
@@ -113,7 +113,7 @@ describe('<MultiSelect />', () => {
 
     cy.mountMultiSelect(props);
 
-    cy.get('[data-name=button]').click();
+    cy.get('[data-name=button]').fastClick();
 
     cy.get('[data-name=list-options] li input').eq(0).should('not.be.disabled');
     cy.get('[data-name=list-options] li input').eq(1).should('not.be.disabled');

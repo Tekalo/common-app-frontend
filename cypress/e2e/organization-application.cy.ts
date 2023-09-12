@@ -1,4 +1,10 @@
-import { ORG_SIGNUP_LINK } from '@/lang/en';
+import {
+  CAUSE_ENUM_OPTIONS,
+  ORG_SIGNUP_LINK,
+  REF_ENUM_OPTIONS,
+  ROLE_ENUM_OPTIONS,
+  YOE_RANGE_ENUM_OPTIONS,
+} from '@/lang/en';
 import { EmploymentType } from '@/lib/enums';
 import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
@@ -27,12 +33,12 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas();
+    selectImpactAreas([getRandomEntry([...CAUSE_ENUM_OPTIONS], true)]);
     fillContactName();
     fillContactEmail();
     selectCommitmentTypes(['full']);
     selectEoe();
-    selectAttribution();
+    selectAttribution(getRandomEntry([...REF_ENUM_OPTIONS], true));
 
     submitOrgSignUpForm();
 
@@ -40,51 +46,12 @@ describe('Organization Application', () => {
     cy.get('div[data-name="Role 1"]').should('exist');
     doFullTimeChecks();
 
-    selectRoleType();
+    selectRoleType(getRandomEntry([...ROLE_ENUM_OPTIONS], true));
     fillPositionTitle();
     fillSalaryRange();
     selectFullyRemote();
     selectVisaSponsorship();
-    selectYoe();
-    selectSimilarExperience();
-    fillRolePitch();
-
-    goToOrgReview();
-
-    // Review form
-    cy.get(reviewPageTitleSelector).should('exist');
-    acceptPrivacy();
-    submitOrgApplication();
-
-    checkSuccessPage();
-  });
-
-  it('Should submit opportunity, full-time only, required only with free text attribution', () => {
-    cy.url().should('include', ORG_SIGNUP_LINK);
-
-    fillOrgName();
-    selectOrgType();
-    selectOrgSize();
-    selectImpactAreas();
-    fillContactName();
-    fillContactEmail();
-    selectCommitmentTypes(['full']);
-    selectEoe();
-    selectOtherAttribution();
-    textAttribution();
-
-    submitOrgSignUpForm();
-
-    // Role Form
-    cy.get('div[data-name="Role 1"]').should('exist');
-    doFullTimeChecks();
-
-    selectRoleType();
-    fillPositionTitle();
-    fillSalaryRange();
-    selectFullyRemote();
-    selectVisaSponsorship();
-    selectYoe();
+    selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS], true)]);
     selectSimilarExperience();
     fillRolePitch();
 
@@ -104,12 +71,14 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas();
+    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
     fillContactName();
     fillContactEmail();
     fillContactPhone();
     selectCommitmentTypes(['full']);
     selectEoe();
+    selectAttribution('other');
+    textAttribution();
 
     submitOrgSignUpForm();
 
@@ -117,7 +86,8 @@ describe('Organization Application', () => {
     cy.get('div[data-name="Role 1"]').should('exist');
     doFullTimeChecks();
 
-    selectRoleType();
+    selectRoleType('other');
+    fillRoleOther();
     fillPositionTitle();
     fillJobDescriptionLink();
     fillSalaryRange();
@@ -125,7 +95,7 @@ describe('Organization Application', () => {
     fillLocation();
     selectVisaSponsorship();
     fillStartDate();
-    selectYoe();
+    selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
     selectDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
@@ -156,7 +126,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas();
+    selectImpactAreas([getRandomEntry([...CAUSE_ENUM_OPTIONS], true)]);
     fillContactName();
     fillContactEmail();
     selectCommitmentTypes(['part']);
@@ -170,7 +140,7 @@ describe('Organization Application', () => {
     doPartTimeUnpaidChecks();
     doPartTimePaidChecks();
 
-    selectRoleType();
+    selectRoleType(getRandomEntry([...ROLE_ENUM_OPTIONS], true));
     fillEmploymentType(['other']);
     fillOtherRoleType();
     fillPositionTitle();
@@ -178,7 +148,7 @@ describe('Organization Application', () => {
 
     selectFullyRemote();
     selectVisaSponsorship();
-    selectYoe();
+    selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS])]);
     selectSimilarExperience();
     fillRolePitch();
 
@@ -206,7 +176,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas();
+    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -221,7 +191,7 @@ describe('Organization Application', () => {
     doPartTimeUnpaidChecks();
     doPartTimePaidChecks();
 
-    selectRoleType();
+    selectRoleType(getRandomEntry([...ROLE_ENUM_OPTIONS], true));
     fillEmploymentType(['contractor']);
     fillOtherRoleType();
     fillPositionTitle();
@@ -234,7 +204,7 @@ describe('Organization Application', () => {
     selectVisaSponsorship();
     fillStartDate();
     fillEndDate();
-    selectYoe();
+    selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
     selectDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
@@ -257,7 +227,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas();
+    selectImpactAreas([getRandomEntry([...CAUSE_ENUM_OPTIONS], true)]);
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -272,7 +242,7 @@ describe('Organization Application', () => {
 
     selectPaidOrUnpaid('paid');
 
-    selectRoleType();
+    selectRoleType(getRandomEntry([...ROLE_ENUM_OPTIONS], true));
 
     fillEmploymentType(['full-time employee']);
     cy.get('input[name=input-desiredHoursPerWeek]').should('be.disabled');
@@ -281,7 +251,7 @@ describe('Organization Application', () => {
     fillSalaryRange();
     selectFullyRemote();
     selectVisaSponsorship();
-    selectYoe();
+    selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS])]);
     selectSimilarExperience();
     fillRolePitch();
 
@@ -301,7 +271,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas();
+    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -316,7 +286,7 @@ describe('Organization Application', () => {
 
     selectPaidOrUnpaid('paid');
 
-    selectRoleType();
+    selectRoleType(getRandomEntry([...ROLE_ENUM_OPTIONS], true));
 
     fillEmploymentType(['internship']);
     cy.get('input[name=input-desiredHoursPerWeek]').should('not.be.disabled');
@@ -328,7 +298,7 @@ describe('Organization Application', () => {
     selectFullyRemote();
     selectVisaSponsorship();
     fillStartDate();
-    selectYoe();
+    selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
     selectDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
@@ -351,7 +321,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas();
+    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -378,7 +348,7 @@ describe('Organization Application', () => {
     selectFullyRemote();
     selectVisaSponsorship();
     fillStartDate();
-    selectYoe();
+    selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
     selectDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
@@ -394,6 +364,13 @@ describe('Organization Application', () => {
 
     checkSuccessPage();
   });
+
+  function getRandomEntry(arr: string[], omitLast = false): string {
+    const max = omitLast ? arr.length - 1 : arr.length;
+    const randomIndex = Math.floor(Math.random() * max);
+
+    return arr[randomIndex];
+  }
 
   function checkSuccessPage(): void {
     cy.url().should('include', 'sign-up/organizations/success');
@@ -441,39 +418,39 @@ describe('Organization Application', () => {
   }
 
   function fillOrgName(): void {
-    cy.get('input[name="input-organization.name"]').type('SF E2E Test Org');
+    cy.get('input[name="input-organization.name"]').fastType('SF E2E Test Org');
   }
 
   function selectOrgType(): void {
-    cy.get('button[name="input-organization.type"]').click();
-    cy.get('li[data-name="input-organization.type-501(c)(3)"]').click();
+    cy.get('button[name="input-organization.type"]').fastClick();
+    cy.get('li[data-name="input-organization.type-501(c)(3)"]').fastClick();
   }
 
   function selectOrgSize(): void {
-    cy.get('button[name="input-organization.size"]').click();
-    cy.get('li[data-name="input-organization.size-51-100"]').click();
+    cy.get('button[name="input-organization.size"]').fastClick();
+    cy.get('li[data-name="input-organization.size-51-100"]').fastClick();
   }
 
-  function selectImpactAreas(): void {
+  function selectImpactAreas(areas: string[]): void {
     const input = cy.get('button[name="input-organization.impactAreas"]');
 
-    input.click();
-    cy.get(
-      'li[data-name="input-organization.impactAreas-climate change"]'
-    ).click();
-    cy.get(
-      'li[data-name="input-organization.impactAreas-human rights & social justice"]'
-    ).click();
-    cy.get('li[data-name="input-organization.impactAreas-education"]').click();
-    input.click();
+    input.fastClick();
+
+    areas.forEach((area) => {
+      cy.get(
+        `li[data-name="input-organization.impactAreas-${area}"]`
+      ).fastClick();
+    });
+
+    input.fastClick();
   }
 
   function fillContactName(): void {
-    cy.get('input[name="input-contact.name"]').type('Contact Name');
+    cy.get('input[name="input-contact.name"]').fastType('Contact Name');
   }
 
   function fillContactEmail(): void {
-    cy.get('input[name="input-contact.email"]').type(
+    cy.get('input[name="input-contact.email"]').fastType(
       'test-user-contact@schmidtfutures.com'
     );
   }
@@ -484,137 +461,147 @@ describe('Organization Application', () => {
 
   function selectCommitmentTypes(types: ('full' | 'part')[]): void {
     types.forEach((type) => {
-      cy.get(`input#input-commitmentTypes-${type}`).click();
+      cy.get(`input#input-commitmentTypes-${type}`).fastClick();
     });
   }
 
   function selectEoe(): void {
-    cy.get('button[name="input-organization.eoe"]').click();
-    cy.get('li[data-name="input-organization.eoe-true"]').click();
+    cy.get('button[name="input-organization.eoe"]').fastClick();
+    cy.get('li[data-name="input-organization.eoe-true"]').fastClick();
   }
 
   function submitOrgSignUpForm(): void {
-    cy.get('button#submit-org-sign-up').click();
+    cy.get('button#submit-org-sign-up').fastClick();
   }
 
   function selectPaidOrUnpaid(paid: 'paid' | 'unpaid'): void {
     const selector = paid === 'paid' ? 'true' : 'false';
 
-    cy.get(`input[name=input-paid-${selector}]`).click();
+    cy.get(`input[name=input-paid-${selector}]`).fastClick();
   }
 
-  function selectRoleType(): void {
-    cy.get('button[name=input-roleType]').click();
-    cy.get('li[data-name="input-roleType-software engineer"').click();
+  function selectRoleType(roleType: string): void {
+    cy.get('button[name=input-roleType]').fastClick();
+    cy.get(`li[data-name="input-roleType-${roleType}"`).fastClick();
+  }
+
+  function fillRoleOther(): void {
+    cy.get('input[name=input-otherRoleType]').fastType('Other role type');
   }
 
   function selectOtherRoleType(): void {
-    cy.get(Selectors.roleType.input).click();
-    cy.get(Selectors.roleType.options.other).click();
+    cy.get(Selectors.roleType.input).fastClick();
+    cy.get(Selectors.roleType.options.other).fastClick();
     cy.get(Selectors.roleType.input).should('have.text', 'Other');
-    cy.wait(1000); // wait for animation to finish
     cy.get(Selectors.roleTypeOther.input).should('exist');
-    cy.get(Selectors.roleTypeOther.input).type('Other role type');
+    cy.get(Selectors.roleTypeOther.input).fastType('Other role type');
   }
 
   function fillEmploymentType(types: EmploymentFillTypes[]): void {
-    cy.get('button[name=input-employmentTypeSelect]').click();
+    cy.get('button[name=input-employmentTypeSelect]').fastClick();
 
     types.forEach((type) => {
-      cy.get(`li[data-name="input-employmentTypeSelect-${type}"]`).click();
+      cy.get(`li[data-name="input-employmentTypeSelect-${type}"]`).fastClick();
     });
   }
 
   function fillOtherRoleType(): void {
-    cy.get('input[name=input-employmentTypeText]').type(
+    cy.get('input[name=input-employmentTypeText]').fastType(
       'Other type of role explained here'
     );
   }
 
   function fillPositionTitle(): void {
-    cy.get('input[name=input-positionTitle').type('Software Engineer');
+    cy.get('input[name=input-positionTitle').fastType(
+      'Senior Software Engineer - Test'
+    );
   }
 
   function fillJobDescriptionLink(): void {
-    cy.get('input[name=input-jdUrl]').type('http://www.examplejoblisting.com');
+    cy.get('input[name=input-jdUrl]').fastType(
+      'http://www.examplejoblisting.com'
+    );
   }
 
   function fillSalaryRange(): void {
-    cy.get('input[name=input-salaryRange]').type('150k - 250k');
+    cy.get('input[name=input-salaryRange]').fastType('150k - 250k');
   }
 
   function fillHoursPerWeek(): void {
-    cy.get('input[name=input-desiredHoursPerWeek]').type('30 - 40hrs');
+    cy.get('input[name=input-desiredHoursPerWeek]').fastType('30 - 40hrs');
   }
 
   function selectFullyRemote(): void {
-    cy.get('input[name=input-fullyRemote-true]').click();
+    cy.get('input[name=input-fullyRemote-true]').fastClick();
   }
 
   function fillLocation(): void {
-    cy.get('input[name=input-location]').type('New York, New York');
+    cy.get('input[name=input-location]').fastType('New York, New York');
   }
 
   function selectVisaSponsorship(): void {
-    cy.get('button[name=input-visaSponsorship]').click();
-    cy.get('li[data-name=input-visaSponsorship-no]').click();
+    cy.get('button[name=input-visaSponsorship]').fastClick();
+    cy.get('li[data-name=input-visaSponsorship-no]').fastClick();
   }
 
   function fillStartDate(): void {
-    cy.get('input[name=input-desiredStartDate]').type('10/10/2023');
+    cy.get('input[name=input-desiredStartDate]').fastType('10/10/2023');
   }
 
   function fillEndDate(): void {
-    cy.get('input[name=input-desiredEndDate]').type('10/10/2025');
+    cy.get('input[name=input-desiredEndDate]').fastType('10/10/2025');
   }
 
-  function selectYoe(): void {
+  function selectYoe(options: string[]): void {
     const input = cy.get('button[name=input-desiredYoe');
 
-    input.click();
-    cy.get('li[data-name=input-desiredYoe-3-5]').click();
-    cy.get('li[data-name=input-desiredYoe-9-12]').click();
-    input.click();
+    input.fastClick();
+
+    options.forEach((opt) => {
+      cy.get(`li[data-name="input-desiredYoe-${opt}"]`).fastClick();
+    });
+
+    input.fastClick();
   }
 
   function selectDesiredSkills(): void {
     const input = cy.get('button[name=input-desiredSkills]');
 
-    input.click();
-    cy.get('li[data-name=input-desiredSkills-javascript]').click();
-    cy.get('li[data-name=input-desiredSkills-python]').click();
-    cy.get('li[data-name=input-desiredSkills-sql]').click();
-    input.click();
+    input.fastClick();
+    cy.get('li[data-name=input-desiredSkills-javascript]').fastClick();
+    cy.get('li[data-name=input-desiredSkills-python]').fastClick();
+    cy.get('li[data-name=input-desiredSkills-sql]').fastClick();
+    input.fastClick();
   }
 
   function fillOtherSkills(): void {
-    cy.get('input[name=input-desiredOtherSkills]').type(
+    cy.get('input[name=input-desiredOtherSkills]').fastType(
       'otherSkill1, otherSkill2'
     );
   }
 
   function selectSimilarExperience(): void {
-    cy.get('input[name=input-similarStaffed-true]').click();
+    cy.get('input[name=input-similarStaffed-true]').fastClick();
   }
 
   function fillDesiredImpactExperience(): void {
-    cy.get('textarea[name=input-desiredImpactExp]').type(
+    cy.get('textarea[name=input-desiredImpactExp]').fastType(
       'Desired impact-related experience goes here!'
     );
   }
 
   function fillRolePitch(): void {
-    cy.get('textarea[name=input-pitchEssay]').type(
+    cy.get('textarea[name=input-pitchEssay]').fastType(
       'Here is the role pitch! Give it some extra text to make it longer.'
     );
   }
 
   function goToOrgReview(): void {
-    cy.get('button#review').click();
+    cy.get('button#review').fastClick();
   }
 
   function acceptPrivacy(): void {
-    cy.get('input[name=input-acceptedPrivacy]').click();
+    cy.get('input[name=input-acceptedPrivacy]').fastClick();
   }
 
   function submitOrgApplication(): void {
@@ -623,7 +610,7 @@ describe('Organization Application', () => {
       url: opportunityBatchEndpoint,
     }).as('opportunityCreation');
 
-    cy.get('button#submit-org-form').click();
+    cy.get('button#submit-org-form').fastClick();
 
     cy.wait('@opportunityCreation').then((interception: Interception) => {
       const response = interception?.response
@@ -633,18 +620,15 @@ describe('Organization Application', () => {
     });
   }
 
-  function selectAttribution(): void {
-    cy.get('button[name=input-referenceAttribution]').click();
-    cy.get('li[data-name=input-referenceAttribution-linkedIn]').click();
-  }
-
-  function selectOtherAttribution(): void {
-    cy.get('button[name=input-referenceAttribution]').click();
-    cy.get('li[data-name=input-referenceAttribution-other]').click();
+  function selectAttribution(attribution: string): void {
+    cy.get('button[name=input-referenceAttribution]').fastClick();
+    cy.get(
+      `li[data-name="input-referenceAttribution-${attribution}"]`
+    ).fastClick();
   }
 
   function textAttribution(): void {
-    cy.get('input[name=input-referenceAttributionOther]').type(
+    cy.get('input[name=input-referenceAttributionOther]').fastType(
       'A more specific reference'
     );
   }

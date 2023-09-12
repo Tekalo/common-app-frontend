@@ -1,3 +1,4 @@
+import { voidFn } from '@/cypress/fixtures/mocks';
 import { CandidateSignupSelectors as Selectors } from '@/cypress/support/selectors/candidate-signup.selectors';
 import {
   APPLICANT_FORM_TEXT,
@@ -9,9 +10,23 @@ import {
 import SignupForm, {
   ISignupForm,
 } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+// import { TurnstileProps } from '@marsidev/react-turnstile';
+
+const turnstileToken = 'XXXX.DUMMY.TOKEN.XXXX';
+// const MockTurnstile: React.FC<TurnstileProps> = ({
+//   onSuccess,
+//   onAfterInteractive,
+// }) => {
+//   if (onSuccess && onAfterInteractive) {
+//     onSuccess(turnstileToken);
+//     onAfterInteractive();
+//   }
+
+//   return <>MOCK TURNSTILE</>;
+// };
 
 Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
-  return cy.mount(
+  cy.mount(
     <SignupForm
       debugIsActive={props.debugIsActive}
       isAuthenticated={props.isAuthenticated}
@@ -30,7 +45,6 @@ describe('<SignupForm />', () => {
   const email = 'test-email@schmidtfutures.com';
   const pronoun = 'they/them';
   const phone = '8101110001';
-  const voidFn = () => void {};
 
   describe('debug', () => {
     let props: ISignupForm;
@@ -81,7 +95,7 @@ describe('<SignupForm />', () => {
         'input-acceptedTerms',
       ];
 
-      cy.get(Selectors.buttons.submit).click();
+      cy.get(Selectors.buttons.submit).fastClick();
 
       requiredFields.forEach((field) => {
         cy.get(`p#errorMessage-${field}`).should('be.visible');
@@ -101,10 +115,10 @@ describe('<SignupForm />', () => {
       cy.mountCandidateSignupForm(props);
 
       const preferredContactField = cy.get(Selectors.contact.input);
-      preferredContactField.click();
-      cy.get('li[data-name=input-preferredContact-sms]').click();
+      preferredContactField.fastClick();
+      cy.get('li[data-name=input-preferredContact-sms]').fastClick();
 
-      cy.get(Selectors.buttons.submit).click();
+      cy.get(Selectors.buttons.submit).fastClick();
       cy.get('label[for=input-phone]').should(
         'contain.text',
         APPLICANT_FORM_TEXT.FIELDS.phone.label
@@ -123,10 +137,10 @@ describe('<SignupForm />', () => {
       cy.mountCandidateSignupForm(props);
 
       const preferredContactField = cy.get(Selectors.contact.input);
-      preferredContactField.click();
-      cy.get('li[data-name=input-preferredContact-whatsapp]').click();
+      preferredContactField.fastClick();
+      cy.get('li[data-name=input-preferredContact-whatsapp]').fastClick();
 
-      cy.get(Selectors.buttons.submit).click();
+      cy.get(Selectors.buttons.submit).fastClick();
       cy.get('label[for=input-phone]').should(
         'contain.text',
         APPLICANT_FORM_TEXT.FIELDS.phone.label
@@ -140,10 +154,10 @@ describe('<SignupForm />', () => {
       cy.mountCandidateSignupForm(props);
 
       const preferredContactField = cy.get(Selectors.contact.input);
-      preferredContactField.click();
-      cy.get(Selectors.contact.options.email).click();
+      preferredContactField.fastClick();
+      cy.get(Selectors.contact.options.email).fastClick();
 
-      cy.get(Selectors.buttons.submit).click();
+      cy.get(Selectors.buttons.submit).fastClick();
       cy.get('label[for=input-phone]').should(
         'contain.text',
         APPLICANT_FORM_TEXT.FIELDS.phone.labelOptional
@@ -155,14 +169,14 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
-      cy.get(Selectors.searchStatus.input.active).click();
-      cy.get(Selectors.contact.input).click();
-      cy.get(Selectors.contact.options.email).click();
-      cy.get(Selectors.privacy.input).click();
-      cy.get(Selectors.terms.input).click();
-      cy.get(Selectors.buttons.submit).click();
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
+      cy.get(Selectors.searchStatus.input.active).fastClick();
+      cy.get(Selectors.contact.input).fastClick();
+      cy.get(Selectors.contact.options.email).fastClick();
+      cy.get(Selectors.privacy.input).fastClick();
+      cy.get(Selectors.terms.input).fastClick();
+      cy.get(Selectors.buttons.submit).fastClick();
 
       cy.get('@submit').should(
         'be.calledOnceWithExactly',
@@ -185,17 +199,17 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
-      cy.get(Selectors.pronoun.input).type(pronoun);
-      cy.get(Selectors.searchStatus.input.passive).click();
-      cy.get(Selectors.contact.input).click();
-      cy.get(Selectors.contact.options.sms).click();
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
+      cy.get(Selectors.pronoun.input).fastType(pronoun);
+      cy.get(Selectors.searchStatus.input.passive).fastClick();
+      cy.get(Selectors.contact.input).fastClick();
+      cy.get(Selectors.contact.options.sms).fastClick();
       cy.get(Selectors.phone.input).type(phone);
-      cy.get(Selectors.privacy.input).click();
-      cy.get(Selectors.terms.input).click();
-      cy.get(Selectors.followUp.input).click();
-      cy.get(Selectors.buttons.submit).click();
+      cy.get(Selectors.privacy.input).fastClick();
+      cy.get(Selectors.terms.input).fastClick();
+      cy.get(Selectors.followUp.input).fastClick();
+      cy.get(Selectors.buttons.submit).fastClick();
 
       cy.get('@submit').should(
         'be.calledOnceWithExactly',
@@ -218,17 +232,17 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
-      cy.get(Selectors.pronoun.input).type(pronoun);
-      cy.get(Selectors.searchStatus.input.future).click();
-      cy.get(Selectors.contact.input).click();
-      cy.get(Selectors.contact.options.whatsapp).click();
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
+      cy.get(Selectors.pronoun.input).fastType(pronoun);
+      cy.get(Selectors.searchStatus.input.future).fastClick();
+      cy.get(Selectors.contact.input).fastClick();
+      cy.get(Selectors.contact.options.whatsapp).fastClick();
       cy.get(Selectors.phone.input).type(phone);
-      cy.get(Selectors.privacy.input).click();
-      cy.get(Selectors.terms.input).click();
-      cy.get(Selectors.followUp.input).click();
-      cy.get(Selectors.buttons.submit).click();
+      cy.get(Selectors.privacy.input).fastClick();
+      cy.get(Selectors.terms.input).fastClick();
+      cy.get(Selectors.followUp.input).fastClick();
+      cy.get(Selectors.buttons.submit).fastClick();
 
       cy.get('@submit').should(
         'be.calledOnceWithExactly',
@@ -312,8 +326,6 @@ describe('<SignupForm />', () => {
     it('should have correct terms link', () => {
       cy.mountCandidateSignupForm(props);
 
-      cy.wait(250);
-
       cy.get('#candidate-sign-up__terms-of-use-link').should(
         'have.attr',
         'href',
@@ -374,8 +386,8 @@ describe('<SignupForm />', () => {
       props.handleSubmit = cy.stub().as('submit');
       cy.mountCandidateSignupForm(props);
 
-      cy.get(Selectors.name.input).type(name);
-      cy.get(Selectors.email.input).type(email);
+      cy.get(Selectors.name.input).fastType(name);
+      cy.get(Selectors.email.input).fastType(email);
       cy.get(Selectors.searchStatus.input.active).click();
       cy.get(Selectors.contact.input).click();
       cy.get(Selectors.contact.options.email).click();

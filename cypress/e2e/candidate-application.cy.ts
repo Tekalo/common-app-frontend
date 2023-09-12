@@ -3,6 +3,8 @@ import {
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
+  CAUSE_ENUM_OPTIONS,
+  SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
 import { applicantsEndpoint } from '@/lib/helpers/apiHelpers';
 import { AccountSubmissionResponseType } from '@/lib/types';
@@ -50,12 +52,12 @@ describe('Candidate Application', () => {
 
     cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
-    selectWorkArrangement();
-    selectRoleInterest();
+    selectWorkArrangement(['advisor']);
+    selectRoleInterest(['software engineer']);
     fillCurrentLocation();
     fillOpenToRelocation();
     fillOpenToRemoteMulti();
-    selectInterestCauses();
+    selectInterestCauses(['algorithmic fairness']);
     fillEssay();
     saveAndConfirmInterestForm();
     submitInterestForm();
@@ -84,7 +86,7 @@ describe('Candidate Application', () => {
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
-    fillSkills(['react', 'javascript', 'devops']);
+    fillSkills([...SKILL_ENUM_OPTIONS]);
     fillOtherSkills();
     fillLinkedIn();
     fillPortfolio();
@@ -100,9 +102,28 @@ describe('Candidate Application', () => {
 
     cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
-    selectWorkArrangement();
+    selectWorkArrangement([
+      'advisor',
+      'consultant',
+      'contractor',
+      'internship',
+      'volunteer',
+    ]);
     fillHoursPerWeek();
-    selectRoleInterest();
+    selectRoleInterest([
+      'data analyst',
+      'data scientist',
+      'engineering manager',
+      'product designer',
+      'product manager',
+      'software engineer',
+      'software engineer - backend',
+      'software engineer - frontend',
+      'ux/ui designer',
+      'ux researcher',
+      'vp of engineering (or similar)',
+      'vp of product (or similar)',
+    ]);
     fillCurrentLocation();
     fillOpenToRelocation();
     fillOpenToRemoteMulti();
@@ -114,7 +135,8 @@ describe('Candidate Application', () => {
     selectInterestGovtTypes();
     fillPreviousExperience();
     fillEssay();
-    selectAttribution();
+    selectAttribution('other');
+    fillAttributionOther();
 
     saveAndConfirmInterestForm();
     submitInterestForm();
@@ -124,27 +146,27 @@ describe('Candidate Application', () => {
   });
 
   function fillName(): void {
-    cy.get(Selectors.name.input).type('Test User Name');
+    cy.get(Selectors.name.input).fastType('Test User Name');
   }
 
   function fillEmail(): void {
     const randomEmail = `test-user-${new Date().getTime()}@schmidtfutures.com`;
-    cy.get(Selectors.email.input).type(randomEmail);
+    cy.get(Selectors.email.input).fastType(randomEmail);
   }
 
   function fillPronouns(): void {
-    cy.get(Selectors.pronoun.input).type('they/them');
+    cy.get(Selectors.pronoun.input).fastType('they/them');
   }
 
   // Note: any of these can be customized like this, depending on our future needs
   // We may want to make it so that all of them can have options passed
   function fillSearchStatus(status: 'active' | 'passive' | 'future'): void {
-    cy.get(`input[name=input-searchStatus-${status}]`).click();
+    cy.get(`input[name=input-searchStatus-${status}]`).fastClick();
   }
 
   function fillContactMethod(method: 'email' | 'sms' | 'whatsapp'): void {
-    cy.get(Selectors.contact.input).click();
-    cy.get(`li[data-name=input-preferredContact-${method}]`).click();
+    cy.get(Selectors.contact.input).fastClick();
+    cy.get(`li[data-name=input-preferredContact-${method}]`).fastClick();
   }
 
   function fillPhoneNumber(): void {
@@ -152,15 +174,15 @@ describe('Candidate Application', () => {
   }
 
   function acceptPrivacy(): void {
-    cy.get(Selectors.privacy.input).click();
+    cy.get(Selectors.privacy.input).fastClick();
   }
 
   function acceptTerms(): void {
-    cy.get(Selectors.terms.input).click();
+    cy.get(Selectors.terms.input).fastClick();
   }
 
   function acceptFollowUpOptIn(): void {
-    cy.get(Selectors.followUp.input).click();
+    cy.get(Selectors.followUp.input).fastClick();
   }
 
   function submitCandidateSignup(): void {
@@ -169,7 +191,7 @@ describe('Candidate Application', () => {
       url: applicantsEndpoint,
     }).as('applicantCreation');
 
-    cy.get(Selectors.buttons.submit).click();
+    cy.get(Selectors.buttons.submit).fastClick();
 
     cy.wait('@applicantCreation').then((interception: Interception) => {
       const response = interception?.response
@@ -180,171 +202,203 @@ describe('Candidate Application', () => {
   }
 
   function fillPreviousRole(): void {
-    cy.get('input[name=input-lastRole]').type('Software Engineer');
+    cy.get('input[name=input-lastRole]').fastType('Software Engineer');
   }
 
   function fillPreviousOrg(): void {
-    cy.get('input[name=input-lastOrg]').type('Schmidt Futures');
+    cy.get('input[name=input-lastOrg]').fastType('Schmidt Futures');
   }
 
   function fillYearsOfExperience(): void {
-    cy.get('button[name=input-yoe]').click();
-    cy.get('li[data-name=input-yoe-4]').click();
+    cy.get('button[name=input-yoe]').fastClick();
+    cy.get('li[data-name=input-yoe-4]').fastClick();
   }
 
   function fillSkills(skills: string[]): void {
-    cy.get('button[name=input-skills]').click();
+    cy.get('button[name=input-skills]').fastClick();
 
     skills.forEach((skill) => {
-      cy.get(`li[data-name=input-skills-${skill}]`).click();
+      cy.get(`li[data-name="input-skills-${skill}"]`).fastClick();
     });
 
-    cy.get('button[name=input-skills]').click();
+    cy.get('button[name=input-skills]').fastClick();
   }
 
   function fillOtherSkills(): void {
-    cy.get('input[name=input-otherSkills]').type('otherSkill1, otherSkill2');
+    cy.get('input[name=input-otherSkills]').fastType(
+      'otherSkill1, otherSkill2'
+    );
   }
 
   function fillLinkedIn(): void {
-    cy.get('input[name=input-linkedInUrl]').type('linkedInUrl');
+    cy.get('input[name=input-linkedInUrl]').fastType('linkedInUrl');
   }
 
   function fillPortfolio(): void {
-    cy.get('input[name=input-portfolioUrl]').type('portfolioUrl');
+    cy.get('input[name=input-portfolioUrl]').fastType('portfolioUrl');
   }
 
   function fillPortfolioPwd(): void {
-    cy.get('input[name=input-portfolioPassword]').type('portfolioPwd');
+    cy.get('input[name=input-portfolioPassword]').fastType('portfolioPwd');
   }
 
   function fillGithub(): void {
-    cy.get('input[name=input-githubUrl]').type('github');
+    cy.get('input[name=input-githubUrl]').fastType('github');
   }
 
   function fillResume(): void {
-    cy.get('input[name=input-resumeUrl]').type('resumeLink');
+    cy.get('input[name=input-resumeUrl]').fastType('resumeLink');
   }
 
   function fillResumePwd(): void {
-    cy.get('input[name=input-resumePassword]').type('resumePwd');
+    cy.get('input[name=input-resumePassword]').fastType('resumePwd');
   }
 
   function saveAndConfirmExperienceForm(): void {
-    cy.get('button#experience-save').click();
-    cy.get('button[name=modal-confirm]').click();
+    cy.get('button#experience-save').fastClick();
+    cy.get('button[name=modal-confirm]').fastClick();
   }
 
   function submitExperienceForm(): void {
-    cy.get('button#experience-next').click();
+    cy.get('button#experience-next').fastClick();
   }
 
   function fillAndCheckEmploymentType(): void {
-    cy.get('input#input-interestEmploymentType-full').click();
+    cy.get('input#input-interestEmploymentType-full').fastClick();
     cy.get('input[name=input-hoursPerWeek]').should('be.disabled');
-    cy.get('input#input-interestEmploymentType-part').click();
+    cy.get('input#input-interestEmploymentType-part').fastClick();
     cy.get('input[name=input-hoursPerWeek]').should('not.be.disabled');
   }
 
-  function selectWorkArrangement(): void {
-    cy.get('button[name="input-interestWorkArrangement"]').click();
-    cy.get('li[data-name="input-interestWorkArrangement-advisor"]').click();
-    cy.get('button[name="input-interestWorkArrangement"]').click();
+  function selectWorkArrangement(emplTypes: string[]): void {
+    cy.get('button[name="input-interestWorkArrangement"]').fastClick();
+
+    emplTypes.forEach((type) => {
+      cy.get(
+        `li[data-name="input-interestWorkArrangement-${type}"]`
+      ).fastClick();
+    });
+
+    cy.get('button[name="input-interestWorkArrangement"]').fastClick();
   }
 
   function fillHoursPerWeek(): void {
-    cy.get('input[name=input-hoursPerWeek]').type('40hrs');
+    cy.get('input[name=input-hoursPerWeek]').fastType('40hrs');
   }
 
-  function selectRoleInterest(): void {
+  function selectRoleInterest(roleTypes: string[]): void {
     const input = cy.get('button[name=input-interestRoles]');
 
-    input.click();
-    cy.get('li[data-name="input-interestRoles-software engineer"]').click();
-    cy.get(
-      'li[data-name="input-interestRoles-software engineer - backend"]'
-    ).click();
-    cy.get(
-      'li[data-name="input-interestRoles-software engineer - frontend"]'
-    ).click();
-    cy.get('li[data-name="input-interestRoles-data analyst"]').click();
-    input.click();
+    input.fastClick();
+
+    roleTypes.forEach((role) => {
+      cy.get(`li[data-name="input-interestRoles-${role}"]`).fastClick();
+    });
+
+    input.fastClick();
   }
 
   function fillCurrentLocation(): void {
-    cy.get('input[name=input-currentLocation]').type('New York, New York');
+    cy.get('input[name=input-currentLocation]').fastType('New York, New York');
   }
 
   function fillOpenToRelocation(): void {
-    cy.get('button[name=input-openToRelocate]').click();
-    cy.get('li[data-name=input-openToRelocate-yes]').click();
+    cy.get('button[name=input-openToRelocate]').fastClick();
+    cy.get('li[data-name=input-openToRelocate-yes]').fastClick();
   }
 
   function fillOpenToRemoteMulti(): void {
-    cy.get('button[name=input-openToRemoteMulti]').click();
-    cy.get('li[data-name="input-openToRemoteMulti-remote"]').click();
-    cy.get('button[name=input-openToRemoteMulti]').click();
+    cy.get('button[name=input-openToRemoteMulti]').fastClick();
+    cy.get('li[data-name="input-openToRemoteMulti-remote"]').fastClick();
+    cy.get('button[name=input-openToRemoteMulti]').fastClick();
   }
 
   function fillDesiredSalary(): void {
-    cy.get('input[name=input-desiredSalary]').type('$200,000');
+    cy.get('input[name=input-desiredSalary]').fastType('$200,000');
   }
 
-  function selectInterestCauses(): void {
+  function selectInterestCauses(selectedCauses?: string[]): void {
     const input = cy.get('button[name=input-interestCauses]');
+    let shouldSelectOther = false;
 
-    input.click();
-    cy.get(
-      'li[data-name="input-interestCauses-human rights & social justice"]'
-    ).click();
-    cy.get('li[data-name="input-interestCauses-climate change"]').click();
-    cy.get('li[data-name="input-interestCauses-tech policy"]').click();
-    cy.get('li[data-name="input-interestCauses-environment"]').click();
-    input.click();
+    // Select 4 randomly and then other
+    if (!selectedCauses?.length) {
+      shouldSelectOther = true;
+      const allCauses = [...CAUSE_ENUM_OPTIONS];
+      selectedCauses = [];
+
+      for (let i = 0; i < 4; i++) {
+        const len = allCauses.length;
+        const rndmIndex = Math.floor(Math.random() * len);
+
+        selectedCauses.push(allCauses[rndmIndex]);
+        allCauses.splice(rndmIndex, 1);
+      }
+    }
+
+    input.fastClick();
+
+    selectedCauses.forEach((cause: string) => {
+      cy.get(`li[data-name="input-interestCauses-${cause}"]`).fastClick();
+    });
+
+    if (shouldSelectOther) {
+      cy.get(`li[data-name="input-interestCauses-other"]`).fastClick();
+    }
+
+    input.fastClick();
   }
 
   function fillOtherCauses(): void {
-    cy.get('input[name=input-otherCauses]').type('otherCause1, otherCause2');
+    cy.get('input[name=input-otherCauses]').fastType(
+      'otherCause1, otherCause2'
+    );
   }
 
   function selectWorkAuthorization(): void {
-    cy.get('button[name=input-workAuthorization]').click();
-    cy.get('li[data-name=input-workAuthorization-authorized]').click();
+    cy.get('button[name=input-workAuthorization]').fastClick();
+    cy.get('li[data-name=input-workAuthorization-authorized]').fastClick();
   }
 
   function selectInterestGovt(): void {
-    cy.get('input[name=input-interestGovt-true]').click();
+    cy.get('input[name=input-interestGovt-true]').fastClick();
   }
 
   function selectInterestGovtTypes(): void {
     const input = cy.get('button[name=input-interestGovtEmplTypes]');
 
-    input.click();
-    cy.get('li[data-name=input-interestGovtEmplTypes-paid]').click();
-    cy.get('li[data-name=input-interestGovtEmplTypes-unpaid]').click();
-    input.click();
+    input.fastClick();
+    cy.get('li[data-name=input-interestGovtEmplTypes-paid]').fastClick();
+    cy.get('li[data-name=input-interestGovtEmplTypes-unpaid]').fastClick();
+    input.fastClick();
   }
 
   function fillPreviousExperience(): void {
-    cy.get('input[name=input-previousImpactExperience-true]').click();
+    cy.get('input[name=input-previousImpactExperience-true]').fastClick();
   }
 
   function fillEssay(): void {
-    cy.get('textarea[name=input-essayResponse]').type('Essay entry.');
+    cy.get('textarea[name=input-essayResponse]').fastType('Essay entry.');
   }
 
-  function selectAttribution(): void {
-    cy.get('button[name=input-referenceAttribution]').click();
-    cy.get('li[data-name=input-referenceAttribution-linkedIn]').click();
+  function selectAttribution(type: string): void {
+    cy.get('button[name=input-referenceAttribution]').fastClick();
+    cy.get(`li[data-name="input-referenceAttribution-${type}"]`).fastClick();
+  }
+
+  function fillAttributionOther(): void {
+    cy.get('input[name=input-referenceAttributionOther]').fastType(
+      'Other Attribution'
+    );
   }
 
   function saveAndConfirmInterestForm(): void {
-    cy.get('button#interest-save').click();
-    cy.get('button[name=modal-confirm]').click();
+    cy.get('button#interest-save').fastClick();
+    cy.get('button[name=modal-confirm]').fastClick();
   }
 
   function submitInterestForm(): void {
-    cy.get('button#candidate-application-submit').click();
+    cy.get('button#candidate-application-submit').fastClick();
   }
 
   function uploadDocXFile(): void {

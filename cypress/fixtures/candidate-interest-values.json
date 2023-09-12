@@ -1,0 +1,33 @@
+{
+  "fullCandidateInterest": {
+    "interestWorkArrangement": [
+      "advisor",
+      "consultant",
+      "internship",
+      "contractor",
+      "volunteer"
+    ],
+    "hoursPerWeek": "20",
+    "interestEmploymentType": ["full", "part"],
+    "interestGovt": true,
+    "previousImpactExperience": false,
+    "interestRoles": ["product designer", "vp of engineering (or similar)"],
+    "currentLocation": "Brooklyn, NY",
+    "openToRelocate": "yes",
+    "openToRemoteMulti": ["hybrid", "remote", "in-person", "not sure"],
+    "desiredSalary": "100k",
+    "interestCauses": [
+      "immigration",
+      "government tech",
+      "lgbtqia+ rights",
+      "public infrastructure",
+      "racial justice"
+    ],
+    "otherCauses": ["cause 1", "cause 2"],
+    "workAuthorization": "authorized",
+    "interestGovtEmplTypes": ["paid", "unpaid"],
+    "essayResponse": "This is an essay response",
+    "referenceAttribution": "other",
+    "referenceAttributionOther": "Some other place"
+  }
+}

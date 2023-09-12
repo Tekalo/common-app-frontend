@@ -45,9 +45,7 @@ Cypress.Commands.add('mountFileUploadField', (props: IFileUploadField) => {
       validator={props.validator}
       tooltipText={props.tooltipText}
     ></FileUploadField>
-  ).then(() => {
-    return childProps;
-  });
+  ).then(() => childProps);
 });
 
 describe('FileUploadField', () => {

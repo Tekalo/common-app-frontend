@@ -70,7 +70,7 @@ const NAV_BAR_TEXT = {
   HOW_IT_WORKS: 'How it works',
 };
 const NAV_FOOTER_TEXT = {
-  COPYRIGHT: '© Futures Action Nework, LLC',
+  COPYRIGHT: '© Futures Action Network, LLC',
   RESERVED_RIGHTS: '2023. All Rights Reserved.',
   LINK_BLOCKS: [
     {
@@ -895,12 +895,15 @@ const ERROR_TEXT = {
   invalidDate: 'Invalid date',
   invalidEmail: 'This must be a valid email address',
   invalidPhone: 'This must be a valid phone number',
+  noApplicantId: 'Please provide an applicant id to fetch resume',
   notFoundCode: '404',
   notFoundText: "Sorry, we couldn't find this page.",
   orgRequired: 'Organization is required',
   privacyRequired: 'You must confirm that you have reviewed the Privacy Info',
   required: 'This is a required field',
   requiredSelectGroup: 'You must select at least one option',
+  resumeFetchFailed: 'There was an error fetching the resume',
+  resumeNotFound: 'No resume found for provided applicant id',
   roleRequired: 'Role is required',
   somethingWrong: 'Something went wrong - please try again',
   termsRequired: 'You must agree to the Terms of Use',
