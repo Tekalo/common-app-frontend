@@ -6,15 +6,15 @@ import {
   CAUSE_ENUM_OPTIONS,
   SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
-import { applicantsEndpoint } from '@/lib/helpers/apiHelpers';
+import {
+  applicantSubmissionsEndpoint,
+  applicantsEndpoint,
+} from '@/lib/helpers/apiHelpers';
 import { AccountSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
 
 describe('Candidate Application', () => {
-  // Just a little extra wait time for local api, it can be slow
-  const navigationFormFillDelay = 250;
-
   beforeEach(() => {
     cy.setupTestingEnvironment();
     cy.visit(APPLICANT_SIGNUP_LINK);
@@ -37,20 +37,16 @@ describe('Candidate Application', () => {
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
+    waitForSubmissionFetch();
 
-    cy.wait(navigationFormFillDelay);
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
-    // TODO: RESUME_UPLOAD
-    fillResume();
-    fillResumePwd();
-    // uploadDocXFile();
+    uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
 
-    cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
     selectWorkArrangement(['advisor']);
     selectRoleInterest(['software engineer']);
@@ -81,8 +77,8 @@ describe('Candidate Application', () => {
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
+    waitForSubmissionFetch();
 
-    cy.wait(navigationFormFillDelay);
     fillPreviousRole();
     fillPreviousOrg();
     fillYearsOfExperience();
@@ -92,15 +88,11 @@ describe('Candidate Application', () => {
     fillPortfolio();
     fillPortfolioPwd();
     fillGithub();
-    // TODO: RESUME_UPLOAD
-    fillResume();
-    fillResumePwd();
-    // uploadDocXFile();
+    uploadDocXFile();
 
     saveAndConfirmExperienceForm();
     submitExperienceForm();
 
-    cy.wait(navigationFormFillDelay);
     fillAndCheckEmploymentType();
     selectWorkArrangement([
       'advisor',
@@ -144,6 +136,15 @@ describe('Candidate Application', () => {
     // Confirm success
     cy.url().should('include', APPLICANT_SUCCESS_LINK);
   });
+
+  function waitForSubmissionFetch(): void {
+    cy.intercept({
+      method: 'GET',
+      url: applicantSubmissionsEndpoint,
+    }).as('applicantSubmission');
+
+    cy.wait('@applicantSubmission');
+  }
 
   function fillName(): void {
     cy.get(Selectors.name.input).fastType('Test User Name');
@@ -244,14 +245,6 @@ describe('Candidate Application', () => {
 
   function fillGithub(): void {
     cy.get('input[name=input-githubUrl]').fastType('github');
-  }
-
-  function fillResume(): void {
-    cy.get('input[name=input-resumeUrl]').fastType('resumeLink');
-  }
-
-  function fillResumePwd(): void {
-    cy.get('input[name=input-resumePassword]').fastType('resumePwd');
   }
 
   function saveAndConfirmExperienceForm(): void {

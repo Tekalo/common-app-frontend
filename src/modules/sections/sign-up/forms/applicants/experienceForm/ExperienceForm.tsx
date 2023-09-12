@@ -2,11 +2,11 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
 import {
-  OptionalLongString,
   OptionalString,
   OptionalStringArr,
   RequiredString,
   Skills,
+  UploadedFile,
   YOE,
 } from '@/lib/enums';
 import {
@@ -19,6 +19,7 @@ import {
   DraftSubmissionType,
   ExperienceFieldsType,
   ExperienceRefType,
+  UploadedFileType,
 } from '@/lib/types';
 import {
   FreeTagField,
@@ -26,6 +27,7 @@ import {
   MultiSelectField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
+import FileUploadField from '@/sections/sign-up/fields/FileUploadField';
 import { Form } from 'houseform';
 import { useEffect, useRef } from 'react';
 
@@ -194,43 +196,15 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             validator={OptionalString}
           />
 
-          {/* Resume */}
-          <FreeTextField
-            fieldName="resumeUrl"
-            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumeUrl.label}
-            placeholder={
-              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumeUrl.placeholder
-            }
-            tooltipText={
-              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumeUrl.tooltipText
-            }
-            isSubmitted={isSubmitted}
-            initialValue={savedForm?.resumeUrl || ''}
-            validator={OptionalLongString}
-          />
-
-          {/* Resume Password */}
-          <FreeTextField
-            fieldName="resumePassword"
-            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumePassword.label}
-            placeholder={
-              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.resumePassword.placeholder
-            }
-            isSubmitted={isSubmitted}
-            initialValue={savedForm?.resumePassword || ''}
-            validator={OptionalString}
-          />
-
           {/* Resume Upload */}
-          {/* TODO: RESUME_UPLOAD */}
-          {/* <FileUploadField
+          <FileUploadField
             fieldName="resumeUpload"
             initialValue={savedForm?.resumeUpload || ({} as UploadedFileType)}
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
             showUploadErrorModal={showUploadErrorModal}
             submitted={isSubmitted}
             validator={UploadedFile}
-          /> */}
+          />
 
           {/* Form Buttons */}
           <div className="pt-2">

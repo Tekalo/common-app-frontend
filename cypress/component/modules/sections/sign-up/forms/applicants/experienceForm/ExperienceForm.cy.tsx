@@ -49,7 +49,7 @@ describe('Experience Form', () => {
       cy.get('input[name=input-portfolioUrl]').should('be.visible');
       cy.get('input[name=input-portfolioPassword]').should('be.visible');
       cy.get('input[name=input-githubUrl]').should('be.visible');
-      cy.get('input[name=input-resumeUrl]').should('be.visible');
+      cy.get('div[data-name=file-upload-field]').should('be.visible');
       cy.get('button#experience-save').should('be.visible');
       cy.get('button#experience-next').should('be.visible');
     });
@@ -166,21 +166,12 @@ describe('Experience Form', () => {
       );
     });
 
-    it('should load resumeUrl value from the saved form', () => {
+    it('should load resume file name from the saved form', () => {
       cy.mountExperienceForm(props);
 
-      cy.get('input[name=input-resumeUrl]').should(
-        'have.value',
-        mockSavedForm?.resumeUrl
-      );
-    });
-
-    it('should load resumePassword value from the saved form', () => {
-      cy.mountExperienceForm(props);
-
-      cy.get('input[name=input-resumePassword]').should(
-        'have.value',
-        mockSavedForm?.resumePassword
+      cy.get('span[data-name=file-name]').should(
+        'have.text',
+        mockSavedForm?.resumeUpload?.originalFilename
       );
     });
   });
@@ -224,9 +215,11 @@ describe('Experience Form', () => {
             mockSavedForm?.portfolioPassword
           );
           expect(callArgs.githubUrl).to.equal(mockSavedForm?.githubUrl);
-          expect(callArgs.resumeUrl).to.equal(mockSavedForm?.resumeUrl);
-          expect(callArgs.resumePassword).to.equal(
-            mockSavedForm?.resumePassword
+          expect(callArgs.resumeUpload.id).to.equal(
+            mockSavedForm?.resumeUpload?.id
+          );
+          expect(callArgs.resumeUpload.originalFilename).to.equal(
+            mockSavedForm?.resumeUpload?.originalFilename
           );
         });
     });
@@ -255,9 +248,11 @@ describe('Experience Form', () => {
             mockSavedForm?.portfolioPassword
           );
           expect(callArgs.githubUrl).to.equal(mockSavedForm?.githubUrl);
-          expect(callArgs.resumeUrl).to.equal(mockSavedForm?.resumeUrl);
-          expect(callArgs.resumePassword).to.equal(
-            mockSavedForm?.resumePassword
+          expect(callArgs.resumeUpload.id).to.equal(
+            mockSavedForm?.resumeUpload?.id
+          );
+          expect(callArgs.resumeUpload.originalFilename).to.equal(
+            mockSavedForm?.resumeUpload?.originalFilename
           );
           expect(JSON.stringify(callArgs)).to.equal(
             JSON.stringify(mockSavedForm)
