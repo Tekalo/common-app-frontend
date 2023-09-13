@@ -6,8 +6,6 @@
   "portfolioUrl": "portfolioUrl",
   "portfolioPassword": "portfolioPassword",
   "githubUrl": "githubUrl",
-  "resumeUrl": "resumeUrl",
-  "resumePassword": "resumePassword",
   "skills": [
     "javascript",
     "python",
@@ -24,5 +22,9 @@
     "product development",
     "project management"
   ],
-  "otherSkills": ["Skill 1", "Skill 2"]
+  "otherSkills": ["Skill 1", "Skill 2"],
+  "resumeUpload": {
+    "id": 123,
+    "originalFilename": "test_original_file.pdf"
+  }
 }

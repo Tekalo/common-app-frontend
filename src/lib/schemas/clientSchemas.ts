@@ -13,6 +13,7 @@ import {
   Roles,
   SearchStatus,
   Skills,
+  UploadedFile,
   VisaSponsorship,
   WorkAuthorization,
   YOE,
@@ -87,10 +88,7 @@ const CandidateExperienceSchema = z.object({
   githubUrl: maxLengthString(500).url().nullable().optional(),
   portfolioUrl: maxLengthString(500).url().nullable().optional(),
   portfolioPassword: maxLengthString(255).nullable().optional(),
-  // TODO: RESUME_UPLOAD
-  // resumeUpload: UploadedFile,
-  resumeUrl: maxLengthString(500).url(),
-  resumePassword: maxLengthString(255).nullable().optional(),
+  resumeUpload: UploadedFile,
 });
 
 const CandidateInterestsSchema = z.object({
