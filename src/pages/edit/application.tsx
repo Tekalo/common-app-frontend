@@ -9,5 +9,5 @@ const EditApplicationPage: NextPageWithLayout = () => {
 export default EditApplicationPage;
 
 EditApplicationPage.getLayout = (page) => {
-  return <ApplicationLayout>{page}</ApplicationLayout>;
+  return <ApplicationLayout isEditing={true}>{page}</ApplicationLayout>;
 };

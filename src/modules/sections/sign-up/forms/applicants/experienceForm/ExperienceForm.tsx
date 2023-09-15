@@ -34,15 +34,17 @@ import { useEffect, useRef } from 'react';
 export interface IExperienceForm {
   handleNext: (_values: ExperienceFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
-  savedForm: DraftSubmissionType | undefined;
   showUploadErrorModal: () => void;
+  isEditing: boolean;
+  savedForm: DraftSubmissionType | undefined;
 }
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
   handleNext,
   handleSave,
-  savedForm,
   showUploadErrorModal,
+  isEditing,
+  savedForm,
 }) => {
   useEffect(executeScroll, []);
 
@@ -208,15 +210,17 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
 
           {/* Form Buttons */}
           <div className="pt-2">
-            <Button
-              disabled={hasLengthError(errors)}
-              name="experience-save"
-              className="w-full text-component-large"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.save.label}
-              type="button"
-              variant={ButtonVariant.OUTLINED}
-              onClick={doSave}
-            />
+            {!isEditing && (
+              <Button
+                disabled={hasLengthError(errors)}
+                name="experience-save"
+                className="w-full text-component-large"
+                label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.save.label}
+                type="button"
+                variant={ButtonVariant.OUTLINED}
+                onClick={doSave}
+              />
+            )}
 
             <Button
               disabled={hasLengthError(errors)}

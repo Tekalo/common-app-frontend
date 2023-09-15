@@ -62,12 +62,14 @@ import { useEffect, useRef, useState } from 'react';
 export interface IInterestForm {
   handleSubmit: (_values: InterestFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
+  isEditing: boolean;
   savedForm: DraftSubmissionType | undefined;
 }
 
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,
   handleSave,
+  isEditing,
   savedForm,
 }) => {
   useEffect(executeScroll, []);
@@ -390,15 +392,17 @@ const InterestForm: React.FC<IInterestForm> = ({
           )}
           {/* Form Control Buttons */}
           <div className="pt-2">
-            <Button
-              disabled={hasLengthError(errors)}
-              className="w-full text-component-large"
-              label={INTEREST_FORM_TEXT.BUTTONS.save.label}
-              type="button"
-              name="interest-save"
-              variant={ButtonVariant.OUTLINED}
-              onClick={doSave}
-            />
+            {!isEditing && (
+              <Button
+                disabled={hasLengthError(errors)}
+                className="w-full text-component-large"
+                label={INTEREST_FORM_TEXT.BUTTONS.save.label}
+                type="button"
+                name="interest-save"
+                variant={ButtonVariant.OUTLINED}
+                onClick={doSave}
+              />
+            )}
             <Button
               disabled={hasLengthError(errors)}
               className="mt-4 w-full text-component-large"

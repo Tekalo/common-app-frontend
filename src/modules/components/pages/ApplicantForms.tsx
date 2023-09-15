@@ -2,6 +2,7 @@ import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import Modal from '@/components/modal/Modal/Modal/Modal';
 import Timeline from '@/components/timeline/Timeline';
 import {
+  ACCOUNT_LINK,
   APPLICANT_FORM_TEXT,
   APPLICANT_SUCCESS_LINK,
   BASE_LINK,
@@ -27,6 +28,7 @@ import {
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { useAuth0 } from '@auth0/auth0-react';
+import Link from 'next/link';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -253,7 +255,9 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
           data-name="page-header"
           className="mx-auto max-w-[584px] pt-16 font-display text-h3-desktop text-black-text"
         >
-          {APPLICANT_FORM_TEXT.HEADER}
+          {isEditing
+            ? APPLICANT_FORM_TEXT.EDIT.HEADER
+            : APPLICANT_FORM_TEXT.HEADER}
         </h3>
 
         {/* Breadcrumb Timeline */}
@@ -271,12 +275,14 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
         >
           {isInterestFormVisible ? (
             <InterestForm
+              isEditing={isEditing}
               savedForm={draftFormValues}
               handleSubmit={handleSubmit}
               handleSave={handleSave}
             />
           ) : (
             <ExperienceForm
+              isEditing={isEditing}
               savedForm={draftFormValues}
               showUploadErrorModal={() =>
                 setModalError(MODAL_ERROR_TYPE.UPLOAD)
@@ -284,6 +290,14 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
               handleNext={handleNext}
               handleSave={handleSave}
             />
+          )}
+          {isEditing && (
+            <Link
+              className="mt-6 block text-component-large text-blue-1"
+              href={ACCOUNT_LINK}
+            >
+              {APPLICANT_FORM_TEXT.EDIT.BACK_TO_ACCOUNT}
+            </Link>
           )}
         </div>
       </div>

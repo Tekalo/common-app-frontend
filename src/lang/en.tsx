@@ -369,6 +369,10 @@ const GENERAL_FORM_TEXT_CONSTANTS = {
   },
 };
 const APPLICANT_FORM_TEXT = {
+  EDIT: {
+    HEADER: 'Edit application',
+    BACK_TO_ACCOUNT: 'Back to my account',
+  },
   HEADER: 'Join a network of impact-driven organizations to find your match.',
   NAVAWAY: 'Already have an account? ',
   SIGN_IN_LINK_COPY: 'Sign in',
