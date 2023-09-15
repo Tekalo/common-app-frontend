@@ -2,12 +2,12 @@ import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import ApplicantForms from '@/modules/components/pages/ApplicantForms';
 
-const ExperienceAndInterestPage: NextPageWithLayout = () => {
-  return <ApplicantForms isEditing={false} />;
+const EditApplicationPage: NextPageWithLayout = () => {
+  return <ApplicantForms isEditing={true} />;
 };
 
-export default ExperienceAndInterestPage;
+export default EditApplicationPage;
 
-ExperienceAndInterestPage.getLayout = (page) => {
+EditApplicationPage.getLayout = (page) => {
   return <ApplicationLayout>{page}</ApplicationLayout>;
 };
