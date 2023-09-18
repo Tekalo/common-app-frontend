@@ -34,7 +34,7 @@ describe('Experience Form', () => {
   describe('Render', () => {
     beforeEach(() => {
       props = {
-        forceValidateForm,
+        forceValidateForm: forceValidateForm.asObservable(),
         isEditing: false,
         savedForm: undefined,
         handleNext: voidFn,
@@ -85,7 +85,7 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
-        forceValidateForm,
+        forceValidateForm: forceValidateForm.asObservable(),
         isEditing: false,
         savedForm: mockSavedForm,
         handleNext: voidFn,
@@ -189,7 +189,7 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
-        forceValidateForm,
+        forceValidateForm: forceValidateForm.asObservable(),
         isEditing: false,
         handleNext: cy.stub().as('next'),
         handleSave: cy.stub().as('save'),
@@ -276,7 +276,7 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
-        forceValidateForm,
+        forceValidateForm: forceValidateForm.asObservable(),
         isEditing: true,
         handleNext: cy.stub().as('next'),
         handleSave: cy.stub().as('save'),
@@ -289,6 +289,60 @@ describe('Experience Form', () => {
       cy.mountExperienceForm(props);
 
       cy.get('button#experience-save').should('not.exist');
+    });
+
+    it('should validate the form when forceValidateForm emits', () => {
+      cy.mountExperienceForm(props);
+
+      cy.then(() => {
+        forceValidateForm.next();
+      });
+
+      cy.get('@next')
+        .should('have.been.calledOnce')
+        .invoke('getCall', 0)
+        .its('args')
+        .its(0)
+        .should((callArgs) => {
+          expect(callArgs.lastRole).to.equal(mockSavedForm?.lastRole);
+          expect(callArgs.lastOrg).to.equal(mockSavedForm?.lastOrg);
+          expect(callArgs.yoe).to.equal(mockSavedForm?.yoe);
+          expect(callArgs.skills).to.deep.equal(mockSavedForm?.skills);
+          expect(callArgs.otherSkills).to.deep.equal(
+            mockSavedForm?.otherSkills
+          );
+          expect(callArgs.linkedInUrl).to.equal(mockSavedForm?.linkedInUrl);
+          expect(callArgs.portfolioUrl).to.equal(mockSavedForm?.portfolioUrl);
+          expect(callArgs.portfolioPassword).to.equal(
+            mockSavedForm?.portfolioPassword
+          );
+          expect(callArgs.githubUrl).to.equal(mockSavedForm?.githubUrl);
+          expect(callArgs.resumeUpload.id).to.equal(
+            mockSavedForm?.resumeUpload?.id
+          );
+          expect(callArgs.resumeUpload.originalFilename).to.equal(
+            mockSavedForm?.resumeUpload?.originalFilename
+          );
+          expect(JSON.stringify(callArgs)).to.equal(
+            JSON.stringify(mockSavedForm)
+          );
+        });
+    });
+
+    it('should show error message when forceValidateForm emits and there is an error', () => {
+      if (props.savedForm) {
+        props.savedForm.resumeUpload = { id: 0, originalFilename: '' };
+
+        cy.mountExperienceForm(props);
+
+        cy.then(() => {
+          forceValidateForm.next();
+        });
+
+        cy.get('#errorMessage-input-resumeUpload').should('be.visible');
+      } else {
+        expect(true).to.eq(false);
+      }
     });
   });
 });
