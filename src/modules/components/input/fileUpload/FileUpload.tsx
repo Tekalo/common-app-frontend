@@ -16,23 +16,25 @@ enum FileUploadState {
 }
 
 export interface IFileUpload {
+  errors: string[];
   id: string;
   initialValue: UploadedFileType | undefined;
   label: string;
+  tooltipText?: string;
   setFieldErrors: (errs: string[]) => void;
   setValue: (val: UploadedFileType) => void;
   showUploadErrorModal: () => void;
-  tooltipText?: string;
 }
 
 const FileUpload: React.FC<IFileUpload> = ({
+  errors,
   id,
   initialValue,
   label,
+  tooltipText,
   setFieldErrors,
   setValue,
   showUploadErrorModal,
-  tooltipText,
 }) => {
   const fileUploadCtx = useContext(FileUploadContext);
 
@@ -227,7 +229,11 @@ const FileUpload: React.FC<IFileUpload> = ({
         {tooltipText ? <Tooltip text={tooltipText} /> : ''}
       </label>
 
-      <div data-name="file-uploader" className="flex min-h-[40px] items-center">
+      <div
+        data-name="file-uploader"
+        aria-invalid={!!errors.length}
+        className="flex min-h-[40px] items-center"
+      >
         <div
           data-name="description-section"
           className="mr-4 flex-1 overflow-hidden text-component-small text-black-text"

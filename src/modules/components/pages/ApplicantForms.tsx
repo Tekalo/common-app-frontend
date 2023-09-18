@@ -18,12 +18,12 @@ import {
   post,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
   ITimelineItem,
   InterestFieldsType,
-  SubmissionResponseType,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
@@ -31,6 +31,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
+import { Subject } from 'rxjs';
 
 enum MODAL_ERROR_TYPE {
   GENERAL = 1,
@@ -43,27 +44,27 @@ interface IApplicantForms {
 
 const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+
+  // Form Values
   const [draftFormValues, setDraftFormValues] = useState<DraftSubmissionType>();
   const [experienceFields, setExperienceFields] =
     useState<ExperienceFieldsType>();
-  const [interestFields, setInterestFields] = useState<InterestFieldsType>();
+
+  // Form States
   const [isInterestFormStarted, setIsInterestFormStarted] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Modal
   const [modalError, setModalError] = useState<MODAL_ERROR_TYPE>();
   const [showSaveModal, setShowSaveModal] = useState(false);
 
-  useEffect(() => {
-    if (isSubmitted) {
-      doSubmit();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitted]);
+  const validateExperienceForm: Subject<void> = new Subject<void>();
 
-  // TODO: Commenting this out for now as the first page values are not being
-  // set if we skip the first page, we have to click "Next" button or it breaks
   // useEffect(() => {
-  //   setIsInterestFormStarted(interestFormHasBeenStarted(draftFormValues));
+  //   if (interestFormHasBeenStarted(draftFormValues)) {
+  //     setIsInterestFormStarted(true);
+  //     validateExperienceForm.next();
+  //   }
   // }, [draftFormValues]);
 
   useEffect(() => {
@@ -72,64 +73,35 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
     }
   }, [isAuthenticated, isLoading, getAccessTokenSilently]);
 
-  // const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
-  //   const isFilled = (val: string | string[] | boolean | null | undefined) => {
-  //     switch (typeof val) {
-  //       case 'object':
-  //       case 'string':
-  //         return val?.length !== 0 && val !== null;
-  //       case 'boolean':
-  //         return val !== false;
-  //       default:
-  //         return val !== undefined;
-  //     }
-  //   };
+  const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
+    type InterestKeys = keyof InterestFieldsType;
 
-  //   if (values) {
-  //     return [
-  //       values.interestEmploymentType,
-  //       values.hoursPerWeek,
-  //       values.interestRoles,
-  //       values.currentLocation,
-  //       values.openToRelocate,
-  //       values.openToRemoteMulti,
-  //       values.desiredSalary,
-  //       values.interestCauses,
-  //       values.otherCauses,
-  //       values.interestGovt,
-  //       values.interestGovtEmplTypes,
-  //       values.previousImpactExperience,
-  //       values.workAuthorization,
-  //       values.essayResponse,
-  //       values.referenceAttribution,
-  //     ].some(isFilled);
-  //   }
-
-  //   return false;
-  // };
-
-  // Hits the submission endpoint to submit the form
-  const doSubmit = async () => {
-    const finalFormValues = {
-      ...stripEmptyFields(experienceFields),
-      ...stripEmptyFields(interestFields),
-      originTag: '',
+    const isFilled = (
+      val: string | string[] | boolean | null | undefined
+    ): boolean => {
+      switch (typeof val) {
+        case 'object':
+        case 'string':
+          return val?.length !== 0 && val !== null;
+        case 'boolean':
+          return val !== false;
+        default:
+          return val !== undefined;
+      }
     };
 
-    post(applicantSubmissionsEndpoint, finalFormValues, await getAuthToken())
-      .then((res) => {
-        if (res.ok) {
-          window.dataLayerEvent(TRACKING.CANDIDATE_APP_SUBMITTED);
-          router.push(APPLICANT_SUCCESS_LINK);
-        } else {
-          setModalError(MODAL_ERROR_TYPE.GENERAL);
-          console.error(res.statusText);
-        }
-      })
-      .catch((error) => {
-        setModalError(MODAL_ERROR_TYPE.GENERAL);
-        console.error('Failed to submit', error);
+    if (values) {
+      // We are just mapping the form values of only the interest fields to an array and checking to see if any of them are filled out
+      const interestValues = (
+        Object.keys(CandidateInterestsSchema.shape) as InterestKeys[]
+      ).map((k) => {
+        return values[k];
       });
+
+      return interestValues.some(isFilled);
+    }
+
+    return false;
   };
 
   const getAuthToken = async () => {
@@ -170,11 +142,34 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
   };
 
   // FUNCTION: Saves form responses to parent state and generates final form
-  const handleSubmit = (values: InterestFieldsType) => {
+  const handleSubmit = async (values: InterestFieldsType) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
-    setInterestFields(values);
-    setIsSubmitted(true);
+
+    const finalFormValues = {
+      ...stripEmptyFields(experienceFields),
+      ...stripEmptyFields(values),
+      originTag: '',
+    };
+
+    post(applicantSubmissionsEndpoint, finalFormValues, await getAuthToken())
+      .then((res) => {
+        if (res.ok) {
+          if (isEditing) {
+            router.push(ACCOUNT_LINK);
+          } else {
+            window.dataLayerEvent(TRACKING.CANDIDATE_APP_SUBMITTED);
+            router.push(APPLICANT_SUCCESS_LINK);
+          }
+        } else {
+          setModalError(MODAL_ERROR_TYPE.GENERAL);
+          console.error(res.statusText);
+        }
+      })
+      .catch((error) => {
+        setModalError(MODAL_ERROR_TYPE.GENERAL);
+        console.error('Failed to submit', error);
+      });
   };
 
   const getErrorModalHeader = (): string => {
@@ -192,14 +187,12 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
     get(applicantSubmissionsEndpoint, await getAuthToken())
       .then(async (res) => {
         if (res.ok) {
-          const response: SubmissionResponseType = await res.json();
-          // const interestStarted = interestFormHasBeenStarted(
-          //   response.submission
-          // );
-          const interestStarted = false;
+          const response = await res.json();
 
           setDraftFormValues(response.submission);
-          setIsInterestFormVisible(interestStarted);
+          setIsInterestFormStarted(
+            interestFormHasBeenStarted(response.submission)
+          );
         } else if (res.status === 401) {
           router.push(BASE_LINK);
         } else {
@@ -234,7 +227,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
         <div
           onClick={
             !isInterestFormVisible && isInterestFormStarted
-              ? () => setIsInterestFormVisible(true)
+              ? () => validateExperienceForm.next()
               : () => void {}
           }
         >
@@ -289,6 +282,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
               }
               handleNext={handleNext}
               handleSave={handleSave}
+              forceValidateForm={validateExperienceForm.asObservable()}
             />
           )}
           {isEditing && (

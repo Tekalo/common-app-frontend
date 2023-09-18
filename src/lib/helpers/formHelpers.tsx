@@ -91,7 +91,7 @@ export const stripEmptyFields = (obj: any): any => {
 export const jumpToFirstErrorMessage = (): void => {
   const scrollOffset = 150;
   const firstError = document.querySelector(
-    'input[aria-invalid=true], button[aria-invalid=true]'
+    '*[aria-invalid=true]'
   ) as HTMLElement;
 
   if (firstError) {
