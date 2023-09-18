@@ -24,6 +24,7 @@ import {
   ExperienceFieldsType,
   ITimelineItem,
   InterestFieldsType,
+  SubmissionResponseType,
 } from '@/lib/types';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
@@ -180,7 +181,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
     get(applicantSubmissionsEndpoint, await getAuthToken())
       .then(async (res) => {
         if (res.ok) {
-          const response = await res.json();
+          const response: SubmissionResponseType = await res.json();
 
           setDraftFormValues(response.submission);
           setIsInterestFormStarted(

@@ -6,3 +6,7 @@ export default { component: ExperienceForm };
 export const Default = {
   args: { ...mockExperienceFormProps.base },
 };
+
+export const Editing = {
+  args: { ...mockExperienceFormProps.editing },
+};
