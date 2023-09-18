@@ -2,6 +2,7 @@
 
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
+import { IApplicantForms } from '@/modules/components/pages/ApplicantForms';
 import { IFileUploadField } from '@/modules/sections/sign-up/fields/FileUploadField';
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
 import { IExperienceForm } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
@@ -27,20 +28,15 @@ declare global {
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
+      mountApplicantForms(
+        auth0Context: Auth0ContextInterface<User>,
+        props: IApplicantForms
+      ): Chainable<void>;
       mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
-      mountOrganizationSignupForm(
-        props: IOrgSignupForm
-      ): Chainable<MountReturn>;
-      mountRoleDetailReview(props: IRoleDetailReview): Chainable<void>;
-      mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
-      mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
       mountCandidateSignupForm(props: ISignupForm): Chainable<void>;
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<ISignupForm>;
-      mountExperienceAndInterestFormPage(
-        auth0Context: Auth0ContextInterface<User>
-      ): Chainable<void>;
       mountExperienceForm(props: IExperienceForm): Chainable<void>;
       mountFileUpload(props: IFileUpload): Chainable<void>;
       mountFileUploadField(props: IFileUploadField): Chainable<IFileUpload>;
@@ -53,8 +49,12 @@ declare global {
       mountOrganizationSignupForm(
         props: IOrgSignupForm
       ): Chainable<MountReturn>;
+      mountOrganizationSignupForm(
+        props: IOrgSignupForm
+      ): Chainable<MountReturn>;
       mountOrgRoleForm(props: IRoleForm): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
+      mountRoleDetailReview(props: IRoleDetailReview): Chainable<void>;
       mountSignInActionPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;

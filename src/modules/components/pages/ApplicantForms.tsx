@@ -39,7 +39,7 @@ enum MODAL_ERROR_TYPE {
   UPLOAD,
 }
 
-interface IApplicantForms {
+export interface IApplicantForms {
   isEditing: boolean;
 }
 
@@ -281,6 +281,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
           )}
           {isEditing && (
             <Link
+              data-name="back-to-account-link"
               className="mt-6 block text-component-large text-blue-1"
               href={ACCOUNT_LINK}
             >
