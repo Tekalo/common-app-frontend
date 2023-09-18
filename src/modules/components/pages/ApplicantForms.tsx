@@ -54,18 +54,11 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
   const [isInterestFormStarted, setIsInterestFormStarted] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
 
-  // Modal
+  // Modals
   const [modalError, setModalError] = useState<MODAL_ERROR_TYPE>();
   const [showSaveModal, setShowSaveModal] = useState(false);
 
   const validateExperienceForm: Subject<void> = new Subject<void>();
-
-  // useEffect(() => {
-  //   if (interestFormHasBeenStarted(draftFormValues)) {
-  //     setIsInterestFormStarted(true);
-  //     validateExperienceForm.next();
-  //   }
-  // }, [draftFormValues]);
 
   useEffect(() => {
     if (!isLoading) {

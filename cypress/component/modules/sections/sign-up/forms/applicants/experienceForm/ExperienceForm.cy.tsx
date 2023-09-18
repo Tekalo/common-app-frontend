@@ -4,14 +4,17 @@ import { DraftSubmissionType } from '@/lib/types';
 import ExperienceForm, {
   IExperienceForm,
 } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
+import { Subject } from 'rxjs';
 
 Cypress.Commands.add('mountExperienceForm', (props: IExperienceForm) => {
   cy.mount(
     <ExperienceForm
+      isEditing={props.isEditing}
       handleNext={props.handleNext}
       handleSave={props.handleSave}
       savedForm={props.savedForm}
       showUploadErrorModal={props.showUploadErrorModal}
+      forceValidateForm={props.forceValidateForm}
     />
   );
 });
@@ -20,6 +23,7 @@ describe('Experience Form', () => {
   let props: IExperienceForm;
   let fullCandidateExperience: DraftSubmissionType;
   let mockSavedForm: DraftSubmissionType | undefined;
+  const forceValidateForm = new Subject<void>();
 
   before(() => {
     cy.fixture('candidate-experience-values').then((res) => {
@@ -30,9 +34,11 @@ describe('Experience Form', () => {
   describe('Render', () => {
     beforeEach(() => {
       props = {
+        forceValidateForm,
+        isEditing: false,
+        savedForm: undefined,
         handleNext: voidFn,
         handleSave: voidFn,
-        savedForm: undefined,
         showUploadErrorModal: voidFn,
       };
     });
@@ -79,9 +85,11 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
+        forceValidateForm,
+        isEditing: false,
+        savedForm: mockSavedForm,
         handleNext: voidFn,
         handleSave: voidFn,
-        savedForm: mockSavedForm,
         showUploadErrorModal: voidFn,
       };
     });
@@ -181,6 +189,8 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
+        forceValidateForm,
+        isEditing: false,
         handleNext: cy.stub().as('next'),
         handleSave: cy.stub().as('save'),
         savedForm: mockSavedForm,
@@ -258,6 +268,27 @@ describe('Experience Form', () => {
             JSON.stringify(mockSavedForm)
           );
         });
+    });
+  });
+
+  describe('editing', () => {
+    beforeEach(() => {
+      mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
+
+      props = {
+        forceValidateForm,
+        isEditing: true,
+        handleNext: cy.stub().as('next'),
+        handleSave: cy.stub().as('save'),
+        savedForm: mockSavedForm,
+        showUploadErrorModal: voidFn,
+      };
+    });
+
+    it('should remove save button when editing', () => {
+      cy.mountExperienceForm(props);
+
+      cy.get('button#experience-save').should('not.exist');
     });
   });
 });

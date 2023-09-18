@@ -1,5 +1,6 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
+  APPLICANT_FORM_TEXT,
   COMMITMENT_ENUM_TEXT,
   EMPLOYMENT_TYPE_TEXT,
   GENERAL_FORM_TEXT_CONSTANTS,
@@ -406,7 +407,11 @@ const InterestForm: React.FC<IInterestForm> = ({
             <Button
               disabled={hasLengthError(errors)}
               className="mt-4 w-full text-component-large"
-              label={INTEREST_FORM_TEXT.BUTTONS.submit.label}
+              label={
+                isEditing
+                  ? APPLICANT_FORM_TEXT.EDIT.SUBMIT_EDITS
+                  : INTEREST_FORM_TEXT.BUTTONS.submit.label
+              }
               name="candidate-application-submit"
               type="submit"
             />

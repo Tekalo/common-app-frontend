@@ -43,6 +43,7 @@ Cypress.Commands.add('mountFileUpload', (props: IFileUpload) => {
     <MockFileUploadProvider>
       <FileUpload
         id={props.id}
+        errors={props.errors}
         initialValue={props.initialValue}
         label={props.label}
         setFieldErrors={props.setFieldErrors}
@@ -72,6 +73,7 @@ describe('FileUpload', () => {
       setValue: setValueSpy,
       showUploadErrorModal: () => void {},
       tooltipText: undefined,
+      errors: [],
     };
     fileIsValid = true;
   });
@@ -219,5 +221,17 @@ describe('FileUpload', () => {
         assert(setCallArg.originalFilename === mockFileName);
         assert(setCallArg.id === mockFileId);
       });
+  });
+
+  it('should mark the file upload field as invalid if there are errors', () => {
+    props.errors = ['Invalid file!!'];
+
+    cy.mountFileUpload(props);
+
+    cy.get('div[data-name=file-uploader]').should(
+      'have.attr',
+      'aria-invalid',
+      'true'
+    );
   });
 });

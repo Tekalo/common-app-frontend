@@ -372,6 +372,7 @@ const APPLICANT_FORM_TEXT = {
   EDIT: {
     HEADER: 'Edit application',
     BACK_TO_ACCOUNT: 'Back to my account',
+    SUBMIT_EDITS: 'Save edits',
   },
   HEADER: 'Join a network of impact-driven organizations to find your match.',
   NAVAWAY: 'Already have an account? ',
