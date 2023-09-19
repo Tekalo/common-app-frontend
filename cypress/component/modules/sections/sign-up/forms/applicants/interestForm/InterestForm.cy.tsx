@@ -8,7 +8,7 @@ import {
 } from '@/cypress/support/selectors/candidate-interest.selectors';
 
 import { voidFn } from '@/cypress/fixtures/mocks';
-import { ERROR_TEXT } from '@/lang/en';
+import { APPLICANT_FORM_TEXT, ERROR_TEXT } from '@/lang/en';
 import { DraftSubmissionType } from '@/lib/types';
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
@@ -17,6 +17,7 @@ Cypress.Commands.add('mountInterestForm', (props: IInterestForm) => {
   cy.mount(
     <DndProvider backend={TouchBackend}>
       <InterestForm
+        isEditing={props.isEditing}
         handleSave={props.handleSave}
         handleSubmit={props.handleSubmit}
         savedForm={props.savedForm}
@@ -39,9 +40,10 @@ describe('Applicant <InterestForm />', () => {
   describe('Render', () => {
     beforeEach(() => {
       props = {
+        isEditing: false,
+        savedForm: undefined,
         handleSave: voidFn,
         handleSubmit: voidFn,
-        savedForm: undefined,
       };
     });
 
@@ -189,9 +191,10 @@ describe('Applicant <InterestForm />', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
 
       props = {
+        isEditing: false,
+        savedForm: mockSavedForm,
         handleSave: cy.stub().as('save'),
         handleSubmit: voidFn,
-        savedForm: mockSavedForm,
       };
     });
 
@@ -294,9 +297,10 @@ describe('Applicant <InterestForm />', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
 
       props = {
+        isEditing: false,
+        savedForm: mockSavedForm,
         handleSave: cy.stub().as('save'),
         handleSubmit: voidFn,
-        savedForm: mockSavedForm,
       };
     });
 
@@ -322,9 +326,10 @@ describe('Applicant <InterestForm />', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
 
       props = {
+        isEditing: false,
+        savedForm: mockSavedForm,
         handleSave: voidFn,
         handleSubmit: cy.stub().as('submit'),
-        savedForm: mockSavedForm,
       };
     });
 
@@ -397,6 +402,34 @@ describe('Applicant <InterestForm />', () => {
             mockSavedForm.workAuthorization
           );
         });
+    });
+  });
+
+  describe('isEditing', () => {
+    beforeEach(() => {
+      mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
+
+      props = {
+        isEditing: true,
+        savedForm: mockSavedForm,
+        handleSave: voidFn,
+        handleSubmit: cy.stub().as('submit'),
+      };
+    });
+
+    it('should not render the save button', () => {
+      cy.mountInterestForm(props);
+
+      cy.get('button#interest-save').should('not.exist');
+    });
+
+    it('should update submit button text', () => {
+      cy.mountInterestForm(props);
+
+      cy.get('button#candidate-application-submit').should(
+        'have.text',
+        APPLICANT_FORM_TEXT.EDIT.SUBMIT_EDITS
+      );
     });
   });
 
