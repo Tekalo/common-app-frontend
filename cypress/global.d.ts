@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+import { IApplicationLayout } from '@/lib/layouts/application/ApplicationLayout';
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
 import { IApplicantForms } from '@/modules/components/pages/ApplicantForms';
@@ -31,6 +32,10 @@ declare global {
       mountApplicantForms(
         auth0Context: Auth0ContextInterface<User>,
         props: IApplicantForms
+      ): Chainable<void>;
+      mountApplicationLayout(
+        auth0Context: Auth0ContextInterface<User>,
+        props: IApplicationLayout
       ): Chainable<void>;
       mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
       mountCandidateSignupForm(props: ISignupForm): Chainable<void>;

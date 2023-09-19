@@ -32,8 +32,9 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
         <div className="space-y-50 flex justify-around sm:justify-between">
           <div className="flex flex-row items-center py-4 md:gap-x-6 md:py-6">
             {/* Logo */}
-            <Link href="/" className="">
+            <Link href="/" data-name="lite-navbar-logo-link">
               <Image
+                data-name="lite-navbar-logo"
                 src="/images/logo_nav.png"
                 alt="Tekalo Logo"
                 className="max-w-[96px] py-1 md:max-w-[132px]"
@@ -41,7 +42,10 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
                 height={56}
               />
             </Link>
-            <div className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2 md:text-p2-mobile lg:text-p2-desktop">
+            <div
+              className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2 md:text-p2-mobile lg:text-p2-desktop"
+              data-name="lite-navbar-title"
+            >
               {title}
             </div>
           </div>
@@ -75,6 +79,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
                 {/* Contact Us Button */}
                 <a
                   className="cursor-pointer pt-1 text-component-large font-normal text-black-text hover:text-blue-1 active:text-blue-2 md:pt-1 lg:text-component-extra-large"
+                  data-name="lite-navbar-contact-btn"
                   href={CONTACT_US_MAILTO_LINK}
                 >
                   {NAV_LITE_HEADER_TEXT.contactUs}
