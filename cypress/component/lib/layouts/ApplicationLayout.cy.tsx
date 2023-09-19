@@ -1,5 +1,6 @@
 import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
 import {
+  ACCOUNT_LINK,
   CONTACT_US_MAILTO_LINK,
   NAV_BAR_TEXT,
   NAV_LITE_FOOTER_TEXT,
@@ -17,7 +18,9 @@ Cypress.Commands.add(
   (auth0Context: Auth0ContextInterface<User>, props: IApplicationLayout) => {
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
-        <ApplicationLayout isEditing={props.isEditing}>
+        <ApplicationLayout
+          isEditing={props.isEditing ? props.isEditing : undefined}
+        >
           <div id="mock-content">Content</div>
         </ApplicationLayout>
       </Auth0Context.Provider>
@@ -29,9 +32,41 @@ describe('ApplicationLayout', () => {
   let mockAuth0Context: Auth0ContextInterface<User>;
   let props: IApplicationLayout;
 
+  beforeEach(() => {
+    mockAuth0Context = getMockAuth0Context();
+  });
+
+  describe('loading', () => {
+    beforeEach(() => {
+      mockAuth0Context.isLoading = true;
+      props = {
+        isEditing: false,
+      };
+    });
+
+    it('should display the correct loading content', () => {
+      cy.mountApplicationLayout(mockAuth0Context, props);
+
+      cy.get('a[data-name=lite-navbar-logo-link]').should(
+        'have.attr',
+        'href',
+        '/'
+      );
+      cy.get('img[data-name=lite-navbar-logo]').should(
+        'have.attr',
+        'src',
+        '/images/logo_nav.png'
+      );
+      cy.get('div[data-name=lite-navbar-title]').should(
+        'have.text',
+        NAV_BAR_TEXT.FOR_CANDIDATES
+      );
+      cy.get('div[data-name=lite-navbar-loading-content]').should('be.visible');
+    });
+  });
+
   describe('not editing', () => {
     beforeEach(() => {
-      mockAuth0Context = getMockAuth0Context();
       props = {
         isEditing: false,
       };
@@ -92,6 +127,16 @@ describe('ApplicationLayout', () => {
       props = {
         isEditing: true,
       };
+    });
+
+    it('should have account button', () => {
+      cy.mountApplicationLayout(mockAuth0Context, props);
+
+      cy.get('a[data-name=lite-navbar-account-link]')
+        .should('have.attr', 'href', ACCOUNT_LINK)
+        .children('button')
+        .its(0)
+        .should('have.text', NAV_BAR_TEXT.MY_ACCOUNT);
     });
   });
 });

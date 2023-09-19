@@ -52,7 +52,10 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
           <div className="flex items-center space-x-2 md:space-x-6 lg:space-x-10">
             {isLoading ? (
               // Creates skeleton loader to handle waiting for auth check
-              <div className="flex flex-auto animate-pulse flex-row space-x-4">
+              <div
+                data-name="lite-navbar-loading-content"
+                className="flex flex-auto animate-pulse flex-row space-x-4"
+              >
                 <div className="hidden rounded bg-gray-1 px-12 py-3 md:block" />
                 <div className="flex h-6 w-6 items-center rounded bg-gray-1 md:hidden"></div>
               </div>
@@ -60,8 +63,12 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
               <>
                 {/* Account link for editing */}
                 {isEditing && (
-                  <Link href={ACCOUNT_LINK}>
+                  <Link
+                    data-name="lite-navbar-account-link"
+                    href={ACCOUNT_LINK}
+                  >
                     <Button
+                      data-name="lite-navbar-account-btn"
                       variant={ButtonVariant.OUTLINED}
                       label={NAV_BAR_TEXT.MY_ACCOUNT}
                       prefixedIcon={
