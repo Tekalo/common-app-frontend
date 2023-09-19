@@ -26,6 +26,11 @@ describe('Candidate Application', () => {
   });
 
   it('Should submit a candidate, required fields only', () => {
+    cy.intercept({
+      method: 'GET',
+      url: applicantSubmissionsEndpoint,
+    }).as('applicantSubmission');
+
     cy.url().should('include', APPLICANT_SIGNUP_LINK);
 
     fillName();
@@ -37,7 +42,7 @@ describe('Candidate Application', () => {
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
-    waitForSubmissionFetch();
+    cy.wait('@applicantSubmission');
 
     fillPreviousRole();
     fillPreviousOrg();
@@ -63,6 +68,11 @@ describe('Candidate Application', () => {
   });
 
   it('Should submit a candidate, all fields', () => {
+    cy.intercept({
+      method: 'GET',
+      url: applicantSubmissionsEndpoint,
+    }).as('applicantSubmission');
+
     cy.url().should('include', APPLICANT_SIGNUP_LINK);
 
     fillName();
@@ -77,7 +87,7 @@ describe('Candidate Application', () => {
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
-    waitForSubmissionFetch();
+    cy.wait('@applicantSubmission');
 
     fillPreviousRole();
     fillPreviousOrg();
@@ -136,15 +146,6 @@ describe('Candidate Application', () => {
     // Confirm success
     cy.url().should('include', APPLICANT_SUCCESS_LINK);
   });
-
-  function waitForSubmissionFetch(): void {
-    cy.intercept({
-      method: 'GET',
-      url: applicantSubmissionsEndpoint,
-    }).as('applicantSubmission');
-
-    cy.wait('@applicantSubmission');
-  }
 
   function fillName(): void {
     cy.get(Selectors.name.input).fastType('Test User Name');
