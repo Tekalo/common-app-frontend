@@ -4,6 +4,7 @@ import {
   applicantSubmissionsEndpoint,
   get,
   post,
+  put,
 } from '../helpers/apiHelpers';
 import { DraftSubmissionType } from '../types';
 import { IProvider } from './shared';
@@ -15,6 +16,10 @@ interface ISubmissionContext {
     authToken: string
   ) => Promise<Response>;
   submitCandidateApplication: (
+    values: DraftSubmissionType,
+    authToken: string
+  ) => Promise<Response>;
+  submitCandidateEdits: (
     values: DraftSubmissionType,
     authToken: string
   ) => Promise<Response>;
@@ -43,12 +48,20 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
     return post(applicantSubmissionsEndpoint, values, authToken);
   };
 
+  const submitCandidateEdits = (
+    values: DraftSubmissionType,
+    authToken: string
+  ) => {
+    return put(applicantSubmissionsEndpoint, values, authToken);
+  };
+
   return (
     <SubmissionContext.Provider
       value={{
         getCandidateSubmissions,
         saveCandidateDraft,
         submitCandidateApplication,
+        submitCandidateEdits,
       }}
     >
       {children}

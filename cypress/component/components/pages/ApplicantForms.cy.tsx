@@ -740,7 +740,7 @@ describe('ApplicantForms', () => {
     it('should return the user to the application page on submit', () => {
       cy.intercept(
         {
-          method: 'POST',
+          method: 'PUT',
           url: applicantSubmissionsEndpoint,
         },
         cy.stub().callsFake((req) => {

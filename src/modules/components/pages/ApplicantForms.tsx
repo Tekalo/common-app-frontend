@@ -149,8 +149,11 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       originTag: '',
     };
 
-    submissionCtx
-      .submitCandidateApplication(finalFormValues, await getAuthToken())
+    const submitFn = isEditing
+      ? submissionCtx.submitCandidateEdits
+      : submissionCtx.submitCandidateApplication;
+
+    submitFn(finalFormValues, await getAuthToken())
       .then((res) => {
         if (res.ok) {
           if (isEditing) {
