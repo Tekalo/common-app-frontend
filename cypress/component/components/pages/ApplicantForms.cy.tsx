@@ -13,6 +13,7 @@ import {
   applicantSubmissionsEndpoint,
 } from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import {
   ExperienceFieldsType,
   InterestFieldsType,
@@ -103,7 +104,9 @@ describe('ApplicantForms', () => {
 
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
-        <ApplicantForms isEditing={props.isEditing} />
+        <SubmissionProvider>
+          <ApplicantForms isEditing={props.isEditing} />
+        </SubmissionProvider>
       </Auth0Context.Provider>
     );
   });

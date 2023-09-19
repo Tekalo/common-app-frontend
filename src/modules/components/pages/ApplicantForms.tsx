@@ -11,13 +11,8 @@ import {
   TRACKING,
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
-import {
-  applicantDraftSubmissionsEndpoint,
-  applicantSubmissionsEndpoint,
-  get,
-  post,
-} from '@/lib/helpers/apiHelpers';
 import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
   DraftSubmissionType,
@@ -31,7 +26,7 @@ import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/Inter
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import router from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Subject } from 'rxjs';
 
 enum MODAL_ERROR_TYPE {
@@ -44,7 +39,9 @@ export interface IApplicantForms {
 }
 
 const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
+  // Providers
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const submissionCtx = useContext(SubmissionContext);
 
   // Form Values
   const [draftFormValues, setDraftFormValues] = useState<DraftSubmissionType>();
@@ -116,11 +113,8 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
-    post(
-      applicantDraftSubmissionsEndpoint,
-      stripEmptyFields(newFormState),
-      await getAuthToken()
-    )
+    submissionCtx
+      .saveCandidateDraft(stripEmptyFields(newFormState), await getAuthToken())
       .then((res) => {
         if (res.ok) {
           setShowSaveModal(true);
@@ -146,7 +140,8 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       originTag: '',
     };
 
-    post(applicantSubmissionsEndpoint, finalFormValues, await getAuthToken())
+    submissionCtx
+      .submitCandidateApplication(finalFormValues, await getAuthToken())
       .then((res) => {
         if (res.ok) {
           if (isEditing) {
@@ -178,7 +173,8 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   };
 
   async function getSubmissions(): Promise<void> {
-    get(applicantSubmissionsEndpoint, await getAuthToken())
+    submissionCtx
+      .getCandidateSubmissions(await getAuthToken())
       .then(async (res) => {
         if (res.ok) {
           const response: SubmissionResponseType = await res.json();
