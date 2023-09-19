@@ -67,11 +67,13 @@ describe('Candidate Application', () => {
     cy.url().should('include', APPLICANT_SUCCESS_LINK);
   });
 
-  it('Should submit a candidate, all fields', () => {
-    cy.intercept({
-      method: 'GET',
-      url: applicantSubmissionsEndpoint,
-    }).as('applicantSubmission');
+  // TODO: UNDO
+  it.only('Should submit a candidate, all fields', () => {
+    // FORCE ERROR
+    // cy.intercept({
+    //   method: 'GET',
+    //   url: applicantSubmissionsEndpoint,
+    // }).as('applicantSubmission');
 
     cy.url().should('include', APPLICANT_SIGNUP_LINK);
 
