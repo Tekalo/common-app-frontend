@@ -95,6 +95,15 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     return false;
   };
 
+  const checkApplicationSubmitted = (
+    response: SubmissionResponseType
+  ): void => {
+    // If they haven't submitted yet, they can't edit
+    if (isEditing && !response.isFinal) {
+      router.push(ACCOUNT_LINK);
+    }
+  };
+
   const getAuthToken = async () => {
     return isAuthenticated ? await getAccessTokenSilently() : '';
   };
@@ -179,6 +188,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
         if (res.ok) {
           const response: SubmissionResponseType = await res.json();
 
+          checkApplicationSubmitted(response);
           setDraftFormValues(response.submission);
           setIsInterestFormStarted(
             interestFormHasBeenStarted(response.submission)
@@ -200,6 +210,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     {
       content: (
         <div
+          data-name="nav-experience-form"
           onClick={
             isInterestFormVisible
               ? () => setIsInterestFormVisible(false)
@@ -215,6 +226,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     {
       content: (
         <div
+          data-name="nav-interest-form"
           onClick={
             !isInterestFormVisible && isInterestFormStarted
               ? () => submitExperienceForm.next()

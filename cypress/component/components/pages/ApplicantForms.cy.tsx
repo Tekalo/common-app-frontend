@@ -76,6 +76,7 @@ describe('ApplicantForms', () => {
   let setExpProps: SinonSpy;
   let setIntProps: SinonSpy;
   let applicantFormsProps: IApplicantForms;
+  let mockForceExpValues: any;
 
   Cypress.Commands.add('mountApplicantForms', (auth0Context, props) => {
     const MockExperienceForm: React.FC<IExperienceForm> = ({
@@ -83,8 +84,15 @@ describe('ApplicantForms', () => {
       handleSave,
       savedForm,
       showUploadErrorModal,
+      forceSubmitForm,
     }) => {
       setExpProps(handleNext, handleSave, savedForm, showUploadErrorModal);
+
+      forceSubmitForm.subscribe(() => {
+        if (mockForceExpValues) {
+          handleNext(mockForceExpValues);
+        }
+      });
 
       return <>Experience Form</>;
     };
@@ -105,7 +113,9 @@ describe('ApplicantForms', () => {
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
         <SubmissionProvider>
-          <ApplicantForms isEditing={props.isEditing} />
+          <ApplicantForms
+            isEditing={props.isEditing ? props.isEditing : undefined}
+          />
         </SubmissionProvider>
       </Auth0Context.Provider>
     );
@@ -160,7 +170,7 @@ describe('ApplicantForms', () => {
 
   describe('not editing', () => {
     beforeEach(() => {
-      applicantFormsProps = { isEditing: false };
+      applicantFormsProps = {};
     });
 
     it('should render', () => {
@@ -324,6 +334,145 @@ describe('ApplicantForms', () => {
 
         cy.get('#error-modal-title').should('not.exist');
         cy.get('#error-modal-description').should('not.exist');
+      });
+    });
+
+    describe('interestFormHasBeenStarted', () => {
+      beforeEach(() => {
+        cy.fixture('candidate-submission').then(
+          (res) => (mockSubmissionResponse = res.noInterestResponse)
+        );
+      });
+
+      it('should enable navigating when interest form has been started', () => {
+        mockSubmissionResponse.submission.currentLocation =
+          'Brooklyn, New York';
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+
+        cy.get('li[data-index=1]').should('have.attr', 'data-state', 'enabled');
+      });
+
+      it('should not enable navigating when interest form has not been started', () => {
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+
+        cy.get('li[data-index=1]').should(
+          'have.attr',
+          'data-state',
+          'disabled'
+        );
+
+        cy.get('div[data-name=nav-interest-form]').fastClick();
+
+        cy.get('div[data-name=form-area]').should(
+          'contain.text',
+          'Experience Form'
+        );
+      });
+
+      it('should navigate to interest form and back to experience form through click navigation', () => {
+        mockForceExpValues = mockExperienceFields;
+        mockSubmissionResponse.submission.currentLocation =
+          'Brooklyn, New York';
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+        cy.get('div[data-name=nav-interest-form]').fastClick();
+
+        cy.get('div[data-name=form-area]').should(
+          'contain.text',
+          'Interest Form'
+        );
+
+        cy.get('div[data-name=nav-experience-form]').fastClick();
+
+        cy.get('div[data-name=form-area]').should(
+          'contain.text',
+          'Experience Form'
+        );
+      });
+
+      it('should not navigate to interest form through click navigation when experience form is not valid', () => {
+        mockForceExpValues = null;
+        mockSubmissionResponse.submission.currentLocation =
+          'Brooklyn, New York';
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+        cy.get('div[data-name=nav-interest-form]').fastClick();
+
+        cy.get('div[data-name=form-area]').should(
+          'contain.text',
+          'Experience Form'
+        );
+      });
+
+      it('should check string length', () => {
+        mockSubmissionResponse.submission.essayResponse = '';
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+
+        cy.get('li[data-index=1]').should(
+          'have.attr',
+          'data-state',
+          'disabled'
+        );
+      });
+
+      it('should check null value', () => {
+        mockSubmissionResponse.submission.hoursPerWeek = null;
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+
+        cy.get('li[data-index=1]').should(
+          'have.attr',
+          'data-state',
+          'disabled'
+        );
+      });
+
+      it('should check undefined value', () => {
+        mockSubmissionResponse.submission.hoursPerWeek = undefined;
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+
+        cy.get('li[data-index=1]').should(
+          'have.attr',
+          'data-state',
+          'disabled'
+        );
+      });
+
+      it('should check array length', () => {
+        mockSubmissionResponse.submission.interestCauses = [];
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+
+        cy.get('li[data-index=1]').should(
+          'have.attr',
+          'data-state',
+          'disabled'
+        );
+      });
+
+      it('should check false booleans', () => {
+        mockSubmissionResponse.submission.interestGovt = false;
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.wait('@getSubmissions');
+
+        cy.get('li[data-index=1]').should(
+          'have.attr',
+          'data-state',
+          'disabled'
+        );
       });
     });
 
@@ -558,6 +707,10 @@ describe('ApplicantForms', () => {
   describe('isEditing', () => {
     beforeEach(() => {
       applicantFormsProps = { isEditing: true };
+
+      cy.fixture('candidate-submission').then(
+        (res) => (mockSubmissionResponse = res.maxSubmittedResponse)
+      );
     });
 
     it('should show editing elements', () => {
@@ -571,6 +724,50 @@ describe('ApplicantForms', () => {
         .should('exist')
         .should('have.text', APPLICANT_FORM_TEXT.EDIT.BACK_TO_ACCOUNT)
         .should('have.attr', 'href', ACCOUNT_LINK);
+    });
+
+    it('should bounce the user to the account page if they have not submitted', () => {
+      mockSubmissionResponse.isFinal = false;
+
+      cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+      cy.get('@routerPush').should(
+        'have.been.calledOnceWithExactly',
+        ACCOUNT_LINK
+      );
+    });
+
+    it('should return the user to the application page on submit', () => {
+      cy.intercept(
+        {
+          method: 'POST',
+          url: applicantSubmissionsEndpoint,
+        },
+        cy.stub().callsFake((req) => {
+          req.reply({ statusCode: 200 });
+        })
+      ).as('applicationSubmission');
+
+      cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.handleNext(mockExperienceFields);
+
+          cy.get('@setIntProps')
+            .should('have.been.calledOnce')
+            .then(() => {
+              childProps.interest.handleSubmit(mockInterestFields);
+
+              cy.wait('@applicationSubmission');
+
+              cy.get('@routerPush').should(
+                'have.been.calledOnceWithExactly',
+                ACCOUNT_LINK
+              );
+            });
+        });
     });
   });
 });
