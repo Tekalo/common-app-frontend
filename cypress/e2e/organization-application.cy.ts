@@ -1,3 +1,6 @@
+import '@/cypress/support/commands';
+import { OrganizationRoleSelectors as RoleSelectors } from '@/cypress/support/selectors/organization-role.selectors';
+import { OrganizationSignupSelectors } from '@/cypress/support/selectors/organization-signup.selectors';
 import {
   CAUSE_ENUM_OPTIONS,
   ORG_SIGNUP_LINK,
@@ -9,9 +12,6 @@ import { EmploymentType } from '@/lib/enums';
 import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
-import '../support/commands';
-
-import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
 
 type EmploymentFillTypes = typeof EmploymentType._input;
 
@@ -163,20 +163,13 @@ describe('Organization Application', () => {
   });
 
   it('Should submit opportunity, part-time only, all fields', () => {
-    /*
-      TEST FLOW:
-        Sign up
-        Check correct fields are hidden/shown
-        Check Paid/unpaid options are correct
-        Fill all fields
-    */
-
     cy.url().should('include', ORG_SIGNUP_LINK);
 
     fillOrgName();
     selectOrgType();
     selectOrgSize();
     selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
+    fillImpactAreasOther();
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -215,6 +208,14 @@ describe('Organization Application', () => {
 
     // Review form
     cy.get(reviewPageTitleSelector).should('exist');
+    cy.get('span[data-name="label-orgImpactAreasOther"]').should(
+      'have.text',
+      'Other impact areas: '
+    );
+    cy.get('span[data-name="value-orgImpactAreasOther"]').should(
+      'have.text',
+      'impact Area 1, impact Area 2, impact Area 3'
+    );
     acceptPrivacy();
     submitOrgApplication();
 
@@ -445,6 +446,12 @@ describe('Organization Application', () => {
     input.fastClick();
   }
 
+  function fillImpactAreasOther(): void {
+    cy.get(OrganizationSignupSelectors.impactAreasOther.input).fastType(
+      'impact Area 1, impact Area 2, impact Area 3'
+    );
+  }
+
   function fillContactName(): void {
     cy.get('input[name="input-contact.name"]').fastType('Contact Name');
   }
@@ -490,11 +497,11 @@ describe('Organization Application', () => {
   }
 
   function selectOtherRoleType(): void {
-    cy.get(Selectors.roleType.input).fastClick();
-    cy.get(Selectors.roleType.options.other).fastClick();
-    cy.get(Selectors.roleType.input).should('have.text', 'Other');
-    cy.get(Selectors.roleTypeOther.input).should('exist');
-    cy.get(Selectors.roleTypeOther.input).fastType('Other role type');
+    cy.get(RoleSelectors.roleType.input).fastClick();
+    cy.get(RoleSelectors.roleType.options.other).fastClick();
+    cy.get(RoleSelectors.roleType.input).should('have.text', 'Other');
+    cy.get(RoleSelectors.roleTypeOther.input).should('exist');
+    cy.get(RoleSelectors.roleTypeOther.input).fastType('Other role type');
   }
 
   function fillEmploymentType(types: EmploymentFillTypes[]): void {

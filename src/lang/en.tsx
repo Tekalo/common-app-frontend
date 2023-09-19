@@ -650,6 +650,10 @@ const ORG_SIGNUP_FORM_TEXT = {
       selectionLabelSingle: ' Area selected',
       selectionLabelMulti: ' Areas selected',
     },
+    orgImpactAreasOther: {
+      label: 'If you chose other, please specify (optional)',
+      placeholder: 'Additional impact areas separated by commas',
+    },
     orgContactName: {
       label: 'Contact name',
       placeholder: 'Full name',

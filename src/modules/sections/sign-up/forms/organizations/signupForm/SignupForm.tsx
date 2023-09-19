@@ -9,9 +9,10 @@ import {
 import {
   Causes,
   CommitmentType,
-  Email,
   EOE,
+  Email,
   OptionalPhoneNumber,
+  OptionalString,
   OrgSize,
   OrgType,
   ReferenceAttribution,
@@ -27,6 +28,7 @@ import {
 } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
 import {
+  FreeTagField,
   FreeTextField,
   MultiSelectField,
   PhoneNumberField,
@@ -113,6 +115,20 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
               message: ERROR_TEXT.impactAreasRequired,
             })}
           />
+
+          {/* Other Impact Areas*/}
+          {value?.organization?.impactAreas.includes('other') && (
+            <FreeTagField
+              fieldName="organization.impactAreasOther"
+              label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreasOther.label}
+              placeholder={
+                ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreasOther.placeholder
+              }
+              isSubmitted={isSubmitted}
+              initialValue={previousForm?.organization.impactAreasOther || []}
+              validator={OptionalString.array()}
+            />
+          )}
 
           {/* Contact name */}
           <FreeTextField
