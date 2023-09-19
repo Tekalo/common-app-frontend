@@ -3,7 +3,7 @@ import { NextPageWithLayout } from '@/lib/types';
 import ApplicantForms from '@/modules/components/pages/ApplicantForms';
 
 const ExperienceAndInterestPage: NextPageWithLayout = () => {
-  return <ApplicantForms isEditing={false} />;
+  return <ApplicantForms />;
 };
 
 export default ExperienceAndInterestPage;

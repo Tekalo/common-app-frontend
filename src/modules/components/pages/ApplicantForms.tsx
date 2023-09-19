@@ -40,10 +40,10 @@ enum MODAL_ERROR_TYPE {
 }
 
 export interface IApplicantForms {
-  isEditing: boolean;
+  isEditing?: boolean;
 }
 
-const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing }) => {
+const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
 
   // Form Values
