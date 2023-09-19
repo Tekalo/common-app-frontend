@@ -22,7 +22,7 @@ describe('Organization <SignupForm />', () => {
       };
     });
 
-    it('renders all fields except referenceAttributionOther', () => {
+    it('should render', () => {
       cy.mountOrganizationSignupForm(props);
 
       // Fields
@@ -30,6 +30,7 @@ describe('Organization <SignupForm />', () => {
       cy.get(Selectors.type.input).should('exist');
       cy.get(Selectors.size.input).should('exist');
       cy.get(Selectors.impactAreas.input).should('exist');
+      cy.get(Selectors.impactAreasOther.input).should('not.exist');
       cy.get(Selectors.phone.input).should('exist');
       cy.get(Selectors.positionType.fullTime).should('exist');
       cy.get(Selectors.positionType.partTime).should('exist');
@@ -46,6 +47,16 @@ describe('Organization <SignupForm />', () => {
 
       cy.get(Selectors.referenceAttribution.options.other).click();
       cy.get(Selectors.referenceAttributionOther.input).should('exist');
+    });
+
+    it('should render impactAreasOther when "other" impact area is selected', () => {
+      cy.mountOrganizationSignupForm(props);
+
+      cy.get(Selectors.impactAreas.input).fastClick();
+      cy.get(Selectors.impactAreas.options.other).fastClick();
+      cy.get(Selectors.impactAreas.input).fastClick();
+
+      cy.get(Selectors.impactAreasOther.input).should('be.visible');
     });
   });
 });
