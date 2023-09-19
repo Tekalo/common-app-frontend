@@ -36,7 +36,7 @@ export interface IExperienceForm {
   handleNext: (_values: ExperienceFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
   showUploadErrorModal: () => void;
-  forceValidateForm: Observable<void>;
+  forceSubmitForm: Observable<void>;
   isEditing: boolean;
   savedForm: DraftSubmissionType | undefined;
 }
@@ -45,7 +45,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
   handleNext,
   handleSave,
   showUploadErrorModal,
-  forceValidateForm,
+  forceSubmitForm,
   isEditing,
   savedForm,
 }) => {
@@ -65,7 +65,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
     }
   };
 
-  forceValidateForm.subscribe(async () => {
+  forceSubmitForm.subscribe(async () => {
     await formRef?.current?.submit();
     jumpToFirstErrorMessage();
   });

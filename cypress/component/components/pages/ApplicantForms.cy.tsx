@@ -132,11 +132,8 @@ describe('ApplicantForms', () => {
       .stub()
       .as('setExpProps')
       .callsFake((handleNext, handleSave, savedForm, showUploadErrorModal) => {
-        // TODO: RM
-        // console.log('mounting exp', savedForm);
-
         childProps.experience = {
-          forceValidateForm: new Subject<void>(),
+          forceSubmitForm: new Subject<void>(),
           handleNext,
           handleSave,
           isEditing: false,
@@ -149,9 +146,6 @@ describe('ApplicantForms', () => {
       .stub()
       .as('setIntProps')
       .callsFake((handleSubmit, handleSave, savedForm) => {
-        // TODO: RM
-        // console.log('mounting int', savedForm);
-
         childProps.interest = {
           handleSave,
           handleSubmit,

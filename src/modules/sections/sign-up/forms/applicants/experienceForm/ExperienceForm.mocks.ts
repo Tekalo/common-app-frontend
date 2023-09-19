@@ -4,7 +4,7 @@ import { IExperienceForm } from './ExperienceForm';
 const forceValidateForm = new Subject<void>();
 
 const base: IExperienceForm = {
-  forceValidateForm,
+  forceSubmitForm: forceValidateForm,
   isEditing: false,
   savedForm: {},
   handleSave: () => void {},
@@ -14,7 +14,7 @@ const base: IExperienceForm = {
 
 const editing: IExperienceForm = {
   isEditing: true,
-  forceValidateForm,
+  forceSubmitForm: forceValidateForm,
   handleSave: () => void {},
   handleNext: () => void {},
   savedForm: {},

@@ -14,7 +14,7 @@ Cypress.Commands.add('mountExperienceForm', (props: IExperienceForm) => {
       handleSave={props.handleSave}
       savedForm={props.savedForm}
       showUploadErrorModal={props.showUploadErrorModal}
-      forceValidateForm={props.forceValidateForm}
+      forceSubmitForm={props.forceSubmitForm}
     />
   );
 });
@@ -34,7 +34,7 @@ describe('Experience Form', () => {
   describe('Render', () => {
     beforeEach(() => {
       props = {
-        forceValidateForm: forceValidateForm.asObservable(),
+        forceSubmitForm: forceValidateForm.asObservable(),
         isEditing: false,
         savedForm: undefined,
         handleNext: voidFn,
@@ -85,7 +85,7 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
-        forceValidateForm: forceValidateForm.asObservable(),
+        forceSubmitForm: forceValidateForm.asObservable(),
         isEditing: false,
         savedForm: mockSavedForm,
         handleNext: voidFn,
@@ -189,7 +189,7 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
-        forceValidateForm: forceValidateForm.asObservable(),
+        forceSubmitForm: forceValidateForm.asObservable(),
         isEditing: false,
         handleNext: cy.stub().as('next'),
         handleSave: cy.stub().as('save'),
@@ -276,7 +276,7 @@ describe('Experience Form', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
-        forceValidateForm: forceValidateForm.asObservable(),
+        forceSubmitForm: forceValidateForm.asObservable(),
         isEditing: true,
         handleNext: cy.stub().as('next'),
         handleSave: cy.stub().as('save'),

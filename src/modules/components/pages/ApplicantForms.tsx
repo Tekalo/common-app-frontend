@@ -59,7 +59,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const [modalError, setModalError] = useState<MODAL_ERROR_TYPE>();
   const [showSaveModal, setShowSaveModal] = useState(false);
 
-  const validateExperienceForm: Subject<void> = new Subject<void>();
+  const submitExperienceForm: Subject<void> = new Subject<void>();
 
   useEffect(() => {
     if (!isLoading) {
@@ -221,7 +221,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
         <div
           onClick={
             !isInterestFormVisible && isInterestFormStarted
-              ? () => validateExperienceForm.next()
+              ? () => submitExperienceForm.next()
               : () => void {}
           }
         >
@@ -276,7 +276,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
               }
               handleNext={handleNext}
               handleSave={handleSave}
-              forceValidateForm={validateExperienceForm.asObservable()}
+              forceSubmitForm={submitExperienceForm.asObservable()}
             />
           )}
           {isEditing && (
