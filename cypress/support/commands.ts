@@ -61,6 +61,9 @@ Cypress.Commands.add('login', (): void => {
 });
 
 Cypress.Commands.add('deleteTestData', (type: 'opportunity' | 'candidate') => {
+  let deleteUrl: string;
+  let taskName: string;
+
   cy.intercept({
     method: 'POST',
     url: `https://${Cypress.env('auth0_domain')}/oauth/token`,
@@ -68,17 +71,21 @@ Cypress.Commands.add('deleteTestData', (type: 'opportunity' | 'candidate') => {
 
   cy.login();
 
-  const deleteUrl =
-    type === 'opportunity' ? opportunityBatchEndpoint : applicantsEndpoint;
-  const taskName = type === 'opportunity' ? 'OppIds' : 'UserIds';
+  if (type === 'opportunity') {
+    deleteUrl = opportunityBatchEndpoint;
+    taskName = 'OppIds';
+  } else {
+    deleteUrl = applicantsEndpoint;
+    taskName = 'UserIds';
+  }
 
   cy.wait('@adminLogin').then((intercept: any) => {
     const accessToken = intercept.response.body.access_token;
 
     cy.task(`get${taskName}`).then((uids) => {
-      const userIds = uids as string[];
+      const deleteIds = uids as string[];
 
-      userIds.forEach(async (id) => {
+      deleteIds.forEach(async (id) => {
         await deleteRequest(`${deleteUrl}/${id}`, accessToken);
       });
 
