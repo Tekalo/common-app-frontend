@@ -1,4 +1,8 @@
-import { deleteRequest } from '@/lib/helpers/apiHelpers';
+import {
+  applicantsEndpoint,
+  deleteRequest,
+  opportunityBatchEndpoint,
+} from '@/lib/helpers/apiHelpers';
 import { __DEBUG_ITEM_KEY__ } from '@/providers/debugProvider';
 
 Cypress.Commands.add('setupTestingEnvironment', (): void => {
@@ -56,7 +60,7 @@ Cypress.Commands.add('login', (): void => {
   });
 });
 
-Cypress.Commands.add('deleteTestData', (deleteUrl: string) => {
+Cypress.Commands.add('deleteTestData', (type: 'opportunity' | 'candidate') => {
   cy.intercept({
     method: 'POST',
     url: `https://${Cypress.env('auth0_domain')}/oauth/token`,
@@ -64,17 +68,21 @@ Cypress.Commands.add('deleteTestData', (deleteUrl: string) => {
 
   cy.login();
 
+  const deleteUrl =
+    type === 'opportunity' ? opportunityBatchEndpoint : applicantsEndpoint;
+  const taskName = type === 'opportunity' ? 'OppIds' : 'UserIds';
+
   cy.wait('@adminLogin').then((intercept: any) => {
     const accessToken = intercept.response.body.access_token;
 
-    cy.task('getUserIds').then((uids) => {
+    cy.task(`get${taskName}`).then((uids) => {
       const userIds = uids as string[];
 
       userIds.forEach(async (id) => {
         await deleteRequest(`${deleteUrl}/${id}`, accessToken);
       });
 
-      cy.task('clearUserIds');
+      cy.task(`clear${taskName}`);
     });
   });
 });

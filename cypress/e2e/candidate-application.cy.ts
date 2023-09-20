@@ -22,7 +22,7 @@ describe('Candidate Application', () => {
 
   // Clean up the test users we created
   after(() => {
-    cy.deleteTestData(applicantsEndpoint);
+    cy.deleteTestData('candidate');
   });
 
   it('Should submit a candidate, required fields only', () => {

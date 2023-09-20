@@ -22,18 +22,11 @@ declare global {
       fastClick(): Chainable<Subject>;
       // e2e test methods
       setupTestingEnvironment(): Chainable<void>;
-      deleteTestData(deleteUrl: string): Chainable<void>;
+      deleteTestData(type: 'opportunity' | 'candidate'): Chainable<void>;
       login(): Chainable<void>;
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
-      mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
-      mountOrganizationSignupForm(
-        props: IOrgSignupForm
-      ): Chainable<MountReturn>;
-      mountRoleDetailReview(props: IRoleDetailReview): Chainable<void>;
-      mountOrgRoleForm(props: IRoleForm): Chainable<MountReturn>;
-      mountInterestForm(props: IInterestForm): Chainable<MountReturn>;
       mountCandidateSignupForm(props: ISignupForm): Chainable<void>;
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
@@ -50,11 +43,10 @@ declare global {
       ): Chainable<void>;
       mountInterestForm(props: IInterestForm): Chainable<void>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
-      mountOrganizationSignupForm(
-        props: IOrgSignupForm
-      ): Chainable<MountReturn>;
       mountOrgRoleForm(props: IRoleForm): Chainable<void>;
+      mountOrganizationSignupForm(props: IOrgSignupForm): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
+      mountRoleDetailReview(props: IRoleDetailReview): Chainable<void>;
       mountSignInActionPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;

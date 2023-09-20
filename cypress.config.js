@@ -30,6 +30,23 @@ module.exports = defineConfig({
 
           return null;
         },
+        clearOppIds: () => {
+          global.oppIds = [];
+
+          return null;
+        },
+        getOppIds: () => {
+          return global.oppIds;
+        },
+        storeOppId: (oppId) => {
+          if (global.oppIds) {
+            global.oppIds.push(oppId);
+          } else {
+            global.oppIds = [oppId];
+          }
+
+          return null;
+        },
       }),
         (config.baseUrl = process.env.NEXT_PUBLIC_BASE_URL);
       config.env.auth0_username = process.env.NEXT_PUBLIC_TEST_USER;
