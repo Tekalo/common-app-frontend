@@ -40,18 +40,6 @@ export interface ExperienceAndInterestProps {
 describe('ApplicantForms', () => {
   const childProps: ExperienceAndInterestProps =
     {} as unknown as ExperienceAndInterestProps;
-  const mockExperienceFields: ExperienceFieldsType = {
-    lastRole: 'new role',
-    lastOrg: 'new org',
-    yoe: '2',
-    skills: ['react'],
-    otherSkills: ['new skill 1', 'new skill 2'],
-    linkedInUrl: 'new linkedin url',
-    githubUrl: 'new github url',
-    portfolioUrl: 'new portfolio url',
-    portfolioPassword: 'new portfolio password',
-    resumeUpload: { id: 123, originalFilename: 'newOrigFilename.pdf' },
-  };
   const mockInterestFields: InterestFieldsType = {
     hoursPerWeek: '40',
     interestWorkArrangement: ['full-time employee'],
@@ -71,12 +59,13 @@ describe('ApplicantForms', () => {
     referenceAttribution: 'linkedIn',
     referenceAttributionOther: null,
   };
+  let applicantFormsProps: IApplicantForms;
   let mockAuth0Context: Auth0ContextInterface<User>;
+  let mockExperienceFields: ExperienceFieldsType;
+  let mockForceExpValues: any;
   let mockSubmissionResponse: SubmissionResponseType;
   let setExpProps: SinonSpy;
   let setIntProps: SinonSpy;
-  let applicantFormsProps: IApplicantForms;
-  let mockForceExpValues: any;
 
   Cypress.Commands.add('mountApplicantForms', (auth0Context, props) => {
     const MockExperienceForm: React.FC<IExperienceForm> = ({
@@ -123,6 +112,19 @@ describe('ApplicantForms', () => {
 
   beforeEach(() => {
     window.dataLayerEvent = cy.stub().as('dataLayerEvent');
+    mockExperienceFields = {
+      lastRole: 'new role',
+      lastOrg: 'new org',
+      yoe: '2',
+      skills: ['react'],
+      otherSkills: ['new skill 1', 'new skill 2'],
+      linkedInUrl: 'new linkedin url',
+      githubUrl: 'new github url',
+      portfolioUrl: 'new portfolio url',
+      portfolioPassword: 'new portfolio password',
+      resumeUpload: { id: 123, originalFilename: 'newOrigFilename.pdf' },
+    };
+
     cy.stub(router, 'push').as('routerPush');
 
     cy.fixture('candidate-submission').then(
@@ -374,7 +376,7 @@ describe('ApplicantForms', () => {
       });
 
       it('should navigate to interest form and back to experience form through click navigation', () => {
-        mockForceExpValues = mockExperienceFields;
+        mockForceExpValues = JSON.parse(JSON.stringify(mockExperienceFields));
         mockSubmissionResponse.submission.currentLocation =
           'Brooklyn, New York';
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
