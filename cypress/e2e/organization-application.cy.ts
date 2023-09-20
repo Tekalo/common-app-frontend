@@ -24,7 +24,7 @@ describe('Organization Application', () => {
   });
 
   after(() => {
-    cy.deleteTestData(opportunityBatchEndpoint);
+    cy.deleteTestData('opportunity');
   });
 
   it('Should submit opportunity, full-time only, required only', () => {
@@ -623,7 +623,7 @@ describe('Organization Application', () => {
       const response = interception?.response
         ?.body as OrgBatchSubmissionResponseType;
 
-      cy.task('storeUserId', response.id);
+      cy.task('storeOppId', response.id);
     });
   }
 
