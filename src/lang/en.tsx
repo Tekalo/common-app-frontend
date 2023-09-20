@@ -27,6 +27,7 @@ const TRACKING = {
 // NAV LINKS
 const BASE_LINK = '/';
 const ACCOUNT_LINK = '/account';
+const EDIT_APP_LINK = '/edit/application';
 const PRIVACY_LINK = '/privacy-info';
 const SIGN_IN_LINK = '/sign-in';
 const SIGN_IN_REDIRECT = '/signin-action';
@@ -300,6 +301,8 @@ const ACCOUNT_PAGE_TEXT = {
     "You're all set. We'll contact you via your preferred method.",
   APP_CONTINUE: 'Continue my application >',
   APP_CONTINUE_BODY: 'Your application has not been submitted yet',
+  APP_EDIT: 'Edit application >',
+  APP_LAST_EDITED: 'Last edited {DATE}',
   APP_OPT_IN_TITLE: 'Unpause my account >',
   APP_OPT_IN_BODY: 'Your account is paused until you opt back in.',
   APP_PAUSE_TITLE: 'Pause my account >',
@@ -2182,6 +2185,7 @@ export {
   APPLICANT_SUCCESS_LINK,
   BASE_LINK,
   CONTACT_US_MAILTO_LINK,
+  EDIT_APP_LINK,
   ORG_SIGNUP_LINK,
   ORG_SUCCESS_LINK,
   PRIVACY_LINK,

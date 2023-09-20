@@ -7,6 +7,7 @@ import {
   APPLICANT_SIGNUP_LINK,
   BASE_LINK,
   DELETE_MODAL,
+  EDIT_APP_LINK,
   ERROR_MODAL_TEXT,
   PAUSE_MODAL,
   RESUME_MODAL,
@@ -14,12 +15,12 @@ import {
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
 import {
   applicantStateEndpoint,
-  applicantSubmissionsEndpoint,
   deleteRequest,
   existingApplicantEndpoint,
   get,
   put,
 } from '@/lib/helpers/apiHelpers';
+import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import {
   AccountResponseType,
   NextPageWithLayout,
@@ -28,7 +29,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export interface ICandidateAccountSection {}
 
@@ -36,15 +37,38 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const router = useRouter();
   const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
     useAuth0();
+  const submissionCtx = useContext(SubmissionContext);
+
+  // Status
   const [applicantExists, setApplicantExists] = useState(false);
-  const [accountName, setAccountName] = useState('');
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   const [matchesPaused, setMatchesPaused] = useState(false);
+
+  // Content
+  const [accountName, setAccountName] = useState('');
+  const [showContent, setShowContent] = useState<boolean>(false);
+  const [lastEditedDate, setLastEditedDate] = useState('');
+
+  // Modals
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
-  const [showContent, setShowContent] = useState<boolean>(false);
+
+  const checkApplicationEdited = (sub: SubmissionResponseType): void => {
+    // TODO: Hook this up to new value once ready
+    const editedDate = new Date(sub.submission.createdAt);
+    const monthName = editedDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const day = editedDate.getDate();
+    const year = editedDate.getFullYear();
+
+    const dateFormattedString = `${monthName}, ${day} ${year}`;
+
+    console.log(sub.submission.createdAt);
+    setLastEditedDate(dateFormattedString);
+  };
 
   const handleUncaughtErrorResponse = (error: any): void => {
     setShowErrorModal(true);
@@ -59,11 +83,13 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   // User must be logged in to view this page, check for auth
   useEffect(() => {
     const getSubmissions = async () => {
-      get(applicantSubmissionsEndpoint, await getAccessTokenSilently())
+      submissionCtx
+        .getCandidateSubmissions(await getAccessTokenSilently())
         .then(async (res) => {
           if (res.ok) {
             const submissionResponse =
               (await res.json()) as SubmissionResponseType;
+            checkApplicationEdited(submissionResponse);
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
             if (res.status === 404) {
@@ -192,6 +218,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
               >
                 {applicationSubmitted ? (
                   <>
+                    {/* APP SUBMITTED MSG */}
                     <div className="flex items-baseline">
                       <div className="mr-1 h-[16px] w-[16px] p-1">
                         {
@@ -207,9 +234,27 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                     <div className="text-p3-desktop text-gray-1">
                       {ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY}
                     </div>
+
+                    {/* EDIT APPLICATION */}
+                    <div className="flex items-baseline text-component-medium text-blue-1">
+                      <Link
+                        data-name="edit-application-link"
+                        href={EDIT_APP_LINK}
+                      >
+                        {ACCOUNT_PAGE_TEXT.APP_EDIT}
+                      </Link>
+                    </div>
+
+                    <div className="text-p3-desktop text-gray-1">
+                      {ACCOUNT_PAGE_TEXT.APP_LAST_EDITED.replace(
+                        '{DATE}',
+                        lastEditedDate
+                      )}
+                    </div>
                   </>
                 ) : (
                   <>
+                    {/* CONTINUE APP */}
                     <div className="text-component-medium text-blue-1">
                       <Link
                         data-name="continue-application-link"
@@ -292,7 +337,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                     <></>
                   )}
                 </div>
-                {/* Data Control */}
+                {/* DELETE DATA */}
                 <div className="space-y-2">
                   <div
                     data-name="show-delete-modal-link"

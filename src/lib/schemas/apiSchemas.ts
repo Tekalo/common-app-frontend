@@ -62,7 +62,10 @@ const NewOrgOppResponseSchema = z.object({
 });
 
 const DraftResponseSchema = z.object({
-  submission: CandidateDraftSchema,
+  submission: CandidateDraftSchema.extend({
+    createdAt: z.string(),
+    applicantId: z.number(),
+  }),
   isFinal: z.boolean(),
 });
 
