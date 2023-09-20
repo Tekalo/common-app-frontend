@@ -24,7 +24,7 @@ declare global {
       fastClick(): Chainable<Subject>;
       // e2e test methods
       setupTestingEnvironment(): Chainable<void>;
-      deleteTestData(deleteUrl: string): Chainable<void>;
+      deleteTestData(type: 'opportunity' | 'candidate'): Chainable<void>;
       login(): Chainable<void>;
       validateLogin(): Chainable<void>;
       // Unit test methods
@@ -37,7 +37,6 @@ declare global {
         auth0Context: Auth0ContextInterface<User>,
         props: IApplicationLayout
       ): Chainable<void>;
-      mountCandidateSignupForm(props: ISignupForm): Chainable<MountReturn>;
       mountCandidateSignupForm(props: ISignupForm): Chainable<void>;
       mountCandidateSignupFormPage(
         auth0Context: Auth0ContextInterface<User>
@@ -51,13 +50,8 @@ declare global {
       ): Chainable<void>;
       mountInterestForm(props: IInterestForm): Chainable<void>;
       mountMultiSelect(props: IMultiSelect): Chainable<void>;
-      mountOrganizationSignupForm(
-        props: IOrgSignupForm
-      ): Chainable<MountReturn>;
-      mountOrganizationSignupForm(
-        props: IOrgSignupForm
-      ): Chainable<MountReturn>;
       mountOrgRoleForm(props: IRoleForm): Chainable<void>;
+      mountOrganizationSignupForm(props: IOrgSignupForm): Chainable<void>;
       mountPhoneNumberField(props: IPhoneNumberField): Chainable<void>;
       mountRoleDetailReview(props: IRoleDetailReview): Chainable<void>;
       mountSignInActionPage(
