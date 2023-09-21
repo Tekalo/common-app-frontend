@@ -3,6 +3,8 @@ import {
   ACCOUNT_PAGE_TEXT,
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
+  BASE_LINK,
+  EDIT_APP_LINK,
   ERROR_MODAL_TEXT,
 } from '@/lang/en';
 import {
@@ -10,7 +12,6 @@ import {
   existingApplicantEndpoint,
 } from '@/lib/helpers/apiHelpers';
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
-import { SubmissionResponseType } from '@/lib/types';
 import AccountSection from '@/modules/sections/account/AccountSection';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import * as routerModule from 'next/router';
@@ -28,7 +29,7 @@ Cypress.Commands.add('mountAccountSection', (auth0Context) => {
 describe('Account Section', () => {
   const mockAccountName = 'Test User';
   let mockAuth0Context: Auth0ContextInterface<User>;
-  let mockSubmissionResponse: SubmissionResponseType;
+  let mockSubmissionResponse: any;
   let mockApplicantRes: any;
 
   beforeEach(() => {
@@ -39,6 +40,7 @@ describe('Account Section', () => {
     });
 
     mockAuth0Context = getMockAuth0Context();
+    mockAuth0Context.isAuthenticated = true;
 
     mockApplicantRes = {
       statusCode: 200,
@@ -72,7 +74,6 @@ describe('Account Section', () => {
   describe('account checks', () => {
     beforeEach(() => {
       mockApplicantRes = { statusCode: 401 };
-      mockAuth0Context.isAuthenticated = true;
     });
 
     it('should bounce the user to the signup page if not authorized', () => {
@@ -107,11 +108,53 @@ describe('Account Section', () => {
     });
   });
 
-  describe('application submitted', () => {
-    beforeEach(() => {
-      mockAuth0Context.isAuthenticated = true;
+  describe('submission checks', () => {
+    it('should console log if user has no submissions', () => {
+      cy.spy(console, 'log').as('consoleLog');
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('@consoleLog').should(
+        'have.been.calledOnceWithExactly',
+        'No submissions for this user'
+      );
     });
 
+    it('should bounce user to signup page if unauthorized', () => {
+      mockSubmissionResponse = { statusCode: 401 };
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('@routerPush').should(
+        'have.been.calledOnceWithExactly',
+        APPLICANT_SIGNUP_LINK
+      );
+    });
+
+    it('should show the error modal if some other error is passed', () => {
+      mockSubmissionResponse = { statusCode: 500 };
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('p#error-modal-description')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
+    });
+  });
+
+  describe('not authenticated', () => {
+    it('should bounce user to home page if they are not authenticaated', () => {
+      mockAuth0Context.isAuthenticated = false;
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('@routerPush').should(
+        'have.been.calledOnceWithExactly',
+        BASE_LINK
+      );
+    });
+  });
+
+  describe('application submitted', () => {
     it('should render', () => {
       cy.mountAccountSection(mockAuth0Context);
 
@@ -149,6 +192,50 @@ describe('Account Section', () => {
       cy.get('div[data-name=delete-data-subhead]').should(
         'have.text',
         ACCOUNT_PAGE_TEXT.APP_DELETE_BODY
+      );
+    });
+  });
+
+  describe('has submitted', () => {
+    it('should show edit controls if application has been submitted', () => {
+      mockSubmissionResponse = {
+        isFinal: true,
+        submission: {
+          createdAt: '2023-06-26T17:51:26.219Z',
+          updatedAt: '2023-09-21T18:46:37.721Z',
+        },
+      };
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('a[data-name=edit-application-link]')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_EDIT)
+        .should('have.attr', 'href', EDIT_APP_LINK);
+
+      cy.get('div[data-name=last-edited-date]').should(
+        'have.text',
+        'Last edited Sep, 21 2023'
+      );
+    });
+
+    it('should show createdAt date if updatedDate is earlier', () => {
+      mockSubmissionResponse = {
+        isFinal: true,
+        submission: {
+          createdAt: '2023-06-06T17:51:26.219Z',
+          updatedAt: '1970-09-21T18:46:37.721Z',
+        },
+      };
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('a[data-name=edit-application-link]')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_EDIT)
+        .should('have.attr', 'href', EDIT_APP_LINK);
+
+      cy.get('div[data-name=last-edited-date]').should(
+        'have.text',
+        'Last edited Jun, 6 2023'
       );
     });
   });

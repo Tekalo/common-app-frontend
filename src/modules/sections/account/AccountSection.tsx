@@ -93,7 +93,11 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
           if (res.ok) {
             const submissionResponse =
               (await res.json()) as SubmissionResponseType;
-            checkApplicationEdited(submissionResponse);
+
+            if (submissionResponse.isFinal) {
+              checkApplicationEdited(submissionResponse);
+            }
+
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
             if (res.status === 404) {
@@ -255,7 +259,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                       </Link>
                     </div>
 
-                    <div className="text-p3-desktop text-gray-1">
+                    <div
+                      data-name="last-edited-date"
+                      className="text-p3-desktop text-gray-1"
+                    >
                       {ACCOUNT_PAGE_TEXT.APP_LAST_EDITED.replace(
                         '{DATE}',
                         lastEditedDate
