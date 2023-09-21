@@ -29,6 +29,9 @@ declare global {
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
+      mountAccountSection(
+        auth0Context: Auth0ContextInterface<User>
+      ): Chainable<void>;
       mountApplicantForms(
         auth0Context: Auth0ContextInterface<User>,
         props: IApplicantForms

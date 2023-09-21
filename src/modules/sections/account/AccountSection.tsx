@@ -195,7 +195,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
               accountName ? ', ' + accountName : accountName
             }`}
           </h3>
-          <h4 className="mb-6 font-display text-h4-desktop text-black-text">
+          <h4
+            data-name="account-subhead"
+            className="mb-6 font-display text-h4-desktop text-black-text"
+          >
             {ACCOUNT_PAGE_TEXT.MANAGE}
           </h4>
         </>
@@ -209,7 +212,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       <div className="border border-gray-3 p-10">
         {showContent ? (
           <>
-            <div className="mb-6 font-display text-small-caption-desktop text-gray-1">
+            <div
+              data-name="actions-header"
+              className="mb-6 font-display text-small-caption-desktop text-gray-1"
+            >
               {ACCOUNT_PAGE_TEXT.ACCOUNT}
             </div>
 
@@ -271,7 +277,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                         {ACCOUNT_PAGE_TEXT.APP_CONTINUE}
                       </Link>
                     </div>
-                    <div className="text-p3-desktop text-gray-1">
+                    <div
+                      data-name="continue-link-subhead"
+                      className="text-p3-desktop text-gray-1"
+                    >
                       {ACCOUNT_PAGE_TEXT.APP_CONTINUE_BODY}
                     </div>
                   </>
@@ -319,6 +328,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                     <>
                       <div
                         className="cursor-pointer text-component-medium text-blue-1"
+                        data-name="data-control-title"
                         onClick={() => setShowPauseModal(true)}
                       >
                         {ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE}
@@ -350,7 +360,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                   >
                     {ACCOUNT_PAGE_TEXT.APP_DELETE_TITLE}
                   </div>
-                  <div className="text-p3-desktop text-gray-1">
+                  <div
+                    data-name="delete-data-subhead"
+                    className="text-p3-desktop text-gray-1"
+                  >
                     {ACCOUNT_PAGE_TEXT.APP_DELETE_BODY}
                   </div>
                 </div>
