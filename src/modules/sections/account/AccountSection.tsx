@@ -56,18 +56,22 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
 
   const checkApplicationEdited = (sub: SubmissionResponseType): void => {
-    // TODO: Hook this up to new value once ready
-    const editedDate = new Date(sub.submission.createdAt);
-    const monthName = editedDate.toLocaleString('default', {
+    const createdAt = new Date(sub.submission.createdAt);
+    const updatedAt = new Date(sub.submission.updatedAt);
+    const displayDate: Date =
+      createdAt.getTime() > updatedAt.getTime() ? createdAt : updatedAt;
+
+    setLastEditedDate(formatDate(displayDate));
+  };
+
+  const formatDate = (date: Date): string => {
+    const monthName = date.toLocaleString('default', {
       month: 'short',
     });
-    const day = editedDate.getDate();
-    const year = editedDate.getFullYear();
+    const day = date.getDate();
+    const year = date.getFullYear();
 
-    const dateFormattedString = `${monthName}, ${day} ${year}`;
-
-    console.log(sub.submission.createdAt);
-    setLastEditedDate(dateFormattedString);
+    return `${monthName}, ${day} ${year}`;
   };
 
   const handleUncaughtErrorResponse = (error: any): void => {
