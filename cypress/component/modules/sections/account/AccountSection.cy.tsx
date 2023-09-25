@@ -15,7 +15,7 @@ import {
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import AccountSection from '@/modules/sections/account/AccountSection';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
-import * as routerModule from 'next/router';
+import router from 'next/router';
 
 Cypress.Commands.add('mountAccountSection', (auth0Context) => {
   cy.mount(
@@ -34,11 +34,7 @@ describe('Account Section', () => {
   let mockApplicantRes: any;
 
   beforeEach(() => {
-    cy.stub(routerModule, 'useRouter').callsFake(() => {
-      return {
-        push: cy.stub().as('routerPush'),
-      };
-    });
+    cy.stub(router, 'push').as('routerPush');
 
     mockAuth0Context = getMockAuth0Context();
     mockAuth0Context.isAuthenticated = true;
@@ -56,9 +52,9 @@ describe('Account Section', () => {
         method: 'GET',
         url: applicantSubmissionsEndpoint,
       },
-      cy.stub().callsFake((req) => {
+      (req) => {
         req.reply(mockSubmissionResponse);
-      })
+      }
     ).as('getSubmission');
 
     cy.intercept(
@@ -77,7 +73,7 @@ describe('Account Section', () => {
       mockApplicantRes = { statusCode: 401 };
     });
 
-    it('should bounce the user to the signup page if not authorized', () => {
+    it('should bounce the user to the signup page if unauthorized', () => {
       cy.mountAccountSection(mockAuth0Context);
 
       cy.get('@routerPush').should(
@@ -110,14 +106,14 @@ describe('Account Section', () => {
   });
 
   describe('submission checks', () => {
-    beforeEach(() => {
-      mockApplicantRes = {
-        statusCode: 200,
-        body: {
-          name: mockAccountName,
-          isPaused: false,
-        },
-      };
+    it('should show the error modal if some other error is passed', () => {
+      mockSubmissionResponse = { statusCode: 500 };
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('p#error-modal-description')
+        .should('be.visible')
+        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
     });
 
     it('should bounce user to signup page if unauthorized', () => {
@@ -129,16 +125,6 @@ describe('Account Section', () => {
         'have.been.calledOnceWithExactly',
         APPLICANT_SIGNUP_LINK
       );
-    });
-
-    it('should show the error modal if some other error is passed', () => {
-      mockSubmissionResponse = { statusCode: 500 };
-
-      cy.mountAccountSection(mockAuth0Context);
-
-      cy.get('p#error-modal-description')
-        .should('be.visible')
-        .should('have.text', ERROR_MODAL_TEXT.somethingWrong);
     });
   });
 

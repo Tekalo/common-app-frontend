@@ -69,16 +69,16 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   useEffect(() => {
     if (!useNavLock) return;
 
-    const warningText = APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TEXT;
-
     const handleWindowClose = (e: BeforeUnloadEvent) => {
-      if (!isEditing) return;
+      if (!useNavLock) return;
       e.preventDefault();
-      return (e.returnValue = warningText);
+
+      return (e.returnValue = APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TEXT);
     };
 
     const handleBrowseAway = (navUrl: Url) => {
-      if (!isEditing || !useNavLock) return;
+      if (!useNavLock) return;
+
       setShowNavWarningModal(true);
       setDelayedNavUrl(navUrl.toString());
       router.events.emit('routeChangeError');

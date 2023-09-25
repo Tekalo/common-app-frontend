@@ -28,13 +28,12 @@ import {
 } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import router from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
 export interface ICandidateAccountSection {}
 
 const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
-  const router = useRouter();
   const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
     useAuth0();
   const submissionCtx = useContext(SubmissionContext);
@@ -149,7 +148,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
         router.push(BASE_LINK);
       }
     }
-  }, [isAuthenticated, isLoading, getAccessTokenSilently, router]);
+  }, [isAuthenticated, isLoading]);
 
   const updateMatchStatus = async (pause: boolean): Promise<void> => {
     put(applicantStateEndpoint, { pause }, await getAccessTokenSilently())
