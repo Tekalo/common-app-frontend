@@ -376,6 +376,12 @@ const APPLICANT_FORM_TEXT = {
     HEADER: 'Edit application',
     BACK_TO_ACCOUNT: 'Back to my account',
     SUBMIT_EDITS: 'Save edits',
+    UNSAVED_WARNING: {
+      TITLE: 'Unsaved changes',
+      TEXT: 'Are you sure you want to leave? Changes you made will not be saved.',
+      CANCEL_BTN: 'Cancel',
+      CONFIRM_BTN: 'Leave page',
+    },
   },
   HEADER: 'Join a network of impact-driven organizations to find your match.',
   NAVAWAY: 'Already have an account? ',
