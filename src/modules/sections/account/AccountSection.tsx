@@ -243,9 +243,14 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                           />
                         }
                       </div>
-                      <div className="">{ACCOUNT_PAGE_TEXT.APP_SUBMITTED}</div>
+                      <div data-name="app-submitted-header" className="">
+                        {ACCOUNT_PAGE_TEXT.APP_SUBMITTED}
+                      </div>
                     </div>
-                    <div className="text-p3-desktop text-gray-1">
+                    <div
+                      data-name="app-submitted-subheader"
+                      className="text-p3-desktop text-gray-1"
+                    >
                       {ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY}
                     </div>
 
@@ -312,12 +317,15 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                               color="#317BB5"
                             />
                           }
-                          <div className="ml-1">
+                          <div data-name="data-control-title" className="ml-1">
                             {ACCOUNT_PAGE_TEXT.APP_OPT_IN_TITLE}
                           </div>
                         </div>
                       </div>
-                      <div className="text-p3-desktop text-gray-1">
+                      <div
+                        data-name="data-control-body"
+                        className="text-p3-desktop text-gray-1"
+                      >
                         {ACCOUNT_PAGE_TEXT.APP_OPT_IN_BODY}
                       </div>
                       <ConfirmModal
@@ -340,7 +348,10 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                       >
                         {ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE}
                       </div>
-                      <div className="text-p3-desktop text-gray-1">
+                      <div
+                        data-name="data-control-body"
+                        className="text-p3-desktop text-gray-1"
+                      >
                         {ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY}
                       </div>
                       <ConfirmModal

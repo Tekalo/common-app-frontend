@@ -8,6 +8,7 @@ import {
   ERROR_MODAL_TEXT,
 } from '@/lang/en';
 import {
+  applicantStateEndpoint,
   applicantSubmissionsEndpoint,
   existingApplicantEndpoint,
 } from '@/lib/helpers/apiHelpers';
@@ -109,14 +110,14 @@ describe('Account Section', () => {
   });
 
   describe('submission checks', () => {
-    it('should console log if user has no submissions', () => {
-      cy.spy(console, 'log').as('consoleLog');
-      cy.mountAccountSection(mockAuth0Context);
-
-      cy.get('@consoleLog').should(
-        'have.been.calledOnceWithExactly',
-        'No submissions for this user'
-      );
+    beforeEach(() => {
+      mockApplicantRes = {
+        statusCode: 200,
+        body: {
+          name: mockAccountName,
+          isPaused: false,
+        },
+      };
     });
 
     it('should bounce user to signup page if unauthorized', () => {
@@ -154,7 +155,7 @@ describe('Account Section', () => {
     });
   });
 
-  describe('application submitted', () => {
+  describe('application not submitted', () => {
     it('should render', () => {
       cy.mountAccountSection(mockAuth0Context);
 
@@ -196,8 +197,8 @@ describe('Account Section', () => {
     });
   });
 
-  describe('has submitted', () => {
-    it('should show edit controls if application has been submitted', () => {
+  describe('application submitted', () => {
+    beforeEach(() => {
       mockSubmissionResponse = {
         isFinal: true,
         submission: {
@@ -205,8 +206,18 @@ describe('Account Section', () => {
           updatedAt: '2023-09-21T18:46:37.721Z',
         },
       };
+    });
 
+    it('should render', () => {
       cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('div[data-name=app-submitted-header]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_SUBMITTED);
+
+      cy.get('div[data-name=app-submitted-subheader]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY);
 
       cy.get('a[data-name=edit-application-link]')
         .should('have.text', ACCOUNT_PAGE_TEXT.APP_EDIT)
@@ -216,15 +227,30 @@ describe('Account Section', () => {
         'have.text',
         'Last edited Sep, 21 2023'
       );
+
+      cy.get('div[data-name=data-control-title]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE);
+
+      cy.get('div[data-name=data-control-body]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY);
+
+      cy.get('div[data-name=show-delete-modal-link]').should(
+        'have.text',
+        ACCOUNT_PAGE_TEXT.APP_DELETE_TITLE
+      );
+
+      cy.get('div[data-name=delete-data-subhead]').should(
+        'have.text',
+        ACCOUNT_PAGE_TEXT.APP_DELETE_BODY
+      );
     });
 
     it('should show createdAt date if updatedDate is earlier', () => {
-      mockSubmissionResponse = {
-        isFinal: true,
-        submission: {
-          createdAt: '2023-06-06T17:51:26.219Z',
-          updatedAt: '1970-09-21T18:46:37.721Z',
-        },
+      mockSubmissionResponse.submission = {
+        createdAt: '2023-06-06T17:51:26.219Z',
+        updatedAt: '1970-09-21T18:46:37.721Z',
       };
 
       cy.mountAccountSection(mockAuth0Context);
@@ -237,6 +263,103 @@ describe('Account Section', () => {
         'have.text',
         'Last edited Jun, 6 2023'
       );
+    });
+
+    it('should pause matches', () => {
+      cy.intercept(
+        {
+          method: 'PUT',
+          url: applicantStateEndpoint,
+        },
+        cy
+          .stub()
+          .as('pauseCall')
+          .callsFake((req) => {
+            req.reply({ isPaused: true });
+          })
+      ).as('pauseMatches');
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('div[data-name=data-control-title]').fastClick();
+      cy.get('button#confirm-modal-confirm').fastClick();
+
+      cy.wait('@pauseMatches');
+
+      cy.get('@pauseCall')
+        .should('have.been.calledOnce')
+        .invoke('getCall', 0)
+        .its('args')
+        .its(0)
+        .its('body')
+        .should('deep.equal', { pause: true });
+
+      cy.get('div[data-name=data-control-title]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_OPT_IN_TITLE);
+
+      cy.get('div[data-name=data-control-body]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_OPT_IN_BODY);
+    });
+
+    it('should unpause matches', () => {
+      mockApplicantRes.body.isPaused = true;
+
+      cy.intercept(
+        {
+          method: 'PUT',
+          url: applicantStateEndpoint,
+        },
+        cy
+          .stub()
+          .as('unpauseCall')
+          .callsFake((req) => {
+            req.reply({ isPaused: false });
+          })
+      ).as('unpauseMatches');
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('div[data-name=data-control-title]').fastClick();
+      cy.get('button#confirm-modal-confirm').fastClick();
+
+      cy.wait('@unpauseMatches');
+
+      cy.get('@unpauseCall')
+        .should('have.been.calledOnce')
+        .invoke('getCall', 0)
+        .its('args')
+        .its(0)
+        .its('body')
+        .should('deep.equal', { pause: false });
+
+      cy.get('div[data-name=data-control-title]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE);
+
+      cy.get('div[data-name=data-control-body]')
+        .should('be.visible')
+        .should('have.text', ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY);
+    });
+
+    it('should delete user data', () => {
+      cy.intercept(
+        {
+          method: 'DELETE',
+          url: existingApplicantEndpoint,
+        },
+        cy.stub().callsFake((req) => {
+          req.reply({ statusCode: 200 });
+        })
+      );
+
+      cy.mountAccountSection(mockAuth0Context);
+
+      cy.get('div[data-name=show-delete-modal-link]').fastClick();
+      cy.get('button#confirm-modal-confirm').fastClick();
+
+      cy.wrap(mockAuth0Context.logout).should('have.been.calledOnce');
     });
   });
 });
