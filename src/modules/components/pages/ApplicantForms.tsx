@@ -256,8 +256,9 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const unlockedNavigation = (url: string) => {
     if (unsubscribe) {
       unsubscribe();
-      router.push(url);
     }
+
+    router.push(url);
   };
 
   const timelineItems: Array<ITimelineItem> = [
