@@ -248,7 +248,10 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   // Allows navigation without the warning (nav lock)
   const unlockedNavigation = (url: string) => {
     setUseNavLock(false);
-    router.push(url);
+
+    setTimeout(() => {
+      router.push(url);
+    }, 100);
   };
 
   const timelineItems: Array<ITimelineItem> = [
