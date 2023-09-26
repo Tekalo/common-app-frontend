@@ -55,7 +55,8 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const [isInterestFormStarted, setIsInterestFormStarted] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
   const [delayedNavUrl, setDelayedNavUrl] = useState<string>();
-  const [useNavLock, setUseNavLock] = useState<boolean>(isEditing);
+  const [useNavLock] = useState<boolean>(isEditing);
+  const [unsubscribe, setUnsubscribe] = useState<() => void>();
 
   // Modals
   const [modalError, setModalError] = useState<MODAL_ERROR_TYPE>();
@@ -69,13 +70,6 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   useEffect(() => {
     if (!useNavLock) return;
 
-    const handleWindowClose = (e: BeforeUnloadEvent) => {
-      if (!useNavLock) return;
-      e.preventDefault();
-
-      return (e.returnValue = APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TEXT);
-    };
-
     const handleBrowseAway = (navUrl: Url) => {
       if (!useNavLock) return;
 
@@ -85,13 +79,26 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       throw 'routeChange aborted';
     };
 
-    window.addEventListener('beforeunload', handleWindowClose);
-    router.events.on('routeChangeStart', handleBrowseAway);
+    const handleWindowClose = (e: BeforeUnloadEvent) => {
+      if (!useNavLock) return;
+      e.preventDefault();
 
-    return () => {
-      window.removeEventListener('beforeunload', handleWindowClose);
-      router.events.off('routeChangeStart', handleBrowseAway);
+      return (e.returnValue = APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TEXT);
     };
+
+    // Set route change subscriptions
+    router.events.on('routeChangeStart', handleBrowseAway);
+    window.addEventListener('beforeunload', handleWindowClose);
+
+    // The function to unsubscribe
+    const unsubFn = () => {
+      router.events.off('routeChangeStart', handleBrowseAway);
+      window.removeEventListener('beforeunload', handleWindowClose);
+    };
+
+    setUnsubscribe(() => unsubFn);
+
+    return unsubFn;
   }, [useNavLock]);
 
   useEffect(() => {
@@ -99,37 +106,6 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       getSubmissions();
     }
   }, [isAuthenticated, isLoading, getAccessTokenSilently]);
-
-  const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
-    type InterestKeys = keyof InterestFieldsType;
-
-    const isFilled = (
-      val: string | string[] | boolean | null | undefined
-    ): boolean => {
-      switch (typeof val) {
-        case 'object':
-        case 'string':
-          return val?.length !== 0 && val !== null;
-        case 'boolean':
-          return val !== false;
-        default:
-          return val !== undefined;
-      }
-    };
-
-    if (values) {
-      // We are just mapping the form values of only the interest fields to an array and checking to see if any of them are filled out
-      const interestValues = (
-        Object.keys(CandidateInterestsSchema.shape) as InterestKeys[]
-      ).map((k) => {
-        return values[k];
-      });
-
-      return interestValues.some(isFilled);
-    }
-
-    return false;
-  };
 
   const checkApplicationSubmitted = (
     response: SubmissionResponseType
@@ -143,6 +119,42 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const getAuthToken = async () => {
     return isAuthenticated ? await getAccessTokenSilently() : '';
   };
+
+  const getErrorModalHeader = (): string => {
+    switch (modalError) {
+      case MODAL_ERROR_TYPE.GENERAL:
+        return ERROR_MODAL_TEXT.requestFailed;
+      case MODAL_ERROR_TYPE.UPLOAD:
+        return UPLOAD_ERROR_TEXT.header;
+      default:
+        return '';
+    }
+  };
+
+  async function getSubmissions(): Promise<void> {
+    submissionCtx
+      .getCandidateSubmissions(await getAuthToken())
+      .then(async (res) => {
+        if (res.ok) {
+          const response: SubmissionResponseType = await res.json();
+
+          checkApplicationSubmitted(response);
+          setDraftFormValues(response.submission);
+          setIsInterestFormStarted(
+            interestFormHasBeenStarted(response.submission)
+          );
+        } else if (res.status === 401) {
+          unlockedNavigation(BASE_LINK);
+        } else {
+          setModalError(MODAL_ERROR_TYPE.GENERAL);
+          console.error(res.statusText);
+        }
+      })
+      .catch((error) => {
+        setModalError(MODAL_ERROR_TYPE.GENERAL);
+        console.error('failed to fetch submissions', error);
+      });
+  }
 
   // FUNCTION: Saves form responses to parent state
   const handleNext = (values: ExperienceFieldsType) => {
@@ -209,49 +221,43 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       });
   };
 
-  const getErrorModalHeader = (): string => {
-    switch (modalError) {
-      case MODAL_ERROR_TYPE.GENERAL:
-        return ERROR_MODAL_TEXT.requestFailed;
-      case MODAL_ERROR_TYPE.UPLOAD:
-        return UPLOAD_ERROR_TEXT.header;
-      default:
-        return '';
-    }
-  };
+  const interestFormHasBeenStarted = (values?: DraftSubmissionType) => {
+    type InterestKeys = keyof InterestFieldsType;
 
-  async function getSubmissions(): Promise<void> {
-    submissionCtx
-      .getCandidateSubmissions(await getAuthToken())
-      .then(async (res) => {
-        if (res.ok) {
-          const response: SubmissionResponseType = await res.json();
+    const isFilled = (
+      val: string | string[] | boolean | null | undefined
+    ): boolean => {
+      switch (typeof val) {
+        case 'object':
+        case 'string':
+          return val?.length !== 0 && val !== null;
+        case 'boolean':
+          return val !== false;
+        default:
+          return val !== undefined;
+      }
+    };
 
-          checkApplicationSubmitted(response);
-          setDraftFormValues(response.submission);
-          setIsInterestFormStarted(
-            interestFormHasBeenStarted(response.submission)
-          );
-        } else if (res.status === 401) {
-          unlockedNavigation(BASE_LINK);
-        } else {
-          setModalError(MODAL_ERROR_TYPE.GENERAL);
-          console.error(res.statusText);
-        }
-      })
-      .catch((error) => {
-        setModalError(MODAL_ERROR_TYPE.GENERAL);
-        console.error('failed to fetch submissions', error);
+    if (values) {
+      // We are just mapping the form values of only the interest fields to an array and checking to see if any of them are filled out
+      const interestValues = (
+        Object.keys(CandidateInterestsSchema.shape) as InterestKeys[]
+      ).map((k) => {
+        return values[k];
       });
-  }
+
+      return interestValues.some(isFilled);
+    }
+
+    return false;
+  };
 
   // Allows navigation without the warning (nav lock)
   const unlockedNavigation = (url: string) => {
-    setUseNavLock(false);
-
-    setTimeout(() => {
+    if (unsubscribe) {
+      unsubscribe();
       router.push(url);
-    }, 100);
+    }
   };
 
   const timelineItems: Array<ITimelineItem> = [
