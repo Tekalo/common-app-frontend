@@ -15,7 +15,7 @@ import {
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import AccountSection from '@/modules/sections/account/AccountSection';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
-import router from 'next/router';
+import * as RouterModule from 'next/router';
 
 Cypress.Commands.add('mountAccountSection', (auth0Context) => {
   cy.mount(
@@ -34,8 +34,6 @@ describe('Account Section', () => {
   let mockApplicantRes: any;
 
   beforeEach(() => {
-    cy.stub(router, 'push').as('routerPush');
-
     mockAuth0Context = getMockAuth0Context();
     mockAuth0Context.isAuthenticated = true;
 
@@ -46,6 +44,10 @@ describe('Account Section', () => {
         isPaused: false,
       },
     };
+
+    cy.stub(RouterModule, 'useRouter').returns({
+      push: cy.stub().as('routerPush'),
+    });
 
     cy.intercept(
       {

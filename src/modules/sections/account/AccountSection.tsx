@@ -28,12 +28,13 @@ import {
 } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
 export interface ICandidateAccountSection {}
 
 const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
+  const router = useRouter();
   const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
     useAuth0();
   const submissionCtx = useContext(SubmissionContext);
