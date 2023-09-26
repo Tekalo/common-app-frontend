@@ -381,6 +381,8 @@ describe('ApplicantForms', () => {
           'Brooklyn, New York';
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
+        cy.get('@setExpProps').should('have.been.calledTwice');
+
         cy.wait('@getSubmissions');
         cy.get('div[data-name=nav-interest-form]').fastClick();
 
