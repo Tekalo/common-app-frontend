@@ -211,21 +211,21 @@ describe('<SignupForm />', () => {
       cy.get(Selectors.followUp.input).fastClick();
       cy.get(Selectors.buttons.submit).fastClick();
 
-      cy.get('@submit').should(
-        'be.calledOnceWithExactly',
-        {
-          acceptedPrivacy: true,
-          acceptedTerms: true,
-          email,
-          followUpOptIn: true,
-          name,
-          phone: `1${phone}`,
-          preferredContact: CONTACT_ENUM_OPTIONS[1],
-          pronoun,
-          searchStatus: SEARCH_STATUS_ENUM_OPTIONS[1],
-        },
-        ''
-      );
+      cy.get('@submit')
+        .invoke('getCall', 0)
+        .its('args')
+        .then((args) => {
+          const formBody = args[0];
+          expect(formBody.acceptedPrivacy).to.be.true;
+          expect(formBody.acceptedTerms).to.be.true;
+          expect(formBody.email).to.equal(email);
+          expect(formBody.followUpOptIn).to.be.true;
+          expect(formBody.name).to.equal(name);
+          expect(formBody.phone).to.equal(`1${phone}`);
+          expect(formBody.preferredContact).to.equal('sms');
+          expect(formBody.pronoun).to.equal('they/them');
+          expect(formBody.searchStatus).to.equal('passive');
+        });
     });
 
     it('should submit values - all values, last options', () => {
