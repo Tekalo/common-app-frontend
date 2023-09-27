@@ -10,20 +10,6 @@ import {
 import SignupForm, {
   ISignupForm,
 } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
-// import { TurnstileProps } from '@marsidev/react-turnstile';
-
-const turnstileToken = 'XXXX.DUMMY.TOKEN.XXXX';
-// const MockTurnstile: React.FC<TurnstileProps> = ({
-//   onSuccess,
-//   onAfterInteractive,
-// }) => {
-//   if (onSuccess && onAfterInteractive) {
-//     onSuccess(turnstileToken);
-//     onAfterInteractive();
-//   }
-
-//   return <>MOCK TURNSTILE</>;
-// };
 
 Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
   cy.mount(
@@ -40,7 +26,7 @@ Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
   );
 });
 
-describe('<SignupForm />', () => {
+describe('<Applicant SignupForm />', () => {
   const name = 'Test Name';
   const email = 'test-email@schmidtfutures.com';
   const pronoun = 'they/them';
@@ -205,7 +191,7 @@ describe('<SignupForm />', () => {
       cy.get(Selectors.searchStatus.input.passive).fastClick();
       cy.get(Selectors.contact.input).fastClick();
       cy.get(Selectors.contact.options.sms).fastClick();
-      cy.get(Selectors.phone.input).type(phone);
+      cy.get(Selectors.phone.input).wait(50).type(phone);
       cy.get(Selectors.privacy.input).fastClick();
       cy.get(Selectors.terms.input).fastClick();
       cy.get(Selectors.followUp.input).fastClick();
@@ -332,18 +318,6 @@ describe('<SignupForm />', () => {
         TERMS_LINK
       );
     });
-
-    // TODO: this doesn't work, idk how to force a re-render of the form from here
-    // Look into how we can handle this in another way, look at turnstile error msg
-    // it('should show user exists error', () => {
-    //   props.showUserExistsError = true;
-    //   cy.mountSignupForm(props);
-
-    //   cy.get('#errorMessage-input-email').should(
-    //     'have.text',
-    //     ERROR_TEXT.userAlreadyExists
-    //   );
-    // });
 
     it('should display user info if already authenticated and it is present', () => {
       props.user = {
