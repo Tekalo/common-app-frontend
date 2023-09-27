@@ -13,7 +13,10 @@ import {
   TRACKING,
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
-import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import {
+  nullifyEmptyFields,
+  stripEmptyFields,
+} from '@/lib/helpers/formHelpers';
 import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
@@ -191,9 +194,11 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
+    const transformFn = isEditing ? nullifyEmptyFields : stripEmptyFields;
+
     const finalFormValues = {
-      ...stripEmptyFields(experienceFields),
-      ...stripEmptyFields(values),
+      ...transformFn(experienceFields),
+      ...transformFn(values),
       originTag: '',
     };
 

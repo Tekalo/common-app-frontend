@@ -88,6 +88,21 @@ export const stripEmptyFields = (obj: any): any => {
   return result;
 };
 
+export const nullifyEmptyFields = (obj: any): any => {
+  const result = Object.fromEntries(
+    Object.entries(obj).map(([_, v]) => {
+      // This strips out empty objects and arrays
+      if (!Array.isArray(v) && typeof v === 'object' && v !== null) {
+        return Object.keys(v).length ? [_, v] : [_, null];
+      } else {
+        return v != null && v !== '' ? [_, v] : [_, null];
+      }
+    })
+  );
+
+  return result;
+};
+
 export const jumpToFirstErrorMessage = (): void => {
   const scrollOffset = 150;
   const firstError = document.querySelector(
