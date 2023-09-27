@@ -126,6 +126,7 @@ describe('ApplicantForms', () => {
     };
 
     cy.stub(router, 'push').as('routerPush');
+    cy.stub(router.events, 'on').as('routerOn');
 
     cy.fixture('candidate-submission').then(
       (res) => (mockSubmissionResponse = res.maxSubmissionResponse)
@@ -679,6 +680,8 @@ describe('ApplicantForms', () => {
 
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
+        cy.wait('@getSubmissions');
+
         cy.get('@setExpProps')
           .should('have.been.calledTwice')
           .then(() => {
@@ -711,6 +714,7 @@ describe('ApplicantForms', () => {
   describe('isEditing', () => {
     beforeEach(() => {
       applicantFormsProps = { isEditing: true };
+      mockAuth0Context.isAuthenticated = true;
 
       cy.fixture('candidate-submission').then(
         (res) => (mockSubmissionResponse = res.maxSubmittedResponse)
@@ -748,11 +752,13 @@ describe('ApplicantForms', () => {
           url: applicantSubmissionsEndpoint,
         },
         cy.stub().callsFake((req) => {
-          req.reply({ statusCode: 200 });
+          req.reply({ statusCode: 200, body: mockSubmissionResponse });
         })
       ).as('applicationSubmission');
 
       cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+      cy.get('@routerOn').should('have.been.calledOnce');
 
       cy.get('@setExpProps')
         .should('have.been.calledTwice')
@@ -760,7 +766,7 @@ describe('ApplicantForms', () => {
           childProps.experience.handleNext(mockExperienceFields);
 
           cy.get('@setIntProps')
-            .should('have.been.calledOnce')
+            .should('have.been.calledTwice')
             .then(() => {
               childProps.interest.handleSubmit(mockInterestFields);
 
