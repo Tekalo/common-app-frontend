@@ -91,6 +91,7 @@ describe('ApplicantForms', () => {
       handleSave,
       savedForm,
     }) => {
+      console.log('int');
       setIntProps(handleSubmit, handleSave, savedForm);
 
       return <>Interest Form</>;
@@ -759,14 +760,15 @@ describe('ApplicantForms', () => {
       cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
       cy.get('@routerOn').should('have.been.calledOnce');
+      cy.wait('@getSubmissions');
 
       cy.get('@setExpProps')
-        .should('have.been.calledTwice')
+        .should('have.been.calledThrice')
         .then(() => {
           childProps.experience.handleNext(mockExperienceFields);
 
           cy.get('@setIntProps')
-            .should('have.been.calledTwice')
+            .should('have.been.calledOnce')
             .then(() => {
               childProps.interest.handleSubmit(mockInterestFields);
 
