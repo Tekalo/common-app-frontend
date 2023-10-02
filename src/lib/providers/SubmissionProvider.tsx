@@ -1,12 +1,12 @@
-import React from 'react';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
   get,
   post,
   put,
-} from '../helpers/apiHelpers';
-import { DraftSubmissionType } from '../types';
+} from '@/lib/helpers/apiHelpers';
+import { DraftSubmissionType } from '@/lib/types';
+import React from 'react';
 import { IProvider } from './shared';
 
 interface ISubmissionContext {
