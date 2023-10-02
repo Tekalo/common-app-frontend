@@ -5,9 +5,14 @@ import { Fragment } from 'react';
 export interface ITimeline {
   timelineItems: Array<ITimelineItem>;
   horizontal?: boolean;
+  showCompletion?: boolean;
 }
 
-const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
+const Timeline: React.FC<ITimeline> = ({
+  timelineItems,
+  horizontal,
+  showCompletion = true,
+}) => {
   const regularTimeline = (
     <div className="mt-10 max-w-content-area md:mt-14 lg:mt-10">
       <ol className="">
@@ -78,7 +83,9 @@ const Timeline: React.FC<ITimeline> = ({ timelineItems, horizontal }) => {
                 } text-center font-display text-component-extra-large`}
               >
                 {/* If the next item in timelineItems has property of isActive=true then display heroicon checkmark otherwise display the current index plus 1 as a string*/}
-                {timelineItems[i + 1] && timelineItems[i + 1].isEnabled ? (
+                {showCompletion &&
+                timelineItems[i + 1] &&
+                timelineItems[i + 1].isEnabled ? (
                   <CheckIcon className="h-[18px] w-[18px] stroke-2" />
                 ) : (
                   `${i + 1}`

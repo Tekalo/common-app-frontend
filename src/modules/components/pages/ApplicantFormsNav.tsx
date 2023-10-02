@@ -129,7 +129,11 @@ const ApplicantFormsNav: React.FC<IApplicantFormsNav> = ({
         data-name="timeline"
         className="mb-12 mt-10 flex content-center justify-center"
       >
-        <Timeline timelineItems={timelineItems} horizontal={true} />
+        <Timeline
+          timelineItems={timelineItems}
+          horizontal={true}
+          showCompletion={!useNavLock}
+        />
       </div>
       <ConfirmModal
         bodyText={APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TEXT}
