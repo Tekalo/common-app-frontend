@@ -91,7 +91,6 @@ describe('ApplicantForms', () => {
       handleSave,
       savedForm,
     }) => {
-      console.log('int');
       setIntProps(handleSubmit, handleSave, savedForm);
 
       return <>Interest Form</>;
@@ -763,7 +762,7 @@ describe('ApplicantForms', () => {
       cy.wait('@getSubmissions');
 
       cy.get('@setExpProps')
-        .should('have.been.calledThrice')
+        .should('have.been.calledTwice')
         .then(() => {
           childProps.experience.handleNext(mockExperienceFields);
 

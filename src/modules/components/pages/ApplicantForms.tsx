@@ -1,8 +1,5 @@
-import { ButtonVariant } from '@/components/buttons/Button/Button';
-import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import Modal from '@/components/modal/Modal/Modal/Modal';
-import Timeline from '@/components/timeline/Timeline';
 import {
   ACCOUNT_LINK,
   APPLICANT_FORM_TEXT,
@@ -22,7 +19,6 @@ import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
-  ITimelineItem,
   InterestFieldsType,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -33,7 +29,7 @@ import Link from 'next/link';
 import router from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { Subject } from 'rxjs';
-import { Url } from 'url';
+import ApplicantFormsNav from './ApplicantFormsNav';
 
 enum MODAL_ERROR_TYPE {
   GENERAL = 1,
@@ -57,52 +53,14 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   // Form States
   const [isInterestFormStarted, setIsInterestFormStarted] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
-  const [delayedNavUrl, setDelayedNavUrl] = useState<string>();
-  const [useNavLock] = useState<boolean>(isEditing);
-  const [unsubscribe, setUnsubscribe] = useState<() => void>();
 
   // Modals
   const [modalError, setModalError] = useState<MODAL_ERROR_TYPE>();
   const [showSaveModal, setShowSaveModal] = useState(false);
-  const [showNavWarningModal, setShowNavWarningModal] = useState(false);
 
   // Triggers
   const submitExperienceForm: Subject<void> = new Subject<void>();
-
-  // Navigation lock effect
-  useEffect(() => {
-    if (!useNavLock) return;
-
-    const handleBrowseAway = (navUrl: Url) => {
-      if (!useNavLock) return;
-
-      setShowNavWarningModal(true);
-      setDelayedNavUrl(navUrl.toString());
-      router.events.emit('routeChangeError');
-      throw 'routeChange aborted';
-    };
-
-    const handleWindowClose = (e: BeforeUnloadEvent) => {
-      if (!useNavLock) return;
-      e.preventDefault();
-
-      return (e.returnValue = APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TEXT);
-    };
-
-    // Set route change subscriptions
-    router.events.on('routeChangeStart', handleBrowseAway);
-    window.addEventListener('beforeunload', handleWindowClose);
-
-    // The function to unsubscribe
-    const unsubFn = () => {
-      router.events.off('routeChangeStart', handleBrowseAway);
-      window.removeEventListener('beforeunload', handleWindowClose);
-    };
-
-    setUnsubscribe(() => unsubFn);
-
-    return unsubFn;
-  }, [useNavLock]);
+  const [unlockedNavigation] = useState<Subject<string>>(new Subject<string>());
 
   useEffect(() => {
     if (!isLoading) {
@@ -115,7 +73,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   ): void => {
     // If they haven't submitted yet, they can't edit
     if (isEditing && !response.isFinal) {
-      unlockedNavigation(ACCOUNT_LINK);
+      unlockedNavigation.next(ACCOUNT_LINK);
     }
   };
 
@@ -147,7 +105,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
             interestFormHasBeenStarted(response.submission)
           );
         } else if (res.status === 401) {
-          unlockedNavigation(BASE_LINK);
+          unlockedNavigation.next(BASE_LINK);
         } else {
           setModalError(MODAL_ERROR_TYPE.GENERAL);
           console.error(res.statusText);
@@ -210,10 +168,10 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       .then((res) => {
         if (res.ok) {
           if (isEditing) {
-            unlockedNavigation(ACCOUNT_LINK);
+            unlockedNavigation.next(ACCOUNT_LINK);
           } else {
             window.dataLayerEvent(TRACKING.CANDIDATE_APP_SUBMITTED);
-            unlockedNavigation(APPLICANT_SUCCESS_LINK);
+            unlockedNavigation.next(APPLICANT_SUCCESS_LINK);
           }
         } else {
           setModalError(MODAL_ERROR_TYPE.GENERAL);
@@ -257,50 +215,6 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     return false;
   };
 
-  // Allows navigation without the warning (nav lock)
-  const unlockedNavigation = (url: string) => {
-    if (unsubscribe) {
-      unsubscribe();
-    }
-
-    router.push(url);
-  };
-
-  const timelineItems: Array<ITimelineItem> = [
-    {
-      content: (
-        <div
-          data-name="nav-experience-form"
-          onClick={
-            isInterestFormVisible
-              ? () => setIsInterestFormVisible(false)
-              : () => void {}
-          }
-        >
-          {APPLICANT_FORM_TEXT.EXPERIENCE}
-        </div>
-      ),
-      isEnabled: true,
-      isCurrent: !isInterestFormVisible,
-    },
-    {
-      content: (
-        <div
-          data-name="nav-interest-form"
-          onClick={
-            !isInterestFormVisible && isInterestFormStarted
-              ? () => submitExperienceForm.next()
-              : () => void {}
-          }
-        >
-          {APPLICANT_FORM_TEXT.INTERESTS}
-        </div>
-      ),
-      isEnabled: isInterestFormVisible || isInterestFormStarted,
-      isCurrent: isInterestFormVisible,
-    },
-  ];
-
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center px-6">
       {/* Form Content */}
@@ -316,12 +230,15 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
         </h3>
 
         {/* Breadcrumb Timeline */}
-        <div
-          data-name="timeline"
-          className="mb-12 mt-10 flex content-center justify-center"
-        >
-          <Timeline timelineItems={timelineItems} horizontal={true} />
-        </div>
+        <ApplicantFormsNav
+          callUnlockedNavigation={unlockedNavigation.asObservable()}
+          isInterestFormStarted={isInterestFormStarted}
+          isInterestFormVisible={isInterestFormVisible}
+          router={router}
+          setIsInterestFormVisible={setIsInterestFormVisible}
+          submitExperienceForm={submitExperienceForm}
+          useNavLock={isEditing}
+        />
 
         {/* Form Area */}
         <div
@@ -368,21 +285,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
         closeModal={() => setShowSaveModal(false)}
         onConfirm={() => setShowSaveModal(false)}
       />
-      <ConfirmModal
-        bodyText={APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TEXT}
-        cancelBtnText={APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.CANCEL_BTN}
-        closeModal={() => setShowNavWarningModal(false)}
-        confirmBtnText={APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.CONFIRM_BTN}
-        confirmBtnVariant={ButtonVariant.RED}
-        headline={APPLICANT_FORM_TEXT.EDIT.UNSAVED_WARNING.TITLE}
-        isOpen={showNavWarningModal}
-        onCancel={() => setShowNavWarningModal(false)}
-        onConfirm={() => {
-          if (delayedNavUrl) {
-            unlockedNavigation(delayedNavUrl);
-          }
-        }}
-      />
+
       <ErrorModal
         isOpen={!!modalError}
         titleText={getErrorModalHeader()}
