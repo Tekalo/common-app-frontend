@@ -152,11 +152,9 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     const newFormState = { ...draftFormValues, ...values };
     setDraftFormValues(newFormState);
 
-    const transformFn = isEditing ? nullifyEmptyFields : stripEmptyFields;
-
     const finalFormValues = {
-      ...transformFn(experienceFields),
-      ...transformFn(values),
+      ...nullifyEmptyFields(experienceFields),
+      ...nullifyEmptyFields(values),
       originTag: '',
     };
 
