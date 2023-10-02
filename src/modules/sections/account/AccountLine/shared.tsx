@@ -24,7 +24,7 @@ export const LineWrapper: React.FC<IAccountLineWrapper> = ({
   const textColor = isLink ? 'text-blue-1' : 'text-black-text';
 
   return (
-    <>
+    <div className="space-y-2">
       <div className={`flex items-baseline text-component-medium ${textColor}`}>
         {topContent}
       </div>
@@ -32,6 +32,6 @@ export const LineWrapper: React.FC<IAccountLineWrapper> = ({
       <div data-name={subtextName} className="text-p3-desktop text-gray-1">
         {bottomContent}
       </div>
-    </>
+    </div>
   );
 };

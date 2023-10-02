@@ -236,7 +236,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             <div className="space-y-5">
               {/* Application Status Section */}
               <div
-                className={`space-y-2 ${
+                className={`space-y-5 ${
                   applicationSubmitted ? 'border-b border-gray-3 pb-9' : ''
                 }`}
               >
