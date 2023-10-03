@@ -77,7 +77,7 @@ describe('ApplicantForms', () => {
       isEditing,
       savedForm,
       showUploadErrorModal,
-      forceSubmitForm,
+      $forceSubmitForm,
     }) => {
       setExpProps(
         handleNext,
@@ -87,7 +87,7 @@ describe('ApplicantForms', () => {
         showUploadErrorModal
       );
 
-      forceSubmitForm.subscribe(() => {
+      $forceSubmitForm.subscribe(() => {
         if (mockForceExpValues) {
           handleNext(mockForceExpValues);
         }
@@ -181,7 +181,7 @@ describe('ApplicantForms', () => {
           showUploadErrorModal
         ) => {
           childProps.experience = {
-            forceSubmitForm: new Subject<void>(),
+            $forceSubmitForm: new Subject<void>(),
             handleNext,
             handleSave,
             isEditing,
