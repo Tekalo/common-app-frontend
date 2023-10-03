@@ -10,7 +10,10 @@ import {
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
 } from '@/lib/helpers/apiHelpers';
-import { AccountSubmissionResponseType } from '@/lib/types';
+import {
+  AccountSubmissionResponseType,
+  SubmissionResponseType,
+} from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 import '../support/commands';
 
@@ -25,9 +28,14 @@ describe('Candidate Application', () => {
     cy.deleteTestData('candidate');
   });
 
-  it('Should submit a candidate, required fields only', () => {
+  it.only('Should submit a candidate, required fields only', () => {
     cy.intercept({
       method: 'GET',
+      url: applicantSubmissionsEndpoint,
+    }).as('getSubmission');
+
+    cy.intercept({
+      method: 'POST',
       url: applicantSubmissionsEndpoint,
     }).as('applicantSubmission');
 
@@ -42,7 +50,7 @@ describe('Candidate Application', () => {
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
-    cy.wait('@applicantSubmission');
+    cy.wait('@getSubmission');
 
     fillPreviousRole();
     fillPreviousOrg();
@@ -62,6 +70,48 @@ describe('Candidate Application', () => {
     fillEssay();
     saveAndConfirmInterestForm();
     submitInterestForm();
+
+    cy.wait('@applicantSubmission').then((res) => {
+      const responseBody = res.response?.body as SubmissionResponseType;
+      const responseSubmission = responseBody.submission;
+
+      expect(responseSubmission.currentLocation).to.equal('New York, New York');
+      expect(responseSubmission.desiredSalary).to.equal(null);
+      expect(responseSubmission.essayResponse).to.equal('Essay entry.');
+      expect(responseSubmission.githubUrl).to.equal(null);
+      expect(responseSubmission.hoursPerWeek).to.equal(null);
+      expect(responseSubmission.interestCauses).to.deep.equal([
+        'algorithmic fairness',
+      ]);
+      expect(responseSubmission.interestEmploymentType).to.deep.equal([
+        'full',
+        'part',
+      ]);
+      expect(responseSubmission.interestRoles).to.deep.equal([
+        'software engineer',
+      ]);
+      expect(responseSubmission.interestWorkArrangement).to.deep.equal([
+        'advisor',
+      ]);
+      expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
+      expect(responseSubmission.lastRole).to.equal('Software Engineer');
+      expect(responseSubmission.linkedInUrl).to.equal(null);
+      expect(responseSubmission.openToRelocate).to.equal('yes');
+      expect(responseSubmission.openToRemoteMulti).to.deep.equal(['remote']);
+      expect(responseSubmission.otherCauses).to.deep.equal([]);
+      expect(responseSubmission.otherSkills).to.deep.equal([]);
+      expect(responseSubmission.portfolioPassword).to.equal(null);
+      expect(responseSubmission.portfolioUrl).to.equal(null);
+      expect(responseSubmission.previousImpactExperience).to.equal(false);
+      expect(responseSubmission.referenceAttribution).to.equal(null);
+      expect(responseSubmission.referenceAttributionOther).to.equal(null);
+      expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
+        'example_file.docx'
+      );
+      expect(responseSubmission.skills).to.deep.equal([]);
+      expect(responseSubmission.workAuthorization).to.equal(null);
+      expect(responseSubmission.yoe).to.equal('4');
+    });
 
     // Confirm success
     cy.url().should('include', APPLICANT_SUCCESS_LINK);
