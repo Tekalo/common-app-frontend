@@ -129,7 +129,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
   const handleSave = async (values: DraftSubmissionType) => {
-    const newFormState = { ...draftFormValues, ...values };
+    const newFormState = nullifyEmptyFields({ ...draftFormValues, ...values });
     setDraftFormValues(newFormState);
 
     submissionCtx
