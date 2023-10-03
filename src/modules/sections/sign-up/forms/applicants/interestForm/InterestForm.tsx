@@ -1,5 +1,6 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import {
+  APPLICANT_FORM_TEXT,
   COMMITMENT_ENUM_TEXT,
   EMPLOYMENT_TYPE_TEXT,
   GENERAL_FORM_TEXT_CONSTANTS,
@@ -34,6 +35,7 @@ import {
   WorkAuthorization,
 } from '@/lib/enums';
 import {
+  convertStringFieldsToBool,
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
@@ -58,17 +60,25 @@ import {
 } from '@/sections/sign-up/fields';
 import { Form } from 'houseform';
 import { useEffect, useRef, useState } from 'react';
+import { Observable } from 'rxjs';
 
 export interface IInterestForm {
   handleSubmit: (_values: InterestFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
+  updateFormValues: (_values: DraftSubmissionType) => void;
+
+  isEditing: boolean;
   savedForm: DraftSubmissionType | undefined;
+  $updateInterestValues: Observable<void>;
 }
 
 const InterestForm: React.FC<IInterestForm> = ({
   handleSubmit,
   handleSave,
+  updateFormValues,
+  isEditing,
   savedForm,
+  $updateInterestValues,
 }) => {
   useEffect(executeScroll, []);
 
@@ -88,28 +98,11 @@ const InterestForm: React.FC<IInterestForm> = ({
     resetForm(formRef);
   }, [savedForm]);
 
-  const convertStringFieldsToBool = <T,>(value: T): T => {
-    const newVals = { ...savedForm, ...value };
-
-    // Bc of radio group weirdness, we need to convert the values here
-    if (typeof newVals.interestGovt === 'string') {
-      newVals.interestGovt = mapStringToBool(newVals.interestGovt);
-    }
-
-    if (typeof newVals.previousImpactExperience === 'string') {
-      newVals.previousImpactExperience = mapStringToBool(
-        newVals.previousImpactExperience
-      );
-    }
-
-    return newVals as T;
-  };
-
   const doSave = () => {
     if (formRef.current) {
       // We need to convert strings to booleans for specific fields
       // because radio inputs need to have string values
-      handleSave(convertStringFieldsToBool(formRef.current.value));
+      handleSave(convertStringFieldsToBool(formRef.current.value, savedForm));
     }
   };
 
@@ -117,9 +110,17 @@ const InterestForm: React.FC<IInterestForm> = ({
     if (formRef.current) {
       // We need to convert strings to booleans for specific fields
       // because radio inputs need to have string values
-      handleSubmit(convertStringFieldsToBool(values));
+      handleSubmit(convertStringFieldsToBool(values, savedForm));
     }
   };
+
+  $updateInterestValues.subscribe(() => {
+    if (formRef.current) {
+      updateFormValues(
+        convertStringFieldsToBool(formRef.current.value, savedForm)
+      );
+    }
+  });
 
   return (
     <Form<InterestFieldsType>
@@ -390,19 +391,25 @@ const InterestForm: React.FC<IInterestForm> = ({
           )}
           {/* Form Control Buttons */}
           <div className="pt-2">
-            <Button
-              disabled={hasLengthError(errors)}
-              className="w-full text-component-large"
-              label={INTEREST_FORM_TEXT.BUTTONS.save.label}
-              type="button"
-              name="interest-save"
-              variant={ButtonVariant.OUTLINED}
-              onClick={doSave}
-            />
+            {!isEditing && (
+              <Button
+                disabled={hasLengthError(errors)}
+                className="w-full text-component-large"
+                label={INTEREST_FORM_TEXT.BUTTONS.save.label}
+                type="button"
+                name="interest-save"
+                variant={ButtonVariant.OUTLINED}
+                onClick={doSave}
+              />
+            )}
             <Button
               disabled={hasLengthError(errors)}
               className="mt-4 w-full text-component-large"
-              label={INTEREST_FORM_TEXT.BUTTONS.submit.label}
+              label={
+                isEditing
+                  ? APPLICANT_FORM_TEXT.EDIT.SUBMIT_EDITS
+                  : INTEREST_FORM_TEXT.BUTTONS.submit.label
+              }
               name="candidate-application-submit"
               type="submit"
             />

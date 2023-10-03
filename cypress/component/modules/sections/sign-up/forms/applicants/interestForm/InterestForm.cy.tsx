@@ -8,18 +8,22 @@ import {
 } from '@/cypress/support/selectors/candidate-interest.selectors';
 
 import { voidFn } from '@/cypress/fixtures/mocks';
-import { ERROR_TEXT } from '@/lang/en';
+import { APPLICANT_FORM_TEXT, ERROR_TEXT } from '@/lang/en';
 import { DraftSubmissionType } from '@/lib/types';
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import { Subject } from 'rxjs';
 
 Cypress.Commands.add('mountInterestForm', (props: IInterestForm) => {
   cy.mount(
     <DndProvider backend={TouchBackend}>
       <InterestForm
+        $updateInterestValues={props.$updateInterestValues}
         handleSave={props.handleSave}
         handleSubmit={props.handleSubmit}
+        isEditing={props.isEditing}
         savedForm={props.savedForm}
+        updateFormValues={props.updateFormValues}
       />
     </DndProvider>
   );
@@ -29,6 +33,7 @@ describe('Applicant <InterestForm />', () => {
   let props: IInterestForm;
   let mockSavedForm: DraftSubmissionType;
   let fullCandidateInterest: DraftSubmissionType;
+  const $updateInterestValues = new Subject<void>();
 
   before(() => {
     cy.fixture('candidate-interest-values').then((res) => {
@@ -39,9 +44,12 @@ describe('Applicant <InterestForm />', () => {
   describe('Render', () => {
     beforeEach(() => {
       props = {
+        $updateInterestValues,
+        isEditing: false,
+        savedForm: undefined,
         handleSave: voidFn,
         handleSubmit: voidFn,
-        savedForm: undefined,
+        updateFormValues: cy.stub().as('updateFormValues'),
       };
     });
 
@@ -189,9 +197,12 @@ describe('Applicant <InterestForm />', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
 
       props = {
+        $updateInterestValues,
         handleSave: cy.stub().as('save'),
         handleSubmit: voidFn,
+        isEditing: false,
         savedForm: mockSavedForm,
+        updateFormValues: cy.stub().as('updateFormValues'),
       };
     });
 
@@ -294,9 +305,12 @@ describe('Applicant <InterestForm />', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
 
       props = {
+        $updateInterestValues,
         handleSave: cy.stub().as('save'),
         handleSubmit: voidFn,
+        isEditing: false,
         savedForm: mockSavedForm,
+        updateFormValues: cy.stub().as('updateFormValues'),
       };
     });
 
@@ -322,9 +336,12 @@ describe('Applicant <InterestForm />', () => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
 
       props = {
+        $updateInterestValues,
         handleSave: voidFn,
         handleSubmit: cy.stub().as('submit'),
+        isEditing: false,
         savedForm: mockSavedForm,
+        updateFormValues: cy.stub().as('updateFormValues'),
       };
     });
 
@@ -397,6 +414,36 @@ describe('Applicant <InterestForm />', () => {
             mockSavedForm.workAuthorization
           );
         });
+    });
+  });
+
+  describe('isEditing', () => {
+    beforeEach(() => {
+      mockSavedForm = JSON.parse(JSON.stringify(fullCandidateInterest));
+
+      props = {
+        $updateInterestValues,
+        handleSave: voidFn,
+        handleSubmit: cy.stub().as('submit'),
+        isEditing: true,
+        savedForm: mockSavedForm,
+        updateFormValues: cy.stub().as('updateFormValues'),
+      };
+    });
+
+    it('should not render the save button', () => {
+      cy.mountInterestForm(props);
+
+      cy.get('button#interest-save').should('not.exist');
+    });
+
+    it('should update submit button text', () => {
+      cy.mountInterestForm(props);
+
+      cy.get('button#candidate-application-submit').should(
+        'have.text',
+        APPLICANT_FORM_TEXT.EDIT.SUBMIT_EDITS
+      );
     });
   });
 

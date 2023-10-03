@@ -39,6 +39,7 @@ const FileUploadField: React.FC<IFileUploadField> = ({
         return (
           <div data-name="file-upload-field">
             <FileUpload
+              errors={errors}
               showUploadErrorModal={showUploadErrorModal}
               id={inputId}
               initialValue={initialValue}

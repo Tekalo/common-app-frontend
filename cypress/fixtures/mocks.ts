@@ -17,6 +17,6 @@ export const getMockAuth0Context = (): Auth0ContextInterface<User> =>
     isLoading: false,
     loginWithPopup: voidFn,
     loginWithRedirect: voidFn,
-    logout: voidFn,
+    logout: cy.stub().callsFake(voidFn),
     user: undefined,
   } as unknown as Auth0ContextInterface<User>);

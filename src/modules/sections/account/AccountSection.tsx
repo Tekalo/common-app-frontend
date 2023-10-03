@@ -7,6 +7,7 @@ import {
   APPLICANT_SIGNUP_LINK,
   BASE_LINK,
   DELETE_MODAL,
+  EDIT_APP_LINK,
   ERROR_MODAL_TEXT,
   PAUSE_MODAL,
   RESUME_MODAL,
@@ -14,21 +15,23 @@ import {
 import { GreenCheckSvg, IOutlineSVG } from '@/lib/constants/svgs';
 import {
   applicantStateEndpoint,
-  applicantSubmissionsEndpoint,
   deleteRequest,
   existingApplicantEndpoint,
   get,
   put,
 } from '@/lib/helpers/apiHelpers';
+import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import {
   AccountResponseType,
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import AccountAction from './AccountLine/AccountAction';
+import AccountDisplay from './AccountLine/AccountDisplay';
+import AccountLink from './AccountLine/AccountLink';
 
 export interface ICandidateAccountSection {}
 
@@ -36,15 +39,42 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   const router = useRouter();
   const { isAuthenticated, isLoading, logout, getAccessTokenSilently } =
     useAuth0();
+  const submissionCtx = useContext(SubmissionContext);
+
+  // Status
   const [applicantExists, setApplicantExists] = useState(false);
-  const [accountName, setAccountName] = useState('');
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   const [matchesPaused, setMatchesPaused] = useState(false);
+
+  // Content
+  const [accountName, setAccountName] = useState('');
+  const [showContent, setShowContent] = useState<boolean>(false);
+  const [lastEditedDate, setLastEditedDate] = useState('');
+
+  // Modals
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
-  const [showContent, setShowContent] = useState<boolean>(false);
+
+  const checkApplicationEdited = (sub: SubmissionResponseType): void => {
+    const createdAt = new Date(sub.submission.createdAt);
+    const updatedAt = new Date(sub.submission.updatedAt);
+    const displayDate: Date =
+      createdAt.getTime() > updatedAt.getTime() ? createdAt : updatedAt;
+
+    setLastEditedDate(formatDate(displayDate));
+  };
+
+  const formatDate = (date: Date): string => {
+    const monthName = date.toLocaleString('default', {
+      month: 'short',
+    });
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    return `${monthName}, ${day} ${year}`;
+  };
 
   const handleUncaughtErrorResponse = (error: any): void => {
     setShowErrorModal(true);
@@ -59,11 +89,17 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
   // User must be logged in to view this page, check for auth
   useEffect(() => {
     const getSubmissions = async () => {
-      get(applicantSubmissionsEndpoint, await getAccessTokenSilently())
+      submissionCtx
+        .getCandidateSubmissions(await getAccessTokenSilently())
         .then(async (res) => {
           if (res.ok) {
             const submissionResponse =
               (await res.json()) as SubmissionResponseType;
+
+            if (submissionResponse.isFinal) {
+              checkApplicationEdited(submissionResponse);
+            }
+
             setApplicationSubmitted(submissionResponse.isFinal);
           } else {
             if (res.status === 404) {
@@ -115,7 +151,7 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
         router.push(BASE_LINK);
       }
     }
-  }, [isAuthenticated, isLoading, getAccessTokenSilently, router]);
+  }, [isAuthenticated, isLoading]);
 
   const updateMatchStatus = async (pause: boolean): Promise<void> => {
     put(applicantStateEndpoint, { pause }, await getAccessTokenSilently())
@@ -153,6 +189,14 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
     updateMatchStatus(false);
   };
 
+  const greenCheck = (
+    <div className="mr-1 h-[16px] w-[16px] p-1">
+      {<GreenCheckSvg height="12px" width="12px" color="#00A870" />}
+    </div>
+  );
+
+  const iOutline = <IOutlineSVG height="16px" width="16px" color="#317BB5" />;
+
   return (
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">
       {showContent ? (
@@ -162,10 +206,13 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
             className="mb-2 font-display text-h3-desktop text-black-text"
           >
             {`${ACCOUNT_PAGE_TEXT.WELCOME}${
-              accountName ? ', ' + accountName : accountName
+              accountName ? `, ${accountName}` : accountName
             }`}
           </h3>
-          <h4 className="mb-6 font-display text-h4-desktop text-black-text">
+          <h4
+            data-name="account-subhead"
+            className="mb-6 font-display text-h4-desktop text-black-text"
+          >
             {ACCOUNT_PAGE_TEXT.MANAGE}
           </h4>
         </>
@@ -179,52 +226,57 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
       <div className="border border-gray-3 p-10">
         {showContent ? (
           <>
-            <div className="mb-6 font-display text-small-caption-desktop text-gray-1">
+            <div
+              data-name="actions-header"
+              className="mb-6 font-display text-small-caption-desktop text-gray-1"
+            >
               {ACCOUNT_PAGE_TEXT.ACCOUNT}
             </div>
 
             <div className="space-y-5">
               {/* Application Status Section */}
               <div
-                className={`space-y-2 ${
+                className={`space-y-5 ${
                   applicationSubmitted ? 'border-b border-gray-3 pb-9' : ''
                 }`}
               >
                 {applicationSubmitted ? (
                   <>
-                    <div className="flex items-baseline">
-                      <div className="mr-1 h-[16px] w-[16px] p-1">
-                        {
-                          <GreenCheckSvg
-                            height="12px"
-                            width="12px"
-                            color="#00A870"
-                          />
-                        }
-                      </div>
-                      <div className="">{ACCOUNT_PAGE_TEXT.APP_SUBMITTED}</div>
-                    </div>
-                    <div className="text-p3-desktop text-gray-1">
-                      {ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY}
-                    </div>
+                    {/* APP SUBMITTED MSG */}
+                    <AccountDisplay
+                      icon={greenCheck}
+                      linkText={ACCOUNT_PAGE_TEXT.APP_SUBMITTED}
+                      linkName={'app-submitted-header'}
+                      subtext={ACCOUNT_PAGE_TEXT.APP_SUBMITTED_BODY}
+                      subtextName="app-submitted-subheader"
+                    />
+
+                    {/* EDIT APPLICATION */}
+                    <AccountLink
+                      href={EDIT_APP_LINK}
+                      linkText={ACCOUNT_PAGE_TEXT.APP_EDIT}
+                      subtext={ACCOUNT_PAGE_TEXT.APP_LAST_EDITED.replace(
+                        '{DATE}',
+                        lastEditedDate
+                      )}
+                      linkName="edit-application-link"
+                      subtextName="last-edited-date"
+                    ></AccountLink>
                   </>
                 ) : (
                   <>
-                    <div className="text-component-medium text-blue-1">
-                      <Link
-                        data-name="continue-application-link"
-                        href={
-                          applicantExists
-                            ? APPLICANT_EXPERIENCE_LINK
-                            : APPLICANT_SIGNUP_LINK
-                        }
-                      >
-                        {ACCOUNT_PAGE_TEXT.APP_CONTINUE}
-                      </Link>
-                    </div>
-                    <div className="text-p3-desktop text-gray-1">
-                      {ACCOUNT_PAGE_TEXT.APP_CONTINUE_BODY}
-                    </div>
+                    {/* CONTINUE APP */}
+                    <AccountLink
+                      href={
+                        applicantExists
+                          ? APPLICANT_EXPERIENCE_LINK
+                          : APPLICANT_SIGNUP_LINK
+                      }
+                      linkText={ACCOUNT_PAGE_TEXT.APP_CONTINUE}
+                      subtext={ACCOUNT_PAGE_TEXT.APP_CONTINUE_BODY}
+                      linkName="continue-application-link"
+                      subtextName="continue-link-subhead"
+                    />
                   </>
                 )}
               </div>
@@ -235,75 +287,40 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                 <div className="space-y-2">
                   {matchesPaused ? (
                     <>
-                      <div
-                        className="cursor-pointer text-component-medium text-blue-1"
-                        onClick={() => setShowResumeModal(true)}
-                      >
-                        <div className="flex">
-                          {
-                            <IOutlineSVG
-                              height="16px"
-                              width="16px"
-                              color="#317BB5"
-                            />
-                          }
-                          <div className="ml-1">
-                            {ACCOUNT_PAGE_TEXT.APP_OPT_IN_TITLE}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-p3-desktop text-gray-1">
-                        {ACCOUNT_PAGE_TEXT.APP_OPT_IN_BODY}
-                      </div>
-                      <ConfirmModal
-                        bodyText={RESUME_MODAL.BODY}
-                        cancelBtnText={RESUME_MODAL.CTA_CANCEL}
-                        confirmBtnText={RESUME_MODAL.CTA_CONFIRM}
-                        headline={RESUME_MODAL.HEADER}
-                        isOpen={showResumeModal}
-                        closeModal={() => setShowResumeModal(false)}
-                        onCancel={() => setShowResumeModal(false)}
-                        onConfirm={onResumeConfirm}
+                      {/* Unpause Matches */}
+                      <AccountAction
+                        action={() => setShowResumeModal(true)}
+                        linkText={ACCOUNT_PAGE_TEXT.APP_OPT_IN_TITLE}
+                        linkName="data-control-title"
+                        subtext={ACCOUNT_PAGE_TEXT.APP_OPT_IN_BODY}
+                        subtextName="data-control-body"
+                        icon={iOutline}
                       />
                     </>
                   ) : applicationSubmitted ? (
                     <>
-                      <div
-                        className="cursor-pointer text-component-medium text-blue-1"
-                        onClick={() => setShowPauseModal(true)}
-                      >
-                        {ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE}
-                      </div>
-                      <div className="text-p3-desktop text-gray-1">
-                        {ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY}
-                      </div>
-                      <ConfirmModal
-                        bodyText={PAUSE_MODAL.BODY}
-                        cancelBtnText={PAUSE_MODAL.CTA_CANCEL}
-                        confirmBtnText={PAUSE_MODAL.CTA_CONFIRM}
-                        headline={PAUSE_MODAL.HEADER}
-                        isOpen={showPauseModal}
-                        closeModal={() => setShowPauseModal(false)}
-                        onCancel={() => setShowPauseModal(false)}
-                        onConfirm={onPauseConfirm}
+                      {/* Pause Matches */}
+                      <AccountAction
+                        action={() => setShowPauseModal(true)}
+                        linkText={ACCOUNT_PAGE_TEXT.APP_PAUSE_TITLE}
+                        subtext={ACCOUNT_PAGE_TEXT.APP_PAUSE_BODY}
+                        linkName="data-control-title"
+                        subtextName="data-control-body"
                       />
                     </>
                   ) : (
                     <></>
                   )}
                 </div>
-                {/* Data Control */}
+                {/* DELETE DATA */}
                 <div className="space-y-2">
-                  <div
-                    data-name="show-delete-modal-link"
-                    className="cursor-pointer text-component-medium text-blue-1"
-                    onClick={() => setShowDeleteModal(true)}
-                  >
-                    {ACCOUNT_PAGE_TEXT.APP_DELETE_TITLE}
-                  </div>
-                  <div className="text-p3-desktop text-gray-1">
-                    {ACCOUNT_PAGE_TEXT.APP_DELETE_BODY}
-                  </div>
+                  <AccountAction
+                    action={() => setShowDeleteModal(true)}
+                    linkText={ACCOUNT_PAGE_TEXT.APP_DELETE_TITLE}
+                    subtext={ACCOUNT_PAGE_TEXT.APP_DELETE_BODY}
+                    linkName="show-delete-modal-link"
+                    subtextName="delete-data-subhead"
+                  />
                 </div>
                 <ConfirmModal
                   bodyText={DELETE_MODAL.BODY}
@@ -316,6 +333,26 @@ const AccountSection: NextPageWithLayout<ICandidateAccountSection> = () => {
                   closeModal={() => setShowDeleteModal(false)}
                   onCancel={() => setShowDeleteModal(false)}
                   onConfirm={onDeleteConfirm}
+                />
+                <ConfirmModal
+                  bodyText={PAUSE_MODAL.BODY}
+                  cancelBtnText={PAUSE_MODAL.CTA_CANCEL}
+                  confirmBtnText={PAUSE_MODAL.CTA_CONFIRM}
+                  headline={PAUSE_MODAL.HEADER}
+                  isOpen={showPauseModal}
+                  closeModal={() => setShowPauseModal(false)}
+                  onCancel={() => setShowPauseModal(false)}
+                  onConfirm={onPauseConfirm}
+                />
+                <ConfirmModal
+                  bodyText={RESUME_MODAL.BODY}
+                  cancelBtnText={RESUME_MODAL.CTA_CANCEL}
+                  confirmBtnText={RESUME_MODAL.CTA_CONFIRM}
+                  headline={RESUME_MODAL.HEADER}
+                  isOpen={showResumeModal}
+                  closeModal={() => setShowResumeModal(false)}
+                  onCancel={() => setShowResumeModal(false)}
+                  onConfirm={onResumeConfirm}
                 />
                 <ErrorModal
                   isOpen={showErrorModal}

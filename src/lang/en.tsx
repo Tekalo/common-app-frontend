@@ -27,6 +27,7 @@ const TRACKING = {
 // NAV LINKS
 const BASE_LINK = '/';
 const ACCOUNT_LINK = '/account';
+const EDIT_APP_LINK = '/edit/application';
 const PRIVACY_LINK = '/privacy-info';
 const SIGN_IN_LINK = '/sign-in';
 const SIGN_IN_REDIRECT = '/signin-action';
@@ -298,14 +299,16 @@ const ACCOUNT_PAGE_TEXT = {
   APP_SUBMITTED: ' Application submitted',
   APP_SUBMITTED_BODY:
     "You're all set. We'll contact you via your preferred method.",
-  APP_CONTINUE: 'Continue my application >',
+  APP_CONTINUE: 'Continue my application ›',
   APP_CONTINUE_BODY: 'Your application has not been submitted yet',
-  APP_OPT_IN_TITLE: 'Unpause my account >',
+  APP_EDIT: 'Edit application ›',
+  APP_LAST_EDITED: 'Last edited {DATE}',
+  APP_OPT_IN_TITLE: 'Unpause my account ›',
   APP_OPT_IN_BODY: 'Your account is paused until you opt back in.',
-  APP_PAUSE_TITLE: 'Pause my account >',
+  APP_PAUSE_TITLE: 'Pause my account ›',
   APP_PAUSE_BODY:
     "If you're not looking for matches now, we'll stop contacting you until you opt back in.",
-  APP_DELETE_TITLE: 'Delete my account and data >',
+  APP_DELETE_TITLE: 'Delete my account and data ›',
   APP_DELETE_BODY: 'Permanently delete your account and saved data.',
 };
 
@@ -369,6 +372,17 @@ const GENERAL_FORM_TEXT_CONSTANTS = {
   },
 };
 const APPLICANT_FORM_TEXT = {
+  EDIT: {
+    HEADER: 'Edit application',
+    BACK_TO_ACCOUNT: 'Back to my account',
+    SUBMIT_EDITS: 'Save edits',
+    UNSAVED_WARNING: {
+      TITLE: 'Unsaved changes',
+      TEXT: 'Are you sure you want to leave? Changes you made will not be saved.',
+      CANCEL_BTN: 'Cancel',
+      CONFIRM_BTN: 'Leave page',
+    },
+  },
   HEADER: 'Join a network of impact-driven organizations to find your match.',
   NAVAWAY: 'Already have an account? ',
   SIGN_IN_LINK_COPY: 'Sign in',
@@ -2177,6 +2191,7 @@ export {
   APPLICANT_SUCCESS_LINK,
   BASE_LINK,
   CONTACT_US_MAILTO_LINK,
+  EDIT_APP_LINK,
   ORG_SIGNUP_LINK,
   ORG_SUCCESS_LINK,
   PRIVACY_LINK,

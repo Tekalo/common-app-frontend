@@ -3,10 +3,14 @@ import LiteNavbar from '@/components/navigation/LiteNavbar/LiteNavbar';
 import { HEAD_TEXT, NAV_BAR_TEXT, NAV_LITE_FOOTER_TEXT } from '@/lang/en';
 import Head from 'next/head';
 
-export type IApplicationLayout = React.ComponentPropsWithoutRef<'div'>;
+export interface IApplicationLayout
+  extends React.ComponentPropsWithoutRef<'div'> {
+  isEditing?: boolean;
+}
 
 const ApplicationLayout: React.FC<IApplicationLayout> = ({
   children,
+  isEditing = false,
   ...divProps
 }) => {
   return (
@@ -15,7 +19,7 @@ const ApplicationLayout: React.FC<IApplicationLayout> = ({
         <title>{HEAD_TEXT.candidates}</title>
       </Head>
       <div {...divProps} className="flex h-screen flex-col justify-between">
-        <LiteNavbar title={NAV_BAR_TEXT.FOR_CANDIDATES} />
+        <LiteNavbar isEditing={isEditing} title={NAV_BAR_TEXT.FOR_CANDIDATES} />
         <main className="flex pt-16 md:pt-20">{children}</main>
         <LiteFooter
           footerText={NAV_LITE_FOOTER_TEXT.RESERVED_RIGHTS}

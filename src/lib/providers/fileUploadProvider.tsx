@@ -5,7 +5,8 @@ import {
 } from '@/lib/helpers/apiHelpers';
 import { useAuth0 } from '@auth0/auth0-react';
 import fileTypeChecker from 'file-type-checker';
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { IProvider } from './shared';
 
 // To request file upload
 interface IFileUploadRequestBody {
@@ -34,15 +35,11 @@ export interface IFileUploadContext {
   validateFile: (file: File) => Promise<boolean>;
 }
 
-export interface IFileUploadProvider {
-  children: ReactNode;
-}
-
 export const FileUploadContext = React.createContext<IFileUploadContext>(
   {} as IFileUploadContext
 );
 
-const FileUploadProvider: React.FC<IFileUploadProvider> = ({ children }) => {
+const FileUploadProvider: React.FC<IProvider> = ({ children }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   const markUploadStatus = async (isSuccess: boolean, fileId: number) => {

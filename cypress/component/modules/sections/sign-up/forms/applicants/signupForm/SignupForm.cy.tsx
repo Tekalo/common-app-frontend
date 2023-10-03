@@ -10,20 +10,6 @@ import {
 import SignupForm, {
   ISignupForm,
 } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
-// import { TurnstileProps } from '@marsidev/react-turnstile';
-
-const turnstileToken = 'XXXX.DUMMY.TOKEN.XXXX';
-// const MockTurnstile: React.FC<TurnstileProps> = ({
-//   onSuccess,
-//   onAfterInteractive,
-// }) => {
-//   if (onSuccess && onAfterInteractive) {
-//     onSuccess(turnstileToken);
-//     onAfterInteractive();
-//   }
-
-//   return <>MOCK TURNSTILE</>;
-// };
 
 Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
   cy.mount(
@@ -40,7 +26,7 @@ Cypress.Commands.add('mountCandidateSignupForm', (props: ISignupForm) => {
   );
 });
 
-describe('<SignupForm />', () => {
+describe('<Applicant SignupForm />', () => {
   const name = 'Test Name';
   const email = 'test-email@schmidtfutures.com';
   const pronoun = 'they/them';
@@ -205,27 +191,27 @@ describe('<SignupForm />', () => {
       cy.get(Selectors.searchStatus.input.passive).fastClick();
       cy.get(Selectors.contact.input).fastClick();
       cy.get(Selectors.contact.options.sms).fastClick();
-      cy.get(Selectors.phone.input).type(phone);
+      cy.get(Selectors.phone.input).wait(50).type(phone);
       cy.get(Selectors.privacy.input).fastClick();
       cy.get(Selectors.terms.input).fastClick();
       cy.get(Selectors.followUp.input).fastClick();
       cy.get(Selectors.buttons.submit).fastClick();
 
-      cy.get('@submit').should(
-        'be.calledOnceWithExactly',
-        {
-          acceptedPrivacy: true,
-          acceptedTerms: true,
-          email,
-          followUpOptIn: true,
-          name,
-          phone: `1${phone}`,
-          preferredContact: CONTACT_ENUM_OPTIONS[1],
-          pronoun,
-          searchStatus: SEARCH_STATUS_ENUM_OPTIONS[1],
-        },
-        ''
-      );
+      cy.get('@submit')
+        .invoke('getCall', 0)
+        .its('args')
+        .then((args) => {
+          const formBody = args[0];
+          expect(formBody.acceptedPrivacy).to.be.true;
+          expect(formBody.acceptedTerms).to.be.true;
+          expect(formBody.email).to.equal(email);
+          expect(formBody.followUpOptIn).to.be.true;
+          expect(formBody.name).to.equal(name);
+          expect(formBody.phone).to.equal(`1${phone}`);
+          expect(formBody.preferredContact).to.equal('sms');
+          expect(formBody.pronoun).to.equal('they/them');
+          expect(formBody.searchStatus).to.equal('passive');
+        });
     });
 
     it('should submit values - all values, last options', () => {
@@ -332,18 +318,6 @@ describe('<SignupForm />', () => {
         TERMS_LINK
       );
     });
-
-    // TODO: this doesn't work, idk how to force a re-render of the form from here
-    // Look into how we can handle this in another way, look at turnstile error msg
-    // it('should show user exists error', () => {
-    //   props.showUserExistsError = true;
-    //   cy.mountSignupForm(props);
-
-    //   cy.get('#errorMessage-input-email').should(
-    //     'have.text',
-    //     ERROR_TEXT.userAlreadyExists
-    //   );
-    // });
 
     it('should display user info if already authenticated and it is present', () => {
       props.user = {

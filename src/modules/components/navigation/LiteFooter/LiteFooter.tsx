@@ -14,22 +14,29 @@ const LiteFooter: React.FC<ILiteFooter> = ({ footerText, links }) => {
           {/* Logo */}
           <div className="">
             <Image
-              src="/images/logo_lite_footer.png"
               alt="Tekalo Logo"
               className="max-w-[65px] py-1"
-              width={129}
+              data-name="lite-footer-logo"
               height={60}
+              src="/images/logo_lite_footer.png"
+              width={129}
             />
           </div>
           {/* Menu Col 1 */}
           <div className="flex flex-col justify-between space-y-4 font-sans text-component-small text-black-text md:flex-row md:space-x-6 md:space-y-0">
             <>
-              {links.map((linkData) => {
-                <div className="flex-none lg:underline">
+              {links.map((linkData, i) => (
+                <div
+                  key={i}
+                  data-name="lite-footer-link"
+                  className="flex-none lg:underline"
+                >
                   <Link href={linkData.href}>{linkData.text}</Link>
-                </div>;
-              })}
-              <div className="flex-none">{footerText}</div>
+                </div>
+              ))}
+              <div className="flex-none" data-name="lite-footer-text">
+                {footerText}
+              </div>
             </>
           </div>
         </div>

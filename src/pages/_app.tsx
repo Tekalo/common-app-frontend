@@ -5,6 +5,7 @@ import {
   PRIVACY_LINK,
   SIGN_IN_REDIRECT,
 } from '@/lang/en';
+import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import DebugProvider from '@/lib/providers/debugProvider';
 import FileUploadProvider from '@/lib/providers/fileUploadProvider';
 import { NextPageWithLayout } from '@/lib/types';
@@ -72,9 +73,11 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         >
           {/* START Our Local Providers */}
           <DebugProvider>
-            <FileUploadProvider>
-              {getLayout(<Component {...pageProps} />)}
-            </FileUploadProvider>
+            <SubmissionProvider>
+              <FileUploadProvider>
+                {getLayout(<Component {...pageProps} />)}
+              </FileUploadProvider>
+            </SubmissionProvider>
           </DebugProvider>
           {/* END Our Local Providers */}
           <CookieConsent

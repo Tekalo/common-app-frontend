@@ -22,6 +22,7 @@
     "prettier": "prettier --write .",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
+    "coverage-report": "open coverage/lcov-report/index.html",
     "test:e2e": "start-test dev 3000 e2e:ci",
     "test:unit": "./cypress/scripts/setup-test-env.sh 'cypress run --component'",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out"
@@ -60,6 +61,7 @@
     "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-phone-input-2": "^2.15.1",
+    "rxjs": "^7.8.1",
     "universal-cookie": "^6.1.0",
     "wrangler": "^2.20.0",
     "zod": "^3.21.4"

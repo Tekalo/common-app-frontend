@@ -1,4 +1,4 @@
-import { ISelectItem } from '@/lib/types';
+import { DraftSubmissionType, ISelectItem } from '@/lib/types';
 import { FormInstance } from 'houseform';
 import { RefObject } from 'react';
 
@@ -58,6 +58,26 @@ export const capitalizeFirstWord = (str: string): string => {
   return strArray.join(' ');
 };
 
+export const convertStringFieldsToBool = <T,>(
+  value: T,
+  savedForm: DraftSubmissionType | undefined
+): T => {
+  const newVals = { ...savedForm, ...value };
+
+  // Bc of radio group weirdness, we need to convert the values here
+  if (typeof newVals.interestGovt === 'string') {
+    newVals.interestGovt = mapStringToBool(newVals.interestGovt);
+  }
+
+  if (typeof newVals.previousImpactExperience === 'string') {
+    newVals.previousImpactExperience = mapStringToBool(
+      newVals.previousImpactExperience
+    );
+  }
+
+  return newVals as T;
+};
+
 // Helper to create option selects given supporting Zod enums
 export const createOptionList = (
   enumOptions: Array<string>
@@ -88,10 +108,25 @@ export const stripEmptyFields = (obj: any): any => {
   return result;
 };
 
+export const nullifyEmptyFields = (obj: any): any => {
+  const result = Object.fromEntries(
+    Object.entries(obj).map(([_, v]) => {
+      // This strips out empty objects and arrays
+      if (!Array.isArray(v) && typeof v === 'object' && v !== null) {
+        return Object.keys(v).length ? [_, v] : [_, null];
+      } else {
+        return v != null && v !== '' ? [_, v] : [_, null];
+      }
+    })
+  );
+
+  return result;
+};
+
 export const jumpToFirstErrorMessage = (): void => {
   const scrollOffset = 150;
   const firstError = document.querySelector(
-    'input[aria-invalid=true], button[aria-invalid=true]'
+    '*[aria-invalid=true]'
   ) as HTMLElement;
 
   if (firstError) {
