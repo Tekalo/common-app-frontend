@@ -12,7 +12,10 @@ import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
 } from '@/lib/helpers/apiHelpers';
-import { stripEmptyFields } from '@/lib/helpers/formHelpers';
+import {
+  convertStringFieldsToBool,
+  stripEmptyFields,
+} from '@/lib/helpers/formHelpers';
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import {
   ExperienceFieldsType,
@@ -41,7 +44,7 @@ describe('ApplicantForms', () => {
   const childProps: ExperienceAndInterestProps =
     {} as unknown as ExperienceAndInterestProps;
   const mockInterestFields: InterestFieldsType = {
-    hoursPerWeek: '40',
+    hoursPerWeek: '28',
     interestWorkArrangement: ['full-time employee'],
     interestEmploymentType: ['full'],
     interestRoles: ['data analyst', 'product designer'],
@@ -71,11 +74,18 @@ describe('ApplicantForms', () => {
     const MockExperienceForm: React.FC<IExperienceForm> = ({
       handleNext,
       handleSave,
+      isEditing,
       savedForm,
       showUploadErrorModal,
       forceSubmitForm,
     }) => {
-      setExpProps(handleNext, handleSave, savedForm, showUploadErrorModal);
+      setExpProps(
+        handleNext,
+        handleSave,
+        isEditing,
+        savedForm,
+        showUploadErrorModal
+      );
 
       forceSubmitForm.subscribe(() => {
         if (mockForceExpValues) {
@@ -87,11 +97,26 @@ describe('ApplicantForms', () => {
     };
 
     const MockInterestForm: React.FC<IInterestForm> = ({
-      handleSubmit,
+      $updateInterestValues,
       handleSave,
+      handleSubmit,
+      isEditing,
       savedForm,
+      updateFormValues,
     }) => {
-      setIntProps(handleSubmit, handleSave, savedForm);
+      setIntProps(
+        handleSave,
+        handleSubmit,
+        isEditing,
+        savedForm,
+        updateFormValues
+      );
+
+      $updateInterestValues.subscribe(() => {
+        updateFormValues(
+          convertStringFieldsToBool(mockInterestFields, savedForm)
+        );
+      });
 
       return <>Interest Form</>;
     };
@@ -147,28 +172,40 @@ describe('ApplicantForms', () => {
     setExpProps = cy
       .stub()
       .as('setExpProps')
-      .callsFake((handleNext, handleSave, savedForm, showUploadErrorModal) => {
-        childProps.experience = {
-          forceSubmitForm: new Subject<void>(),
+      .callsFake(
+        (
           handleNext,
           handleSave,
-          isEditing: false,
+          isEditing,
           savedForm,
-          showUploadErrorModal,
-        };
-      });
+          showUploadErrorModal
+        ) => {
+          childProps.experience = {
+            forceSubmitForm: new Subject<void>(),
+            handleNext,
+            handleSave,
+            isEditing,
+            savedForm,
+            showUploadErrorModal,
+          };
+        }
+      );
 
     setIntProps = cy
       .stub()
       .as('setIntProps')
-      .callsFake((handleSubmit, handleSave, savedForm) => {
-        childProps.interest = {
-          handleSave,
-          handleSubmit,
-          isEditing: false,
-          savedForm,
-        };
-      });
+      .callsFake(
+        (handleSave, handleSubmit, isEditing, savedForm, updateFormValues) => {
+          childProps.interest = {
+            $updateInterestValues: new Subject<void>(),
+            handleSave,
+            handleSubmit,
+            isEditing,
+            savedForm,
+            updateFormValues,
+          };
+        }
+      );
   });
 
   describe('not editing', () => {
@@ -478,6 +515,34 @@ describe('ApplicantForms', () => {
           'data-state',
           'disabled'
         );
+      });
+
+      it('should save interest form values when click navigating to experience form', () => {
+        mockForceExpValues = JSON.parse(JSON.stringify(mockExperienceFields));
+        mockSubmissionResponse.submission.currentLocation =
+          'Brooklyn, New York';
+        cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+        cy.get('@setExpProps').should('have.been.calledTwice');
+
+        cy.wait('@getSubmissions');
+        cy.get('div[data-name=nav-interest-form]').fastClick();
+
+        cy.get('div[data-name=form-area]').should(
+          'contain.text',
+          'Interest Form'
+        );
+
+        cy.get('div[data-name=nav-experience-form]').fastClick();
+
+        cy.get('div[data-name=form-area]')
+          .should('contain.text', 'Experience Form')
+          .then(() => {
+            cy.wrap(childProps.experience.savedForm?.hoursPerWeek).should(
+              'equal',
+              mockInterestFields.hoursPerWeek
+            );
+          });
       });
     });
 

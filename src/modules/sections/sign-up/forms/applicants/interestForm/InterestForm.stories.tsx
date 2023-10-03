@@ -4,19 +4,23 @@ import InterestForm, { IInterestForm } from './InterestForm';
 import { mockInterestFormProps } from './InterestForm.mocks';
 
 const DefaultComponent: React.FC<IInterestForm> = ({
-  isEditing,
-  savedForm,
+  $updateInterestValues,
   handleSave,
   handleSubmit,
+  isEditing,
+  savedForm,
+  updateFormValues,
 }) => {
   return (
     <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
       <div className="m-auto max-w-[352px]">
         <InterestForm
-          isEditing={isEditing}
           handleSave={handleSave}
           handleSubmit={handleSubmit}
+          isEditing={isEditing}
           savedForm={savedForm}
+          $updateInterestValues={$updateInterestValues}
+          updateFormValues={updateFormValues}
         />
       </div>
     </DndProvider>

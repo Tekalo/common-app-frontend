@@ -59,8 +59,9 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const [showSaveModal, setShowSaveModal] = useState(false);
 
   // Triggers
-  const submitExperienceForm: Subject<void> = new Subject<void>();
-  const [unlockedNavigation] = useState<Subject<string>>(new Subject<string>());
+  const [$unlockedNavigation] = useState(new Subject<string>());
+  const [$updateExperienceForm] = useState(new Subject<void>());
+  const [$updateInterestForm] = useState(new Subject<void>());
 
   useEffect(() => {
     if (!isLoading) {
@@ -73,7 +74,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   ): void => {
     // If they haven't submitted yet, they can't edit
     if (isEditing && !response.isFinal) {
-      unlockedNavigation.next(ACCOUNT_LINK);
+      $unlockedNavigation.next(ACCOUNT_LINK);
     }
   };
 
@@ -105,7 +106,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
             interestFormHasBeenStarted(response.submission)
           );
         } else if (res.status === 401) {
-          unlockedNavigation.next(BASE_LINK);
+          $unlockedNavigation.next(BASE_LINK);
         } else {
           setModalError(MODAL_ERROR_TYPE.GENERAL);
           console.error(res.statusText);
@@ -166,10 +167,10 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       .then((res) => {
         if (res.ok) {
           if (isEditing) {
-            unlockedNavigation.next(ACCOUNT_LINK);
+            $unlockedNavigation.next(ACCOUNT_LINK);
           } else {
             window.dataLayerEvent(TRACKING.CANDIDATE_APP_SUBMITTED);
-            unlockedNavigation.next(APPLICANT_SUCCESS_LINK);
+            $unlockedNavigation.next(APPLICANT_SUCCESS_LINK);
           }
         } else {
           setModalError(MODAL_ERROR_TYPE.GENERAL);
@@ -213,6 +214,11 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     return false;
   };
 
+  const updateInterestValues = (values: DraftSubmissionType): void => {
+    setDraftFormValues({ ...draftFormValues, ...values });
+    setIsInterestFormVisible(false);
+  };
+
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center px-6">
       {/* Form Content */}
@@ -229,12 +235,12 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
 
         {/* Breadcrumb Timeline */}
         <ApplicantFormsNav
-          callUnlockedNavigation={unlockedNavigation.asObservable()}
+          $callUnlockedNavigation={$unlockedNavigation.asObservable()}
           isInterestFormStarted={isInterestFormStarted}
           isInterestFormVisible={isInterestFormVisible}
           router={router}
-          setIsInterestFormVisible={setIsInterestFormVisible}
-          submitExperienceForm={submitExperienceForm}
+          $updateExperienceForm={$updateExperienceForm}
+          $updateInterestForm={$updateInterestForm}
           useNavLock={isEditing}
         />
 
@@ -245,21 +251,23 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
         >
           {isInterestFormVisible ? (
             <InterestForm
+              $updateInterestValues={$updateInterestForm.asObservable()}
+              handleSave={handleSave}
+              handleSubmit={handleSubmit}
               isEditing={isEditing}
               savedForm={draftFormValues}
-              handleSubmit={handleSubmit}
-              handleSave={handleSave}
+              updateFormValues={updateInterestValues}
             />
           ) : (
             <ExperienceForm
+              $forceSubmitForm={$updateExperienceForm.asObservable()}
+              handleNext={handleNext}
+              handleSave={handleSave}
               isEditing={isEditing}
               savedForm={draftFormValues}
               showUploadErrorModal={() =>
                 setModalError(MODAL_ERROR_TYPE.UPLOAD)
               }
-              handleNext={handleNext}
-              handleSave={handleSave}
-              forceSubmitForm={submitExperienceForm.asObservable()}
             />
           )}
           {isEditing && (

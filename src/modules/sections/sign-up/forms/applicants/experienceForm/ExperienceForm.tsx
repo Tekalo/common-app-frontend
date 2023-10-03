@@ -33,21 +33,21 @@ import { useEffect, useRef } from 'react';
 import { Observable } from 'rxjs';
 
 export interface IExperienceForm {
+  $forceSubmitForm: Observable<void>;
   handleNext: (_values: ExperienceFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
-  showUploadErrorModal: () => void;
-  forceSubmitForm: Observable<void>;
   isEditing: boolean;
   savedForm: DraftSubmissionType | undefined;
+  showUploadErrorModal: () => void;
 }
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
+  $forceSubmitForm,
   handleNext,
   handleSave,
-  showUploadErrorModal,
-  forceSubmitForm,
   isEditing,
   savedForm,
+  showUploadErrorModal,
 }) => {
   useEffect(executeScroll, []);
 
@@ -65,7 +65,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
     }
   };
 
-  forceSubmitForm.subscribe(async () => {
+  $forceSubmitForm.subscribe(async () => {
     await formRef?.current?.submit();
     jumpToFirstErrorMessage();
   });

@@ -1,17 +1,25 @@
+import { Subject } from 'rxjs';
 import { IInterestForm } from './InterestForm';
 
+const $updateInterestValues = new Subject<void>();
+const voidFn = () => void {};
+
 const base: IInterestForm = {
+  $updateInterestValues,
+  handleSave: voidFn,
+  handleSubmit: voidFn,
   isEditing: false,
   savedForm: {},
-  handleSave: () => void {},
-  handleSubmit: () => void {},
+  updateFormValues: voidFn,
 };
 
 const editing: IInterestForm = {
-  isEditing: true,
-  savedForm: {},
+  $updateInterestValues,
   handleSave: () => void {},
   handleSubmit: () => void {},
+  isEditing: true,
+  savedForm: {},
+  updateFormValues: voidFn,
 };
 
 export const mockInterestFormProps = {

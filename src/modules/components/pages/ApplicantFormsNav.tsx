@@ -9,22 +9,22 @@ import { Observable, Observer } from 'rxjs';
 import { Url } from 'url';
 
 interface IApplicantFormsNav {
-  callUnlockedNavigation: Observable<string>;
+  $callUnlockedNavigation: Observable<string>;
+  $updateExperienceForm: Observer<void>;
+  $updateInterestForm: Observer<void>;
   isInterestFormStarted: boolean;
   isInterestFormVisible: boolean;
   router: SingletonRouter;
-  setIsInterestFormVisible: (isVisible: boolean) => void;
-  submitExperienceForm: Observer<void>;
   useNavLock: boolean;
 }
 
 const ApplicantFormsNav: React.FC<IApplicantFormsNav> = ({
-  callUnlockedNavigation,
+  $callUnlockedNavigation,
+  $updateExperienceForm,
+  $updateInterestForm,
   isInterestFormStarted,
   isInterestFormVisible,
   router,
-  setIsInterestFormVisible,
-  submitExperienceForm,
   useNavLock,
 }) => {
   const [delayedNavUrl, setDelayedNavUrl] = useState<string>();
@@ -33,7 +33,7 @@ const ApplicantFormsNav: React.FC<IApplicantFormsNav> = ({
 
   // This subscribes to the callUnlockedNavigation observer to fire unlockedNavigation whenever it is emitted
   useEffect(() => {
-    const sub = callUnlockedNavigation.subscribe((url: string) => {
+    const sub = $callUnlockedNavigation.subscribe((url: string) => {
       unlockedNavigation(url);
     });
 
@@ -93,7 +93,7 @@ const ApplicantFormsNav: React.FC<IApplicantFormsNav> = ({
           data-name="nav-experience-form"
           onClick={
             isInterestFormVisible
-              ? () => setIsInterestFormVisible(false)
+              ? () => $updateInterestForm.next()
               : () => void {}
           }
         >
@@ -110,7 +110,7 @@ const ApplicantFormsNav: React.FC<IApplicantFormsNav> = ({
           onClick={
             !isInterestFormVisible && isInterestFormStarted
               ? () => {
-                  submitExperienceForm.next();
+                  $updateExperienceForm.next();
                 }
               : () => void {}
           }

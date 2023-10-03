@@ -1,4 +1,4 @@
-import { ISelectItem } from '@/lib/types';
+import { DraftSubmissionType, ISelectItem } from '@/lib/types';
 import { FormInstance } from 'houseform';
 import { RefObject } from 'react';
 
@@ -56,6 +56,26 @@ export const capitalizeFirstWord = (str: string): string => {
   strArray[0] = strArray[0].toUpperCase();
 
   return strArray.join(' ');
+};
+
+export const convertStringFieldsToBool = <T,>(
+  value: T,
+  savedForm: DraftSubmissionType | undefined
+): T => {
+  const newVals = { ...savedForm, ...value };
+
+  // Bc of radio group weirdness, we need to convert the values here
+  if (typeof newVals.interestGovt === 'string') {
+    newVals.interestGovt = mapStringToBool(newVals.interestGovt);
+  }
+
+  if (typeof newVals.previousImpactExperience === 'string') {
+    newVals.previousImpactExperience = mapStringToBool(
+      newVals.previousImpactExperience
+    );
+  }
+
+  return newVals as T;
 };
 
 // Helper to create option selects given supporting Zod enums

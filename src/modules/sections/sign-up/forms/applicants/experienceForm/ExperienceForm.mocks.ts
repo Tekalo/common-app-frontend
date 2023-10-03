@@ -4,19 +4,19 @@ import { IExperienceForm } from './ExperienceForm';
 const forceValidateForm = new Subject<void>();
 
 const base: IExperienceForm = {
-  forceSubmitForm: forceValidateForm,
+  $forceSubmitForm: forceValidateForm,
+  handleNext: () => void {},
+  handleSave: () => void {},
   isEditing: false,
   savedForm: {},
-  handleSave: () => void {},
-  handleNext: () => void {},
   showUploadErrorModal: () => void {},
 };
 
 const editing: IExperienceForm = {
-  isEditing: true,
-  forceSubmitForm: forceValidateForm,
-  handleSave: () => void {},
+  $forceSubmitForm: forceValidateForm,
   handleNext: () => void {},
+  handleSave: () => void {},
+  isEditing: true,
   savedForm: {},
   showUploadErrorModal: () => void {},
 };
