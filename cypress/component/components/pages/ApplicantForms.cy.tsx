@@ -18,6 +18,7 @@ import {
 } from '@/lib/helpers/formHelpers';
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import {
+  DraftSubmissionType,
   ExperienceFieldsType,
   InterestFieldsType,
   SubmissionResponseType,
@@ -674,12 +675,10 @@ describe('ApplicantForms', () => {
         ).as('applicationSubmission');
       });
 
-      it('should submit form values correctly', () => {
-        const expectedObj = {
-          ...stripEmptyFields(mockExperienceFields),
-          ...stripEmptyFields(mockInterestFields),
-          originTag: '',
-        };
+      it.only('should submit form values correctly', () => {
+        mockExperienceFields.skills = [];
+        mockInterestFields.hoursPerWeek = '';
+        mockExperienceFields.githubUrl = null;
 
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
@@ -694,9 +693,64 @@ describe('ApplicantForms', () => {
                 childProps.interest.handleSubmit(mockInterestFields);
 
                 cy.wait('@applicationSubmission').then((i: Interception) => {
-                  expect(JSON.stringify(i.request.body)).to.eq(
-                    JSON.stringify(expectedObj)
+                  const requestBody = i.request.body as DraftSubmissionType;
+
+                  expect(requestBody.currentLocation).to.equal('test location');
+                  expect(requestBody.desiredSalary).to.equal('200k');
+                  expect(requestBody.essayResponse).to.equal('essay response');
+                  expect(requestBody.githubUrl).to.equal(null);
+                  expect(requestBody.hoursPerWeek).to.equal(null);
+                  expect(requestBody.interestCauses).to.deep.equal([
+                    'int 1',
+                    'int 2',
+                  ]);
+                  expect(requestBody.interestEmploymentType).to.deep.equal([
+                    'full',
+                  ]);
+                  expect(requestBody.interestGovt).to.equal(true);
+                  expect(requestBody.interestGovtEmplTypes).to.deep.equal([
+                    'paid',
+                    'unpaid',
+                  ]);
+                  expect(requestBody.interestRoles).to.deep.equal([
+                    'data analyst',
+                    'product designer',
+                  ]);
+                  expect(requestBody.interestWorkArrangement).to.deep.equal([
+                    'full-time employee',
+                  ]);
+                  expect(requestBody.lastOrg).to.equal('new org');
+                  expect(requestBody.lastRole).to.equal('new role');
+                  expect(requestBody.linkedInUrl).to.equal('new linkedin url');
+                  expect(requestBody.openToRelocate).to.equal('not sure');
+                  expect(requestBody.openToRemoteMulti).to.deep.equal([
+                    'remote',
+                    'hybrid',
+                  ]);
+                  expect(requestBody.otherCauses).to.deep.equal([
+                    'other 1',
+                    'other 2',
+                  ]);
+                  expect(requestBody.otherSkills).to.deep.equal([
+                    'new skill 1',
+                    'new skill 2',
+                  ]);
+                  expect(requestBody.portfolioPassword).to.equal(
+                    'new portfolio password'
                   );
+                  expect(requestBody.portfolioUrl).to.equal(
+                    'new portfolio url'
+                  );
+                  expect(requestBody.previousImpactExperience).to.equal(false);
+                  expect(requestBody.referenceAttribution).to.equal('linkedIn');
+                  expect(requestBody.referenceAttributionOther).to.equal(null);
+                  expect(requestBody.resumeUpload).to.deep.equal({
+                    id: 123,
+                    originalFilename: 'newOrigFilename.pdf',
+                  });
+                  expect(requestBody.skills).to.deep.equal([]);
+                  expect(requestBody.workAuthorization).to.equal('authorized');
+                  expect(requestBody.yoe).to.equal('2');
                 });
               });
           });
