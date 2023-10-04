@@ -7,6 +7,7 @@ import {
   SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
 import {
+  applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
 } from '@/lib/helpers/apiHelpers';
@@ -28,11 +29,16 @@ describe('Candidate Application', () => {
     cy.deleteTestData('candidate');
   });
 
-  it.only('Should submit a candidate, required fields only', () => {
+  it('Should submit a candidate, required fields only', () => {
     cy.intercept({
       method: 'GET',
       url: applicantSubmissionsEndpoint,
     }).as('getSubmission');
+
+    cy.intercept({
+      method: 'POST',
+      url: applicantDraftSubmissionsEndpoint,
+    }).as('draftSave');
 
     cy.intercept({
       method: 'POST',
@@ -52,74 +58,117 @@ describe('Candidate Application', () => {
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
     cy.wait('@getSubmission');
 
-    fillPreviousRole();
-    fillPreviousOrg();
-    fillYearsOfExperience();
-    uploadDocXFile();
+    cy.then(() => {
+      fillPreviousRole();
+      fillPreviousOrg();
+      fillYearsOfExperience();
+      uploadDocXFile();
 
-    saveAndConfirmExperienceForm();
-    submitExperienceForm();
+      saveAndConfirmExperienceForm();
 
-    fillAndCheckEmploymentType();
-    selectWorkArrangement(['advisor']);
-    selectRoleInterest(['software engineer']);
-    fillCurrentLocation();
-    fillOpenToRelocation();
-    fillOpenToRemoteMulti();
-    selectInterestCauses(['algorithmic fairness']);
-    fillEssay();
-    saveAndConfirmInterestForm();
-    submitInterestForm();
+      cy.wait('@draftSave').then((res) => {
+        const responseBody = res.response?.body as SubmissionResponseType;
+        const responseSubmission = responseBody.submission;
 
-    cy.wait('@applicantSubmission').then((res) => {
-      const responseBody = res.response?.body as SubmissionResponseType;
-      const responseSubmission = responseBody.submission;
+        expect(responseSubmission.currentLocation).to.equal(null);
+        expect(responseSubmission.desiredSalary).to.equal(null);
+        expect(responseSubmission.essayResponse).to.equal(null);
+        expect(responseSubmission.githubUrl).to.equal(null);
+        expect(responseSubmission.hoursPerWeek).to.equal(null);
+        expect(responseSubmission.interestCauses).to.deep.equal([]);
+        expect(responseSubmission.interestEmploymentType).to.deep.equal([]);
+        expect(responseSubmission.interestRoles).to.deep.equal([]);
+        expect(responseSubmission.interestWorkArrangement).to.deep.equal([]);
+        expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
+        expect(responseSubmission.lastRole).to.equal('Software Engineer');
+        expect(responseSubmission.linkedInUrl).to.equal(null);
+        expect(responseSubmission.openToRelocate).to.equal(null);
+        expect(responseSubmission.openToRemoteMulti).to.deep.equal([]);
+        expect(responseSubmission.otherCauses).to.deep.equal([]);
+        expect(responseSubmission.otherSkills).to.deep.equal([]);
+        expect(responseSubmission.portfolioPassword).to.equal(null);
+        expect(responseSubmission.portfolioUrl).to.equal(null);
+        expect(responseSubmission.previousImpactExperience).to.equal(null);
+        expect(responseSubmission.referenceAttribution).to.equal(null);
+        expect(responseSubmission.referenceAttributionOther).to.equal(null);
+        expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
+          'example_file.docx'
+        );
+        expect(responseSubmission.skills).to.deep.equal([]);
+        expect(responseSubmission.workAuthorization).to.equal(null);
+        expect(responseSubmission.yoe).to.equal('4');
+      });
 
-      expect(responseSubmission.currentLocation).to.equal('New York, New York');
-      expect(responseSubmission.desiredSalary).to.equal(null);
-      expect(responseSubmission.essayResponse).to.equal('Essay entry.');
-      expect(responseSubmission.githubUrl).to.equal(null);
-      expect(responseSubmission.hoursPerWeek).to.equal(null);
-      expect(responseSubmission.interestCauses).to.deep.equal([
-        'algorithmic fairness',
-      ]);
-      expect(responseSubmission.interestEmploymentType).to.deep.equal([
-        'full',
-        'part',
-      ]);
-      expect(responseSubmission.interestRoles).to.deep.equal([
-        'software engineer',
-      ]);
-      expect(responseSubmission.interestWorkArrangement).to.deep.equal([
-        'advisor',
-      ]);
-      expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
-      expect(responseSubmission.lastRole).to.equal('Software Engineer');
-      expect(responseSubmission.linkedInUrl).to.equal(null);
-      expect(responseSubmission.openToRelocate).to.equal('yes');
-      expect(responseSubmission.openToRemoteMulti).to.deep.equal(['remote']);
-      expect(responseSubmission.otherCauses).to.deep.equal([]);
-      expect(responseSubmission.otherSkills).to.deep.equal([]);
-      expect(responseSubmission.portfolioPassword).to.equal(null);
-      expect(responseSubmission.portfolioUrl).to.equal(null);
-      expect(responseSubmission.previousImpactExperience).to.equal(false);
-      expect(responseSubmission.referenceAttribution).to.equal(null);
-      expect(responseSubmission.referenceAttributionOther).to.equal(null);
-      expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
-        'example_file.docx'
-      );
-      expect(responseSubmission.skills).to.deep.equal([]);
-      expect(responseSubmission.workAuthorization).to.equal(null);
-      expect(responseSubmission.yoe).to.equal('4');
+      submitExperienceForm();
+
+      fillAndCheckEmploymentType();
+      selectWorkArrangement(['advisor']);
+      selectRoleInterest(['software engineer']);
+      fillCurrentLocation();
+      fillOpenToRelocation();
+      fillOpenToRemoteMulti();
+      selectInterestCauses(['algorithmic fairness']);
+      fillEssay();
+      saveAndConfirmInterestForm();
+      submitInterestForm();
+
+      cy.wait('@applicantSubmission').then((res) => {
+        const responseBody = res.response?.body as SubmissionResponseType;
+        const responseSubmission = responseBody.submission;
+
+        expect(responseSubmission.currentLocation).to.equal(
+          'New York, New York'
+        );
+        expect(responseSubmission.desiredSalary).to.equal(null);
+        expect(responseSubmission.essayResponse).to.equal('Essay entry.');
+        expect(responseSubmission.githubUrl).to.equal(null);
+        expect(responseSubmission.hoursPerWeek).to.equal(null);
+        expect(responseSubmission.interestCauses).to.deep.equal([
+          'algorithmic fairness',
+        ]);
+        expect(responseSubmission.interestEmploymentType).to.deep.equal([
+          'full',
+          'part',
+        ]);
+        expect(responseSubmission.interestRoles).to.deep.equal([
+          'software engineer',
+        ]);
+        expect(responseSubmission.interestWorkArrangement).to.deep.equal([
+          'advisor',
+        ]);
+        expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
+        expect(responseSubmission.lastRole).to.equal('Software Engineer');
+        expect(responseSubmission.linkedInUrl).to.equal(null);
+        expect(responseSubmission.openToRelocate).to.equal('yes');
+        expect(responseSubmission.openToRemoteMulti).to.deep.equal(['remote']);
+        expect(responseSubmission.otherCauses).to.deep.equal([]);
+        expect(responseSubmission.otherSkills).to.deep.equal([]);
+        expect(responseSubmission.portfolioPassword).to.equal(null);
+        expect(responseSubmission.portfolioUrl).to.equal(null);
+        expect(responseSubmission.previousImpactExperience).to.equal(false);
+        expect(responseSubmission.referenceAttribution).to.equal(null);
+        expect(responseSubmission.referenceAttributionOther).to.equal(null);
+        expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
+          'example_file.docx'
+        );
+        expect(responseSubmission.skills).to.deep.equal([]);
+        expect(responseSubmission.workAuthorization).to.equal(null);
+        expect(responseSubmission.yoe).to.equal('4');
+      });
+
+      // Confirm success
+      cy.url().should('include', APPLICANT_SUCCESS_LINK);
     });
-
-    // Confirm success
-    cy.url().should('include', APPLICANT_SUCCESS_LINK);
   });
 
   it('Should submit a candidate, all fields', () => {
     cy.intercept({
       method: 'GET',
+      url: applicantSubmissionsEndpoint,
+    }).as('getSubmission');
+
+    cy.intercept({
+      method: 'POST',
       url: applicantSubmissionsEndpoint,
     }).as('applicantSubmission');
 
@@ -137,64 +186,150 @@ describe('Candidate Application', () => {
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
-    cy.wait('@applicantSubmission');
+    cy.wait('@getSubmission');
 
-    fillPreviousRole();
-    fillPreviousOrg();
-    fillYearsOfExperience();
-    fillSkills([...SKILL_ENUM_OPTIONS]);
-    fillOtherSkills();
-    fillLinkedIn();
-    fillPortfolio();
-    fillPortfolioPwd();
-    fillGithub();
-    uploadDocXFile();
+    cy.then(() => {
+      fillPreviousRole();
+      fillPreviousOrg();
+      fillYearsOfExperience();
+      fillSkills([...SKILL_ENUM_OPTIONS]);
+      fillOtherSkills();
+      fillLinkedIn();
+      fillPortfolio();
+      fillPortfolioPwd();
+      fillGithub();
+      uploadDocXFile();
 
-    saveAndConfirmExperienceForm();
-    submitExperienceForm();
+      saveAndConfirmExperienceForm();
+      submitExperienceForm();
 
-    fillAndCheckEmploymentType();
-    selectWorkArrangement([
-      'advisor',
-      'consultant',
-      'contractor',
-      'internship',
-      'volunteer',
-    ]);
-    fillHoursPerWeek();
-    selectRoleInterest([
-      'data analyst',
-      'data scientist',
-      'engineering manager',
-      'product designer',
-      'product manager',
-      'software engineer',
-      'software engineer - backend',
-      'software engineer - frontend',
-      'ux/ui designer',
-      'ux researcher',
-      'vp of engineering (or similar)',
-      'vp of product (or similar)',
-    ]);
-    fillCurrentLocation();
-    fillOpenToRelocation();
-    fillOpenToRemoteMulti();
-    fillDesiredSalary();
-    selectInterestCauses();
-    fillOtherCauses();
-    selectWorkAuthorization();
-    selectInterestGovt();
-    selectInterestGovtTypes();
-    fillPreviousExperience();
-    fillEssay();
-    selectAttribution('other');
-    fillAttributionOther();
+      fillAndCheckEmploymentType();
+      selectWorkArrangement([
+        'advisor',
+        'consultant',
+        'contractor',
+        'internship',
+        'volunteer',
+      ]);
+      fillHoursPerWeek();
+      selectRoleInterest([
+        'data analyst',
+        'data scientist',
+        'engineering manager',
+        'product designer',
+        'product manager',
+        'software engineer',
+        'software engineer - backend',
+        'software engineer - frontend',
+        'ux/ui designer',
+        'ux researcher',
+        'vp of engineering (or similar)',
+        'vp of product (or similar)',
+      ]);
+      fillCurrentLocation();
+      fillOpenToRelocation();
+      fillOpenToRemoteMulti();
+      fillDesiredSalary();
+      selectInterestCauses();
+      fillOtherCauses();
+      selectWorkAuthorization();
+      selectInterestGovt();
+      selectInterestGovtTypes();
+      fillPreviousExperience();
+      fillEssay();
+      selectAttribution('other');
+      fillAttributionOther();
 
-    saveAndConfirmInterestForm();
-    submitInterestForm();
+      saveAndConfirmInterestForm();
+      submitInterestForm();
 
-    // Confirm success
-    cy.url().should('include', APPLICANT_SUCCESS_LINK);
+      cy.wait('@applicantSubmission').then((res) => {
+        const responseBody = res.response?.body as SubmissionResponseType;
+        const responseSubmission = responseBody.submission;
+
+        expect(responseSubmission.currentLocation).to.equal(
+          'New York, New York'
+        );
+        expect(responseSubmission.desiredSalary).to.equal('$200,000');
+        expect(responseSubmission.essayResponse).to.equal('Essay entry.');
+        expect(responseSubmission.githubUrl).to.equal('github');
+        expect(responseSubmission.hoursPerWeek).to.equal('40hrs');
+        expect(responseSubmission.interestEmploymentType).to.deep.equal([
+          'full',
+          'part',
+        ]);
+        expect(responseSubmission.interestGovt).to.equal(true);
+        expect(responseSubmission.interestGovtEmplTypes).to.deep.equal([
+          'paid',
+          'unpaid',
+        ]);
+        expect(responseSubmission.interestRoles).to.deep.equal([
+          'data analyst',
+          'data scientist',
+          'engineering manager',
+          'product designer',
+          'product manager',
+          'software engineer',
+          'software engineer - backend',
+          'software engineer - frontend',
+          'ux/ui designer',
+          'ux researcher',
+          'vp of engineering (or similar)',
+          'vp of product (or similar)',
+        ]);
+        expect(responseSubmission.interestWorkArrangement).to.deep.equal([
+          'advisor',
+          'consultant',
+          'contractor',
+          'internship',
+          'volunteer',
+        ]);
+        expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
+        expect(responseSubmission.lastRole).to.equal('Software Engineer');
+        expect(responseSubmission.linkedInUrl).to.equal('l');
+        expect(responseSubmission.openToRelocate).to.equal('yes');
+        expect(responseSubmission.openToRemoteMulti).to.deep.equal(['remote']);
+        expect(responseSubmission.otherCauses).to.deep.equal([
+          'otherCause1',
+          'otherCause2',
+        ]);
+        expect(responseSubmission.otherSkills).to.deep.equal([
+          'otherSkill1',
+          'otherSkill2',
+        ]);
+        expect(responseSubmission.portfolioPassword).to.equal('portfolioPwd');
+        expect(responseSubmission.portfolioUrl).to.equal('portfolioUrl');
+        expect(responseSubmission.previousImpactExperience).to.equal(true);
+        expect(responseSubmission.referenceAttribution).to.equal('other');
+        expect(responseSubmission.referenceAttributionOther).to.equal(
+          'Other Attribution'
+        );
+        expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
+          'example_file.docx'
+        );
+        expect(responseSubmission.skills).to.deep.equal([
+          'react',
+          'javascript',
+          'python',
+          'java',
+          'sql',
+          'privacy',
+          'security',
+          'devops',
+          'figma',
+          'sketch',
+          'prototyping',
+          'user research',
+          'product development',
+          'project management',
+        ]);
+        expect(responseSubmission.workAuthorization).to.equal('authorized');
+        expect(responseSubmission.yoe).to.equal('4');
+      });
+
+      // Confirm success
+      cy.url().should('include', APPLICANT_SUCCESS_LINK);
+    });
   });
 
   function fillName(): void {

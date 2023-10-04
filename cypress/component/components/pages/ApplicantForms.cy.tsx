@@ -675,7 +675,7 @@ describe('ApplicantForms', () => {
         ).as('applicationSubmission');
       });
 
-      it.only('should submit form values correctly', () => {
+      it('should submit form values correctly', () => {
         mockExperienceFields.skills = [];
         mockInterestFields.hoursPerWeek = '';
         mockExperienceFields.githubUrl = null;
