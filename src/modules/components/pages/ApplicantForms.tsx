@@ -10,10 +10,7 @@ import {
   TRACKING,
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
-import {
-  nullifyEmptyFields,
-  stripEmptyFields,
-} from '@/lib/helpers/formHelpers';
+import { nullifyEmptyFields } from '@/lib/helpers/formHelpers';
 import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
@@ -130,10 +127,15 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
   const handleSave = async (values: DraftSubmissionType) => {
     const newFormState = nullifyEmptyFields({ ...draftFormValues, ...values });
+
+    if (Object.hasOwn(newFormState, 'originTag')) {
+      delete newFormState.originTag;
+    }
+
     setDraftFormValues(newFormState);
 
     submissionCtx
-      .saveCandidateDraft(stripEmptyFields(newFormState), await getAuthToken())
+      .saveCandidateDraft(newFormState, await getAuthToken())
       .then((res) => {
         if (res.ok) {
           setShowSaveModal(true);
