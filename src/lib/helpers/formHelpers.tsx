@@ -88,6 +88,15 @@ export const createOptionList = (
   }));
 };
 
+export const fireOnInputEvent = (target?: HTMLElement | null): void => {
+  target?.dispatchEvent(
+    new Event('input', {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+};
+
 export const getErrorMessageId = (inputId: string): string =>
   `errorMessage-${inputId}`;
 

@@ -1,55 +1,57 @@
-import { getErrorMessageId } from '@/lib/helpers/formHelpers';
+import { fireOnInputEvent, getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 export interface IMultiSelect {
-  errors: string[];
-  name: string;
-  value: string[];
-  label: string;
-  placeholder?: string;
-  selectionLabelSingle?: string;
-  selectionLabelMulti?: string;
-  labelStyles?: string;
   buttonStyles?: string;
-  optionStyles?: string;
+  disabled?: boolean;
+  errors: string[];
+  label: string;
+  labelStyles?: string;
   limit?: number;
   listOptions: ISelectItem[];
-  setValue: (_val: string[]) => void;
+  name: string;
   onBlur?: () => void;
-  disabled?: boolean;
+  optionStyles?: string;
+  placeholder?: string;
+  selectionLabelMulti?: string;
+  selectionLabelSingle?: string;
+  setValue: (_val: string[]) => void;
+  value: string[];
 }
 
 const MultiSelect: React.FC<IMultiSelect> = ({
-  errors,
+  buttonStyles,
   disabled,
-  name,
-  value,
-  placeholder,
-  selectionLabelSingle,
-  selectionLabelMulti,
+  errors,
   label,
+  labelStyles,
   limit,
   listOptions: selectOptions,
-  labelStyles,
-  optionStyles,
-  buttonStyles,
+  name,
+  placeholder,
+  selectionLabelMulti,
+  selectionLabelSingle,
   setValue,
-  onBlur,
+  value,
 }) => {
   const canSelectMore = limit ? value.length < limit : true;
+  const eventTargetName = `${name}-target`;
 
   return (
     <Listbox
       disabled={disabled}
       value={value}
-      onChange={setValue}
+      onChange={(val) => {
+        setValue(val);
+        fireOnInputEvent(document.getElementById(eventTargetName));
+      }}
       name={name}
       multiple={true}
     >
       {({ open, value }) => (
-        <div className="text-left">
+        <div id={eventTargetName} className="text-left">
           <Listbox.Label
             data-name="label"
             className={`text-component-extra-small ${
