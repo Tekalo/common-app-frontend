@@ -13,6 +13,7 @@ import {
 import {
   nullifyEmptyFields,
   stripEmptyFields,
+  voidFn,
 } from '@/lib/helpers/formHelpers';
 import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
@@ -245,10 +246,10 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
           $callUnlockedNavigation={$unlockedNavigation.asObservable()}
           $updateExperienceForm={$updateExperienceForm}
           $updateInterestForm={$updateInterestForm}
+          hasUnsavedChanges={hasUnsavedChanges}
           isInterestFormStarted={isInterestFormStarted}
           isInterestFormVisible={isInterestFormVisible}
           router={router}
-          unsavedChanges={hasUnsavedChanges}
           useNavLock={isEditing}
         />
 
@@ -260,7 +261,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
           {isInterestFormVisible ? (
             <InterestForm
               $updateInterestValues={$updateInterestForm.asObservable()}
-              changeHasOcurred={changeHasOcurred}
+              changeHasOcurred={isEditing ? changeHasOcurred : voidFn}
               handleSave={handleSave}
               handleSubmit={handleSubmit}
               isEditing={isEditing}
@@ -270,7 +271,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
           ) : (
             <ExperienceForm
               $forceSubmitForm={$updateExperienceForm.asObservable()}
-              changeHasOcurred={changeHasOcurred}
+              changeHasOcurred={isEditing ? changeHasOcurred : voidFn}
               handleNext={handleNext}
               handleSave={handleSave}
               isEditing={isEditing}
