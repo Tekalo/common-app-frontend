@@ -1,11 +1,12 @@
+import { voidFn } from '@/lib/helpers/formHelpers';
 import { Subject } from 'rxjs';
 import { IInterestForm } from './InterestForm';
 
 const $updateInterestValues = new Subject<void>();
-const voidFn = () => void {};
 
 const base: IInterestForm = {
   $updateInterestValues,
+  changeHasOcurred: voidFn,
   handleSave: voidFn,
   handleSubmit: voidFn,
   isEditing: false,
@@ -15,8 +16,9 @@ const base: IInterestForm = {
 
 const editing: IInterestForm = {
   $updateInterestValues,
-  handleSave: () => void {},
-  handleSubmit: () => void {},
+  changeHasOcurred: voidFn,
+  handleSave: voidFn,
+  handleSubmit: voidFn,
   isEditing: true,
   savedForm: {},
   updateFormValues: voidFn,

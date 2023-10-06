@@ -73,6 +73,7 @@ describe('ApplicantForms', () => {
 
   Cypress.Commands.add('mountApplicantForms', (auth0Context, props) => {
     const MockExperienceForm: React.FC<IExperienceForm> = ({
+      changeHasOcurred,
       handleNext,
       handleSave,
       isEditing,
@@ -81,6 +82,7 @@ describe('ApplicantForms', () => {
       $forceSubmitForm,
     }) => {
       setExpProps(
+        changeHasOcurred,
         handleNext,
         handleSave,
         isEditing,
@@ -99,6 +101,7 @@ describe('ApplicantForms', () => {
 
     const MockInterestForm: React.FC<IInterestForm> = ({
       $updateInterestValues,
+      changeHasOcurred,
       handleSave,
       handleSubmit,
       isEditing,
@@ -106,6 +109,7 @@ describe('ApplicantForms', () => {
       updateFormValues,
     }) => {
       setIntProps(
+        changeHasOcurred,
         handleSave,
         handleSubmit,
         isEditing,
@@ -175,6 +179,7 @@ describe('ApplicantForms', () => {
       .as('setExpProps')
       .callsFake(
         (
+          changeHasOcurred,
           handleNext,
           handleSave,
           isEditing,
@@ -183,6 +188,7 @@ describe('ApplicantForms', () => {
         ) => {
           childProps.experience = {
             $forceSubmitForm: new Subject<void>(),
+            changeHasOcurred,
             handleNext,
             handleSave,
             isEditing,
@@ -196,9 +202,17 @@ describe('ApplicantForms', () => {
       .stub()
       .as('setIntProps')
       .callsFake(
-        (handleSave, handleSubmit, isEditing, savedForm, updateFormValues) => {
+        (
+          changeHasOcurred,
+          handleSave,
+          handleSubmit,
+          isEditing,
+          savedForm,
+          updateFormValues
+        ) => {
           childProps.interest = {
             $updateInterestValues: new Subject<void>(),
+            changeHasOcurred,
             handleSave,
             handleSubmit,
             isEditing,
@@ -877,7 +891,7 @@ describe('ApplicantForms', () => {
 
       cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
-      cy.get('@routerOn').should('have.been.calledOnce');
+      cy.get('@routerOn').should('not.have.been.called');
       cy.wait('@getSubmissions');
 
       cy.get('@setExpProps')
@@ -896,6 +910,40 @@ describe('ApplicantForms', () => {
                 'have.been.calledOnceWithExactly',
                 ACCOUNT_LINK
               );
+            });
+        });
+    });
+
+    it('should set navLock if changes are made to the experience form', () => {
+      cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+      cy.wait('@getSubmissions');
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.changeHasOcurred();
+
+          cy.get('@routerOn').should('have.been.calledOnce');
+        });
+    });
+
+    it('should set navLock if changes are made to the interest form', () => {
+      cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
+
+      cy.wait('@getSubmissions');
+
+      cy.get('@setExpProps')
+        .should('have.been.calledTwice')
+        .then(() => {
+          childProps.experience.handleNext(mockExperienceFields);
+
+          cy.get('@setIntProps')
+            .should('have.been.calledOnce')
+            .then(() => {
+              childProps.interest.changeHasOcurred();
+
+              cy.get('@routerOn').should('have.been.calledOnce');
             });
         });
     });

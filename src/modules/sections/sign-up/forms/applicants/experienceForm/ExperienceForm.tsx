@@ -34,6 +34,7 @@ import { Observable } from 'rxjs';
 
 export interface IExperienceForm {
   $forceSubmitForm: Observable<void>;
+  changeHasOcurred: () => void;
   handleNext: (_values: ExperienceFieldsType) => void;
   handleSave: (_values: DraftSubmissionType) => void;
   isEditing: boolean;
@@ -43,6 +44,7 @@ export interface IExperienceForm {
 
 const ExperienceForm: React.FC<IExperienceForm> = ({
   $forceSubmitForm,
+  changeHasOcurred,
   handleNext,
   handleSave,
   isEditing,
@@ -78,6 +80,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
       {({ isSubmitted, submit, errors }) => {
         return (
           <form
+            onInput={() => changeHasOcurred()}
             onSubmit={async (e) => {
               e.preventDefault();
               await submit();

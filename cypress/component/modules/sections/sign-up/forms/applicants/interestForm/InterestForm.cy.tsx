@@ -19,6 +19,7 @@ Cypress.Commands.add('mountInterestForm', (props: IInterestForm) => {
     <DndProvider backend={TouchBackend}>
       <InterestForm
         $updateInterestValues={props.$updateInterestValues}
+        changeHasOcurred={props.changeHasOcurred}
         handleSave={props.handleSave}
         handleSubmit={props.handleSubmit}
         isEditing={props.isEditing}
@@ -45,10 +46,11 @@ describe('Applicant <InterestForm />', () => {
     beforeEach(() => {
       props = {
         $updateInterestValues,
-        isEditing: false,
-        savedForm: undefined,
+        changeHasOcurred: voidFn,
         handleSave: voidFn,
         handleSubmit: voidFn,
+        isEditing: false,
+        savedForm: undefined,
         updateFormValues: cy.stub().as('updateFormValues'),
       };
     });
@@ -198,6 +200,7 @@ describe('Applicant <InterestForm />', () => {
 
       props = {
         $updateInterestValues,
+        changeHasOcurred: voidFn,
         handleSave: cy.stub().as('save'),
         handleSubmit: voidFn,
         isEditing: false,
@@ -306,6 +309,7 @@ describe('Applicant <InterestForm />', () => {
 
       props = {
         $updateInterestValues,
+        changeHasOcurred: voidFn,
         handleSave: cy.stub().as('save'),
         handleSubmit: voidFn,
         isEditing: false,
@@ -337,6 +341,7 @@ describe('Applicant <InterestForm />', () => {
 
       props = {
         $updateInterestValues,
+        changeHasOcurred: voidFn,
         handleSave: voidFn,
         handleSubmit: cy.stub().as('submit'),
         isEditing: false,
@@ -428,6 +433,7 @@ describe('Applicant <InterestForm />', () => {
         isEditing: true,
         savedForm: mockSavedForm,
         updateFormValues: cy.stub().as('updateFormValues'),
+        changeHasOcurred: cy.stub().as('changeHasOcurred'),
       };
     });
 
@@ -444,6 +450,14 @@ describe('Applicant <InterestForm />', () => {
         'have.text',
         APPLICANT_FORM_TEXT.EDIT.SUBMIT_EDITS
       );
+    });
+
+    it('should call changeHasOcurred when an input value changes', () => {
+      cy.mountInterestForm(props);
+
+      cy.get('input[name=input-hoursPerWeek]').fastType('1');
+
+      cy.get('@changeHasOcurred').should('have.been.calledOnce', true);
     });
   });
 

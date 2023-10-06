@@ -10,7 +10,10 @@ import {
   TRACKING,
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
-import { nullifyEmptyFields } from '@/lib/helpers/formHelpers';
+import {
+  nullifyEmptyFields,
+  voidFn,
+} from '@/lib/helpers/formHelpers';
 import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
@@ -50,6 +53,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   // Form States
   const [isInterestFormStarted, setIsInterestFormStarted] = useState(false);
   const [isInterestFormVisible, setIsInterestFormVisible] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   // Modals
   const [modalError, setModalError] = useState<MODAL_ERROR_TYPE>();
@@ -87,6 +91,12 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
         return UPLOAD_ERROR_TEXT.header;
       default:
         return '';
+    }
+  };
+
+  const changeHasOcurred = () => {
+    if (!hasUnsavedChanges) {
+      setHasUnsavedChanges(true);
     }
   };
 
@@ -238,11 +248,12 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
         {/* Breadcrumb Timeline */}
         <ApplicantFormsNav
           $callUnlockedNavigation={$unlockedNavigation.asObservable()}
+          $updateExperienceForm={$updateExperienceForm}
+          $updateInterestForm={$updateInterestForm}
+          hasUnsavedChanges={hasUnsavedChanges}
           isInterestFormStarted={isInterestFormStarted}
           isInterestFormVisible={isInterestFormVisible}
           router={router}
-          $updateExperienceForm={$updateExperienceForm}
-          $updateInterestForm={$updateInterestForm}
           useNavLock={isEditing}
         />
 
@@ -254,6 +265,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
           {isInterestFormVisible ? (
             <InterestForm
               $updateInterestValues={$updateInterestForm.asObservable()}
+              changeHasOcurred={isEditing ? changeHasOcurred : voidFn}
               handleSave={handleSave}
               handleSubmit={handleSubmit}
               isEditing={isEditing}
@@ -263,6 +275,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
           ) : (
             <ExperienceForm
               $forceSubmitForm={$updateExperienceForm.asObservable()}
+              changeHasOcurred={isEditing ? changeHasOcurred : voidFn}
               handleNext={handleNext}
               handleSave={handleSave}
               isEditing={isEditing}
