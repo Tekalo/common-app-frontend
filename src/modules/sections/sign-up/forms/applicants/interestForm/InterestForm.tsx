@@ -63,22 +63,23 @@ import { useEffect, useRef, useState } from 'react';
 import { Observable } from 'rxjs';
 
 export interface IInterestForm {
-  handleSubmit: (_values: InterestFieldsType) => void;
+  $updateInterestValues: Observable<void>;
+  changeHasOcurred: () => void;
   handleSave: (_values: DraftSubmissionType) => void;
-  updateFormValues: (_values: DraftSubmissionType) => void;
-
+  handleSubmit: (_values: InterestFieldsType) => void;
   isEditing: boolean;
   savedForm: DraftSubmissionType | undefined;
-  $updateInterestValues: Observable<void>;
+  updateFormValues: (_values: DraftSubmissionType) => void;
 }
 
 const InterestForm: React.FC<IInterestForm> = ({
-  handleSubmit,
+  $updateInterestValues,
+  changeHasOcurred,
   handleSave,
-  updateFormValues,
+  handleSubmit,
   isEditing,
   savedForm,
-  $updateInterestValues,
+  updateFormValues,
 }) => {
   useEffect(executeScroll, []);
 
@@ -129,6 +130,7 @@ const InterestForm: React.FC<IInterestForm> = ({
     >
       {({ isSubmitted, submit, value, errors }) => (
         <form
+          onInput={() => changeHasOcurred()}
           onSubmit={(e) => {
             e.preventDefault();
             submit().then(() => {

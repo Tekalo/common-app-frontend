@@ -9,12 +9,13 @@ import { Subject } from 'rxjs';
 Cypress.Commands.add('mountExperienceForm', (props: IExperienceForm) => {
   cy.mount(
     <ExperienceForm
-      isEditing={props.isEditing}
+      $forceSubmitForm={props.$forceSubmitForm}
+      changeHasOcurred={props.changeHasOcurred}
       handleNext={props.handleNext}
       handleSave={props.handleSave}
+      isEditing={props.isEditing}
       savedForm={props.savedForm}
       showUploadErrorModal={props.showUploadErrorModal}
-      $forceSubmitForm={props.$forceSubmitForm}
     />
   );
 });
@@ -35,10 +36,11 @@ describe('Experience Form', () => {
     beforeEach(() => {
       props = {
         $forceSubmitForm: forceValidateForm.asObservable(),
-        isEditing: false,
-        savedForm: undefined,
+        changeHasOcurred: voidFn,
         handleNext: voidFn,
         handleSave: voidFn,
+        isEditing: false,
+        savedForm: undefined,
         showUploadErrorModal: voidFn,
       };
     });
@@ -86,10 +88,11 @@ describe('Experience Form', () => {
 
       props = {
         $forceSubmitForm: forceValidateForm.asObservable(),
-        isEditing: false,
-        savedForm: mockSavedForm,
+        changeHasOcurred: voidFn,
         handleNext: voidFn,
         handleSave: voidFn,
+        isEditing: false,
+        savedForm: mockSavedForm,
         showUploadErrorModal: voidFn,
       };
     });
@@ -190,9 +193,10 @@ describe('Experience Form', () => {
 
       props = {
         $forceSubmitForm: forceValidateForm.asObservable(),
-        isEditing: false,
+        changeHasOcurred: voidFn,
         handleNext: cy.stub().as('next'),
         handleSave: cy.stub().as('save'),
+        isEditing: false,
         savedForm: mockSavedForm,
         showUploadErrorModal: voidFn,
       };
@@ -271,15 +275,16 @@ describe('Experience Form', () => {
     });
   });
 
-  describe('editing', () => {
+  describe('isEditing', () => {
     beforeEach(() => {
       mockSavedForm = JSON.parse(JSON.stringify(fullCandidateExperience));
 
       props = {
         $forceSubmitForm: forceValidateForm.asObservable(),
-        isEditing: true,
+        changeHasOcurred: cy.stub().as('changeHasOcurred'),
         handleNext: cy.stub().as('next'),
         handleSave: cy.stub().as('save'),
+        isEditing: true,
         savedForm: mockSavedForm,
         showUploadErrorModal: voidFn,
       };
@@ -343,6 +348,14 @@ describe('Experience Form', () => {
       } else {
         expect(true).to.eq(false);
       }
+    });
+
+    it('should call changeHasOcurred when an input value changes', () => {
+      cy.mountExperienceForm(props);
+
+      cy.get('input[name=input-lastRole]').fastType('1');
+
+      cy.get('@changeHasOcurred').should('have.been.calledOnce', true);
     });
   });
 });

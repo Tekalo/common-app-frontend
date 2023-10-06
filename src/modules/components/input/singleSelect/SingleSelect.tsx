@@ -1,5 +1,5 @@
 import Tooltip from '@/components/tooltip/Tooltip';
-import { getErrorMessageId } from '@/lib/helpers/formHelpers';
+import { fireOnInputEvent, getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import {
@@ -9,42 +9,44 @@ import {
 } from '@heroicons/react/24/outline';
 
 export interface ISingleSelect {
-  errors: string[];
-  label: string;
-  listOptions: ISelectItem[];
-  name: string;
-  setValue: (_val: string) => void;
-  value: string;
   buttonClassName?: string;
   disabled?: boolean;
+  errors: string[];
+  label: string;
   labelClassName?: string;
+  listOptions: ISelectItem[];
+  name: string;
   onBlur?: () => void;
   onChange?: (val: string) => void;
   optionsClassName?: string;
   placeholder?: string;
+  setValue: (_val: string) => void;
   tooltipText?: string;
+  value: string;
 }
 
 const SingleSelect: React.FC<ISingleSelect> = ({
-  errors,
-  name,
-  value,
-  placeholder,
-  setValue,
-  label: labelText,
-  listOptions,
-  labelClassName,
-  optionsClassName,
   buttonClassName,
   disabled,
-  tooltipText,
+  errors,
+  label: labelText,
+  labelClassName,
+  listOptions,
+  name,
   onChange,
+  placeholder,
+  setValue,
+  tooltipText,
+  value,
 }) => {
+  const eventTargetName = `${name}-target`;
+
   return (
     <Listbox
       value={value}
       onChange={(val) => {
         setValue(val);
+        fireOnInputEvent(document.getElementById(eventTargetName));
 
         if (onChange) {
           onChange(val);
@@ -54,7 +56,7 @@ const SingleSelect: React.FC<ISingleSelect> = ({
       disabled={disabled}
     >
       {({ open }) => (
-        <div className="text-left">
+        <div id={eventTargetName} className="text-left">
           <Listbox.Label
             className={`flex items-center text-component-extra-small text-black-text  ${labelClassName}}`}
             htmlFor={name}

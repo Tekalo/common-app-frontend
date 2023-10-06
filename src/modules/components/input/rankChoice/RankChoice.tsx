@@ -1,4 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
+import { fireOnInputEvent } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import update from 'immutability-helper';
 import { useCallback, useEffect, useState } from 'react';
@@ -19,12 +20,15 @@ const RankChoice: React.FC<IRankChoice> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [cards, setCards] = useState(mapItemsToCards(items));
 
+  const eventTargetName = `${name}-target`;
+
   useEffect(() => {
     setCards(mapItemsToCards(items));
   }, [items]);
 
   const valueUpdated = () => {
     setValue(cards.map((c) => c.value));
+    fireOnInputEvent(document.getElementById(eventTargetName));
   };
 
   function mapItemsToCards(items: ISelectItem[]): ISelectItem[] {
@@ -76,7 +80,7 @@ const RankChoice: React.FC<IRankChoice> = ({
   const dragStyles = `${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`;
 
   return (
-    <div className="max-w-[500px] text-left">
+    <div id={eventTargetName} className="max-w-[500px] text-left">
       <div className="mb-4 text-component-extra-small" id={name}>
         {label}
       </div>

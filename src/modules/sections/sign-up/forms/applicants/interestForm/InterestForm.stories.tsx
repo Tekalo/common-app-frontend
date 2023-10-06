@@ -5,6 +5,7 @@ import { mockInterestFormProps } from './InterestForm.mocks';
 
 const DefaultComponent: React.FC<IInterestForm> = ({
   $updateInterestValues,
+  changeHasOcurred,
   handleSave,
   handleSubmit,
   isEditing,
@@ -21,6 +22,7 @@ const DefaultComponent: React.FC<IInterestForm> = ({
           savedForm={savedForm}
           $updateInterestValues={$updateInterestValues}
           updateFormValues={updateFormValues}
+          changeHasOcurred={changeHasOcurred}
         />
       </div>
     </DndProvider>

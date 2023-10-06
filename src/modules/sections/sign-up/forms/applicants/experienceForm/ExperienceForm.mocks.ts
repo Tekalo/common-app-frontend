@@ -1,3 +1,4 @@
+import { voidFn } from '@/lib/helpers/formHelpers';
 import { Subject } from 'rxjs';
 import { IExperienceForm } from './ExperienceForm';
 
@@ -5,20 +6,22 @@ const forceValidateForm = new Subject<void>();
 
 const base: IExperienceForm = {
   $forceSubmitForm: forceValidateForm,
-  handleNext: () => void {},
-  handleSave: () => void {},
+  changeHasOcurred: voidFn,
+  handleNext: voidFn,
+  handleSave: voidFn,
   isEditing: false,
   savedForm: {},
-  showUploadErrorModal: () => void {},
+  showUploadErrorModal: voidFn,
 };
 
 const editing: IExperienceForm = {
   $forceSubmitForm: forceValidateForm,
-  handleNext: () => void {},
-  handleSave: () => void {},
+  changeHasOcurred: voidFn,
+  handleNext: voidFn,
+  handleSave: voidFn,
   isEditing: true,
   savedForm: {},
-  showUploadErrorModal: () => void {},
+  showUploadErrorModal: voidFn,
 };
 
 export const mockExperienceFormProps = {

@@ -12,6 +12,7 @@ interface IApplicantFormsNav {
   $callUnlockedNavigation: Observable<string>;
   $updateExperienceForm: Observer<void>;
   $updateInterestForm: Observer<void>;
+  hasUnsavedChanges: boolean;
   isInterestFormStarted: boolean;
   isInterestFormVisible: boolean;
   router: SingletonRouter;
@@ -22,6 +23,7 @@ const ApplicantFormsNav: React.FC<IApplicantFormsNav> = ({
   $callUnlockedNavigation,
   $updateExperienceForm,
   $updateInterestForm,
+  hasUnsavedChanges,
   isInterestFormStarted,
   isInterestFormVisible,
   router,
@@ -63,19 +65,21 @@ const ApplicantFormsNav: React.FC<IApplicantFormsNav> = ({
     };
 
     // Set route change subscriptions
-    router.events.on('routeChangeStart', handleBrowseAway);
-    window.addEventListener('beforeunload', handleWindowClose);
+    if (hasUnsavedChanges) {
+      router.events.on('routeChangeStart', handleBrowseAway);
+      window.addEventListener('beforeunload', handleWindowClose);
 
-    // The function to unsubscribe
-    const unsubFn = () => {
-      router.events.off('routeChangeStart', handleBrowseAway);
-      window.removeEventListener('beforeunload', handleWindowClose);
-    };
+      // The function to unsubscribe
+      const unsubFn = () => {
+        router.events.off('routeChangeStart', handleBrowseAway);
+        window.removeEventListener('beforeunload', handleWindowClose);
+      };
 
-    setNavLockUnsubscribe(() => unsubFn);
+      setNavLockUnsubscribe(() => unsubFn);
 
-    return unsubFn;
-  }, []);
+      return unsubFn;
+    }
+  }, [hasUnsavedChanges]);
 
   // Allows navigation without the warning (nav lock)
   const unlockedNavigation = (url: string) => {
