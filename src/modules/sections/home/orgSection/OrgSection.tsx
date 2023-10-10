@@ -178,6 +178,11 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
       alt: 'Solar Stewards Logo',
       url: 'https://solarstewards.net/',
     },
+     {
+      src: '/images/logos/CorticoLogo.png',
+      alt: 'Cortico Logo',
+      url: 'https://cortico.ai/',
+    },
   ];
 
   const renderLogos = (full = false) => {
