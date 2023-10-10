@@ -1,5 +1,5 @@
 import Tooltip from '@/components/tooltip/Tooltip';
-import { fireOnInputEvent, getErrorMessageId } from '@/lib/helpers/formHelpers';
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import {
@@ -46,7 +46,6 @@ const SingleSelect: React.FC<ISingleSelect> = ({
       value={value}
       onChange={(val) => {
         setValue(val);
-        fireOnInputEvent(document.getElementById(eventTargetName));
 
         if (onChange) {
           onChange(val);

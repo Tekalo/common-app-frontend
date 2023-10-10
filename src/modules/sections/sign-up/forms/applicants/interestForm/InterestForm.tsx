@@ -48,6 +48,7 @@ import {
   InterestFieldsType,
   InterestRefType,
 } from '@/lib/types';
+import ChangeNotifier from '@/modules/components/application/ChangeNotifier';
 import {
   FreeTagField,
   FreeTextField,
@@ -128,9 +129,9 @@ const InterestForm: React.FC<IInterestForm> = ({
       onSubmit={(values) => doSubmit(values)}
       ref={formRef}
     >
-      {({ isSubmitted, submit, value, errors }) => (
+      {/* TODO: Remove brackets */}
+      {({ errors, isDirty, isSubmitted, submit, value }) => (
         <form
-          onInput={() => changeHasOcurred()}
           onSubmit={(e) => {
             e.preventDefault();
             submit().then(() => {
@@ -139,6 +140,12 @@ const InterestForm: React.FC<IInterestForm> = ({
           }}
           className="space-y-8"
         >
+          <ChangeNotifier
+            change={changeHasOcurred}
+            formValues={savedForm}
+            isDirty={isDirty}
+          />
+
           {/* Employment */}
           <SelectGroupField
             fieldName="interestEmploymentType"
