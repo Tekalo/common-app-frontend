@@ -57,10 +57,7 @@ const FileUpload: React.FC<IFileUpload> = ({
   // we should set the value in the form
   useEffect(() => {
     if (uploadValue?.id && uploadValue.originalFilename) {
-      setValue({
-        id: uploadValue.id,
-        originalFilename: uploadValue.originalFilename,
-      });
+      setValue(uploadValue);
     } else {
       // Clear value
       setValue({} as UploadedFileType);
@@ -69,10 +66,7 @@ const FileUpload: React.FC<IFileUpload> = ({
 
   useEffect(() => {
     if (initialValue && initialValue.originalFilename && initialValue.id) {
-      setUploadValue({
-        id: initialValue.id,
-        originalFilename: initialValue.originalFilename,
-      });
+      setUploadValue(initialValue);
       setUploadState(FileUploadState.UPLOAD_COMPLETE);
     }
   }, [initialValue]);

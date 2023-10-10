@@ -1,4 +1,4 @@
-import { fireOnInputEvent, getErrorMessageId } from '@/lib/helpers/formHelpers';
+import { getErrorMessageId } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
@@ -45,7 +45,6 @@ const MultiSelect: React.FC<IMultiSelect> = ({
       value={value}
       onChange={(val) => {
         setValue(val);
-        fireOnInputEvent(document.getElementById(eventTargetName));
       }}
       name={name}
       multiple={true}

@@ -21,6 +21,7 @@ import {
   ExperienceRefType,
   UploadedFileType,
 } from '@/lib/types';
+import ChangeNotifier from '@/modules/components/application/ChangeNotifier';
 import {
   FreeTagField,
   FreeTextField,
@@ -77,174 +78,176 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
       onSubmit={(values) => handleNext(values)}
       ref={formRef}
     >
-      {({ isSubmitted, submit, errors }) => {
-        return (
-          <form
-            onInput={() => changeHasOcurred()}
-            onSubmit={async (e) => {
-              e.preventDefault();
-              await submit();
-              jumpToFirstErrorMessage();
-            }}
-            className="space-y-8"
-          >
-            {/* Current Role */}
-            <FreeTextField
-              fieldName="lastRole"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastRole.label}
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastRole.placeholder
-              }
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.lastRole}
-              validator={RequiredString}
-            />
+      {({ errors, isDirty, isSubmitted, submit }) => (
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            await submit();
+            jumpToFirstErrorMessage();
+          }}
+          className="space-y-8"
+        >
+          <ChangeNotifier
+            change={changeHasOcurred}
+            formValues={savedForm}
+            isDirty={isDirty}
+          />
 
-            {/* Current Org */}
-            <FreeTextField
-              fieldName="lastOrg"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastOrg.label}
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastOrg.placeholder
-              }
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.lastOrg}
-              validator={RequiredString}
-            />
+          {/* Current Role */}
+          <FreeTextField
+            fieldName="lastRole"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastRole.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastRole.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.lastRole}
+            validator={RequiredString}
+          />
 
-            {/* Years Experience */}
-            <SingleSelectField
-              fieldName="yoe"
-              label="Years of relevant experience"
-              placeholder="Choose one"
-              listOptions={YOEOptions}
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.yoe}
-              validator={YOE}
-            />
+          {/* Current Org */}
+          <FreeTextField
+            fieldName="lastOrg"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastOrg.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastOrg.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.lastOrg}
+            validator={RequiredString}
+          />
 
-            {/* Skills */}
-            <MultiSelectField
-              fieldName="skills"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.label}
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.placeholder
-              }
-              selectionLabelMulti={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.selectionLabelMulti
-              }
-              selectionLabelSingle={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills
-                  .selectionLabelSingle
-              }
-              listOptions={SkillOptions}
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.skills || []}
-              validator={Skills.array().optional()}
-            />
+          {/* Years Experience */}
+          <SingleSelectField
+            fieldName="yoe"
+            label="Years of relevant experience"
+            placeholder="Choose one"
+            listOptions={YOEOptions}
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.yoe}
+            validator={YOE}
+          />
 
-            {/* Other Skills */}
-            <FreeTagField
-              fieldName="otherSkills"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.label}
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.placeholder
-              }
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.otherSkills || []}
-              validator={OptionalStringArr}
-            />
+          {/* Skills */}
+          <MultiSelectField
+            fieldName="skills"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.placeholder
+            }
+            selectionLabelMulti={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.selectionLabelMulti
+            }
+            selectionLabelSingle={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.selectionLabelSingle
+            }
+            listOptions={SkillOptions}
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.skills || []}
+            validator={Skills.array().optional()}
+          />
 
-            {/* LinkedIn */}
-            <FreeTextField
-              fieldName="linkedInUrl"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.linkedInUrl.label}
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.linkedInUrl.placeholder
-              }
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.linkedInUrl || ''}
-              validator={OptionalString}
-            />
+          {/* Other Skills */}
+          <FreeTagField
+            fieldName="otherSkills"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.otherSkills || []}
+            validator={OptionalStringArr}
+          />
 
-            {/* Portfolio */}
-            <FreeTextField
-              fieldName="portfolioUrl"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioUrl.label}
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioUrl.placeholder
-              }
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.portfolioUrl || ''}
-              validator={OptionalString}
-            />
+          {/* LinkedIn */}
+          <FreeTextField
+            fieldName="linkedInUrl"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.linkedInUrl.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.linkedInUrl.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.linkedInUrl || ''}
+            validator={OptionalString}
+          />
 
-            {/* Portfolio Password */}
-            <FreeTextField
-              fieldName="portfolioPassword"
-              label={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword.label
-              }
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword
-                  .placeholder
-              }
-              tooltipText={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword
-                  .tooltipText
-              }
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.portfolioPassword || ''}
-              validator={OptionalString}
-            />
+          {/* Portfolio */}
+          <FreeTextField
+            fieldName="portfolioUrl"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioUrl.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioUrl.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.portfolioUrl || ''}
+            validator={OptionalString}
+          />
 
-            {/* Github */}
-            <FreeTextField
-              fieldName="githubUrl"
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.githubUrl.label}
-              placeholder={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.githubUrl.placeholder
-              }
-              isSubmitted={isSubmitted}
-              initialValue={savedForm?.githubUrl || ''}
-              validator={OptionalString}
-            />
+          {/* Portfolio Password */}
+          <FreeTextField
+            fieldName="portfolioPassword"
+            label={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword.label
+            }
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword
+                .placeholder
+            }
+            tooltipText={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.portfolioPassword
+                .tooltipText
+            }
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.portfolioPassword || ''}
+            validator={OptionalString}
+          />
 
-            {/* Resume Upload */}
-            <FileUploadField
-              fieldName="resumeUpload"
-              initialValue={savedForm?.resumeUpload || ({} as UploadedFileType)}
-              label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
-              showUploadErrorModal={showUploadErrorModal}
-              submitted={isSubmitted}
-              validator={UploadedFile}
-            />
+          {/* Github */}
+          <FreeTextField
+            fieldName="githubUrl"
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.githubUrl.label}
+            placeholder={
+              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.githubUrl.placeholder
+            }
+            isSubmitted={isSubmitted}
+            initialValue={savedForm?.githubUrl || ''}
+            validator={OptionalString}
+          />
 
-            {/* Form Buttons */}
-            <div className="pt-2">
-              {!isEditing && (
-                <Button
-                  disabled={hasLengthError(errors)}
-                  name="experience-save"
-                  className="w-full text-component-large"
-                  label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.save.label}
-                  type="button"
-                  variant={ButtonVariant.OUTLINED}
-                  onClick={doSave}
-                />
-              )}
+          {/* Resume Upload */}
+          <FileUploadField
+            fieldName="resumeUpload"
+            initialValue={savedForm?.resumeUpload || ({} as UploadedFileType)}
+            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.fileUpload.label}
+            showUploadErrorModal={showUploadErrorModal}
+            submitted={isSubmitted}
+            validator={UploadedFile}
+          />
 
+          {/* Form Buttons */}
+          <div className="pt-2">
+            {!isEditing && (
               <Button
                 disabled={hasLengthError(errors)}
-                name="experience-next"
-                type="submit"
-                className="mt-4 w-full text-component-large"
-                label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.submit.label}
+                name="experience-save"
+                className="w-full text-component-large"
+                label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.save.label}
+                type="button"
+                variant={ButtonVariant.OUTLINED}
+                onClick={doSave}
               />
-            </div>
-          </form>
-        );
-      }}
+            )}
+
+            <Button
+              disabled={hasLengthError(errors)}
+              name="experience-next"
+              type="submit"
+              className="mt-4 w-full text-component-large"
+              label={APPLICANT_EXPERIENCE_FORM_TEXT.BUTTONS.submit.label}
+            />
+          </div>
+        </form>
+      )}
     </Form>
   );
 };
