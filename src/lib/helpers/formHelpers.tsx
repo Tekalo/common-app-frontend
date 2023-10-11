@@ -111,7 +111,7 @@ export const stripEmptyFields = (obj: any): any => {
 export const nullifyEmptyFields = (obj: any): any => {
   const result = Object.fromEntries(
     Object.entries(obj).map(([_, v]) => {
-      // This strips out empty objects and arrays
+      // This strips out empty objects, arrays are left empty
       if (!Array.isArray(v) && typeof v === 'object' && v !== null) {
         return Object.keys(v).length ? [_, v] : [_, null];
       } else {
