@@ -10,12 +10,12 @@ import {
   TRACKING,
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
-import {
-  nullifyEmptyFields,
-  voidFn,
-} from '@/lib/helpers/formHelpers';
+import { nullifyEmptyFields, voidFn } from '@/lib/helpers/formHelpers';
 import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
-import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
+import {
+  CandidateDraftSchema,
+  CandidateInterestsSchema,
+} from '@/lib/schemas/clientSchemas';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
@@ -125,6 +125,13 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       });
   }
 
+  const getNullSubmission = (): DraftSubmissionType => {
+    return Object.keys(CandidateDraftSchema.shape).reduce(
+      (k, v) => ({ ...k, [v]: null }),
+      {}
+    );
+  };
+
   // FUNCTION: Saves form responses to parent state
   const handleNext = (values: ExperienceFieldsType) => {
     window.dataLayerEvent(TRACKING.CANDIDATE_NEXT_BTN);
@@ -136,7 +143,11 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
 
   // FUNCTION: Saves form responses to parent state and submits to save endpoint
   const handleSave = async (values: DraftSubmissionType) => {
-    const newFormState = nullifyEmptyFields({ ...draftFormValues, ...values });
+    const newFormState = {
+      ...getNullSubmission(),
+      ...nullifyEmptyFields(draftFormValues),
+      ...nullifyEmptyFields(values),
+    };
 
     if (Object.hasOwn(newFormState, 'originTag')) {
       delete newFormState.originTag;
@@ -162,10 +173,14 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
 
   // FUNCTION: Saves form responses to parent state and generates final form
   const handleSubmit = async (values: InterestFieldsType) => {
-    const newFormState = { ...draftFormValues, ...values };
+    const newFormState = {
+      ...draftFormValues,
+      ...values,
+    };
     setDraftFormValues(newFormState);
 
     const finalFormValues = {
+      ...getNullSubmission(),
       ...nullifyEmptyFields(experienceFields),
       ...nullifyEmptyFields(values),
       originTag: '',
