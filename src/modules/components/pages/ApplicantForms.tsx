@@ -12,6 +12,7 @@ import {
 } from '@/lang/en';
 import { nullifyEmptyFields, voidFn } from '@/lib/helpers/formHelpers';
 import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider';
 import {
   CandidateDraftSchema,
   CandidateInterestsSchema,
@@ -44,6 +45,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   // Providers
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const submissionCtx = useContext(SubmissionContext);
+  const gtmCtx = useContext(GTMContext);
 
   // Form Values
   const [draftFormValues, setDraftFormValues] = useState<DraftSubmissionType>();
@@ -147,6 +149,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       ...getNullSubmission(),
       ...nullifyEmptyFields(draftFormValues),
       ...nullifyEmptyFields(values),
+      utmParams: gtmCtx.getGtmParams(),
     };
 
     if (Object.hasOwn(newFormState, 'originTag')) {
@@ -183,6 +186,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       ...getNullSubmission(),
       ...nullifyEmptyFields(experienceFields),
       ...nullifyEmptyFields(values),
+      utmParams: gtmCtx.getGtmParams(),
       originTag: '',
     };
 
