@@ -16,6 +16,7 @@ import {
   SubmissionResponseType,
 } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
+import Cookies from 'universal-cookie';
 import '../support/commands';
 
 describe('Candidate Application', () => {
@@ -30,6 +31,13 @@ describe('Candidate Application', () => {
   });
 
   it('should submit a candidate, required fields only', () => {
+    const cookies = new Cookies(null, { path: '/' });
+    cookies.remove('tklo_gtm_params');
+
+    cy.visit(
+      `${APPLICANT_SIGNUP_LINK}?utm_campaign=1&utm_content=2&utm_id=3&utm_medium=4&utm_source_platform=5&utm_source=6&utm_term=7`
+    );
+
     cy.intercept({
       method: 'GET',
       url: applicantSubmissionsEndpoint,
@@ -67,6 +75,7 @@ describe('Candidate Application', () => {
       saveAndConfirmExperienceForm();
 
       cy.wait('@draftSave').then((res) => {
+        const requestBody = res.request.body;
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
@@ -97,6 +106,17 @@ describe('Candidate Application', () => {
         expect(responseSubmission.skills).to.deep.equal([]);
         expect(responseSubmission.workAuthorization).to.equal(null);
         expect(responseSubmission.yoe).to.equal('4');
+
+        // UTM Params
+        expect(requestBody.utmParams.utm_campaign).to.equal('1');
+        expect(requestBody.utmParams.utm_content).to.equal('2');
+        expect(requestBody.utmParams.utm_id).to.equal('3');
+        expect(requestBody.utmParams.utm_medium).to.equal('4');
+        expect(requestBody.utmParams.utm_source_platform).to.equal('5');
+        expect(requestBody.utmParams.utm_source).to.equal('6');
+        expect(requestBody.utmParams.utm_term).to.equal('7');
+        expect(requestBody.utmParams.ga_client_id).to.be.ok;
+        expect(requestBody.utmParams.ga_session_id).to.be.ok;
       });
 
       submitExperienceForm();
@@ -113,6 +133,7 @@ describe('Candidate Application', () => {
       submitInterestForm();
 
       cy.wait('@applicantSubmission').then((res) => {
+        const requestBody = res.request.body;
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
@@ -154,6 +175,17 @@ describe('Candidate Application', () => {
         expect(responseSubmission.skills).to.deep.equal([]);
         expect(responseSubmission.workAuthorization).to.equal(null);
         expect(responseSubmission.yoe).to.equal('4');
+
+        // UTM Params
+        expect(requestBody.utmParams.utm_campaign).to.equal('1');
+        expect(requestBody.utmParams.utm_content).to.equal('2');
+        expect(requestBody.utmParams.utm_id).to.equal('3');
+        expect(requestBody.utmParams.utm_medium).to.equal('4');
+        expect(requestBody.utmParams.utm_source_platform).to.equal('5');
+        expect(requestBody.utmParams.utm_source).to.equal('6');
+        expect(requestBody.utmParams.utm_term).to.equal('7');
+        expect(requestBody.utmParams.ga_client_id).to.be.ok;
+        expect(requestBody.utmParams.ga_session_id).to.be.ok;
       });
 
       // Confirm success
