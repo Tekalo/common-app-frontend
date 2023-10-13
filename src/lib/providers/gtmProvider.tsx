@@ -1,44 +1,46 @@
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { IProvider } from './shared';
 
 interface IGTMContext {
   getGtmParams: () => IGtmParams;
+  paramsSet: boolean;
 }
 
 export const GTMContext = React.createContext<IGTMContext>({} as IGTMContext);
 
-interface IGtmParams {
-  utm_source?: string;
-  utm_medium?: string;
-  utm_campaign?: string;
-  utm_term?: string;
-  utm_content?: string;
-  utm_id?: string;
-  utm_source_platform?: string;
+export interface IGtmParams {
   ga_client_id?: string;
   ga_session_id?: string;
+  utm_campaign?: string;
+  utm_content?: string;
+  utm_id?: string;
+  utm_medium?: string;
+  utm_source_platform?: string;
+  utm_source?: string;
+  utm_term?: string;
 }
 
 const GTMProvider: React.FC<IProvider> = ({ children }) => {
   // Lib classes
   const cookies = new Cookies(null, { path: '/' });
   const router = useRouter();
+  const [paramsSet, setParamsSet] = useState(false);
 
   // Const
   const gtmCookieName = 'tklo_gtm_params';
   const paramList = [
-    'utm_source',
-    'utm_medium',
-    'utm_campaign',
-    'utm_term',
-    'utm_content',
-    'utm_id',
-    'utm_source_platform',
     'ga_client_id',
     'ga_session_id',
+    'utm_campaign',
+    'utm_content',
+    'utm_id',
+    'utm_medium',
+    'utm_source_platform',
+    'utm_source',
+    'utm_term',
   ];
 
   useEffect(() => {
@@ -62,6 +64,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
       };
 
       cookies.set(gtmCookieName, finalValues);
+      setParamsSet(true);
     };
 
     if (!cookies.get(gtmCookieName) && router.isReady) {
@@ -74,9 +77,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     valueName: 'client_id' | 'session_id',
     id: string,
     resolve: (value: string | PromiseLike<string>) => void
-  ) => {
-    window.gtag('get', id, valueName, resolve);
-  };
+  ): void => window.gtag('get', id, valueName, resolve);
 
   // Returns all params in an object, or null if not set
   const getGtmParams = () => cookies.get(gtmCookieName) ?? null;
@@ -85,7 +86,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   const getQueryStringValue = (
     query: ParsedUrlQuery,
     propertyName: string
-  ): string => query[propertyName] as string;
+  ): string | null => (query ? (query[propertyName] as string) : null);
 
   // Returns a promise resolving in the two session ids from gtag
   const getSessionIds = (id: string): Promise<string[]> => {
@@ -104,7 +105,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   };
 
   return (
-    <GTMContext.Provider value={{ getGtmParams }}>
+    <GTMContext.Provider value={{ getGtmParams, paramsSet }}>
       {children}
     </GTMContext.Provider>
   );
