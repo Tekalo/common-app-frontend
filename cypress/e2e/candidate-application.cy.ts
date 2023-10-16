@@ -16,7 +16,6 @@ import {
   SubmissionResponseType,
 } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
-import Cookies from 'universal-cookie';
 import '../support/commands';
 
 describe('Candidate Application', () => {
@@ -31,9 +30,7 @@ describe('Candidate Application', () => {
   });
 
   it('should submit a candidate, required fields only', () => {
-    const cookies = new Cookies(null, { path: '/' });
-    cookies.remove('tklo_gtm_params');
-
+    cy.clearAllCookies();
     cy.visit(
       `${APPLICANT_SIGNUP_LINK}?utm_campaign=1&utm_content=2&utm_id=3&utm_medium=4&utm_source_platform=5&utm_source=6&utm_term=7`
     );
