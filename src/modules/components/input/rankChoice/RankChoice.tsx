@@ -1,5 +1,4 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { fireOnInputEvent } from '@/lib/helpers/formHelpers';
 import { ISelectItem } from '@/lib/types';
 import update from 'immutability-helper';
 import { useCallback, useEffect, useState } from 'react';
@@ -28,7 +27,6 @@ const RankChoice: React.FC<IRankChoice> = ({
 
   const valueUpdated = () => {
     setValue(cards.map((c) => c.value));
-    fireOnInputEvent(document.getElementById(eventTargetName));
   };
 
   function mapItemsToCards(items: ISelectItem[]): ISelectItem[] {
