@@ -113,8 +113,8 @@ describe('Candidate Application', () => {
         expect(requestBody.utmParams.utm_source_platform).to.equal('5');
         expect(requestBody.utmParams.utm_source).to.equal('6');
         expect(requestBody.utmParams.utm_term).to.equal('7');
-        expect(requestBody.utmParams.ga_client_id).to.be.ok;
-        expect(requestBody.utmParams.ga_session_id).to.be.ok;
+        expect(requestBody.utmParams.ga_client_id).to.be.a('string');
+        expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
 
       submitExperienceForm();
@@ -182,8 +182,8 @@ describe('Candidate Application', () => {
         expect(requestBody.utmParams.utm_source_platform).to.equal('5');
         expect(requestBody.utmParams.utm_source).to.equal('6');
         expect(requestBody.utmParams.utm_term).to.equal('7');
-        expect(requestBody.utmParams.ga_client_id).to.be.ok;
-        expect(requestBody.utmParams.ga_session_id).to.be.ok;
+        expect(requestBody.utmParams.ga_client_id).to.be.a('string');
+        expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
 
       // Confirm success

@@ -53,19 +53,21 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
       const ga_ids = await getSessionIds(window.gaMeasurementId);
       const routerQuery = router.query;
 
-      const gtmParams = paramList.reduce(
+      const gtmParams: IGtmParams = paramList.reduce(
         (k, v) => ({ ...k, [v]: getQueryStringValue(routerQuery, v) }),
         {}
       );
 
-      const finalValues = {
-        ...gtmParams,
-        ga_client_id: ga_ids[0],
-        ga_session_id: ga_ids[1],
-      };
+      if (Object.values(gtmParams).some((val) => val !== undefined)) {
+        const finalValues = {
+          ...gtmParams,
+          ga_client_id: ga_ids[0],
+          ga_session_id: ga_ids[1],
+        };
 
-      cookies.set(gtmCookieName, finalValues);
-      setParamsReady(true);
+        cookies.set(gtmCookieName, finalValues);
+        setParamsReady(true);
+      }
     };
 
     const hasCookieValue = !!cookies.get(gtmCookieName);
@@ -86,7 +88,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     if (window && window.gtag) {
       window.gtag('get', id, valueName, resolve);
     } else {
-      null;
+      resolve('');
     }
   };
 
