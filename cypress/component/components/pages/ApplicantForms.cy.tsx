@@ -1,4 +1,9 @@
-import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
+import {
+  MockGTMProvider,
+  getMockAuth0Context,
+  mockGtag,
+  mockUtmParams,
+} from '@/cypress/fixtures/mocks';
 import {
   ACCOUNT_LINK,
   APPLICANT_FORM_TEXT,
@@ -132,9 +137,11 @@ describe('ApplicantForms', () => {
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
         <SubmissionProvider>
-          <ApplicantForms
-            isEditing={props.isEditing ? props.isEditing : undefined}
-          />
+          <MockGTMProvider>
+            <ApplicantForms
+              isEditing={props.isEditing ? props.isEditing : undefined}
+            />
+          </MockGTMProvider>
         </SubmissionProvider>
       </Auth0Context.Provider>
     );
@@ -157,6 +164,7 @@ describe('ApplicantForms', () => {
 
     cy.stub(router, 'push').as('routerPush');
     cy.stub(router.events, 'on').as('routerOn');
+    window.gtag = mockGtag;
 
     cy.fixture('candidate-submission').then(
       (res) => (mockSubmissionResponse = res.maxSubmissionResponse)
@@ -588,14 +596,83 @@ describe('ApplicantForms', () => {
             childProps.experience.handleSave(mockSubmissionResponse.submission);
 
             cy.wait('@saveDraft').then((i: Interception) => {
+              const requestBody = i.request.body;
+
               const expectedObj = stripEmptyFields({
                 ...mockSubmissionResponse.submission,
                 currentLocation: newLocation,
               });
 
-              expect(JSON.stringify(i.request.body)).to.eq(
-                JSON.stringify(expectedObj)
+              expect(requestBody.currentLocation).to.equal(
+                expectedObj.currentLocation
               );
+              expect(requestBody.desiredSalary).to.equal(
+                expectedObj.desiredSalary
+              );
+              expect(requestBody.essayResponse).to.equal(
+                expectedObj.essayResponse
+              );
+              expect(requestBody.githubUrl).to.equal(expectedObj.githubUrl);
+              expect(requestBody.hoursPerWeek).to.equal(
+                expectedObj.hoursPerWeek
+              );
+              expect(requestBody.interestCauses).to.deep.equal(
+                expectedObj.interestCauses
+              );
+              expect(requestBody.interestEmploymentType).to.deep.equal(
+                expectedObj.interestEmploymentType
+              );
+              expect(requestBody.interestGovt).to.equal(
+                expectedObj.interestGovt
+              );
+              expect(requestBody.interestGovtEmplTypes).to.deep.equal(
+                expectedObj.interestGovtEmplTypes
+              );
+              expect(requestBody.interestRoles).to.deep.equal(
+                expectedObj.interestRoles
+              );
+              expect(requestBody.interestWorkArrangement).to.deep.equal(
+                expectedObj.interestWorkArrangement
+              );
+              expect(requestBody.lastOrg).to.equal(expectedObj.lastOrg);
+              expect(requestBody.lastRole).to.equal(expectedObj.lastRole);
+              expect(requestBody.linkedInUrl).to.equal(expectedObj.linkedInUrl);
+              expect(requestBody.openToRelocate).to.equal(
+                expectedObj.openToRelocate
+              );
+              expect(requestBody.openToRemoteMulti).to.deep.equal(
+                expectedObj.openToRemoteMulti
+              );
+              expect(requestBody.otherCauses).to.deep.equal(
+                expectedObj.otherCauses
+              );
+              expect(requestBody.otherSkills).to.deep.equal(
+                expectedObj.otherSkills
+              );
+              expect(requestBody.portfolioPassword).to.equal(
+                expectedObj.portfolioPassword
+              );
+              expect(requestBody.portfolioUrl).to.equal(
+                expectedObj.portfolioUrl
+              );
+              expect(requestBody.previousImpactExperience).to.equal(
+                expectedObj.previousImpactExperience
+              );
+              expect(requestBody.referenceAttribution).to.equal(
+                expectedObj.referenceAttribution
+              );
+              expect(requestBody.referenceAttributionOther).to.equal(
+                expectedObj.referenceAttributionOther
+              );
+              expect(requestBody.resumeUpload).to.deep.equal(
+                expectedObj.resumeUpload
+              );
+              expect(requestBody.skills).to.deep.equal(expectedObj.skills);
+              expect(requestBody.workAuthorization).to.equal(
+                expectedObj.workAuthorization
+              );
+              expect(requestBody.yoe).to.equal(expectedObj.yoe);
+              expect(requestBody.utmParams).to.deep.equal(mockUtmParams);
 
               cy.get('div[data-name=Modal]').should('be.visible');
               cy.get('h2[data-name=modal-header]').should(
@@ -765,6 +842,7 @@ describe('ApplicantForms', () => {
                   expect(requestBody.skills).to.deep.equal([]);
                   expect(requestBody.workAuthorization).to.equal('authorized');
                   expect(requestBody.yoe).to.equal('2');
+                  expect(requestBody.utmParams).to.deep.equal(mockUtmParams);
                 });
               });
           });

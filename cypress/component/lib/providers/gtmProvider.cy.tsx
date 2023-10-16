@@ -1,3 +1,8 @@
+import {
+  gtag_mockClientId,
+  gtag_mockSessionId,
+  mockGtag,
+} from '@/cypress/fixtures/mocks';
 import GTMProvider, {
   GTMContext,
   IGtmParams,
@@ -41,19 +46,11 @@ Cypress.Commands.add('mountGtmProvider', () => {
 });
 
 describe('GTM Provider', () => {
-  const mockClientId = 'client_id';
-  const mockSessionId = 'session_id';
   let mockQueryContents: any;
 
   beforeEach(() => {
     const getQueryContents = () => mockQueryContents;
-    window.gtag = (action, target, valueName, callback) => {
-      if (valueName === 'client_id') {
-        callback(mockClientId);
-      } else {
-        callback(mockSessionId);
-      }
-    };
+    window.gtag = mockGtag;
 
     cy.stub(RouterModule, 'useRouter').callsFake(() => {
       const mockRouter = {
@@ -70,8 +67,8 @@ describe('GTM Provider', () => {
 
     cy.mountGtmProvider();
 
-    cy.get('#ga_client_id').should('have.text', mockClientId);
-    cy.get('#ga_session_id').should('have.text', mockSessionId);
+    cy.get('#ga_client_id').should('have.text', gtag_mockClientId);
+    cy.get('#ga_session_id').should('have.text', gtag_mockSessionId);
   });
 
   it('should display all params', () => {
@@ -87,8 +84,8 @@ describe('GTM Provider', () => {
 
     cy.mountGtmProvider();
 
-    cy.get('#ga_client_id').should('have.text', mockClientId);
-    cy.get('#ga_session_id').should('have.text', mockSessionId);
+    cy.get('#ga_client_id').should('have.text', gtag_mockClientId);
+    cy.get('#ga_session_id').should('have.text', gtag_mockSessionId);
     cy.get('#utm_campaign').should('have.text', '1');
     cy.get('#utm_content').should('have.text', '2');
     cy.get('#utm_id').should('have.text', '3');
@@ -109,8 +106,8 @@ describe('GTM Provider', () => {
 
     cy.mountGtmProvider();
 
-    cy.get('#ga_client_id').should('have.text', mockClientId);
-    cy.get('#ga_session_id').should('have.text', mockSessionId);
+    cy.get('#ga_client_id').should('have.text', gtag_mockClientId);
+    cy.get('#ga_session_id').should('have.text', gtag_mockSessionId);
     cy.get('#utm_campaign').should('have.text', '1');
     cy.get('#utm_content').should('have.text', '2');
     cy.get('#utm_id').should('have.text', '');

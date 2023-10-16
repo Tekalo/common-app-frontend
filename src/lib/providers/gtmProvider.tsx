@@ -27,7 +27,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   // Lib classes
   const cookies = new Cookies(null, { path: '/' });
   const router = useRouter();
-  const [paramsSet, setParamsSet] = useState(false);
+  const [paramsReady, setParamsReady] = useState(false);
 
   // Const
   const gtmCookieName = 'tklo_gtm_params';
@@ -64,11 +64,15 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
       };
 
       cookies.set(gtmCookieName, finalValues);
-      setParamsSet(true);
+      setParamsReady(true);
     };
 
-    if (!cookies.get(gtmCookieName) && router.isReady) {
+    const hasCookieValue = !!cookies.get(gtmCookieName);
+
+    if (!hasCookieValue && router.isReady) {
       setGtmValues();
+    } else if (hasCookieValue) {
+      setParamsReady(true);
     }
   }, [router.isReady]);
 
@@ -105,7 +109,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   };
 
   return (
-    <GTMContext.Provider value={{ getGtmParams, paramsSet }}>
+    <GTMContext.Provider value={{ getGtmParams, paramsSet: paramsReady }}>
       {children}
     </GTMContext.Provider>
   );
