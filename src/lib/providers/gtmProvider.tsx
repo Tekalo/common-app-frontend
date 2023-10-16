@@ -81,7 +81,13 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     valueName: 'client_id' | 'session_id',
     id: string,
     resolve: (value: string | PromiseLike<string>) => void
-  ): void => window.gtag('get', id, valueName, resolve);
+  ): void => {
+    if (window && window.gtag) {
+      window.gtag('get', id, valueName, resolve);
+    } else {
+      null;
+    }
+  };
 
   // Returns all params in an object, or null if not set
   const getGtmParams = () => cookies.get(gtmCookieName) ?? null;
