@@ -6,6 +6,7 @@ import {
 import GTMProvider, {
   GTMContext,
   IGtmParams,
+  gtmCookieName,
 } from '@/lib/providers/gtmProvider';
 import * as RouterModule from 'next/router';
 import { useContext, useEffect, useState } from 'react';
@@ -123,7 +124,7 @@ describe('GTM Provider', () => {
       utm_campaign: 345,
     };
     const cookies = new Cookies(null, { path: '/' });
-    cookies.set('tklo_gtm_params', mockUtm);
+    cookies.set(gtmCookieName, mockUtm);
 
     cy.mountGtmProvider();
 

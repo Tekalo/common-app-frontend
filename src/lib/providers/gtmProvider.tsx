@@ -23,6 +23,8 @@ export interface IGtmParams {
   utm_term?: string;
 }
 
+export const gtmCookieName = 'tklo_gtm_params';
+
 const GTMProvider: React.FC<IProvider> = ({ children }) => {
   // Lib classes
   const cookies = new Cookies(null, { path: '/' });
@@ -30,7 +32,6 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   const [paramsReady, setParamsReady] = useState(false);
 
   // Const
-  const gtmCookieName = 'tklo_gtm_params';
   const paramList = [
     'ga_client_id',
     'ga_session_id',

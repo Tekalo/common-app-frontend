@@ -11,6 +11,7 @@ import {
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
 } from '@/lib/helpers/apiHelpers';
+import { gtmCookieName } from '@/lib/providers/gtmProvider';
 import {
   AccountSubmissionResponseType,
   SubmissionResponseType,
@@ -30,7 +31,7 @@ describe('Candidate Application', () => {
   });
 
   it('should submit a candidate, required fields only', () => {
-    cy.clearAllCookies();
+    cy.clearCookie(gtmCookieName);
     cy.visit(
       `${APPLICANT_SIGNUP_LINK}?utm_campaign=1&utm_content=2&utm_id=3&utm_medium=4&utm_source_platform=5&utm_source=6&utm_term=7`
     );
