@@ -3,6 +3,7 @@ import {
   gtag_mockSessionId,
   mockGtag,
 } from '@/cypress/fixtures/mocks';
+import { voidFn } from '@/lib/helpers/formHelpers';
 import GTMProvider, {
   GTMContext,
   IGtmParams,
@@ -47,6 +48,7 @@ Cypress.Commands.add('mountGtmProvider', () => {
 });
 
 describe('GTM Provider', () => {
+  const emptyVal = '';
   let mockQueryContents: any;
 
   beforeEach(() => {
@@ -64,7 +66,6 @@ describe('GTM Provider', () => {
   });
 
   it('should display no params, just session ids', () => {
-    const emptyVal = '';
     mockQueryContents = null;
 
     cy.mountGtmProvider();
@@ -119,11 +120,31 @@ describe('GTM Provider', () => {
     cy.get('#ga_session_id').should('have.text', gtag_mockSessionId);
     cy.get('#utm_campaign').should('have.text', '1');
     cy.get('#utm_content').should('have.text', '2');
-    cy.get('#utm_id').should('have.text', '');
+    cy.get('#utm_id').should('have.text', emptyVal);
     cy.get('#utm_medium').should('have.text', '4');
-    cy.get('#utm_source_platform').should('have.text', '');
+    cy.get('#utm_source_platform').should('have.text', emptyVal);
     cy.get('#utm_source').should('have.text', '6');
     cy.get('#utm_term').should('have.text', '7');
+  });
+
+  it('should set empty strings for session and client id if gtag is blocked', () => {
+    mockQueryContents = {
+      utm_source: 123,
+      utm_campaign: 345,
+    };
+    window.gtag = voidFn;
+
+    cy.mountGtmProvider();
+
+    cy.get('#utm_campaign').should('have.text', '345');
+    cy.get('#utm_content').should('have.text', emptyVal);
+    cy.get('#utm_id').should('have.text', emptyVal);
+    cy.get('#utm_medium').should('have.text', emptyVal);
+    cy.get('#utm_source_platform').should('have.text', emptyVal);
+    cy.get('#utm_source').should('have.text', '123');
+    cy.get('#utm_term').should('have.text', emptyVal);
+    cy.get('#ga_client_id').should('have.text', emptyVal);
+    cy.get('#ga_session_id').should('have.text', emptyVal);
   });
 
   it('should display the already-set cookie values', () => {

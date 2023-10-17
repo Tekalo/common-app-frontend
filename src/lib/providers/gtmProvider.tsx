@@ -44,6 +44,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     'utm_source',
     'utm_term',
   ];
+  const emptyValue = '';
 
   useEffect(() => {
     // This grabs most of the params needed from the url and assigns them
@@ -86,8 +87,13 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   ): void => {
     if (window && window.gtag) {
       window.gtag('get', id, valueName, resolve);
+
+      // If gtag is blocked, this will never return, we must set default values
+      setTimeout(() => {
+        resolve(emptyValue);
+      }, 500);
     } else {
-      resolve('');
+      resolve(emptyValue);
     }
   };
 
