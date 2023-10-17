@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import Cookies from 'universal-cookie';
 
 const SignInActionPage: NextPageWithLayout = () => {
+  // TODO: Move this to a central provider
   const cookies = new Cookies(null, { path: '/' });
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const router = useRouter();

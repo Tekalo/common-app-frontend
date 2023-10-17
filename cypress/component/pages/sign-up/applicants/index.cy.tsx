@@ -246,8 +246,10 @@ describe('Applicant Signup Page', () => {
         .as('submissionResponse')
         .callsFake((req) => {
           expect(req.body).to.deep.equal(mockFormValues);
-          expect(req.headers['content-type']).to.equal('application/json');
-          expect(req.headers['x-turnstile-token']).to.equal(mockTurnstileToken);
+          expect(req.headers).to.include({
+            'content-type': 'application/json',
+            'x-turnstile-token': mockTurnstileToken,
+          });
 
           req.reply({ statusCode: 200 });
         })
@@ -297,8 +299,10 @@ describe('Applicant Signup Page', () => {
         .as('submissionResponse')
         .callsFake((req) => {
           expect(req.body).to.deep.equal(expectedFormValues);
-          expect(req.headers['content-type']).to.equal('application/json');
-          expect(req.headers['x-turnstile-token']).to.equal(mockTurnstileToken);
+          expect(req.headers).to.include({
+            'content-type': 'application/json',
+            'x-turnstile-token': mockTurnstileToken,
+          });
 
           req.reply({ statusCode: 200 });
         })

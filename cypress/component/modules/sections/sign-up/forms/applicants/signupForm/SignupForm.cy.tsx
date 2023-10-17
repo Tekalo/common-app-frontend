@@ -202,15 +202,17 @@ describe('<Applicant SignupForm />', () => {
         .its('args')
         .then((args) => {
           const formBody = args[0];
-          expect(formBody.acceptedPrivacy).to.be.true;
-          expect(formBody.acceptedTerms).to.be.true;
-          expect(formBody.email).to.equal(email);
-          expect(formBody.followUpOptIn).to.be.true;
-          expect(formBody.name).to.equal(name);
-          expect(formBody.phone).to.equal(`1${phone}`);
-          expect(formBody.preferredContact).to.equal('sms');
-          expect(formBody.pronoun).to.equal('they/them');
-          expect(formBody.searchStatus).to.equal('passive');
+          expect(formBody).to.deep.include({
+            acceptedPrivacy: true,
+            acceptedTerms: true,
+            email,
+            followUpOptIn: true,
+            name,
+            phone: `1${phone}`,
+            preferredContact: 'sms',
+            pronoun: 'they/them',
+            searchStatus: 'passive',
+          });
         });
     });
 
@@ -327,24 +329,24 @@ describe('<Applicant SignupForm />', () => {
       props.isAuthenticated = true;
       cy.mountCandidateSignupForm(props);
 
-      const nameInput = cy.get('[name=input-name]');
-      nameInput.should('be.disabled');
-      nameInput.should('have.value', name);
-      const emailInput = cy.get('[name=input-email]');
-      emailInput.should('be.disabled');
-      emailInput.should('have.value', email);
+      cy.get('[name=input-name]')
+        .should('be.disabled')
+        .should('have.value', name);
+      cy.get('[name=input-email]')
+        .should('be.disabled')
+        .should('have.value', email);
     });
 
     it('should disable name and email with empty values if they are not present', () => {
       props.isAuthenticated = true;
       cy.mountCandidateSignupForm(props);
 
-      const nameInput = cy.get('[name=input-name]');
-      nameInput.should('be.disabled');
-      nameInput.should('have.value', '');
-      const emailInput = cy.get('[name=input-email]');
-      emailInput.should('be.disabled');
-      emailInput.should('have.value', '');
+      cy.get('[name=input-name]')
+        .should('be.disabled')
+        .should('have.value', '');
+      cy.get('[name=input-email]')
+        .should('be.disabled')
+        .should('have.value', '');
     });
 
     it('should display turnstile error if it is not valid', () => {

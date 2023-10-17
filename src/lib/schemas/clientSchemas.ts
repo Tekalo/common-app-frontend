@@ -111,9 +111,23 @@ const CandidateInterestsSchema = z.object({
   referenceAttributionOther: maxLengthString(2048).nullable().optional(),
 });
 
+const UtmParams = z.object({
+  ga_client_id: z.string().optional(),
+  ga_session_id: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_content: z.string().optional(),
+  utm_id: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_source_platform: z.string().optional(),
+  utm_source: z.string().optional(),
+  utm_term: z.string().optional(),
+});
+
 const CandidateDraftSchema = CandidateExperienceSchema.merge(
   CandidateInterestsSchema
-).partial();
+)
+  .extend({ utmParams: UtmParams })
+  .partial();
 
 export {
   CandidateDraftSchema,

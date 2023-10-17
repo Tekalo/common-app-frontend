@@ -1,4 +1,9 @@
-import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
+import {
+  MockGTMProvider,
+  getMockAuth0Context,
+  mockGtag,
+  mockUtmParams,
+} from '@/cypress/fixtures/mocks';
 import {
   ACCOUNT_LINK,
   APPLICANT_FORM_TEXT,
@@ -132,9 +137,11 @@ describe('ApplicantForms', () => {
     cy.mount(
       <Auth0Context.Provider value={auth0Context}>
         <SubmissionProvider>
-          <ApplicantForms
-            isEditing={props.isEditing ? props.isEditing : undefined}
-          />
+          <MockGTMProvider>
+            <ApplicantForms
+              isEditing={props.isEditing ? props.isEditing : undefined}
+            />
+          </MockGTMProvider>
         </SubmissionProvider>
       </Auth0Context.Provider>
     );
@@ -157,6 +164,7 @@ describe('ApplicantForms', () => {
 
     cy.stub(router, 'push').as('routerPush');
     cy.stub(router.events, 'on').as('routerOn');
+    window.gtag = mockGtag;
 
     cy.fixture('candidate-submission').then(
       (res) => (mockSubmissionResponse = res.maxSubmissionResponse)
@@ -588,14 +596,15 @@ describe('ApplicantForms', () => {
             childProps.experience.handleSave(mockSubmissionResponse.submission);
 
             cy.wait('@saveDraft').then((i: Interception) => {
+              const requestBody = i.request.body;
+
               const expectedObj = stripEmptyFields({
                 ...mockSubmissionResponse.submission,
                 currentLocation: newLocation,
+                utmParams: mockUtmParams,
               });
 
-              expect(JSON.stringify(i.request.body)).to.eq(
-                JSON.stringify(expectedObj)
-              );
+              expect(requestBody).to.deep.include(expectedObj);
 
               cy.get('div[data-name=Modal]').should('be.visible');
               cy.get('h2[data-name=modal-header]').should(
@@ -709,62 +718,39 @@ describe('ApplicantForms', () => {
                 cy.wait('@applicationSubmission').then((i: Interception) => {
                   const requestBody = i.request.body as DraftSubmissionType;
 
-                  expect(requestBody.currentLocation).to.equal('test location');
-                  expect(requestBody.desiredSalary).to.equal('200k');
-                  expect(requestBody.essayResponse).to.equal('essay response');
-                  expect(requestBody.githubUrl).to.equal(null);
-                  expect(requestBody.hoursPerWeek).to.equal(null);
-                  expect(requestBody.interestCauses).to.deep.equal([
-                    'int 1',
-                    'int 2',
-                  ]);
-                  expect(requestBody.interestEmploymentType).to.deep.equal([
-                    'full',
-                  ]);
-                  expect(requestBody.interestGovt).to.equal(true);
-                  expect(requestBody.interestGovtEmplTypes).to.deep.equal([
-                    'paid',
-                    'unpaid',
-                  ]);
-                  expect(requestBody.interestRoles).to.deep.equal([
-                    'data analyst',
-                    'product designer',
-                  ]);
-                  expect(requestBody.interestWorkArrangement).to.deep.equal([
-                    'full-time employee',
-                  ]);
-                  expect(requestBody.lastOrg).to.equal('new org');
-                  expect(requestBody.lastRole).to.equal('new role');
-                  expect(requestBody.linkedInUrl).to.equal('new linkedin url');
-                  expect(requestBody.openToRelocate).to.equal('not sure');
-                  expect(requestBody.openToRemoteMulti).to.deep.equal([
-                    'remote',
-                    'hybrid',
-                  ]);
-                  expect(requestBody.otherCauses).to.deep.equal([
-                    'other 1',
-                    'other 2',
-                  ]);
-                  expect(requestBody.otherSkills).to.deep.equal([
-                    'new skill 1',
-                    'new skill 2',
-                  ]);
-                  expect(requestBody.portfolioPassword).to.equal(
-                    'new portfolio password'
-                  );
-                  expect(requestBody.portfolioUrl).to.equal(
-                    'new portfolio url'
-                  );
-                  expect(requestBody.previousImpactExperience).to.equal(false);
-                  expect(requestBody.referenceAttribution).to.equal('linkedIn');
-                  expect(requestBody.referenceAttributionOther).to.equal(null);
-                  expect(requestBody.resumeUpload).to.deep.equal({
-                    id: 123,
-                    originalFilename: 'newOrigFilename.pdf',
+                  expect(requestBody).to.deep.include({
+                    currentLocation: 'test location',
+                    desiredSalary: '200k',
+                    essayResponse: 'essay response',
+                    githubUrl: null,
+                    hoursPerWeek: null,
+                    interestCauses: ['int 1', 'int 2'],
+                    interestEmploymentType: ['full'],
+                    interestGovt: true,
+                    interestGovtEmplTypes: ['paid', 'unpaid'],
+                    interestRoles: ['data analyst', 'product designer'],
+                    interestWorkArrangement: ['full-time employee'],
+                    lastOrg: 'new org',
+                    lastRole: 'new role',
+                    linkedInUrl: 'new linkedin url',
+                    openToRelocate: 'not sure',
+                    openToRemoteMulti: ['remote', 'hybrid'],
+                    otherCauses: ['other 1', 'other 2'],
+                    otherSkills: ['new skill 1', 'new skill 2'],
+                    portfolioPassword: 'new portfolio password',
+                    portfolioUrl: 'new portfolio url',
+                    previousImpactExperience: false,
+                    referenceAttribution: 'linkedIn',
+                    referenceAttributionOther: null,
+                    resumeUpload: {
+                      id: 123,
+                      originalFilename: 'newOrigFilename.pdf',
+                    },
+                    skills: [],
+                    workAuthorization: 'authorized',
+                    yoe: '2',
+                    utmParams: mockUtmParams,
                   });
-                  expect(requestBody.skills).to.deep.equal([]);
-                  expect(requestBody.workAuthorization).to.equal('authorized');
-                  expect(requestBody.yoe).to.equal('2');
                 });
               });
           });

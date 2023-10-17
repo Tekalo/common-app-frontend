@@ -213,28 +213,7 @@ describe('Experience Form', () => {
         .its('args')
         .its(0)
         .should((callArgs) => {
-          expect(JSON.stringify(callArgs)).to.equal(
-            JSON.stringify(mockSavedForm)
-          );
-          expect(callArgs.lastRole).to.equal(mockSavedForm?.lastRole);
-          expect(callArgs.lastOrg).to.equal(mockSavedForm?.lastOrg);
-          expect(callArgs.yoe).to.equal(mockSavedForm?.yoe);
-          expect(callArgs.skills).to.deep.equal(mockSavedForm?.skills);
-          expect(callArgs.otherSkills).to.deep.equal(
-            mockSavedForm?.otherSkills
-          );
-          expect(callArgs.linkedInUrl).to.equal(mockSavedForm?.linkedInUrl);
-          expect(callArgs.portfolioUrl).to.equal(mockSavedForm?.portfolioUrl);
-          expect(callArgs.portfolioPassword).to.equal(
-            mockSavedForm?.portfolioPassword
-          );
-          expect(callArgs.githubUrl).to.equal(mockSavedForm?.githubUrl);
-          expect(callArgs.resumeUpload.id).to.equal(
-            mockSavedForm?.resumeUpload?.id
-          );
-          expect(callArgs.resumeUpload.originalFilename).to.equal(
-            mockSavedForm?.resumeUpload?.originalFilename
-          );
+          expect(callArgs).to.deep.include(mockSavedForm);
         });
     });
 
@@ -249,28 +228,7 @@ describe('Experience Form', () => {
         .its('args')
         .its(0)
         .should((callArgs) => {
-          expect(callArgs.lastRole).to.equal(mockSavedForm?.lastRole);
-          expect(callArgs.lastOrg).to.equal(mockSavedForm?.lastOrg);
-          expect(callArgs.yoe).to.equal(mockSavedForm?.yoe);
-          expect(callArgs.skills).to.deep.equal(mockSavedForm?.skills);
-          expect(callArgs.otherSkills).to.deep.equal(
-            mockSavedForm?.otherSkills
-          );
-          expect(callArgs.linkedInUrl).to.equal(mockSavedForm?.linkedInUrl);
-          expect(callArgs.portfolioUrl).to.equal(mockSavedForm?.portfolioUrl);
-          expect(callArgs.portfolioPassword).to.equal(
-            mockSavedForm?.portfolioPassword
-          );
-          expect(callArgs.githubUrl).to.equal(mockSavedForm?.githubUrl);
-          expect(callArgs.resumeUpload.id).to.equal(
-            mockSavedForm?.resumeUpload?.id
-          );
-          expect(callArgs.resumeUpload.originalFilename).to.equal(
-            mockSavedForm?.resumeUpload?.originalFilename
-          );
-          expect(JSON.stringify(callArgs)).to.equal(
-            JSON.stringify(mockSavedForm)
-          );
+          expect(callArgs).to.deep.equal(mockSavedForm);
         });
     });
   });
@@ -309,28 +267,7 @@ describe('Experience Form', () => {
         .its('args')
         .its(0)
         .should((callArgs) => {
-          expect(callArgs.lastRole).to.equal(mockSavedForm?.lastRole);
-          expect(callArgs.lastOrg).to.equal(mockSavedForm?.lastOrg);
-          expect(callArgs.yoe).to.equal(mockSavedForm?.yoe);
-          expect(callArgs.skills).to.deep.equal(mockSavedForm?.skills);
-          expect(callArgs.otherSkills).to.deep.equal(
-            mockSavedForm?.otherSkills
-          );
-          expect(callArgs.linkedInUrl).to.equal(mockSavedForm?.linkedInUrl);
-          expect(callArgs.portfolioUrl).to.equal(mockSavedForm?.portfolioUrl);
-          expect(callArgs.portfolioPassword).to.equal(
-            mockSavedForm?.portfolioPassword
-          );
-          expect(callArgs.githubUrl).to.equal(mockSavedForm?.githubUrl);
-          expect(callArgs.resumeUpload.id).to.equal(
-            mockSavedForm?.resumeUpload?.id
-          );
-          expect(callArgs.resumeUpload.originalFilename).to.equal(
-            mockSavedForm?.resumeUpload?.originalFilename
-          );
-          expect(JSON.stringify(callArgs)).to.equal(
-            JSON.stringify(mockSavedForm)
-          );
+          expect(callArgs).to.deep.equal(mockSavedForm);
         });
     });
 

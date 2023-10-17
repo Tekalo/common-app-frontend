@@ -10,6 +10,7 @@ import {
 import { executeScroll } from '@/lib/helpers/formHelpers';
 import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
@@ -21,6 +22,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
   const router = useRouter();
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const debugCtx = useContext(DebugContext);
+  const gtmCtx = useContext(GTMContext);
 
   // activeIdx -1 = orgInfo else orgRoles[activeIdx]
   const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -42,6 +44,7 @@ const OrganizationSignup: NextPageWithLayout = () => {
       acceptedPrivacy,
       referenceAttribution: orgInfo?.referenceAttribution,
       referenceAttributionOther: orgInfo?.referenceAttributionOther,
+      utmParams: gtmCtx.getGtmParams(),
     };
 
     // TODO: This and the candidate form function are identical with

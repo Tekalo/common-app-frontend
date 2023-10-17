@@ -66,6 +66,17 @@ const DraftResponseSchema = z.object({
     createdAt: z.string(),
     updatedAt: z.string(),
     applicantId: z.number(),
+    utmParams: z.object({
+      ga_client_id: z.string().optional(),
+      ga_session_id: z.string().optional(),
+      utm_campaign: z.string().optional(),
+      utm_content: z.string().optional(),
+      utm_id: z.string().optional(),
+      utm_medium: z.string().optional(),
+      utm_source_platform: z.string().optional(),
+      utm_source: z.string().optional(),
+      utm_term: z.string().optional(),
+    }),
   }),
   isFinal: z.boolean(),
 });

@@ -8,6 +8,7 @@ import {
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import DebugProvider from '@/lib/providers/debugProvider';
 import FileUploadProvider from '@/lib/providers/fileUploadProvider';
+import GTMProvider from '@/lib/providers/gtmProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
@@ -72,13 +73,15 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           options={{ enableMouseEvents: true }}
         >
           {/* START Our Local Providers */}
-          <DebugProvider>
-            <SubmissionProvider>
-              <FileUploadProvider>
-                {getLayout(<Component {...pageProps} />)}
-              </FileUploadProvider>
-            </SubmissionProvider>
-          </DebugProvider>
+          <GTMProvider>
+            <DebugProvider>
+              <SubmissionProvider>
+                <FileUploadProvider>
+                  {getLayout(<Component {...pageProps} />)}
+                </FileUploadProvider>
+              </SubmissionProvider>
+            </DebugProvider>
+          </GTMProvider>
           {/* END Our Local Providers */}
           <CookieConsent
             onAccept={() => window.consentGranted()}
