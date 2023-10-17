@@ -63,11 +63,19 @@ describe('GTM Provider', () => {
     });
   });
 
-  it('should display no params', () => {
+  it('should display no params, just session ids', () => {
+    const emptyVal = '';
     mockQueryContents = null;
 
     cy.mountGtmProvider();
 
+    cy.get('#utm_campaign').should('have.text', emptyVal);
+    cy.get('#utm_content').should('have.text', emptyVal);
+    cy.get('#utm_id').should('have.text', emptyVal);
+    cy.get('#utm_medium').should('have.text', emptyVal);
+    cy.get('#utm_source_platform').should('have.text', emptyVal);
+    cy.get('#utm_source').should('have.text', emptyVal);
+    cy.get('#utm_term').should('have.text', emptyVal);
     cy.get('#ga_client_id').should('have.text', gtag_mockClientId);
     cy.get('#ga_session_id').should('have.text', gtag_mockSessionId);
   });
@@ -122,12 +130,16 @@ describe('GTM Provider', () => {
     const mockUtm = {
       utm_source: 123,
       utm_campaign: 345,
+      ga_client_id: gtag_mockClientId,
+      ga_session_id: gtag_mockSessionId,
     };
     const cookies = new Cookies(null, { path: '/' });
     cookies.set(gtmCookieName, mockUtm);
 
     cy.mountGtmProvider();
 
+    cy.get('#ga_client_id').should('have.text', gtag_mockClientId);
+    cy.get('#ga_session_id').should('have.text', gtag_mockSessionId);
     cy.get('#utm_campaign').should('have.text', '345');
     cy.get('#utm_source').should('have.text', '123');
   });

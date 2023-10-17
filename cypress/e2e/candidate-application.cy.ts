@@ -77,42 +77,46 @@ describe('Candidate Application', () => {
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
-        expect(responseSubmission.currentLocation).to.equal(null);
-        expect(responseSubmission.desiredSalary).to.equal(null);
-        expect(responseSubmission.essayResponse).to.equal(null);
-        expect(responseSubmission.githubUrl).to.equal(null);
-        expect(responseSubmission.hoursPerWeek).to.equal(null);
-        expect(responseSubmission.interestCauses).to.deep.equal([]);
-        expect(responseSubmission.interestEmploymentType).to.deep.equal([]);
-        expect(responseSubmission.interestRoles).to.deep.equal([]);
-        expect(responseSubmission.interestWorkArrangement).to.deep.equal([]);
-        expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
-        expect(responseSubmission.lastRole).to.equal('Software Engineer');
-        expect(responseSubmission.linkedInUrl).to.equal(null);
-        expect(responseSubmission.openToRelocate).to.equal(null);
-        expect(responseSubmission.openToRemoteMulti).to.deep.equal([]);
-        expect(responseSubmission.otherCauses).to.deep.equal([]);
-        expect(responseSubmission.otherSkills).to.deep.equal([]);
-        expect(responseSubmission.portfolioPassword).to.equal(null);
-        expect(responseSubmission.portfolioUrl).to.equal(null);
-        expect(responseSubmission.previousImpactExperience).to.equal(null);
-        expect(responseSubmission.referenceAttribution).to.equal(null);
-        expect(responseSubmission.referenceAttributionOther).to.equal(null);
-        expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
-          'example_file.docx'
-        );
-        expect(responseSubmission.skills).to.deep.equal([]);
-        expect(responseSubmission.workAuthorization).to.equal(null);
-        expect(responseSubmission.yoe).to.equal('4');
+        expect(responseSubmission).to.deep.include({
+          currentLocation: null,
+          desiredSalary: null,
+          essayResponse: null,
+          githubUrl: null,
+          hoursPerWeek: null,
+          interestCauses: [],
+          interestEmploymentType: [],
+          interestRoles: [],
+          interestWorkArrangement: [],
+          lastOrg: 'Schmidt Futures',
+          lastRole: 'Software Engineer',
+          linkedInUrl: null,
+          openToRelocate: null,
+          openToRemoteMulti: [],
+          otherCauses: [],
+          otherSkills: [],
+          portfolioPassword: null,
+          portfolioUrl: null,
+          previousImpactExperience: null,
+          referenceAttribution: null,
+          referenceAttributionOther: null,
+          skills: [],
+          workAuthorization: null,
+          yoe: '4',
+        });
+        expect(responseSubmission.resumeUpload).to.include({
+          originalFilename: 'example_file.docx',
+        });
 
         // UTM Params
-        expect(requestBody.utmParams.utm_campaign).to.equal('1');
-        expect(requestBody.utmParams.utm_content).to.equal('2');
-        expect(requestBody.utmParams.utm_id).to.equal('3');
-        expect(requestBody.utmParams.utm_medium).to.equal('4');
-        expect(requestBody.utmParams.utm_source_platform).to.equal('5');
-        expect(requestBody.utmParams.utm_source).to.equal('6');
-        expect(requestBody.utmParams.utm_term).to.equal('7');
+        expect(requestBody.utmParams).to.include({
+          utm_campaign: '1',
+          utm_content: '2',
+          utm_id: '3',
+          utm_medium: '4',
+          utm_source_platform: '5',
+          utm_source: '6',
+          utm_term: '7',
+        });
         expect(requestBody.utmParams.ga_client_id).to.be.a('string');
         expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
@@ -135,53 +139,49 @@ describe('Candidate Application', () => {
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
-        expect(responseSubmission.currentLocation).to.equal(
-          'New York, New York'
-        );
-        expect(responseSubmission.desiredSalary).to.equal(null);
-        expect(responseSubmission.essayResponse).to.equal('Essay entry.');
-        expect(responseSubmission.githubUrl).to.equal(null);
-        expect(responseSubmission.hoursPerWeek).to.equal(null);
-        expect(responseSubmission.interestCauses).to.deep.equal([
-          'algorithmic fairness',
-        ]);
-        expect(responseSubmission.interestEmploymentType).to.deep.equal([
-          'full',
-          'part',
-        ]);
-        expect(responseSubmission.interestRoles).to.deep.equal([
-          'software engineer',
-        ]);
-        expect(responseSubmission.interestWorkArrangement).to.deep.equal([
-          'advisor',
-        ]);
-        expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
-        expect(responseSubmission.lastRole).to.equal('Software Engineer');
-        expect(responseSubmission.linkedInUrl).to.equal(null);
-        expect(responseSubmission.openToRelocate).to.equal('yes');
-        expect(responseSubmission.openToRemoteMulti).to.deep.equal(['remote']);
-        expect(responseSubmission.otherCauses).to.deep.equal([]);
-        expect(responseSubmission.otherSkills).to.deep.equal([]);
-        expect(responseSubmission.portfolioPassword).to.equal(null);
-        expect(responseSubmission.portfolioUrl).to.equal(null);
-        expect(responseSubmission.previousImpactExperience).to.equal(false);
-        expect(responseSubmission.referenceAttribution).to.equal(null);
-        expect(responseSubmission.referenceAttributionOther).to.equal(null);
-        expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
-          'example_file.docx'
-        );
-        expect(responseSubmission.skills).to.deep.equal([]);
-        expect(responseSubmission.workAuthorization).to.equal(null);
-        expect(responseSubmission.yoe).to.equal('4');
+        expect(responseSubmission).to.deep.include({
+          currentLocation: 'New York, New York',
+          desiredSalary: null,
+          essayResponse: 'Essay entry.',
+          githubUrl: null,
+          hoursPerWeek: null,
+          interestCauses: ['algorithmic fairness'],
+          interestEmploymentType: ['full', 'part'],
+          interestRoles: ['software engineer'],
+          interestWorkArrangement: ['advisor'],
+          lastOrg: 'Schmidt Futures',
+          lastRole: 'Software Engineer',
+          linkedInUrl: null,
+          openToRelocate: 'yes',
+          openToRemoteMulti: ['remote'],
+          otherCauses: [],
+          otherSkills: [],
+          portfolioPassword: null,
+          portfolioUrl: null,
+          previousImpactExperience: false,
+          referenceAttribution: null,
+          referenceAttributionOther: null,
+          skills: [],
+          workAuthorization: null,
+          yoe: '4',
+        });
+
+        // The id is assigned by the db so we won't know what it is
+        expect(responseSubmission.resumeUpload).to.include({
+          originalFilename: 'example_file.docx',
+        });
+        expect(responseSubmission.resumeUpload?.id).to.be.a('number');
 
         // UTM Params
-        expect(requestBody.utmParams.utm_campaign).to.equal('1');
-        expect(requestBody.utmParams.utm_content).to.equal('2');
-        expect(requestBody.utmParams.utm_id).to.equal('3');
-        expect(requestBody.utmParams.utm_medium).to.equal('4');
-        expect(requestBody.utmParams.utm_source_platform).to.equal('5');
-        expect(requestBody.utmParams.utm_source).to.equal('6');
-        expect(requestBody.utmParams.utm_term).to.equal('7');
+        expect(requestBody.utmParams).to.include({
+          utm_campaign: '1',
+          utm_content: '2',
+          utm_id: '3',
+          utm_medium: '4',
+          utm_source_platform: '5',
+          utm_source: '6',
+          utm_term: '7',
+        });
         expect(requestBody.utmParams.ga_client_id).to.be.a('string');
         expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
@@ -277,84 +277,70 @@ describe('Candidate Application', () => {
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
-        expect(responseSubmission.currentLocation).to.equal(
-          'New York, New York'
-        );
-        expect(responseSubmission.desiredSalary).to.equal('$200,000');
-        expect(responseSubmission.essayResponse).to.equal('Essay entry.');
-        expect(responseSubmission.githubUrl).to.equal('github');
-        expect(responseSubmission.hoursPerWeek).to.equal('40hrs');
-        expect(responseSubmission.interestEmploymentType).to.deep.equal([
-          'full',
-          'part',
-        ]);
-        expect(responseSubmission.interestGovt).to.equal(true);
-        expect(responseSubmission.interestGovtEmplTypes).to.deep.equal([
-          'paid',
-          'unpaid',
-        ]);
-        expect(responseSubmission.interestRoles).to.deep.equal([
-          'data analyst',
-          'data scientist',
-          'engineering manager',
-          'product designer',
-          'product manager',
-          'software engineer',
-          'software engineer - backend',
-          'software engineer - frontend',
-          'ux/ui designer',
-          'ux researcher',
-          'vp of engineering (or similar)',
-          'vp of product (or similar)',
-        ]);
-        expect(responseSubmission.interestWorkArrangement).to.deep.equal([
-          'advisor',
-          'consultant',
-          'contractor',
-          'internship',
-          'volunteer',
-        ]);
-        expect(responseSubmission.lastOrg).to.equal('Schmidt Futures');
-        expect(responseSubmission.lastRole).to.equal('Software Engineer');
-        expect(responseSubmission.linkedInUrl).to.equal('l');
-        expect(responseSubmission.openToRelocate).to.equal('yes');
-        expect(responseSubmission.openToRemoteMulti).to.deep.equal(['remote']);
-        expect(responseSubmission.otherCauses).to.deep.equal([
-          'otherCause1',
-          'otherCause2',
-        ]);
-        expect(responseSubmission.otherSkills).to.deep.equal([
-          'otherSkill1',
-          'otherSkill2',
-        ]);
-        expect(responseSubmission.portfolioPassword).to.equal('portfolioPwd');
-        expect(responseSubmission.portfolioUrl).to.equal('portfolioUrl');
-        expect(responseSubmission.previousImpactExperience).to.equal(true);
-        expect(responseSubmission.referenceAttribution).to.equal('other');
-        expect(responseSubmission.referenceAttributionOther).to.equal(
-          'Other Attribution'
-        );
-        expect(responseSubmission.resumeUpload?.originalFilename).to.equal(
-          'example_file.docx'
-        );
-        expect(responseSubmission.skills).to.deep.equal([
-          'react',
-          'javascript',
-          'python',
-          'java',
-          'sql',
-          'privacy',
-          'security',
-          'devops',
-          'figma',
-          'sketch',
-          'prototyping',
-          'user research',
-          'product development',
-          'project management',
-        ]);
-        expect(responseSubmission.workAuthorization).to.equal('authorized');
-        expect(responseSubmission.yoe).to.equal('4');
+        expect(responseSubmission).to.deep.include({
+          currentLocation: 'New York, New York',
+          desiredSalary: '$200,000',
+          essayResponse: 'Essay entry.',
+          githubUrl: 'github',
+          hoursPerWeek: '40hrs',
+          interestEmploymentType: ['full', 'part'],
+          interestGovt: true,
+          interestGovtEmplTypes: ['paid', 'unpaid'],
+          interestRoles: [
+            'data analyst',
+            'data scientist',
+            'engineering manager',
+            'product designer',
+            'product manager',
+            'software engineer',
+            'software engineer - backend',
+            'software engineer - frontend',
+            'ux/ui designer',
+            'ux researcher',
+            'vp of engineering (or similar)',
+            'vp of product (or similar)',
+          ],
+          interestWorkArrangement: [
+            'advisor',
+            'consultant',
+            'contractor',
+            'internship',
+            'volunteer',
+          ],
+          lastOrg: 'Schmidt Futures',
+          lastRole: 'Software Engineer',
+          linkedInUrl: 'l',
+          openToRelocate: 'yes',
+          openToRemoteMulti: ['remote'],
+          otherCauses: ['otherCause1', 'otherCause2'],
+          otherSkills: ['otherSkill1', 'otherSkill2'],
+          portfolioPassword: 'portfolioPwd',
+          portfolioUrl: 'portfolioUrl',
+          previousImpactExperience: true,
+          referenceAttribution: 'other',
+          referenceAttributionOther: 'Other Attribution',
+          skills: [
+            'react',
+            'javascript',
+            'python',
+            'java',
+            'sql',
+            'privacy',
+            'security',
+            'devops',
+            'figma',
+            'sketch',
+            'prototyping',
+            'user research',
+            'product development',
+            'project management',
+          ],
+          workAuthorization: 'authorized',
+          yoe: '4',
+        });
+        expect(responseSubmission.resumeUpload).to.include({
+          originalFilename: 'example_file.docx',
+        });
       });
 
       // Confirm success
@@ -419,7 +405,7 @@ describe('Candidate Application', () => {
   }
 
   function fillPreviousRole(): void {
-    cy.get('input[name=input-lastRole]').fastType('Software Engineer');
+    cy.get('input[name=input-lastRole]').type('Software Engineer');
   }
 
   function fillPreviousOrg(): void {

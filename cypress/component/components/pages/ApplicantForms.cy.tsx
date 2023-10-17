@@ -601,78 +601,10 @@ describe('ApplicantForms', () => {
               const expectedObj = stripEmptyFields({
                 ...mockSubmissionResponse.submission,
                 currentLocation: newLocation,
+                utmParams: mockUtmParams,
               });
 
-              expect(requestBody.currentLocation).to.equal(
-                expectedObj.currentLocation
-              );
-              expect(requestBody.desiredSalary).to.equal(
-                expectedObj.desiredSalary
-              );
-              expect(requestBody.essayResponse).to.equal(
-                expectedObj.essayResponse
-              );
-              expect(requestBody.githubUrl).to.equal(expectedObj.githubUrl);
-              expect(requestBody.hoursPerWeek).to.equal(
-                expectedObj.hoursPerWeek
-              );
-              expect(requestBody.interestCauses).to.deep.equal(
-                expectedObj.interestCauses
-              );
-              expect(requestBody.interestEmploymentType).to.deep.equal(
-                expectedObj.interestEmploymentType
-              );
-              expect(requestBody.interestGovt).to.equal(
-                expectedObj.interestGovt
-              );
-              expect(requestBody.interestGovtEmplTypes).to.deep.equal(
-                expectedObj.interestGovtEmplTypes
-              );
-              expect(requestBody.interestRoles).to.deep.equal(
-                expectedObj.interestRoles
-              );
-              expect(requestBody.interestWorkArrangement).to.deep.equal(
-                expectedObj.interestWorkArrangement
-              );
-              expect(requestBody.lastOrg).to.equal(expectedObj.lastOrg);
-              expect(requestBody.lastRole).to.equal(expectedObj.lastRole);
-              expect(requestBody.linkedInUrl).to.equal(expectedObj.linkedInUrl);
-              expect(requestBody.openToRelocate).to.equal(
-                expectedObj.openToRelocate
-              );
-              expect(requestBody.openToRemoteMulti).to.deep.equal(
-                expectedObj.openToRemoteMulti
-              );
-              expect(requestBody.otherCauses).to.deep.equal(
-                expectedObj.otherCauses
-              );
-              expect(requestBody.otherSkills).to.deep.equal(
-                expectedObj.otherSkills
-              );
-              expect(requestBody.portfolioPassword).to.equal(
-                expectedObj.portfolioPassword
-              );
-              expect(requestBody.portfolioUrl).to.equal(
-                expectedObj.portfolioUrl
-              );
-              expect(requestBody.previousImpactExperience).to.equal(
-                expectedObj.previousImpactExperience
-              );
-              expect(requestBody.referenceAttribution).to.equal(
-                expectedObj.referenceAttribution
-              );
-              expect(requestBody.referenceAttributionOther).to.equal(
-                expectedObj.referenceAttributionOther
-              );
-              expect(requestBody.resumeUpload).to.deep.equal(
-                expectedObj.resumeUpload
-              );
-              expect(requestBody.skills).to.deep.equal(expectedObj.skills);
-              expect(requestBody.workAuthorization).to.equal(
-                expectedObj.workAuthorization
-              );
-              expect(requestBody.yoe).to.equal(expectedObj.yoe);
-              expect(requestBody.utmParams).to.deep.equal(mockUtmParams);
+              expect(requestBody).to.deep.include(expectedObj);
 
               cy.get('div[data-name=Modal]').should('be.visible');
               cy.get('h2[data-name=modal-header]').should(
@@ -786,63 +718,39 @@ describe('ApplicantForms', () => {
                 cy.wait('@applicationSubmission').then((i: Interception) => {
                   const requestBody = i.request.body as DraftSubmissionType;
 
-                  expect(requestBody.currentLocation).to.equal('test location');
-                  expect(requestBody.desiredSalary).to.equal('200k');
-                  expect(requestBody.essayResponse).to.equal('essay response');
-                  expect(requestBody.githubUrl).to.equal(null);
-                  expect(requestBody.hoursPerWeek).to.equal(null);
-                  expect(requestBody.interestCauses).to.deep.equal([
-                    'int 1',
-                    'int 2',
-                  ]);
-                  expect(requestBody.interestEmploymentType).to.deep.equal([
-                    'full',
-                  ]);
-                  expect(requestBody.interestGovt).to.equal(true);
-                  expect(requestBody.interestGovtEmplTypes).to.deep.equal([
-                    'paid',
-                    'unpaid',
-                  ]);
-                  expect(requestBody.interestRoles).to.deep.equal([
-                    'data analyst',
-                    'product designer',
-                  ]);
-                  expect(requestBody.interestWorkArrangement).to.deep.equal([
-                    'full-time employee',
-                  ]);
-                  expect(requestBody.lastOrg).to.equal('new org');
-                  expect(requestBody.lastRole).to.equal('new role');
-                  expect(requestBody.linkedInUrl).to.equal('new linkedin url');
-                  expect(requestBody.openToRelocate).to.equal('not sure');
-                  expect(requestBody.openToRemoteMulti).to.deep.equal([
-                    'remote',
-                    'hybrid',
-                  ]);
-                  expect(requestBody.otherCauses).to.deep.equal([
-                    'other 1',
-                    'other 2',
-                  ]);
-                  expect(requestBody.otherSkills).to.deep.equal([
-                    'new skill 1',
-                    'new skill 2',
-                  ]);
-                  expect(requestBody.portfolioPassword).to.equal(
-                    'new portfolio password'
-                  );
-                  expect(requestBody.portfolioUrl).to.equal(
-                    'new portfolio url'
-                  );
-                  expect(requestBody.previousImpactExperience).to.equal(false);
-                  expect(requestBody.referenceAttribution).to.equal('linkedIn');
-                  expect(requestBody.referenceAttributionOther).to.equal(null);
-                  expect(requestBody.resumeUpload).to.deep.equal({
-                    id: 123,
-                    originalFilename: 'newOrigFilename.pdf',
+                  expect(requestBody).to.deep.include({
+                    currentLocation: 'test location',
+                    desiredSalary: '200k',
+                    essayResponse: 'essay response',
+                    githubUrl: null,
+                    hoursPerWeek: null,
+                    interestCauses: ['int 1', 'int 2'],
+                    interestEmploymentType: ['full'],
+                    interestGovt: true,
+                    interestGovtEmplTypes: ['paid', 'unpaid'],
+                    interestRoles: ['data analyst', 'product designer'],
+                    interestWorkArrangement: ['full-time employee'],
+                    lastOrg: 'new org',
+                    lastRole: 'new role',
+                    linkedInUrl: 'new linkedin url',
+                    openToRelocate: 'not sure',
+                    openToRemoteMulti: ['remote', 'hybrid'],
+                    otherCauses: ['other 1', 'other 2'],
+                    otherSkills: ['new skill 1', 'new skill 2'],
+                    portfolioPassword: 'new portfolio password',
+                    portfolioUrl: 'new portfolio url',
+                    previousImpactExperience: false,
+                    referenceAttribution: 'linkedIn',
+                    referenceAttributionOther: null,
+                    resumeUpload: {
+                      id: 123,
+                      originalFilename: 'newOrigFilename.pdf',
+                    },
+                    skills: [],
+                    workAuthorization: 'authorized',
+                    yoe: '2',
+                    utmParams: mockUtmParams,
                   });
-                  expect(requestBody.skills).to.deep.equal([]);
-                  expect(requestBody.workAuthorization).to.equal('authorized');
-                  expect(requestBody.yoe).to.equal('2');
-                  expect(requestBody.utmParams).to.deep.equal(mockUtmParams);
                 });
               });
           });
