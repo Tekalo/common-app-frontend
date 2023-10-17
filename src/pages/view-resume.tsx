@@ -17,6 +17,7 @@ const ViewResumePage: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string>();
+  // TODO: Move this to a central provider
   const cookies = new Cookies(null, { path: '/' });
 
   useEffect(() => {

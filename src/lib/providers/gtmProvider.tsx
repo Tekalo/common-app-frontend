@@ -27,6 +27,7 @@ export const gtmCookieName = 'tklo_gtm_params';
 
 const GTMProvider: React.FC<IProvider> = ({ children }) => {
   // Lib classes
+  // TODO: Move this to a central provider
   const cookies = new Cookies(null, { path: '/' });
   const router = useRouter();
   const [paramsReady, setParamsReady] = useState(false);
