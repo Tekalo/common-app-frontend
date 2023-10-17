@@ -726,12 +726,32 @@ const ORG_FORM_TEXT = {
   },
   NAV: {
     title: 'Recruit qualified candidates from the Tekalo network',
+    subtitle:
+      'A free, philanthropically-funded service that bridges the gap between tech talent and social impact',
     navawayText: "If you're a candidate looking for opportunities, ",
     navText: 'sign up here',
   },
   CONTACT: 'Contact',
   BREADCRUMB: 'Role',
   DELETE_ROLE: 'Delete this role',
+  INFO: {
+    chat: (
+      <>
+        Not ready to submit an opportunity yet?{' '}
+        <a className="whitespace-nowrap text-blue-1 underline" href="#">
+          Schedule a chat
+        </a>{' '}
+        with a Tekalo Talent Connector who can answer your questions.
+      </>
+    ),
+    non_commit: (
+      <>
+        By filling out this application you&apos;re not committing to using
+        Tekalo and can opt out at any time. A Talent Connector will review your
+        application and be in touch with next steps!
+      </>
+    ),
+  },
 };
 const ORG_ROLE_FORM_TEXT = {
   BUTTONS: {
