@@ -58,16 +58,14 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
         {}
       );
 
-      if (Object.values(gtmParams).some((val) => val !== undefined)) {
-        const finalValues = {
-          ...gtmParams,
-          ga_client_id: ga_ids[0],
-          ga_session_id: ga_ids[1],
-        };
+      const finalValues = {
+        ...gtmParams,
+        ga_client_id: ga_ids[0],
+        ga_session_id: ga_ids[1],
+      };
 
-        cookies.set(gtmCookieName, finalValues);
-        setParamsReady(true);
-      }
+      cookies.set(gtmCookieName, finalValues);
+      setParamsReady(true);
     };
 
     const hasCookieValue = !!cookies.get(gtmCookieName);
