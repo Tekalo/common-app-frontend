@@ -91,7 +91,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
       // If gtag is blocked, this will never return, we must set default values
       setTimeout(() => {
         resolve(emptyValue);
-      }, 500);
+      }, 1000);
     } else {
       resolve(emptyValue);
     }
