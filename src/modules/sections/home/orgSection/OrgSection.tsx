@@ -131,7 +131,7 @@ const OrganizationSection: React.FC<IOrganizationSection> = ({
     {
       src: '/images/logos/Uprooted.png',
       alt: 'The Uprooted Way',
-      url: 'https://www.uprootedacademy.org/home/',
+      url: 'https://www.uprootedacademy.org/',
     },
     {
       src: '/images/logos/ChangeMachine.png',
