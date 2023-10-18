@@ -89,8 +89,17 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
       window.gtag('get', id, valueName, resolve);
 
       // If gtag is blocked, this will never return, we must set default values
-      setTimeout(() => {
-        resolve(emptyValue);
+      let i = 0;
+      const int = setInterval(() => {
+        i++;
+
+        if (cookies.get(gtmCookieName)) {
+          clearInterval(int);
+          return;
+        } else if (i === 10) {
+          resolve(emptyValue);
+          clearInterval(int);
+        }
       }, 500);
     } else {
       resolve(emptyValue);
