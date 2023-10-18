@@ -738,7 +738,12 @@ const ORG_FORM_TEXT = {
     chat: (
       <>
         Not ready to submit an opportunity yet?{' '}
-        <a className="whitespace-nowrap text-blue-1 underline" href="#">
+        <a
+          className="whitespace-nowrap text-blue-1 underline"
+          target="_blank"
+          href="https://calendly.com/aisling-hoey/30min"
+          rel="noreferrer"
+        >
           Schedule a chat
         </a>{' '}
         with a Tekalo Talent Connector who can answer your questions.
