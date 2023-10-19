@@ -29,10 +29,10 @@ const OrgForms: React.FC<IOrgForms> = ({
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center px-6 pb-28 pt-10 md:pb-32 lg:pb-44 lg:pt-16">
       <NavTitle
-        title={ORG_FORM_TEXT.NAV.title}
-        navawayText={ORG_FORM_TEXT.NAV.navawayText}
         navLink={APPLICANT_SIGNUP_LINK}
         navText={ORG_FORM_TEXT.NAV.navText}
+        subtitle={ORG_FORM_TEXT.NAV.subtitle}
+        title={ORG_FORM_TEXT.NAV.title}
       />
       <div className="m-auto max-w-[344px] lg:max-w-[352px]">
         {/* If activeIndex is -1 show the RoleForm otherwise render OrgSignupForm and breadcrum*/}

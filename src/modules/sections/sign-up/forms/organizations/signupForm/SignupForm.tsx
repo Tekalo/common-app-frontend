@@ -27,6 +27,7 @@ import {
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import { NewOrgType } from '@/lib/types';
+import OrgAdditionalInfoBox from '@/modules/components/application/OrgAdditionalInfoBox';
 import {
   FreeTagField,
   FreeTextField,
@@ -215,6 +216,8 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
               initialValue={''}
             />
           )}
+
+          <OrgAdditionalInfoBox />
 
           {/* Form Control Button*/}
           <div className="pt-2">
