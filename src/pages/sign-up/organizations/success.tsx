@@ -1,6 +1,6 @@
 import SuccessSection from '@/components/info/successSection/SuccessSection';
 import { BASE_LINK, ORG_FORM_TEXT } from '@/lang/en';
-import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
+import OrganizationLayout from '@/lib/layouts/forms/organization/OrganizationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import { useRouter } from 'next/router';
 
