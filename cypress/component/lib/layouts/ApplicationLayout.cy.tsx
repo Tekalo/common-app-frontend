@@ -47,17 +47,13 @@ describe('ApplicationLayout', () => {
     it('should display the correct loading content', () => {
       cy.mountApplicationLayout(mockAuth0Context, props);
 
-      cy.get('a[data-name=lite-navbar-logo-link]').should(
-        'have.attr',
-        'href',
-        '/'
-      );
-      cy.get('img[data-name=lite-navbar-logo]').should(
+      cy.get('a[data-name=navbar-logo-link]').should('have.attr', 'href', '/');
+      cy.get('img[data-name=navbar-logo]').should(
         'have.attr',
         'src',
         '/images/logo_nav.png'
       );
-      cy.get('div[data-name=lite-navbar-title]').should(
+      cy.get('div[data-name=navbar-title]').should(
         'have.text',
         NAV_BAR_TEXT.FOR_CANDIDATES
       );
@@ -75,17 +71,13 @@ describe('ApplicationLayout', () => {
     it('should have correct navbar elements when not authenticated', () => {
       cy.mountApplicationLayout(mockAuth0Context, props);
 
-      cy.get('a[data-name=lite-navbar-logo-link]').should(
-        'have.attr',
-        'href',
-        '/'
-      );
-      cy.get('img[data-name=lite-navbar-logo]').should(
+      cy.get('a[data-name=navbar-logo-link]').should('have.attr', 'href', '/');
+      cy.get('img[data-name=navbar-logo]').should(
         'have.attr',
         'src',
         '/images/logo_nav.png'
       );
-      cy.get('div[data-name=lite-navbar-title]').should(
+      cy.get('div[data-name=navbar-title]').should(
         'have.text',
         NAV_BAR_TEXT.FOR_CANDIDATES
       );

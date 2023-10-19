@@ -17,7 +17,7 @@ const NavBarWrapper: React.FC<IWrapper & INavBarWrapper> = ({
           {/* Logo */}
           <Link href="/" data-name="navbar-logo-link">
             <Image
-              data-name="lite-navbar-logo"
+              data-name="navbar-logo"
               src="/images/logo_nav.png"
               alt="Tekalo Logo"
               className="max-w-[96px] py-1 md:max-w-[132px]"
