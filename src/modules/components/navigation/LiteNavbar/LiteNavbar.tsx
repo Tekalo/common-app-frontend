@@ -45,8 +45,9 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
             <div
               className={`${
                 isEditing ? 'hidden md:inline-block' : ''
-              } lg:text-p2-desktop" data-name="lite-navbar-title ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2
-              md:text-p2-mobile`}
+              } ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2 md:text-p2-mobile
+              lg:text-p2-desktop`}
+              data-name="lite-navbar-title"
             >
               {title}
             </div>
