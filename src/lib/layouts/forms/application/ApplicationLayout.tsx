@@ -1,5 +1,5 @@
 import { HEAD_TEXT, NAV_BAR_TEXT, NAV_LITE_FOOTER_TEXT } from '@/lang/en';
-import FormLayout from '../FormLayout';
+import FormLayout from '@/lib/layouts/forms/FormLayout';
 
 export interface IApplicationLayout
   extends React.ComponentPropsWithoutRef<'div'> {
