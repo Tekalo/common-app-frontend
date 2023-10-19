@@ -10,7 +10,7 @@ import {
 } from '@/lang/en';
 import ApplicationLayout, {
   IApplicationLayout,
-} from '@/lib/layouts/application/ApplicationLayout';
+} from '@/lib/layouts/forms/application/ApplicationLayout';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 
 Cypress.Commands.add(
