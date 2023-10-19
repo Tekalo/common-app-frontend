@@ -46,7 +46,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
               className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2 md:text-p2-mobile lg:text-p2-desktop"
               data-name="lite-navbar-title"
             >
-              {title}
+              {isEditing ? '' : title}
             </div>
           </div>
           <div className="flex items-center space-x-2 md:space-x-6 lg:space-x-10">
@@ -76,7 +76,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({
                           <UserCircleIcon className="w-6" />
                         ) as unknown as IconType
                       }
-                      className="flex cursor-pointer items-center justify-center space-x-1 px-4 py-2 font-sans text-component-large md:px-6 md:py-3"
+                      className="flex cursor-pointer items-center justify-center space-x-1 px-1 py-2 font-sans text-component-large md:px-6 md:py-3"
                     >
                       {NAV_BAR_TEXT.MY_ACCOUNT}
                     </Button>
