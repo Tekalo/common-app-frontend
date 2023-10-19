@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { IWrapper } from './shared';
 
 interface INavBarWrapper {
+  isEditing?: boolean;
   title?: string;
 }
 
 const NavBarWrapper: React.FC<IWrapper & INavBarWrapper> = ({
   children,
+  isEditing = false,
   title,
 }) => (
   <nav className="bg-white">
@@ -26,7 +28,10 @@ const NavBarWrapper: React.FC<IWrapper & INavBarWrapper> = ({
             />
           </Link>
           <div
-            className="ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2 md:text-p2-mobile lg:text-p2-desktop"
+            className={`${
+              isEditing ? 'hidden md:inline-block' : ''
+            } ml-4 flex flex-row pt-1 text-p3-mobile md:ml-0 md:pt-2 md:text-p2-mobile
+            lg:text-p2-desktop`}
             data-name="navbar-title"
           >
             {title}
