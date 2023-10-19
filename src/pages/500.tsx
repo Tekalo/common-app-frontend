@@ -1,5 +1,5 @@
 import { ERROR_TEXT } from '@/lang/en';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import ErrorPageWrapper from '@/modules/components/pages/wrappers/errorPageWrapper';
 
