@@ -25,7 +25,7 @@ import {
   jumpToFirstErrorMessage,
   stripEmptyFields,
 } from '@/lib/helpers/formHelpers';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
 import {
   NewCandidateType,
