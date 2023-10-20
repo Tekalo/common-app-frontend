@@ -7,7 +7,7 @@ import FileUploadProvider, {
   FileUploadContext,
   IFileUploadCompleteResponse,
   IFileUploadRequestResponse,
-} from '@/lib/providers/fileUploadProvider';
+} from '@/lib/providers/fileUploadProvider/fileUploadProvider';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import { Interception } from 'cypress/types/net-stubbing';
 import * as FileTypeCheckerModule from 'file-type-checker';
@@ -397,6 +397,7 @@ describe('FileUploadProvider', () => {
     };
 
     cy.mountFileUploadProvider('validate', mockAuth0Context);
+
     cy.get('@fileLibCheck').should('have.been.calledOnce');
   });
 

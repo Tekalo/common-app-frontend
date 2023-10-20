@@ -4,9 +4,9 @@ import {
   resumeUploadRequestEndpoint,
 } from '@/lib/helpers/apiHelpers';
 import { useAuth0 } from '@auth0/auth0-react';
-import fileTypeChecker from 'file-type-checker';
 import React from 'react';
-import { IProvider } from './shared';
+import { IProvider } from '../shared';
+import FileValidator from './fileValidator';
 
 // To request file upload
 interface IFileUploadRequestBody {
@@ -18,6 +18,27 @@ interface IFileUploadRequestBody {
 export interface IFileUploadRequestResponse {
   id: number;
   signedLink: string;
+  presignedPost: PresignedPost;
+}
+
+interface PresignedPost {
+  url: string;
+  fields: PresignedPostFields;
+}
+
+interface PresignedPostFields {
+  acl: string;
+  bucket: string;
+  'Content-Type': string;
+  key: string;
+  Policy: string;
+  'X-Amz-Algorithm': string;
+  'X-Amz-Credential': string;
+  'X-Amz-Date': string;
+  'x-amz-meta-upload-id': string;
+  'x-amz-meta-uploaded-by-applicant-id': string;
+  'X-Amz-Security-Token': string;
+  'X-Amz-Signature': string;
 }
 
 // After AWS upload status and details
@@ -41,6 +62,24 @@ export const FileUploadContext = React.createContext<IFileUploadContext>(
 
 const FileUploadProvider: React.FC<IProvider> = ({ children }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const fileValidator = new FileValidator();
+
+  const mapFormData = (
+    file: File,
+    uploadDetails: IFileUploadRequestResponse
+  ): FormData => {
+    const formData = new FormData();
+    const postFields = uploadDetails.presignedPost.fields;
+    let key: keyof PresignedPostFields;
+
+    for (key in postFields) {
+      formData.append(key, postFields[key]);
+    }
+
+    formData.append('file', file);
+
+    return formData;
+  };
 
   const markUploadStatus = async (isSuccess: boolean, fileId: number) => {
     const authToken = isAuthenticated ? await getAccessTokenSilently() : '';
@@ -69,15 +108,14 @@ const FileUploadProvider: React.FC<IProvider> = ({ children }) => {
     file: File,
     uploadDetails: IFileUploadRequestResponse
   ): Promise<boolean> => {
-    return fetch(uploadDetails.signedLink, {
-      method: 'PUT',
-      body: file,
-      headers: {
-        'Content-Type': file.type,
-      },
+    const formData = mapFormData(file, uploadDetails);
+
+    return fetch(uploadDetails.presignedPost.url, {
+      method: 'POST',
+      body: formData,
     }).then(
       async (res) => {
-        return res.status === 200;
+        return res.status === 204;
       },
       async () => {
         return false;
@@ -117,47 +155,11 @@ const FileUploadProvider: React.FC<IProvider> = ({ children }) => {
     }
   };
 
-  const validateDocxSignature = (fileContents: ArrayBuffer): boolean => {
-    const docxSignature = [0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00];
-    const uint8Array = new Uint8Array(fileContents);
-
-    return docxSignature.every((byte, index) => byte === uint8Array[index]);
-  };
-
-  const validateFile = async (file: File): Promise<boolean> => {
-    // .pdf,.docx,.png,.jpeg,.jpg
-    const acceptedTypes = ['jpeg', 'png', 'pdf'];
-
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const fileContents = reader.result as ArrayBuffer;
-
-        const docxMimeType =
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-
-        if (file.type === docxMimeType) {
-          // The library can't validate the signatures of .docx files
-          // so we have to manually validate it
-          // https://www.garykessler.net/library/file_sigs.html
-          resolve(validateDocxSignature(fileContents));
-        } else {
-          resolve(
-            fileTypeChecker.validateFileType(fileContents, acceptedTypes)
-          );
-        }
-      };
-
-      reader.readAsArrayBuffer(file);
-    });
-  };
-
   return (
     <FileUploadContext.Provider
       value={{
         uploadFile,
-        validateFile,
+        validateFile: fileValidator.validateFile,
       }}
     >
       {children}
