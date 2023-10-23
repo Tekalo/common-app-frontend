@@ -261,3 +261,39 @@ export const LightBulbInfoSVG: React.FC<ISVGProps> = ({
     />
   </svg>
 );
+
+export const PlusIconSVG: React.FC = () => (
+  <svg
+    width="11"
+    height="10"
+    viewBox="0 0 11 10"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5.5 1V9M9.5 5H1.5"
+      stroke="#317BB5"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+);
+
+export const SearchIconSVG: React.FC = () => (
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 18 18"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M15.3146 15.3146L11.5617 11.5618M11.5617 11.5618C12.0342 11.0892 12.4091 10.5282 12.6648 9.91083C12.9206 9.29343 13.0522 8.63171 13.0522 7.96343C13.0522 7.29516 12.9206 6.63344 12.6648 6.01603C12.4091 5.39863 12.0342 4.83765 11.5617 4.36511C11.0892 3.89257 10.5282 3.51773 9.91078 3.26199C9.29338 3.00626 8.63165 2.87463 7.96338 2.87463C7.29511 2.87463 6.63338 3.00626 6.01598 3.26199C5.39858 3.51773 4.83759 3.89257 4.36505 4.36511C3.41052 5.31964 2.87427 6.61427 2.87427 7.96419C2.87427 9.3141 3.41052 10.6087 4.36505 11.5633C5.31959 12.5178 6.61422 13.0541 7.96413 13.0541C9.31405 13.0541 10.6087 12.5178 11.5632 11.5633L11.5617 11.5618Z"
+      stroke="#6B7281"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
