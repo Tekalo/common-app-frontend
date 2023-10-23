@@ -26,7 +26,7 @@ interface PresignedPost {
   fields: PresignedPostFields;
 }
 
-interface PresignedPostFields {
+export interface PresignedPostFields {
   acl: string;
   bucket: string;
   'Content-Type': string;
