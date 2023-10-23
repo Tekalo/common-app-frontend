@@ -46,6 +46,29 @@ export const EditSVG = (
   </svg>
 );
 
+export const CloseSVG: React.FC = () => (
+  <svg
+    width="7"
+    height="8"
+    viewBox="0 0 7 8"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M6.57174 0.773667C6.7752 0.971889 6.7752 1.29327 6.57174 1.49149L1.0144 6.90569C0.81094 7.10391 0.481061 7.10391 0.277597 6.90569C0.0741342 6.70747 0.0741342 6.38608 0.277597 6.18786L5.83493 0.773667C6.0384 0.575444 6.36828 0.575444 6.57174 0.773667Z"
+      fill="#317BB5"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M0.277598 0.773667C0.481061 0.575444 0.81094 0.575444 1.0144 0.773667L6.57173 6.18786C6.77519 6.38608 6.77519 6.70747 6.57173 6.90569C6.36827 7.10391 6.03839 7.10391 5.83493 6.90569L0.277597 1.49149C0.0741341 1.29327 0.0741343 0.971889 0.277598 0.773667Z"
+      fill="#317BB5"
+    />
+  </svg>
+);
+
 export const FileSvg: React.FC<ISVGProps> = ({ height, width, color }) => {
   return (
     <svg
@@ -273,9 +296,9 @@ export const PlusIconSVG: React.FC = () => (
     <path
       d="M5.5 1V9M9.5 5H1.5"
       stroke="#317BB5"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
