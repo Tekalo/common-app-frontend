@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { IApplicationLayout } from '@/lib/layouts/application/ApplicationLayout';
+import { IApplicationLayout } from '@/lib/layouts/forms/application/ApplicationLayout';
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
 import { IApplicantForms } from '@/modules/components/pages/ApplicantForms';

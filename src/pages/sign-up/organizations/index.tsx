@@ -8,7 +8,7 @@ import {
   postWithTurnstile,
 } from '@/lib/helpers/apiHelpers';
 import { executeScroll } from '@/lib/helpers/formHelpers';
-import OrganizationLayout from '@/lib/layouts/organization/OrganizationLayout';
+import OrganizationLayout from '@/lib/layouts/forms/organization/OrganizationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';

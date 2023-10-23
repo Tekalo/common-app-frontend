@@ -1,6 +1,6 @@
 import SuccessSection from '@/components/info/successSection/SuccessSection';
 import { APPLICANT_FORM_TEXT, BASE_LINK } from '@/lang/en';
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import { useRouter } from 'next/router';
 

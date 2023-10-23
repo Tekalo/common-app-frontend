@@ -1,4 +1,4 @@
-import ApplicationLayout from '@/lib/layouts/application/ApplicationLayout';
+import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { NextPageWithLayout } from '@/lib/types';
 import ApplicantForms from '@/modules/components/pages/ApplicantForms';
 
