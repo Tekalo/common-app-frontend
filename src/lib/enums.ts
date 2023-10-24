@@ -149,6 +149,8 @@ export const TrueFalseString = z.enum(BOOL_ENUM_OPTIONS, {
 
 const Skills = z.enum(SKILL_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
+const SkillsSelectValidator = z.array(RequiredString);
+
 const Roles = z.enum(ROLE_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
 const RolesValidator = Roles.array().refine((v) => !!v.length, {
@@ -259,6 +261,7 @@ export {
   RolesValidator,
   SearchStatus,
   Skills,
+  SkillsSelectValidator,
   ToS,
   UploadedFile,
   VisaSponsorship,

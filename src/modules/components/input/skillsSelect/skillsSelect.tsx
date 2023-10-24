@@ -1,33 +1,48 @@
-import { Combobox, Transition } from '@headlessui/react';
+import { Combobox } from '@headlessui/react';
 import { useState } from 'react';
 import SkillboxInput from './components/skillboxInput';
 import SkillboxOptionList from './components/skillboxOptionList';
 
 interface ISkillsSelect {
-  value: string[];
+  hasErrors: boolean;
+  // initialValue: string[];
+  label: string;
+  name: string;
   setValue: (_val: string[]) => void;
+  value: string[];
 }
 
 export interface ISkill {
   name: string;
 }
 
-const SkillsSelect: React.FC<ISkillsSelect> = ({ setValue, value }) => {
+const SkillsSelect: React.FC<ISkillsSelect> = ({
+  hasErrors,
+  // initialValue,
+  label,
+  name,
+  setValue,
+  value,
+}) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   // TODO: Hook this up to a service call
   const skills: ISkill[] = [
-    { name: 'Javascript' },
-    { name: 'HTML' },
-    { name: 'CSS' },
-    { name: 'jQuery' },
-    { name: 'C#' },
-    { name: 'SQL' },
-    { name: 'Manual Automation' },
     { name: 'Agile software development' },
+    { name: 'C#' },
+    { name: 'Cryptography' },
+    { name: 'CSS' },
+    { name: 'HTML' },
+    { name: 'Javascript' },
+    { name: 'jQuery' },
+    { name: 'Manual Automation' },
+    { name: 'SQL' },
   ].filter((skill) => {
     return !value.includes(skill.name);
   });
+
+  const inputId = `${name}-input`;
+  const disabled = value.length >= 8;
 
   const skillResults =
     searchQuery === ''
@@ -36,35 +51,60 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({ setValue, value }) => {
           skill.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
+  const focusInput = (): void => {
+    const skillsInput = document.getElementById(`${name}-input`);
+
+    if (skillsInput) {
+      skillsInput.focus();
+    }
+  };
+
+  const removeLastSkill = (setValue: (_val: string[]) => void): void => {
+    const newVal = [...value];
+    newVal.splice(value.length - 1, 1);
+
+    setValue(newVal);
+  };
+
   return (
     <div className="relative">
       <Combobox
+        name={name}
         value={value}
         onChange={(newVal: string[]) => {
           setValue(value.concat(newVal));
+          focusInput();
         }}
       >
         {({ open }) => (
           <>
+            <Combobox.Label
+              data-name="label"
+              className="text-component-extra-small text-black-text"
+            >
+              {label}
+            </Combobox.Label>
             <SkillboxInput
+              disabled={disabled}
+              focusInput={focusInput}
+              hasErrors={hasErrors}
+              name={inputId}
+              removeLastSkill={() => {
+                removeLastSkill(setValue);
+              }}
               setSearchQuery={setSearchQuery}
               setValue={setValue}
               value={value}
             />
-            <Transition
-              enter="transition duration-100 ease-out"
-              enterFrom="transform scale-95 opacity-0"
-              enterTo="transform scale-100 opacity-100"
-              leave="transition duration-100 ease-out"
-              leaveFrom="transform scale-100 opacity-100"
-              leaveTo="transform scale-95 opacity-0"
-              className={`${open ? 'relative z-10' : null}`}
-            ></Transition>
+
             {/*
               TODO: Add custom skills when none in list
             */}
-            <SkillboxOptionList options={skillResults} />
-            <Transition />
+            <SkillboxOptionList
+              disabled={disabled}
+              open={open}
+              options={skillResults}
+            />
           </>
         )}
       </Combobox>
