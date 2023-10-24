@@ -3,7 +3,7 @@ import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { CircledXSvg, FileSvg } from '@/lib/constants/svgs';
-import { FileUploadContext } from '@/lib/providers/fileUploadProvider';
+import { FileUploadContext } from '@/lib/providers/fileUploadProvider/fileUploadProvider';
 import { UploadedFileType } from '@/lib/types';
 import { useContext, useEffect, useState } from 'react';
 
