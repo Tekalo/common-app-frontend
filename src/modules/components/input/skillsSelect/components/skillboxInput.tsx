@@ -49,7 +49,8 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       const charWidth = (_val.length + 1) * 8 + 'px';
       const maxWidth = '200px';
 
-      input.style.width = valueLength || _val.length ? charWidth : maxWidth;
+      input.style.width =
+        valueLength >= 1 || _val.length ? charWidth : maxWidth;
     }
   };
 
