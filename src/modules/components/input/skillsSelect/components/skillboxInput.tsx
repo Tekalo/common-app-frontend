@@ -36,8 +36,19 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
     }
   };
 
+  const setInputWidth = (_val: string): void => {
+    const input = document.getElementById(name);
+
+    if (input) {
+      input.style.width = (_val.length + 1) * 8 + 'px';
+    }
+  };
+
   return (
-    <div className="relative box-border flex w-full flex-wrap items-start justify-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2">
+    <div
+      className="relative box-border flex w-full flex-wrap items-start justify-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2"
+      onClick={focusInput}
+    >
       <div className="ml-[2px] mr-1 mt-[2px]">
         <SearchIconSVG />
       </div>
@@ -54,17 +65,26 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       {
         <Combobox.Input
           id={name}
-          className="h-[22px] w-[75px] flex-[1_1_75px] border-none bg-transparent p-0 focus:border-none focus:ring-0"
+          className="h-[22px] max-w-[334px] border-none bg-transparent p-0 focus:border-none focus:ring-0"
           aria-invalid={hasErrors}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
             onFocus(event);
+            setInputWidth(event.target.value);
             setSearchQuery(event.target.value);
           }}
           onKeyUp={(event) => {
+            const inputTarget = event.target as HTMLInputElement;
+
             if (event.code === 'Backspace' && previousValue === '') {
+              // If they hit backspace with no input value
               removeLastSkill();
+            } else if (event.code === 'Enter' && inputTarget.value === '') {
+              // If they hit enter with value in the input,
+              // it submits it, need to resize
+              setInputWidth(inputTarget.value);
             }
-            setPreviousValue((event.target as HTMLInputElement).value);
+
+            setPreviousValue(inputTarget.value);
           }}
           onFocus={onFocus}
         />
