@@ -598,12 +598,14 @@ describe('Candidate Application', () => {
 
   function uploadDocXFile(): void {
     const fileName = 'example_file.docx';
+    const fileSignature = [0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00];
+    const sizeContents: number[] = [];
+    sizeContents.length = 1048576;
+    sizeContents.fill(0x06);
 
     cy.get('#upload-button-input-resumeUpload').selectFile(
       {
-        contents: Cypress.Buffer.from([
-          0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x06, 0x00,
-        ]),
+        contents: Cypress.Buffer.from(fileSignature.concat(sizeContents)),
         fileName,
       },
       { force: true }

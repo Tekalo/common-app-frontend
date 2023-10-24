@@ -7,7 +7,8 @@ import FileUploadProvider, {
   FileUploadContext,
   IFileUploadCompleteResponse,
   IFileUploadRequestResponse,
-} from '@/lib/providers/fileUploadProvider';
+  PresignedPostFields,
+} from '@/lib/providers/fileUploadProvider/fileUploadProvider';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import { Interception } from 'cypress/types/net-stubbing';
 import * as FileTypeCheckerModule from 'file-type-checker';
@@ -15,11 +16,13 @@ import React, { useContext } from 'react';
 
 describe('FileUploadProvider', () => {
   // readonly
+  const mockFileContents = '123';
   const mockFileId = 123;
-  const mockSignedLink = 'http://www.exampleuploadurl.com/';
   const mockFileName = 'exampleFile.pdf';
   const mockFileType = 'application/pdf';
-  const mockFileContents = '123';
+  const mockSignedLink = 'http://www.exampleuploadurl.com/';
+  const mockUrl = 'mockUrl';
+  const multipartSignature = 'multipart/form-data;';
 
   const MockComponent: React.FC<{ action: 'upload' | 'validate' }> = ({
     action,
@@ -59,6 +62,23 @@ describe('FileUploadProvider', () => {
     mockUploadRequestResponse = {
       id: mockFileId,
       signedLink: mockSignedLink,
+      presignedPost: {
+        url: 'mockUrl',
+        fields: {
+          acl: 'acl',
+          'Content-Type': mockFileType,
+          'x-amz-meta-uploaded-by-applicant-id': '359',
+          'x-amz-meta-upload-id': '502',
+          bucket: 'capp-dev-api-uploads',
+          'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
+          'X-Amz-Credential': 'credential',
+          'X-Amz-Date': 'date',
+          'X-Amz-Security-Token': 'token',
+          key: 'resumes/359/502.jpeg',
+          Policy: 'policy',
+          'X-Amz-Signature': 'signature',
+        },
+      },
     };
 
     mockFile = new File([mockFileContents], mockFileName, {
@@ -84,10 +104,10 @@ describe('FileUploadProvider', () => {
 
     cy.intercept(
       {
-        method: 'PUT',
-        url: mockSignedLink,
+        method: 'POST',
+        url: mockUrl,
       },
-      cy.stub().callsFake((res) => res.reply({ statusCode: 200 }))
+      cy.stub().callsFake((res) => res.reply({ statusCode: 204 }))
     ).as('fileUploaded');
 
     cy.intercept(
@@ -116,12 +136,18 @@ describe('FileUploadProvider', () => {
           `Bearer ${mockAuthToken}`
         );
 
-        // Check aws file upload
+        // // Check aws file upload
         const fileUploadRequestBody = intercepts[1].request.body;
         const fileUploadRequestHeaders = intercepts[1].request.headers;
 
-        expect(fileUploadRequestBody).to.equal(mockFileContents);
-        expect(fileUploadRequestHeaders['content-type']).to.equal(mockFileType);
+        checkMultipartFormValues(
+          mockUploadRequestResponse.presignedPost.fields,
+          fileUploadRequestBody
+        );
+
+        expect(fileUploadRequestHeaders['content-type']).to.include(
+          multipartSignature
+        );
 
         // Check complete
         const completeRequestBody = intercepts[2].request.body;
@@ -175,8 +201,8 @@ describe('FileUploadProvider', () => {
 
     cy.intercept(
       {
-        method: 'PUT',
-        url: mockSignedLink,
+        method: 'POST',
+        url: mockUrl,
       },
       cy
         .stub()
@@ -231,8 +257,8 @@ describe('FileUploadProvider', () => {
 
     cy.intercept(
       {
-        method: 'PUT',
-        url: mockSignedLink,
+        method: 'POST',
+        url: mockUrl,
       },
       { forceNetworkError: true }
     ).as('fileUploaded');
@@ -280,10 +306,10 @@ describe('FileUploadProvider', () => {
 
     cy.intercept(
       {
-        method: 'PUT',
-        url: mockSignedLink,
+        method: 'POST',
+        url: mockUrl,
       },
-      cy.stub().callsFake((res) => res.reply({ statusCode: 200 }))
+      cy.stub().callsFake((res) => res.reply({ statusCode: 204 }))
     ).as('fileUploaded');
 
     cy.intercept(
@@ -314,8 +340,13 @@ describe('FileUploadProvider', () => {
         const fileUploadRequestBody = intercepts[1].request.body;
         const fileUploadRequestHeaders = intercepts[1].request.headers;
 
-        expect(fileUploadRequestBody).to.equal(mockFileContents);
-        expect(fileUploadRequestHeaders['content-type']).to.equal(mockFileType);
+        checkMultipartFormValues(
+          mockUploadRequestResponse.presignedPost.fields,
+          fileUploadRequestBody
+        );
+        expect(fileUploadRequestHeaders['content-type']).to.include(
+          multipartSignature
+        );
 
         // Check complete
         const completeRequestBody = intercepts[2].request.body;
@@ -340,10 +371,10 @@ describe('FileUploadProvider', () => {
 
     cy.intercept(
       {
-        method: 'PUT',
-        url: mockSignedLink,
+        method: 'POST',
+        url: mockUrl,
       },
-      cy.stub().callsFake((res) => res.reply({ statusCode: 200 }))
+      cy.stub().callsFake((res) => res.reply({ statusCode: 204 }))
     ).as('fileUploaded');
 
     cy.intercept(
@@ -376,8 +407,13 @@ describe('FileUploadProvider', () => {
         const fileUploadRequestBody = intercepts[1].request.body;
         const fileUploadRequestHeaders = intercepts[1].request.headers;
 
-        expect(fileUploadRequestBody).to.equal(mockFileContents);
-        expect(fileUploadRequestHeaders['content-type']).to.equal(mockFileType);
+        checkMultipartFormValues(
+          mockUploadRequestResponse.presignedPost.fields,
+          fileUploadRequestBody
+        );
+        expect(fileUploadRequestHeaders['content-type']).to.include(
+          multipartSignature
+        );
 
         // Check complete
         const completeRequestBody = intercepts[2].request.body;
@@ -397,6 +433,7 @@ describe('FileUploadProvider', () => {
     };
 
     cy.mountFileUploadProvider('validate', mockAuth0Context);
+
     cy.get('@fileLibCheck').should('have.been.calledOnce');
   });
 
@@ -452,3 +489,17 @@ describe('FileUploadProvider', () => {
     cy.get('@fileLibCheck').should('not.have.been.called');
   });
 });
+
+// I know this is hard to read but its a formData string now and this
+// is the only way to check the values
+function checkMultipartFormValues(
+  expectedFields: PresignedPostFields,
+  requestBody: string
+): void {
+  Object.entries(expectedFields).forEach((entry) => {
+    const key = entry[0];
+    const value = entry[1];
+
+    expect(requestBody).to.include(`name="${key}"\r\n\r\n${value}\r\n`);
+  });
+}
