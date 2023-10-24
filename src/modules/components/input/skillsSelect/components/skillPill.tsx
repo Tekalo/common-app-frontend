@@ -11,8 +11,7 @@ const SkillPill: React.FC<ISkillPill> = ({ removeValue, value }) => (
     className="mr-1 flex cursor-pointer items-center rounded-sm bg-light-blue px-1 py-[2px] text-component-small text-black-text"
     onClick={() => removeValue(value)}
   >
-    <div className="flex-1"></div>
-    {value}
+    <div className="flex-1">{value}</div>
     <div className="flex-none pl-2">
       <CloseSVG />
     </div>
