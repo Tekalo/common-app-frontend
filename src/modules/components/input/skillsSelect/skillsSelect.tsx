@@ -5,7 +5,6 @@ import SkillboxOptionList from './components/skillboxOptionList';
 
 interface ISkillsSelect {
   hasErrors: boolean;
-  // initialValue: string[];
   label: string;
   name: string;
   placeholder: string;
@@ -19,7 +18,6 @@ export interface ISkill {
 
 const SkillsSelect: React.FC<ISkillsSelect> = ({
   hasErrors,
-  // initialValue,
   label,
   name,
   placeholder,

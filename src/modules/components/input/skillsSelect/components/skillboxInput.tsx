@@ -1,7 +1,7 @@
 import { SearchIconSVG } from '@/lib/constants/svgs';
 import { removeValueFromArray } from '@/lib/helpers/formHelpers';
 import { Combobox } from '@headlessui/react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import SkillPill from './skillPill';
 
 interface ISkillboxInput {
@@ -36,6 +36,25 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
     if (disabled) {
       event.target.value = '';
     }
+  };
+
+  const onKeyUpEvent = (event: KeyboardEvent<HTMLInputElement>) => {
+    const inputTarget = event.target as HTMLInputElement;
+
+    if (event.code === 'Backspace' && previousValue === '') {
+      // If they hit backspace with no input value
+      removeLastSkill();
+      setInputWidth(inputTarget.value, true);
+    } else if (event.code === 'Enter' && inputTarget.value === '') {
+      // If they hit enter with value in the input,
+      // it submits it, need to resize
+      setInputWidth(inputTarget.value);
+    } else if (event.code === 'Escape') {
+      // Escape clears the input, so we need to resize again
+      setInputWidth('');
+    }
+
+    setPreviousValue(inputTarget.value);
   };
 
   const setInputWidth = (_val: string, onBackspace = false): void => {
@@ -87,23 +106,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
             setSearchQuery(event.target.value);
           }}
           onFocus={onFocus}
-          onKeyUp={(event) => {
-            const inputTarget = event.target as HTMLInputElement;
-
-            if (event.code === 'Backspace' && previousValue === '') {
-              // If they hit backspace with no input value
-              removeLastSkill();
-              setInputWidth(inputTarget.value, true);
-            } else if (event.code === 'Enter' && inputTarget.value === '') {
-              // If they hit enter with value in the input,
-              // it submits it, need to resize
-              setInputWidth(inputTarget.value);
-            } else if (event.code === 'Escape') {
-              setInputWidth('');
-            }
-
-            setPreviousValue(inputTarget.value);
-          }}
+          onKeyUp={onKeyUpEvent}
           placeholder={placeholder}
         />
       }
