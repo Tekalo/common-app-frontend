@@ -20,6 +20,8 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({ setValue, value }) => {
     { name: 'jQuery' },
     { name: 'C#' },
     { name: 'SQL' },
+    { name: 'Manual Automation' },
+    { name: 'Agile software development' },
   ].filter((skill) => {
     return !value.includes(skill.name);
   });
@@ -55,7 +57,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({ setValue, value }) => {
       >
         {({ open }) => (
           <>
-            <div className="relative box-border flex w-full flex-wrap items-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2">
+            <div className="relative box-border flex w-full flex-wrap items-start justify-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2">
               <div className="ml-[2px] mr-1 mt-[2px]">
                 <SearchIconSVG />
               </div>
@@ -68,11 +70,8 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({ setValue, value }) => {
                   }}
                 />
               ))}
-              {/*
-                TODO: How wide do we want the minimum input width to be?
-              */}
               <Combobox.Input
-                className="h-[22px] min-w-[75px] border-none bg-transparent p-0 focus:border-none focus:ring-0"
+                className="h-[22px] w-[75px] flex-[1_1_75px] border-none bg-transparent p-0 focus:border-none focus:ring-0"
                 onChange={(event) => setSearchQuery(event.target.value)}
               />
             </div>
