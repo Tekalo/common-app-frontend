@@ -8,6 +8,7 @@ interface ISkillsSelect {
   // initialValue: string[];
   label: string;
   name: string;
+  placeholder: string;
   setValue: (_val: string[]) => void;
   value: string[];
 }
@@ -21,6 +22,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   // initialValue,
   label,
   name,
+  placeholder,
   setValue,
   value,
 }) => {
@@ -89,6 +91,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
               focusInput={focusInput}
               hasErrors={hasErrors}
               name={inputId}
+              placeholder={placeholder}
               removeLastSkill={() => {
                 removeLastSkill(setValue);
               }}

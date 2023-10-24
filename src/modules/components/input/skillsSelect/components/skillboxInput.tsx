@@ -9,6 +9,7 @@ interface ISkillboxInput {
   focusInput: () => void;
   hasErrors: boolean;
   name: string;
+  placeholder: string;
   removeLastSkill: () => void;
   setSearchQuery: (query: string) => void;
   setValue: (val: string[]) => void;
@@ -20,6 +21,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
   focusInput,
   hasErrors,
   name,
+  placeholder,
   removeLastSkill,
   setSearchQuery,
   setValue,
@@ -36,11 +38,18 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
     }
   };
 
-  const setInputWidth = (_val: string): void => {
+  const setInputWidth = (_val: string, onBackspace = false): void => {
     const input = document.getElementById(name);
+    // We need this because it is called before the actual value
+    // is removed on a Backspace event, So, we need to subtract 1 from the
+    // length to get the actual value
+    const valueLength = onBackspace ? value.length - 1 : value.length;
 
     if (input) {
-      input.style.width = (_val.length + 1) * 8 + 'px';
+      const charWidth = (_val.length + 1) * 8 + 'px';
+      const maxWidth = '200px';
+
+      input.style.width = valueLength || _val.length ? charWidth : maxWidth;
     }
   };
 
@@ -72,12 +81,14 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
             setInputWidth(event.target.value);
             setSearchQuery(event.target.value);
           }}
+          placeholder={placeholder}
           onKeyUp={(event) => {
             const inputTarget = event.target as HTMLInputElement;
 
             if (event.code === 'Backspace' && previousValue === '') {
               // If they hit backspace with no input value
               removeLastSkill();
+              setInputWidth(inputTarget.value, true);
             } else if (event.code === 'Enter' && inputTarget.value === '') {
               // If they hit enter with value in the input,
               // it submits it, need to resize

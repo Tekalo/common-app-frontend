@@ -587,6 +587,7 @@ const APPLICANT_EXPERIENCE_FORM_TEXT = {
     skillsSelect: {
       label: 'Your top 8 relevant skills',
       maxSkillsSelected: 'You can select up to 8 skills',
+      placeholder: 'Search for skills',
     },
     otherSkills: {
       label: 'Other skills (optional)',

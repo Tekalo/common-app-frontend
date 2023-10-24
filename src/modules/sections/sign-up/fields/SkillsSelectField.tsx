@@ -1,3 +1,4 @@
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import SkillsSelect from '@/modules/components/input/skillsSelect/skillsSelect';
 import { Field } from 'houseform';
@@ -34,6 +35,12 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
               hasErrors={!!errors.length}
               label={label}
               name={inputId}
+              placeholder={
+                !value.length
+                  ? APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect
+                      .placeholder
+                  : ''
+              }
               setValue={setValue}
               value={value}
             />
