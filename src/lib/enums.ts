@@ -149,7 +149,10 @@ export const TrueFalseString = z.enum(BOOL_ENUM_OPTIONS, {
 
 const Skills = z.enum(SKILL_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
-const SkillsSelectValidator = z.array(RequiredString);
+const SkillsSelectValidator = z
+  .array(RequiredString)
+  .min(1, ERROR_TEXT.required)
+  .max(8);
 
 const Roles = z.enum(ROLE_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 

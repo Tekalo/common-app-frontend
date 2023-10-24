@@ -69,7 +69,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative text-left">
       <Combobox
         name={name}
         value={value}
@@ -82,7 +82,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
           <>
             <Combobox.Label
               data-name="label"
-              className="text-component-extra-small text-black-text"
+              className="mb-2 block text-left text-component-extra-small text-black-text"
             >
               {label}
             </Combobox.Label>

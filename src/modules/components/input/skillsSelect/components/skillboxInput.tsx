@@ -68,21 +68,25 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
           value={skill}
           removeValue={() => {
             setValue(removeValueFromArray(skill, value));
+            setInputWidth('', true);
             focusInput();
           }}
         />
       ))}
       {
         <Combobox.Input
-          id={name}
-          className="h-[22px] max-w-[334px] border-none bg-transparent p-0 focus:border-none focus:ring-0"
           aria-invalid={hasErrors}
+          className="h-[22px] max-w-[334px] border-none bg-transparent p-0 focus:border-none focus:ring-0"
+          id={name}
+          onBlur={() => {
+            setInputWidth('');
+          }}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
             onFocus(event);
             setInputWidth(event.target.value);
             setSearchQuery(event.target.value);
           }}
-          placeholder={placeholder}
+          onFocus={onFocus}
           onKeyUp={(event) => {
             const inputTarget = event.target as HTMLInputElement;
 
@@ -94,11 +98,13 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
               // If they hit enter with value in the input,
               // it submits it, need to resize
               setInputWidth(inputTarget.value);
+            } else if (event.code === 'Escape') {
+              setInputWidth('');
             }
 
             setPreviousValue(inputTarget.value);
           }}
-          onFocus={onFocus}
+          placeholder={placeholder}
         />
       }
     </div>
