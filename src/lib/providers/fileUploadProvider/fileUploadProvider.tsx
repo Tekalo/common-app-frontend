@@ -115,7 +115,7 @@ const FileUploadProvider: React.FC<IProvider> = ({ children }) => {
       body: formData,
     }).then(
       async (res) => {
-        return res.status === 204;
+        return res.status >= 200 && res.status < 300;
       },
       async () => {
         return false;
