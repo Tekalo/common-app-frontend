@@ -3,6 +3,7 @@
 import { IApplicationLayout } from '@/lib/layouts/forms/application/ApplicationLayout';
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
+import { ISkillPill } from '@/modules/components/input/skillsSelect/components/skillPill';
 import { IApplicantForms } from '@/modules/components/pages/ApplicantForms';
 import { IFileUploadField } from '@/modules/sections/sign-up/fields/FileUploadField';
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
@@ -61,6 +62,7 @@ declare global {
       mountSignInActionPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;
+      mountSkillPill(props: ISkillPill): Chainable<void>;
       mountViewResumePage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;
