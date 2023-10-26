@@ -5,6 +5,7 @@ import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
 import { ISkillPill } from '@/modules/components/input/skillsSelect/components/skillPill';
 import { ISkillboxOption } from '@/modules/components/input/skillsSelect/components/skillboxOption';
+import { ISkillsSelect } from '@/modules/components/input/skillsSelect/skillsSelect';
 import { IApplicantForms } from '@/modules/components/pages/ApplicantForms';
 import { IFileUploadField } from '@/modules/sections/sign-up/fields/FileUploadField';
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
@@ -65,6 +66,7 @@ declare global {
       ): Chainable<void>;
       mountSkillboxOption(props: ISkillboxOption): Chainable<void>;
       mountSkillPill(props: ISkillPill): Chainable<void>;
+      mountSkillsSelect(props: ISkillsSelect): Chainable<void>;
       mountViewResumePage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;

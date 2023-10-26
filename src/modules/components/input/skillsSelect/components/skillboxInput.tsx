@@ -41,17 +41,24 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
   const onKeyUpEvent = (event: KeyboardEvent<HTMLInputElement>) => {
     const inputTarget = event.target as HTMLInputElement;
 
-    if (event.code === 'Backspace' && previousValue === '') {
-      // If they hit backspace with no input value
-      removeLastSkill();
-      setInputWidth(inputTarget.value, true);
-    } else if (event.code === 'Enter' && inputTarget.value === '') {
-      // If they hit enter with value in the input,
-      // it submits it, need to resize
-      setInputWidth(inputTarget.value);
-    } else if (event.code === 'Escape') {
-      // Escape clears the input, so we need to resize again
-      setInputWidth('');
+    switch (event.key) {
+      case 'Backspace':
+        // Resize on pill remove
+        if (previousValue === '') {
+          removeLastSkill();
+          setInputWidth(inputTarget.value, true);
+        }
+        break;
+      case 'Enter':
+        // Resize on value add
+        if (inputTarget.value === '') {
+          setInputWidth(inputTarget.value);
+        }
+        break;
+      case 'Escape':
+        // Escape clears the input, so we need to resize again
+        setInputWidth('');
+        break;
     }
 
     setPreviousValue(inputTarget.value);

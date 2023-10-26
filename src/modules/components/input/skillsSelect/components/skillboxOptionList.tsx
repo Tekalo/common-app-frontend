@@ -1,6 +1,6 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
+import { ISkill } from '@/lib/providers/skillsSearchProvider';
 import { Combobox, Transition } from '@headlessui/react';
-import { ISkill } from '../skillsSelect';
 import SkillboxOption from './skillboxOption';
 
 interface ISkillboxOptionList {

@@ -29,6 +29,6 @@ describe('SkillPill', () => {
 
     cy.get('div[data-name=close]').click();
 
-    cy.wrap(mockPillProps.removeValue).should('have.been.calledOnce');
+    cy.get('@removeValue').should('have.been.calledOnce');
   });
 });
