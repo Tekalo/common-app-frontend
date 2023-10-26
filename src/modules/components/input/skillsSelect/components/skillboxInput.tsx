@@ -78,7 +78,10 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       className="relative box-border flex w-full flex-wrap items-start justify-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2"
       onClick={focusInput}
     >
-      <div className="ml-[2px] mr-1 mt-[2px]">
+      <div
+        className="ml-[2px] mr-1 mt-[2px]"
+        data-name="skills-select-search-icon"
+      >
         <SearchIconSVG />
       </div>
       {value.map((skill) => (

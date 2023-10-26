@@ -54,7 +54,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
           leaveTo="transform scale-95 opacity-0"
           className={`${open ? 'relative z-10' : null}`}
         >
-          <Combobox.Options className="absolute end-0 z-20 w-full max-w-[344px] rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none">
+          <Combobox.Options
+            data-name="skills-select-options"
+            className="absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none"
+          >
             {displayOptions}
           </Combobox.Options>
         </Transition>

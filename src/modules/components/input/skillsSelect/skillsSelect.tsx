@@ -1,19 +1,19 @@
+import {
+  ISkill,
+  SkillsSearchContext,
+} from '@/lib/providers/skillsSearchProvider';
 import { Combobox } from '@headlessui/react';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SkillboxInput from './components/skillboxInput';
 import SkillboxOptionList from './components/skillboxOptionList';
 
-interface ISkillsSelect {
+export interface ISkillsSelect {
   hasErrors: boolean;
   label: string;
   name: string;
   placeholder: string;
   setValue: (_val: string[]) => void;
   value: string[];
-}
-
-export interface ISkill {
-  name: string;
 }
 
 const SkillsSelect: React.FC<ISkillsSelect> = ({
@@ -25,31 +25,18 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   value,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-
-  // TODO: Hook this up to a service call
-  const skills: ISkill[] = [
-    { name: 'Agile software development' },
-    { name: 'C#' },
-    { name: 'Cryptography' },
-    { name: 'CSS' },
-    { name: 'HTML' },
-    { name: 'Javascript' },
-    { name: 'jQuery' },
-    { name: 'Manual Automation' },
-    { name: 'SQL' },
-  ].filter((skill) => {
-    return !value.includes(skill.name);
-  });
+  const [skillResults, setSkillResults] = useState<ISkill[]>([]);
+  const searchCtx = useContext(SkillsSearchContext);
 
   const inputId = `${name}-input`;
   const disabled = value.length >= 8;
 
-  const skillResults =
-    searchQuery === ''
-      ? skills
-      : skills.filter((skill) =>
-          skill.name.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+  useEffect(() => {
+    const getSkills = async (): Promise<void> =>
+      setSkillResults(await searchCtx.searchWithQuery(searchQuery, value));
+
+    getSkills();
+  }, [searchCtx, searchQuery, value]);
 
   const focusInput = (): void => {
     const skillsInput = document.getElementById(`${name}-input`);
