@@ -1,4 +1,9 @@
-import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
+import {
+  MockGTMProvider,
+  getMockAuth0Context,
+  mockGtag,
+  mockUtmParams,
+} from '@/cypress/fixtures/mocks';
 import {
   ACCOUNT_LINK,
   APPLICANT_EXPERIENCE_LINK,
@@ -65,9 +70,11 @@ Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
   cy.stub(SignupFormModule, 'default').callsFake(MockSignupForm);
 
   cy.mount(
-    <Auth0Context.Provider value={auth0Context}>
-      <ApplicantSignup />
-    </Auth0Context.Provider>
+    <MockGTMProvider>
+      <Auth0Context.Provider value={auth0Context}>
+        <ApplicantSignup />
+      </Auth0Context.Provider>
+    </MockGTMProvider>
   ).then(() => childProps);
 });
 
@@ -82,8 +89,11 @@ describe('Applicant Signup Page', () => {
 
   // Set up all our mocks
   beforeEach(() => {
-    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
     cy.stub(router, 'push').as('routerPush');
+
+    // Window mocks
+    window.dataLayerEvent = cy.stub().as('dataLayerEvent');
+    window.gtag = mockGtag;
 
     mockHasSubmittedRes = {
       statusCode: 200,
@@ -245,7 +255,10 @@ describe('Applicant Signup Page', () => {
         .stub()
         .as('submissionResponse')
         .callsFake((req) => {
-          expect(req.body).to.deep.equal(mockFormValues);
+          expect(req.body).to.deep.include({
+            ...mockFormValues,
+            utmParams: mockUtmParams,
+          });
           expect(req.headers).to.include({
             'content-type': 'application/json',
             'x-turnstile-token': mockTurnstileToken,
@@ -298,7 +311,10 @@ describe('Applicant Signup Page', () => {
         .stub()
         .as('submissionResponse')
         .callsFake((req) => {
-          expect(req.body).to.deep.equal(expectedFormValues);
+          expect(req.body).to.deep.include({
+            ...expectedFormValues,
+            utmParams: mockUtmParams,
+          });
           expect(req.headers).to.include({
             'content-type': 'application/json',
             'x-turnstile-token': mockTurnstileToken,
