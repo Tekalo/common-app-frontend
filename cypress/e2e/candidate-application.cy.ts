@@ -68,6 +68,8 @@ describe('Candidate Application', () => {
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
+      // TODO: SKILLS_FEATURE
+      // fillSkillsSelect();
       uploadDocXFile();
 
       saveAndConfirmExperienceForm();
@@ -99,7 +101,14 @@ describe('Candidate Application', () => {
           previousImpactExperience: null,
           referenceAttribution: null,
           referenceAttributionOther: null,
+          // TODO: SKILLS_FEATURE
           skills: [],
+          // skillsSelect: [
+          //   'Agile software development',
+          //   'Cryptography',
+          //   'Javascript',
+          //   'Manual Automation',
+          // ],
           workAuthorization: null,
           yoe: '4',
         });
@@ -161,7 +170,14 @@ describe('Candidate Application', () => {
           previousImpactExperience: false,
           referenceAttribution: null,
           referenceAttributionOther: null,
+          // TODO: SKILLS_FEATURE
           skills: [],
+          // skillsSelect: [
+          //   'Agile software development',
+          //   'Cryptography',
+          //   'Javascript',
+          //   'Manual Automation',
+          // ],
           workAuthorization: null,
           yoe: '4',
         });
@@ -222,7 +238,9 @@ describe('Candidate Application', () => {
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
+      // TODO: SKILLS_FEATURE
       fillSkills([...SKILL_ENUM_OPTIONS]);
+      // fillSkillsSelect();
       fillOtherSkills();
       fillLinkedIn();
       fillPortfolio();
@@ -319,6 +337,7 @@ describe('Candidate Application', () => {
           previousImpactExperience: true,
           referenceAttribution: 'other',
           referenceAttributionOther: 'Other Attribution',
+          // TODO: SKILLS_FEATURE
           skills: [
             'react',
             'javascript',
@@ -335,6 +354,12 @@ describe('Candidate Application', () => {
             'product development',
             'project management',
           ],
+          // skillsSelect: [
+          //   'Agile software development',
+          //   'Cryptography',
+          //   'Javascript',
+          //   'Manual Automation',
+          // ],
           workAuthorization: 'authorized',
           yoe: '4',
         });
@@ -425,6 +450,22 @@ describe('Candidate Application', () => {
     });
 
     cy.get('button[name=input-skills]').fastClick();
+  }
+
+  function fillSkillsSelect(): void {
+    cy.get('#input-skillsSelect-input').fastType('a');
+    cy.get(
+      'div[data-name="skillbox-option-Agile software development"]'
+    ).click();
+
+    cy.get('#input-skillsSelect-input').fastType('a');
+    cy.get('div[data-name="skillbox-option-Cryptography"]').click();
+
+    cy.get('#input-skillsSelect-input').fastType('a');
+    cy.get('div[data-name="skillbox-option-Javascript"]').click();
+
+    cy.get('#input-skillsSelect-input').fastType('a');
+    cy.get('div[data-name="skillbox-option-Manual Automation"]').click();
   }
 
   function fillOtherSkills(): void {
@@ -617,4 +658,5 @@ describe('Candidate Application', () => {
   }
 });
 
-export {};
+export { };
+
