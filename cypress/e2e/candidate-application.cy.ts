@@ -31,10 +31,25 @@ describe('Candidate Application', () => {
   });
 
   it('should submit a candidate, required fields only', () => {
+    const expectedUtmParams = {
+      utm_campaign: '1',
+      utm_content: '2',
+      utm_id: '3',
+      utm_medium: '4',
+      utm_source_platform: '5',
+      utm_source: '6',
+      utm_term: '7',
+    };
+
     cy.clearCookie(gtmCookieName);
     cy.visit(
       `${APPLICANT_SIGNUP_LINK}?utm_campaign=1&utm_content=2&utm_id=3&utm_medium=4&utm_source_platform=5&utm_source=6&utm_term=7`
     );
+
+    cy.intercept({
+      method: 'POST',
+      url: applicantsEndpoint,
+    }).as('applicantCreation');
 
     cy.intercept({
       method: 'GET',
@@ -60,6 +75,17 @@ describe('Candidate Application', () => {
     acceptPrivacy();
     acceptTerms();
     submitCandidateSignup();
+
+    cy.wait('@applicantCreation').then((i: Interception) => {
+      const requestBody = i.request.body;
+      const responseBody = i.response?.body as AccountSubmissionResponseType;
+
+      cy.task('storeUserId', responseBody.id);
+
+      expect(requestBody.utmParams).to.include(expectedUtmParams);
+      expect(requestBody.utmParams.ga_client_id).to.be.a('string');
+      expect(requestBody.utmParams.ga_session_id).to.be.a('string');
+    });
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
     cy.wait('@getSubmission');
@@ -117,15 +143,7 @@ describe('Candidate Application', () => {
         });
 
         // UTM Params
-        expect(requestBody.utmParams).to.include({
-          utm_campaign: '1',
-          utm_content: '2',
-          utm_id: '3',
-          utm_medium: '4',
-          utm_source_platform: '5',
-          utm_source: '6',
-          utm_term: '7',
-        });
+        expect(requestBody.utmParams).to.include(expectedUtmParams);
         expect(requestBody.utmParams.ga_client_id).to.be.a('string');
         expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
@@ -189,15 +207,7 @@ describe('Candidate Application', () => {
         expect(responseSubmission.resumeUpload?.id).to.be.a('number');
 
         // UTM Params
-        expect(requestBody.utmParams).to.include({
-          utm_campaign: '1',
-          utm_content: '2',
-          utm_id: '3',
-          utm_medium: '4',
-          utm_source_platform: '5',
-          utm_source: '6',
-          utm_term: '7',
-        });
+        expect(requestBody.utmParams).to.include(expectedUtmParams);
         expect(requestBody.utmParams.ga_client_id).to.be.a('string');
         expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
@@ -208,6 +218,11 @@ describe('Candidate Application', () => {
   });
 
   it('Should submit a candidate, all fields', () => {
+    cy.intercept({
+      method: 'POST',
+      url: applicantsEndpoint,
+    }).as('applicantCreation');
+
     cy.intercept({
       method: 'GET',
       url: applicantSubmissionsEndpoint,
@@ -414,19 +429,7 @@ describe('Candidate Application', () => {
   }
 
   function submitCandidateSignup(): void {
-    cy.intercept({
-      method: 'POST',
-      url: applicantsEndpoint,
-    }).as('applicantCreation');
-
     cy.get(Selectors.buttons.submit).fastClick();
-
-    cy.wait('@applicantCreation').then((interception: Interception) => {
-      const response = interception?.response
-        ?.body as AccountSubmissionResponseType;
-
-      cy.task('storeUserId', response.id);
-    });
   }
 
   function fillPreviousRole(): void {

@@ -27,6 +27,7 @@ import {
 } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider';
 import {
   NewCandidateType,
   NextPageWithLayout,
@@ -55,6 +56,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
     useAuth0();
   const debugCtx = useContext(DebugContext);
+  const gtmCtx = useContext(GTMContext);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
@@ -122,6 +124,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
   ) => {
     // TODO: This and the organization form function are identical with
     // different value types, we can refactor these
+    const applicantPayload = {
+      ...stripEmptyFields(values),
+      utmParams: gtmCtx.getGtmParams(),
+    };
+
     let authToken = '';
     let req;
 
@@ -134,14 +141,14 @@ const ApplicantSignup: NextPageWithLayout = () => {
     if (debugCtx.debugIsActive) {
       req = post(
         applicantsEndpoint,
-        stripEmptyFields(values),
+        applicantPayload,
         authToken,
         debugCtx.debugSecret
       );
     } else {
       req = postWithTurnstile(
         applicantsEndpoint,
-        stripEmptyFields(values),
+        applicantPayload,
         turnstileToken,
         authToken
       );
