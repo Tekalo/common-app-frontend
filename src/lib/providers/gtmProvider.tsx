@@ -25,6 +25,7 @@ export interface IGtmParams {
 
 export const gtmCookieName = 'tklo_gtm_params';
 
+// TODO: Probably rename this to UTMProvider so we are consistent
 const GTMProvider: React.FC<IProvider> = ({ children }) => {
   // Lib classes
   // TODO: Move this to a central provider
