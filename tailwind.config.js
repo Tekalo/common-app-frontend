@@ -34,6 +34,7 @@ module.exports = {
       'illustration-light-green': '#9ADFC8',
       'illustration-blue-green': '#00A0CC',
       'illustration-mint': '#C4E6F0',
+      transparent: 'rgba(255, 255, 255, 0)',
     },
     fontFamily: {
       display: ['Graphik'],
