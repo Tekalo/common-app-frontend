@@ -73,7 +73,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
 
     if (input) {
       const charWidth = (_val.length + 1) * 9 + 'px';
-      const maxWidth = '275px';
+      const maxWidth = '305px';
 
       input.style.width =
         valueLength >= 1 || _val.length ? charWidth : maxWidth;
@@ -102,7 +102,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       {
         <Combobox.Input
           aria-invalid={hasErrors}
-          className="h-[22px] max-w-[235px] border-none bg-transparent p-0 focus:border-none focus:ring-0 sm:max-w-[334px]"
+          className="h-[22px] max-w-[235px] border-none bg-transparent p-0 focus:border-none focus:ring-0 sm:max-w-[275px] md:max-w-[305px]"
           id={name}
           maxLength={60}
           onBlur={() => {
