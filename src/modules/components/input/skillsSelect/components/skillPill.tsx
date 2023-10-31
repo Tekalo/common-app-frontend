@@ -9,10 +9,13 @@ const SkillPill: React.FC<ISkillPill> = ({ removeValue, value }) => (
   <div
     data-name={`skill-pill-${value}`}
     key={value}
-    className="mr-1 inline-flex cursor-pointer items-center rounded-sm bg-light-blue px-1 py-1 text-component-small text-black-text"
+    className="mr-1 inline-flex max-w-[270px] cursor-pointer items-center rounded-sm bg-light-blue px-1 py-1 text-component-small text-black-text"
     onClick={() => removeValue(value)}
   >
-    <div data-name="value" className="flex-none">
+    <div
+      data-name="value"
+      className="max-w-[209px] flex-none overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-[245px]"
+    >
       {value}
     </div>
     <div data-name="close" className="flex-none pl-2">

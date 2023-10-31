@@ -84,14 +84,11 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
               setValue={setValue}
               value={value}
             />
-
-            {/*
-              TODO: Add custom skills when none in list
-            */}
             <SkillboxOptionList
               disabled={disabled}
               open={open}
               options={skillResults}
+              searchQuery={searchQuery}
             />
           </>
         )}
