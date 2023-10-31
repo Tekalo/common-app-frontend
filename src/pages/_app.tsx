@@ -9,6 +9,7 @@ import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import DebugProvider from '@/lib/providers/debugProvider';
 import FileUploadProvider from '@/lib/providers/fileUploadProvider/fileUploadProvider';
 import GTMProvider from '@/lib/providers/gtmProvider';
+import SkillsSearchProvider from '@/lib/providers/skillsSearchProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
@@ -77,7 +78,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             <DebugProvider>
               <SubmissionProvider>
                 <FileUploadProvider>
-                  {getLayout(<Component {...pageProps} />)}
+                  <SkillsSearchProvider>
+                    {getLayout(<Component {...pageProps} />)}
+                  </SkillsSearchProvider>
                 </FileUploadProvider>
               </SubmissionProvider>
             </DebugProvider>

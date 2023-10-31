@@ -35,6 +35,20 @@ export const printErrorMessages = (
   }
 };
 
+export const removeValueFromArray = <T,>(valueToRemove: T, arr: T[]): T[] => {
+  const removeIdx = arr.indexOf(valueToRemove);
+  let newArr: T[];
+
+  if (removeIdx !== -1) {
+    newArr = [...arr];
+    newArr.splice(removeIdx, 1);
+  } else {
+    newArr = arr;
+  }
+
+  return newArr;
+};
+
 export const executeScroll = () =>
   window.scrollTo({ top: 0, behavior: 'auto' });
 

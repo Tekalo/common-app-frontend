@@ -82,8 +82,10 @@ const CandidateExperienceSchema = z.object({
   lastRole: maxLengthString(255),
   lastOrg: maxLengthString(255),
   yoe: YOE,
+  // TODO: SKILLS_FEATURE
   skills: z.array(Skills),
   otherSkills: z.array(maxLengthString(255)),
+  // skillsSelect: z.array(RequiredString).min(1).max(8),
   linkedInUrl: maxLengthString(500).url().nullable().optional(),
   githubUrl: maxLengthString(500).url().nullable().optional(),
   portfolioUrl: maxLengthString(500).url().nullable().optional(),
