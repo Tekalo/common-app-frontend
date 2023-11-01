@@ -32,6 +32,7 @@ export class GtagPoller {
           this.getGtagValue(valueName, id, resolve);
           clearInterval(gtagInt);
         } else if (i === 10) {
+          resolve(this.emptyValue);
           clearInterval(gtagInt);
         }
       }, 500);
