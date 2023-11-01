@@ -8,7 +8,7 @@ import {
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
 import DebugProvider from '@/lib/providers/debugProvider';
 import FileUploadProvider from '@/lib/providers/fileUploadProvider/fileUploadProvider';
-import GTMProvider from '@/lib/providers/gtmProvider';
+import GTMProvider from '@/lib/providers/gtmProvider/gtmProvider';
 import SkillsSearchProvider from '@/lib/providers/skillsSearchProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';

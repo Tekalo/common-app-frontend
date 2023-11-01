@@ -12,7 +12,7 @@ import {
 } from '@/lang/en';
 import { nullifyEmptyFields, voidFn } from '@/lib/helpers/formHelpers';
 import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
-import { GTMContext } from '@/lib/providers/gtmProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import {
   CandidateDraftSchema,
   CandidateInterestsSchema,

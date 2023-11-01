@@ -10,7 +10,7 @@ import {
 import { executeScroll } from '@/lib/helpers/formHelpers';
 import OrganizationLayout from '@/lib/layouts/forms/organization/OrganizationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
-import { GTMContext } from '@/lib/providers/gtmProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
