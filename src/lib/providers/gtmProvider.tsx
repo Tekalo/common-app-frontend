@@ -98,6 +98,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
         console.log('interval', i);
 
         const cookieValue = cookies.get(gtmCookieName);
+        console.log(cookieValue);
 
         if (cookieValue) {
           console.log('present', cookieValue);
@@ -149,6 +150,8 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
 
         if (window.gtag) {
           getGtagValue(valueName, id, resolve);
+          clearInterval(gtagInt);
+        } else if (i === 10) {
           clearInterval(gtagInt);
         }
       }, 500);
