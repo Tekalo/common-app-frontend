@@ -76,6 +76,8 @@ describe('Candidate Application', () => {
     acceptTerms();
     submitCandidateSignup();
 
+    cy.wait(5000);
+
     cy.wait('@applicantCreation').then((i: Interception) => {
       const requestBody = i.request.body;
       const responseBody = i.response?.body as AccountSubmissionResponseType;

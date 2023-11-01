@@ -28,7 +28,7 @@ export class GtagPoller {
       const gtagInt = setInterval(() => {
         i++;
 
-        if (window.gtag) {
+        if (window?.gtag) {
           this.getGtagValue(valueName, id, resolve);
           clearInterval(gtagInt);
         } else if (i === 10) {
@@ -45,7 +45,7 @@ export class GtagPoller {
     id: string,
     resolve: (value: string | PromiseLike<string>) => void
   ): void => {
-    if (window && window.gtag) {
+    if (window?.gtag) {
       window.gtag('get', id, valueName, resolve);
 
       // If gtag is blocked, this will never return, we must set default values
