@@ -87,6 +87,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     resolve: (value: string | PromiseLike<string>) => void
   ): void => {
     if (window && window.gtag) {
+      console.log(`getting ${valueName}`);
       window.gtag('get', id, valueName, resolve);
 
       // If gtag is blocked, this will never return, we must set default values
@@ -94,15 +95,22 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
       const int = setInterval(() => {
         i++;
 
-        if (cookies.get(gtmCookieName)) {
+        console.log('interval', i);
+
+        const cookieValue = cookies.get(gtmCookieName);
+
+        if (cookieValue) {
+          console.log('present', cookieValue);
           clearInterval(int);
           return;
         } else if (i === 10) {
+          console.log('loops done');
           resolve(emptyValue);
           clearInterval(int);
         }
       }, 500);
     } else {
+      console.log('no gtag present');
       resolve(emptyValue);
     }
   };
