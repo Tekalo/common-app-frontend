@@ -6,12 +6,12 @@ import {
   CAUSE_ENUM_OPTIONS,
   SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
+import { gtmCookieName } from '@/lib/constants/strings';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
 } from '@/lib/helpers/apiHelpers';
-import { gtmCookieName } from '@/lib/providers/gtmProvider';
 import {
   AccountSubmissionResponseType,
   SubmissionResponseType,
@@ -661,5 +661,4 @@ describe('Candidate Application', () => {
   }
 });
 
-export { };
-
+export {};
