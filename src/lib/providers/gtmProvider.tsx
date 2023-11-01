@@ -78,7 +78,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     } else if (hasCookieValue) {
       setParamsReady(true);
     }
-  }, [router.isReady, window.gtag]);
+  }, [router.isReady]);
 
   // Calls gtag for a value
   const getGtagValue = (
@@ -92,7 +92,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
 
       // If gtag is blocked, this will never return, we must set default values
       let i = 0;
-      const int = setInterval(() => {
+      const requestInt = setInterval(() => {
         i++;
 
         console.log('interval', i);
@@ -101,16 +101,15 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
 
         if (cookieValue) {
           console.log('present', cookieValue);
-          clearInterval(int);
+          clearInterval(requestInt);
           return;
         } else if (i === 10) {
           console.log('loops done');
           resolve(emptyValue);
-          clearInterval(int);
+          clearInterval(requestInt);
         }
       }, 500);
     } else {
-      console.log('no gtag present');
       resolve(emptyValue);
     }
   };
@@ -127,16 +126,32 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   // Returns a promise resolving in the two session ids from gtag
   const getSessionIds = (id: string): Promise<string[]> => {
     return new Promise<string[]>((resolve) => {
-      const clientIdPromise = new Promise<string>((resolve) => {
-        getGtagValue('client_id', id, resolve);
-      });
-      const sessionIdPromise = new Promise<string>((resolve) => {
-        getGtagValue('session_id', id, resolve);
-      });
+      const clientIdPromise = pollForGtagValue('client_id', id);
+      const sessionIdPromise = pollForGtagValue('session_id', id);
 
       Promise.all([clientIdPromise, sessionIdPromise]).then((values) => {
         resolve(values);
       });
+    });
+  };
+
+  const pollForGtagValue = async (
+    valueName: 'client_id' | 'session_id',
+    id: string
+  ) => {
+    return new Promise<string>((resolve) => {
+      let i = 0;
+
+      const gtagInt = setInterval(() => {
+        i++;
+
+        console.log(`polling gtag ${valueName}`, i);
+
+        if (window.gtag) {
+          getGtagValue(valueName, id, resolve);
+          clearInterval(gtagInt);
+        }
+      }, 500);
     });
   };
 
