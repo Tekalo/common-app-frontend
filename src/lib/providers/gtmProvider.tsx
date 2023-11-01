@@ -78,7 +78,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     } else if (hasCookieValue) {
       setParamsReady(true);
     }
-  }, [router.isReady]);
+  }, [router.isReady, window.gtag]);
 
   // Calls gtag for a value
   const getGtagValue = (
