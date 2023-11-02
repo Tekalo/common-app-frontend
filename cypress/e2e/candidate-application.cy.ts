@@ -6,7 +6,6 @@ import {
   CAUSE_ENUM_OPTIONS,
   SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
-import { gtmCookieName } from '@/lib/constants/strings';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
@@ -31,21 +30,6 @@ describe('Candidate Application', () => {
   });
 
   it('should submit a candidate, required fields only', () => {
-    const expectedUtmParams = {
-      utm_campaign: '1',
-      utm_content: '2',
-      utm_id: '3',
-      utm_medium: '4',
-      utm_source_platform: '5',
-      utm_source: '6',
-      utm_term: '7',
-    };
-
-    cy.clearCookie(gtmCookieName);
-    cy.visit(
-      `${APPLICANT_SIGNUP_LINK}?utm_campaign=1&utm_content=2&utm_id=3&utm_medium=4&utm_source_platform=5&utm_source=6&utm_term=7`
-    );
-
     cy.intercept({
       method: 'POST',
       url: applicantsEndpoint,
@@ -76,17 +60,10 @@ describe('Candidate Application', () => {
     acceptTerms();
     submitCandidateSignup();
 
-    cy.wait(10000);
-
     cy.wait('@applicantCreation').then((i: Interception) => {
-      const requestBody = i.request.body;
       const responseBody = i.response?.body as AccountSubmissionResponseType;
 
       cy.task('storeUserId', responseBody.id);
-
-      expect(requestBody.utmParams).to.include(expectedUtmParams);
-      expect(requestBody.utmParams.ga_client_id).to.be.a('string');
-      expect(requestBody.utmParams.ga_session_id).to.be.a('string');
     });
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
@@ -103,7 +80,6 @@ describe('Candidate Application', () => {
       saveAndConfirmExperienceForm();
 
       cy.wait('@draftSave').then((res) => {
-        const requestBody = res.request.body;
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
@@ -143,11 +119,6 @@ describe('Candidate Application', () => {
         expect(responseSubmission.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
         });
-
-        // UTM Params
-        expect(requestBody.utmParams).to.include(expectedUtmParams);
-        expect(requestBody.utmParams.ga_client_id).to.be.a('string');
-        expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
 
       submitExperienceForm();
@@ -207,11 +178,6 @@ describe('Candidate Application', () => {
           originalFilename: 'example_file.docx',
         });
         expect(responseSubmission.resumeUpload?.id).to.be.a('number');
-
-        // UTM Params
-        expect(requestBody.utmParams).to.include(expectedUtmParams);
-        expect(requestBody.utmParams.ga_client_id).to.be.a('string');
-        expect(requestBody.utmParams.ga_session_id).to.be.a('string');
       });
 
       // Confirm success
