@@ -1,34 +1,56 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { ISkill } from '@/lib/providers/skillsSearchProvider';
 import { Combobox, Transition } from '@headlessui/react';
+import { ReactElement } from 'react';
 import SkillboxOption from './skillboxOption';
 
 interface ISkillboxOptionList {
   disabled: boolean;
   open: boolean;
   options: ISkill[];
+  searchQuery: string;
 }
 
 const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
   disabled,
   open,
   options,
+  searchQuery,
 }) => {
-  const listOfOptions = options.map((option) => (
-    <Combobox.Option
-      className="cursor-pointer"
-      key={option.name}
-      value={[option.name]}
-    >
-      {({ active }) => (
-        <SkillboxOption
-          active={active}
-          disabled={false}
-          skillName={option.name}
-        />
-      )}
-    </Combobox.Option>
-  ));
+  const shouldDisplayOptions = !!searchQuery?.length || searchQuery === '';
+
+  const addCustomOption = (): ReactElement => {
+    return (
+      <Combobox.Option
+        className="cursor-pointer"
+        key={`add-${searchQuery}`}
+        value={[searchQuery]}
+      >
+        {({ active }) => (
+          <SkillboxOption
+            active={active}
+            custom={true}
+            disabled={false}
+            skillName={`“${searchQuery}”`}
+          />
+        )}
+      </Combobox.Option>
+    );
+  };
+
+  const getListOptions = (): ReactElement | ReactElement[] => {
+    let content: ReactElement | ReactElement[];
+
+    if (disabled) {
+      content = maxSelectedOption;
+    } else if (!options.length && searchQuery?.length) {
+      content = addCustomOption();
+    } else {
+      content = renderPassedOptions();
+    }
+
+    return content;
+  };
 
   const maxSelectedOption = (
     <SkillboxOption
@@ -40,11 +62,29 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
     />
   );
 
-  const displayOptions = disabled ? maxSelectedOption : listOfOptions;
+  const renderPassedOptions = (): ReactElement[] => {
+    return options.map((option) => (
+      <Combobox.Option
+        className="cursor-pointer"
+        key={option.name}
+        value={[option.name]}
+      >
+        {({ active }) => (
+          <SkillboxOption
+            active={active}
+            disabled={false}
+            skillName={option.name}
+          />
+        )}
+      </Combobox.Option>
+    ));
+  };
+
+  const displayOptions = getListOptions();
 
   return (
     <>
-      {
+      {shouldDisplayOptions && (
         <Transition
           enter="transition duration-100 ease-out"
           enterFrom="transform scale-95 opacity-0"
@@ -61,7 +101,7 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
             {displayOptions}
           </Combobox.Options>
         </Transition>
-      }
+      )}
     </>
   );
 };

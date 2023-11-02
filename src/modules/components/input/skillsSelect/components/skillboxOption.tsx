@@ -2,6 +2,7 @@ import { PlusIconSVG } from '@/lib/constants/svgs';
 
 export interface ISkillboxOption {
   active: boolean;
+  custom?: boolean;
   disabled: boolean;
   skillName: string;
 }
@@ -9,6 +10,7 @@ export interface ISkillboxOption {
 const SkillboxOption: React.FC<ISkillboxOption> = ({
   active,
   disabled,
+  custom = false,
   skillName,
 }) => (
   <div
@@ -19,8 +21,8 @@ const SkillboxOption: React.FC<ISkillboxOption> = ({
   >
     <div
       data-name="skill-option-name"
-      className={`flex-1 text-component-medium ${
-        disabled ? 'text-gray-2' : 'text-black-text'
+      className={`max-w-[334px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-component-medium ${
+        disabled || custom ? 'text-gray-2' : 'text-black-text'
       }`}
     >
       {skillName}

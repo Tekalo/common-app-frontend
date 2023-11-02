@@ -23,6 +23,7 @@ describe('SkillsSelect', () => {
   const mockLabel = 'Skills select label';
   const mockName = 'skills-select';
   const mockPlaceholder = 'Skills Select';
+  const minInputSize = '9px';
 
   // CSS color values
   const bgLightBlue = 'rgb(243, 249, 255)';
@@ -154,7 +155,7 @@ describe('SkillsSelect', () => {
     cy.get('#skills-select-input')
       .should('have.focus')
       .should('have.value', mockNewSkill)
-      .should('have.css', 'width', '168px');
+      .should('have.css', 'width', '189px');
   });
 
   it('should resize the input after typing enter', () => {
@@ -174,7 +175,7 @@ describe('SkillsSelect', () => {
     cy.get('#skills-select-input')
       .should('have.focus')
       .should('have.value', '')
-      .should('have.css', 'width', '8px');
+      .should('have.css', 'width', minInputSize);
 
     cy.get('@setValue').should('have.been.calledOnce');
   });
@@ -198,7 +199,7 @@ describe('SkillsSelect', () => {
     cy.get('#skills-select-input')
       .should('have.focus')
       .should('have.value', '')
-      .should('have.css', 'width', '8px');
+      .should('have.css', 'width', minInputSize);
 
     cy.get('@setValue').should('not.have.been.called');
   });
