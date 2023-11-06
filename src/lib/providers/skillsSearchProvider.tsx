@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js';
 import React from 'react';
 import { IProvider } from './shared';
 
@@ -26,12 +27,27 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     { name: 'SQL' },
   ];
 
+  const fuseOptions = {
+    isCaseSensitive: false,
+    shouldSort: true,
+    includeMatches: false,
+    findAllMatches: false,
+    minMatchCharLength: 1,
+    keys: ['name'],
+  };
+
+  const idx = Fuse.createIndex(fuseOptions.keys, skills);
+  const fuse = new Fuse<ISkill>(skills, fuseOptions, idx);
+
   const searchWithQuery = async (query: string, value: string[]) => {
     const alreadySelected = (skill: ISkill) => !value.includes(skill.name);
-    const queryMatches = (skill: ISkill) =>
-      skill.name.toLowerCase().includes(query.toLowerCase());
 
-    return Promise.resolve(skills.filter(queryMatches).filter(alreadySelected));
+    const results = fuse
+      .search<ISkill>(query)
+      .map((r) => r.item)
+      .filter(alreadySelected);
+
+    return Promise.resolve(results);
   };
 
   return (
