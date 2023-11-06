@@ -27,7 +27,7 @@ import {
 } from '@/lib/helpers/formHelpers';
 import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
-import { GTMContext } from '@/lib/providers/gtmProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import {
   NewCandidateType,
   NextPageWithLayout,

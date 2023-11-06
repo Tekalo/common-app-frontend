@@ -3,12 +3,12 @@ import {
   gtag_mockSessionId,
   mockGtag,
 } from '@/cypress/fixtures/mocks';
+import { gtmCookieName } from '@/lib/constants/strings';
 import { voidFn } from '@/lib/helpers/formHelpers';
 import GTMProvider, {
   GTMContext,
   IGtmParams,
-  gtmCookieName,
-} from '@/lib/providers/gtmProvider';
+} from '@/lib/providers/gtmProvider/gtmProvider';
 import * as RouterModule from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';

@@ -1,4 +1,4 @@
-import { GTMContext } from '@/lib/providers/gtmProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { IProvider } from '@/lib/providers/shared';
 import {
   ISkill,
