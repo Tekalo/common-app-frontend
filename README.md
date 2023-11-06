@@ -32,3 +32,5 @@ This repository contains the code to run the Tekalo Next.js frontend application
 [Testing](./docs/testing.md)
 
 [How To](./docs/how-to/how-to.md)
+
+<!-- MAKING A CHANGE TO CREATE A PULL REQUEST -->
