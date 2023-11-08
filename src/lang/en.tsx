@@ -115,21 +115,29 @@ const HOME_HERO_TEXT = {
   ORG_CTA: 'For organizations',
 };
 const HOME_ABOUT_TEXT = {
-  SPONSOR_HEADER: 'TEKALO is supported by',
+  SPONSOR_HEADER:
+    'Tekalo is a free, philanthropically funded platform supported by',
   HEADER:
     'Tekalo aims to bridge the gap between tech talent and impact-driven opportunities.',
   BODY: "Now more than ever, impact-driven organizations need tech talent that is passionate about solving some of the world's most pressing problems.",
-  PRONUNCIATION_TE: 'TE',
-  PRONUNCIATION_KALO: '•ka•lo',
-  PRONUNCIATION_DEFINITION: "Tech + Kalo ('good' in Greek)",
-  PRONUNCIATION_GOAL:
-    'Tekalo refers to using technology to build a better world.',
-  GOAL_HEADER: 'Through Tekalo we want to:',
-  GOAL_1:
-    'Empower tech talent to follow non-traditional paths, and work on causes that they care about (full-time or part-time)',
-
-  GOAL_2: 'Simplify the application process with a single form',
-  GOAL_3: 'Provide impact-driven organizations a list of top candidate matches',
+  BENEFITS: {
+    B1: 'One application',
+    B2: 'Vetting & screening',
+    B3: 'Assigned Talent Connector',
+    B4: 'Curated Matches',
+  },
+  PRONUNCIATION: {
+    TE: 'TE',
+    KALO: '•ka•lo',
+    DEFINITION: "Tech + Kalo ('good' in Greek)",
+    GOAL: 'Tekalo refers to using technology to build a better world.',
+  },
+  GOALS: {
+    HEADER: 'Through Tekalo we want to:',
+    G1: 'Empower tech talent to follow non-traditional paths, and work on causes that they care about (full-time or part-time)',
+    G2: 'Simplify the application process with a single form',
+    G3: 'Provide impact-driven organizations a list of top candidate matches',
+  },
   ROLE_HEADER: 'Full-time and part-time roles listed on Tekalo',
 };
 const HOME_HOW_TEXT = {
