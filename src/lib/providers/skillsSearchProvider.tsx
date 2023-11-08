@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { IProvider } from './shared';
 
 export interface ISkill {
@@ -7,7 +7,7 @@ export interface ISkill {
 }
 
 interface ISkillsSearchContext {
-  searchWithQuery: (query: string, value: string[]) => Promise<ISkill[]>;
+  searchWithQuery: (query: string, value: string[]) => ISkill[];
 }
 
 export const SkillsSearchContext = React.createContext<ISkillsSearchContext>(
@@ -15,39 +15,64 @@ export const SkillsSearchContext = React.createContext<ISkillsSearchContext>(
 );
 
 const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
-  const skills: ISkill[] = [
-    { name: 'Agile software development' },
-    { name: 'C#' },
-    { name: 'Cryptography' },
-    { name: 'CSS' },
-    { name: 'HTML' },
-    { name: 'Javascript' },
-    { name: 'jQuery' },
-    { name: 'Manual Automation' },
-    { name: 'SQL' },
-  ];
+  const [fuse, setFuse] = useState<Fuse<ISkill>>();
+  const [skills, setSkills] = useState<ISkill[]>([]);
 
-  const fuseOptions = {
-    isCaseSensitive: false,
-    shouldSort: true,
-    includeMatches: false,
-    findAllMatches: false,
-    minMatchCharLength: 1,
-    keys: ['name'],
-  };
+  useEffect(() => {
+    getSkills().then((s: ISkill[]) => {
+      setSkills(s);
+    });
+  }, []);
 
-  const idx = Fuse.createIndex(fuseOptions.keys, skills);
-  const fuse = new Fuse<ISkill>(skills, fuseOptions, idx);
+  useEffect(() => {
+    setFuse(createFuse());
+  }, [skills]);
 
-  const searchWithQuery = async (query: string, value: string[]) => {
+  function createFuse(): Fuse<ISkill> {
+    const fuseOptions = {
+      isCaseSensitive: false,
+      shouldSort: true,
+      includeMatches: false,
+      findAllMatches: false,
+      minMatchCharLength: 1,
+      keys: ['name'],
+    };
+
+    const idx = Fuse.createIndex(fuseOptions.keys, skills);
+
+    return new Fuse<ISkill>(skills, fuseOptions, idx);
+  }
+
+  function getSkills(): Promise<ISkill[]> {
+    return Promise.resolve([
+      { name: 'Agile software development' },
+      { name: 'C#' },
+      { name: 'Cryptography' },
+      { name: 'CSS' },
+      { name: 'HTML' },
+      { name: 'Javascript' },
+      { name: 'jQuery' },
+      { name: 'Manual Automation' },
+      { name: 'SQL' },
+    ]);
+  }
+
+  const searchWithQuery = (query: string, value: string[]): ISkill[] => {
     const alreadySelected = (skill: ISkill) => !value.includes(skill.name);
+    const queryMatches = (skill: ISkill) =>
+      skill.name.toLowerCase().includes(query.toLowerCase());
 
-    const results = fuse
-      .search<ISkill>(query)
-      .map((r) => r.item)
-      .filter(alreadySelected);
+    let results: ISkill[];
 
-    return Promise.resolve(results);
+    if (fuse) {
+      results = fuse.search<ISkill>(query).map((r) => r.item);
+    } else {
+      results = skills.filter(queryMatches);
+    }
+
+    results = results.filter(alreadySelected);
+
+    return results;
   };
 
   return (
