@@ -21,7 +21,7 @@ const SkillboxOption: React.FC<ISkillboxOption> = ({
   >
     <div
       data-name="skill-option-name"
-      className={`max-w-[334px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-component-medium ${
+      className={`min-h-[18px] max-w-[334px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-component-medium ${
         disabled || custom ? 'text-gray-2' : 'text-black-text'
       }`}
     >
