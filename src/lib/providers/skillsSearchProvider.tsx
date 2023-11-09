@@ -6,8 +6,13 @@ export interface ISkill {
   name: string;
 }
 
+interface ISkillSearchResults {
+  queryMatches: boolean;
+  results: ISkill[];
+}
+
 interface ISkillsSearchContext {
-  searchWithQuery: (query: string, value: string[]) => ISkill[];
+  searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
 }
 
 export const SkillsSearchContext = React.createContext<ISkillsSearchContext>(
@@ -57,22 +62,30 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     ]);
   }
 
-  const searchWithQuery = (query: string, value: string[]): ISkill[] => {
+  const searchWithQuery = (
+    query: string,
+    value: string[]
+  ): ISkillSearchResults => {
     const alreadySelected = (skill: ISkill) => !value.includes(skill.name);
-    const queryMatches = (skill: ISkill) =>
+    const queryIncludes = (skill: ISkill) =>
       skill.name.toLowerCase().includes(query.toLowerCase());
+    const queryMatches = (skill: ISkill) =>
+      skill.name.toLowerCase() === query.toLowerCase();
 
     let results: ISkill[];
 
     if (fuse) {
       results = fuse.search<ISkill>(query).map((r) => r.item);
     } else {
-      results = skills.filter(queryMatches);
+      results = skills.filter(queryIncludes);
     }
 
     results = results.filter(alreadySelected);
 
-    return results;
+    return {
+      queryMatches: skills.some(queryMatches),
+      results,
+    };
   };
 
   return (

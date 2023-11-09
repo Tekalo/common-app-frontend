@@ -8,6 +8,7 @@ interface ISkillboxOptionList {
   disabled: boolean;
   open: boolean;
   options: ISkill[];
+  queryMatches: boolean;
   searchQuery: string;
 }
 
@@ -15,6 +16,7 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
   disabled,
   open,
   options,
+  queryMatches,
   searchQuery,
 }) => {
   const shouldDisplayOptions = !!searchQuery?.length || searchQuery === '';
@@ -46,7 +48,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
     } else if (!options.length && searchQuery?.length) {
       content = addCustomOption();
     } else {
-      content = renderPassedOptions();
+      content =
+        searchQuery.length && !queryMatches
+          ? renderPassedOptions().concat(addCustomOption())
+          : renderPassedOptions();
     }
 
     return content;

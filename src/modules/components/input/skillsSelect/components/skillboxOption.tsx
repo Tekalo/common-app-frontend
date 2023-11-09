@@ -9,8 +9,8 @@ export interface ISkillboxOption {
 
 const SkillboxOption: React.FC<ISkillboxOption> = ({
   active,
-  disabled,
   custom = false,
+  disabled,
   skillName,
 }) => (
   <div

@@ -5,6 +5,7 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import SkillPill from './skillPill';
 
 interface ISkillboxInput {
+  clearInput: () => void;
   disabled: boolean;
   focusInput: () => void;
   hasErrors: boolean;
@@ -17,6 +18,7 @@ interface ISkillboxInput {
 }
 
 const SkillboxInput: React.FC<ISkillboxInput> = ({
+  clearInput,
   disabled,
   focusInput,
   hasErrors,
@@ -102,10 +104,11 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       {
         <Combobox.Input
           aria-invalid={hasErrors}
-          className="h-[22px] max-w-[235px] border-none bg-transparent p-0 focus:border-none focus:ring-0 sm:max-w-[275px] md:max-w-[305px]"
+          className="h-[26px] max-w-[235px] border-none bg-transparent p-0 focus:border-none focus:ring-0 sm:max-w-[275px] md:max-w-[305px]"
           id={name}
           maxLength={60}
           onBlur={() => {
+            clearInput();
             setInputWidth('');
           }}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
