@@ -458,7 +458,7 @@ describe('Organization Application', () => {
 
   function fillContactEmail(): void {
     cy.get('input[name="input-contact.email"]').fastType(
-      'test-user-contact@schmidtfutures.com'
+      'success+test-user-contact@simulator.amazonses.com'
     );
   }
 
