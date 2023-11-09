@@ -15,7 +15,7 @@ const BenefitsItem: React.FC<IBenefitsItem> = ({ text }) => (
     <div className="flex-none">
       <CircledCheckSvg />
     </div>
-    <div className="ml-3 flex-initial text-component-small text-illustration-black">
+    <div className="ml-3 flex-initial text-illustration text-illustration-black">
       {text}
     </div>
   </div>
@@ -26,7 +26,7 @@ const BenefitsItemWrapper: React.FC<IBenefitsItemWrapper> = ({ children }) => (
 );
 
 const BenefitsList: React.FC = () => (
-  <div className="relative mx-auto mb-16 max-w-[312px] md:mb-16 md:max-w-[440px] lg:mb-28">
+  <div className="relative mx-auto mb-16 max-w-[312px] md:mb-16 md:max-w-[445px] lg:mb-0 lg:ml-14 lg:self-center">
     {/* Main content bg */}
     <div className="absolute bottom-0 left-0 right-1 top-0 z-[2] rounded border border-black-text bg-light-blue"></div>
     {/* Drop-shadow box */}

@@ -14,25 +14,30 @@ const AboutSection: React.FC<IAboutSection> = () => {
         {/* Coalition Logos */}
         <SponsorLogos />
 
-        {/* Content */}
-        <div className="flex flex-col items-center">
-          <h2 className="mb-6 max-w-[590px] text-center font-display text-h3-mobile text-black-text md:text-h2-mobile lg:mb-10 lg:max-w-[924px] lg:p-0 lg:text-h2-desktop">
-            {HOME_ABOUT_TEXT.HEADER}
-          </h2>
-          <p className="mb-14 max-w-[590px] text-center font-sans text-p2-desktop font-normal text-black-text md:text-p1-mobile lg:mb-8 lg:max-w-[735px] lg:text-p1-desktop">
-            {HOME_ABOUT_TEXT.BODY}
-          </p>
+        <div className="lg:flex lg:flex-col lg:items-center">
+          {/* Content */}
+          <div className="lg:flex lg:flex-row lg:justify-center">
+            <div className="flex flex-col items-center lg:max-w-[541px]">
+              <h2 className="mb-6 text-center font-display text-h3-mobile text-black-text md:text-h2-mobile lg:mb-4 lg:p-0 lg:text-left lg:text-h3-desktop">
+                {HOME_ABOUT_TEXT.HEADER}
+              </h2>
+              <p className="mb-14 text-center font-sans text-p2-desktop font-normal text-black-text md:text-p2-mobile lg:mb-8 lg:text-left lg:text-p2-desktop">
+                {HOME_ABOUT_TEXT.BODY}
+              </p>
+            </div>
+
+            {/* Pronunciation */}
+            <PronunciationBox />
+          </div>
+
+          <div className="lg:justify-center-center lg:flex lg:flex-row-reverse">
+            {/* Goals */}
+            <GoalsList />
+
+            {/* Benefits Image */}
+            <BenefitsList />
+          </div>
         </div>
-
-        {/* Pronunciation */}
-        <PronunciationBox />
-
-        {/* Goals */}
-        <GoalsList />
-
-        {/* Benefits Image */}
-        <BenefitsList />
-
         {/* Roles */}
         <RoleTypes />
       </div>

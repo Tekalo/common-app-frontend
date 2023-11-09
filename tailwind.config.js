@@ -235,6 +235,14 @@ module.exports = {
           fontWeight: '500',
         },
       ],
+      illustration: [
+        '13px',
+        {
+          fontWeight: '500',
+          letterSpacing: '0.001em',
+          lineHeight: '18px',
+        },
+      ],
     },
 
     maxWidth: {
