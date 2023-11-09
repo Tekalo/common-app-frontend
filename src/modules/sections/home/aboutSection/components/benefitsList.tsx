@@ -15,7 +15,7 @@ const BenefitsItem: React.FC<IBenefitsItem> = ({ text }) => (
     <div className="flex-none">
       <CircledCheckSvg />
     </div>
-    <div className="ml-3 flex-initial text-illustration font-semibold text-illustration-black">
+    <div className="ml-3 flex-initial text-illustration text-illustration-black">
       {text}
     </div>
   </div>

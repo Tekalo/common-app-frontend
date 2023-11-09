@@ -238,7 +238,7 @@ module.exports = {
       illustration: [
         '13px',
         {
-          fontWeight: '500',
+          fontWeight: '600',
           letterSpacing: '0.001em',
           lineHeight: '18px',
         },
