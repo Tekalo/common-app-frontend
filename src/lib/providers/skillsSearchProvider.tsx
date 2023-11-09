@@ -6,7 +6,7 @@ export interface ISkill {
   name: string;
 }
 
-interface ISkillSearchResults {
+export interface ISkillSearchResults {
   queryMatches: boolean;
   results: ISkill[];
 }
