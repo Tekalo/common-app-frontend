@@ -119,7 +119,7 @@ const HOME_ABOUT_TEXT = {
     'Tekalo is a free, philanthropically funded platform supported by',
   HEADER:
     'Tekalo aims to bridge the gap between tech talent and impact-driven opportunities.',
-  BODY: "Now more than ever, impact-driven organizations need tech talent that is passionate about solving some of the world's most pressing problems.",
+  BODY: 'Now more than ever, impact-driven organizations need tech talent that is passionate about solving some of the world’s hardest, most pressing problems.',
   BENEFITS: {
     B1: 'One application',
     B2: 'Vetting & screening',

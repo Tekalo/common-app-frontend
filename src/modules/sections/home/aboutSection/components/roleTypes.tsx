@@ -16,7 +16,11 @@ const RoleTypes: React.FC = () => {
     {
       src: '/images/roles/UXRole.png',
       alt: 'Design & UX Role',
-      text: 'Design & UX',
+      text: (
+        <>
+          Design & <br className="hidden md:inline-block" /> UX
+        </>
+      ),
     },
     {
       src: '/images/roles/DSRole.png',
@@ -32,7 +36,7 @@ const RoleTypes: React.FC = () => {
       </h4>
       <div className="mx-auto flex max-w-[280px] flex-wrap justify-start gap-y-1 md:max-w-[544px] md:justify-center md:gap-x-8 md:gap-y-3">
         {roles.map((role, i) => (
-          <div key={i} className="flex items-center gap-x-4 p-6 md:w-[256px]">
+          <div key={i} className="mb-5 flex items-center gap-x-4 md:w-[256px]">
             <Image
               src={role.src}
               alt={role.alt}
