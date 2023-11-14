@@ -18,6 +18,7 @@ import { IRoleForm } from '@/modules/sections/sign-up/forms/organizations/roleFo
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { Auth0ContextInterface } from '@auth0/auth0-react';
 import { mount } from 'cypress/react';
+import { IMockComponent } from './component/lib/providers/skillsSearchProvider.cy';
 
 declare global {
   namespace Cypress {
@@ -66,6 +67,7 @@ declare global {
       ): Chainable<void>;
       mountSkillboxOption(props: ISkillboxOption): Chainable<void>;
       mountSkillPill(props: ISkillPill): Chainable<void>;
+      mountSkillsSearchProvider(props: IMockComponent): Chainable<void>;
       mountSkillsSelect(props: ISkillsSelect): Chainable<void>;
       mountViewResumePage(
         auth0Context: Auth0ContextInterface<User>
