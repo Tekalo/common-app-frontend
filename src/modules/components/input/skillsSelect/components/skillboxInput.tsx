@@ -87,7 +87,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       className="relative box-border flex w-full flex-wrap items-start justify-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2"
       onClick={focusInput}
     >
-      <div className="mx-1 mt-1" data-name="skills-select-search-icon">
+      <div className="mx-1 mt-[2px]" data-name="skills-select-search-icon">
         <SearchIconSVG />
       </div>
       {value.map((skill) => (
@@ -104,7 +104,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       {
         <Combobox.Input
           aria-invalid={hasErrors}
-          className="h-[26px] max-w-[235px] border-none bg-transparent p-0 focus:border-none focus:ring-0 sm:max-w-[275px] md:max-w-[305px]"
+          className="h-[22px] max-w-[235px] border-none bg-transparent p-0 focus:border-none focus:ring-0 sm:max-w-[275px] md:max-w-[305px]"
           id={name}
           maxLength={60}
           onBlur={() => {
