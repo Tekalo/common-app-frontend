@@ -40,7 +40,9 @@ Cypress.Commands.add('login', (): void => {
     cy.setupTestingEnvironment();
     cy.visit('/sign-in');
 
-    cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
+    if (Cypress.env('environment') === 'production') {
+      // The new auth0 domain is too close to the baseUrl now, so we need to
+      // not run this in origin or it will fail
       cy.url().should('contain', '/u/login');
 
       const auth0Username = Cypress.env('auth0_username');
@@ -54,7 +56,23 @@ Cypress.Commands.add('login', (): void => {
         .type(auth0Password.charAt(auth0Password.length - 1));
 
       cy.get('button[name=action]').last().click({ force: true });
-    });
+    } else {
+      cy.origin(`https://${Cypress.env('auth0_domain')}`, () => {
+        cy.url().should('contain', '/u/login');
+
+        const auth0Username = Cypress.env('auth0_username');
+        const auth0Password = Cypress.env('auth0_password');
+
+        cy.get('input[name=username]')
+          .invoke('val', auth0Username.substring(0, auth0Username.length - 1))
+          .type(auth0Username.charAt(auth0Username.length - 1));
+        cy.get('input[name=password]')
+          .invoke('val', auth0Password.substring(0, auth0Password.length - 1))
+          .type(auth0Password.charAt(auth0Password.length - 1));
+
+        cy.get('button[name=action]').last().click({ force: true });
+      });
+    }
 
     cy.url().should('contain', `/account`);
   });
