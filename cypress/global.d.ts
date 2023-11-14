@@ -27,9 +27,9 @@ declare global {
       fastType(text: string): Chainable<Subject>;
       fastClick(): Chainable<Subject>;
       // e2e test methods
-      setupTestingEnvironment(): Chainable<void>;
       deleteTestData(type: 'opportunity' | 'candidate'): Chainable<void>;
       login(): Chainable<void>;
+      setupTestingEnvironment(): Chainable<void>;
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
