@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js';
-import React, { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { IProvider } from './shared';
 
 export interface ISkill {
@@ -15,7 +15,7 @@ interface ISkillsSearchContext {
   searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
 }
 
-export const SkillsSearchContext = React.createContext<ISkillsSearchContext>(
+export const SkillsSearchContext = createContext<ISkillsSearchContext>(
   {} as ISkillsSearchContext
 );
 
@@ -30,23 +30,23 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    setFuse(createFuse());
-  }, [skills]);
+    const createFuse = (): Fuse<ISkill> => {
+      const fuseOptions = {
+        isCaseSensitive: false,
+        shouldSort: true,
+        includeMatches: false,
+        findAllMatches: false,
+        minMatchCharLength: 1,
+        keys: ['name'],
+      };
 
-  function createFuse(): Fuse<ISkill> {
-    const fuseOptions = {
-      isCaseSensitive: false,
-      shouldSort: true,
-      includeMatches: false,
-      findAllMatches: false,
-      minMatchCharLength: 1,
-      keys: ['name'],
+      const idx = Fuse.createIndex(fuseOptions.keys, skills);
+
+      return new Fuse<ISkill>(skills, fuseOptions, idx);
     };
 
-    const idx = Fuse.createIndex(fuseOptions.keys, skills);
-
-    return new Fuse<ISkill>(skills, fuseOptions, idx);
-  }
+    setFuse(createFuse());
+  }, [skills]);
 
   function getSkills(): Promise<ISkill[]> {
     return Promise.resolve([
