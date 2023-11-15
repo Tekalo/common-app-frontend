@@ -49,6 +49,7 @@ module.exports = defineConfig({
         },
       }),
         (config.baseUrl = process.env.NEXT_PUBLIC_BASE_URL);
+      config.env.environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
       config.env.auth0_username = process.env.NEXT_PUBLIC_TEST_USER;
       config.env.auth0_password = process.env.NEXT_PUBLIC_TEST_PASSWORD;
       config.env.auth0_domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN;

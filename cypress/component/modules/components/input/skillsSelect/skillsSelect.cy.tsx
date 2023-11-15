@@ -72,7 +72,7 @@ describe('SkillsSelect', () => {
     cy.get('ul[data-name=skills-select-options]')
       .should('be.visible')
       .children()
-      .should('have.length', 9);
+      .should('have.length', 10);
 
     cy.get(
       'div[data-name="skillbox-option-Agile software development"]'
@@ -167,6 +167,7 @@ describe('SkillsSelect', () => {
 
     cy.get('#skills-select-input')
       .fastType(mockNewSkill)
+      .type('{end}')
       .trigger('keydown', { key: 'Enter' })
       .trigger('keyup', {
         key: 'Enter',
