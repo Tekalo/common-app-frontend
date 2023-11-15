@@ -502,7 +502,7 @@ describe('Candidate Application', () => {
       cy.get(`li[data-name="input-interestRoles-${role}"]`).fastClick();
     });
 
-    input.fastClick();
+    input.click();
   }
 
   function fillCurrentLocation(): void {
