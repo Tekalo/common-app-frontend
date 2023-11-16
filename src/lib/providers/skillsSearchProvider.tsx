@@ -1,5 +1,6 @@
 import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
+import { get, skillsEndpoint } from '../helpers/apiHelpers';
 import { IProvider } from './shared';
 
 export interface ISkill {
@@ -24,9 +25,13 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   const [skills, setSkills] = useState<ISkill[]>([]);
 
   useEffect(() => {
-    getSkills().then((s: ISkill[]) => {
-      setSkills(s);
-    });
+    const handleGetSkills = async (res: Response) => {
+      const skills: ISkill[] = (await res.json()).data;
+
+      setSkills(skills);
+    };
+
+    getSkills().then(handleGetSkills);
   }, []);
 
   useEffect(() => {
@@ -48,18 +53,8 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     setFuse(createFuse());
   }, [skills]);
 
-  function getSkills(): Promise<ISkill[]> {
-    return Promise.resolve([
-      { name: 'Agile software development' },
-      { name: 'C#' },
-      { name: 'Cryptography' },
-      { name: 'CSS' },
-      { name: 'HTML' },
-      { name: 'Javascript' },
-      { name: 'jQuery' },
-      { name: 'Manual Automation' },
-      { name: 'SQL' },
-    ]);
+  function getSkills(): Promise<Response> {
+    return get(skillsEndpoint, '');
   }
 
   const searchWithQuery = (
