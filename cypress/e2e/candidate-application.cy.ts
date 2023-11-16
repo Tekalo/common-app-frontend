@@ -361,7 +361,7 @@ describe('Candidate Application', () => {
   }
 
   function fillEmail(): void {
-    const randomEmail = `test-user-${new Date().getTime()}@schmidtfutures.com`;
+    const randomEmail = `success+test-user${new Date().getTime()}@simulator.amazonses.com`;
     cy.get(Selectors.email.input).fastType(randomEmail);
   }
 
@@ -502,7 +502,7 @@ describe('Candidate Application', () => {
       cy.get(`li[data-name="input-interestRoles-${role}"]`).fastClick();
     });
 
-    input.fastClick();
+    input.click();
   }
 
   function fillCurrentLocation(): void {
