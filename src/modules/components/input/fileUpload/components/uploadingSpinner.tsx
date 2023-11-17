@@ -16,8 +16,8 @@ const UploadingSpinner: React.FC<IUploadingSpinner> = ({ uploadState }) => {
     <div data-name="file-is-uploading" className="flex">
       <div data-name="spinner-container" className="mr-2">
         <LoadingSpinner size={18} />
-      </div>{' '}
-      <span className="text-gray-1">{operationName}</span>
+      </div>
+      <span className="text-gray-1">{` ${operationName}`}</span>
     </div>
   );
 };
