@@ -52,6 +52,7 @@ describe('Organization Application', () => {
     selectFullyRemote();
     selectVisaSponsorship();
     selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS], true)]);
+    fillDesiredSkills();
     selectSimilarExperience();
     fillRolePitch();
 
@@ -96,7 +97,7 @@ describe('Organization Application', () => {
     selectVisaSponsorship();
     fillStartDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
+    fillDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
@@ -198,7 +199,7 @@ describe('Organization Application', () => {
     fillStartDate();
     fillEndDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
+    fillDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
@@ -300,7 +301,7 @@ describe('Organization Application', () => {
     selectVisaSponsorship();
     fillStartDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
+    fillDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
@@ -350,7 +351,7 @@ describe('Organization Application', () => {
     selectVisaSponsorship();
     fillStartDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
+    fillDesiredSkills();
     fillOtherSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
@@ -571,14 +572,20 @@ describe('Organization Application', () => {
     input.fastClick();
   }
 
-  function selectDesiredSkills(): void {
-    const input = cy.get('button[name=input-desiredSkills]');
+  function fillDesiredSkills(): void {
+    cy.get('#input-desiredSkills-input').fastType('a');
+    cy.get(
+      'div[data-name="skillbox-option-Agile software development"]'
+    ).click();
 
-    input.fastClick();
-    cy.get('li[data-name=input-desiredSkills-javascript]').fastClick();
-    cy.get('li[data-name=input-desiredSkills-python]').fastClick();
-    cy.get('li[data-name=input-desiredSkills-sql]').fastClick();
-    input.fastClick();
+    cy.get('#input-desiredSkills-input').fastType('a');
+    cy.get('div[data-name="skillbox-option-Cryptography"]').click();
+
+    cy.get('#input-desiredSkills-input').fastType('a');
+    cy.get('div[data-name="skillbox-option-Javascript"]').click();
+
+    cy.get('#input-desiredSkills-input').fastType('a');
+    cy.get('div[data-name="skillbox-option-Manual Automation"]').click();
   }
 
   function fillOtherSkills(): void {

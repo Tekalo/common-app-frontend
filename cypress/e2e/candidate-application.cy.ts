@@ -4,7 +4,6 @@ import {
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
   CAUSE_ENUM_OPTIONS,
-  SKILL_ENUM_OPTIONS,
 } from '@/lang/en';
 import {
   applicantDraftSubmissionsEndpoint,
@@ -74,7 +73,7 @@ describe('Candidate Application', () => {
       fillPreviousOrg();
       fillYearsOfExperience();
       // TODO: SKILLS_FEATURE
-      // fillSkillsSelect();
+      fillSkillsSelect();
       uploadDocXFile();
 
       saveAndConfirmExperienceForm();
@@ -99,20 +98,18 @@ describe('Candidate Application', () => {
           openToRelocate: null,
           openToRemoteMulti: [],
           otherCauses: [],
-          otherSkills: [],
           portfolioPassword: null,
           portfolioUrl: null,
           previousImpactExperience: null,
           referenceAttribution: null,
           referenceAttributionOther: null,
           // TODO: SKILLS_FEATURE
-          skills: [],
-          // skillsSelect: [
-          //   'Agile software development',
-          //   'Cryptography',
-          //   'Javascript',
-          //   'Manual Automation',
-          // ],
+          skillsSelect: [
+            'Agile software development',
+            'Cryptography',
+            'Javascript',
+            'Manual Automation',
+          ],
           workAuthorization: null,
           yoe: '4',
         });
@@ -155,20 +152,18 @@ describe('Candidate Application', () => {
           openToRelocate: 'yes',
           openToRemoteMulti: ['remote'],
           otherCauses: [],
-          otherSkills: [],
           portfolioPassword: null,
           portfolioUrl: null,
           previousImpactExperience: false,
           referenceAttribution: null,
           referenceAttributionOther: null,
           // TODO: SKILLS_FEATURE
-          skills: [],
-          // skillsSelect: [
-          //   'Agile software development',
-          //   'Cryptography',
-          //   'Javascript',
-          //   'Manual Automation',
-          // ],
+          skillsSelect: [
+            'Agile software development',
+            'Cryptography',
+            'Javascript',
+            'Manual Automation',
+          ],
           workAuthorization: null,
           yoe: '4',
         });
@@ -222,9 +217,7 @@ describe('Candidate Application', () => {
       fillPreviousOrg();
       fillYearsOfExperience();
       // TODO: SKILLS_FEATURE
-      fillSkills([...SKILL_ENUM_OPTIONS]);
-      // fillSkillsSelect();
-      fillOtherSkills();
+      fillSkillsSelect();
       fillLinkedIn();
       fillPortfolio();
       fillPortfolioPwd();
@@ -314,35 +307,18 @@ describe('Candidate Application', () => {
           openToRelocate: 'yes',
           openToRemoteMulti: ['remote'],
           otherCauses: ['otherCause1', 'otherCause2'],
-          otherSkills: ['otherSkill1', 'otherSkill2'],
           portfolioPassword: 'portfolioPwd',
           portfolioUrl: 'portfolioUrl',
           previousImpactExperience: true,
           referenceAttribution: 'other',
           referenceAttributionOther: 'Other Attribution',
           // TODO: SKILLS_FEATURE
-          skills: [
-            'react',
-            'javascript',
-            'python',
-            'java',
-            'sql',
-            'privacy',
-            'security',
-            'devops',
-            'figma',
-            'sketch',
-            'prototyping',
-            'user research',
-            'product development',
-            'project management',
+          skillsSelect: [
+            'Agile software development',
+            'Cryptography',
+            'Javascript',
+            'Manual Automation',
           ],
-          // skillsSelect: [
-          //   'Agile software development',
-          //   'Cryptography',
-          //   'Javascript',
-          //   'Manual Automation',
-          // ],
           workAuthorization: 'authorized',
           yoe: '4',
         });
@@ -413,16 +389,6 @@ describe('Candidate Application', () => {
     cy.get('li[data-name=input-yoe-4]').fastClick();
   }
 
-  function fillSkills(skills: string[]): void {
-    cy.get('button[name=input-skills]').fastClick();
-
-    skills.forEach((skill) => {
-      cy.get(`li[data-name="input-skills-${skill}"]`).fastClick();
-    });
-
-    cy.get('button[name=input-skills]').fastClick();
-  }
-
   function fillSkillsSelect(): void {
     cy.get('#input-skillsSelect-input').fastType('a');
     cy.get(
@@ -437,12 +403,6 @@ describe('Candidate Application', () => {
 
     cy.get('#input-skillsSelect-input').fastType('a');
     cy.get('div[data-name="skillbox-option-Manual Automation"]').click();
-  }
-
-  function fillOtherSkills(): void {
-    cy.get('input[name=input-otherSkills]').fastType(
-      'otherSkill1, otherSkill2'
-    );
   }
 
   function fillLinkedIn(): void {
