@@ -12,6 +12,10 @@ export interface ISkillSearchResults {
   results: ISkill[];
 }
 
+interface IGetSkillsResponse {
+  data: ISkill[];
+}
+
 interface ISkillsSearchContext {
   searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
 }
@@ -26,7 +30,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
 
   useEffect(() => {
     const handleGetSkills = async (res: Response) => {
-      const skills: ISkill[] = (await res.json()).data;
+      const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse).data;
 
       setSkills(skills);
     };
