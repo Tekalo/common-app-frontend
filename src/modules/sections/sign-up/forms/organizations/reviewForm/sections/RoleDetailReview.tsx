@@ -73,18 +73,7 @@ const RoleDetailReview: React.FC<IRoleDetailReview> = ({
           {renderRow(
             'Desired skills for the role: ',
             `${idx}_desiredSkills`,
-            role.desiredSkills
-              ?.map((skill) => capitalizeFirstLetter(skill))
-              .join(', ')
-          )}
-          {renderRow(
-            'Desired other skills: ',
-            `${idx}_desiredOtherSkills`,
-            role.desiredOtherSkills
-              ? role.desiredOtherSkills
-                  .map((skill) => capitalizeFirstLetter(skill))
-                  .join(', ')
-              : 'N/A'
+            role.desiredSkills.join(', ')
           )}
           {renderRow(
             'Are there other employees on staff with similar roles?: ',
