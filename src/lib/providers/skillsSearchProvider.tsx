@@ -49,6 +49,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   }, [skills]);
 
   function getSkills(): Promise<ISkill[]> {
+    // TODO: Limit # of returned skills so we won't have a huge list
     return Promise.resolve([
       { name: 'Agile software development' },
       { name: 'C#' },

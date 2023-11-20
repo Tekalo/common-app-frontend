@@ -1,4 +1,4 @@
-import { voidFn } from '@/cypress/fixtures/mocks';
+import { MockSkillSearchProvider, voidFn } from '@/cypress/fixtures/mocks';
 import { ERROR_TEXT } from '@/lang/en';
 import { DraftSubmissionType } from '@/lib/types';
 import ExperienceForm, {
@@ -8,15 +8,17 @@ import { Subject } from 'rxjs';
 
 Cypress.Commands.add('mountExperienceForm', (props: IExperienceForm) => {
   cy.mount(
-    <ExperienceForm
-      $forceSubmitForm={props.$forceSubmitForm}
-      changeHasOcurred={props.changeHasOcurred}
-      handleNext={props.handleNext}
-      handleSave={props.handleSave}
-      isEditing={props.isEditing}
-      savedForm={props.savedForm}
-      showUploadErrorModal={props.showUploadErrorModal}
-    />
+    <MockSkillSearchProvider>
+      <ExperienceForm
+        $forceSubmitForm={props.$forceSubmitForm}
+        changeHasOcurred={props.changeHasOcurred}
+        handleNext={props.handleNext}
+        handleSave={props.handleSave}
+        isEditing={props.isEditing}
+        savedForm={props.savedForm}
+        showUploadErrorModal={props.showUploadErrorModal}
+      />
+    </MockSkillSearchProvider>
   );
 });
 
@@ -51,8 +53,7 @@ describe('Experience Form', () => {
       cy.get('input[name=input-lastRole]').should('be.visible');
       cy.get('input[name=input-lastOrg]').should('be.visible');
       cy.get('button[name=input-yoe]').should('be.visible');
-      cy.get('button[name=input-skills]').should('be.visible');
-      cy.get('input[name=input-otherSkills]').should('be.visible');
+      cy.get('input#input-skillsSelect-input').should('be.visible');
       cy.get('input[name=input-linkedInUrl]').should('be.visible');
       cy.get('input[name=input-portfolioUrl]').should('be.visible');
       cy.get('input[name=input-portfolioPassword]').should('be.visible');
@@ -124,21 +125,9 @@ describe('Experience Form', () => {
     it('should load skills value from the saved form', () => {
       cy.mountExperienceForm(props);
 
-      cy.get('button[name=input-skills]').fastClick();
-      mockSavedForm?.skills?.forEach((skill) => {
-        cy.get(`li[data-name="input-skills-${skill}"] input`).should(
-          'be.checked'
-        );
+      mockSavedForm?.skillsSelect?.forEach((skill) => {
+        cy.get(`div[data-name="skill-pill-${skill}"]`).should('be.visible');
       });
-    });
-
-    it('should load otherSkills value from the saved form', () => {
-      cy.mountExperienceForm(props);
-
-      cy.get('input[name=input-otherSkills]').should(
-        'have.value',
-        mockSavedForm?.otherSkills?.join(', ')
-      );
     });
 
     it('should load linkedInUrl value from the saved form', () => {
