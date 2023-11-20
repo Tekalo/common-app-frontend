@@ -3,7 +3,7 @@ import {
   OrgSize,
   OrgType,
   Roles,
-  Skills,
+  SkillsSelectValidator,
   VisaSponsorship,
   YOE_RANGE,
 } from '@/lib/enums';
@@ -25,7 +25,7 @@ const SubmissionResponseSchema = z.object({
   desiredEndDate: z.coerce.date().optional(),
   jdUrl: maxLengthString(500).optional(),
   desiredYoe: z.array(YOE_RANGE),
-  desiredSkills: z.array(Skills),
+  desiredSkills: z.array(SkillsSelectValidator),
   desiredOtherSkills: maxLengthString(255).optional(),
   visaSponsorship: VisaSponsorship,
   similarStaffed: z.boolean(),
