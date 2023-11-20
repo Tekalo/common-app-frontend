@@ -578,20 +578,10 @@ const APPLICANT_EXPERIENCE_FORM_TEXT = {
       label: 'Current or most recent organization',
       placeholder: 'Name of organization',
     },
-    skills: {
-      label: 'Which of these skills apply to you? (optional)',
-      placeholder: 'Choose all that apply',
-      selectionLabelMulti: ' Skills selected',
-      selectionLabelSingle: ' Skill selected',
-    },
     skillsSelect: {
       label: 'Your top 8 relevant skills',
       maxSkillsSelected: 'You can select up to 8 skills',
       placeholder: 'Search for skills',
-    },
-    otherSkills: {
-      label: 'Other skills (optional)',
-      placeholder: 'Skills separated by commas',
     },
     linkedInUrl: {
       label: 'LinkedIn (optional)',
@@ -834,10 +824,8 @@ const ORG_ROLE_FORM_TEXT = {
       selectionLabelSingle: ' option selected',
     },
     desiredSkills: {
-      label: 'Desired skills for the role (optional)',
-      placeholder: 'Choose all that apply',
-      selectionLabelMulti: ' options selected',
-      selectionLabelSingle: ' option selected',
+      label: 'Desired skills for the role, up to 8',
+      placeholder: 'Search for skills',
     },
     desiredOtherSkills: {
       label: 'Other desired skills if not listed above (optional)',
@@ -1033,22 +1021,6 @@ const YOE_RANGE_ENUM_OPTIONS: readonly [string, ...string[]] = [
   '15+',
 ];
 const BOOL_ENUM_OPTIONS: readonly [string, ...string[]] = ['true', 'false'];
-const SKILL_ENUM_OPTIONS: readonly [string, ...string[]] = [
-  'react',
-  'javascript',
-  'python',
-  'java',
-  'sql',
-  'privacy',
-  'security',
-  'devops',
-  'figma',
-  'sketch',
-  'prototyping',
-  'user research',
-  'product development',
-  'project management',
-];
 const ROLE_ENUM_TEXT = {
   dataAnalyst: 'data analyst',
   dataScientist: 'data scientist',
@@ -2190,7 +2162,6 @@ export {
   ROLE_ENUM_OPTIONS,
   ROLE_ENUM_TEXT,
   SEARCH_STATUS_ENUM_OPTIONS,
-  SKILL_ENUM_OPTIONS,
   TURNSTILE_ENUM_OPTIONS,
   VISA_ENUM_OPTIONS,
   WORKAUTH_ENUM_OPTIONS,

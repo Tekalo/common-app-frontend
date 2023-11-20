@@ -13,7 +13,6 @@ import {
   REMOTE_ENUM_OPTIONS,
   ROLE_ENUM_OPTIONS,
   SEARCH_STATUS_ENUM_OPTIONS,
-  SKILL_ENUM_OPTIONS,
   VISA_ENUM_OPTIONS,
   WORKAUTH_ENUM_OPTIONS,
   YOE_ENUM_OPTIONS,
@@ -147,8 +146,6 @@ export const TrueFalseString = z.enum(BOOL_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
-const Skills = z.enum(SKILL_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
-
 const SkillsSelectValidator = z
   .array(RequiredString)
   .min(1, ERROR_TEXT.required)
@@ -263,7 +260,6 @@ export {
   Roles,
   RolesValidator,
   SearchStatus,
-  Skills,
   SkillsSelectValidator,
   ToS,
   UploadedFile,

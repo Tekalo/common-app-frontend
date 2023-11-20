@@ -8,10 +8,9 @@ import {
   EmploymentOptions,
   PaidOptions,
   RoleOptions,
-  SkillOptions,
   VisaSponsorshipOptions,
-  YesNoOptions,
   YOERangeOptions,
+  YesNoOptions,
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -21,7 +20,7 @@ import {
   RequiredEssay,
   RequiredString,
   Roles,
-  Skills,
+  SkillsSelectValidator,
   VisaSponsorship,
   YOE_RANGE,
 } from '@/lib/enums';
@@ -36,8 +35,8 @@ import {
   PartialNewRoleType,
   RoleRefType,
 } from '@/lib/types';
+import SkillsSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
 import {
-  FreeTagField,
   FreeTextField,
   LongTextField,
   MultiSelectField,
@@ -353,32 +352,12 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.desiredYoe || []}
                 validator={YOE_RANGE.array().min(1, ERROR_TEXT.required)}
               />
-              <MultiSelectField
+              <SkillsSelectField
                 fieldName="desiredSkills"
-                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.label}
-                placeholder={
-                  ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.placeholder
-                }
-                selectionLabelMulti={
-                  ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.selectionLabelMulti
-                }
-                selectionLabelSingle={
-                  ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.selectionLabelSingle
-                }
-                listOptions={SkillOptions}
-                isSubmitted={isSubmitted}
                 initialValue={previousForm?.desiredSkills || []}
-                validator={Skills.array().optional()}
-              />
-              <FreeTagField
-                fieldName="desiredOtherSkills"
-                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredOtherSkills.label}
-                placeholder={
-                  ORG_ROLE_FORM_TEXT.FIELDS.desiredOtherSkills.placeholder
-                }
                 isSubmitted={isSubmitted}
-                initialValue={previousForm?.desiredOtherSkills || []}
-                validator={RequiredString.array().optional()}
+                label={ORG_ROLE_FORM_TEXT.FIELDS.desiredSkills.label}
+                validator={SkillsSelectValidator}
               />
               <RadioSelectField
                 fieldName="similarStaffed"
