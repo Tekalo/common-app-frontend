@@ -1,10 +1,10 @@
+import ApplicantProvider from '@/providers/applicantProvider';
+import DebugProvider from '@/providers/debugProvider';
+import FileUploadProvider from '@/providers/fileUploadProvider/fileUploadProvider';
+import GTMProvider from '@/providers/gtmProvider/gtmProvider';
+import SkillsSearchProvider from '@/providers/skillsSearchProvider';
+import SubmissionProvider from '@/providers/submissionProvider';
 import { ReactNode } from 'react';
-import ApplicantProvider from './applicantProvider';
-import DebugProvider from './debugProvider';
-import FileUploadProvider from './fileUploadProvider/fileUploadProvider';
-import GTMProvider from './gtmProvider/gtmProvider';
-import SkillsSearchProvider from './skillsSearchProvider';
-import SubmissionProvider from './submissionProvider';
 
 interface ITekaloProvidersWrapper {
   children: ReactNode;
