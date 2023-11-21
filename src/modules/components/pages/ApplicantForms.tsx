@@ -11,8 +11,8 @@ import {
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
 import { nullifyEmptyFields, voidFn } from '@/lib/helpers/formHelpers';
-import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
+import { SubmissionContext } from '@/lib/providers/submissionProvider';
 import {
   CandidateDraftSchema,
   CandidateInterestsSchema,
