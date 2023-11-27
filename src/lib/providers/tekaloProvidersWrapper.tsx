@@ -14,6 +14,7 @@ interface ITekaloProvidersWrapper {
 const TekaloProvidersWrapper: React.FC<ITekaloProvidersWrapper> = ({
   children,
 }) => (
+  // GTMProvider needs CookiesProvider
   <ApplicantProvider>
     <CookiesProvider>
       <DebugProvider>
