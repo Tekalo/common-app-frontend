@@ -20,7 +20,7 @@ const AccountApplicationStatus: React.FC<IAccountApplicationStatus> = ({
   lastEditedDate,
 }) => {
   const greenCheck = (
-    <div className="mr-1 h-[16px] w-[16px] p-1">
+    <div className="mr-1 h-4 w-4 p-1">
       {<GreenCheckSvg height="12px" width="12px" color="#00A870" />}
     </div>
   );
@@ -52,7 +52,7 @@ const AccountApplicationStatus: React.FC<IAccountApplicationStatus> = ({
             )}
             linkName="edit-application-link"
             subtextName="last-edited-date"
-          ></AccountLink>
+          />
         </>
       ) : (
         <>

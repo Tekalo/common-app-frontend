@@ -1,11 +1,11 @@
-import React from 'react';
 import {
   applicantStateEndpoint,
   deleteRequest,
   existingApplicantEndpoint,
   get,
   put,
-} from '../helpers/apiHelpers';
+} from '@/lib/helpers/apiHelpers';
+import React from 'react';
 import { IProvider } from './shared';
 
 interface IApplicantContext {

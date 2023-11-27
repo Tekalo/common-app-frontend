@@ -23,7 +23,7 @@ Cypress.Commands.add('mountAccountSection', (auth0Context) => {
     <Auth0Context.Provider value={auth0Context}>
       <SubmissionProvider>
         <ApplicantProvider>
-          <AccountSection></AccountSection>
+          <AccountSection />
         </ApplicantProvider>
       </SubmissionProvider>
     </Auth0Context.Provider>
