@@ -72,7 +72,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           <TekaloProvidersWrapper>
             {getLayout(<Component {...pageProps} />)}
           </TekaloProvidersWrapper>
-
           <CookieConsent
             onAccept={() => window.consentGranted()}
             enableDeclineButton
