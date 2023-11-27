@@ -1,8 +1,8 @@
 import { gtmCookieName } from '@/lib/constants/strings';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
+import React, { useContext, useEffect, useState } from 'react';
+import { CookiesContext } from '../cookiesProvider';
 import { IProvider } from '../shared';
 import { GtagPoller } from './gtagPoller';
 
@@ -27,12 +27,10 @@ export interface IGtmParams {
 
 // TODO: Probably rename this to UTMProvider so we are consistent
 const GTMProvider: React.FC<IProvider> = ({ children }) => {
-  // Lib classes
-  // TODO: Move this to a central provider
-  const cookies = new Cookies(null, { path: '/' });
-  const gtagGetter = new GtagPoller();
+  const cookiesCtx = useContext(CookiesContext);
   const router = useRouter();
   const [paramsReady, setParamsReady] = useState(false);
+  const gtagGetter = new GtagPoller();
 
   // Const
   const paramList = [
@@ -67,11 +65,11 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
         ga_session_id: ga_ids[1],
       };
 
-      cookies.set(gtmCookieName, finalValues);
+      cookiesCtx.set(gtmCookieName, finalValues);
       setParamsReady(true);
     };
 
-    const hasCookieValue = !!cookies.get(gtmCookieName);
+    const hasCookieValue = !!cookiesCtx.get(gtmCookieName);
 
     if (!hasCookieValue && router.isReady) {
       setGtmValues();
@@ -81,7 +79,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
   }, [router.isReady]);
 
   // Returns all params in an object, or null if not set
-  const getGtmParams = () => cookies.get(gtmCookieName) ?? null;
+  const getGtmParams = () => cookiesCtx.get(gtmCookieName) ?? null;
 
   // Grabs a value from the query params and returns it as a string
   const getQueryStringValue = (

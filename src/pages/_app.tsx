@@ -6,6 +6,7 @@ import {
   SIGN_IN_REDIRECT,
 } from '@/lang/en';
 import SubmissionProvider from '@/lib/providers/SubmissionProvider';
+import CookiesProvider from '@/lib/providers/cookiesProvider';
 import DebugProvider from '@/lib/providers/debugProvider';
 import FileUploadProvider from '@/lib/providers/fileUploadProvider/fileUploadProvider';
 import GTMProvider from '@/lib/providers/gtmProvider/gtmProvider';
@@ -74,17 +75,19 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           options={{ enableMouseEvents: true }}
         >
           {/* START Our Local Providers */}
-          <GTMProvider>
-            <DebugProvider>
-              <SubmissionProvider>
-                <FileUploadProvider>
-                  <SkillsSearchProvider>
-                    {getLayout(<Component {...pageProps} />)}
-                  </SkillsSearchProvider>
-                </FileUploadProvider>
-              </SubmissionProvider>
-            </DebugProvider>
-          </GTMProvider>
+          <CookiesProvider>
+            <GTMProvider>
+              <DebugProvider>
+                <SubmissionProvider>
+                  <FileUploadProvider>
+                    <SkillsSearchProvider>
+                      {getLayout(<Component {...pageProps} />)}
+                    </SkillsSearchProvider>
+                  </FileUploadProvider>
+                </SubmissionProvider>
+              </DebugProvider>
+            </GTMProvider>
+          </CookiesProvider>
           {/* END Our Local Providers */}
           <CookieConsent
             onAccept={() => window.consentGranted()}
