@@ -21,7 +21,7 @@ import {
   convertStringFieldsToBool,
   stripEmptyFields,
 } from '@/lib/helpers/formHelpers';
-import SubmissionProvider from '@/lib/providers/SubmissionProvider';
+import SubmissionProvider from '@/lib/providers/submissionProvider';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
