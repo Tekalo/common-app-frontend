@@ -2,6 +2,7 @@ import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
 import { ERROR_TEXT } from '@/lang/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { applicantResumeEndpoint } from '@/lib/helpers/apiHelpers';
+import CookiesProvider from '@/lib/providers/cookiesProvider';
 import ViewResumePage from '@/pages/view-resume';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import * as routerModule from 'next/router';
@@ -9,7 +10,9 @@ import * as routerModule from 'next/router';
 Cypress.Commands.add('mountViewResumePage', (auth0Context) => {
   cy.mount(
     <Auth0Context.Provider value={auth0Context}>
-      <ViewResumePage />
+      <CookiesProvider>
+        <ViewResumePage />
+      </CookiesProvider>
     </Auth0Context.Provider>
   );
 });

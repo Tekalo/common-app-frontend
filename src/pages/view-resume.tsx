@@ -1,12 +1,12 @@
 import { ERROR_TEXT } from '@/lang/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { applicantResumeEndpoint, get } from '@/lib/helpers/apiHelpers';
+import { CookiesContext } from '@/lib/providers/cookiesProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
+import { useContext, useEffect, useState } from 'react';
 
 interface IResumeFetchResponse {
   id: number;
@@ -15,10 +15,9 @@ interface IResumeFetchResponse {
 
 const ViewResumePage: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const cookiesCtx = useContext(CookiesContext);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string>();
-  // TODO: Move this to a central provider
-  const cookies = new Cookies(null, { path: '/' });
 
   useEffect(() => {
     const applicantId = router.query.applicantId;
@@ -30,7 +29,7 @@ const ViewResumePage: NextPageWithLayout = () => {
         setErrorMessage(ERROR_TEXT.noApplicantId);
       }
     } else if (!isAuthenticated && !isLoading) {
-      cookies.set(redirectCookieName, window.location.href);
+      cookiesCtx.set(redirectCookieName, window.location.href);
       router.push('sign-in');
     }
   }, [isAuthenticated, isLoading]);
