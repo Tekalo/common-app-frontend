@@ -1,11 +1,11 @@
 import ApplicantProvider from '@/providers/applicantProvider';
+import CookiesProvider from '@/providers/cookiesProvider';
 import DebugProvider from '@/providers/debugProvider';
 import FileUploadProvider from '@/providers/fileUploadProvider/fileUploadProvider';
 import GTMProvider from '@/providers/gtmProvider/gtmProvider';
 import SkillsSearchProvider from '@/providers/skillsSearchProvider';
 import SubmissionProvider from '@/providers/submissionProvider';
 import { ReactNode } from 'react';
-import CookiesProvider from '@/providers/cookiesProvider';
 
 interface ITekaloProvidersWrapper {
   children: ReactNode;
@@ -14,19 +14,19 @@ interface ITekaloProvidersWrapper {
 const TekaloProvidersWrapper: React.FC<ITekaloProvidersWrapper> = ({
   children,
 }) => (
-  <GTMProvider>
+  <ApplicantProvider>
     <CookiesProvider>
       <DebugProvider>
-        <ApplicantProvider>
-          <SubmissionProvider>
-            <FileUploadProvider>
+        <FileUploadProvider>
+          <GTMProvider>
+            <SubmissionProvider>
               <SkillsSearchProvider>{children}</SkillsSearchProvider>
-            </FileUploadProvider>
-          </SubmissionProvider>
-        </ApplicantProvider>
+            </SubmissionProvider>
+          </GTMProvider>
+        </FileUploadProvider>
       </DebugProvider>
     </CookiesProvider>
-  </GTMProvider>
+  </ApplicantProvider>
 );
 
 export default TekaloProvidersWrapper;
