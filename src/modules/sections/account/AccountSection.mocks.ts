@@ -1,14 +1,12 @@
-import { ICandidateAccountSection } from '@/sections/account/AccountSection';
-
-const base: ICandidateAccountSection = {
+const base = {
   matchesPaused: false,
 };
 
-const submitted: ICandidateAccountSection = {
+const submitted = {
   matchesPaused: false,
 };
 
-const paused: ICandidateAccountSection = {
+const paused = {
   matchesPaused: true,
 };
 
