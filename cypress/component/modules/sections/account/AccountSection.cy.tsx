@@ -12,7 +12,8 @@ import {
   applicantSubmissionsEndpoint,
   existingApplicantEndpoint,
 } from '@/lib/helpers/apiHelpers';
-import SubmissionProvider from '@/lib/providers/SubmissionProvider';
+import ApplicantProvider from '@/lib/providers/applicantProvider';
+import SubmissionProvider from '@/lib/providers/submissionProvider';
 import AccountSection from '@/modules/sections/account/AccountSection';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import * as RouterModule from 'next/router';
@@ -21,7 +22,9 @@ Cypress.Commands.add('mountAccountSection', (auth0Context) => {
   cy.mount(
     <Auth0Context.Provider value={auth0Context}>
       <SubmissionProvider>
-        <AccountSection></AccountSection>
+        <ApplicantProvider>
+          <AccountSection />
+        </ApplicantProvider>
       </SubmissionProvider>
     </Auth0Context.Provider>
   );

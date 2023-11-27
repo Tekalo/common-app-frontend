@@ -1,17 +1,16 @@
 import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { applicantSubmissionsEndpoint, get } from '@/lib/helpers/apiHelpers';
+import { CookiesContext } from '@/lib/providers/cookiesProvider';
 import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import Cookies from 'universal-cookie';
+import { useContext, useEffect } from 'react';
 
 const SignInActionPage: NextPageWithLayout = () => {
-  // TODO: Move this to a central provider
-  const cookies = new Cookies(null, { path: '/' });
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const cookiesCtx = useContext(CookiesContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -30,10 +29,10 @@ const SignInActionPage: NextPageWithLayout = () => {
     };
 
     const signInRedirect = async () => {
-      const redirectURL = cookies.get(redirectCookieName);
+      const redirectURL = cookiesCtx.get(redirectCookieName);
 
       if (redirectURL) {
-        cookies.remove(redirectCookieName);
+        cookiesCtx.remove(redirectCookieName);
         router.push(redirectURL);
       } else {
         get(applicantSubmissionsEndpoint, await getAccessTokenSilently())

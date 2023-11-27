@@ -1,3 +1,4 @@
+import '@/cypress/support/commands';
 import { CandidateSignupSelectors as Selectors } from '@/cypress/support/selectors/candidate-signup.selectors';
 import {
   APPLICANT_EXPERIENCE_LINK,
@@ -15,7 +16,6 @@ import {
   SubmissionResponseType,
 } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
-import '../support/commands';
 
 describe('Candidate Application', () => {
   beforeEach(() => {
