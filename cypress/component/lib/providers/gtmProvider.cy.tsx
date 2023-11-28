@@ -4,7 +4,7 @@ import {
   mockGtag,
 } from '@/cypress/fixtures/mocks';
 import { gtmCookieName } from '@/lib/constants/strings';
-import { voidFn } from '@/lib/helpers/formHelpers';
+import { voidFn } from '@/lib/helpers/utilities';
 import CookiesProvider from '@/lib/providers/cookiesProvider';
 import GTMProvider, {
   GTMContext,

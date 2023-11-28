@@ -9,7 +9,7 @@ import {
   YOE_RANGE_ENUM_OPTIONS,
 } from '@/lang/en';
 import { EmploymentType } from '@/lib/enums';
-import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
+import { opportunityBatchEndpoint } from '@/lib/helpers/api/apiHelpers';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 

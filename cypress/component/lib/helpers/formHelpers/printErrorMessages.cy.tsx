@@ -1,4 +1,4 @@
-import { printErrorMessages } from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
 
 describe('printErrorMessages prior to submitting', () => {
   const inputid = 'test-id';
