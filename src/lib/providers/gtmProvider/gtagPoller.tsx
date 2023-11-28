@@ -1,8 +1,9 @@
 import { gtmCookieName } from '@/lib/constants/strings';
-import Cookies from 'universal-cookie';
+import { useContext } from 'react';
+import { CookiesContext } from '../cookiesProvider';
 
 export class GtagPoller {
-  private cookies = new Cookies(null, { path: '/' });
+  private cookieCtx = useContext(CookiesContext);
   private emptyValue = '';
 
   // Returns a promise resolving in the two session ids from gtag
@@ -53,7 +54,7 @@ export class GtagPoller {
       const requestInt = setInterval(() => {
         i++;
 
-        const cookieValue = this.cookies.get(gtmCookieName);
+        const cookieValue = this.cookieCtx.get(gtmCookieName);
 
         if (cookieValue) {
           clearInterval(requestInt);

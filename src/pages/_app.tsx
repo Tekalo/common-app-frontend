@@ -5,11 +5,7 @@ import {
   PRIVACY_LINK,
   SIGN_IN_REDIRECT,
 } from '@/lang/en';
-import SubmissionProvider from '@/lib/providers/SubmissionProvider';
-import DebugProvider from '@/lib/providers/debugProvider';
-import FileUploadProvider from '@/lib/providers/fileUploadProvider/fileUploadProvider';
-import GTMProvider from '@/lib/providers/gtmProvider/gtmProvider';
-import SkillsSearchProvider from '@/lib/providers/skillsSearchProvider';
+import TekaloProvidersWrapper from '@/lib/providers/tekaloProvidersWrapper';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
@@ -73,19 +69,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           backend={TouchBackend}
           options={{ enableMouseEvents: true }}
         >
-          {/* START Our Local Providers */}
-          <GTMProvider>
-            <DebugProvider>
-              <SubmissionProvider>
-                <FileUploadProvider>
-                  <SkillsSearchProvider>
-                    {getLayout(<Component {...pageProps} />)}
-                  </SkillsSearchProvider>
-                </FileUploadProvider>
-              </SubmissionProvider>
-            </DebugProvider>
-          </GTMProvider>
-          {/* END Our Local Providers */}
+          <TekaloProvidersWrapper>
+            {getLayout(<Component {...pageProps} />)}
+          </TekaloProvidersWrapper>
           <CookieConsent
             onAccept={() => window.consentGranted()}
             enableDeclineButton
