@@ -1,4 +1,4 @@
-import { voidFn } from '@/lib/helpers/formHelpers';
+import { voidFn } from '@/lib/helpers/utilities';
 import { Subject } from 'rxjs';
 import { IInterestForm } from './InterestForm';
 

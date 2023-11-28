@@ -1,10 +1,8 @@
+import { deleteRequest, get, put } from '@/lib/helpers/api/apiHelpers';
 import {
   applicantStateEndpoint,
-  deleteRequest,
   existingApplicantEndpoint,
-  get,
-  put,
-} from '@/lib/helpers/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import React from 'react';
 import { IProvider } from './shared';
 

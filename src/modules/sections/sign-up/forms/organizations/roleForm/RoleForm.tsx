@@ -10,8 +10,8 @@ import {
   RoleOptions,
   SkillOptions,
   VisaSponsorshipOptions,
-  YesNoOptions,
   YOERangeOptions,
+  YesNoOptions,
 } from '@/lib/constants/selects';
 import {
   EmploymentType,
@@ -29,7 +29,7 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import {
   CommitmentType,
   NewRoleType,

@@ -25,7 +25,7 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import { NewOrgType } from '@/lib/types';
 import OrgAdditionalInfoBox from '@/modules/components/application/OrgAdditionalInfoBox';
 import {

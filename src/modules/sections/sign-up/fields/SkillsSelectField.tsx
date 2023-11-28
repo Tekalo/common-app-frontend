@@ -1,5 +1,6 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
-import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
+import { getInputId } from '@/lib/helpers/utilities';
 import SkillsSelect from '@/modules/components/input/skillsSelect/skillsSelect';
 import { Field } from 'houseform';
 import { z } from 'zod';
