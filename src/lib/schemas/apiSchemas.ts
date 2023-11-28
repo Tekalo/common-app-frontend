@@ -1,9 +1,9 @@
 import { CandidateDraftSchema } from '@/lib/schemas/clientSchemas';
+import { SkillsSelectValidator } from '@/lib/validators/array';
 import {
   OrgSize,
   OrgType,
   Roles,
-  SkillsSelectValidator,
   VisaSponsorship,
   YOE_RANGE,
 } from '@/lib/validators/enums';
