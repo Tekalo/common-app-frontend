@@ -1,4 +1,4 @@
-import { ISuccessSection } from './SuccessSection';
+import { ISuccessSection } from '@/components/info/successSection/SuccessSection';
 
 const base: ISuccessSection = {
   title: 'Success Page',

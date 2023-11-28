@@ -3,23 +3,23 @@ import {
   CommitmentType,
   EmploymentType,
   GovtJobType,
-  maxLengthString,
   OpenToRelocate,
-  openToRemoteMulti,
+  OpenToRemoteMulti,
   OrgSize,
   OrgType,
   PreferredContact,
   ReferenceAttribution,
   Roles,
   SearchStatus,
-  SkillsSelectValidator,
-  UploadedFile,
   VisaSponsorship,
   WorkAuthorization,
   YOE,
   YOE_RANGE,
-} from '@/lib/enums';
+} from '@/lib/validators/enums';
+import { UploadedFile } from '@/lib/validators/object';
+import { maxLengthString } from '@/lib/validators/string';
 import { z } from 'zod';
+import { SkillsSelectValidator } from '../validators/array';
 
 /** Organization Schemas
  */
@@ -96,7 +96,7 @@ const CandidateInterestsSchema = z.object({
   interestRoles: z.array(Roles), // keep this as non-zod-enum?
   currentLocation: maxLengthString(255),
   openToRelocate: OpenToRelocate,
-  openToRemoteMulti: z.array(openToRemoteMulti),
+  openToRemoteMulti: z.array(OpenToRemoteMulti),
   desiredSalary: maxLengthString(255).nullable().optional(),
   interestCauses: z.array(maxLengthString(255)), // order matters
   otherCauses: z.array(maxLengthString(255)).nullable().optional(),

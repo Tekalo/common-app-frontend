@@ -1,5 +1,5 @@
-import SingleSelect from './SingleSelect';
-import { mockSingleSelectProps } from './SingleSelect.mocks';
+import SingleSelect from '@/components/input/singleSelect/SingleSelect';
+import { mockSingleSelectProps } from '@/components/input/singleSelect/SingleSelect.mocks';
 
 export default { component: SingleSelect };
 

@@ -1,15 +1,15 @@
-import BooleanField from './BooleanField';
-import FreeTagField from './FreeTagField';
-import FreeTextField from './FreeTextField';
-import LongTextField from './LongTextField';
-import MultiSelectField from './MultiSelectField';
-import PhoneNumberField from './PhoneNumberField';
-import RadioGroupField from './RadioGroupField';
-import RadioSelectField from './RadioSelectField';
-import RankChoiceField from './RankChoiceField';
-import SelectBooleanField from './SelectBooleanField';
-import SelectGroupField from './SelectGroupField';
-import SingleSelectField from './SingleSelectField';
+import BooleanField from '@/sections/sign-up/fields/BooleanField';
+import FreeTagField from '@/sections/sign-up/fields/FreeTagField';
+import FreeTextField from '@/sections/sign-up/fields/FreeTextField';
+import LongTextField from '@/sections/sign-up/fields/LongTextField';
+import MultiSelectField from '@/sections/sign-up/fields/MultiSelectField';
+import PhoneNumberField from '@/sections/sign-up/fields/PhoneNumberField';
+import RadioGroupField from '@/sections/sign-up/fields/RadioGroupField';
+import RadioSelectField from '@/sections/sign-up/fields/RadioSelectField';
+import RankChoiceField from '@/sections/sign-up/fields/RankChoiceField';
+import SelectBooleanField from '@/sections/sign-up/fields/SelectBooleanField';
+import SelectGroupField from '@/sections/sign-up/fields/SelectGroupField';
+import SingleSelectField from '@/sections/sign-up/fields/SingleSelectField';
 // Barrel File
 export {
   BooleanField,

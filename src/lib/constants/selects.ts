@@ -13,11 +13,18 @@ import {
   YOE_OPTION_TEXT,
 } from '@/lang/en';
 import {
+  capitalizeEveryWord,
+  capitalizeFirstLetter,
+  capitalizeFirstWord,
+} from '@/lib/helpers/string';
+import { IBoolItem, ISelectItem } from '@/lib/types';
+import {
   Causes,
   CommitmentType,
   EmploymentType,
   GovtJobType,
   OpenToRelocate,
+  OpenToRemoteMulti,
   OrgSize,
   OrgType,
   PreferredContact,
@@ -28,14 +35,7 @@ import {
   WorkAuthorization,
   YOE,
   YOE_RANGE,
-  openToRemoteMulti,
-} from '@/lib/enums';
-import {
-  capitalizeEveryWord,
-  capitalizeFirstLetter,
-  capitalizeFirstWord,
-} from '@/lib/helpers/string';
-import { IBoolItem, ISelectItem } from '@/lib/types';
+} from '@/lib/validators/enums';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {
   // TODO: We should move all of these options to either have the text be an
@@ -287,7 +287,7 @@ const RelocationOptions = OpenToRelocate.options.map((option) => ({
   displayText: capitalizeFirstLetter(option),
 }));
 
-const RemoteOptions = openToRemoteMulti.options.map((option) => {
+const RemoteOptions = OpenToRemoteMulti.options.map((option) => {
   return {
     value: option,
     displayText: capitalizeFirstLetter(option),

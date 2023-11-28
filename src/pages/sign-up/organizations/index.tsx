@@ -1,6 +1,4 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
-import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
-import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import { CONFIRM_MODAL, ERROR_MODAL_TEXT, ORG_SUCCESS_LINK } from '@/lang/en';
 import { post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
 import { opportunityBatchEndpoint } from '@/lib/helpers/api/endpoints';
@@ -9,6 +7,8 @@ import OrganizationLayout from '@/lib/layouts/forms/organization/OrganizationLay
 import { DebugContext } from '@/lib/providers/debugProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { NewOrgType, NewRoleType, NextPageWithLayout } from '@/lib/types';
+import ConfirmModal from '@/modules/components/modal/ConfirmModal/ConfirmModal';
+import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
 import OrgForms from '@/sections/sign-up/forms/organizations';
 import ReviewForm from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
 import { useAuth0 } from '@auth0/auth0-react';

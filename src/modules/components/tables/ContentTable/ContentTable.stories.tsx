@@ -1,5 +1,5 @@
-import ContentTable from './ContentTable';
-import { mockProps } from './ContentTable.mocks';
+import ContentTable from '@/components/tables/ContentTable/ContentTable';
+import { mockProps } from '@/components/tables/ContentTable/ContentTable.mocks';
 
 export default {
   component: ContentTable,

@@ -13,18 +13,6 @@ import {
   YesNoOptions,
 } from '@/lib/constants/selects';
 import {
-  EmploymentType,
-  OptionalDate,
-  OptionalEssay,
-  OptionalString,
-  RequiredEssay,
-  RequiredString,
-  Roles,
-  SkillsSelectValidator,
-  VisaSponsorship,
-  YOE_RANGE,
-} from '@/lib/enums';
-import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
@@ -35,6 +23,20 @@ import {
   PartialNewRoleType,
   RoleRefType,
 } from '@/lib/types';
+import { SkillsSelectValidator } from '@/lib/validators/array';
+import {
+  EmploymentType,
+  Roles,
+  VisaSponsorship,
+  YOE_RANGE,
+} from '@/lib/validators/enums';
+import { OptionalDate } from '@/lib/validators/object';
+import {
+  OptionalEssay,
+  OptionalString,
+  RequiredEssay,
+  RequiredString,
+} from '@/lib/validators/string';
 import SkillsSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
 import {
   FreeTextField,

@@ -1,5 +1,5 @@
-import FreeTag from './FreeTag';
-import { mockFreeTagProps } from './FreeTag.mocks';
+import FreeTag from '@/components/input/freeTag/FreeTag';
+import { mockFreeTagProps } from '@/components/input/freeTag/FreeTag.mocks';
 
 export default { component: FreeTag };
 

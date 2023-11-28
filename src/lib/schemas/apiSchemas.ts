@@ -1,14 +1,14 @@
+import { CandidateDraftSchema } from '@/lib/schemas/clientSchemas';
 import {
-  maxLengthString,
   OrgSize,
   OrgType,
   Roles,
   SkillsSelectValidator,
   VisaSponsorship,
   YOE_RANGE,
-} from '@/lib/enums';
+} from '@/lib/validators/enums';
+import { maxLengthString } from '@/lib/validators/string';
 import { z } from 'zod';
-import { CandidateDraftSchema } from './clientSchemas';
 
 const SubmissionResponseSchema = z.object({
   roleType: Roles,

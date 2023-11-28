@@ -2,13 +2,6 @@ import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { YOEOptions } from '@/lib/constants/selects';
 import {
-  OptionalString,
-  RequiredString,
-  SkillsSelectValidator,
-  UploadedFile,
-  YOE,
-} from '@/lib/enums';
-import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
@@ -20,6 +13,10 @@ import {
   ExperienceRefType,
   UploadedFileType,
 } from '@/lib/types';
+import { SkillsSelectValidator } from '@/lib/validators/array';
+import { YOE } from '@/lib/validators/enums';
+import { UploadedFile } from '@/lib/validators/object';
+import { OptionalString, RequiredString } from '@/lib/validators/string';
 import ChangeNotifier from '@/modules/components/application/ChangeNotifier';
 import SkillsSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
 import { FreeTextField, SingleSelectField } from '@/sections/sign-up/fields';

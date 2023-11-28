@@ -1,6 +1,6 @@
+import Button, { ButtonVariant } from '@/components/buttons/Button//Button';
+import { mockButtonProps } from '@/components/buttons/Button/Button.mocks';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
-import Button, { ButtonVariant } from './Button';
-import { mockButtonProps } from './Button.mocks';
 
 export default { component: Button, parameters: { layout: 'centered' } };
 

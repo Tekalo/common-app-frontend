@@ -1,4 +1,4 @@
-import { ILongText } from './LongText';
+import { ILongText } from '@/components/input/longText/LongText';
 
 const base: ILongText = {
   errors: [],

@@ -1,10 +1,10 @@
 import { gtmCookieName } from '@/lib/constants/strings';
 import { CookiesContext } from '@/lib/providers/cookiesProvider';
+import { GtagPoller } from '@/lib/providers/gtmProvider/gtagPoller';
 import { IProvider } from '@/lib/providers/shared';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useContext, useEffect, useState } from 'react';
-import { GtagPoller } from './gtagPoller';
 
 interface IGTMContext {
   getGtmParams: () => IGtmParams;

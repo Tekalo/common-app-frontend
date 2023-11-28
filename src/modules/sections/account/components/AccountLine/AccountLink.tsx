@@ -1,5 +1,8 @@
+import {
+  IBaseAccountLine,
+  LineWrapper,
+} from '@/sections/account/components/AccountLine/shared';
 import Link from 'next/link';
-import { IBaseAccountLine, LineWrapper } from './shared';
 
 interface IAccountLink extends IBaseAccountLine {
   href: string;

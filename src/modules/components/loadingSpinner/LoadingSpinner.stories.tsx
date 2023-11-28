@@ -1,5 +1,5 @@
-import LoadingSpinner from './LoadingSpinner';
-import { mockLoadingSpinnerProps } from './LoadingSpinner.mocks';
+import LoadingSpinner from '@/components/loadingSpinner/LoadingSpinner';
+import { mockLoadingSpinnerProps } from '@/components/loadingSpinner/LoadingSpinner.mocks';
 
 export default { component: LoadingSpinner };
 

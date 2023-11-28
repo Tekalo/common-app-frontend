@@ -1,4 +1,4 @@
-import { IReviewFormPage } from './ReviewForm';
+import { IReviewFormPage } from '@/sections/sign-up/forms/organizations/reviewForm/ReviewForm';
 
 const base: IReviewFormPage = {
   debugIsActive: false,

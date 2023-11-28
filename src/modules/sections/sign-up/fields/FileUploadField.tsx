@@ -1,7 +1,7 @@
+import FileUpload from '@/components/input/fileUpload/FileUpload';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
 import { UploadedFileType } from '@/lib/types';
-import FileUpload from '@/modules/components/input/fileUpload/FileUpload';
 import { Field } from 'houseform';
 import { useState } from 'react';
 import { z } from 'zod';

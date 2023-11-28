@@ -1,4 +1,4 @@
-import { OptionalPhoneNumber } from '@/lib/enums';
+import { OptionalPhoneNumber } from '@/lib/validators/string';
 import PhoneNumberField, {
   IPhoneNumberField,
 } from '@/modules/sections/sign-up/fields/PhoneNumberField';

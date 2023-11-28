@@ -5,8 +5,8 @@ import {
   EDIT_APP_LINK,
 } from '@/lang/en';
 import { GreenCheckSvg } from '@/lib/constants/svgs';
-import AccountDisplay from './AccountLine/AccountDisplay';
-import AccountLink from './AccountLine/AccountLink';
+import AccountDisplay from '@/sections/account/components/AccountLine/AccountDisplay';
+import AccountLink from '@/sections/account/components/AccountLine/AccountLink';
 
 interface IAccountApplicationStatus {
   applicantExists: boolean;

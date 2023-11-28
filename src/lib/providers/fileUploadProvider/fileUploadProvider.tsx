@@ -3,10 +3,10 @@ import {
   resumeUploadCompleteEndpoint,
   resumeUploadRequestEndpoint,
 } from '@/lib/helpers/api/endpoints';
+import FileValidator from '@/lib/providers/fileUploadProvider/fileValidator';
 import { IProvider } from '@/lib/providers/shared';
 import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
-import FileValidator from './fileValidator';
 
 // To request file upload
 interface IFileUploadRequestBody {

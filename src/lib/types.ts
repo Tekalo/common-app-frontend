@@ -1,9 +1,4 @@
-import { FieldInstance, FormInstance } from 'houseform';
-import { NextPage } from 'next';
-import { ReactElement, ReactNode } from 'react';
-import { z } from 'zod';
-import { CommitmentType, UploadedFile } from './enums';
-import { DraftResponseSchema, NewOrgOppSchema } from './schemas/apiSchemas';
+import { DraftResponseSchema, NewOrgOppSchema } from '@/lib/schemas/apiSchemas';
 import {
   CandidateDraftSchema,
   CandidateExperienceSchema,
@@ -11,7 +6,13 @@ import {
   NewCandidateSchema,
   NewOrgSchema,
   NewRoleSchema,
-} from './schemas/clientSchemas';
+} from '@/lib/schemas/clientSchemas';
+import { CommitmentType } from '@/lib/validators/enums';
+import { UploadedFile } from '@/lib/validators/object';
+import { FieldInstance, FormInstance } from 'houseform';
+import { NextPage } from 'next';
+import { ReactElement, ReactNode } from 'react';
+import { z } from 'zod';
 
 /** Types
  */

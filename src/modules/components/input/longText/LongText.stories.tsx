@@ -1,5 +1,5 @@
-import LongText from './LongText';
-import { mockLongTextProps } from './LongText.mocks';
+import LongText from '@/components/input/longText/LongText';
+import { mockLongTextProps } from '@/components/input/longText/LongText.mocks';
 
 export default { component: LongText };
 

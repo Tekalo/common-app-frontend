@@ -1,5 +1,5 @@
-import TestimonialSection from './TestimonialSection';
-import { mockTestimonialSectionProps } from './TestimonialSection.mocks';
+import TestimonialSection from '@/sections/home/testimonialSection/TestimonialSection';
+import { mockTestimonialSectionProps } from '@/sections/home/testimonialSection/TestimonialSection.mocks';
 
 export default { component: TestimonialSection };
 
