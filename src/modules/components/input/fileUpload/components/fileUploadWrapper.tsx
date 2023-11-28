@@ -1,8 +1,8 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { UploadedFileType } from '@/lib/types';
+import { FileUploadState } from '@/modules/components/input/fileUpload/FileUpload';
 import Tooltip from '@/modules/components/tooltip/Tooltip';
 import { ReactElement } from 'react';
-import { FileUploadState } from '../FileUpload';
 import RemoveFileBtn from './removeFileBtn';
 import UploadFileBtn from './uploadFileBtn';
 import UploadFileInfo from './uploadFileInfo';

@@ -1,6 +1,6 @@
 import { gtmCookieName } from '@/lib/constants/strings';
+import { CookiesContext } from '@/lib/providers/cookiesProvider';
 import { useContext } from 'react';
-import { CookiesContext } from '../cookiesProvider';
 
 export class GtagPoller {
   private cookieCtx = useContext(CookiesContext);

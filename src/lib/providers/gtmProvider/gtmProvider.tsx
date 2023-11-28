@@ -1,9 +1,9 @@
 import { gtmCookieName } from '@/lib/constants/strings';
+import { CookiesContext } from '@/lib/providers/cookiesProvider';
+import { IProvider } from '@/lib/providers/shared';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useContext, useEffect, useState } from 'react';
-import { CookiesContext } from '../cookiesProvider';
-import { IProvider } from '../shared';
 import { GtagPoller } from './gtagPoller';
 
 interface IGTMContext {
