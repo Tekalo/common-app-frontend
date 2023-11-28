@@ -5,8 +5,8 @@ import {
   get,
   put,
 } from '@/lib/helpers/apiHelpers';
+import { IProvider } from '@/lib/providers/shared';
 import React from 'react';
-import { IProvider } from './shared';
 
 interface IApplicantContext {
   deleteApplicantData: (authToken: string) => Promise<Response>;

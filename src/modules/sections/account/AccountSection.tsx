@@ -6,14 +6,14 @@ import {
   NextPageWithLayout,
   SubmissionResponseType,
 } from '@/lib/types';
+import AccountApplicationStatus from '@/sections/account/components/accountApplicationStatus';
+import AccountDataControl from '@/sections/account/components/accountDataControl';
+import AccountGreeting from '@/sections/account/components/accountGreeting';
+import AccountModals from '@/sections/account/components/accountModals';
+import AccountSettingsBox from '@/sections/account/components/accountSettingsBox';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
-import AccountApplicationStatus from './components/accountApplicationStatus';
-import AccountDataControl from './components/accountDataControl';
-import AccountGreeting from './components/accountGreeting';
-import AccountModals from './components/accountModals';
-import AccountSettingsBox from './components/accountSettingsBox';
 
 const AccountSection: NextPageWithLayout = () => {
   const router = useRouter();

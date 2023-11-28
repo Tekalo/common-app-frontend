@@ -1,5 +1,5 @@
-import RadioGroup from './RadioGroup';
-import { mockRadioGroupProps } from './RadioGroup.mocks';
+import RadioGroup from '@/components/input/radioGroup/RadioGroup';
+import { mockRadioGroupProps } from '@/components/input/radioGroup/RadioGroup.mocks';
 
 export default { component: RadioGroup };
 

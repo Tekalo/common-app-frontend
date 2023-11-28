@@ -1,4 +1,4 @@
-import { ISelectGroup } from './SelectGroup';
+import { ISelectGroup } from '@/components/input/selectGroup/SelectGroup';
 
 const base: ISelectGroup = {
   errors: [],

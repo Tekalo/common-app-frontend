@@ -1,4 +1,4 @@
-import { IAboutSection } from './AboutSection';
+import { IAboutSection } from '@/sections/home/aboutSection/AboutSection';
 
 const base: IAboutSection = {};
 

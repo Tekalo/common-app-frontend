@@ -1,5 +1,3 @@
-import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
-import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
   ACCOUNT_LINK,
@@ -34,6 +32,8 @@ import {
   SubmissionResponseType,
 } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
+import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
+import TableModal from '@/modules/components/modal/TableModal/TableModal';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';

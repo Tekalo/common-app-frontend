@@ -1,5 +1,8 @@
+import {
+  IBaseAccountLine,
+  LineWrapper,
+} from '@/sections/account/components/AccountLine/shared';
 import { ReactElement } from 'react';
-import { IBaseAccountLine, LineWrapper } from './shared';
 
 interface IAccountAction extends IBaseAccountLine {
   action: () => void;

@@ -10,21 +10,9 @@ import {
   RoleOptions,
   SkillOptions,
   VisaSponsorshipOptions,
-  YesNoOptions,
   YOERangeOptions,
+  YesNoOptions,
 } from '@/lib/constants/selects';
-import {
-  EmploymentType,
-  OptionalDate,
-  OptionalEssay,
-  OptionalString,
-  RequiredEssay,
-  RequiredString,
-  Roles,
-  Skills,
-  VisaSponsorship,
-  YOE_RANGE,
-} from '@/lib/enums';
 import {
   executeScroll,
   hasLengthError,
@@ -36,6 +24,20 @@ import {
   PartialNewRoleType,
   RoleRefType,
 } from '@/lib/types';
+import {
+  EmploymentType,
+  Roles,
+  Skills,
+  VisaSponsorship,
+  YOE_RANGE,
+} from '@/lib/validators/enums';
+import { OptionalDate } from '@/lib/validators/object';
+import {
+  OptionalEssay,
+  OptionalString,
+  RequiredEssay,
+  RequiredString,
+} from '@/lib/validators/string';
 import {
   FreeTagField,
   FreeTextField,

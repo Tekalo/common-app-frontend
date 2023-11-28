@@ -1,5 +1,4 @@
-import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
-import Modal from '@/components/modal/Modal/Modal/Modal';
+import ApplicantFormsNav from '@/components/pages/ApplicantFormsNav';
 import {
   ACCOUNT_LINK,
   APPLICANT_FORM_TEXT,
@@ -23,6 +22,8 @@ import {
   InterestFieldsType,
   SubmissionResponseType,
 } from '@/lib/types';
+import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
+import Modal from '@/modules/components/modal/Modal/Modal';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -30,7 +31,6 @@ import Link from 'next/link';
 import router from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { Subject } from 'rxjs';
-import ApplicantFormsNav from './ApplicantFormsNav';
 
 enum MODAL_ERROR_TYPE {
   GENERAL = 1,

@@ -1,5 +1,5 @@
-import SelectBoolean from './SelectBoolean';
-import { mockSelectBooleanProps } from './SelectBoolean.mocks';
+import SelectBoolean from '@/components/input/selectBoolean/SelectBoolean';
+import { mockSelectBooleanProps } from '@/components/input/selectBoolean/SelectBoolean.mocks';
 
 export default { component: SelectBoolean };
 

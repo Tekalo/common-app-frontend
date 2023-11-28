@@ -1,4 +1,4 @@
-import { IHowSection } from './HowSection';
+import { IHowSection } from '@/sections/home/howSection/HowSection';
 
 const base: IHowSection = {};
 

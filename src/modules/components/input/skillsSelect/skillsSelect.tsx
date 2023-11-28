@@ -1,11 +1,11 @@
+import SkillboxInput from '@/components/input/skillsSelect/components/skillboxInput';
+import SkillboxOptionList from '@/components/input/skillsSelect/components/skillboxOptionList';
 import {
   ISkill,
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
 import { Combobox } from '@headlessui/react';
 import { useContext, useEffect, useState } from 'react';
-import SkillboxInput from './components/skillboxInput';
-import SkillboxOptionList from './components/skillboxOptionList';
 
 export interface ISkillsSelect {
   hasErrors: boolean;

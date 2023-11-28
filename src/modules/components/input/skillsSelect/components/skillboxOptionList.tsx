@@ -1,8 +1,8 @@
+import SkillboxOption from '@/components/input/skillsSelect/components//skillboxOption';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { ISkill } from '@/lib/providers/skillsSearchProvider';
 import { Combobox, Transition } from '@headlessui/react';
 import { ReactElement } from 'react';
-import SkillboxOption from './skillboxOption';
 
 interface ISkillboxOptionList {
   disabled: boolean;

@@ -1,5 +1,5 @@
-import OrganizationSection from './OrgSection';
-import { mockOrganizationSectionProps } from './OrgSection.mocks';
+import OrganizationSection from '@/sections/home/orgSection/OrgSection';
+import { mockOrganizationSectionProps } from '@/sections/home/orgSection/OrgSection.mocks';
 
 export default { component: OrganizationSection };
 

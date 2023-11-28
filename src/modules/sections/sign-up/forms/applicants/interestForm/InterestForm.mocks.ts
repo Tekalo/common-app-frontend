@@ -1,6 +1,6 @@
 import { voidFn } from '@/lib/helpers/formHelpers';
+import { IInterestForm } from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { Subject } from 'rxjs';
-import { IInterestForm } from './InterestForm';
 
 const $updateInterestValues = new Subject<void>();
 

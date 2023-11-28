@@ -1,5 +1,5 @@
-import LiteFooter from './LiteFooter';
-import { mockLiteFooterProps } from './LiteFooter.mocks';
+import LiteFooter from '@/components/navigation/LiteFooter/LiteFooter';
+import { mockLiteFooterProps } from '@/components/navigation/LiteFooter/LiteFooter.mocks';
 
 export default { component: LiteFooter };
 

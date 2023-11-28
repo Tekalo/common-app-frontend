@@ -1,5 +1,5 @@
-import Breadcrumb from './Breadcrumb';
-import { mockBreadcrumbProps } from './Breadcrumb.mocks';
+import Breadcrumb from '@/components/navigation/Breadcrumb/Breadcrumb';
+import { mockBreadcrumbProps } from '@/components/navigation/Breadcrumb/Breadcrumb.mocks';
 
 export default { component: Breadcrumb };
 

@@ -1,4 +1,4 @@
-import { IBreadcrumb } from './Breadcrumb';
+import { IBreadcrumb } from '@/components/navigation/Breadcrumb/Breadcrumb';
 
 const base: IBreadcrumb = {
   label: 'Wee',

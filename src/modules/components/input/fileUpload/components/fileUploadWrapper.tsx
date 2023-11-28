@@ -1,12 +1,12 @@
+import { FileUploadState } from '@/components/input/fileUpload/FileUpload';
+import RemoveFileBtn from '@/components/input/fileUpload/components/removeFileBtn';
+import UploadFileBtn from '@/components/input/fileUpload/components/uploadFileBtn';
+import UploadFileInfo from '@/components/input/fileUpload/components/uploadFileInfo';
+import UploadingSpinner from '@/components/input/fileUpload/components/uploadingSpinner';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { UploadedFileType } from '@/lib/types';
 import Tooltip from '@/modules/components/tooltip/Tooltip';
 import { ReactElement } from 'react';
-import { FileUploadState } from '../FileUpload';
-import RemoveFileBtn from './removeFileBtn';
-import UploadFileBtn from './uploadFileBtn';
-import UploadFileInfo from './uploadFileInfo';
-import UploadingSpinner from './uploadingSpinner';
 
 interface IFileUploadWrapper {
   children: ReactElement;

@@ -1,4 +1,4 @@
-import { INavTitle } from './NavTitle';
+import { INavTitle } from '@/components/navigation/NavTitle/NavTitle';
 
 const base: INavTitle = {
   title: 'Foobar',

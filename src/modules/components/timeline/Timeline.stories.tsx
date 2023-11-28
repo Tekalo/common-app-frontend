@@ -1,5 +1,5 @@
-import Timeline from './Timeline';
-import { mockTimelineProps } from './Timeline.mocks';
+import Timeline from '@/components/timeline/Timeline';
+import { mockTimelineProps } from '@/components/timeline/Timeline.mocks';
 
 export default { component: Timeline };
 

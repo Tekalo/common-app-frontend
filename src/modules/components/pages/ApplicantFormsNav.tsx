@@ -1,8 +1,8 @@
-import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import Timeline from '@/components/timeline/Timeline';
 import { APPLICANT_FORM_TEXT } from '@/lang/en';
 import { ITimelineItem } from '@/lib/types';
 import { ButtonVariant } from '@/modules/components/buttons/Button/Button';
+import ConfirmModal from '@/modules/components/modal/ConfirmModal/ConfirmModal';
 import { SingletonRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Observable, Observer } from 'rxjs';

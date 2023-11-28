@@ -1,4 +1,4 @@
-import { IFaqSection } from './FaqSection';
+import { IFaqSection } from '@/sections/home/faqSection/FaqSection';
 
 const base: IFaqSection = {
   setShowLogoModal: () => void {},

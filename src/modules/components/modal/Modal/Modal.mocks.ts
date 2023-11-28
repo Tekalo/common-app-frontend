@@ -1,4 +1,4 @@
-import { IModal } from './Modal';
+import { IModal } from '@/modules/components/modal/Modal/Modal';
 
 const base: IModal = {
   buttonText: 'Test',

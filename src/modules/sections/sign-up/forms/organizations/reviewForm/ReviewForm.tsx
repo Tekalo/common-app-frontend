@@ -1,5 +1,4 @@
 import Button from '@/components/buttons/Button/Button';
-import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import {
   ERROR_TEXT,
   ORG_CONTENT_TABLE_TEXT,
@@ -7,20 +6,21 @@ import {
   PRIVACY_MODAL_TEXT,
   REVIEW_FORM_TEXT,
 } from '@/lang/en';
-import { PrivacyPolicy } from '@/lib/enums';
 import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/formHelpers';
 import { NewOrgType, NewRoleType } from '@/lib/types';
+import { PrivacyPolicy } from '@/lib/validators/literal';
+import TableModal from '@/modules/components/modal/TableModal/TableModal';
 import { BooleanField } from '@/sections/sign-up/fields';
+import OrgDetailReview from '@/sections/sign-up/forms/organizations/reviewForm/sections/OrgDetailReview';
+import RoleDetailReview from '@/sections/sign-up/forms/organizations/reviewForm/sections/RoleDetailReview';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import OrgDetailReview from './sections/OrgDetailReview';
-import RoleDetailReview from './sections/RoleDetailReview';
 
 export interface IReviewFormPage {
   debugIsActive: boolean;

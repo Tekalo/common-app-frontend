@@ -20,21 +20,6 @@ import {
   YesNoOptions,
 } from '@/lib/constants/selects';
 import {
-  CausesValidator,
-  CommitmentTypeValidator,
-  EmploymentTypeValidator,
-  GovtJobType,
-  OpenToRelocate,
-  OptionalString,
-  ReferenceAttribution,
-  RemoteValidator,
-  RequiredEssay,
-  RequiredString,
-  RolesValidator,
-  TrueFalseString,
-  WorkAuthorization,
-} from '@/lib/enums';
-import {
   convertStringFieldsToBool,
   executeScroll,
   hasLengthError,
@@ -48,6 +33,25 @@ import {
   InterestFieldsType,
   InterestRefType,
 } from '@/lib/types';
+import {
+  CausesValidator,
+  CommitmentTypeValidator,
+  EmploymentTypeValidator,
+  RemoteValidator,
+  RolesValidator,
+} from '@/lib/validators/array';
+import {
+  GovtJobType,
+  OpenToRelocate,
+  ReferenceAttribution,
+  WorkAuthorization,
+} from '@/lib/validators/enums';
+import {
+  OptionalString,
+  RequiredEssay,
+  RequiredString,
+  TrueFalseString,
+} from '@/lib/validators/string';
 import ChangeNotifier from '@/modules/components/application/ChangeNotifier';
 import {
   FreeTagField,

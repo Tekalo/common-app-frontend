@@ -1,5 +1,5 @@
-import SignupForm from './SignupForm';
-import { mockSignupFormProps } from './SignupForm.mocks';
+import SignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
+import { mockSignupFormProps } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm.mocks';
 
 export default { component: SignupForm };
 

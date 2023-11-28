@@ -5,9 +5,9 @@ import {
   post,
   put,
 } from '@/lib/helpers/apiHelpers';
+import { IProvider } from '@/lib/providers/shared';
 import { DraftSubmissionType } from '@/lib/types';
 import React from 'react';
-import { IProvider } from './shared';
 
 interface ISubmissionContext {
   getCandidateSubmissions: (authToken: string) => Promise<Response>;

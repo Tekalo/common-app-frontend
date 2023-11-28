@@ -1,4 +1,4 @@
-import { ISignupForm } from './SignupForm';
+import { ISignupForm } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 
 const base: ISignupForm = {
   debugIsActive: false,

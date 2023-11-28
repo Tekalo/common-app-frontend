@@ -1,4 +1,4 @@
-import { IRankChoice } from './RankChoice';
+import { IRankChoice } from '@/components/input/rankChoice/RankChoice';
 
 const label =
   'Rank the causes you would be interested in working on with 1 being the highest.';
