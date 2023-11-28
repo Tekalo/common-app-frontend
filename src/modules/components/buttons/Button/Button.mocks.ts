@@ -1,4 +1,4 @@
-import { IButton } from './Button';
+import { IButton } from '@/components/buttons/Button/Button';
 
 const base: IButton = {
   label: 'Placeholder',

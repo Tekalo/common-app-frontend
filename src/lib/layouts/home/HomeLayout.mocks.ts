@@ -1,4 +1,4 @@
-import { IHomeLayout } from './HomeLayout';
+import { IHomeLayout } from '@/layouts/home/HomeLayout';
 
 const base: IHomeLayout = {
   pageName: 'home',

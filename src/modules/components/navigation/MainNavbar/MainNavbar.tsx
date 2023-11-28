@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
+import MobileMenu from '@/components/navigation/MainNavbar/MobileMenu';
 import NavBarWrapper from '@/components/pages/wrappers/NavBarWrapper';
 import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK, NAV_BAR_TEXT } from '@/lang/en';
 import { IconType } from '@/lib/types';
@@ -9,7 +10,6 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { SyntheticEvent, useState } from 'react';
-import MobileMenu from './MobileMenu';
 
 export interface IMainNavbar extends React.ComponentPropsWithoutRef<'header'> {
   pageName: string;

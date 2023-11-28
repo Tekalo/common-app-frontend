@@ -1,4 +1,4 @@
-import { IFaq } from './Faq';
+import { IFaq } from '@/components/faq/Faq';
 
 const base: IFaq = {
   faqItems: [

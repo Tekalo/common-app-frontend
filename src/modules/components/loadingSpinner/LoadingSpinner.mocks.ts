@@ -1,4 +1,4 @@
-import { ILoadingSpinner } from './LoadingSpinner';
+import { ILoadingSpinner } from '@/components/loadingSpinner/LoadingSpinner';
 
 const base: ILoadingSpinner = {};
 

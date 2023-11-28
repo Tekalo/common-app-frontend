@@ -1,9 +1,11 @@
+import RankChoice, {
+  IRankChoice,
+} from '@/components/input/rankChoice/RankChoice';
+import { mockRankChoiceProps } from '@/components/input/rankChoice/RankChoice.mocks';
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import RankChoice, { IRankChoice } from './RankChoice';
-import { mockRankChoiceProps } from './RankChoice.mocks';
 
 const DefaultComponent: React.FC<IRankChoice> = ({
   label,

@@ -1,4 +1,4 @@
-import { ITimeline } from './Timeline';
+import { ITimeline } from '@/components/timeline/Timeline';
 
 const base: ITimeline = {
   timelineItems: [

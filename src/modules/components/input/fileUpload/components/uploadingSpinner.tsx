@@ -1,5 +1,5 @@
+import { FileUploadState } from '@/components/input/fileUpload/FileUpload';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
-import { FileUploadState } from '@/modules/components/input/fileUpload/FileUpload';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 
 interface IUploadingSpinner {

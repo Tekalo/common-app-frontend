@@ -1,6 +1,6 @@
 import { ACCOUNT_PAGE_TEXT } from '@/lang/en';
 import { IOutlineSVG } from '@/lib/constants/svgs';
-import AccountAction from './AccountLine/AccountAction';
+import AccountAction from '@/sections/account/components/AccountLine/AccountAction';
 
 interface IAccountDataControl {
   applicationSubmitted: boolean;

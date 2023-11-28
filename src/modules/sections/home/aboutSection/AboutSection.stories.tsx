@@ -1,5 +1,5 @@
-import AboutSection from './AboutSection';
-import { mockAboutSectionProps } from './AboutSection.mocks';
+import AboutSection from '@/sections/home/aboutSection/AboutSection';
+import { mockAboutSectionProps } from '@/sections/home/aboutSection/AboutSection.mocks';
 
 export default { component: AboutSection };
 

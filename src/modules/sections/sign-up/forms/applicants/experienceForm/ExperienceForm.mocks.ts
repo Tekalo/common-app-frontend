@@ -1,6 +1,6 @@
 import { voidFn } from '@/lib/helpers/utilities';
+import { IExperienceForm } from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import { Subject } from 'rxjs';
-import { IExperienceForm } from './ExperienceForm';
 
 const forceValidateForm = new Subject<void>();
 

@@ -1,4 +1,4 @@
-import { IHeroSection } from './HeroSection';
+import { IHeroSection } from '@/sections/home/heroSection/HeroSection';
 
 const base: IHeroSection = {};
 

@@ -3,8 +3,8 @@ import {
   applicantStateEndpoint,
   existingApplicantEndpoint,
 } from '@/lib/helpers/api/endpoints';
+import { IProvider } from '@/lib/providers/shared';
 import React from 'react';
-import { IProvider } from './shared';
 
 interface IApplicantContext {
   deleteApplicantData: (authToken: string) => Promise<Response>;

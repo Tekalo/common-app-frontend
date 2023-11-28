@@ -7,8 +7,8 @@ import {
 import { ApplicantContext } from '@/lib/providers/applicantProvider';
 import { AccountResponseType } from '@/lib/types';
 import { ButtonVariant } from '@/modules/components/buttons/Button/Button';
-import ConfirmModal from '@/modules/components/modal/Modal/ConfirmModal/ConfirmModal';
-import ErrorModal from '@/modules/components/modal/Modal/ErrorModal/ErrorModal';
+import ConfirmModal from '@/modules/components/modal/ConfirmModal/ConfirmModal';
+import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useContext } from 'react';
 

@@ -1,5 +1,5 @@
-import MultiSelect from './MultiSelect';
-import { mockMultiSelectProps } from './MultiSelect.mocks';
+import MultiSelect from '@/components/input/multiSelect/MultiSelect';
+import { mockMultiSelectProps } from '@/components/input/multiSelect/MultiSelect.mocks';
 
 export default { component: MultiSelect };
 

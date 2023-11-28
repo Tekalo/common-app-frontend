@@ -1,5 +1,5 @@
-import HeroSection from './HeroSection';
-import { mockHeroSectionProps } from './HeroSection.mocks';
+import HeroSection from '@/sections/home/heroSection/HeroSection';
+import { mockHeroSectionProps } from '@/sections/home/heroSection/HeroSection.mocks';
 
 export default { component: HeroSection };
 

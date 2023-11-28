@@ -1,4 +1,4 @@
-import { ILiteNavbar } from './LiteNavbar';
+import { ILiteNavbar } from '@/components/navigation/LiteNavbar/LiteNavbar';
 
 const base: ILiteNavbar = {};
 

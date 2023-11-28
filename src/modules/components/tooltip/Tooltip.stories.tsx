@@ -1,8 +1,8 @@
 import FreeText from '@/components/input/freeText/FreeText';
+import { ITooltip } from '@/components/tooltip/Tooltip';
+import { mockTooltipProps } from '@/components/tooltip/Tooltip.mocks';
 import { Field } from 'houseform';
 import { z } from 'zod';
-import { ITooltip } from './Tooltip';
-import { mockTooltipProps } from './Tooltip.mocks';
 
 const ToolTipExample: React.FC<ITooltip> = ({ text }) => {
   return (

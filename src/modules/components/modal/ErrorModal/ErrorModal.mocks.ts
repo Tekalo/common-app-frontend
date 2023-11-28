@@ -1,4 +1,4 @@
-import { IErrorModal } from './ErrorModal';
+import { IErrorModal } from '@/modules/components/modal/ErrorModal/ErrorModal';
 
 const base: IErrorModal = {
   closeModal: () => void {},

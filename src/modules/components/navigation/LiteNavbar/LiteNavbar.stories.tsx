@@ -1,5 +1,5 @@
-import LiteNavbar from './LiteNavbar';
-import { mockLiteNavbarProps } from './LiteNavbar.mocks';
+import LiteNavbar from '@/components/navigation/LiteNavbar/LiteNavbar';
+import { mockLiteNavbarProps } from '@/components/navigation/LiteNavbar/LiteNavbar.mocks';
 
 export default { component: LiteNavbar };
 

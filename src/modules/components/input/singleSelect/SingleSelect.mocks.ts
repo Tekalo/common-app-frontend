@@ -1,4 +1,4 @@
-import { ISingleSelect } from './SingleSelect';
+import { ISingleSelect } from '@/components/input/singleSelect/SingleSelect';
 
 const base: ISingleSelect = {
   errors: [],
