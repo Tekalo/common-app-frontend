@@ -33,20 +33,6 @@ export const jumpToFirstErrorMessage = (): void => {
   }
 };
 
-export const removeValueFromArray = <T>(valueToRemove: T, arr: T[]): T[] => {
-  const removeIdx = arr.indexOf(valueToRemove);
-  let newArr: T[];
-
-  if (removeIdx !== -1) {
-    newArr = [...arr];
-    newArr.splice(removeIdx, 1);
-  } else {
-    newArr = arr;
-  }
-
-  return newArr;
-};
-
 export const resetForm = (formRef: RefObject<FormInstance<any>>): void => {
   if (formRef.current) {
     formRef.current?.reset();

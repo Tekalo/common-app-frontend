@@ -1,9 +1,7 @@
 import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en';
 import { redirectCookieName } from '@/lib/constants/strings';
-import {
-  applicantSubmissionsEndpoint,
-  get,
-} from '@/lib/helpers/api/apiHelpers';
+import { get } from '@/lib/helpers/api/apiHelpers';
+import { applicantSubmissionsEndpoint } from '@/lib/helpers/api/endpoints';
 import { CookiesContext } from '@/lib/providers/cookiesProvider';
 import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
