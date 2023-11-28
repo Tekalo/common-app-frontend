@@ -1,7 +1,7 @@
 import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
 import { ERROR_TEXT } from '@/lang/en';
 import { redirectCookieName } from '@/lib/constants/strings';
-import { applicantResumeEndpoint } from '@/lib/helpers/api/apiHelpers';
+import { applicantResumeEndpoint } from '@/lib/helpers/api/endpoints';
 import CookiesProvider from '@/lib/providers/cookiesProvider';
 import ViewResumePage from '@/pages/view-resume';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';

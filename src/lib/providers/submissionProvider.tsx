@@ -1,10 +1,8 @@
+import { get, post, put } from '@/lib/helpers/api/apiHelpers';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
-  get,
-  post,
-  put,
-} from '@/lib/helpers/api/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import { DraftSubmissionType } from '@/lib/types';
 import React from 'react';
 import { IProvider } from './shared';

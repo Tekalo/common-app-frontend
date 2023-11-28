@@ -18,7 +18,7 @@ import {
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
   existingApplicantEndpoint,
-} from '@/lib/helpers/api/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import { NewCandidateType } from '@/lib/types';
 import * as SignupFormModule from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';

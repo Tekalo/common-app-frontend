@@ -16,7 +16,7 @@ import {
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
-} from '@/lib/helpers/api/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import { convertStringFieldsToBool } from '@/lib/helpers/string';
 import { stripEmptyFields } from '@/lib/helpers/transformers';
 import SubmissionProvider from '@/lib/providers/submissionProvider';

@@ -1,6 +1,7 @@
 import { ERROR_TEXT } from '@/lang/en';
 import { redirectCookieName } from '@/lib/constants/strings';
-import { applicantResumeEndpoint, get } from '@/lib/helpers/api/apiHelpers';
+import { get } from '@/lib/helpers/api/apiHelpers';
+import { applicantResumeEndpoint } from '@/lib/helpers/api/endpoints';
 import { CookiesContext } from '@/lib/providers/cookiesProvider';
 import { NextPageWithLayout } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';

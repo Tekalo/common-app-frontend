@@ -1,8 +1,8 @@
+import { post } from '@/lib/helpers/api/apiHelpers';
 import {
-  post,
   resumeUploadCompleteEndpoint,
   resumeUploadRequestEndpoint,
-} from '@/lib/helpers/api/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
 import { IProvider } from '../shared';

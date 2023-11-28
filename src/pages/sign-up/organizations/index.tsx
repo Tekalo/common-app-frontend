@@ -2,11 +2,8 @@ import { ButtonVariant } from '@/components/buttons/Button/Button';
 import ConfirmModal from '@/components/modal/Modal/ConfirmModal/ConfirmModal';
 import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
 import { CONFIRM_MODAL, ERROR_MODAL_TEXT, ORG_SUCCESS_LINK } from '@/lang/en';
-import {
-  opportunityBatchEndpoint,
-  post,
-  postWithTurnstile,
-} from '@/lib/helpers/api/apiHelpers';
+import { post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
+import { opportunityBatchEndpoint } from '@/lib/helpers/api/endpoints';
 import { executeScroll } from '@/lib/helpers/utilities';
 import OrganizationLayout from '@/lib/layouts/forms/organization/OrganizationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';

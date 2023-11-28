@@ -1,0 +1,11 @@
+const baseApiUrl = '/api/';
+export const applicantsEndpoint = `${baseApiUrl}applicants`;
+export const applicantResumeEndpoint = `${applicantsEndpoint}/:id/resume`;
+export const opportunityEndpoint = `${baseApiUrl}opportunities`;
+export const opportunityBatchEndpoint = `${opportunityEndpoint}/batch`;
+export const existingApplicantEndpoint = `${applicantsEndpoint}/me`;
+export const applicantStateEndpoint = `${existingApplicantEndpoint}/state`;
+export const applicantSubmissionsEndpoint = `${existingApplicantEndpoint}/submissions`;
+export const applicantDraftSubmissionsEndpoint = `${existingApplicantEndpoint}/submissions/draft`;
+export const resumeUploadRequestEndpoint = `${existingApplicantEndpoint}/resume`;
+export const resumeUploadCompleteEndpoint = `${existingApplicantEndpoint}/uploads/{{FILE_ID}}/complete`;

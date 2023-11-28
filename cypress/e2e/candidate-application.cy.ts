@@ -11,7 +11,7 @@ import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
-} from '@/lib/helpers/api/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import {
   AccountSubmissionResponseType,
   SubmissionResponseType,
