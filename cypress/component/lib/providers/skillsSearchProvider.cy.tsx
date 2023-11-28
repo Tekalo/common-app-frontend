@@ -1,4 +1,4 @@
-import { skillsEndpoint } from '@/lib/helpers/apiHelpers';
+import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';

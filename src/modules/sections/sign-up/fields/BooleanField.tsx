@@ -1,8 +1,5 @@
-import {
-  getErrorMessageId,
-  getInputId,
-  printErrorMessages,
-} from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
+import { getErrorMessageId, getInputId } from '@/lib/helpers/utilities';
 import { Field } from 'houseform';
 import { ReactElement } from 'react';
 import { z } from 'zod';

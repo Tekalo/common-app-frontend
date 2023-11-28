@@ -1,4 +1,5 @@
-import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
+import { getInputId } from '@/lib/helpers/utilities';
 import PhoneNumber from '@/modules/components/input/phoneNumber/PhoneNumber';
 import { Field, FormInstance } from 'houseform';
 import { z } from 'zod';

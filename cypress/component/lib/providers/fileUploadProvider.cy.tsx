@@ -2,7 +2,7 @@ import { getMockAuth0Context, mockAuthToken } from '@/cypress/fixtures/mocks';
 import {
   resumeUploadCompleteEndpoint,
   resumeUploadRequestEndpoint,
-} from '@/lib/helpers/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import FileUploadProvider, {
   FileUploadContext,
   IFileUploadCompleteResponse,

@@ -1,5 +1,5 @@
 import Tooltip from '@/components/tooltip/Tooltip';
-import { getErrorMessageId } from '@/lib/helpers/formHelpers';
+import { getErrorMessageId } from '@/lib/helpers/utilities';
 
 export interface IFreeTag {
   errors: string[];

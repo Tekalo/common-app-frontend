@@ -11,7 +11,7 @@ import {
   applicantStateEndpoint,
   applicantSubmissionsEndpoint,
   existingApplicantEndpoint,
-} from '@/lib/helpers/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import ApplicantProvider from '@/lib/providers/applicantProvider';
 import SubmissionProvider from '@/lib/providers/submissionProvider';
 import AccountSection from '@/modules/sections/account/AccountSection';
