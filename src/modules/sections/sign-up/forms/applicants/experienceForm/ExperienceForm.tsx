@@ -6,7 +6,7 @@ import {
   hasLengthError,
   jumpToFirstErrorMessage,
   resetForm,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,

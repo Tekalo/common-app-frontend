@@ -1,5 +1,6 @@
 import FileUpload from '@/components/input/fileUpload/FileUpload';
-import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
+import { getInputId } from '@/lib/helpers/utilities';
 import { UploadedFileType } from '@/lib/types';
 import { Field } from 'houseform';
 import { useState } from 'react';

@@ -11,18 +11,14 @@ import {
   SIGN_IN_LINK,
   TRACKING,
 } from '@/lang/en';
+import { get, post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
 import {
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
   existingApplicantEndpoint,
-  get,
-  post,
-  postWithTurnstile,
-} from '@/lib/helpers/apiHelpers';
-import {
-  jumpToFirstErrorMessage,
-  stripEmptyFields,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/api/endpoints';
+import { stripEmptyFields } from '@/lib/helpers/transformers';
+import { jumpToFirstErrorMessage } from '@/lib/helpers/utilities';
 import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';

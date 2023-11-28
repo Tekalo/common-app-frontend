@@ -19,15 +19,14 @@ import {
   USDROptions,
   YesNoOptions,
 } from '@/lib/constants/selects';
+import { mapBoolToString, mapStringToBool } from '@/lib/helpers/mappers';
+import { convertStringFieldsToBool } from '@/lib/helpers/string';
 import {
-  convertStringFieldsToBool,
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-  mapBoolToString,
-  mapStringToBool,
   resetForm,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import {
   DraftSubmissionType,
   InterestFieldsType,

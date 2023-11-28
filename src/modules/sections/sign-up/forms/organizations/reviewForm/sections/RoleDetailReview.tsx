@@ -1,6 +1,6 @@
 import Faq from '@/components/faq/Faq';
 import { EditSVG } from '@/lib/constants/svgs';
-import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
+import { capitalizeFirstLetter } from '@/lib/helpers/string';
 import { NewRoleType } from '@/lib/types';
 
 export interface IRoleDetailReview {

@@ -1,8 +1,8 @@
+import { deleteRequest } from '@/lib/helpers/api/apiHelpers';
 import {
   applicantsEndpoint,
-  deleteRequest,
   opportunityBatchEndpoint,
-} from '@/lib/helpers/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
 import { __DEBUG_ITEM_KEY__ } from '@/providers/debugProvider';
 
 Cypress.Commands.add('setupTestingEnvironment', (): void => {

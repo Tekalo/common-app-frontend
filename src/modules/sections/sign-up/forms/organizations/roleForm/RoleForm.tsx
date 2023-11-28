@@ -17,7 +17,7 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import {
   CommitmentType,
   NewRoleType,

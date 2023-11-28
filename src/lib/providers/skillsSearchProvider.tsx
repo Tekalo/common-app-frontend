@@ -1,4 +1,5 @@
-import { get, skillsEndpoint } from '@/lib/helpers/apiHelpers';
+import { get } from '@/lib/helpers/api/apiHelpers';
+import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import { IProvider } from '@/lib/providers/shared';
 import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';

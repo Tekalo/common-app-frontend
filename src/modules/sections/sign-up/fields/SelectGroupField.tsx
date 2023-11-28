@@ -1,5 +1,6 @@
 import SelectGroup from '@/components/input/selectGroup/SelectGroup';
-import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
+import { getInputId } from '@/lib/helpers/utilities';
 import { ISelectItem } from '@/lib/types';
 import { Field, FieldInstance } from 'houseform';
 import React, { RefObject } from 'react';

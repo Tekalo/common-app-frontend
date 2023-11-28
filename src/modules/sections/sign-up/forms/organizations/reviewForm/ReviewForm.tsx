@@ -10,7 +10,7 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import { PrivacyPolicy } from '@/lib/validators/literal';
 import TableModal from '@/modules/components/modal/TableModal/TableModal';

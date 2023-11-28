@@ -9,7 +9,8 @@ import {
   TRACKING,
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
-import { nullifyEmptyFields, voidFn } from '@/lib/helpers/formHelpers';
+import { nullifyEmptyFields } from '@/lib/helpers/transformers';
+import { voidFn } from '@/lib/helpers/utilities';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';
 import {

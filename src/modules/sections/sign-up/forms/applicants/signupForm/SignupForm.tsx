@@ -13,7 +13,7 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import { NewCandidateType } from '@/lib/types';
 import { PreferredContact, SearchStatus } from '@/lib/validators/enums';
 import { contactPhoneLinkedValidation } from '@/lib/validators/function';

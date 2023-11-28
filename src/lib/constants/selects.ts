@@ -16,7 +16,7 @@ import {
   capitalizeEveryWord,
   capitalizeFirstLetter,
   capitalizeFirstWord,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/string';
 import { IBoolItem, ISelectItem } from '@/lib/types';
 import {
   Causes,

@@ -1,6 +1,6 @@
 import SkillPill from '@/components/input/skillsSelect/components//skillPill';
 import { SearchIconSVG } from '@/lib/constants/svgs';
-import { removeValueFromArray } from '@/lib/helpers/formHelpers';
+import { removeValueFromArray } from '@/lib/helpers/transformers';
 import { Combobox } from '@headlessui/react';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 
