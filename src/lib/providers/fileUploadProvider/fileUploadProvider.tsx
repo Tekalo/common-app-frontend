@@ -3,9 +3,9 @@ import {
   resumeUploadCompleteEndpoint,
   resumeUploadRequestEndpoint,
 } from '@/lib/helpers/apiHelpers';
+import { IProvider } from '@/lib/providers/shared';
 import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
-import { IProvider } from '../shared';
 import FileValidator from './fileValidator';
 
 // To request file upload

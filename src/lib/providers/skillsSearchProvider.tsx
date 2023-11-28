@@ -1,6 +1,6 @@
+import { get, skillsEndpoint } from '@/lib/helpers/apiHelpers';
 import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
-import { get, skillsEndpoint } from '../helpers/apiHelpers';
 import { IProvider } from './shared';
 
 export interface ISkill {
