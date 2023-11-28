@@ -1,3 +1,4 @@
+import { get, skillsEndpoint } from '@/lib/helpers/apiHelpers';
 import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
 import { IProvider } from './shared';
@@ -9,6 +10,10 @@ export interface ISkill {
 export interface ISkillSearchResults {
   queryMatches: boolean;
   results: ISkill[];
+}
+
+interface IGetSkillsResponse {
+  data: ISkill[];
 }
 
 interface ISkillsSearchContext {
@@ -24,9 +29,13 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   const [skills, setSkills] = useState<ISkill[]>([]);
 
   useEffect(() => {
-    getSkills().then((s: ISkill[]) => {
-      setSkills(s);
-    });
+    const handleGetSkills = async (res: Response) => {
+      const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse).data;
+
+      setSkills(skills);
+    };
+
+    getSkills().then(handleGetSkills);
   }, []);
 
   useEffect(() => {
@@ -48,19 +57,9 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     setFuse(createFuse());
   }, [skills]);
 
-  function getSkills(): Promise<ISkill[]> {
+  function getSkills(): Promise<Response> {
     // TODO: Limit # of returned skills so we won't have a huge list
-    return Promise.resolve([
-      { name: 'Agile software development' },
-      { name: 'C#' },
-      { name: 'Cryptography' },
-      { name: 'CSS' },
-      { name: 'HTML' },
-      { name: 'Javascript' },
-      { name: 'jQuery' },
-      { name: 'Manual Automation' },
-      { name: 'SQL' },
-    ]);
+    return get(skillsEndpoint, '');
   }
 
   const searchWithQuery = (

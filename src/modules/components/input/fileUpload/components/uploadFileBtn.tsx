@@ -2,7 +2,7 @@ import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import Button, {
   ButtonVariant,
 } from '@/modules/components/buttons/Button/Button';
-import { FileUploadState } from '../FileUpload';
+import { FileUploadState } from '@/modules/components/input/fileUpload/FileUpload';
 
 interface IUploadFileBtn {
   uploadInputId: string;

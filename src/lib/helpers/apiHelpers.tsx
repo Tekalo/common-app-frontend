@@ -9,6 +9,7 @@ export const applicantSubmissionsEndpoint = `${existingApplicantEndpoint}/submis
 export const applicantDraftSubmissionsEndpoint = `${existingApplicantEndpoint}/submissions/draft`;
 export const resumeUploadRequestEndpoint = `${existingApplicantEndpoint}/resume`;
 export const resumeUploadCompleteEndpoint = `${existingApplicantEndpoint}/uploads/{{FILE_ID}}/complete`;
+export const skillsEndpoint = `${baseApiUrl}/skills`;
 
 export const get = async (url: string, token = '') => {
   return fetch(url, {

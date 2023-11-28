@@ -30,6 +30,7 @@ describe('Organization <RoleDetailReview />', () => {
             source: '',
             employmentType: 'full-time employee',
             location: '',
+            desiredSkills: [],
           },
           {
             paid: false,
@@ -45,7 +46,6 @@ describe('Organization <RoleDetailReview />', () => {
             pitchEssay: 'asdf',
             desiredYoe: ['0-2', '3-5'],
             desiredSkills: ['javascript'],
-            desiredOtherSkills: ['asdf'],
             desiredStartDate: '01/01/1992',
             desiredEndDate: '01/01/1992',
             source: '',
@@ -97,7 +97,6 @@ describe('Organization <RoleDetailReview />', () => {
             pitchEssay: 'asdf',
             desiredYoe: ['0-2', '3-5'],
             desiredSkills: ['javascript'],
-            desiredOtherSkills: ['asdf'],
             desiredStartDate: '01/01/1992',
             desiredEndDate: '01/01/1992',
             source: '',

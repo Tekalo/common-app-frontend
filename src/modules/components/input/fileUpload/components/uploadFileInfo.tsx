@@ -1,6 +1,6 @@
 import { FileSvg } from '@/lib/constants/svgs';
 import { UploadedFileType } from '@/lib/types';
-import { FileUploadState } from '../FileUpload';
+import { FileUploadState } from '@/modules/components/input/fileUpload/FileUpload';
 
 interface IUploadFileInfo {
   uploadState: FileUploadState;
