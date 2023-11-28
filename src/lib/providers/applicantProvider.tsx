@@ -4,7 +4,7 @@ import {
   existingApplicantEndpoint,
   get,
   put,
-} from '@/lib/helpers/apiHelpers';
+} from '@/lib/helpers/api/apiHelpers';
 import React from 'react';
 import { IProvider } from './shared';
 

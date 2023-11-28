@@ -1,4 +1,5 @@
-import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
+import { getInputId } from '@/lib/helpers/utilities';
 import { UploadedFileType } from '@/lib/types';
 import FileUpload from '@/modules/components/input/fileUpload/FileUpload';
 import { Field } from 'houseform';

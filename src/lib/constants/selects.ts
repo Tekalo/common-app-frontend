@@ -18,7 +18,6 @@ import {
   EmploymentType,
   GovtJobType,
   OpenToRelocate,
-  openToRemoteMulti,
   OrgSize,
   OrgType,
   PreferredContact,
@@ -30,12 +29,13 @@ import {
   WorkAuthorization,
   YOE,
   YOE_RANGE,
+  openToRemoteMulti,
 } from '@/lib/enums';
 import {
   capitalizeEveryWord,
   capitalizeFirstLetter,
   capitalizeFirstWord,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/string';
 import { IBoolItem, ISelectItem } from '@/lib/types';
 
 const YOEOptions: Array<ISelectItem> = YOE.options.map((option) => {

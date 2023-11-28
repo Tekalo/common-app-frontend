@@ -1,5 +1,5 @@
 import { SearchIconSVG } from '@/lib/constants/svgs';
-import { removeValueFromArray } from '@/lib/helpers/formHelpers';
+import { removeValueFromArray } from '@/lib/helpers/utilities';
 import { Combobox } from '@headlessui/react';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import SkillPill from './skillPill';

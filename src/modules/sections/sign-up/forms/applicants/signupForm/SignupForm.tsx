@@ -10,7 +10,6 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
   Email,
   OptionalString,
   PreferredContact,
@@ -18,12 +17,13 @@ import {
   RequiredString,
   SearchStatus,
   ToS,
+  contactPhoneLinkedValidation,
 } from '@/lib/enums';
 import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import { NewCandidateType } from '@/lib/types';
 import {
   BooleanField,

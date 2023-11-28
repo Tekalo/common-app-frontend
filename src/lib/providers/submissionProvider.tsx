@@ -4,7 +4,7 @@ import {
   get,
   post,
   put,
-} from '@/lib/helpers/apiHelpers';
+} from '@/lib/helpers/api/apiHelpers';
 import { DraftSubmissionType } from '@/lib/types';
 import React from 'react';
 import { IProvider } from './shared';

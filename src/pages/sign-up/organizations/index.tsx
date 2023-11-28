@@ -6,8 +6,8 @@ import {
   opportunityBatchEndpoint,
   post,
   postWithTurnstile,
-} from '@/lib/helpers/apiHelpers';
-import { executeScroll } from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/api/apiHelpers';
+import { executeScroll } from '@/lib/helpers/utilities';
 import OrganizationLayout from '@/lib/layouts/forms/organization/OrganizationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';

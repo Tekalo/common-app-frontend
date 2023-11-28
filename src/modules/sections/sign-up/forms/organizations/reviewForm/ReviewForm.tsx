@@ -12,7 +12,7 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import { BooleanField } from '@/sections/sign-up/fields';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
