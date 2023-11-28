@@ -1,6 +1,6 @@
+import FileUpload from '@/components/input/fileUpload/FileUpload';
 import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
 import { UploadedFileType } from '@/lib/types';
-import FileUpload from '@/modules/components/input/fileUpload/FileUpload';
 import { Field } from 'houseform';
 import { useState } from 'react';
 import { z } from 'zod';
