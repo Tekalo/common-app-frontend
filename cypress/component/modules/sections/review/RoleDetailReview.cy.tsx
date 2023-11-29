@@ -1,6 +1,6 @@
 import RoleDetailReview, {
   IRoleDetailReview,
-} from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/RoleDetailReview';
+} from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/roleDetailReview/RoleDetailReview';
 
 Cypress.Commands.add('mountRoleDetailReview', (props: IRoleDetailReview) => {
   cy.mount(<RoleDetailReview {...props} />);
