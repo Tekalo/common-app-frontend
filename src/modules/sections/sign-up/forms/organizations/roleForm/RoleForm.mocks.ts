@@ -1,5 +1,5 @@
-import { CommitmentType } from '@/lib/enums';
-import { IRoleForm } from './RoleForm';
+import { CommitmentType } from '@/lib/validators/enums';
+import { IRoleForm } from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 
 const base: IRoleForm = {
   // formList: [],

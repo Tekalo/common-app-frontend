@@ -1,4 +1,4 @@
-import { IFreeTag } from './FreeTag';
+import { IFreeTag } from '@/components/input/freeTag/FreeTag';
 
 const base: IFreeTag = {
   errors: [],

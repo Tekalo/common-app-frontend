@@ -1,4 +1,4 @@
-import { ILoadingInput } from './LoadingInput';
+import { ILoadingInput } from '@/components/loadingInput/LoadingInput';
 
 const base: ILoadingInput = {
   label: 'Hello world!',

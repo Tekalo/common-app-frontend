@@ -1,10 +1,11 @@
+import SkillPill from '@/components/input/skillsSelect/components//skillPill';
 import { SearchIconSVG } from '@/lib/constants/svgs';
-import { removeValueFromArray } from '@/lib/helpers/formHelpers';
+import { removeValueFromArray } from '@/lib/helpers/transformers';
 import { Combobox } from '@headlessui/react';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
-import SkillPill from './skillPill';
 
 interface ISkillboxInput {
+  clearInput: () => void;
   disabled: boolean;
   focusInput: () => void;
   hasErrors: boolean;
@@ -17,6 +18,7 @@ interface ISkillboxInput {
 }
 
 const SkillboxInput: React.FC<ISkillboxInput> = ({
+  clearInput,
   disabled,
   focusInput,
   hasErrors,
@@ -85,7 +87,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       className="relative box-border flex w-full flex-wrap items-start justify-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2"
       onClick={focusInput}
     >
-      <div className="mx-1 mt-1" data-name="skills-select-search-icon">
+      <div className="mx-1 mt-[2px]" data-name="skills-select-search-icon">
         <SearchIconSVG />
       </div>
       {value.map((skill) => (
@@ -106,6 +108,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
           id={name}
           maxLength={60}
           onBlur={() => {
+            clearInput();
             setInputWidth('');
           }}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {

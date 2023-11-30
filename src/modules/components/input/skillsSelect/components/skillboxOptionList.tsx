@@ -1,13 +1,14 @@
+import SkillboxOption from '@/components/input/skillsSelect/components//skillboxOption';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
 import { ISkill } from '@/lib/providers/skillsSearchProvider';
 import { Combobox, Transition } from '@headlessui/react';
 import { ReactElement } from 'react';
-import SkillboxOption from './skillboxOption';
 
 interface ISkillboxOptionList {
   disabled: boolean;
   open: boolean;
   options: ISkill[];
+  queryMatches: boolean;
   searchQuery: string;
 }
 
@@ -15,6 +16,7 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
   disabled,
   open,
   options,
+  queryMatches,
   searchQuery,
 }) => {
   const shouldDisplayOptions = !!searchQuery?.length || searchQuery === '';
@@ -46,7 +48,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
     } else if (!options.length && searchQuery?.length) {
       content = addCustomOption();
     } else {
-      content = renderPassedOptions();
+      content =
+        searchQuery.length && !queryMatches
+          ? renderPassedOptions().concat(addCustomOption())
+          : renderPassedOptions();
     }
 
     return content;

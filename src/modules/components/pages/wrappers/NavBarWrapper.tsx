@@ -1,6 +1,6 @@
+import { IWrapper } from '@/components/pages/wrappers/shared';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IWrapper } from './shared';
 
 interface INavBarWrapper {
   isEditing?: boolean;

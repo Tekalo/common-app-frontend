@@ -1,7 +1,9 @@
 import Button from '@/components/buttons/Button/Button';
+import ConfirmModal, {
+  IConfirmModal,
+} from '@/modules/components/modal/ConfirmModal/ConfirmModal';
+import { mockConfirmModalProps } from '@/modules/components/modal/ConfirmModal/ConfirmModal.mocks';
 import { useState } from 'react';
-import ConfirmModal, { IConfirmModal } from './ConfirmModal';
-import { mockConfirmModalProps } from './ConfirmModal.mocks';
 
 const ConfirmModalExample: React.FC<IConfirmModal> = ({
   bodyText,

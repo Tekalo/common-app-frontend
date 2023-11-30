@@ -1,5 +1,5 @@
-import MainFooter from './MainFooter';
-import { mockMainFooterProps } from './MainFooter.mocks';
+import MainFooter from '@/components/navigation/MainFooter/MainFooter';
+import { mockMainFooterProps } from '@/components/navigation/MainFooter/MainFooter.mocks';
 
 export default { component: MainFooter };
 

@@ -1,5 +1,5 @@
-import ApplicationLayout from './ApplicationLayout';
-import { mockLayoutProps } from './ApplicationLayout.mocks';
+import ApplicationLayout from '@/layouts/forms/application/ApplicationLayout';
+import { mockLayoutProps } from '@/layouts/forms/application/ApplicationLayout.mocks';
 
 export default { component: ApplicationLayout };
 

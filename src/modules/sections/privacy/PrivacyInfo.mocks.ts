@@ -1,4 +1,4 @@
-import { IPrivacyInfo } from './PrivacyInfo';
+import { IPrivacyInfo } from '@/sections/privacy/PrivacyInfo';
 
 const base: IPrivacyInfo = {};
 

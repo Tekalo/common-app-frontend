@@ -9,7 +9,7 @@ import {
   YOE_RANGE_ENUM_OPTIONS,
 } from '@/lang/en';
 import { EmploymentType } from '@/lib/enums';
-import { opportunityBatchEndpoint } from '@/lib/helpers/apiHelpers';
+import { opportunityBatchEndpoint } from '@/lib/helpers/api/endpoints';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { Interception } from 'cypress/types/net-stubbing';
 
@@ -458,7 +458,7 @@ describe('Organization Application', () => {
 
   function fillContactEmail(): void {
     cy.get('input[name="input-contact.email"]').fastType(
-      'test-user-contact@schmidtfutures.com'
+      'success+test-user-contact@simulator.amazonses.com'
     );
   }
 

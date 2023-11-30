@@ -1,4 +1,4 @@
-import { ITestimonial } from './Testimonial';
+import { ITestimonial } from '@/components/testimonial/Testimonial';
 
 const base: ITestimonial = {
   className: '',

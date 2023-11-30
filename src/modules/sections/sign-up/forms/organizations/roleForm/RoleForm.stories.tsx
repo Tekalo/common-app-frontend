@@ -1,5 +1,5 @@
-import RoleForm from './RoleForm';
-import { mockRoleFormProps } from './RoleForm.mocks';
+import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
+import { mockRoleFormProps } from '@/sections/sign-up/forms/organizations/roleForm/RoleForm.mocks';
 
 export default { component: RoleForm };
 

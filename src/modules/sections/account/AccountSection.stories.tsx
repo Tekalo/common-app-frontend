@@ -1,5 +1,5 @@
 import AccountSection from '@/sections/account/AccountSection';
-import { mockAccountSectionProps } from './AccountSection.mocks';
+import { mockAccountSectionProps } from '@/sections/account/AccountSection.mocks';
 
 export default { component: AccountSection };
 

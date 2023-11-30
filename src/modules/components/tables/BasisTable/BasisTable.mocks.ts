@@ -1,5 +1,5 @@
+import { IBasisTable } from '@/components/tables/BasisTable/BasisTable';
 import { BasisTableData } from '@/lib/types';
-import { IBasisTable } from './BasisTable';
 
 const basisTableData: BasisTableData = {
   headers: ['Foo'],

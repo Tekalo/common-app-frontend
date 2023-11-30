@@ -1,5 +1,4 @@
-import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
-import Modal from '@/components/modal/Modal/Modal/Modal';
+import ApplicantFormsNav from '@/components/pages/ApplicantFormsNav';
 import {
   ACCOUNT_LINK,
   APPLICANT_FORM_TEXT,
@@ -10,9 +9,10 @@ import {
   TRACKING,
   UPLOAD_ERROR_TEXT,
 } from '@/lang/en';
-import { nullifyEmptyFields, voidFn } from '@/lib/helpers/formHelpers';
-import { SubmissionContext } from '@/lib/providers/SubmissionProvider';
-import { GTMContext } from '@/lib/providers/gtmProvider';
+import { nullifyEmptyFields } from '@/lib/helpers/transformers';
+import { voidFn } from '@/lib/helpers/utilities';
+import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
+import { SubmissionContext } from '@/lib/providers/submissionProvider';
 import {
   CandidateDraftSchema,
   CandidateInterestsSchema,
@@ -23,6 +23,8 @@ import {
   InterestFieldsType,
   SubmissionResponseType,
 } from '@/lib/types';
+import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
+import Modal from '@/modules/components/modal/Modal/Modal';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -30,7 +32,6 @@ import Link from 'next/link';
 import router from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { Subject } from 'rxjs';
-import ApplicantFormsNav from './ApplicantFormsNav';
 
 enum MODAL_ERROR_TYPE {
   GENERAL = 1,

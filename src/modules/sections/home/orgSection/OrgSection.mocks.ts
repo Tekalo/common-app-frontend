@@ -1,4 +1,4 @@
-import { IOrganizationSection } from './OrgSection';
+import { IOrganizationSection } from '@/sections/home/orgSection/OrgSection';
 
 const base: IOrganizationSection = {
   setShowLogoModal: () => void {},

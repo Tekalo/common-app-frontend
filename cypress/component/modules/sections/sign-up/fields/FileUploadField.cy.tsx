@@ -1,6 +1,6 @@
 import { ERROR_TEXT } from '@/lang/en';
-import { UploadedFile } from '@/lib/enums';
 import { UploadedFileType } from '@/lib/types';
+import { UploadedFile } from '@/lib/validators/object';
 
 import * as FileUploadModule from '@/modules/components/input/fileUpload/FileUpload';
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';

@@ -1,4 +1,4 @@
-import { IContactSection } from './ContactSection';
+import { IContactSection } from '@/sections/home/contactSection/ContactSection';
 
 const base: IContactSection = {};
 

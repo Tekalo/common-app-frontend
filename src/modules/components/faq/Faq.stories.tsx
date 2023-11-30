@@ -1,5 +1,5 @@
-import Faq from './Faq';
-import { mockFaqProps } from './Faq.mocks';
+import Faq from '@/components/faq/Faq';
+import { mockFaqProps } from '@/components/faq/Faq.mocks';
 
 export default { component: Faq };
 

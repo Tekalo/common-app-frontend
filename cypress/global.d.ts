@@ -15,6 +15,7 @@ import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupF
 import { IRoleDetailReview } from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/RoleDetailReview';
 import { IRoleForm } from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 
+import { IMockComponent } from '@/cypress/component/lib/providers/skillsSearchProvider.cy';
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { Auth0ContextInterface } from '@auth0/auth0-react';
 import { mount } from 'cypress/react';
@@ -26,9 +27,9 @@ declare global {
       fastType(text: string): Chainable<Subject>;
       fastClick(): Chainable<Subject>;
       // e2e test methods
-      setupTestingEnvironment(): Chainable<void>;
       deleteTestData(type: 'opportunity' | 'candidate'): Chainable<void>;
       login(): Chainable<void>;
+      setupTestingEnvironment(): Chainable<void>;
       validateLogin(): Chainable<void>;
       // Unit test methods
       mount: typeof mount;
@@ -66,6 +67,7 @@ declare global {
       ): Chainable<void>;
       mountSkillboxOption(props: ISkillboxOption): Chainable<void>;
       mountSkillPill(props: ISkillPill): Chainable<void>;
+      mountSkillsSearchProvider(props: IMockComponent): Chainable<void>;
       mountSkillsSelect(props: ISkillsSelect): Chainable<void>;
       mountViewResumePage(
         auth0Context: Auth0ContextInterface<User>

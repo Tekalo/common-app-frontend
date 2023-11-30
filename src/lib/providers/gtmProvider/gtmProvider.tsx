@@ -1,8 +1,10 @@
+import { gtmCookieName } from '@/lib/constants/strings';
+import { CookiesContext } from '@/lib/providers/cookiesProvider';
+import { GtagPoller } from '@/lib/providers/gtmProvider/gtagPoller';
+import { IProvider } from '@/lib/providers/shared';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
-import { IProvider } from './shared';
+import React, { useContext, useEffect, useState } from 'react';
 
 interface IGTMContext {
   getGtmParams: () => IGtmParams;
@@ -23,15 +25,12 @@ export interface IGtmParams {
   utm_term?: string;
 }
 
-export const gtmCookieName = 'tklo_gtm_params';
-
 // TODO: Probably rename this to UTMProvider so we are consistent
 const GTMProvider: React.FC<IProvider> = ({ children }) => {
-  // Lib classes
-  // TODO: Move this to a central provider
-  const cookies = new Cookies(null, { path: '/' });
+  const cookiesCtx = useContext(CookiesContext);
   const router = useRouter();
   const [paramsReady, setParamsReady] = useState(false);
+  const gtagGetter = new GtagPoller();
 
   // Const
   const paramList = [
@@ -45,7 +44,6 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     'utm_source',
     'utm_term',
   ];
-  const emptyValue = '';
 
   useEffect(() => {
     // This grabs most of the params needed from the url and assigns them
@@ -53,7 +51,7 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     // Then, it appends the client and session ids from Google Analytics
     // It then stores them in a cookie
     const setGtmValues = async () => {
-      const ga_ids = await getSessionIds(window.gaMeasurementId);
+      const ga_ids = await gtagGetter.getSessionIds(window.gaMeasurementId);
       const routerQuery = router.query;
 
       const gtmParams: IGtmParams = paramList.reduce(
@@ -67,11 +65,11 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
         ga_session_id: ga_ids[1],
       };
 
-      cookies.set(gtmCookieName, finalValues);
+      cookiesCtx.set(gtmCookieName, finalValues);
       setParamsReady(true);
     };
 
-    const hasCookieValue = !!cookies.get(gtmCookieName);
+    const hasCookieValue = !!cookiesCtx.get(gtmCookieName);
 
     if (!hasCookieValue && router.isReady) {
       setGtmValues();
@@ -80,57 +78,14 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
     }
   }, [router.isReady]);
 
-  // Calls gtag for a value
-  const getGtagValue = (
-    valueName: 'client_id' | 'session_id',
-    id: string,
-    resolve: (value: string | PromiseLike<string>) => void
-  ): void => {
-    if (window && window.gtag) {
-      window.gtag('get', id, valueName, resolve);
-
-      // If gtag is blocked, this will never return, we must set default values
-      let i = 0;
-      const int = setInterval(() => {
-        i++;
-
-        if (cookies.get(gtmCookieName)) {
-          clearInterval(int);
-          return;
-        } else if (i === 10) {
-          resolve(emptyValue);
-          clearInterval(int);
-        }
-      }, 500);
-    } else {
-      resolve(emptyValue);
-    }
-  };
-
   // Returns all params in an object, or null if not set
-  const getGtmParams = () => cookies.get(gtmCookieName) ?? null;
+  const getGtmParams = () => cookiesCtx.get(gtmCookieName) ?? null;
 
   // Grabs a value from the query params and returns it as a string
   const getQueryStringValue = (
     query: ParsedUrlQuery,
     propertyName: string
   ): string | null => (query ? (query[propertyName] as string) : null);
-
-  // Returns a promise resolving in the two session ids from gtag
-  const getSessionIds = (id: string): Promise<string[]> => {
-    return new Promise<string[]>((resolve) => {
-      const clientIdPromise = new Promise<string>((resolve) => {
-        getGtagValue('client_id', id, resolve);
-      });
-      const sessionIdPromise = new Promise<string>((resolve) => {
-        getGtagValue('session_id', id, resolve);
-      });
-
-      Promise.all([clientIdPromise, sessionIdPromise]).then((values) => {
-        resolve(values);
-      });
-    });
-  };
 
   return (
     <GTMContext.Provider value={{ getGtmParams, paramsSet: paramsReady }}>

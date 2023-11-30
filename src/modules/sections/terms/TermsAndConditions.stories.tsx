@@ -1,5 +1,5 @@
-import TermsAndConditions from './TermsAndConditions';
-import { mockTermsProps } from './TermsAndConditions.mocks';
+import TermsAndConditions from '@/sections/terms/TermsAndConditions';
+import { mockTermsProps } from '@/sections/terms/TermsAndConditions.mocks';
 
 export default { component: TermsAndConditions };
 

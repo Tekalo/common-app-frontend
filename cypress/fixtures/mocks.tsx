@@ -1,7 +1,8 @@
-import { GTMContext } from '@/lib/providers/gtmProvider';
+import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { IProvider } from '@/lib/providers/shared';
 import {
   ISkill,
+  ISkillSearchResults,
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
 import { Auth0ContextInterface, User } from '@auth0/auth0-react';
@@ -78,7 +79,13 @@ export const mockSkills: ISkill[] = [
 ];
 
 export const MockSkillSearchProvider: React.FC<IProvider> = ({ children }) => {
-  const searchWithQuery = () => Promise.resolve(mockSkills);
+  const searchWithQuery = (
+    query: string,
+    value: string[]
+  ): ISkillSearchResults => ({
+    results: mockSkills,
+    queryMatches: mockSkills.some((skill) => skill.name === query),
+  });
 
   return (
     <SkillsSearchContext.Provider value={{ searchWithQuery }}>

@@ -1,4 +1,4 @@
-import { IRadioGroup } from './RadioGroup';
+import { IRadioGroup } from '@/components/input/radioGroup/RadioGroup';
 
 const base: IRadioGroup = {
   name: 'exampleName',

@@ -1,5 +1,5 @@
+import { IProvider } from '@/lib/providers/shared';
 import React, { useEffect, useState } from 'react';
-import { IProvider } from './shared';
 
 interface IDebugContext {
   debugIsActive: boolean;

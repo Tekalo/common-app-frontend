@@ -3,15 +3,15 @@ import {
   gtag_mockSessionId,
   mockGtag,
 } from '@/cypress/fixtures/mocks';
-import { voidFn } from '@/lib/helpers/formHelpers';
+import { gtmCookieName } from '@/lib/constants/strings';
+import { voidFn } from '@/lib/helpers/utilities';
+import CookiesProvider from '@/lib/providers/cookiesProvider';
 import GTMProvider, {
   GTMContext,
   IGtmParams,
-  gtmCookieName,
-} from '@/lib/providers/gtmProvider';
+} from '@/lib/providers/gtmProvider/gtmProvider';
 import * as RouterModule from 'next/router';
 import { useContext, useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
 
 const TestComponent: React.FC = () => {
   const gtmCtx = useContext(GTMContext);
@@ -40,9 +40,11 @@ const TestComponent: React.FC = () => {
 Cypress.Commands.add('mountGtmProvider', () => {
   cy.mount(
     <>
-      <GTMProvider>
-        <TestComponent />
-      </GTMProvider>
+      <CookiesProvider>
+        <GTMProvider>
+          <TestComponent />
+        </GTMProvider>
+      </CookiesProvider>
     </>
   );
 });
@@ -154,8 +156,7 @@ describe('GTM Provider', () => {
       ga_client_id: gtag_mockClientId,
       ga_session_id: gtag_mockSessionId,
     };
-    const cookies = new Cookies(null, { path: '/' });
-    cookies.set(gtmCookieName, mockUtm);
+    cy.setCookie(gtmCookieName, JSON.stringify(mockUtm));
 
     cy.mountGtmProvider();
 

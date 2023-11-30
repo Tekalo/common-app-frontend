@@ -1,4 +1,4 @@
-import { IMainFooter } from './MainFooter';
+import { IMainFooter } from '@/components/navigation/MainFooter/MainFooter';
 
 const base: IMainFooter = {};
 

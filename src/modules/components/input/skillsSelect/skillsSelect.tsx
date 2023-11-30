@@ -1,11 +1,11 @@
+import SkillboxInput from '@/components/input/skillsSelect/components/skillboxInput';
+import SkillboxOptionList from '@/components/input/skillsSelect/components/skillboxOptionList';
 import {
   ISkill,
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
 import { Combobox } from '@headlessui/react';
 import { useContext, useEffect, useState } from 'react';
-import SkillboxInput from './components/skillboxInput';
-import SkillboxOptionList from './components/skillboxOptionList';
 
 export interface ISkillsSelect {
   hasErrors: boolean;
@@ -24,6 +24,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   setValue,
   value,
 }) => {
+  const [queryMatches, setQueryMatches] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [skillResults, setSkillResults] = useState<ISkill[]>([]);
   const searchCtx = useContext(SkillsSearchContext);
@@ -32,11 +33,25 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   const disabled = value.length >= 8;
 
   useEffect(() => {
-    const getSkills = async (): Promise<void> =>
-      setSkillResults(await searchCtx.searchWithQuery(searchQuery, value));
+    const getSkills = async (): Promise<void> => {
+      const searchResults = searchCtx.searchWithQuery(searchQuery, value);
+
+      setQueryMatches(searchResults.queryMatches);
+      setSkillResults(searchResults.results);
+    };
 
     getSkills();
   }, [searchCtx, searchQuery, value]);
+
+  const clearInput = (): void => {
+    const skillsInput = document.getElementById(
+      `${name}-input`
+    ) as HTMLInputElement;
+
+    if (skillsInput) {
+      skillsInput.value = '';
+    }
+  };
 
   const focusInput = (): void => {
     const skillsInput = document.getElementById(`${name}-input`);
@@ -53,13 +68,22 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
     setValue(newVal);
   };
 
+  const valueAlreadyAdded = (newVal: string[]) => {
+    return value.map((v) => v.toLowerCase()).includes(newVal[0].toLowerCase());
+  };
+
   return (
     <div className="relative text-left">
       <Combobox
         name={name}
         value={value}
         onChange={(newVal: string[]) => {
-          setValue(value.concat(newVal));
+          if (!valueAlreadyAdded(newVal)) {
+            setValue(value.concat(newVal));
+          } else {
+            clearInput();
+          }
+
           focusInput();
         }}
       >
@@ -72,6 +96,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
               {label}
             </Combobox.Label>
             <SkillboxInput
+              clearInput={clearInput}
               disabled={disabled}
               focusInput={focusInput}
               hasErrors={hasErrors}
@@ -88,6 +113,7 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
               disabled={disabled}
               open={open}
               options={skillResults}
+              queryMatches={queryMatches}
               searchQuery={searchQuery}
             />
           </>

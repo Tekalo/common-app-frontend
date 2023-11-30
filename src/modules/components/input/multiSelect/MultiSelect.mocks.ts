@@ -1,4 +1,4 @@
-import { IMultiSelect } from './MultiSelect';
+import { IMultiSelect } from '@/components/input/multiSelect/MultiSelect';
 
 const base: IMultiSelect = {
   errors: [],

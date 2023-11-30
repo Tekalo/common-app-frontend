@@ -1,4 +1,4 @@
-import { IApplicationLayout } from './ApplicationLayout';
+import { IApplicationLayout } from '@/layouts/forms/application/ApplicationLayout';
 
 const base: IApplicationLayout = {
   children: '{{children components}}',

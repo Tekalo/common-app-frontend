@@ -1,4 +1,4 @@
-import { PhoneNumber } from '@/lib/enums';
+import { PhoneNumber } from '@/lib/validators/string';
 
 describe('phone regex', () => {
   it('should validate all the international phone numbers', () => {

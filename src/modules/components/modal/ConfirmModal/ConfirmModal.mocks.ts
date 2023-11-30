@@ -1,6 +1,6 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
 import { DELETE_MODAL } from '@/lang/en';
-import { IConfirmModal } from './ConfirmModal';
+import { IConfirmModal } from '@/modules/components/modal/ConfirmModal/ConfirmModal';
 
 const base: IConfirmModal = {
   bodyText: 'Are you sure you want to pause your matches? Lorem ipsum',

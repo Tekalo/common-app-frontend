@@ -1,5 +1,5 @@
-import SelectGroup from './SelectGroup';
-import { mockSelectGroupProps } from './SelectGroup.mocks';
+import SelectGroup from '@/components/input/selectGroup/SelectGroup';
+import { mockSelectGroupProps } from '@/components/input/selectGroup/SelectGroup.mocks';
 
 export default { component: SelectGroup };
 
