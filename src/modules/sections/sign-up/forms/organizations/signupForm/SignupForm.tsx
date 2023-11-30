@@ -9,15 +9,10 @@ import {
 import {
   Causes,
   CommitmentType,
-  EOE,
-  Email,
-  OptionalPhoneNumber,
-  OptionalString,
   OrgSize,
   OrgType,
   ReferenceAttribution,
-  RequiredString,
-} from '@/lib/enums';
+} from '@/lib/validators/enums';
 
 import Button from '@/components/buttons/Button/Button';
 import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
@@ -25,8 +20,15 @@ import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import { NewOrgType } from '@/lib/types';
+import { EOE } from '@/lib/validators/literal';
+import {
+  Email,
+  OptionalPhoneNumber,
+  OptionalString,
+  RequiredString,
+} from '@/lib/validators/string';
 import OrgAdditionalInfoBox from '@/modules/components/application/OrgAdditionalInfoBox';
 import {
   FreeTagField,

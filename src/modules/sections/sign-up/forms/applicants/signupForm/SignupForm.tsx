@@ -10,21 +10,15 @@ import {
   SearchStatusOptions,
 } from '@/lib/constants/selects';
 import {
-  contactPhoneLinkedValidation,
-  Email,
-  OptionalString,
-  PreferredContact,
-  PrivacyPolicy,
-  RequiredString,
-  SearchStatus,
-  ToS,
-} from '@/lib/enums';
-import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/utilities';
 import { NewCandidateType } from '@/lib/types';
+import { PreferredContact, SearchStatus } from '@/lib/validators/enums';
+import { contactPhoneLinkedValidation } from '@/lib/validators/function';
+import { PrivacyPolicy, ToS } from '@/lib/validators/literal';
+import { Email, OptionalString, RequiredString } from '@/lib/validators/string';
 import {
   BooleanField,
   FreeTextField,

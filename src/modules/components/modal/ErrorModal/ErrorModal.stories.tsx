@@ -1,7 +1,9 @@
 import Button from '@/components/buttons/Button/Button';
+import ErrorModal, {
+  IErrorModal,
+} from '@/modules/components/modal/ErrorModal/ErrorModal';
+import { mockErrorModalProps } from '@/modules/components/modal/ErrorModal/ErrorModal.mocks';
 import { useState } from 'react';
-import ErrorModal, { IErrorModal } from './ErrorModal';
-import { mockErrorModalProps } from './ErrorModal.mocks';
 
 const ErrorModalExample: React.FC<IErrorModal> = () => {
   const [showModal, setShowModal] = useState(true);

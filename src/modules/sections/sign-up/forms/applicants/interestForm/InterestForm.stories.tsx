@@ -1,7 +1,9 @@
+import InterestForm, {
+  IInterestForm,
+} from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
+import { mockInterestFormProps } from '@/sections/sign-up/forms/applicants/interestForm/InterestForm.mocks';
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import InterestForm, { IInterestForm } from './InterestForm';
-import { mockInterestFormProps } from './InterestForm.mocks';
 
 const DefaultComponent: React.FC<IInterestForm> = ({
   $updateInterestValues,

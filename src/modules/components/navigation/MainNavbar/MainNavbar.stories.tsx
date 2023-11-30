@@ -1,5 +1,5 @@
-import MainNavbar from './MainNavbar';
-import { mockMainNavbarProps } from './MainNavbar.mocks';
+import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
+import { mockMainNavbarProps } from '@/components/navigation/MainNavbar/MainNavbar.mocks';
 
 export default {
   component: MainNavbar,

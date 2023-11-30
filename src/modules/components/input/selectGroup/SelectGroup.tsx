@@ -1,4 +1,4 @@
-import { getErrorMessageId } from '@/lib/helpers/formHelpers';
+import { getErrorMessageId } from '@/lib/helpers/utilities';
 import { ISelectItem } from '@/lib/types';
 
 export interface ISelectGroup {

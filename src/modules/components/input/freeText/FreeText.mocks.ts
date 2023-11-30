@@ -1,4 +1,4 @@
-import { IFreeText } from './FreeText';
+import { IFreeText } from '@/components/input/freeText/FreeText';
 
 const base: IFreeText = {
   errors: [],

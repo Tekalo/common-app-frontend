@@ -1,13 +1,11 @@
+import { get, post, put } from '@/lib/helpers/api/apiHelpers';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
-  get,
-  post,
-  put,
-} from '@/lib/helpers/apiHelpers';
+} from '@/lib/helpers/api/endpoints';
+import { IProvider } from '@/lib/providers/shared';
 import { DraftSubmissionType } from '@/lib/types';
 import React from 'react';
-import { IProvider } from './shared';
 
 interface ISubmissionContext {
   getCandidateSubmissions: (authToken: string) => Promise<Response>;

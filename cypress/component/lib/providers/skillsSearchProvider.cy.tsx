@@ -1,3 +1,4 @@
+import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
@@ -36,6 +37,28 @@ describe('SkillsSearchProvider', () => {
   let props: IMockComponent;
 
   beforeEach(() => {
+    const mockSkillsResponse = {
+      data: [
+        { name: 'Agile software development' },
+        { name: 'C#' },
+        { name: 'Cryptography' },
+        { name: 'CSS' },
+        { name: 'HTML' },
+        { name: 'Javascript' },
+        { name: 'jQuery' },
+        { name: 'Manual Automation' },
+        { name: 'SQL' },
+      ],
+    };
+
+    cy.intercept(
+      {
+        method: 'GET',
+        url: skillsEndpoint,
+      },
+      mockSkillsResponse
+    );
+
     props = {
       query: 's',
       value: [],

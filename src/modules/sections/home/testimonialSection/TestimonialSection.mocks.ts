@@ -1,4 +1,4 @@
-import { ITestimonialSection } from './TestimonialSection';
+import { ITestimonialSection } from '@/sections/home/testimonialSection/TestimonialSection';
 
 const base: ITestimonialSection = {
   sampleTextProp: 'Hello world!',

@@ -1,5 +1,5 @@
-import SuccessSection from './SuccessSection';
-import { mockSuccessSectionProps } from './SuccessSection.mocks';
+import SuccessSection from '@/components/info/successSection/SuccessSection';
+import { mockSuccessSectionProps } from '@/components/info/successSection/SuccessSection.mocks';
 
 export default { component: SuccessSection };
 

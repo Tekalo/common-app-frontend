@@ -1,5 +1,5 @@
-import HowSection from './HowSection';
-import { mockHowSectionProps } from './HowSection.mocks';
+import HowSection from '@/sections/home/howSection/HowSection';
+import { mockHowSectionProps } from '@/sections/home/howSection/HowSection.mocks';
 
 export default { component: HowSection };
 

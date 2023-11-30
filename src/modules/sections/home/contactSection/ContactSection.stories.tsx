@@ -1,5 +1,5 @@
-import ContactSection from './ContactSection';
-import { mockContactSectionProps } from './ContactSection.mocks';
+import ContactSection from '@/sections/home/contactSection/ContactSection';
+import { mockContactSectionProps } from '@/sections/home/contactSection/ContactSection.mocks';
 
 export default { component: ContactSection };
 

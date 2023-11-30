@@ -1,4 +1,4 @@
-import { ILiteFooter } from './LiteFooter';
+import { ILiteFooter } from '@/components/navigation/LiteFooter/LiteFooter';
 
 const base: ILiteFooter = {
   footerText: 'Hello',

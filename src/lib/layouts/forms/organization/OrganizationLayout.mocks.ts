@@ -1,4 +1,4 @@
-import { IOrganizationLayout } from './OrganizationLayout';
+import { IOrganizationLayout } from '@/layouts/forms/organization/OrganizationLayout';
 
 const base: IOrganizationLayout = {
   children: '{{children components}}',

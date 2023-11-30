@@ -1,5 +1,5 @@
-import BaseTemplate from './BaseTemplate';
-import { mockBaseTemplateProps } from './BaseTemplate.mocks';
+import BaseTemplate from '@/lib/templates/base/BaseTemplate';
+import { mockBaseTemplateProps } from '@/lib/templates/base/BaseTemplate.mocks';
 
 export default { component: BaseTemplate };
 

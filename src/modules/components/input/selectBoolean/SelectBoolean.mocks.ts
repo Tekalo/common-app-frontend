@@ -1,4 +1,4 @@
-import { ISelectBoolean } from './SelectBoolean';
+import { ISelectBoolean } from '@/components/input/selectBoolean/SelectBoolean';
 
 const base: ISelectBoolean = {
   errors: [],

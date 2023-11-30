@@ -1,6 +1,6 @@
+import { IProvider } from '@/lib/providers/shared';
 import React from 'react';
 import Cookies from 'universal-cookie';
-import { IProvider } from './shared';
 
 interface ICookiesContext {
   get: (cookieName: string) => any;

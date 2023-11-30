@@ -1,4 +1,4 @@
-import { ITooltip } from './Tooltip';
+import { ITooltip } from '@/components/tooltip/Tooltip';
 
 const base: ITooltip = {
   text: 'An example tooltip to view when trying to see what the tooltip looks like.',

@@ -1,4 +1,4 @@
-import { ITermsAndConditions } from './TermsAndConditions';
+import { ITermsAndConditions } from '@/sections/terms/TermsAndConditions';
 
 const base: ITermsAndConditions = {};
 

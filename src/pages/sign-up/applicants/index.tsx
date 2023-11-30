@@ -1,5 +1,3 @@
-import ErrorModal from '@/components/modal/Modal/ErrorModal/ErrorModal';
-import TableModal from '@/components/modal/Modal/TableModal/TableModal';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
 import {
   ACCOUNT_LINK,
@@ -13,18 +11,14 @@ import {
   SIGN_IN_LINK,
   TRACKING,
 } from '@/lang/en';
+import { get, post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
 import {
   applicantSubmissionsEndpoint,
   applicantsEndpoint,
   existingApplicantEndpoint,
-  get,
-  post,
-  postWithTurnstile,
-} from '@/lib/helpers/apiHelpers';
-import {
-  jumpToFirstErrorMessage,
-  stripEmptyFields,
-} from '@/lib/helpers/formHelpers';
+} from '@/lib/helpers/api/endpoints';
+import { stripEmptyFields } from '@/lib/helpers/transformers';
+import { jumpToFirstErrorMessage } from '@/lib/helpers/utilities';
 import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
 import { DebugContext } from '@/lib/providers/debugProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
@@ -34,6 +28,8 @@ import {
   SubmissionResponseType,
 } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
+import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
+import TableModal from '@/modules/components/modal/TableModal/TableModal';
 import ApplicantSignupForm from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';

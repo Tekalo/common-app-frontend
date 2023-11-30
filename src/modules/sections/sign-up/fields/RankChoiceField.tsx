@@ -1,7 +1,8 @@
 import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import RankChoice from '@/components/input/rankChoice/RankChoice';
 import { CauseOptions } from '@/lib/constants/selects';
-import { getInputId, printErrorMessages } from '@/lib/helpers/formHelpers';
+import { printErrorMessages } from '@/lib/helpers/display';
+import { getInputId } from '@/lib/helpers/utilities';
 import { ISelectItem } from '@/lib/types';
 import { Field } from 'houseform';
 import { z } from 'zod';

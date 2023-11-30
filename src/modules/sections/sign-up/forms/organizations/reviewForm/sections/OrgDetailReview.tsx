@@ -1,5 +1,5 @@
 import { EditSVG } from '@/lib/constants/svgs';
-import { capitalizeFirstLetter } from '@/lib/helpers/formHelpers';
+import { capitalizeFirstLetter } from '@/lib/helpers/string';
 import { NewOrgType } from '@/lib/types';
 
 export interface IOrgDetailReview {

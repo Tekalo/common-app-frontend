@@ -1,5 +1,5 @@
+import { FileUploadState } from '@/components/input/fileUpload/FileUpload';
 import { IFileUploadContext } from '@/lib/providers/fileUploadProvider/fileUploadProvider';
-import { FileUploadState } from '../FileUpload';
 
 interface IFileUploadInput {
   errorFileTooLarge: (f: File) => void;

@@ -1,4 +1,4 @@
-import { ILayout } from './Layout';
+import { ILayout } from '@/lib/templates/layout/Layout';
 
 const base: ILayout = {
   children: '{{children components}}',

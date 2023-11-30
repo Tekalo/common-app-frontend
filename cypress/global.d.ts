@@ -15,10 +15,10 @@ import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupF
 import { IRoleDetailReview } from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/RoleDetailReview';
 import { IRoleForm } from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 
+import { IMockComponent } from '@/cypress/component/lib/providers/skillsSearchProvider.cy';
 import { ISignupForm as IOrgSignupForm } from '@/modules/sections/sign-up/forms/organizations/signupForm/SignupForm';
 import { Auth0ContextInterface } from '@auth0/auth0-react';
 import { mount } from 'cypress/react';
-import { IMockComponent } from './component/lib/providers/skillsSearchProvider.cy';
 
 declare global {
   namespace Cypress {

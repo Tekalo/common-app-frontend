@@ -1,5 +1,5 @@
-import BasisTable from './BasisTable';
-import { mockProps } from './BasisTable.mocks';
+import BasisTable from '@/components/tables/BasisTable/BasisTable';
+import { mockProps } from '@/components/tables/BasisTable/BasisTable.mocks';
 
 export default {
   component: BasisTable,

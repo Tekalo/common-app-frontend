@@ -1,5 +1,5 @@
+import { IContentTable } from '@/components/tables/ContentTable/ContentTable';
 import { ContentTableData } from '@/lib/types';
-import { IContentTable } from './ContentTable';
 
 const basisTableData: ContentTableData = {
   headers: [
