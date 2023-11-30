@@ -44,7 +44,7 @@ jobs:
     uses: ./.github/workflows/job-comment-pr.yml
     needs: [deploy]
     permissions:
-      issues: write
+      pull-requests: write
     with:
       url: ${{ needs.deploy.outputs.url }}
       environment: 'develop'
