@@ -32,14 +32,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/schmidtfutures/common-app-frontend.git"
+    "url": "git+https://github.com/tekalo/common-app-frontend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/schmidtfutures/common-app-frontend/issues"
+    "url": "https://github.com/tekalo/common-app-frontend/issues"
   },
-  "homepage": "https://github.com/schmidtfutures/common-app-frontend#readme",
+  "homepage": "https://github.com/tekalo/common-app-frontend#readme",
   "dependencies": {
     "@auth0/auth0-react": "^2.1.0",
     "@cloudflare/next-on-pages": "^1.0.2",
