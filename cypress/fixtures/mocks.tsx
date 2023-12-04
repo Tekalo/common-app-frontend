@@ -79,6 +79,7 @@ export const mockSkills: ISkill[] = [
 ];
 
 export const MockSkillSearchProvider: React.FC<IProvider> = ({ children }) => {
+  const fetchSkills = voidFn;
   const searchWithQuery = (
     query: string,
     value: string[]
@@ -88,7 +89,7 @@ export const MockSkillSearchProvider: React.FC<IProvider> = ({ children }) => {
   });
 
   return (
-    <SkillsSearchContext.Provider value={{ searchWithQuery }}>
+    <SkillsSearchContext.Provider value={{ fetchSkills, searchWithQuery }}>
       {children}
     </SkillsSearchContext.Provider>
   );

@@ -18,6 +18,7 @@ interface IGetSkillsResponse {
 }
 
 interface ISkillsSearchContext {
+  fetchSkills: () => void;
   searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
 }
 
@@ -28,16 +29,6 @@ export const SkillsSearchContext = createContext<ISkillsSearchContext>(
 const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   const [fuse, setFuse] = useState<Fuse<ISkill>>();
   const [skills, setSkills] = useState<ISkill[]>([]);
-
-  useEffect(() => {
-    const handleGetSkills = async (res: Response) => {
-      const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse).data;
-
-      setSkills(skills);
-    };
-
-    getSkills().then(handleGetSkills);
-  }, []);
 
   useEffect(() => {
     const createFuse = (): Fuse<ISkill> => {
@@ -58,9 +49,15 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     setFuse(createFuse());
   }, [skills]);
 
-  function getSkills(): Promise<Response> {
-    // TODO: Limit # of returned skills so we won't have a huge list
-    return get(skillsEndpoint, '');
+  function fetchSkills(): void {
+    if (!skills.length) {
+      get(skillsEndpoint, '').then(async (res: Response) => {
+        const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse)
+          .data;
+
+        setSkills(skills);
+      });
+    }
   }
 
   const searchWithQuery = (
@@ -83,6 +80,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
 
     results = results.filter(alreadySelected);
 
+    // TODO: Limit # of returned skills so we won't have a huge list
     return {
       queryMatches: skills.some(queryMatches),
       results,
@@ -92,6 +90,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   return (
     <SkillsSearchContext.Provider
       value={{
+        fetchSkills,
         searchWithQuery,
       }}
     >

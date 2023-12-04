@@ -2,7 +2,7 @@ import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 export interface IMockComponent {
   query: string;
@@ -12,6 +12,10 @@ export interface IMockComponent {
 const MockComponent: React.FC<IMockComponent> = ({ query, value }) => {
   const searchCtx = useContext(SkillsSearchContext);
   const skills = searchCtx.searchWithQuery(query, value);
+
+  useEffect(() => {
+    searchCtx.fetchSkills();
+  }, []);
 
   return (
     <div data-name="results">
