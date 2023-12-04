@@ -26,7 +26,7 @@ const BenefitsItemColWrapper: React.FC<IBenefitsItemColWrapper> = ({
 }) => <div className="flex flex-col space-y-3 md:space-y-3">{children}</div>;
 
 const BenefitsList: React.FC = () => (
-  <div className="relative mx-auto mb-16 max-w-[312px] md:mb-16 md:max-w-[445px] lg:mb-0 lg:ml-14 lg:mt-6 lg:w-full lg:self-start">
+  <div className="relative mx-auto mb-16 max-w-[312px] md:mb-16 md:max-w-[445px] lg:mb-0 lg:ml-6 lg:mt-6 lg:w-full lg:self-start">
     {/* Main content bg */}
     <div className="absolute bottom-0 left-0 right-1 top-0 z-[2] rounded border border-black-text bg-light-blue"></div>
     {/* Drop-shadow box */}
