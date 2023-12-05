@@ -26,6 +26,9 @@ on:
       NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV:
         description: Image Optimization Environment
         required: false
+      SENTRY_AUTH_TOKEN:
+        description: Sentry Auth Token
+        required: true
     outputs:
       url:
         value: ${{ jobs.build.outputs.url }}
@@ -88,6 +91,15 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-
+
+      - name: Sentry Release
+        uses: getsentry/action-release@v1.4.1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+        with:
+          environment: ${{ inputs.environment }}
 
       - name: Install dependencies and Build (regular)
 
