@@ -78,9 +78,9 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
       results = skills.filter(queryIncludes);
     }
 
-    results = results.filter(alreadySelected);
+    // Limit number of returned results for visibility reasons
+    results = results.filter(alreadySelected).slice(0, 8);
 
-    // TODO: Limit # of returned skills so we won't have a huge list
     return {
       queryMatches: skills.some(queryMatches),
       results,
