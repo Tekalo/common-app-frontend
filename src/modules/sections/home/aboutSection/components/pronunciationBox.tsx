@@ -9,7 +9,7 @@ const PronunciationBox: React.FC = () => (
 
     {/* Text container */}
     <div className="m-auto mb-[72px] p-5 lg:mb-0 lg:max-w-[544px] lg:pb-7">
-      <div className="relative z-30 space-y-2 text-p2-mobile md:space-y-6 lg:space-y-5 lg:px-10 lg:text-p2-desktop">
+      <div className="relative z-30 space-y-2 text-p2-mobile md:space-y-6 lg:space-y-5 lg:px-5 lg:text-p2-desktop">
         <div>
           <div className="text-p1-desktop">
             <span className="font-display font-semibold italic">
