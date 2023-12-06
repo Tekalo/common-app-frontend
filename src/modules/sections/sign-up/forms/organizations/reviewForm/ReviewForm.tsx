@@ -14,9 +14,9 @@ import {
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import { PrivacyPolicy } from '@/lib/validators/literal';
 import TableModal from '@/modules/components/modal/TableModal/TableModal';
+import RoleDetailReview from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/roleDetailReview/RoleDetailReview';
 import { BooleanField } from '@/sections/sign-up/fields';
 import OrgDetailReview from '@/sections/sign-up/forms/organizations/reviewForm/sections/OrgDetailReview';
-import RoleDetailReview from '@/sections/sign-up/forms/organizations/reviewForm/sections/RoleDetailReview';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { Form } from 'houseform';
 import Link from 'next/link';
