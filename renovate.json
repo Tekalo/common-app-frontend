@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "schedule:daily", ":enableVulnerabilityAlerts"],
+  "extends": [
+    "config:recommended",
+    "schedule:daily",
+    ":enableVulnerabilityAlerts"
+  ],
   "enabled": true,
   "packageRules": [
     {
@@ -17,7 +21,7 @@
     {
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": false,
-      "matchPaths": [".github/workflows/*"]
+      "matchFileNames": [".github/workflows/*"]
     }
   ]
 }
