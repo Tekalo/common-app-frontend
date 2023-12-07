@@ -8,6 +8,11 @@
   "enabled": true,
   "packageRules": [
     {
+      "major": {
+        "dependencyDashboardApproval": true
+      }
+    },
+    {
       "matchUpdateTypes": ["patch"],
       "automergeType": "branch",
       "automerge": false
