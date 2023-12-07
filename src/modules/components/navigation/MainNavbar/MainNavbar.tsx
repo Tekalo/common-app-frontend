@@ -17,8 +17,6 @@ export interface IMainNavbar extends React.ComponentPropsWithoutRef<'header'> {
 
 const MainNavbar: React.FC<IMainNavbar> = ({
   pageName,
-  className,
-  ...headerProps
 }) => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);

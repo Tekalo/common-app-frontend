@@ -58,7 +58,7 @@ jobs:
           run_install: false
 
       - name: Run Unit Tests
-        uses: cypress-io/github-action@v5.7.2
+        uses: cypress-io/github-action@v6.6.0
         with:
           record: false
           component: true
@@ -67,7 +67,7 @@ jobs:
           NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{ vars.E2E_TURNSTILE_KEY }}
 
       - name: Run E2E Tests
-        uses: cypress-io/github-action@v5.7.2
+        uses: cypress-io/github-action@v6.6.0
         with:
           command: pnpm e2e:ci
           record: false
