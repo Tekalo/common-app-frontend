@@ -54,8 +54,8 @@ dependencies:
     specifier: 18.2.0
     version: 18.2.0
   react-cookie-consent:
-    specifier: ^8.0.1
-    version: 8.0.1(react@18.2.0)
+    specifier: ^9.0.0
+    version: 9.0.0(react@18.2.0)
   react-dnd:
     specifier: ^16.0.1
     version: 16.0.1(@types/node@18.13.0)(@types/react@18.0.28)(react@18.2.0)
@@ -14779,8 +14779,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  /react-cookie-consent@8.0.1(react@18.2.0):
-    resolution: {integrity: sha512-4A2jzPQDFfBhtxIz4hYX+vJ0QnOknGdOXpEoetXzgwUrMtxVJVow8YgBsGerNt5rJI7WhKkHwr8LmxekxgVejg==}
+  /react-cookie-consent@9.0.0(react@18.2.0):
+    resolution: {integrity: sha512-Blyj+m+Zz7SFHYqT18p16EANgnSg2sIyU6Yp3vk83AnOnSW7qnehPkUe4+8+qxztJrNmCH5GP+VHsWzAKVOoZA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
