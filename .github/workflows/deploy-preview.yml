@@ -8,13 +8,12 @@ on:
   push:
     branches:
       - test/*
-      - '!renovate/**'
 
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
       - develop
-      - '!renovate/**'
+
   workflow_call:
 
 jobs:
