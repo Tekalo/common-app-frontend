@@ -2,11 +2,15 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    "schedule:daily",
     ":enableVulnerabilityAlerts"
   ],
   "enabled": true,
   "packageRules": [
+    {
+      "major": {
+        "dependencyDashboardApproval": true
+      }
+    },
     {
       "matchUpdateTypes": ["patch"],
       "automergeType": "branch",
