@@ -106,7 +106,7 @@
     "postcss": "^8.4.24",
     "postcss-loader": "^7.3.2",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.2.8",
+    "prettier-plugin-tailwindcss": "^0.5.0",
     "start-server-and-test": "^2.0.0",
     "storybook": "7.0.0-rc.10",
     "storybook-addon-auth0-react": "^1.2.0",
