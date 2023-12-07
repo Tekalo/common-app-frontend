@@ -5,7 +5,6 @@ run-name: 'Deploy PR #${{ github.event.number }} Preview'
 # This workflow is triggered on pushes to branches starting with test/
 
 on:
-  # Trigger the workflow on a push to a branch that starts with `test/`
   push:
     branches:
       - test/*
