@@ -29,8 +29,7 @@
       "@/lib/*": ["./src/lib/*"],
       "@/providers/*": ["src/lib/providers/*"],
       "@/sections/*": ["src/modules/sections/*"]
-    },
-    "types": ["@cloudflare/workers-types"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "cypress"]
