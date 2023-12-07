@@ -14,9 +14,7 @@ interface IPhoneNumber {
 }
 
 const PhoneNumber: React.FC<IPhoneNumber> = ({
-  errors,
   name,
-  onBlur,
   setValue,
   value,
   disabled,

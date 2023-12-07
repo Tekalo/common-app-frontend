@@ -183,7 +183,6 @@ const ReviewFormPage: React.FC<IReviewFormPage> = ({
           <TableModal
             tableData={ORG_CONTENT_TABLE_TEXT}
             headerText={PRIVACY_MODAL_TEXT.HEADER}
-            bodyText={PRIVACY_MODAL_TEXT.BODY}
             extras={privacyModalExtras}
             isOpen={showPrivacyModal}
             closeModal={() => {

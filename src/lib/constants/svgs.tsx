@@ -286,11 +286,7 @@ export const IOutlineSVG: React.FC<ISVGProps> = ({ color, height, width }) => (
   </svg>
 );
 
-export const LightBulbInfoSVG: React.FC<ISVGProps> = ({
-  color,
-  height,
-  width,
-}) => (
+export const LightBulbInfoSVG: React.FC = () => (
   <svg
     width="24"
     height="24"
