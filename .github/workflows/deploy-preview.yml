@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - test/*
+      - '!renovate/*'
 
   pull_request:
     types: [opened, synchronize, reopened]
