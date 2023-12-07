@@ -21,8 +21,8 @@ dependencies:
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
   '@marsidev/react-turnstile':
-    specifier: ^0.2.1
-    version: 0.2.3(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.4.0
+    version: 0.4.0(react-dom@18.2.0)(react@18.2.0)
   '@sentry/react':
     specifier: ^7.54.0
     version: 7.64.0(react@18.2.0)
@@ -3967,8 +3967,8 @@ packages:
       - encoding
       - supports-color
 
-  /@marsidev/react-turnstile@0.2.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-EHD/Cag8BoDSLY9yTqVhhgldWmf0yTq79qPmdbAjYADLqrVVRR47QoVHAtDTSQXpfIMDQ2N0avlfj4LjQ3W6+w==}
+  /@marsidev/react-turnstile@0.4.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-U0lwTWQhP04AnIdWEbLpF/phpqtblNbrnE4yJMdvGyeOZOTmuHW3wB+V8X+BO55pTXZitp2GgJsrGkbUjwJIeQ==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
