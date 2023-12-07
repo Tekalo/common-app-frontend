@@ -69,8 +69,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "@commitlint/cli": "^17.6.5",
-    "@commitlint/config-conventional": "^17.6.5",
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
     "@cypress/code-coverage": "^3.10.8",
     "@next/font": "13.1.6",
     "@storybook/addon-essentials": "7.0.0-rc.10",
