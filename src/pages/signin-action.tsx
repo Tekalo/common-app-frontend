@@ -1,8 +1,7 @@
 import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en';
 import { redirectCookieName } from '@/lib/constants/strings';
-import { get } from '@/lib/helpers/api/apiHelpers';
-import { applicantSubmissionsEndpoint } from '@/lib/helpers/api/endpoints';
 import { CookiesContext } from '@/lib/providers/cookiesProvider';
+import { SubmissionContext } from '@/lib/providers/submissionProvider';
 import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -12,6 +11,7 @@ import { useContext, useEffect } from 'react';
 const SignInActionPage: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const cookiesCtx = useContext(CookiesContext);
+  const submissionCtx = useContext(SubmissionContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +36,8 @@ const SignInActionPage: NextPageWithLayout = () => {
         cookiesCtx.remove(redirectCookieName);
         router.push(redirectURL);
       } else {
-        get(applicantSubmissionsEndpoint, await getAccessTokenSilently())
+        submissionCtx
+          .getCandidateSubmissions(await getAccessTokenSilently())
           .then(async (res) => {
             if (res.ok) {
               handleSuccess(res);
