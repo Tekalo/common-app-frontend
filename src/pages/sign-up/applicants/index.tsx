@@ -230,7 +230,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
             <TableModal
               tableData={APPLICANT_CONTENT_TABLE_TEXT}
               headerText={PRIVACY_MODAL_TEXT.HEADER}
-              bodyText={PRIVACY_MODAL_TEXT.BODY}
               extras={privacyModalExtras}
               isOpen={showPrivacyModal}
               closeModal={() => {

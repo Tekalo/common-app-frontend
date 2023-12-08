@@ -6,7 +6,7 @@ const OrgAdditionalInfoBox: React.FC = () => {
   const InfoRow: React.FC<{ content: ReactElement }> = ({ content }) => (
     <div className="flex gap-x-2">
       <div className="flex">
-        <LightBulbInfoSVG color="#FFC930" height="24" width="24" />
+        <LightBulbInfoSVG />
       </div>
       <div className="text-component-small">{content}</div>
     </div>

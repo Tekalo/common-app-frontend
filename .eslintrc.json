@@ -20,7 +20,8 @@
   "rules": {
     // Allows you to prefix variables with an underscore to avoid no-unused-vars lint error. Useful when WIP
     "import/no-anonymous-default-export": [2, { "allowObject": true }],
-    "@typescript-eslint/no-empty-interface": [1],
+    "@typescript-eslint/no-empty-interface": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
     "no-restricted-imports": [
       "error",
       {
