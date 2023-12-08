@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
           fetch-depth: 0
 
@@ -59,7 +59,7 @@ jobs:
           ${{ format('git push --force origin refs/tags/{0}:refs/heads/{1}', inputs.tag_name, inputs.branch_name) }}
 
       - name: Checkout ${{ inputs.branch_name }} branch
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
           ref: ${{ inputs.branch_name }}
 
