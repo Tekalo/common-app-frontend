@@ -19,6 +19,8 @@ import {
   applicantsEndpoint,
   existingApplicantEndpoint,
 } from '@/lib/helpers/api/endpoints';
+import ApplicantProvider from '@/lib/providers/applicantProvider';
+import SubmissionProvider from '@/lib/providers/submissionProvider';
 import { NewCandidateType } from '@/lib/types';
 import * as SignupFormModule from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
@@ -71,9 +73,13 @@ Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
 
   cy.mount(
     <MockGTMProvider>
-      <Auth0Context.Provider value={auth0Context}>
-        <ApplicantSignup />
-      </Auth0Context.Provider>
+      <ApplicantProvider>
+        <SubmissionProvider>
+          <Auth0Context.Provider value={auth0Context}>
+            <ApplicantSignup />
+          </Auth0Context.Provider>
+        </SubmissionProvider>
+      </ApplicantProvider>
     </MockGTMProvider>
   ).then(() => childProps);
 });
