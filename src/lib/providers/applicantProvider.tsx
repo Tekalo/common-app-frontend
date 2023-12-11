@@ -6,11 +6,12 @@ import {
 import { IProvider } from '@/lib/providers/shared';
 import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
-import { UseQueryResult, useQuery } from 'react-query';
+import { QueryClient, UseQueryResult, useQuery } from 'react-query';
 import { AccountResponseType } from '../types';
 
 interface IApplicantContext {
   deleteApplicantData: (authToken: string) => Promise<Response>;
+  invalidateQuery: () => void;
   updateMatchStatus: (pause: boolean, authToken: string) => Promise<Response>;
   useAccount: () => UseQueryResult<AccountResponseType, Error>;
 }
@@ -21,10 +22,12 @@ export const ApplicantContext = React.createContext<IApplicantContext>(
 
 const ApplicantProvider: React.FC<IProvider> = ({ children }) => {
   const { getAccessTokenSilently } = useAuth0();
+  const qc = new QueryClient();
+  const queryKey = 'accountData';
 
   function useAccount() {
     return useQuery<AccountResponseType, Error>({
-      queryKey: ['accountData'],
+      queryKey: [queryKey],
       queryFn: async () => {
         const res = await get(
           existingApplicantEndpoint,
@@ -47,6 +50,10 @@ const ApplicantProvider: React.FC<IProvider> = ({ children }) => {
     return deleteRequest(existingApplicantEndpoint, authToken);
   };
 
+  const invalidateQuery = () => {
+    qc.invalidateQueries(queryKey);
+  };
+
   const updateMatchStatus = (
     pause: boolean,
     authToken: string
@@ -58,6 +65,7 @@ const ApplicantProvider: React.FC<IProvider> = ({ children }) => {
     <ApplicantContext.Provider
       value={{
         deleteApplicantData,
+        invalidateQuery,
         updateMatchStatus,
         useAccount,
       }}

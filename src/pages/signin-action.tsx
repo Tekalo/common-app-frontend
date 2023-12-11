@@ -12,6 +12,8 @@ const SignInActionPage: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const cookiesCtx = useContext(CookiesContext);
   const submissionCtx = useContext(SubmissionContext);
+  const { data: submissionData, isLoading: submissionIsLoading } =
+    submissionCtx.useSubmission();
   const router = useRouter();
 
   useEffect(() => {
@@ -19,10 +21,8 @@ const SignInActionPage: NextPageWithLayout = () => {
       router.push(BASE_LINK);
     };
 
-    const handleSuccess = async (res: Response) => {
-      const submissionResponse = (await res.json()) as SubmissionResponseType;
-
-      if (submissionResponse.isFinal) {
+    const handleSuccess = async (res: SubmissionResponseType) => {
+      if (res.isFinal) {
         goHome();
       } else {
         router.push(ACCOUNT_LINK);
@@ -35,26 +35,25 @@ const SignInActionPage: NextPageWithLayout = () => {
       if (redirectURL) {
         cookiesCtx.remove(redirectCookieName);
         router.push(redirectURL);
+      } else if (submissionData) {
+        handleSuccess(submissionData);
       } else {
-        submissionCtx
-          .getCandidateSubmissions(await getAccessTokenSilently())
-          .then(async (res) => {
-            if (res.ok) {
-              handleSuccess(res);
-            } else {
-              goHome();
-            }
-          })
-          .catch(() => {
-            goHome();
-          });
+        goHome();
       }
     };
 
-    if (!isLoading && isAuthenticated) {
+    if (!isLoading && isAuthenticated && !submissionIsLoading) {
       signInRedirect();
     }
-  }, [isLoading, isAuthenticated, getAccessTokenSilently, router]);
+  }, [
+    cookiesCtx,
+    getAccessTokenSilently,
+    isAuthenticated,
+    isLoading,
+    router,
+    submissionData,
+    submissionIsLoading,
+  ]);
 
   return (
     <div className="flex h-[80vh] items-center justify-center">

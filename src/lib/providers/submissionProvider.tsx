@@ -7,10 +7,10 @@ import { IProvider } from '@/lib/providers/shared';
 import { DraftSubmissionType, SubmissionResponseType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
-import { UseQueryResult, useQuery } from 'react-query';
+import { QueryClient, UseQueryResult, useQuery } from 'react-query';
 
 interface ISubmissionContext {
-  useSubmission: () => UseQueryResult<SubmissionResponseType, Error>;
+  invalidateQuery: () => void;
   saveCandidateDraft: (
     values: DraftSubmissionType,
     authToken: string
@@ -23,6 +23,7 @@ interface ISubmissionContext {
     values: DraftSubmissionType,
     authToken: string
   ) => Promise<Response>;
+  useSubmission: () => UseQueryResult<SubmissionResponseType, Error>;
 }
 
 export const SubmissionContext = React.createContext<ISubmissionContext>(
@@ -31,10 +32,12 @@ export const SubmissionContext = React.createContext<ISubmissionContext>(
 
 const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
   const { getAccessTokenSilently } = useAuth0();
+  const qc = new QueryClient();
+  const queryKey = 'submissionData';
 
   function useSubmission() {
     return useQuery<SubmissionResponseType, Error>({
-      queryKey: ['submissionData'],
+      queryKey: [queryKey],
       queryFn: async () => {
         const res = await get(
           applicantSubmissionsEndpoint,
@@ -52,6 +55,10 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
       retry: 1,
     });
   }
+
+  const invalidateQuery = () => {
+    qc.invalidateQueries(queryKey);
+  };
 
   const saveCandidateDraft = (
     values: DraftSubmissionType,
@@ -77,6 +84,7 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
   return (
     <SubmissionContext.Provider
       value={{
+        invalidateQuery,
         saveCandidateDraft,
         submitCandidateApplication,
         submitCandidateEdits,

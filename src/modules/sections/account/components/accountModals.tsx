@@ -11,7 +11,6 @@ import ConfirmModal from '@/modules/components/modal/ConfirmModal/ConfirmModal';
 import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useContext } from 'react';
-import { useQueryClient } from 'react-query';
 
 interface IAccountModals {
   handleCaughtErrorResponse: (res: Response) => void;
@@ -41,7 +40,6 @@ const AccountModals: React.FC<IAccountModals> = ({
   setShowResumeModal,
 }) => {
   const { logout, getAccessTokenSilently } = useAuth0();
-  const queryClient = useQueryClient();
   const applicantCtx = useContext(ApplicantContext);
 
   const onDeleteConfirm = async (): Promise<void> => {
@@ -49,7 +47,7 @@ const AccountModals: React.FC<IAccountModals> = ({
       .deleteApplicantData(await getAccessTokenSilently())
       .then((res) => {
         if (res.ok) {
-          queryClient.invalidateQueries('accountData');
+          applicantCtx.invalidateQuery();
           setShowDeleteModal(false);
           logout({ logoutParams: { returnTo: window.location.origin } });
         } else {
@@ -74,7 +72,7 @@ const AccountModals: React.FC<IAccountModals> = ({
       .then(async (res) => {
         if (res.ok) {
           const accountResponse: AccountResponseType = await res.json();
-          queryClient.invalidateQueries('accountData');
+          applicantCtx.invalidateQuery();
           setMatchesPaused(accountResponse.isPaused);
           pause ? setShowPauseModal(false) : setShowResumeModal(false);
         } else {

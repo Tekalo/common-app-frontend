@@ -150,6 +150,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .then((res) => {
         switch (res.status) {
           case 200: // good submission
+            applicantCtx.invalidateQuery();
             window.dataLayerEvent(TRACKING.CANDIDATE_SIGNUP);
             router.push(APPLICANT_EXPERIENCE_LINK);
             break;
