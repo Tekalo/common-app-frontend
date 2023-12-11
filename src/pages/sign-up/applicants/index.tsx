@@ -20,11 +20,7 @@ import { ApplicantContext } from '@/lib/providers/applicantProvider';
 import { DebugContext } from '@/lib/providers/debugProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';
-import {
-  NewCandidateType,
-  NextPageWithLayout,
-  SubmissionResponseType,
-} from '@/lib/types';
+import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
 import TableModal from '@/modules/components/modal/TableModal/TableModal';
@@ -47,51 +43,42 @@ const privacyModalExtras = (
 );
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
-    useAuth0();
+  const {
+    isAuthenticated,
+    getAccessTokenSilently,
+    isLoading: auth0IsLoading,
+    user,
+  } = useAuth0();
   const applicantCtx = useContext(ApplicantContext);
+  const { data: accountData, isLoading: accountIsLoading } =
+    applicantCtx.useAccount();
   const debugCtx = useContext(DebugContext);
   const gtmCtx = useContext(GTMContext);
   const submissionCtx = useContext(SubmissionContext);
+  const { data: submissionData, isLoading: submissionIsLoading } =
+    submissionCtx.useSubmission();
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
   const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
   const [showContent, setShowContent] = useState<boolean>(false);
 
-  /** Get user data on page load */
   useEffect(() => {
-    // Check if user has  an application
-    const hasSubmitted = async (): Promise<boolean> => {
-      return submissionCtx
-        .getCandidateSubmissions(await getAccessTokenSilently())
-
-        .then(async (res) => {
-          if (res.ok) {
-            const submissions = (await res.json()) as SubmissionResponseType;
-            return submissions.isFinal;
-          } else {
-            return false;
-          }
-        });
+    const hasAccountData = (): boolean => {
+      return !!accountData;
     };
 
-    // Check if user exists
-    const hasAccountData = async (): Promise<boolean> => {
-      return applicantCtx
-        .getAccountData(await getAccessTokenSilently())
-        .then(async (res) => {
-          if (res.ok) {
-            return true;
-          } else {
-            return false;
-          }
-        });
+    const hasSubmitted = (): boolean => {
+      if (submissionData) {
+        return submissionData.isFinal;
+      } else {
+        return false;
+      }
     };
 
-    const redirectUserCheck = async () => {
-      const hasSubmittedApplication = await hasSubmitted();
-      const hasAccount = await hasAccountData();
+    const redirectUserCheck = () => {
+      const hasSubmittedApplication = hasSubmitted();
+      const hasAccount = hasAccountData();
 
       if (hasSubmittedApplication) {
         router.push(ACCOUNT_LINK);
@@ -102,12 +89,22 @@ const ApplicantSignup: NextPageWithLayout = () => {
       }
     };
 
-    if (!isLoading && isAuthenticated && user) {
-      redirectUserCheck();
-    } else {
-      setShowContent(true);
+    if (!auth0IsLoading && !accountIsLoading && !submissionIsLoading) {
+      if (isAuthenticated && user) {
+        redirectUserCheck();
+      } else {
+        setShowContent(true);
+      }
     }
-  }, [isLoading, isAuthenticated, user, getAccessTokenSilently]);
+  }, [
+    accountData,
+    accountIsLoading,
+    auth0IsLoading,
+    isAuthenticated,
+    submissionData,
+    submissionIsLoading,
+    user,
+  ]);
 
   const displayErrorModal = (): void => {
     setShowErrorModal(true);
@@ -180,7 +177,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center justify-center">
-      {isLoading ? (
+      {auth0IsLoading ? (
         <div id="loading-spinner" className="mb-1/2 space-y-3">
           <LoadingSpinner />
           <h3 className="text-component-small-desktop text-center ">
