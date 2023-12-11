@@ -20,6 +20,7 @@ import CookieConsent, {
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
@@ -33,6 +34,7 @@ Sentry.init({
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const cookieName = 'tekalo-opt-in-cookie';
+  const queryClient = new QueryClient();
 
   if (getCookieConsentValue(cookieName) === 'true') {
     // this fn is in `globals.d.ts` if you need to see it
@@ -69,9 +71,11 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           backend={TouchBackend}
           options={{ enableMouseEvents: true }}
         >
-          <TekaloProvidersWrapper>
-            {getLayout(<Component {...pageProps} />)}
-          </TekaloProvidersWrapper>
+          <QueryClientProvider client={queryClient}>
+            <TekaloProvidersWrapper>
+              {getLayout(<Component {...pageProps} />)}
+            </TekaloProvidersWrapper>
+          </QueryClientProvider>
           <CookieConsent
             onAccept={() => window.consentGranted()}
             enableDeclineButton

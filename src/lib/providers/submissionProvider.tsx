@@ -4,11 +4,13 @@ import {
   applicantSubmissionsEndpoint,
 } from '@/lib/helpers/api/endpoints';
 import { IProvider } from '@/lib/providers/shared';
-import { DraftSubmissionType } from '@/lib/types';
+import { DraftSubmissionType, SubmissionResponseType } from '@/lib/types';
+import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
+import { UseQueryResult, useQuery } from 'react-query';
 
 interface ISubmissionContext {
-  getCandidateSubmissions: (authToken: string) => Promise<Response>;
+  useSubmission: () => UseQueryResult<SubmissionResponseType, Error>;
   saveCandidateDraft: (
     values: DraftSubmissionType,
     authToken: string
@@ -28,9 +30,28 @@ export const SubmissionContext = React.createContext<ISubmissionContext>(
 );
 
 const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
-  const getCandidateSubmissions = (authToken: string) => {
-    return get(applicantSubmissionsEndpoint, authToken);
-  };
+  const { getAccessTokenSilently } = useAuth0();
+
+  function useSubmission() {
+    return useQuery<SubmissionResponseType, Error>({
+      queryKey: ['submissionData'],
+      queryFn: async () => {
+        const res = await get(
+          applicantSubmissionsEndpoint,
+          (await getAccessTokenSilently()) + '1'
+        ).catch((e) => {
+          throw e;
+        });
+
+        if (res.ok) {
+          return await res.json();
+        } else {
+          throw new Error(res.status.toString(), { cause: res });
+        }
+      },
+      retry: 1,
+    });
+  }
 
   const saveCandidateDraft = (
     values: DraftSubmissionType,
@@ -56,10 +77,10 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
   return (
     <SubmissionContext.Provider
       value={{
-        getCandidateSubmissions,
         saveCandidateDraft,
         submitCandidateApplication,
         submitCandidateEdits,
+        useSubmission,
       }}
     >
       {children}
