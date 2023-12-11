@@ -41,7 +41,7 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
       queryFn: async () => {
         const res = await get(
           applicantSubmissionsEndpoint,
-          (await getAccessTokenSilently()) + '1'
+          await getAccessTokenSilently()
         ).catch((e) => {
           throw e;
         });

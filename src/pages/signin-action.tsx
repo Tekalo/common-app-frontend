@@ -7,6 +7,7 @@ import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
+import { QueryClient } from 'react-query';
 
 const SignInActionPage: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
@@ -15,6 +16,12 @@ const SignInActionPage: NextPageWithLayout = () => {
   const { data: submissionData, isLoading: submissionIsLoading } =
     submissionCtx.useSubmission();
   const router = useRouter();
+  const queryClient = new QueryClient();
+
+  useEffect(() => {
+    // New sign-in, so we want to invalidate caching if they were previously signed in
+    queryClient.invalidateQueries();
+  }, []);
 
   useEffect(() => {
     const goHome = () => {
