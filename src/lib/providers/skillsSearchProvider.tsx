@@ -52,6 +52,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   function fetchSkills(): void {
     if (!skills.length) {
       get(skillsEndpoint, '').then(async (res: Response) => {
+        // TODO: Cache this with TanStack Query
         const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse)
           .data;
 
