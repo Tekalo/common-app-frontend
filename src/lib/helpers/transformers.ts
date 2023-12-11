@@ -31,6 +31,7 @@ export const removeValueFromArray = <T>(valueToRemove: T, arr: T[]): T[] => {
 
 export const stripEmptyFields = (obj: any): any => {
   const result = Object.fromEntries(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Object.entries(obj).filter(([_, v]) => {
       // This strips out empty objects
       if (!Array.isArray(v) && typeof v === 'object' && v !== null) {

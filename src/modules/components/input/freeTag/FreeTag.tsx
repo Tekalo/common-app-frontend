@@ -24,7 +24,6 @@ const FreeText: React.FC<IFreeTag> = ({
   inputClassName,
   label,
   labelClassName,
-  onBlur,
   placeholder,
   tooltipText,
 }) => {
