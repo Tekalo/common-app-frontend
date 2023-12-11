@@ -59,6 +59,10 @@ const GTMProvider: React.FC<IProvider> = ({ children }) => {
         {}
       );
 
+      if (getQueryStringValue(routerQuery, 'error')) {
+        throw new Error('example error');
+      }
+
       const finalValues = {
         ...gtmParams,
         ga_client_id: ga_ids[0],

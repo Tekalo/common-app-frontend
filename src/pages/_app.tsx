@@ -1,16 +1,10 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import {
-  COOKIE_CONSENT,
-  ERROR_TEXT,
-  PRIVACY_LINK,
-  SIGN_IN_REDIRECT,
-} from '@/lang/en';
+import { COOKIE_CONSENT, PRIVACY_LINK, SIGN_IN_REDIRECT } from '@/lang/en';
 import TekaloProvidersWrapper from '@/lib/providers/tekaloProvidersWrapper';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
 import { Auth0Provider } from '@auth0/auth0-react';
-import * as Sentry from '@sentry/react';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
@@ -25,12 +19,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
 }
-
-Sentry.init({
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
-  tracesSampleRate: 0.25,
-});
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const cookieName = 'tekalo-opt-in-cookie';
@@ -58,50 +46,37 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             : `${window.location.origin}${SIGN_IN_REDIRECT}`,
       }}
     >
-      <Sentry.ErrorBoundary // Enable Sentry by wrapping component with ErrorBoundary
-        fallback={({ error }) => (
-          <>
-            {ERROR_TEXT.fallbackError}
-            {error}
-          </>
-        )}
-        showDialog
-      >
-        <DndProvider
-          backend={TouchBackend}
-          options={{ enableMouseEvents: true }}
+      <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+        <QueryClientProvider client={queryClient}>
+          <TekaloProvidersWrapper>
+            {getLayout(<Component {...pageProps} />)}
+          </TekaloProvidersWrapper>
+        </QueryClientProvider>
+        <CookieConsent
+          onAccept={() => window.consentGranted()}
+          enableDeclineButton
+          declineButtonText={COOKIE_CONSENT.DECLINE_BTN}
+          disableStyles={true}
+          location={OPTIONS.BOTTOM}
+          buttonText={COOKIE_CONSENT.ACCEPT_BTN}
+          cookieName={cookieName}
+          containerClasses="text-black-text text-p3-mobile px-6 py-4 items-center bg-gray-4 flex flex-col justify-between fixed bottom-0 left-0 right-0 z-40 md:py-6 lg:flex-row lg:items-start lg:text-p3-desktop"
+          buttonWrapperClasses="w-full mt-2 md:flex md:justify-end md:gap-x-4 md:mt-0 lg:flex-1 lg:ml-10"
+          buttonClasses={cookieBtnClasses}
+          declineButtonClasses={cookieBtnClasses}
         >
-          <QueryClientProvider client={queryClient}>
-            <TekaloProvidersWrapper>
-              {getLayout(<Component {...pageProps} />)}
-            </TekaloProvidersWrapper>
-          </QueryClientProvider>
-          <CookieConsent
-            onAccept={() => window.consentGranted()}
-            enableDeclineButton
-            declineButtonText={COOKIE_CONSENT.DECLINE_BTN}
-            disableStyles={true}
-            location={OPTIONS.BOTTOM}
-            buttonText={COOKIE_CONSENT.ACCEPT_BTN}
-            cookieName={cookieName}
-            containerClasses="text-black-text text-p3-mobile px-6 py-4 items-center bg-gray-4 flex flex-col justify-between fixed bottom-0 left-0 right-0 z-40 md:py-6 lg:flex-row lg:items-start lg:text-p3-desktop"
-            buttonWrapperClasses="w-full mt-2 md:flex md:justify-end md:gap-x-4 md:mt-0 lg:flex-1 lg:ml-10"
-            buttonClasses={cookieBtnClasses}
-            declineButtonClasses={cookieBtnClasses}
+          {COOKIE_CONSENT.COPY[0]}
+          <Link
+            className="text-blue-1 underline"
+            href={PRIVACY_LINK}
+            target="_blank"
           >
-            {COOKIE_CONSENT.COPY[0]}
-            <Link
-              className="text-blue-1 underline"
-              href={PRIVACY_LINK}
-              target="_blank"
-            >
-              {COOKIE_CONSENT.COPY[1]}
-            </Link>
-            {COOKIE_CONSENT.COPY[2]}
-          </CookieConsent>
-          <Preview generator={RankChoiceCard.generatePreview} />
-        </DndProvider>
-      </Sentry.ErrorBoundary>
+            {COOKIE_CONSENT.COPY[1]}
+          </Link>
+          {COOKIE_CONSENT.COPY[2]}
+        </CookieConsent>
+        <Preview generator={RankChoiceCard.generatePreview} />
+      </DndProvider>
     </Auth0Provider>
   );
 }
