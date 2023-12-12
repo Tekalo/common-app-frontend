@@ -26,6 +26,7 @@ jobs:
     name: Build and Deploy Project
     permissions:
       contents: write
+      deployments: write
     uses: ./.github/workflows/job-build-release.yml
     with:
       branch_name: 'staging'
