@@ -5,7 +5,6 @@ let isOpen = true;
 
 const base: ITableModal = {
   headerText: 'Header',
-  bodyText: 'Body',
   tableData: ORG_CONTENT_TABLE_TEXT,
   isOpen,
   closeModal: () => {

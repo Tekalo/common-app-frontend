@@ -19,10 +19,8 @@ export interface ILiteNavbar extends React.ComponentPropsWithoutRef<'header'> {
 }
 
 const LiteNavbar: React.FC<ILiteNavbar> = ({
-  className,
   isEditing,
   title,
-  ...headerProps
 }) => {
   const { isLoading } = useAuth0();
 

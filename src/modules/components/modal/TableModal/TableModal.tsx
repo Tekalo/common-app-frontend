@@ -9,7 +9,6 @@ export interface ITableModal {
   isOpen: boolean;
   closeModal: () => void;
   headerText: string;
-  bodyText: string;
   extras?: ReactElement;
   tableData: ContentTableData;
 }
@@ -18,7 +17,6 @@ const TableModal: React.FC<ITableModal> = ({
   closeModal: closeTableModal,
   isOpen: showTableModal,
   headerText,
-  bodyText,
   extras,
   tableData,
 }) => {
