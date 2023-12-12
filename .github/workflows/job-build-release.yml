@@ -111,7 +111,7 @@ jobs:
           NEXT_TELEMETRY_DISABLED: 1
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_RELEASE: ${{ github.sha }}
-          SENTRY_ENVIRONMENT: ${{ vars.environment }}
+          SENTRY_ENVIRONMENT: ${{ inputs.environment }}
 
         run: |
           pnpm install
