@@ -70,7 +70,7 @@ describe('Candidate Application', () => {
     cy.wait('@getSubmission');
 
     cy.then(() => {
-      cy.wait(200);
+      cy.wait(300);
 
       fillPreviousRole();
       fillPreviousOrg();
@@ -220,7 +220,7 @@ describe('Candidate Application', () => {
     cy.wait('@getSubmission');
 
     cy.then(() => {
-      cy.wait(200);
+      cy.wait(300);
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
