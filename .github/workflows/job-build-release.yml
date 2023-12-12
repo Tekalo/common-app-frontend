@@ -105,14 +105,11 @@ jobs:
           NEXT_PUBLIC_ENVIRONMENT: ${{ inputs.environment }}
           NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV: ${{ secrets.NEXT_PUBLIC_IMAGE_OPTIMIZATION_ENV }}
           NEXT_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
-          NEXT_PUBLIC_SENTRY_ENVIRONMENT: ${{ inputs.environment }}
-          NEXT_PUBLIC_SENTRY_RELEASE: ${{ github.sha }}
           NEXT_PUBLIC_TEST_PASSWORD: ${{secrets.NEXT_PUBLIC_TEST_PASSWORD}}
           NEXT_PUBLIC_TEST_USER: ${{vars.NEXT_PUBLIC_TEST_USER}}
           NEXT_PUBLIC_TURNSTILE_SITEKEY: ${{vars.TURNSTILE_SITEKEY }}
           NEXT_TELEMETRY_DISABLED: 1
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ENVIRONMENT: ${{ inputs.environment }}
           SENTRY_RELEASE: ${{ github.sha }}
 
         run: |
