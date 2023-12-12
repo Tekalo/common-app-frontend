@@ -70,6 +70,8 @@ describe('Candidate Application', () => {
     cy.wait('@getSubmission');
 
     cy.then(() => {
+      cy.wait(100);
+
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
@@ -135,7 +137,7 @@ describe('Candidate Application', () => {
       submitInterestForm();
 
       cy.wait('@applicantSubmission').then((res) => {
-        const requestBody = res.request.body;
+        // const requestBody = res.request.body;
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
@@ -218,6 +220,7 @@ describe('Candidate Application', () => {
     cy.wait('@getSubmission');
 
     cy.then(() => {
+      cy.wait(100);
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
@@ -423,21 +426,21 @@ describe('Candidate Application', () => {
     cy.get('button[name=input-skills]').fastClick();
   }
 
-  function fillSkillsSelect(): void {
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get(
-      'div[data-name="skillbox-option-Agile software development"]'
-    ).click();
+  // function fillSkillsSelect(): void {
+  //   cy.get('#input-skillsSelect-input').fastType('a');
+  //   cy.get(
+  //     'div[data-name="skillbox-option-Agile software development"]'
+  //   ).click();
 
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get('div[data-name="skillbox-option-Cryptography"]').click();
+  //   cy.get('#input-skillsSelect-input').fastType('a');
+  //   cy.get('div[data-name="skillbox-option-Cryptography"]').click();
 
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get('div[data-name="skillbox-option-Javascript"]').click();
+  //   cy.get('#input-skillsSelect-input').fastType('a');
+  //   cy.get('div[data-name="skillbox-option-Javascript"]').click();
 
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get('div[data-name="skillbox-option-Manual Automation"]').click();
-  }
+  //   cy.get('#input-skillsSelect-input').fastType('a');
+  //   cy.get('div[data-name="skillbox-option-Manual Automation"]').click();
+  // }
 
   function fillOtherSkills(): void {
     cy.get('input[name=input-otherSkills]').fastType(
