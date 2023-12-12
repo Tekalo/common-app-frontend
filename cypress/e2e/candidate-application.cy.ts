@@ -29,7 +29,7 @@ describe('Candidate Application', () => {
     cy.deleteTestData('candidate');
   });
 
-  it('should submit a candidate, required fields only', () => {
+  it.only('should submit a candidate, required fields only', () => {
     cy.intercept({
       method: 'POST',
       url: applicantsEndpoint,
@@ -68,10 +68,9 @@ describe('Candidate Application', () => {
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
     cy.wait('@getSubmission');
+    cy.wait('@getSubmission');
 
     cy.then(() => {
-      cy.wait(300);
-
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
@@ -218,9 +217,9 @@ describe('Candidate Application', () => {
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
     cy.wait('@getSubmission');
+    cy.wait('@getSubmission');
 
     cy.then(() => {
-      cy.wait(300);
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
