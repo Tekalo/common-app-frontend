@@ -25,8 +25,8 @@ jobs:
     needs: [check-tag]
     name: Build and Deploy Project
     permissions:
+      actions: write
       contents: write
-      deployments: write
     uses: ./.github/workflows/job-build-release.yml
     with:
       branch_name: 'staging'
