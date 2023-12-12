@@ -21,17 +21,18 @@ export const ApplicantContext = React.createContext<IApplicantContext>(
 );
 
 const ApplicantProvider: React.FC<IProvider> = ({ children }) => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
   const qc = new QueryClient();
   const queryKey = 'accountData';
 
   function useAccount() {
     return useQuery<AccountResponseType, Error>({
+      enabled: !isLoading,
       queryKey: [queryKey],
       queryFn: async () => {
         const res = await get(
           existingApplicantEndpoint,
-          await getAccessTokenSilently()
+          isAuthenticated ? await getAccessTokenSilently() : ''
         ).catch((e) => {
           throw e;
         });

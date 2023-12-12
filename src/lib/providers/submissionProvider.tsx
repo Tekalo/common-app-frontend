@@ -31,17 +31,18 @@ export const SubmissionContext = React.createContext<ISubmissionContext>(
 );
 
 const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
   const qc = new QueryClient();
   const queryKey = 'submissionData';
 
   function useSubmission() {
     return useQuery<SubmissionResponseType, Error>({
+      enabled: !isLoading,
       queryKey: [queryKey],
       queryFn: async () => {
         const res = await get(
           applicantSubmissionsEndpoint,
-          await getAccessTokenSilently()
+          isAuthenticated ? await getAccessTokenSilently() : ''
         ).catch((e) => {
           throw e;
         });

@@ -3,7 +3,6 @@ import CookiesProvider from '@/providers/cookiesProvider';
 import DebugProvider from '@/providers/debugProvider';
 import FileUploadProvider from '@/providers/fileUploadProvider/fileUploadProvider';
 import GTMProvider from '@/providers/gtmProvider/gtmProvider';
-import SkillsSearchProvider from '@/providers/skillsSearchProvider';
 import SubmissionProvider from '@/providers/submissionProvider';
 import { ReactNode } from 'react';
 
@@ -21,7 +20,10 @@ const TekaloProvidersWrapper: React.FC<ITekaloProvidersWrapper> = ({
         <FileUploadProvider>
           <GTMProvider>
             <SubmissionProvider>
-              <SkillsSearchProvider>{children}</SkillsSearchProvider>
+              {/* TODO: Commenting this out for now because it keeps making requests
+               <SkillsSearchProvider> */}
+              {children}
+              {/* </SkillsSearchProvider> */}
             </SubmissionProvider>
           </GTMProvider>
         </FileUploadProvider>
