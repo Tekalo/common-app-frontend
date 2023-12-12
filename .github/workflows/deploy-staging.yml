@@ -25,7 +25,6 @@ jobs:
     needs: [check-tag]
     name: Build and Deploy Project
     permissions:
-      actions: write
       contents: write
     uses: ./.github/workflows/job-build-release.yml
     with:
