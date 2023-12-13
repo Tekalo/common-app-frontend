@@ -151,8 +151,7 @@ describe('ApplicantForms', () => {
       lastRole: 'new role',
       lastOrg: 'new org',
       yoe: '2',
-      skills: ['react'],
-      otherSkills: ['new skill 1', 'new skill 2'],
+      skillsSelect: ['react'],
       linkedInUrl: 'new linkedin url',
       githubUrl: 'new github url',
       portfolioUrl: 'new portfolio url',
@@ -697,7 +696,6 @@ describe('ApplicantForms', () => {
       });
 
       it('should submit form values correctly', () => {
-        mockExperienceFields.skills = [];
         mockInterestFields.hoursPerWeek = '';
         mockExperienceFields.githubUrl = null;
 
@@ -734,7 +732,6 @@ describe('ApplicantForms', () => {
                     openToRelocate: 'not sure',
                     openToRemoteMulti: ['remote', 'hybrid'],
                     otherCauses: ['other 1', 'other 2'],
-                    otherSkills: ['new skill 1', 'new skill 2'],
                     portfolioPassword: 'new portfolio password',
                     portfolioUrl: 'new portfolio url',
                     previousImpactExperience: false,
@@ -744,7 +741,7 @@ describe('ApplicantForms', () => {
                       id: 123,
                       originalFilename: 'newOrigFilename.pdf',
                     },
-                    skills: [],
+                    skillsSelect: ['react'],
                     workAuthorization: 'authorized',
                     yoe: '2',
                     utmParams: mockUtmParams,

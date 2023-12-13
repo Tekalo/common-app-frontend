@@ -5,7 +5,7 @@ import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
 
 export interface ISkill {
-  name: string;
+  canonical: string;
 }
 
 export interface ISkillSearchResults {
@@ -13,11 +13,12 @@ export interface ISkillSearchResults {
   results: ISkill[];
 }
 
-interface IGetSkillsResponse {
+export interface IGetSkillsResponse {
   data: ISkill[];
 }
 
 interface ISkillsSearchContext {
+  fetchSkills: () => void;
   searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
 }
 
@@ -30,16 +31,6 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   const [skills, setSkills] = useState<ISkill[]>([]);
 
   useEffect(() => {
-    const handleGetSkills = async (res: Response) => {
-      const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse).data;
-
-      setSkills(skills);
-    };
-
-    getSkills().then(handleGetSkills);
-  }, []);
-
-  useEffect(() => {
     const createFuse = (): Fuse<ISkill> => {
       const fuseOptions = {
         isCaseSensitive: false,
@@ -47,7 +38,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
         includeMatches: false,
         findAllMatches: false,
         minMatchCharLength: 1,
-        keys: ['name'],
+        keys: ['canonical'],
       };
 
       const idx = Fuse.createIndex(fuseOptions.keys, skills);
@@ -58,19 +49,27 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     setFuse(createFuse());
   }, [skills]);
 
-  function getSkills(): Promise<Response> {
-    return get(skillsEndpoint, '');
+  function fetchSkills(): void {
+    if (!skills.length) {
+      get(skillsEndpoint, '').then(async (res: Response) => {
+        // TODO: Cache this with TanStack Query
+        const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse)
+          .data;
+
+        setSkills(skills);
+      });
+    }
   }
 
   const searchWithQuery = (
     query: string,
     value: string[]
   ): ISkillSearchResults => {
-    const alreadySelected = (skill: ISkill) => !value.includes(skill.name);
+    const alreadySelected = (skill: ISkill) => !value.includes(skill.canonical);
     const queryIncludes = (skill: ISkill) =>
-      skill.name.toLowerCase().includes(query.toLowerCase());
+      skill.canonical.toLowerCase().includes(query.toLowerCase());
     const queryMatches = (skill: ISkill) =>
-      skill.name.toLowerCase() === query.toLowerCase();
+      skill.canonical.toLowerCase() === query.toLowerCase();
 
     let results: ISkill[];
 
@@ -80,7 +79,8 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
       results = skills.filter(queryIncludes);
     }
 
-    results = results.filter(alreadySelected);
+    // Limit number of returned results for visibility reasons
+    results = results.filter(alreadySelected).slice(0, 8);
 
     return {
       queryMatches: skills.some(queryMatches),
@@ -91,6 +91,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   return (
     <SkillsSearchContext.Provider
       value={{
+        fetchSkills,
         searchWithQuery,
       }}
     >

@@ -1,6 +1,6 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
-import { SkillOptions, YOEOptions } from '@/lib/constants/selects';
+import { YOEOptions } from '@/lib/constants/selects';
 import {
   executeScroll,
   hasLengthError,
@@ -13,17 +13,13 @@ import {
   ExperienceRefType,
   UploadedFileType,
 } from '@/lib/types';
-import { OptionalStringArr } from '@/lib/validators/array';
-import { Skills, YOE } from '@/lib/validators/enums';
+import { SkillsSelectValidator } from '@/lib/validators/array';
+import { YOE } from '@/lib/validators/enums';
 import { UploadedFile } from '@/lib/validators/object';
 import { OptionalString, RequiredString } from '@/lib/validators/string';
 import ChangeNotifier from '@/modules/components/application/ChangeNotifier';
-import {
-  FreeTagField,
-  FreeTextField,
-  MultiSelectField,
-  SingleSelectField,
-} from '@/sections/sign-up/fields';
+import SkillsSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
+import { FreeTextField, SingleSelectField } from '@/sections/sign-up/fields';
 import FileUploadField from '@/sections/sign-up/fields/FileUploadField';
 import { Form } from 'houseform';
 import { useEffect, useRef } from 'react';
@@ -125,43 +121,12 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           />
 
           {/* Skills */}
-          {/* <SkillsSelectField
-            fieldName="skillsSelect"
-            initialValue={savedForm?.skillsSelect || []}
+          <SkillsSelectField
+            fieldName="skills"
+            initialValue={savedForm?.skills || []}
             isSubmitted={isSubmitted}
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect.label}
             validator={SkillsSelectValidator}
-          /> */}
-
-          {/* TODO: SKILLS_FEATURE */}
-          <MultiSelectField
-            fieldName="skills"
-            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.label}
-            placeholder={
-              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.placeholder
-            }
-            selectionLabelMulti={
-              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.selectionLabelMulti
-            }
-            selectionLabelSingle={
-              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skills.selectionLabelSingle
-            }
-            listOptions={SkillOptions}
-            isSubmitted={isSubmitted}
-            initialValue={savedForm?.skills || []}
-            validator={Skills.array().optional()}
-          />
-
-          {/* Other Skills */}
-          <FreeTagField
-            fieldName="otherSkills"
-            label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.label}
-            placeholder={
-              APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.otherSkills.placeholder
-            }
-            isSubmitted={isSubmitted}
-            initialValue={savedForm?.otherSkills || []}
-            validator={OptionalStringArr}
           />
 
           {/* LinkedIn */}

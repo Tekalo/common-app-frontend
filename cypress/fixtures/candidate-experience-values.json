@@ -6,23 +6,7 @@
   "portfolioUrl": "portfolioUrl",
   "portfolioPassword": "portfolioPassword",
   "githubUrl": "githubUrl",
-  "skills": [
-    "javascript",
-    "python",
-    "react",
-    "java",
-    "sql",
-    "privacy",
-    "security",
-    "devops",
-    "figma",
-    "sketch",
-    "prototyping",
-    "user research",
-    "product development",
-    "project management"
-  ],
-  "otherSkills": ["Skill 1", "Skill 2"],
+  "skills": ["Javascript", "Python", "React"],
   "resumeUpload": {
     "id": 123,
     "originalFilename": "test_original_file.pdf"

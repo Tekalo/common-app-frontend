@@ -26,7 +26,7 @@ export const getMockAuth0Context = (): Auth0ContextInterface<User> =>
     loginWithRedirect: voidFn,
     logout: cy.stub().callsFake(voidFn),
     user: undefined,
-  } as unknown as Auth0ContextInterface<User>);
+  }) as unknown as Auth0ContextInterface<User>;
 
 export const gtag_mockClientId = 'client_id';
 export const gtag_mockSessionId = 'session_id';
@@ -67,28 +67,30 @@ export const MockGTMProvider: React.FC<IProvider> = ({ children }) => {
 };
 
 export const mockSkills: ISkill[] = [
-  { name: 'Agile software development' },
-  { name: 'C#' },
-  { name: 'Cryptography' },
-  { name: 'CSS' },
-  { name: 'HTML' },
-  { name: 'Javascript' },
-  { name: 'jQuery' },
-  { name: 'Manual Automation' },
-  { name: 'SQL' },
+  { canonical: 'Agile software development' },
+  { canonical: 'C#' },
+  { canonical: 'Cryptography' },
+  { canonical: 'CSS' },
+  { canonical: 'HTML' },
+  { canonical: 'Javascript' },
+  { canonical: 'jQuery' },
+  { canonical: 'Manual Automation' },
+  { canonical: 'SQL' },
 ];
 
 export const MockSkillSearchProvider: React.FC<IProvider> = ({ children }) => {
+  const fetchSkills = voidFn;
   const searchWithQuery = (
     query: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     value: string[]
   ): ISkillSearchResults => ({
     results: mockSkills,
-    queryMatches: mockSkills.some((skill) => skill.name === query),
+    queryMatches: mockSkills.some((skill) => skill.canonical === query),
   });
 
   return (
-    <SkillsSearchContext.Provider value={{ searchWithQuery }}>
+    <SkillsSearchContext.Provider value={{ fetchSkills, searchWithQuery }}>
       {children}
     </SkillsSearchContext.Provider>
   );

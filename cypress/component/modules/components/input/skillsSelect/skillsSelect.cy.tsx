@@ -101,7 +101,7 @@ describe('SkillsSelect', () => {
   });
 
   it('should remove an already-added skill by click', () => {
-    skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.name);
+    skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.canonical);
 
     cy.mountSkillsSelect(skillsSelectProps);
 
@@ -115,7 +115,7 @@ describe('SkillsSelect', () => {
   });
 
   it('should remove an already-added skill by backspace', () => {
-    skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.name);
+    skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.canonical);
 
     cy.mountSkillsSelect(skillsSelectProps);
 
@@ -129,7 +129,7 @@ describe('SkillsSelect', () => {
   });
 
   it('should not allow the user to type if 8 skills are already selected', () => {
-    skillsSelectProps.value = allSkills.slice(0, 8).map((s) => s.name);
+    skillsSelectProps.value = allSkills.slice(0, 8).map((s) => s.canonical);
 
     cy.mountSkillsSelect(skillsSelectProps);
 
@@ -146,7 +146,7 @@ describe('SkillsSelect', () => {
   it('should resize the input after user types', () => {
     const mockNewSkill = 'here is a skill name';
 
-    skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.name);
+    skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.canonical);
 
     cy.mountSkillsSelect(skillsSelectProps);
 
@@ -161,7 +161,7 @@ describe('SkillsSelect', () => {
   it('should resize the input after typing enter', () => {
     const mockNewSkill = 'here is a skill name';
 
-    skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.name);
+    skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.canonical);
 
     cy.mountSkillsSelect(skillsSelectProps);
 
@@ -186,7 +186,7 @@ describe('SkillsSelect', () => {
 
     skillsSelectProps.value = skillsSelectProps.value = allSkills
       .slice(0, 4)
-      .map((s) => s.name);
+      .map((s) => s.canonical);
 
     cy.mountSkillsSelect(skillsSelectProps);
 
