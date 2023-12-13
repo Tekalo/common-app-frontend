@@ -1,5 +1,4 @@
 import { REVIEW_FORM_TEXT, YES_NO_TEXT } from '@/lang/en';
-import { capitalizeFirstLetter } from '@/lib/helpers/string';
 import { IRoleSection } from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/roleDetailReview/components/shared';
 
 const RoleInfoSection: React.FC<IRoleSection> = ({ idx, renderRow, role }) => {

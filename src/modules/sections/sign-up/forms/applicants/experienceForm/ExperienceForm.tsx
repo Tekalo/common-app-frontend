@@ -122,8 +122,8 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
 
           {/* Skills */}
           <SkillsSelectField
-            fieldName="skillsSelect"
-            initialValue={savedForm?.skillsSelect || []}
+            fieldName="skills"
+            initialValue={savedForm?.skills || []}
             isSubmitted={isSubmitted}
             label={APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect.label}
             validator={SkillsSelectValidator}

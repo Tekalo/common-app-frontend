@@ -72,8 +72,7 @@ describe('Candidate Application', () => {
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
-      // TODO: SKILLS_FEATURE
-      fillSkillsSelect();
+      fillSkills();
       uploadDocXFile();
 
       saveAndConfirmExperienceForm();
@@ -103,16 +102,10 @@ describe('Candidate Application', () => {
           previousImpactExperience: null,
           referenceAttribution: null,
           referenceAttributionOther: null,
-          // TODO: SKILLS_FEATURE
-          skillsSelect: [
-            'Agile software development',
-            'Cryptography',
-            'Javascript',
-            'Manual Automation',
-          ],
           workAuthorization: null,
           yoe: '4',
         });
+        expect(responseSubmission.skills).to.have.length(8);
         expect(responseSubmission.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
         });
@@ -132,7 +125,6 @@ describe('Candidate Application', () => {
       submitInterestForm();
 
       cy.wait('@applicantSubmission').then((res) => {
-        const requestBody = res.request.body;
         const responseBody = res.response?.body as SubmissionResponseType;
         const responseSubmission = responseBody.submission;
 
@@ -157,16 +149,11 @@ describe('Candidate Application', () => {
           previousImpactExperience: false,
           referenceAttribution: null,
           referenceAttributionOther: null,
-          // TODO: SKILLS_FEATURE
-          skillsSelect: [
-            'Agile software development',
-            'Cryptography',
-            'Javascript',
-            'Manual Automation',
-          ],
           workAuthorization: null,
           yoe: '4',
         });
+
+        expect(responseSubmission.skills).to.have.length(8);
 
         // The id is assigned by the db so we won't know what it is
         expect(responseSubmission.resumeUpload).to.include({
@@ -216,8 +203,7 @@ describe('Candidate Application', () => {
       fillPreviousRole();
       fillPreviousOrg();
       fillYearsOfExperience();
-      // TODO: SKILLS_FEATURE
-      fillSkillsSelect();
+      fillSkills();
       fillLinkedIn();
       fillPortfolio();
       fillPortfolioPwd();
@@ -312,16 +298,12 @@ describe('Candidate Application', () => {
           previousImpactExperience: true,
           referenceAttribution: 'other',
           referenceAttributionOther: 'Other Attribution',
-          // TODO: SKILLS_FEATURE
-          skillsSelect: [
-            'Agile software development',
-            'Cryptography',
-            'Javascript',
-            'Manual Automation',
-          ],
           workAuthorization: 'authorized',
           yoe: '4',
         });
+
+        expect(responseSubmission.skills).to.have.length(8);
+
         expect(responseSubmission.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
         });
@@ -389,20 +371,17 @@ describe('Candidate Application', () => {
     cy.get('li[data-name=input-yoe-4]').fastClick();
   }
 
-  function fillSkillsSelect(): void {
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get(
-      'div[data-name="skillbox-option-Agile software development"]'
-    ).click();
+  function fillSkills(): void {
+    let i;
 
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get('div[data-name="skillbox-option-Cryptography"]').click();
-
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get('div[data-name="skillbox-option-Javascript"]').click();
-
-    cy.get('#input-skillsSelect-input').fastType('a');
-    cy.get('div[data-name="skillbox-option-Manual Automation"]').click();
+    for (i = 0; i < 8; i++) {
+      cy.get('#input-skills-input').fastType('a');
+      cy.get('ul[data-name=skills-select-options]')
+        .children()
+        .should('have.length', 9)
+        .eq(0)
+        .click();
+    }
   }
 
   function fillLinkedIn(): void {

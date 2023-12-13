@@ -5,7 +5,7 @@ import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
 
 export interface ISkill {
-  name: string;
+  canonical: string;
 }
 
 export interface ISkillSearchResults {
@@ -38,7 +38,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
         includeMatches: false,
         findAllMatches: false,
         minMatchCharLength: 1,
-        keys: ['name'],
+        keys: ['canonical'],
       };
 
       const idx = Fuse.createIndex(fuseOptions.keys, skills);
@@ -65,11 +65,11 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     query: string,
     value: string[]
   ): ISkillSearchResults => {
-    const alreadySelected = (skill: ISkill) => !value.includes(skill.name);
+    const alreadySelected = (skill: ISkill) => !value.includes(skill.canonical);
     const queryIncludes = (skill: ISkill) =>
-      skill.name.toLowerCase().includes(query.toLowerCase());
+      skill.canonical.toLowerCase().includes(query.toLowerCase());
     const queryMatches = (skill: ISkill) =>
-      skill.name.toLowerCase() === query.toLowerCase();
+      skill.canonical.toLowerCase() === query.toLowerCase();
 
     let results: ISkill[];
 
