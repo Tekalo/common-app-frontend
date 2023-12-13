@@ -1,5 +1,4 @@
 import { REVIEW_FORM_TEXT, YES_NO_TEXT } from '@/lang/en';
-import { capitalizeFirstLetter } from '@/lib/helpers/string';
 import { IRoleSection } from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/roleDetailReview/components/shared';
 
 const RoleInfoSection: React.FC<IRoleSection> = ({ idx, renderRow, role }) => {
@@ -18,18 +17,7 @@ const RoleInfoSection: React.FC<IRoleSection> = ({ idx, renderRow, role }) => {
       {renderRow(
         REVIEW_FORM_TEXT.ROLE_REVIEW.INFO.skills,
         `${idx}_desiredSkills`,
-        role.desiredSkills
-          ?.map((skill) => capitalizeFirstLetter(skill))
-          .join(', ')
-      )}
-      {renderRow(
-        REVIEW_FORM_TEXT.ROLE_REVIEW.INFO.otherSkills,
-        `${idx}_desiredOtherSkills`,
-        role.desiredOtherSkills
-          ? role.desiredOtherSkills
-              .map((skill) => capitalizeFirstLetter(skill))
-              .join(', ')
-          : 'N/A'
+        role.desiredSkills.join(', ')
       )}
       {renderRow(
         REVIEW_FORM_TEXT.ROLE_REVIEW.INFO.similarStaffed,

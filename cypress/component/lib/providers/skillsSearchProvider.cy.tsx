@@ -1,8 +1,9 @@
 import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
+  IGetSkillsResponse,
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 export interface IMockComponent {
   query: string;
@@ -13,10 +14,14 @@ const MockComponent: React.FC<IMockComponent> = ({ query, value }) => {
   const searchCtx = useContext(SkillsSearchContext);
   const skills = searchCtx.searchWithQuery(query, value);
 
+  useEffect(() => {
+    searchCtx.fetchSkills();
+  }, []);
+
   return (
     <div data-name="results">
       {skills.results.map((skill) => (
-        <div key={skill.name}>{skill.name}</div>
+        <div key={skill.canonical}>{skill.canonical}</div>
       ))}
       <div data-name="query-matches">
         {skills.queryMatches ? 'true' : 'false'}
@@ -37,17 +42,17 @@ describe('SkillsSearchProvider', () => {
   let props: IMockComponent;
 
   beforeEach(() => {
-    const mockSkillsResponse = {
+    const mockSkillsResponse: IGetSkillsResponse = {
       data: [
-        { name: 'Agile software development' },
-        { name: 'C#' },
-        { name: 'Cryptography' },
-        { name: 'CSS' },
-        { name: 'HTML' },
-        { name: 'Javascript' },
-        { name: 'jQuery' },
-        { name: 'Manual Automation' },
-        { name: 'SQL' },
+        { canonical: 'Agile software development' },
+        { canonical: 'C#' },
+        { canonical: 'Cryptography' },
+        { canonical: 'CSS' },
+        { canonical: 'HTML' },
+        { canonical: 'Javascript' },
+        { canonical: 'jQuery' },
+        { canonical: 'Manual Automation' },
+        { canonical: 'SQL' },
       ],
     };
 

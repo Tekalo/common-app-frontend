@@ -2,17 +2,20 @@ import RoleForm, {
   IRoleForm,
 } from '@/modules/sections/sign-up/forms/organizations/roleForm/RoleForm';
 
+import { MockSkillSearchProvider } from '@/cypress/fixtures/mocks';
 import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
 
 Cypress.Commands.add('mountOrgRoleForm', (props: IRoleForm) => {
   cy.mount(
-    <RoleForm
-      formType={props.formType}
-      previousForm={props.previousForm}
-      activeIndex={props.activeIndex}
-      handleNewRole={props.handleNewRole}
-      handleEditRole={props.handleEditRole}
-    />
+    <MockSkillSearchProvider>
+      <RoleForm
+        formType={props.formType}
+        previousForm={props.previousForm}
+        activeIndex={props.activeIndex}
+        handleNewRole={props.handleNewRole}
+        handleEditRole={props.handleEditRole}
+      />
+    </MockSkillSearchProvider>
   );
 });
 

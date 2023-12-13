@@ -8,9 +8,9 @@ import {
   ROLE_ENUM_OPTIONS,
   YOE_RANGE_ENUM_OPTIONS,
 } from '@/lang/en';
-import { EmploymentType } from '@/lib/enums';
 import { opportunityBatchEndpoint } from '@/lib/helpers/api/endpoints';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
+import { EmploymentType } from '@/lib/validators/enums';
 import { Interception } from 'cypress/types/net-stubbing';
 
 type EmploymentFillTypes = typeof EmploymentType._input;
@@ -52,6 +52,7 @@ describe('Organization Application', () => {
     selectFullyRemote();
     selectVisaSponsorship();
     selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS], true)]);
+    fillDesiredSkills();
     selectSimilarExperience();
     fillRolePitch();
 
@@ -96,8 +97,7 @@ describe('Organization Application', () => {
     selectVisaSponsorship();
     fillStartDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
-    fillOtherSkills();
+    fillDesiredSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
     fillRolePitch();
@@ -149,6 +149,7 @@ describe('Organization Application', () => {
     selectFullyRemote();
     selectVisaSponsorship();
     selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS])]);
+    fillDesiredSkills();
     selectSimilarExperience();
     fillRolePitch();
 
@@ -198,8 +199,7 @@ describe('Organization Application', () => {
     fillStartDate();
     fillEndDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
-    fillOtherSkills();
+    fillDesiredSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
     fillRolePitch();
@@ -253,6 +253,7 @@ describe('Organization Application', () => {
     selectFullyRemote();
     selectVisaSponsorship();
     selectYoe([getRandomEntry([...YOE_RANGE_ENUM_OPTIONS])]);
+    fillDesiredSkills();
     selectSimilarExperience();
     fillRolePitch();
 
@@ -300,8 +301,7 @@ describe('Organization Application', () => {
     selectVisaSponsorship();
     fillStartDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
-    fillOtherSkills();
+    fillDesiredSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
     fillRolePitch();
@@ -350,8 +350,7 @@ describe('Organization Application', () => {
     selectVisaSponsorship();
     fillStartDate();
     selectYoe([...YOE_RANGE_ENUM_OPTIONS]);
-    selectDesiredSkills();
-    fillOtherSkills();
+    fillDesiredSkills();
     selectSimilarExperience();
     fillDesiredImpactExperience();
     fillRolePitch();
@@ -571,20 +570,17 @@ describe('Organization Application', () => {
     input.fastClick();
   }
 
-  function selectDesiredSkills(): void {
-    const input = cy.get('button[name=input-desiredSkills]');
+  function fillDesiredSkills(): void {
+    let i;
 
-    input.fastClick();
-    cy.get('li[data-name=input-desiredSkills-javascript]').fastClick();
-    cy.get('li[data-name=input-desiredSkills-python]').fastClick();
-    cy.get('li[data-name=input-desiredSkills-sql]').fastClick();
-    input.fastClick();
-  }
-
-  function fillOtherSkills(): void {
-    cy.get('input[name=input-desiredOtherSkills]').fastType(
-      'otherSkill1, otherSkill2'
-    );
+    for (i = 0; i < 8; i++) {
+      cy.get('#input-desiredSkills-input').fastType('a');
+      cy.get('ul[data-name=skills-select-options]')
+        .children()
+        .should('have.length', 9)
+        .eq(0)
+        .click();
+    }
   }
 
   function selectSimilarExperience(): void {

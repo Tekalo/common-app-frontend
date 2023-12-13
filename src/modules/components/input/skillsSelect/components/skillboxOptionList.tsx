@@ -71,14 +71,14 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
     return options.map((option) => (
       <Combobox.Option
         className="cursor-pointer"
-        key={option.name}
-        value={[option.name]}
+        key={option.canonical}
+        value={[option.canonical]}
       >
         {({ active }) => (
           <SkillboxOption
             active={active}
             disabled={false}
-            skillName={option.name}
+            skillName={option.canonical}
           />
         )}
       </Combobox.Option>

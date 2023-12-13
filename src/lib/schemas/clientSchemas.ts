@@ -1,3 +1,4 @@
+import { SkillsSelectValidator } from '@/lib/validators/array';
 import {
   Causes,
   CommitmentType,
@@ -11,7 +12,6 @@ import {
   ReferenceAttribution,
   Roles,
   SearchStatus,
-  Skills,
   VisaSponsorship,
   WorkAuthorization,
   YOE,
@@ -58,8 +58,7 @@ const NewRoleSchema = z.object({
   desiredEndDate: maxLengthString(2048).optional(),
   jdUrl: maxLengthString(500).url().optional(),
   desiredYoe: z.array(YOE_RANGE).optional(),
-  desiredSkills: z.array(Skills).optional(),
-  desiredOtherSkills: maxLengthString(255).array().optional(),
+  desiredSkills: SkillsSelectValidator,
   visaSponsorship: VisaSponsorship.optional(),
   similarStaffed: z.boolean(),
   desiredImpactExp: maxLengthString(5000).optional(),
@@ -82,10 +81,7 @@ const CandidateExperienceSchema = z.object({
   lastRole: maxLengthString(255),
   lastOrg: maxLengthString(255),
   yoe: YOE,
-  // TODO: SKILLS_FEATURE
-  skills: z.array(Skills),
-  otherSkills: z.array(maxLengthString(255)),
-  // skillsSelect: z.array(RequiredString).min(1).max(8),
+  skills: SkillsSelectValidator,
   linkedInUrl: maxLengthString(500).url().nullable().optional(),
   githubUrl: maxLengthString(500).url().nullable().optional(),
   portfolioUrl: maxLengthString(500).url().nullable().optional(),

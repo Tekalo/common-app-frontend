@@ -31,7 +31,6 @@ import {
   ReferenceAttribution,
   Roles,
   SearchStatus,
-  Skills,
   VisaSponsorship,
   WorkAuthorization,
   YOE,
@@ -90,11 +89,6 @@ const VisaSponsorshipOptions: Array<ISelectItem> = VisaSponsorship.options.map(
     }
   }
 );
-
-const SkillOptions: Array<ISelectItem> = Skills.options.map((option) => ({
-  value: option,
-  displayText: capitalizeFirstLetter(option),
-}));
 
 const CommitmentOptions: Array<ISelectItem> = CommitmentType.options.map(
   (option) => {
@@ -353,7 +347,6 @@ export {
   RemoteOptions,
   RoleOptions,
   SearchStatusOptions,
-  SkillOptions,
   TrueFalseOptions,
   USDROptions,
   VisaSponsorshipOptions,

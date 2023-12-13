@@ -11,7 +11,6 @@ import {
   REMOTE_ENUM_OPTIONS,
   ROLE_ENUM_OPTIONS,
   SEARCH_STATUS_ENUM_OPTIONS,
-  SKILL_ENUM_OPTIONS,
   VISA_ENUM_OPTIONS,
   WORKAUTH_ENUM_OPTIONS,
   YOE_ENUM_OPTIONS,
@@ -70,10 +69,6 @@ export const ReferenceAttribution = z.enum(REF_ENUM_OPTIONS, {
 export const YOE = z.enum(YOE_ENUM_OPTIONS, { errorMap: defaultEnumErrorMap });
 
 export const YOE_RANGE = z.enum(YOE_RANGE_ENUM_OPTIONS, {
-  errorMap: defaultEnumErrorMap,
-});
-
-export const Skills = z.enum(SKILL_ENUM_OPTIONS, {
   errorMap: defaultEnumErrorMap,
 });
 
