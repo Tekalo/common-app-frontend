@@ -5,6 +5,7 @@ import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
 import { Auth0Provider } from '@auth0/auth0-react';
+import * as Sentry from '@sentry/nextjs';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
@@ -21,6 +22,12 @@ interface AppPropsWithLayout extends AppProps {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const cookieName = 'tekalo-opt-in-cookie';
+
+  Sentry.init({
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
+    tracesSampleRate: 0.25,
+  });
 
   if (getCookieConsentValue(cookieName) === 'true') {
     // this fn is in `globals.d.ts` if you need to see it
