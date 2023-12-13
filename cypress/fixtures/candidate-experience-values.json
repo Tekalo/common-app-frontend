@@ -6,7 +6,7 @@
   "portfolioUrl": "portfolioUrl",
   "portfolioPassword": "portfolioPassword",
   "githubUrl": "githubUrl",
-  "skillsSelect": ["Javascript", "Python", "React"],
+  "skills": ["Javascript", "Python", "React"],
   "resumeUpload": {
     "id": 123,
     "originalFilename": "test_original_file.pdf"
