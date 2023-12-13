@@ -289,7 +289,7 @@ describe('Candidate Application', () => {
           ],
           lastOrg: 'Schmidt Futures',
           lastRole: 'Software Engineer',
-          linkedInUrl: 'l',
+          linkedInUrl: 'linkedInUrl',
           openToRelocate: 'yes',
           openToRemoteMulti: ['remote'],
           otherCauses: ['otherCause1', 'otherCause2'],
