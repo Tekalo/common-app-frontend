@@ -13,7 +13,7 @@ export interface ISkillSearchResults {
   results: ISkill[];
 }
 
-interface IGetSkillsResponse {
+export interface IGetSkillsResponse {
   data: ISkill[];
 }
 

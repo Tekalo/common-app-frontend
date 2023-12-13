@@ -53,7 +53,7 @@ describe('Experience Form', () => {
       cy.get('input[name=input-lastRole]').should('be.visible');
       cy.get('input[name=input-lastOrg]').should('be.visible');
       cy.get('button[name=input-yoe]').should('be.visible');
-      cy.get('input#input-skillsSelect-input').should('be.visible');
+      cy.get('input#input-skills-input').should('be.visible');
       cy.get('input[name=input-linkedInUrl]').should('be.visible');
       cy.get('input[name=input-portfolioUrl]').should('be.visible');
       cy.get('input[name=input-portfolioPassword]').should('be.visible');
@@ -125,7 +125,7 @@ describe('Experience Form', () => {
     it('should load skills value from the saved form', () => {
       cy.mountExperienceForm(props);
 
-      mockSavedForm?.skillsSelect?.forEach((skill) => {
+      mockSavedForm?.skills?.forEach((skill) => {
         cy.get(`div[data-name="skill-pill-${skill}"]`).should('be.visible');
       });
     });

@@ -1,3 +1,4 @@
+import { SkillsSelectValidator } from '@/lib/validators/array';
 import {
   Causes,
   CommitmentType,
@@ -19,7 +20,6 @@ import {
 import { UploadedFile } from '@/lib/validators/object';
 import { maxLengthString } from '@/lib/validators/string';
 import { z } from 'zod';
-import { SkillsSelectValidator } from '../validators/array';
 
 /** Organization Schemas
  */
