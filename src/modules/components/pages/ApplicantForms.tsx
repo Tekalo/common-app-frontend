@@ -72,6 +72,10 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const [$updateExperienceForm] = useState(new Subject<void>());
   const [$updateInterestForm] = useState(new Subject<void>());
 
+  useEffect(() => {
+    submissionCtx.getSubmissions();
+  }, []);
+
   // Get Submissions
   useEffect(() => {
     const checkApplicationSubmitted = (
@@ -83,7 +87,11 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       }
     };
 
-    if (!isLoading && !submissionIsLoading) {
+    if (
+      !isLoading &&
+      !submissionIsLoading &&
+      (submissionData || submissionError)
+    ) {
       if (submissionData) {
         checkApplicationSubmitted(submissionData);
         setDraftFormValues(submissionData.submission);

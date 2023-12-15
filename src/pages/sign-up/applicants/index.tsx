@@ -64,6 +64,11 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showContent, setShowContent] = useState<boolean>(false);
 
   useEffect(() => {
+    applicantCtx.getAccountInfo();
+    submissionCtx.getSubmissions();
+  }, []);
+
+  useEffect(() => {
     const hasAccountData = (): boolean => {
       return !!accountData;
     };

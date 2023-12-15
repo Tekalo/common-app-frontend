@@ -28,7 +28,7 @@ describe('Candidate Application', () => {
     cy.deleteTestData('candidate');
   });
 
-  it.only('should submit a candidate, required fields only', () => {
+  it('should submit a candidate, required fields only', () => {
     cy.intercept({
       method: 'POST',
       url: applicantsEndpoint,

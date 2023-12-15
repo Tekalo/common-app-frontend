@@ -13,14 +13,18 @@ const SignInActionPage: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const cookiesCtx = useContext(CookiesContext);
   const submissionCtx = useContext(SubmissionContext);
-  const { data: submissionData, isLoading: submissionIsLoading } =
-    submissionCtx.useSubmission();
+  const {
+    data: submissionData,
+    error: submissionError,
+    isLoading: submissionIsLoading,
+  } = submissionCtx.useSubmission();
   const router = useRouter();
   const queryClient = new QueryClient();
 
   useEffect(() => {
     // New sign-in, so we want to invalidate caching if they were previously signed in
     queryClient.invalidateQueries();
+    submissionCtx.getSubmissions();
   }, []);
 
   useEffect(() => {
@@ -49,7 +53,11 @@ const SignInActionPage: NextPageWithLayout = () => {
       }
     };
 
-    if (!isLoading && isAuthenticated && !submissionIsLoading) {
+    const requestMade = !!submissionData || !!submissionError;
+    const requestHasCompleted =
+      !isLoading && isAuthenticated && !submissionIsLoading && requestMade;
+
+    if (requestHasCompleted) {
       signInRedirect();
     }
   }, [
@@ -59,6 +67,7 @@ const SignInActionPage: NextPageWithLayout = () => {
     isLoading,
     router,
     submissionData,
+    submissionError,
     submissionIsLoading,
   ]);
 
