@@ -28,12 +28,17 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [skillResults, setSkillResults] = useState<ISkill[]>([]);
   const searchCtx = useContext(SkillsSearchContext);
+  const {
+    data: skillsLoaded,
+    error: skillsError,
+    isLoading: skillsLoading,
+  } = searchCtx.useSkills();
 
   const inputId = `${name}-input`;
   const disabled = value.length >= 8;
 
   useEffect(() => {
-    searchCtx.fetchSkills();
+    searchCtx.getSkills();
   }, []);
 
   useEffect(() => {
@@ -44,8 +49,10 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
       setSkillResults(searchResults.results);
     };
 
-    getSkills();
-  }, [searchCtx, searchQuery, value]);
+    if ((skillsLoaded || skillsError) && !skillsLoading) {
+      getSkills();
+    }
+  }, [searchCtx, searchQuery, value, skillsError, skillsLoaded, skillsLoading]);
 
   const clearInput = (): void => {
     const skillsInput = document.getElementById(

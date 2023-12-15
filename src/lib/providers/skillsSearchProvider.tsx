@@ -3,6 +3,7 @@ import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import { IProvider } from '@/lib/providers/shared';
 import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
+import { UseQueryResult, useQuery } from 'react-query';
 
 export interface ISkill {
   canonical: string;
@@ -18,8 +19,9 @@ export interface IGetSkillsResponse {
 }
 
 interface ISkillsSearchContext {
-  fetchSkills: () => void;
+  getSkills: () => void;
   searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
+  useSkills: () => UseQueryResult<boolean, Error>;
 }
 
 export const SkillsSearchContext = createContext<ISkillsSearchContext>(
@@ -28,7 +30,9 @@ export const SkillsSearchContext = createContext<ISkillsSearchContext>(
 
 const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   const [fuse, setFuse] = useState<Fuse<ISkill>>();
+  const [shouldMakeRequest, setShouldMakeRequest] = useState(false);
   const [skills, setSkills] = useState<ISkill[]>([]);
+  const queryKey = 'skills';
 
   useEffect(() => {
     const createFuse = (): Fuse<ISkill> => {
@@ -49,17 +53,33 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     setFuse(createFuse());
   }, [skills]);
 
-  function fetchSkills(): void {
-    if (!skills.length) {
-      get(skillsEndpoint, '').then(async (res: Response) => {
-        // TODO: Cache this with TanStack Query
-        const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse)
-          .data;
+  function useSkills() {
+    return useQuery<boolean, Error>({
+      enabled: shouldMakeRequest,
+      queryKey: [queryKey],
+      queryFn: async () => {
+        const res = await get(skillsEndpoint, '').catch((e) => {
+          throw e;
+        });
 
-        setSkills(skills);
-      });
-    }
+        if (res.ok) {
+          const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse)
+            .data;
+
+          setSkills(skills);
+
+          return true;
+        } else {
+          throw new Error(res.status.toString(), { cause: res });
+        }
+      },
+      retry: 1,
+    });
   }
+
+  const getSkills = (): void => {
+    setShouldMakeRequest(true);
+  };
 
   const searchWithQuery = (
     query: string,
@@ -91,8 +111,9 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   return (
     <SkillsSearchContext.Provider
       value={{
-        fetchSkills,
+        getSkills,
         searchWithQuery,
+        useSkills,
       }}
     >
       {children}

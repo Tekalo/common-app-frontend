@@ -66,8 +66,7 @@ describe('Candidate Application', () => {
     });
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
-    cy.wait('@getSubmission');
-    cy.wait('@getSubmission');
+    cy.wait(['@getSubmission', '@getSubmission', '@getSubmission']);
 
     cy.then(() => {
       fillPreviousRole();
@@ -198,8 +197,7 @@ describe('Candidate Application', () => {
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
-    cy.wait('@getSubmission');
-    cy.wait('@getSubmission');
+    cy.wait(['@getSubmission', '@getSubmission', '@getSubmission']);
 
     cy.then(() => {
       fillPreviousRole();
