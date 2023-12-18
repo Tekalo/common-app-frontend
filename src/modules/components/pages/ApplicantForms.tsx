@@ -72,10 +72,6 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const [$updateExperienceForm] = useState(new Subject<void>());
   const [$updateInterestForm] = useState(new Subject<void>());
 
-  useEffect(() => {
-    submissionCtx.getSubmissions();
-  }, []);
-
   // Get Submissions
   useEffect(() => {
     const checkApplicationSubmitted = (
@@ -175,7 +171,6 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       .saveCandidateDraft(newFormState, await getAuthToken())
       .then((res) => {
         if (res.ok) {
-          submissionCtx.invalidateQuery();
           setShowSaveModal(true);
         } else {
           setModalError(MODAL_ERROR_TYPE.GENERAL);
@@ -210,8 +205,6 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     submitFn(finalFormValues, await getAuthToken())
       .then((res) => {
         if (res.ok) {
-          submissionCtx.invalidateQuery();
-
           if (isEditing) {
             $unlockedNavigation.next(ACCOUNT_LINK);
           } else {

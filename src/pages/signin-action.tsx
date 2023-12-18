@@ -24,7 +24,6 @@ const SignInActionPage: NextPageWithLayout = () => {
   useEffect(() => {
     // New sign-in, so we want to invalidate caching if they were previously signed in
     queryClient.invalidateQueries();
-    submissionCtx.getSubmissions();
   }, []);
 
   useEffect(() => {

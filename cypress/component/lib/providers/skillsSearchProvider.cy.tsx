@@ -15,15 +15,10 @@ export interface IMockComponent {
 const MockComponent: React.FC<IMockComponent> = ({ query, value }) => {
   const searchCtx = useContext(SkillsSearchContext);
   const { data, error, isLoading } = searchCtx.useSkills();
-  searchCtx.getSkills();
   const [skills, setSkills] = useState<ISkillSearchResults>({
     queryMatches: false,
     results: [],
   });
-
-  useEffect(() => {
-    searchCtx.getSkills();
-  }, []);
 
   useEffect(() => {
     if ((data || error) && !isLoading) {

@@ -63,12 +63,6 @@ const AccountSection: NextPageWithLayout = () => {
     console.error(res.statusText);
   };
 
-  // Fetch applicant and submission info if we haven't already
-  useEffect(() => {
-    applicantCtx.getAccountInfo();
-    submissionCtx.getSubmissions();
-  }, []);
-
   // Auth
   useEffect(() => {
     if (!auth0IsLoading && !isAuthenticated) {

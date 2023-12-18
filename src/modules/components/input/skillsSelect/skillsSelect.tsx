@@ -38,10 +38,6 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   const disabled = value.length >= 8;
 
   useEffect(() => {
-    searchCtx.getSkills();
-  }, []);
-
-  useEffect(() => {
     const getSkills = async (): Promise<void> => {
       const searchResults = searchCtx.searchWithQuery(searchQuery, value);
 

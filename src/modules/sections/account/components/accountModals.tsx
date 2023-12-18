@@ -47,7 +47,6 @@ const AccountModals: React.FC<IAccountModals> = ({
       .deleteApplicantData(await getAccessTokenSilently())
       .then((res) => {
         if (res.ok) {
-          applicantCtx.invalidateQuery();
           setShowDeleteModal(false);
           logout({ logoutParams: { returnTo: window.location.origin } });
         } else {
@@ -72,7 +71,6 @@ const AccountModals: React.FC<IAccountModals> = ({
       .then(async (res) => {
         if (res.ok) {
           const accountResponse: AccountResponseType = await res.json();
-          applicantCtx.invalidateQuery();
           setMatchesPaused(accountResponse.isPaused);
           pause ? setShowPauseModal(false) : setShowResumeModal(false);
         } else {

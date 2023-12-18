@@ -264,7 +264,7 @@ describe('ApplicantForms', () => {
 
       cy.wait('@getSubmissions');
       cy.get('@setExpProps')
-        .should('have.callCount', 5)
+        .should('have.callCount', 3)
         .then(() => {
           childProps.experience.handleNext(mockExperienceFields);
         });
@@ -295,7 +295,7 @@ describe('ApplicantForms', () => {
       cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
       cy.get('@setExpProps')
-        .should('have.callCount', 5)
+        .should('have.callCount', 3)
         .then(() => {
           childProps.experience.showUploadErrorModal();
 
@@ -320,7 +320,7 @@ describe('ApplicantForms', () => {
         cy.wait('@getSubmissions');
 
         cy.get('@setExpProps')
-          .should('have.callCount', 5)
+          .should('have.callCount', 3)
           .then(() => {
             expect(JSON.stringify(childProps.experience.savedForm)).to.eq(
               JSON.stringify(mockSubmissionResponse.submission)
@@ -442,7 +442,7 @@ describe('ApplicantForms', () => {
           'Brooklyn, New York';
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
-        cy.get('@setExpProps').should('have.callCount', 5);
+        cy.get('@setExpProps').should('have.callCount', 3);
 
         cy.wait('@getSubmissions');
         cy.get('div[data-name=nav-interest-form]').fastClick();
@@ -546,7 +546,7 @@ describe('ApplicantForms', () => {
           'Brooklyn, New York';
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
-        cy.get('@setExpProps').should('have.callCount', 5);
+        cy.get('@setExpProps').should('have.callCount', 3);
 
         cy.wait('@getSubmissions');
         cy.get('div[data-name=nav-interest-form]').fastClick();
@@ -590,7 +590,7 @@ describe('ApplicantForms', () => {
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
         cy.get('@setExpProps')
-          .should('have.callCount', 5)
+          .should('have.callCount', 3)
           .then(() => {
             mockSubmissionResponse.submission.currentLocation = newLocation;
             childProps.experience.handleSave(mockSubmissionResponse.submission);
@@ -630,7 +630,7 @@ describe('ApplicantForms', () => {
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
         cy.get('@setExpProps')
-          .should('have.callCount', 5)
+          .should('have.callCount', 3)
           .then(() => {
             childProps.experience.handleSave(mockSubmissionResponse.submission);
 
@@ -662,7 +662,7 @@ describe('ApplicantForms', () => {
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
         cy.get('@setExpProps')
-          .should('have.callCount', 5)
+          .should('have.callCount', 3)
           .then(() => {
             childProps.experience.handleSave(mockSubmissionResponse.submission);
 
@@ -705,7 +705,7 @@ describe('ApplicantForms', () => {
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
         cy.get('@setExpProps')
-          .should('have.callCount', 5)
+          .should('have.callCount', 3)
           .then(() => {
             childProps.experience.handleNext(mockExperienceFields);
 
@@ -760,7 +760,7 @@ describe('ApplicantForms', () => {
         cy.mountApplicantForms(mockAuth0Context, applicantFormsProps);
 
         cy.get('@setExpProps')
-          .should('have.callCount', 5)
+          .should('have.callCount', 3)
           .then(() => {
             childProps.experience.handleNext(mockExperienceFields);
 
@@ -800,7 +800,7 @@ describe('ApplicantForms', () => {
         cy.wait('@getSubmissions');
 
         cy.get('@setExpProps')
-          .should('have.callCount', 5)
+          .should('have.callCount', 3)
           .then(() => {
             childProps.experience.handleNext(mockExperienceFields);
 
@@ -879,7 +879,7 @@ describe('ApplicantForms', () => {
       cy.wait('@getSubmissions');
 
       cy.get('@setExpProps')
-        .should('have.callCount', 5)
+        .should('have.callCount', 3)
         .then(() => {
           childProps.experience.handleNext(mockExperienceFields);
 
@@ -904,7 +904,7 @@ describe('ApplicantForms', () => {
       cy.wait('@getSubmissions');
 
       cy.get('@setExpProps')
-        .should('have.callCount', 5)
+        .should('have.callCount', 3)
         .then(() => {
           childProps.experience.changeHasOcurred();
 
@@ -918,7 +918,7 @@ describe('ApplicantForms', () => {
       cy.wait('@getSubmissions');
 
       cy.get('@setExpProps')
-        .should('have.callCount', 5)
+        .should('have.callCount', 3)
         .then(() => {
           childProps.experience.handleNext(mockExperienceFields);
 

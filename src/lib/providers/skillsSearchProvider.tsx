@@ -19,7 +19,6 @@ export interface IGetSkillsResponse {
 }
 
 interface ISkillsSearchContext {
-  getSkills: () => void;
   searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
   useSkills: () => UseQueryResult<boolean, Error>;
 }
@@ -30,7 +29,6 @@ export const SkillsSearchContext = createContext<ISkillsSearchContext>(
 
 const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   const [fuse, setFuse] = useState<Fuse<ISkill>>();
-  const [shouldMakeRequest, setShouldMakeRequest] = useState(false);
   const [skills, setSkills] = useState<ISkill[]>([]);
   const queryKey = 'skills';
 
@@ -55,12 +53,9 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
 
   function useSkills() {
     return useQuery<boolean, Error>({
-      enabled: shouldMakeRequest,
       queryKey: [queryKey],
       queryFn: async () => {
-        const res = await get(skillsEndpoint, '').catch((e) => {
-          throw e;
-        });
+        const res = await get(skillsEndpoint, '');
 
         if (res.ok) {
           const skills: ISkill[] = ((await res.json()) as IGetSkillsResponse)
@@ -76,10 +71,6 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
       retry: 1,
     });
   }
-
-  const getSkills = (): void => {
-    setShouldMakeRequest(true);
-  };
 
   const searchWithQuery = (
     query: string,
@@ -111,7 +102,6 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   return (
     <SkillsSearchContext.Provider
       value={{
-        getSkills,
         searchWithQuery,
         useSkills,
       }}

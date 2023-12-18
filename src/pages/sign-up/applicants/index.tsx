@@ -11,8 +11,6 @@ import {
   SIGN_IN_LINK,
   TRACKING,
 } from '@/lang/en';
-import { post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
-import { applicantsEndpoint } from '@/lib/helpers/api/endpoints';
 import { stripEmptyFields } from '@/lib/helpers/transformers';
 import { jumpToFirstErrorMessage } from '@/lib/helpers/utilities';
 import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
@@ -43,12 +41,7 @@ const privacyModalExtras = (
 );
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  const {
-    isAuthenticated,
-    getAccessTokenSilently,
-    isLoading: auth0IsLoading,
-    user,
-  } = useAuth0();
+  const { isAuthenticated, isLoading: auth0IsLoading, user } = useAuth0();
   const applicantCtx = useContext(ApplicantContext);
   const {
     data: accountData,
@@ -68,11 +61,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [isConflict, setIsConflict] = useState(false);
   const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
   const [showContent, setShowContent] = useState<boolean>(false);
-
-  useEffect(() => {
-    applicantCtx.getAccountInfo();
-    submissionCtx.getSubmissions();
-  }, []);
 
   useEffect(() => {
     const hasAccountData = (): boolean => {
@@ -139,29 +127,19 @@ const ApplicantSignup: NextPageWithLayout = () => {
       ...stripEmptyFields(values),
       utmParams: gtmCtx.getGtmParams(),
     };
-
-    let authToken = '';
-    let req;
-
-    if (isAuthenticated) {
-      authToken = await getAccessTokenSilently();
-    }
+    let req: Promise<Response>;
 
     setIsConflict(false);
 
     if (debugCtx.debugIsActive) {
-      req = post(
-        applicantsEndpoint,
+      req = applicantCtx.submitCandidateDebugSignup(
         applicantPayload,
-        authToken,
         debugCtx.debugSecret
       );
     } else {
-      req = postWithTurnstile(
-        applicantsEndpoint,
+      req = applicantCtx.submitCandidateSignup(
         applicantPayload,
-        turnstileToken,
-        authToken
+        turnstileToken
       );
     }
 
@@ -169,7 +147,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
       .then((res) => {
         switch (res.status) {
           case 200: // good submission
-            applicantCtx.invalidateQuery();
             window.dataLayerEvent(TRACKING.CANDIDATE_SIGNUP);
             router.push(APPLICANT_EXPERIENCE_LINK);
             break;
