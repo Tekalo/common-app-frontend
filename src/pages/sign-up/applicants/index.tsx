@@ -50,13 +50,19 @@ const ApplicantSignup: NextPageWithLayout = () => {
     user,
   } = useAuth0();
   const applicantCtx = useContext(ApplicantContext);
-  const { data: accountData, isLoading: accountIsLoading } =
-    applicantCtx.useAccount();
+  const {
+    data: accountData,
+    error: accountError,
+    isLoading: accountIsLoading,
+  } = applicantCtx.useAccount();
   const debugCtx = useContext(DebugContext);
   const gtmCtx = useContext(GTMContext);
   const submissionCtx = useContext(SubmissionContext);
-  const { data: submissionData, isLoading: submissionIsLoading } =
-    submissionCtx.useSubmission();
+  const {
+    data: submissionData,
+    error: submissionError,
+    isLoading: submissionIsLoading,
+  } = submissionCtx.useSubmission();
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
@@ -94,7 +100,16 @@ const ApplicantSignup: NextPageWithLayout = () => {
       }
     };
 
-    if (!auth0IsLoading && !accountIsLoading && !submissionIsLoading) {
+    const accountReqComplete = accountData || accountError;
+    const submissionReqComplete = submissionData || submissionError;
+
+    if (
+      !auth0IsLoading &&
+      !accountIsLoading &&
+      !submissionIsLoading &&
+      accountReqComplete &&
+      submissionReqComplete
+    ) {
       if (isAuthenticated && user) {
         redirectUserCheck();
       } else {
@@ -103,10 +118,12 @@ const ApplicantSignup: NextPageWithLayout = () => {
     }
   }, [
     accountData,
+    accountError,
     accountIsLoading,
     auth0IsLoading,
     isAuthenticated,
     submissionData,
+    submissionError,
     submissionIsLoading,
     user,
   ]);
