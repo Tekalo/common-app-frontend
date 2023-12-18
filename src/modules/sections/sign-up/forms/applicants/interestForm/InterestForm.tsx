@@ -6,7 +6,7 @@ import {
   GENERAL_FORM_TEXT_CONSTANTS,
   INTEREST_FORM_TEXT,
   ROLE_ENUM_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   AttributionOtpions,
   AuthorizationOptions,

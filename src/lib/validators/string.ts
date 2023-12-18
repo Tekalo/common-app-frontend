@@ -1,4 +1,4 @@
-import { BOOL_ENUM_OPTIONS, ERROR_TEXT } from '@/lang/en';
+import { BOOL_ENUM_OPTIONS, ERROR_TEXT } from '@/lang/en/en';
 import { defaultEnumErrorMap } from '@/lib/validators/errorMaps';
 import { ZodString, z } from 'zod';
 

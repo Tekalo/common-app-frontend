@@ -1,4 +1,4 @@
-import { NAV_FOOTER_TEXT } from '@/lang/en';
+import { NAV_FOOTER_TEXT } from '@/lang/en/en';
 import Image from 'next/image';
 import Link from 'next/link';
 

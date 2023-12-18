@@ -10,7 +10,7 @@ import {
   PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
   TRACKING,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { get, post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
 import {
   applicantSubmissionsEndpoint,

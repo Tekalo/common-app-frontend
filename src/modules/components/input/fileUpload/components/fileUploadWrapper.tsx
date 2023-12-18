@@ -3,7 +3,7 @@ import RemoveFileBtn from '@/components/input/fileUpload/components/removeFileBt
 import UploadFileBtn from '@/components/input/fileUpload/components/uploadFileBtn';
 import UploadFileInfo from '@/components/input/fileUpload/components/uploadFileInfo';
 import UploadingSpinner from '@/components/input/fileUpload/components/uploadingSpinner';
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { UploadedFileType } from '@/lib/types';
 import Tooltip from '@/modules/components/tooltip/Tooltip';
 import { ReactElement } from 'react';

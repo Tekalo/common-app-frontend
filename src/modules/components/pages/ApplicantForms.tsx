@@ -8,7 +8,7 @@ import {
   SAVE_MODAL,
   TRACKING,
   UPLOAD_ERROR_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { nullifyEmptyFields } from '@/lib/helpers/transformers';
 import { voidFn } from '@/lib/helpers/utilities';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';

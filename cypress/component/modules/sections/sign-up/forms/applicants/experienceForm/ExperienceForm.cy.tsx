@@ -1,5 +1,5 @@
 import { MockSkillSearchProvider, voidFn } from '@/cypress/fixtures/mocks';
-import { ERROR_TEXT } from '@/lang/en';
+import { ERROR_TEXT } from '@/lang/en/en';
 import { DraftSubmissionType } from '@/lib/types';
 import ExperienceForm, {
   IExperienceForm,

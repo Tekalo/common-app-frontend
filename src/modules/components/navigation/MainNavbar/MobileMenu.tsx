@@ -1,4 +1,4 @@
-import { NAV_BAR_TEXT } from '@/lang/en';
+import { NAV_BAR_TEXT } from '@/lang/en/en';
 
 interface IMobileMenu {
   handleAuthentication: () => void;

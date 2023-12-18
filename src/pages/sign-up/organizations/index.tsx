@@ -1,5 +1,9 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
-import { CONFIRM_MODAL, ERROR_MODAL_TEXT, ORG_SUCCESS_LINK } from '@/lang/en';
+import {
+  CONFIRM_MODAL,
+  ERROR_MODAL_TEXT,
+  ORG_SUCCESS_LINK,
+} from '@/lang/en/en';
 import { post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
 import { opportunityBatchEndpoint } from '@/lib/helpers/api/endpoints';
 import { executeScroll } from '@/lib/helpers/utilities';

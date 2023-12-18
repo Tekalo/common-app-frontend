@@ -1,5 +1,5 @@
 import Button, { ButtonVariant } from '@/components//buttons/Button/Button';
-import { BASE_LINK } from '@/lang/en';
+import { BASE_LINK } from '@/lang/en/en';
 import router from 'next/router';
 
 interface IErrorPageWrapper {

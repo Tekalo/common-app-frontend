@@ -1,4 +1,4 @@
-import { ACCOUNT_PAGE_TEXT } from '@/lang/en';
+import { ACCOUNT_PAGE_TEXT } from '@/lang/en/en';
 import { ReactNode } from 'react';
 
 interface IAccountSettingsBox {

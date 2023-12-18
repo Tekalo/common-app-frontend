@@ -1,4 +1,4 @@
-import { ERROR_TEXT } from '@/lang/en';
+import { ERROR_TEXT } from '@/lang/en/en';
 import { z } from 'zod';
 
 export const defaultEnumErrorMap = (err: z.ZodIssueOptionalMessage) => {

@@ -3,7 +3,7 @@ import {
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
   EDIT_APP_LINK,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { GreenCheckSvg } from '@/lib/constants/svgs';
 import AccountDisplay from '@/sections/account/components/AccountLine/AccountDisplay';
 import AccountLink from '@/sections/account/components/AccountLine/AccountLink';

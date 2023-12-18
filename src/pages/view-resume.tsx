@@ -1,4 +1,4 @@
-import { ERROR_TEXT } from '@/lang/en';
+import { ERROR_TEXT } from '@/lang/en/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { get } from '@/lib/helpers/api/apiHelpers';
 import { applicantResumeEndpoint } from '@/lib/helpers/api/endpoints';

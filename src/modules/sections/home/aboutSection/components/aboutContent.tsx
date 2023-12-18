@@ -1,4 +1,4 @@
-import { HOME_ABOUT_TEXT } from '@/lang/en';
+import { HOME_ABOUT_TEXT } from '@/lang/en/en';
 
 const AboutContent: React.FC = () => (
   <div className="mx-auto mb-6 flex max-w-[590px] flex-col items-center lg:mb-8 lg:max-w-[541px]">
