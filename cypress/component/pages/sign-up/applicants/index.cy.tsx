@@ -226,7 +226,8 @@ describe('Applicant Signup Page', () => {
 
     cy.mountCandidateSignupFormPage(mockAuth0Context);
 
-    cy.wait(['@hasSubmitted', '@hasData']);
+    cy.wait('@hasSubmitted');
+    cy.wait('@hasData');
 
     cy.get('@submittedCall').should('have.been.calledOnce');
     cy.get('@dataCall').should('have.been.calledOnce');

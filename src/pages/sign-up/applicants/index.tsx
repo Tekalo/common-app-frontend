@@ -88,12 +88,9 @@ const ApplicantSignup: NextPageWithLayout = () => {
     };
 
     const redirectUserCheck = () => {
-      const hasSubmittedApplication = hasSubmitted();
-      const hasAccount = hasAccountData();
-
-      if (hasSubmittedApplication) {
+      if (hasSubmitted()) {
         router.push(ACCOUNT_LINK);
-      } else if (hasAccount) {
+      } else if (hasAccountData()) {
         router.push(APPLICANT_EXPERIENCE_LINK);
       } else {
         setShowContent(true);
