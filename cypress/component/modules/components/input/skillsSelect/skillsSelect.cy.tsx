@@ -1,21 +1,27 @@
-import { MockSkillSearchProvider, mockSkills } from '@/cypress/fixtures/mocks';
-import { ISkill } from '@/lib/providers/skillsSearchProvider';
+import { mockSkills, mockSkillsResponse } from '@/cypress/fixtures/mocks';
+import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
+import SkillsSearchProvider, {
+  ISkill,
+} from '@/lib/providers/skillsSearchProvider';
 import SkillsSelect, {
   ISkillsSelect,
 } from '@/modules/components/input/skillsSelect/skillsSelect';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 Cypress.Commands.add('mountSkillsSelect', (props: ISkillsSelect) => {
   cy.mount(
-    <MockSkillSearchProvider>
-      <SkillsSelect
-        hasErrors={props.hasErrors}
-        name={props.name}
-        label={props.label}
-        placeholder={props.placeholder}
-        setValue={props.setValue}
-        value={props.value}
-      />
-    </MockSkillSearchProvider>
+    <QueryClientProvider client={new QueryClient()}>
+      <SkillsSearchProvider>
+        <SkillsSelect
+          hasErrors={props.hasErrors}
+          name={props.name}
+          label={props.label}
+          placeholder={props.placeholder}
+          setValue={props.setValue}
+          value={props.value}
+        />
+      </SkillsSearchProvider>
+    </QueryClientProvider>
   );
 });
 
@@ -45,6 +51,16 @@ describe('SkillsSelect', () => {
       setValue: cy.stub().as('setValue'),
       value,
     };
+
+    cy.intercept(
+      {
+        method: 'GET',
+        url: skillsEndpoint,
+      },
+      cy.stub().callsFake((req) => {
+        req.reply(mockSkillsResponse);
+      })
+    ).as('getSkills');
   });
 
   it('should render', () => {
@@ -72,11 +88,13 @@ describe('SkillsSelect', () => {
     cy.get('ul[data-name=skills-select-options]')
       .should('be.visible')
       .children()
-      .should('have.length', 10);
+      .should('have.length', 5);
 
-    cy.get(
-      'div[data-name="skillbox-option-Agile software development"]'
-    ).should('have.css', 'background-color', bgLightBlue);
+    cy.get('div[data-name="skillbox-option-Javascript"]').should(
+      'have.css',
+      'background-color',
+      bgLightBlue
+    );
 
     cy.get('div[data-name=skill-option-name]').should(
       'have.css',

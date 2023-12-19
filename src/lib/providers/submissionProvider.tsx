@@ -4,11 +4,12 @@ import {
   applicantSubmissionsEndpoint,
 } from '@/lib/helpers/api/endpoints';
 import { IProvider } from '@/lib/providers/shared';
-import { DraftSubmissionType } from '@/lib/types';
+import { DraftSubmissionType, SubmissionResponseType } from '@/lib/types';
+import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
+import { QueryClient, UseQueryResult, useQuery } from 'react-query';
 
 interface ISubmissionContext {
-  getCandidateSubmissions: (authToken: string) => Promise<Response>;
   saveCandidateDraft: (
     values: DraftSubmissionType,
     authToken: string
@@ -21,6 +22,7 @@ interface ISubmissionContext {
     values: DraftSubmissionType,
     authToken: string
   ) => Promise<Response>;
+  useSubmission: () => UseQueryResult<SubmissionResponseType, Error>;
 }
 
 export const SubmissionContext = React.createContext<ISubmissionContext>(
@@ -28,38 +30,72 @@ export const SubmissionContext = React.createContext<ISubmissionContext>(
 );
 
 const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
-  const getCandidateSubmissions = (authToken: string) => {
-    return get(applicantSubmissionsEndpoint, authToken);
+  const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
+  const qc = new QueryClient();
+  const queryKey = 'submissionData';
+
+  function useSubmission() {
+    return useQuery<SubmissionResponseType, Error>({
+      enabled: !isLoading,
+      queryKey: [queryKey],
+      queryFn: async () => {
+        const res = await get(
+          applicantSubmissionsEndpoint,
+          isAuthenticated ? await getAccessTokenSilently() : ''
+        );
+
+        if (res.ok) {
+          return await res.json();
+        } else {
+          throw new Error(res.status.toString(), { cause: res });
+        }
+      },
+      retry: 1,
+    });
+  }
+
+  const queryHandler = (res: Response) => {
+    if (res.ok) {
+      qc.invalidateQueries(queryKey);
+    }
+
+    return res;
   };
 
-  const saveCandidateDraft = (
+  const saveCandidateDraft = async (
     values: DraftSubmissionType,
     authToken: string
   ): Promise<Response> => {
-    return post(applicantDraftSubmissionsEndpoint, values, authToken);
+    return post(applicantDraftSubmissionsEndpoint, values, authToken).then(
+      queryHandler
+    );
   };
 
-  const submitCandidateApplication = (
+  const submitCandidateApplication = async (
     values: DraftSubmissionType,
     authToken: string
   ): Promise<Response> => {
-    return post(applicantSubmissionsEndpoint, values, authToken);
+    return post(applicantSubmissionsEndpoint, values, authToken).then(
+      queryHandler
+    );
   };
 
-  const submitCandidateEdits = (
+  const submitCandidateEdits = async (
     values: DraftSubmissionType,
     authToken: string
   ) => {
-    return put(applicantSubmissionsEndpoint, values, authToken);
+    return put(applicantSubmissionsEndpoint, values, authToken).then(
+      queryHandler
+    );
   };
 
   return (
     <SubmissionContext.Provider
       value={{
-        getCandidateSubmissions,
         saveCandidateDraft,
         submitCandidateApplication,
         submitCandidateEdits,
+        useSubmission,
       }}
     >
       {children}

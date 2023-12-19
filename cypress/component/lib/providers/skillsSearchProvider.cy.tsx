@@ -1,9 +1,11 @@
+import { mockSkillsResponse } from '@/cypress/fixtures/mocks';
 import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
-  IGetSkillsResponse,
+  ISkillSearchResults,
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export interface IMockComponent {
   query: string;
@@ -12,11 +14,17 @@ export interface IMockComponent {
 
 const MockComponent: React.FC<IMockComponent> = ({ query, value }) => {
   const searchCtx = useContext(SkillsSearchContext);
-  const skills = searchCtx.searchWithQuery(query, value);
+  const { data, error, isLoading } = searchCtx.useSkills();
+  const [skills, setSkills] = useState<ISkillSearchResults>({
+    queryMatches: false,
+    results: [],
+  });
 
   useEffect(() => {
-    searchCtx.fetchSkills();
-  }, []);
+    if ((data || error) && !isLoading) {
+      setSkills(searchCtx.searchWithQuery(query, value));
+    }
+  }, [data, error, isLoading, query, searchCtx, value]);
 
   return (
     <div data-name="results">
@@ -32,9 +40,11 @@ const MockComponent: React.FC<IMockComponent> = ({ query, value }) => {
 
 Cypress.Commands.add('mountSkillsSearchProvider', (props: IMockComponent) => {
   cy.mount(
-    <SkillsSearchProvider>
-      <MockComponent query={props.query} value={props.value} />
-    </SkillsSearchProvider>
+    <QueryClientProvider client={new QueryClient()}>
+      <SkillsSearchProvider>
+        <MockComponent query={props.query} value={props.value} />
+      </SkillsSearchProvider>
+    </QueryClientProvider>
   );
 });
 
@@ -42,20 +52,6 @@ describe('SkillsSearchProvider', () => {
   let props: IMockComponent;
 
   beforeEach(() => {
-    const mockSkillsResponse: IGetSkillsResponse = {
-      data: [
-        { canonical: 'Agile software development' },
-        { canonical: 'C#' },
-        { canonical: 'Cryptography' },
-        { canonical: 'CSS' },
-        { canonical: 'HTML' },
-        { canonical: 'Javascript' },
-        { canonical: 'jQuery' },
-        { canonical: 'Manual Automation' },
-        { canonical: 'SQL' },
-      ],
-    };
-
     cy.intercept(
       {
         method: 'GET',

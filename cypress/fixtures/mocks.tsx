@@ -1,9 +1,8 @@
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { IProvider } from '@/lib/providers/shared';
 import {
+  IGetSkillsResponse,
   ISkill,
-  ISkillSearchResults,
-  SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
 import { Auth0ContextInterface, User } from '@auth0/auth0-react';
 
@@ -78,20 +77,6 @@ export const mockSkills: ISkill[] = [
   { canonical: 'SQL' },
 ];
 
-export const MockSkillSearchProvider: React.FC<IProvider> = ({ children }) => {
-  const fetchSkills = voidFn;
-  const searchWithQuery = (
-    query: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    value: string[]
-  ): ISkillSearchResults => ({
-    results: mockSkills,
-    queryMatches: mockSkills.some((skill) => skill.canonical === query),
-  });
-
-  return (
-    <SkillsSearchContext.Provider value={{ fetchSkills, searchWithQuery }}>
-      {children}
-    </SkillsSearchContext.Provider>
-  );
+export const mockSkillsResponse: IGetSkillsResponse = {
+  data: mockSkills,
 };
