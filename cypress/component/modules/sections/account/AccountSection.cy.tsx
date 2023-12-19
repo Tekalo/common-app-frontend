@@ -6,7 +6,7 @@ import {
   BASE_LINK,
   EDIT_APP_LINK,
   ERROR_MODAL_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   applicantStateEndpoint,
   applicantSubmissionsEndpoint,

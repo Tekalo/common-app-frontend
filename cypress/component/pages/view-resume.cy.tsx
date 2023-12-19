@@ -1,5 +1,5 @@
 import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
-import { ERROR_TEXT } from '@/lang/en';
+import { ERROR_TEXT } from '@/lang/en/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { applicantResumeEndpoint } from '@/lib/helpers/api/endpoints';
 import CookiesProvider from '@/lib/providers/cookiesProvider';

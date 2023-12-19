@@ -1,5 +1,5 @@
 import Timeline from '@/components/timeline/Timeline';
-import { APPLICANT_FORM_TEXT } from '@/lang/en';
+import { APPLICANT_FORM_TEXT } from '@/lang/en/en';
 import { ITimelineItem } from '@/lib/types';
 import { ButtonVariant } from '@/modules/components/buttons/Button/Button';
 import ConfirmModal from '@/modules/components/modal/ConfirmModal/ConfirmModal';

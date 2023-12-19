@@ -3,7 +3,7 @@ import {
   APPLICANT_SIGNUP_LINK,
   HOME_HERO_TEXT,
   ORG_SIGNUP_LINK,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import Image from 'next/image';
 
 export interface IHeroSection {}

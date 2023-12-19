@@ -1,6 +1,6 @@
 import MainFooter from '@/components/navigation/MainFooter/MainFooter';
 import MainNavbar from '@/components/navigation/MainNavbar/MainNavbar';
-import { HEAD_TEXT } from '@/lang/en';
+import { HEAD_TEXT } from '@/lang/en/en';
 import Head from 'next/head';
 
 export interface IHomeLayout extends React.ComponentPropsWithoutRef<'div'> {

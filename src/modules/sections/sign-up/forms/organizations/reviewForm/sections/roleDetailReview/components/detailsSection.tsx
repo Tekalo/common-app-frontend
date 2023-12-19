@@ -1,4 +1,4 @@
-import { REVIEW_FORM_TEXT } from '@/lang/en';
+import { REVIEW_FORM_TEXT } from '@/lang/en/en';
 import { capitalizeFirstLetter } from '@/lib/helpers/string';
 import { IRoleSection } from '@/modules/sections/sign-up/forms/organizations/reviewForm/sections/roleDetailReview/components/shared';
 

@@ -1,4 +1,4 @@
-import { HOME_ABOUT_TEXT } from '@/lang/en';
+import { HOME_ABOUT_TEXT } from '@/lang/en/en';
 
 const GoalsList: React.FC = () => (
   <div className="mb-7 lg:mb-0 lg:ml-[182px]">

@@ -1,5 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { CONTACT_US_MAILTO_LINK, HOME_CONTACT_TEXT } from '@/lang/en';
+import { CONTACT_US_MAILTO_LINK, HOME_CONTACT_TEXT } from '@/lang/en/en';
 
 export interface IContactSection {}
 

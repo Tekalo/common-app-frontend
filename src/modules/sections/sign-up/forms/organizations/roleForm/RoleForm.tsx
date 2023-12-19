@@ -3,7 +3,7 @@ import {
   EMPLOYMENT_TYPE_TEXT,
   ERROR_TEXT,
   ORG_ROLE_FORM_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   EmploymentOptions,
   PaidOptions,

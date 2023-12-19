@@ -1,4 +1,4 @@
-import { HOME_ABOUT_TEXT } from '@/lang/en';
+import { HOME_ABOUT_TEXT } from '@/lang/en/en';
 import Image from 'next/image';
 
 const RoleTypes: React.FC = () => {

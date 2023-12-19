@@ -1,4 +1,4 @@
-import { HOME_ABOUT_TEXT } from '@/lang/en';
+import { HOME_ABOUT_TEXT } from '@/lang/en/en';
 import { CircledCheckSvg } from '@/lib/constants/svgs';
 import { ReactNode } from 'react';
 

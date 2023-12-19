@@ -7,7 +7,7 @@ import {
   CONTACT_US_MAILTO_LINK,
   NAV_BAR_TEXT,
   NAV_LITE_HEADER_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { IconType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
@@ -18,10 +18,7 @@ export interface ILiteNavbar extends React.ComponentPropsWithoutRef<'header'> {
   title?: string;
 }
 
-const LiteNavbar: React.FC<ILiteNavbar> = ({
-  isEditing,
-  title,
-}) => {
+const LiteNavbar: React.FC<ILiteNavbar> = ({ isEditing, title }) => {
   const { isLoading } = useAuth0();
 
   return (

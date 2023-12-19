@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/navigation/Breadcrumb/Breadcrumb';
 import NavTitle from '@/components/navigation/NavTitle/NavTitle';
-import { APPLICANT_SIGNUP_LINK, ORG_FORM_TEXT } from '@/lang/en';
+import { APPLICANT_SIGNUP_LINK, ORG_FORM_TEXT } from '@/lang/en/en';
 import { NewOrgType, NewRoleType } from '@/lib/types';
 import RoleForm from '@/sections/sign-up/forms/organizations/roleForm/RoleForm';
 import OrgSignupForm from '@/sections/sign-up/forms/organizations/signupForm/SignupForm';

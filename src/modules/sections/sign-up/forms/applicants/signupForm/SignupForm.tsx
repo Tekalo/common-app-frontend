@@ -4,7 +4,7 @@ import {
   CONTACT_OPTION_TEXT,
   ERROR_TEXT,
   TERMS_LINK,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   PreferredContactOptions,
   SearchStatusOptions,

@@ -1,5 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { COOKIE_CONSENT, PRIVACY_LINK, SIGN_IN_REDIRECT } from '@/lang/en';
+import { COOKIE_CONSENT, PRIVACY_LINK, SIGN_IN_REDIRECT } from '@/lang/en/en';
 import TekaloProvidersWrapper from '@/lib/providers/tekaloProvidersWrapper';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
