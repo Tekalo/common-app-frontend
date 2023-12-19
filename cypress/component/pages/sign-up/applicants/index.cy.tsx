@@ -27,8 +27,8 @@ import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupF
 import ApplicantSignup from '@/pages/sign-up/applicants';
 
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import router from 'next/router';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 const qc = new QueryClient();
 

@@ -5,7 +5,7 @@ import { DraftSubmissionType } from '@/lib/types';
 import ExperienceForm, {
   IExperienceForm,
 } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Subject } from 'rxjs';
 
 Cypress.Commands.add('mountExperienceForm', (props: IExperienceForm) => {

@@ -6,8 +6,8 @@ import CookiesProvider from '@/lib/providers/cookiesProvider';
 import SubmissionProvider from '@/lib/providers/submissionProvider';
 import SignInActionPage from '@/pages/signin-action';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as routerModule from 'next/router';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 Cypress.Commands.add('mountSignInActionPage', (auth0Context) => {
   cy.mount(

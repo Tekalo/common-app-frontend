@@ -4,8 +4,8 @@ import SkillsSearchProvider, {
   ISkillSearchResults,
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useContext, useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 export interface IMockComponent {
   query: string;

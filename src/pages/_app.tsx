@@ -6,6 +6,7 @@ import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/nextjs';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
@@ -15,7 +16,6 @@ import CookieConsent, {
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;

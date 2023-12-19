@@ -12,8 +12,8 @@ import {
 } from '@/lib/helpers/api/endpoints';
 import { IProvider } from '@/lib/providers/shared';
 import { useAuth0 } from '@auth0/auth0-react';
+import { QueryClient, UseQueryResult, useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { QueryClient, UseQueryResult, useQuery } from 'react-query';
 import { AccountResponseType, NewCandidateType } from '../types';
 
 interface IApplicantContext {
@@ -91,7 +91,7 @@ const ApplicantProvider: React.FC<IProvider> = ({ children }) => {
 
   const queryHandler = (res: Response) => {
     if (res.ok) {
-      qc.invalidateQueries(queryKey);
+      qc.invalidateQueries({ queryKey: [queryKey] });
     }
 
     return res;
