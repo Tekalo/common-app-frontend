@@ -64,7 +64,7 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
       case 'local':
         return 'http://localhost:3000';
       default:
-        return 'https://capp-api.dev.apps.futurestech.cloud';
+        return 'https://capp-api.v2-dev.tekalo.io';
     }
   })();
 
