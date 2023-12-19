@@ -1,5 +1,5 @@
 import Timeline from '@/components/timeline/Timeline';
-import { HOME_FAQ_TEXT, HOME_HOW_TEXT } from '@/lang/en';
+import { HOME_FAQ_TEXT, HOME_HOW_TEXT } from '@/lang/en/en';
 import { ITimelineItem } from '@/lib/types';
 import { useState } from 'react';
 

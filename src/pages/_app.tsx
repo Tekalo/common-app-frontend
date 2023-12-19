@@ -1,5 +1,5 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { COOKIE_CONSENT, PRIVACY_LINK, SIGN_IN_REDIRECT } from '@/lang/en';
+import { COOKIE_CONSENT, PRIVACY_LINK, SIGN_IN_REDIRECT } from '@/lang/en/en';
 import TekaloProvidersWrapper from '@/lib/providers/tekaloProvidersWrapper';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
@@ -15,6 +15,7 @@ import CookieConsent, {
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
@@ -22,6 +23,7 @@ interface AppPropsWithLayout extends AppProps {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const cookieName = 'tekalo-opt-in-cookie';
+  const queryClient = new QueryClient();
 
   Sentry.init({
     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
@@ -52,9 +54,11 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       }}
     >
       <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
-        <TekaloProvidersWrapper>
-          {getLayout(<Component {...pageProps} />)}
-        </TekaloProvidersWrapper>
+        <QueryClientProvider client={queryClient}>
+          <TekaloProvidersWrapper>
+            {getLayout(<Component {...pageProps} />)}
+          </TekaloProvidersWrapper>
+        </QueryClientProvider>
         <CookieConsent
           onAccept={() => window.consentGranted()}
           enableDeclineButton

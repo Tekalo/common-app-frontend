@@ -8,7 +8,7 @@ Cypress.Commands.add(
       const firstString = text.substring(0, text.length - 1);
       const lastChar = text.charAt(text.length - 1);
 
-      wrappedSubject.invoke('val', firstString).type(lastChar, { delay: 0 });
+      wrappedSubject.invoke('val', firstString).type(lastChar);
     }
 
     return wrappedSubject;

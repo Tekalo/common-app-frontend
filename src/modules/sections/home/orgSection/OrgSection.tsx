@@ -1,5 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { HOME_ORG_TEXT, ORG_SIGNUP_LINK } from '@/lang/en';
+import { HOME_ORG_TEXT, ORG_SIGNUP_LINK } from '@/lang/en/en';
 import Modal from '@/modules/components/modal/Modal/Modal';
 import recruitingLogos from '@/sections/home/orgSection/orgLogos';
 import Image from 'next/image';

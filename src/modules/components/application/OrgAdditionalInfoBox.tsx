@@ -1,4 +1,4 @@
-import { ORG_FORM_TEXT } from '@/lang/en';
+import { ORG_FORM_TEXT } from '@/lang/en/en';
 import { LightBulbInfoSVG } from '@/lib/constants/svgs';
 import { ReactElement } from 'react';
 

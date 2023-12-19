@@ -5,7 +5,7 @@ import {
   PRIVACY_LINK,
   PRIVACY_MODAL_TEXT,
   REVIEW_FORM_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   executeScroll,
   hasLengthError,

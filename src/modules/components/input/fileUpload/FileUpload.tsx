@@ -1,6 +1,6 @@
 import FileUploadInput from '@/components/input/fileUpload/components/fileUploadInput';
 import FileUploadWrapper from '@/components/input/fileUpload/components/fileUploadWrapper';
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { FileUploadContext } from '@/lib/providers/fileUploadProvider/fileUploadProvider';
 import { UploadedFileType } from '@/lib/types';
 import { useContext, useEffect, useState } from 'react';

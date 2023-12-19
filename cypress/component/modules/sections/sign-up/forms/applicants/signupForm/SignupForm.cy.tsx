@@ -6,7 +6,7 @@ import {
   ERROR_TEXT,
   SEARCH_STATUS_ENUM_OPTIONS,
   TERMS_LINK,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import SignupForm, {
   ISignupForm,
 } from '@/sections/sign-up/forms/applicants/signupForm/SignupForm';

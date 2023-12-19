@@ -1,4 +1,4 @@
-import { REVIEW_FORM_TEXT } from '@/lang/en';
+import { REVIEW_FORM_TEXT } from '@/lang/en/en';
 import { NewRoleType } from '@/lib/types';
 
 interface IRoleEssaysSection {

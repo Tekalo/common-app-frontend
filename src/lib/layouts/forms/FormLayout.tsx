@@ -1,4 +1,4 @@
-import { NAV_LITE_FOOTER_TEXT } from '@/lang/en';
+import { NAV_LITE_FOOTER_TEXT } from '@/lang/en/en';
 import LiteFooter from '@/modules/components/navigation/LiteFooter/LiteFooter';
 import LiteNavbar from '@/modules/components/navigation/LiteNavbar/LiteNavbar';
 import Head from 'next/head';

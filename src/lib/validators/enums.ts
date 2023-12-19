@@ -15,7 +15,7 @@ import {
   WORKAUTH_ENUM_OPTIONS,
   YOE_ENUM_OPTIONS,
   YOE_RANGE_ENUM_OPTIONS,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   chooseOneErrorMap,
   defaultEnumErrorMap,

@@ -1,5 +1,5 @@
 import Faq from '@/components/faq/Faq';
-import { HOME_FAQ_TEXT, PRIVACY_LINK, TERMS_LINK } from '@/lang/en';
+import { HOME_FAQ_TEXT, PRIVACY_LINK, TERMS_LINK } from '@/lang/en/en';
 import { IFaqItem } from '@/lib/types';
 import Link from 'next/link';
 import { useState } from 'react';

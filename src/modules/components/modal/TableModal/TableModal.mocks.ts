@@ -1,4 +1,4 @@
-import { ORG_CONTENT_TABLE_TEXT } from '@/lang/en';
+import { ORG_CONTENT_TABLE_TEXT } from '@/lang/en/en';
 import { ITableModal } from './TableModal';
 
 let isOpen = true;

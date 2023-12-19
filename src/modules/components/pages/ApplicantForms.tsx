@@ -8,7 +8,7 @@ import {
   SAVE_MODAL,
   TRACKING,
   UPLOAD_ERROR_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { nullifyEmptyFields } from '@/lib/helpers/transformers';
 import { voidFn } from '@/lib/helpers/utilities';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
@@ -46,6 +46,11 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   // Providers
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const submissionCtx = useContext(SubmissionContext);
+  const {
+    data: submissionData,
+    error: submissionError,
+    isLoading: submissionIsLoading,
+  } = submissionCtx.useSubmission();
   const gtmCtx = useContext(GTMContext);
 
   // Form Values
@@ -67,20 +72,48 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   const [$updateExperienceForm] = useState(new Subject<void>());
   const [$updateInterestForm] = useState(new Subject<void>());
 
+  // Get Submissions
   useEffect(() => {
-    if (!isLoading) {
-      getSubmissions();
-    }
-  }, [isAuthenticated, isLoading, getAccessTokenSilently]);
+    const checkApplicationSubmitted = (
+      response: SubmissionResponseType
+    ): void => {
+      // If they haven't submitted yet, they can't edit
+      if (isEditing && !response.isFinal) {
+        $unlockedNavigation.next(ACCOUNT_LINK);
+      }
+    };
 
-  const checkApplicationSubmitted = (
-    response: SubmissionResponseType
-  ): void => {
-    // If they haven't submitted yet, they can't edit
-    if (isEditing && !response.isFinal) {
-      $unlockedNavigation.next(ACCOUNT_LINK);
+    if (
+      !isLoading &&
+      !submissionIsLoading &&
+      (submissionData || submissionError)
+    ) {
+      if (submissionData) {
+        checkApplicationSubmitted(submissionData);
+        setDraftFormValues(submissionData.submission);
+        setIsInterestFormStarted(
+          interestFormHasBeenStarted(submissionData.submission)
+        );
+      } else {
+        const errorCause = submissionError?.cause as Response;
+
+        if (errorCause?.status === 401) {
+          $unlockedNavigation.next(BASE_LINK);
+        } else {
+          setModalError(MODAL_ERROR_TYPE.GENERAL);
+          console.error(submissionError);
+        }
+      }
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    getAccessTokenSilently,
+    isAuthenticated,
+    isLoading,
+    submissionData,
+    submissionError,
+    submissionIsLoading,
+  ]);
 
   const getAuthToken = async () => {
     return isAuthenticated ? await getAccessTokenSilently() : '';
@@ -102,31 +135,6 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       setHasUnsavedChanges(true);
     }
   };
-
-  async function getSubmissions(): Promise<void> {
-    submissionCtx
-      .getCandidateSubmissions(await getAuthToken())
-      .then(async (res) => {
-        if (res.ok) {
-          const response: SubmissionResponseType = await res.json();
-
-          checkApplicationSubmitted(response);
-          setDraftFormValues(response.submission);
-          setIsInterestFormStarted(
-            interestFormHasBeenStarted(response.submission)
-          );
-        } else if (res.status === 401) {
-          $unlockedNavigation.next(BASE_LINK);
-        } else {
-          setModalError(MODAL_ERROR_TYPE.GENERAL);
-          console.error(res.statusText);
-        }
-      })
-      .catch((error) => {
-        setModalError(MODAL_ERROR_TYPE.GENERAL);
-        console.error('failed to fetch submissions', error);
-      });
-  }
 
   const getNullSubmission = (): DraftSubmissionType => {
     return Object.keys(CandidateDraftSchema.shape).reduce(
@@ -177,11 +185,10 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
 
   // FUNCTION: Saves form responses to parent state and generates final form
   const handleSubmit = async (values: InterestFieldsType) => {
-    const newFormState = {
+    setDraftFormValues({
       ...draftFormValues,
       ...values,
-    };
-    setDraftFormValues(newFormState);
+    });
 
     const finalFormValues = {
       ...getNullSubmission(),
