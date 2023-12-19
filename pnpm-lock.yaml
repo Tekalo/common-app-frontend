@@ -27,8 +27,8 @@ dependencies:
     specifier: ^7.85.0
     version: 7.86.0(next@14.0.4)(react@18.2.0)(webpack@5.89.0)
   '@tanstack/react-query':
-    specifier: ^4.0.5
-    version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^5.0.0
+    version: 5.14.1(react@18.2.0)
   common-app-frontend:
     specifier: 'link:'
     version: 'link:'
@@ -5186,26 +5186,17 @@ packages:
       tailwindcss: 3.3.6
     dev: true
 
-  /@tanstack/query-core@4.36.1:
-    resolution: {integrity: sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==}
+  /@tanstack/query-core@5.14.1:
+    resolution: {integrity: sha512-TlZarySCVEiap4K7BCvrsYZnX7jBbEkR55YMrk8ELcRbuAx6ydL+qoxqUt8Fq8VMvQyGt52icn6T7eJL1Q35KQ==}
     dev: false
 
-  /@tanstack/react-query@4.36.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
+  /@tanstack/react-query@5.14.1(react@18.2.0):
+    resolution: {integrity: sha512-v7jhe/3jhChiR0XJbGHaG5WNPd/cURwzDGBCr4rzpUTeudPzxrtVRKsF1xJRLcJK3qH/0gIwTYHIPZ3gj+01Yw==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
+      react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 4.36.1
+      '@tanstack/query-core': 5.14.1
       react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
   /@testing-library/dom@9.3.3:
@@ -17288,14 +17279,6 @@ packages:
       react: 18.2.0
       tslib: 2.6.2
     dev: true
-
-  /use-sync-external-store@1.2.0(react@18.2.0):
-    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
