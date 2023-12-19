@@ -6,8 +6,8 @@ import {
 import { IProvider } from '@/lib/providers/shared';
 import { DraftSubmissionType, SubmissionResponseType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
+import { QueryClient, UseQueryResult, useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { QueryClient, UseQueryResult, useQuery } from 'react-query';
 
 interface ISubmissionContext {
   saveCandidateDraft: (
@@ -56,7 +56,7 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
 
   const queryHandler = (res: Response) => {
     if (res.ok) {
-      qc.invalidateQueries(queryKey);
+      qc.invalidateQueries({ queryKey: [queryKey] });
     }
 
     return res;
