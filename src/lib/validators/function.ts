@@ -1,4 +1,4 @@
-import { ERROR_TEXT } from '@/lang/en';
+import { ERROR_TEXT } from '@/lang/en/en';
 import { PhoneNumber } from '@/lib/validators/string';
 import { FormInstance } from 'houseform';
 

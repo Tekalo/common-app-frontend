@@ -1,5 +1,5 @@
 import { ButtonVariant } from '@/components/buttons/Button/Button';
-import { DELETE_MODAL } from '@/lang/en';
+import { DELETE_MODAL } from '@/lang/en/en';
 import { IConfirmModal } from '@/modules/components/modal/ConfirmModal/ConfirmModal';
 
 const base: IConfirmModal = {

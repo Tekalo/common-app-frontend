@@ -6,7 +6,7 @@ import SkillsSearchProvider, {
 import SkillsSelect, {
   ISkillsSelect,
 } from '@/modules/components/input/skillsSelect/skillsSelect';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 Cypress.Commands.add('mountSkillsSelect', (props: ISkillsSelect) => {
   cy.mount(

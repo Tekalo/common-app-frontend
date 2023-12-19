@@ -1,11 +1,12 @@
 import RankChoiceCard from '@/components/input/rankChoice/RankChoiceCard';
-import { COOKIE_CONSENT, PRIVACY_LINK, SIGN_IN_REDIRECT } from '@/lang/en';
+import { COOKIE_CONSENT, PRIVACY_LINK, SIGN_IN_REDIRECT } from '@/lang/en/en';
 import TekaloProvidersWrapper from '@/lib/providers/tekaloProvidersWrapper';
 import { NextPageWithLayout } from '@/lib/types';
 import '@/styles/globals.css';
 import '@/styles/phone-number-input.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import * as Sentry from '@sentry/nextjs';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import CookieConsent, {
@@ -15,7 +16,6 @@ import CookieConsent, {
 import { DndProvider } from 'react-dnd';
 import { Preview } from 'react-dnd-preview';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;

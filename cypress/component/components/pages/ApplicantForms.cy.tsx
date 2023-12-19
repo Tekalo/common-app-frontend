@@ -12,7 +12,7 @@ import {
   SAVE_MODAL,
   TRACKING,
   UPLOAD_ERROR_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,
@@ -34,10 +34,10 @@ import { IExperienceForm } from '@/modules/sections/sign-up/forms/applicants/exp
 import * as InterestFormModule from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { IInterestForm } from '@/modules/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Interception } from 'cypress/types/net-stubbing';
 import { SinonSpy } from 'cypress/types/sinon';
 import router from 'next/router';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { Subject } from 'rxjs';
 
 export interface ExperienceAndInterestProps {

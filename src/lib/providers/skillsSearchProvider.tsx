@@ -1,9 +1,9 @@
 import { get } from '@/lib/helpers/api/apiHelpers';
 import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import { IProvider } from '@/lib/providers/shared';
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
-import { UseQueryResult, useQuery } from 'react-query';
 
 export interface ISkill {
   canonical: string;

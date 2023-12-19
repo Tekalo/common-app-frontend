@@ -1,4 +1,4 @@
-import { PRIVACY_LINK, TERMS_TEXT } from '@/lang/en';
+import { PRIVACY_LINK, TERMS_TEXT } from '@/lang/en/en';
 
 export interface ITermsAndConditions {}
 

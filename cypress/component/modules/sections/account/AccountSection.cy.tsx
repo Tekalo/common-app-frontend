@@ -6,7 +6,7 @@ import {
   BASE_LINK,
   EDIT_APP_LINK,
   ERROR_MODAL_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   applicantStateEndpoint,
   applicantSubmissionsEndpoint,
@@ -16,8 +16,8 @@ import ApplicantProvider from '@/lib/providers/applicantProvider';
 import SubmissionProvider from '@/lib/providers/submissionProvider';
 import AccountSection from '@/modules/sections/account/AccountSection';
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as RouterModule from 'next/router';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 Cypress.Commands.add('mountAccountSection', (auth0Context) => {
   const queryClient = new QueryClient();

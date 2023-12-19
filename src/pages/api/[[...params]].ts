@@ -1,5 +1,17 @@
 // Next.js Edge API Routes: https://nextjs.org/docs/api-routes/edge-api-routes
-import { TurnstileServerValidationResponse } from '@marsidev/react-turnstile';
+import {
+  debugHeaderName,
+  turnstileEndpoint,
+  turnstileTokenHeaderName,
+} from '@/lib/api/constants';
+import { requestWithBody, requestWithoutBody } from '@/lib/api/requests';
+import { validateTurnstileAndPost } from '@/lib/api/turnstile';
+import {
+  getBaseUrl,
+  getProxyHealthResponse,
+  setAuthHeader,
+  setDebugHeader,
+} from '@/lib/api/util';
 import type { NextRequest } from 'next/server';
 
 export const config = {
@@ -8,97 +20,20 @@ export const config = {
 
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
 
-const getTurnstileRejectionResponse = () =>
-  new Response(
-    JSON.stringify({
-      message:
-        'Our robot guardians determined that you are likely a teapot - please try again and do your best to not be a teapot this time',
-    }),
-    {
-      status: 418,
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
-  );
-
-const validateTurnstileAndPost = async (
-  turnstileToken: string,
-  turnstileSecret: string,
-  turnstileEndpoint: string,
-  url: string,
-  req: NextRequest,
-  headers: any
-) => {
-  // Validate the x-turnstile-token header
-  const res = await fetch(turnstileEndpoint, {
-    method: 'POST',
-    body: `secret=${encodeURIComponent(
-      turnstileSecret
-    )}&response=${encodeURIComponent(turnstileToken)}`,
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-    },
-  });
-  const data = (await res.json()) as TurnstileServerValidationResponse;
-  if (data.success) {
-    // Call our API
-    return await fetch(url, {
-      method: 'POST',
-      body: req.body,
-      headers,
-    });
-  }
-  // Otherwise return an error
-  return getTurnstileRejectionResponse();
-};
-
 const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
-  const BASE_URL = (() => {
-    // Note: This process.env variable is picked from the Cloudflare Pages environment variables - others are set at build time in the github action
-    switch (process.env.CF_PAGES_BRANCH) {
-      case 'main':
-        return 'https://capp-api.prod-ext.apps.futurestech.cloud';
-      case 'staging':
-        return 'https://capp-api.staging.apps.futurestech.cloud';
-      case 'local':
-        return 'http://localhost:3000';
-      default:
-        return 'https://capp-api.v2-dev.tekalo.io';
-    }
-  })();
-
-  const authToken = req.headers.get('Authorization');
-  const sessionCookie = req.cookies.get('connect.sid');
-  const debugHeader = req.headers.get('X-Debug');
-  const cookieHeader = `${sessionCookie?.name}=${sessionCookie?.value}`;
+  const BASE_URL = getBaseUrl();
   const turnstileSecret = process.env.TURNSTILE_SECRET || '';
-  const turnstileToken = req.headers.get('x-turnstile-token') || '';
+  const turnstileToken = req.headers.get(turnstileTokenHeaderName) || '';
   const url = `${BASE_URL}/${params.join('/')}`;
-  const turnstileEndpoint =
-    'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
   const headers: any = {
     'Content-Type': 'application/json',
   };
-  let debugValueIsValid = false;
 
-  if (authToken) {
-    headers.Authorization = authToken;
-  } else if (sessionCookie?.value) {
-    headers.Cookie = cookieHeader;
-  }
+  setAuthHeader(req, headers);
+  setDebugHeader(req, headers);
 
-  if (debugHeader) {
-    if (debugHeader === process.env.DEBUG_MODE_SECRET) {
-      // Set debug header, mark it as valid, and continue
-      debugValueIsValid = true;
-      headers['X-Debug'] = debugHeader;
-    } else {
-      // reject request
-      return getTurnstileRejectionResponse();
-    }
-  }
+  const debugValueIsValid = headers[debugHeaderName] ? true : false;
 
   switch (req.method) {
     case 'POST':
@@ -116,34 +51,18 @@ const fetchAPIResponse = async (req: NextRequest, params: string[]) => {
           req,
           headers
         );
-      } // Otherwise post to the server as usual
-      return await fetch(url, {
-        method: 'POST',
-        body: req.body,
-        headers,
-      });
+      }
+
+      // Otherwise post to the server as usual
+      return await requestWithBody('POST', url, req, headers);
     case 'PUT':
-      return await fetch(url, {
-        method: 'PUT',
-        body: req.body,
-        headers,
-      });
+      return await requestWithBody('PUT', url, req, headers);
     case 'PATCH':
-      return await fetch(url, {
-        method: 'PATCH',
-        body: req.body,
-        headers,
-      });
+      return await requestWithBody('PATCH', url, req, headers);
     case 'DELETE':
-      return await fetch(url, {
-        method: 'DELETE',
-        headers,
-      });
+      return await requestWithoutBody('DELETE', url, headers);
     default:
-      return await fetch(url, {
-        method: 'GET',
-        headers,
-      });
+      return await requestWithoutBody('GET', url, headers);
   }
 };
 
@@ -152,17 +71,7 @@ export default async function handler(req: NextRequest): Promise<Response> {
 
   if (params.length === 0 || params[0] === 'undefined') {
     // Return proxy health if no parameters are provided
-    return new Response(
-      JSON.stringify({
-        proxy: 'OK',
-      }),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        } as HeadersInit,
-      }
-    );
+    return getProxyHealthResponse();
   } else {
     // Pass the request directly the 3rd party API
     const result = await fetchAPIResponse(req, params);

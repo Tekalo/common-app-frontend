@@ -7,7 +7,7 @@ import {
   NAV_LITE_HEADER_TEXT,
   PRIVACY_LINK,
   TERMS_LINK,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import ApplicationLayout, {
   IApplicationLayout,
 } from '@/lib/layouts/forms/application/ApplicationLayout';

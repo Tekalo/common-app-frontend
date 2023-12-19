@@ -11,7 +11,7 @@ import {
   WORK_AUTHORIZATION_TEXT,
   YES_NO_TEXT,
   YOE_OPTION_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   capitalizeEveryWord,
   capitalizeFirstLetter,

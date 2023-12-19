@@ -1,13 +1,13 @@
-import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en';
+import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { CookiesContext } from '@/lib/providers/cookiesProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';
 import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
+import { QueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
-import { QueryClient } from 'react-query';
 
 const SignInActionPage: NextPageWithLayout = () => {
   const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();

@@ -4,7 +4,7 @@ import RoleForm, {
 
 import { OrganizationRoleSelectors as Selectors } from '@/cypress/support/selectors/organization-role.selectors';
 import SkillsSearchProvider from '@/lib/providers/skillsSearchProvider';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 Cypress.Commands.add('mountOrgRoleForm', (props: IRoleForm) => {
   cy.mount(

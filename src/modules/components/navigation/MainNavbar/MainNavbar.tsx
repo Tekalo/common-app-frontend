@@ -3,7 +3,11 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import MobileMenu from '@/components/navigation/MainNavbar/MobileMenu';
 import NavBarWrapper from '@/components/pages/wrappers/NavBarWrapper';
-import { ACCOUNT_LINK, APPLICANT_SIGNUP_LINK, NAV_BAR_TEXT } from '@/lang/en';
+import {
+  ACCOUNT_LINK,
+  APPLICANT_SIGNUP_LINK,
+  NAV_BAR_TEXT,
+} from '@/lang/en/en';
 import { IconType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
@@ -15,9 +19,7 @@ export interface IMainNavbar extends React.ComponentPropsWithoutRef<'header'> {
   pageName: string;
 }
 
-const MainNavbar: React.FC<IMainNavbar> = ({
-  pageName,
-}) => {
+const MainNavbar: React.FC<IMainNavbar> = ({ pageName }) => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
