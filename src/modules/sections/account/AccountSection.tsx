@@ -1,11 +1,7 @@
 import { APPLICANT_SIGNUP_LINK, BASE_LINK } from '@/lang/en/en';
 import { ApplicantContext } from '@/lib/providers/applicantProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';
-import {
-  AccountResponseType,
-  NextPageWithLayout,
-  SubmissionResponseType,
-} from '@/lib/types';
+import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
 import AccountApplicationStatus from '@/sections/account/components/accountApplicationStatus';
 import AccountDataControl from '@/sections/account/components/accountDataControl';
 import AccountGreeting from '@/sections/account/components/accountGreeting';
@@ -17,9 +13,19 @@ import { useContext, useEffect, useState } from 'react';
 
 const AccountSection: NextPageWithLayout = () => {
   const router = useRouter();
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, isLoading: auth0IsLoading } = useAuth0();
   const applicantCtx = useContext(ApplicantContext);
+  const {
+    data: accountData,
+    error: accountError,
+    isLoading: accountIsLoading,
+  } = applicantCtx.useAccount();
   const submissionCtx = useContext(SubmissionContext);
+  const {
+    data: submissionData,
+    error: submissionError,
+    isLoading: submissionIsLoading,
+  } = submissionCtx.useSubmission();
 
   // Status
   const [applicantExists, setApplicantExists] = useState(false);
@@ -36,15 +42,6 @@ const AccountSection: NextPageWithLayout = () => {
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
-
-  const checkApplicationEdited = (sub: SubmissionResponseType): void => {
-    const createdAt = new Date(sub.submission.createdAt);
-    const updatedAt = new Date(sub.submission.updatedAt);
-    const displayDate: Date =
-      createdAt.getTime() > updatedAt.getTime() ? createdAt : updatedAt;
-
-    setLastEditedDate(formatDate(displayDate));
-  };
 
   const formatDate = (date: Date): string => {
     const monthName = date.toLocaleString('default', {
@@ -66,73 +63,89 @@ const AccountSection: NextPageWithLayout = () => {
     console.error(res.statusText);
   };
 
-  // User must be logged in to view this page, check for auth
+  // Auth
   useEffect(() => {
-    const getSubmissions = async () => {
-      submissionCtx
-        .getCandidateSubmissions(await getAccessTokenSilently())
-        .then(async (res) => {
-          if (res.ok) {
-            const submissionResponse =
-              (await res.json()) as SubmissionResponseType;
+    if (!auth0IsLoading && !isAuthenticated) {
+      router.push(BASE_LINK);
+    }
+  }, [auth0IsLoading, isAuthenticated, router]);
 
-            if (submissionResponse.isFinal) {
-              checkApplicationEdited(submissionResponse);
-            }
+  // Loading
+  useEffect(() => {
+    if (!accountIsLoading && !submissionIsLoading) {
+      setShowContent(true);
+    }
+  }, [accountIsLoading, submissionIsLoading]);
 
-            setApplicationSubmitted(submissionResponse.isFinal);
-          } else {
-            if (res.status === 404) {
-              // TODO: Once API returns 200, revert to handleCaughtErrorResponse
-              console.log('No submissions for this user');
-            } else if (res.status === 401) {
-              router.push(APPLICANT_SIGNUP_LINK);
-            } else {
-              handleCaughtErrorResponse(res);
-            }
-          }
-        })
-        .catch(handleUncaughtErrorResponse);
-    };
+  // Account Request
+  useEffect(() => {
+    if (!auth0IsLoading && isAuthenticated) {
+      if (accountData) {
+        setApplicantExists(true);
+        setAccountName(accountData.name);
+        setMatchesPaused(accountData.isPaused);
+      } else if (accountError) {
+        const errorCause = accountError.cause as Response;
 
-    const getAccountData = async () => {
-      applicantCtx
-        .getAccountData(await getAccessTokenSilently())
-        .then(async (res) => {
-          if (res.ok) {
-            const accountResponse = (await res.json()) as AccountResponseType;
-
-            setApplicantExists(true);
-            setAccountName(accountResponse.name);
-            setMatchesPaused(accountResponse.isPaused);
-          } else {
-            if (res.status === 404) {
-              // TODO: Once API returns 200, revert to handleCaughtErrorResponse
-              setApplicantExists(false);
-            } else if (res.status === 401) {
-              router.push(APPLICANT_SIGNUP_LINK);
-            } else {
-              handleCaughtErrorResponse(res);
-            }
-          }
-        })
-        .catch(handleUncaughtErrorResponse);
-    };
-
-    const loadUserData = async () => {
-      await getAccountData();
-      await getSubmissions();
-      setTimeout(() => setShowContent(true), 1000);
-    };
-
-    if (!isLoading) {
-      if (isAuthenticated) {
-        loadUserData();
-      } else {
-        router.push(BASE_LINK);
+        if (errorCause.status === 404) {
+          setApplicantExists(false);
+        } else if (errorCause.status === 401) {
+          router.push(APPLICANT_SIGNUP_LINK);
+        } else {
+          handleCaughtErrorResponse(errorCause);
+        }
       }
     }
-  }, [isAuthenticated, isLoading]);
+  }, [
+    accountData,
+    accountError,
+    accountIsLoading,
+    applicantCtx,
+    auth0IsLoading,
+    isAuthenticated,
+    router,
+  ]);
+
+  // Submissions Request
+  useEffect(() => {
+    const checkApplicationEdited = (sub: SubmissionResponseType): void => {
+      const createdAt = new Date(sub.submission.createdAt);
+      const updatedAt = new Date(sub.submission.updatedAt);
+      const displayDate: Date =
+        createdAt.getTime() > updatedAt.getTime() ? createdAt : updatedAt;
+
+      setLastEditedDate(formatDate(displayDate));
+    };
+
+    if (!auth0IsLoading && isAuthenticated) {
+      if (submissionData) {
+        const isFinal = submissionData.isFinal;
+
+        if (isFinal) {
+          checkApplicationEdited(submissionData);
+        }
+
+        setApplicationSubmitted(isFinal);
+      } else if (submissionError) {
+        const errorCause = submissionError.cause as Response;
+
+        if (errorCause.status === 404) {
+          console.log('No submissions for this user');
+        } else if (errorCause.status === 401) {
+          router.push(APPLICANT_SIGNUP_LINK);
+        } else {
+          handleCaughtErrorResponse(errorCause);
+        }
+      }
+    }
+  }, [
+    submissionData,
+    submissionError,
+    submissionIsLoading,
+    auth0IsLoading,
+    isAuthenticated,
+    router,
+  ]);
 
   return (
     <div className="m-auto w-full max-w-[928px] px-6 pb-36 pt-24">

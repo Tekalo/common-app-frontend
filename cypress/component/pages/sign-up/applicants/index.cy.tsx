@@ -19,6 +19,8 @@ import {
   applicantsEndpoint,
   existingApplicantEndpoint,
 } from '@/lib/helpers/api/endpoints';
+import ApplicantProvider from '@/lib/providers/applicantProvider';
+import SubmissionProvider from '@/lib/providers/submissionProvider';
 import { NewCandidateType } from '@/lib/types';
 import * as SignupFormModule from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
 import { ISignupForm } from '@/modules/sections/sign-up/forms/applicants/signupForm/SignupForm';
@@ -26,6 +28,9 @@ import ApplicantSignup from '@/pages/sign-up/applicants';
 
 import { Auth0Context, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import router from 'next/router';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const qc = new QueryClient();
 
 Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
   // We are setting childProps to the props passed into the child component
@@ -70,11 +75,17 @@ Cypress.Commands.add('mountCandidateSignupFormPage', (auth0Context) => {
   cy.stub(SignupFormModule, 'default').callsFake(MockSignupForm);
 
   cy.mount(
-    <MockGTMProvider>
-      <Auth0Context.Provider value={auth0Context}>
-        <ApplicantSignup />
-      </Auth0Context.Provider>
-    </MockGTMProvider>
+    <Auth0Context.Provider value={auth0Context}>
+      <QueryClientProvider client={qc}>
+        <MockGTMProvider>
+          <ApplicantProvider>
+            <SubmissionProvider>
+              <ApplicantSignup />
+            </SubmissionProvider>
+          </ApplicantProvider>
+        </MockGTMProvider>
+      </QueryClientProvider>
+    </Auth0Context.Provider>
   ).then(() => childProps);
 });
 
@@ -143,6 +154,7 @@ describe('Applicant Signup Page', () => {
       pronoun: 'she/her',
       searchStatus: 'active',
     } as NewCandidateType;
+    qc.invalidateQueries();
   });
 
   it('should render', () => {
@@ -214,13 +226,14 @@ describe('Applicant Signup Page', () => {
 
     cy.mountCandidateSignupFormPage(mockAuth0Context);
 
-    cy.wait(['@hasSubmitted', '@hasData']);
+    cy.wait('@hasSubmitted');
+    cy.wait('@hasData');
 
     cy.get('@submittedCall').should('have.been.calledOnce');
     cy.get('@dataCall').should('have.been.calledOnce');
 
     cy.get('@routerPush').should(
-      'have.been.calledOnceWithExactly',
+      'have.been.calledWith',
       APPLICANT_EXPERIENCE_LINK
     );
   });

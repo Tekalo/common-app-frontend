@@ -11,22 +11,14 @@ import {
   SIGN_IN_LINK,
   TRACKING,
 } from '@/lang/en/en';
-import { get, post, postWithTurnstile } from '@/lib/helpers/api/apiHelpers';
-import {
-  applicantSubmissionsEndpoint,
-  applicantsEndpoint,
-  existingApplicantEndpoint,
-} from '@/lib/helpers/api/endpoints';
 import { stripEmptyFields } from '@/lib/helpers/transformers';
 import { jumpToFirstErrorMessage } from '@/lib/helpers/utilities';
 import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';
+import { ApplicantContext } from '@/lib/providers/applicantProvider';
 import { DebugContext } from '@/lib/providers/debugProvider';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
-import {
-  NewCandidateType,
-  NextPageWithLayout,
-  SubmissionResponseType,
-} from '@/lib/types';
+import { SubmissionContext } from '@/lib/providers/submissionProvider';
+import { NewCandidateType, NextPageWithLayout } from '@/lib/types';
 import LoadingSpinner from '@/modules/components/loadingSpinner/LoadingSpinner';
 import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
 import TableModal from '@/modules/components/modal/TableModal/TableModal';
@@ -49,66 +41,77 @@ const privacyModalExtras = (
 );
 
 const ApplicantSignup: NextPageWithLayout = () => {
-  const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
-    useAuth0();
+  const { isAuthenticated, isLoading: auth0IsLoading, user } = useAuth0();
+  const applicantCtx = useContext(ApplicantContext);
+  const {
+    data: accountData,
+    error: accountError,
+    isLoading: accountIsLoading,
+  } = applicantCtx.useAccount();
   const debugCtx = useContext(DebugContext);
   const gtmCtx = useContext(GTMContext);
+  const submissionCtx = useContext(SubmissionContext);
+  const {
+    data: submissionData,
+    error: submissionError,
+    isLoading: submissionIsLoading,
+  } = submissionCtx.useSubmission();
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
   const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
   const [showContent, setShowContent] = useState<boolean>(false);
 
-  /** Get user data on page load */
   useEffect(() => {
-    // Check if user has  an application
-    const hasSubmitted = async (): Promise<boolean> => {
-      return get(
-        applicantSubmissionsEndpoint,
-        await getAccessTokenSilently()
-      ).then(async (res) => {
-        if (res.ok) {
-          const submissions = (await res.json()) as SubmissionResponseType;
-          return submissions.isFinal;
-        } else {
-          return false;
-        }
-      });
+    const hasAccountData = (): boolean => {
+      return !!accountData;
     };
 
-    // Check if user exists
-    const hasAccountData = async (): Promise<boolean> => {
-      return get(
-        existingApplicantEndpoint,
-        await getAccessTokenSilently()
-      ).then(async (res) => {
-        if (res.ok) {
-          return true;
-        } else {
-          return false;
-        }
-      });
+    const hasSubmitted = (): boolean => {
+      if (submissionData) {
+        return submissionData.isFinal;
+      } else {
+        return false;
+      }
     };
 
-    const redirectUserCheck = async () => {
-      const hasSubmittedApplication = await hasSubmitted();
-      const hasAccount = await hasAccountData();
-
-      if (hasSubmittedApplication) {
+    const redirectUserCheck = () => {
+      if (hasSubmitted()) {
         router.push(ACCOUNT_LINK);
-      } else if (hasAccount) {
+      } else if (hasAccountData()) {
         router.push(APPLICANT_EXPERIENCE_LINK);
       } else {
         setShowContent(true);
       }
     };
 
-    if (!isLoading && isAuthenticated && user) {
-      redirectUserCheck();
-    } else {
-      setShowContent(true);
+    const accountReqComplete = accountData || accountError;
+    const submissionReqComplete = submissionData || submissionError;
+
+    if (
+      !auth0IsLoading &&
+      !accountIsLoading &&
+      !submissionIsLoading &&
+      accountReqComplete &&
+      submissionReqComplete
+    ) {
+      if (isAuthenticated && user) {
+        redirectUserCheck();
+      } else {
+        setShowContent(true);
+      }
     }
-  }, [isLoading, isAuthenticated, user, getAccessTokenSilently]);
+  }, [
+    accountData,
+    accountError,
+    accountIsLoading,
+    auth0IsLoading,
+    isAuthenticated,
+    submissionData,
+    submissionError,
+    submissionIsLoading,
+    user,
+  ]);
 
   const displayErrorModal = (): void => {
     setShowErrorModal(true);
@@ -124,29 +127,19 @@ const ApplicantSignup: NextPageWithLayout = () => {
       ...stripEmptyFields(values),
       utmParams: gtmCtx.getGtmParams(),
     };
-
-    let authToken = '';
-    let req;
-
-    if (isAuthenticated) {
-      authToken = await getAccessTokenSilently();
-    }
+    let req: Promise<Response>;
 
     setIsConflict(false);
 
     if (debugCtx.debugIsActive) {
-      req = post(
-        applicantsEndpoint,
+      req = applicantCtx.submitCandidateDebugSignup(
         applicantPayload,
-        authToken,
         debugCtx.debugSecret
       );
     } else {
-      req = postWithTurnstile(
-        applicantsEndpoint,
+      req = applicantCtx.submitCandidateSignup(
         applicantPayload,
-        turnstileToken,
-        authToken
+        turnstileToken
       );
     }
 
@@ -181,7 +174,7 @@ const ApplicantSignup: NextPageWithLayout = () => {
 
   return (
     <div className="flex min-h-screen min-w-full flex-col items-center justify-center">
-      {isLoading ? (
+      {auth0IsLoading ? (
         <div id="loading-spinner" className="mb-1/2 space-y-3">
           <LoadingSpinner />
           <h3 className="text-component-small-desktop text-center ">

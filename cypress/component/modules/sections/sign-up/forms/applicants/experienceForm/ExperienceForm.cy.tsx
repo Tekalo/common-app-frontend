@@ -1,24 +1,28 @@
-import { MockSkillSearchProvider, voidFn } from '@/cypress/fixtures/mocks';
+import { voidFn } from '@/cypress/fixtures/mocks';
 import { ERROR_TEXT } from '@/lang/en/en';
+import SkillsSearchProvider from '@/lib/providers/skillsSearchProvider';
 import { DraftSubmissionType } from '@/lib/types';
 import ExperienceForm, {
   IExperienceForm,
 } from '@/modules/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Subject } from 'rxjs';
 
 Cypress.Commands.add('mountExperienceForm', (props: IExperienceForm) => {
   cy.mount(
-    <MockSkillSearchProvider>
-      <ExperienceForm
-        $forceSubmitForm={props.$forceSubmitForm}
-        changeHasOcurred={props.changeHasOcurred}
-        handleNext={props.handleNext}
-        handleSave={props.handleSave}
-        isEditing={props.isEditing}
-        savedForm={props.savedForm}
-        showUploadErrorModal={props.showUploadErrorModal}
-      />
-    </MockSkillSearchProvider>
+    <QueryClientProvider client={new QueryClient()}>
+      <SkillsSearchProvider>
+        <ExperienceForm
+          $forceSubmitForm={props.$forceSubmitForm}
+          changeHasOcurred={props.changeHasOcurred}
+          handleNext={props.handleNext}
+          handleSave={props.handleSave}
+          isEditing={props.isEditing}
+          savedForm={props.savedForm}
+          showUploadErrorModal={props.showUploadErrorModal}
+        />
+      </SkillsSearchProvider>
+    </QueryClientProvider>
   );
 });
 
