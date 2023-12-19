@@ -8,7 +8,7 @@ import {
 } from '@/cypress/support/selectors/candidate-interest.selectors';
 
 import { voidFn } from '@/cypress/fixtures/mocks';
-import { APPLICANT_FORM_TEXT, ERROR_TEXT } from '@/lang/en';
+import { APPLICANT_FORM_TEXT, ERROR_TEXT } from '@/lang/en/en';
 import { DraftSubmissionType } from '@/lib/types';
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';

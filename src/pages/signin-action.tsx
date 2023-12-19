@@ -1,4 +1,4 @@
-import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en';
+import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { CookiesContext } from '@/lib/providers/cookiesProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';

@@ -7,7 +7,7 @@ import {
   REF_ENUM_OPTIONS,
   ROLE_ENUM_OPTIONS,
   YOE_RANGE_ENUM_OPTIONS,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { opportunityBatchEndpoint } from '@/lib/helpers/api/endpoints';
 import { OrgBatchSubmissionResponseType } from '@/lib/types';
 import { EmploymentType } from '@/lib/validators/enums';

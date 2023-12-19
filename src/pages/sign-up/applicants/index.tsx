@@ -10,7 +10,7 @@ import {
   PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
   TRACKING,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { stripEmptyFields } from '@/lib/helpers/transformers';
 import { jumpToFirstErrorMessage } from '@/lib/helpers/utilities';
 import ApplicationLayout from '@/lib/layouts/forms/application/ApplicationLayout';

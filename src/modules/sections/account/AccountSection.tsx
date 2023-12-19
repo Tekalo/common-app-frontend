@@ -1,4 +1,4 @@
-import { APPLICANT_SIGNUP_LINK, BASE_LINK } from '@/lang/en';
+import { APPLICANT_SIGNUP_LINK, BASE_LINK } from '@/lang/en/en';
 import { ApplicantContext } from '@/lib/providers/applicantProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';
 import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';

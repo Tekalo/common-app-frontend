@@ -1,5 +1,5 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { YOEOptions } from '@/lib/constants/selects';
 import {
   executeScroll,

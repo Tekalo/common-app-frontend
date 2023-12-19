@@ -3,7 +3,7 @@ import {
   ERROR_MODAL_TEXT,
   PAUSE_MODAL,
   RESUME_MODAL,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { ApplicantContext } from '@/lib/providers/applicantProvider';
 import { AccountResponseType } from '@/lib/types';
 import { ButtonVariant } from '@/modules/components/buttons/Button/Button';

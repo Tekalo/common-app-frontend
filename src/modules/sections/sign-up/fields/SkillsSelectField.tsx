@@ -1,4 +1,4 @@
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
 import SkillsSelect from '@/modules/components/input/skillsSelect/skillsSelect';

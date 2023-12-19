@@ -6,7 +6,7 @@ import {
   ORG_CONTENT_TABLE_TEXT,
   ORG_FAQ_TEXT,
   PRIVACY_TEXT,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import { useState } from 'react';
 
 export interface IPrivacyInfo {}

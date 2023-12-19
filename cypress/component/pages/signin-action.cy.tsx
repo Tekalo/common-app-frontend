@@ -1,5 +1,5 @@
 import { getMockAuth0Context } from '@/cypress/fixtures/mocks';
-import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en';
+import { ACCOUNT_LINK, BASE_LINK } from '@/lang/en/en';
 import { redirectCookieName } from '@/lib/constants/strings';
 import { applicantSubmissionsEndpoint } from '@/lib/helpers/api/endpoints';
 import CookiesProvider from '@/lib/providers/cookiesProvider';

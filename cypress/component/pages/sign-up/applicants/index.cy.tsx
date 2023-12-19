@@ -13,7 +13,7 @@ import {
   PRIVACY_MODAL_TEXT,
   SIGN_IN_LINK,
   TRACKING,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   applicantSubmissionsEndpoint,
   applicantsEndpoint,

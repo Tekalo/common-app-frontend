@@ -1,4 +1,4 @@
-import { ERROR_TEXT } from '@/lang/en';
+import { ERROR_TEXT } from '@/lang/en/en';
 import { UploadedFileType } from '@/lib/types';
 import { UploadedFile } from '@/lib/validators/object';
 

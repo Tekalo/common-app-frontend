@@ -5,7 +5,7 @@ import {
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
   CAUSE_ENUM_OPTIONS,
-} from '@/lang/en';
+} from '@/lang/en/en';
 import {
   applicantDraftSubmissionsEndpoint,
   applicantSubmissionsEndpoint,

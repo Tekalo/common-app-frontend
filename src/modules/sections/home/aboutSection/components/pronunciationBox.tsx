@@ -1,4 +1,4 @@
-import { HOME_ABOUT_TEXT } from '@/lang/en';
+import { HOME_ABOUT_TEXT } from '@/lang/en/en';
 
 const PronunciationBox: React.FC = () => (
   <div className="relative mx-auto max-w-[445px] lg:ml-16 lg:mt-9 lg:self-start">

@@ -1,4 +1,4 @@
-import { META } from '@/lang/en';
+import { META } from '@/lang/en/en';
 import { Head, Html, Main, NextScript } from 'next/document';
 import Script from 'next/script';
 

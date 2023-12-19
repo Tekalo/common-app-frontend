@@ -15,7 +15,7 @@ import {
 } from '@/lib/validators/enums';
 
 import Button from '@/components/buttons/Button/Button';
-import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en';
+import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en/en';
 import {
   executeScroll,
   hasLengthError,

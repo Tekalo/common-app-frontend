@@ -1,7 +1,5 @@
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en';
-import {
-  FileUploadContext
-} from '@/lib/providers/fileUploadProvider/fileUploadProvider';
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
+import { FileUploadContext } from '@/lib/providers/fileUploadProvider/fileUploadProvider';
 import { IProvider } from '@/lib/providers/shared';
 import FileUpload, {
   IFileUpload,
@@ -14,9 +12,7 @@ const mockFileName = 'example_resume.pdf';
 let fileIsValid: boolean;
 let setValueSpy: SinonSpy;
 
-const MockFileUploadProvider: React.FC<IProvider> = ({
-  children,
-}) => {
+const MockFileUploadProvider: React.FC<IProvider> = ({ children }) => {
   return (
     <FileUploadContext.Provider
       value={{

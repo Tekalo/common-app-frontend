@@ -1,5 +1,5 @@
 import { voidFn } from '@/cypress/fixtures/mocks';
-import { ERROR_TEXT } from '@/lang/en';
+import { ERROR_TEXT } from '@/lang/en/en';
 import SkillsSearchProvider from '@/lib/providers/skillsSearchProvider';
 import { DraftSubmissionType } from '@/lib/types';
 import ExperienceForm, {

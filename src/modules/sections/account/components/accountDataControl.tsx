@@ -1,4 +1,4 @@
-import { ACCOUNT_PAGE_TEXT } from '@/lang/en';
+import { ACCOUNT_PAGE_TEXT } from '@/lang/en/en';
 import { IOutlineSVG } from '@/lib/constants/svgs';
 import AccountAction from '@/sections/account/components/AccountLine/AccountAction';
 
