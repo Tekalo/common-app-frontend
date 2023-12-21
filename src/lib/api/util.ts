@@ -12,7 +12,7 @@ export const getBaseUrl = (): string => {
     case 'local':
       return 'http://localhost:3000';
     default:
-      return 'https://capp-api.v2-dev.tekalo.io';
+      return 'https://capp-api.dev.tekalo.io';
   }
 };
 
