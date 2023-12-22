@@ -48,7 +48,7 @@ describe('<Applicant SignupForm />', () => {
       };
     });
 
-    it('renders', () => {
+    it('should render', () => {
       cy.mountCandidateSignupForm(props);
 
       // Fields
@@ -62,7 +62,7 @@ describe('<Applicant SignupForm />', () => {
       cy.get(Selectors.phone.input).should('exist');
       cy.get(Selectors.privacy.input).should('exist');
       cy.get(Selectors.terms.input).should('exist');
-      cy.get(Selectors.followUp.input).should('exist');
+      // cy.get(Selectors.followUp.input).should('exist');
       cy.get(Selectors.turnstile.input).should('not.exist');
 
       // Button
@@ -170,7 +170,7 @@ describe('<Applicant SignupForm />', () => {
           acceptedPrivacy: true,
           acceptedTerms: true,
           email,
-          followUpOptIn: '',
+          // followUpOptIn: '',
           name,
           phone: '',
           preferredContact: CONTACT_ENUM_OPTIONS[0],
@@ -194,7 +194,7 @@ describe('<Applicant SignupForm />', () => {
       cy.get(Selectors.phone.input).wait(50).type(phone);
       cy.get(Selectors.privacy.input).fastClick();
       cy.get(Selectors.terms.input).fastClick();
-      cy.get(Selectors.followUp.input).fastClick();
+      // cy.get(Selectors.followUp.input).fastClick();
       cy.get(Selectors.buttons.submit).fastClick();
 
       cy.get('@submit')
@@ -206,7 +206,7 @@ describe('<Applicant SignupForm />', () => {
             acceptedPrivacy: true,
             acceptedTerms: true,
             email,
-            followUpOptIn: true,
+            // followUpOptIn: true,
             name,
             phone: `1${phone}`,
             preferredContact: 'sms',
@@ -229,7 +229,7 @@ describe('<Applicant SignupForm />', () => {
       cy.get(Selectors.phone.input).type(phone);
       cy.get(Selectors.privacy.input).fastClick();
       cy.get(Selectors.terms.input).fastClick();
-      cy.get(Selectors.followUp.input).fastClick();
+      // cy.get(Selectors.followUp.input).fastClick();
       cy.get(Selectors.buttons.submit).fastClick();
 
       cy.get('@submit').should(
@@ -238,7 +238,7 @@ describe('<Applicant SignupForm />', () => {
           acceptedPrivacy: true,
           acceptedTerms: true,
           email,
-          followUpOptIn: true,
+          // followUpOptIn: true,
           name,
           phone: `1${phone}`,
           preferredContact: CONTACT_ENUM_OPTIONS[2],
@@ -280,7 +280,7 @@ describe('<Applicant SignupForm />', () => {
       cy.get(Selectors.phone.input).should('exist');
       cy.get(Selectors.privacy.input).should('exist');
       cy.get(Selectors.terms.input).should('exist');
-      cy.get(Selectors.followUp.input).should('exist');
+      // cy.get(Selectors.followUp.input).should('exist');
       cy.get(Selectors.turnstile.input).should('exist');
 
       // Button
@@ -385,7 +385,7 @@ describe('<Applicant SignupForm />', () => {
           acceptedPrivacy: true,
           acceptedTerms: true,
           email,
-          followUpOptIn: '',
+          // followUpOptIn: '',
           name,
           phone: '',
           preferredContact: CONTACT_ENUM_OPTIONS[0],

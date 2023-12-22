@@ -22,12 +22,11 @@ export const ORG_FAQ_TEXT: Array<IFaqItem> = [
       'How do you decide which Organizations to share my info with?',
     answerText: (
       <>
-        Talent Connectors from Schmidt Futures and our collaborating
-        organizations, such as All Tech Is Human, US Digital Response, and Fast
-        Forward, will review applications and identify potential candidates.
-        They will then reach out to you to share those potential opportunities
-        and seek your permission to make your info available to the relevant
-        Organizations
+        Talent Connectors from All Tech Is Human and our collaborating
+        organizations, such as US Digital Response and Fast Forward, will review
+        applications and identify potential candidates. They will then reach out
+        to you to share those potential opportunities and seek your permission
+        to make your info available to the relevant Organizations
       </>
     ),
   },

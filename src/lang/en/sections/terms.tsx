@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 export const TERMS_TEXT = {
-  title: 'Futures Engine Terms of Use',
-  lastUpdate: 'Last Updated: May 12, 2023',
+  title: 'Tekalo Terms of Use',
+  lastUpdate: 'Last Updated: December 22, 2023',
   aboutTitle: 'About This Document',
   aboutSummary:
     'Summary: This is a binding agreement, and it includes an arbitration clause.',
@@ -12,9 +12,9 @@ export const TERMS_TEXT = {
         THESE TERMS SET FORTH A LEGALLY BINDING AGREEMENT BETWEEN YOU AND
         FUTURES ACTION NETWORK, LLC THAT GOVERNS YOUR ACCESS TO AND USE OF ALL
         INFORMATION, WEBSITES, SERVICES, EVENTS AND CONTENT (COLLECTIVELY,
-        “SERVICES”) PROVIDED IN CONNECTION WITH FUTURES ENGINE. BY ACCEPTING
-        THESE TERMS, ACCESSING AND USING SERVICES, OR OTHERWISE INTERACTING WITH
-        US IN CONNECTION THEREWITH, YOU:
+        “SERVICES”) PROVIDED IN CONNECTION WITH TEKALO. BY ACCEPTING THESE
+        TERMS, ACCESSING AND USING SERVICES, OR OTHERWISE INTERACTING WITH US IN
+        CONNECTION THEREWITH, YOU:
       </p>
       <p>
         (1) AGREE TO THESE TERMS PERSONALLY AND ON BEHALF OF ANY COMPANY OR
@@ -44,7 +44,7 @@ export const TERMS_TEXT = {
     </>
   ),
   minAgeTitle: 'Minimum Age',
-  minAgeSummary: 'Summary: You must be 18 or older to use Futures Engine.',
+  minAgeSummary: 'Summary: You must be 18 or older to use Tekalo.',
   minAgeText:
     'You represent that you are at least 18 years of age (or the age of majority in the jurisdiction in which you reside). The Services are not intended for anyone under 18, and you may not use the Services if you are under 18.',
   privacyInfoTitle: 'Privacy Notice',
@@ -71,16 +71,16 @@ export const TERMS_TEXT = {
       </p>
     </>
   ),
-  futuresEngineTitle: 'Futures Engine Content',
+  futuresEngineTitle: 'Tekalo Content',
   futuresEngineSummary:
-    "Summary: Futures Engine content belongs to others; don't steal it.",
+    "Summary: Tekalo content belongs to others; don't steal it.",
   futuresEngineText:
-    'All information, content, images, logos, trademarks, graphics, software, and other materials made available by us in connection with Futures Engine (collectively, the “Content”) are the sole property of the owners or licensors of such Content, and are protected by copyright, trademark, and other laws. You may not reproduce, modify, republish, distribute, resell, broadcast, reverse-engineer, create derivative works from or otherwise exploit in any manner, in whole or in part, the Content, except to the extent expressly permitted by us. We do not convey any interest in or to the Content. All rights not expressly granted herein are reserved by the owners or licensors of the Content. For the sake of clarity, the Services include the Content.',
+    'All information, content, images, logos, trademarks, graphics, software, and other materials made available by us in connection with Tekalo (collectively, the “Content”) are the sole property of the owners or licensors of such Content, and are protected by copyright, trademark, and other laws. You may not reproduce, modify, republish, distribute, resell, broadcast, reverse-engineer, create derivative works from or otherwise exploit in any manner, in whole or in part, the Content, except to the extent expressly permitted by us. We do not convey any interest in or to the Content. All rights not expressly granted herein are reserved by the owners or licensors of the Content. For the sake of clarity, the Services include the Content.',
   userMaterialTitle: 'User Material',
   userMaterialSummary: [
     'Summary: You own your User Material, but you permit us to use it in connection with providing the Services. Your information is not confidential; it will be seen by third parties who review applications or to whom you choose to share your info. ',
     'Read more',
-    '. We may remove User Material from Futures Engine in our discretion. Submit your User Material at your own risk. If you give us any Feedback, we can use it for any purpose.',
+    '. We may remove User Material from Tekalo in our discretion. Submit your User Material at your own risk. If you give us any Feedback, we can use it for any purpose.',
   ],
   userMaterialText: (
     <>
@@ -105,8 +105,8 @@ export const TERMS_TEXT = {
         use such User Material in the manner contemplated by these Terms.
       </p>
       <p>
-        Applying to Futures Engine requires you to submit your User Material for
-        review by us and third-parties with whom we’ve contracted. Under no
+        Applying to Tekalo requires you to submit your User Material for review
+        by us and third-parties with whom we’ve contracted. Under no
         circumstances will we be required to treat your User Material as
         confidential. For the avoidance of doubt, we will not be liable to you
         or any other person as a result of any similarities to the User Material
@@ -192,8 +192,8 @@ export const TERMS_TEXT = {
       <p>
         We may, in our sole and absolute discretion, reject Submissions or parts
         of Submissions that: (i) fail to meet any Submission Guideline, (ii) are
-        not reasonably pertinent to the subject matter of Futures Engine, (iii)
-        are illegible, incomplete, forged, altered or mechanically produced or
+        not reasonably pertinent to the subject matter of Tekalo, (iii) are
+        illegible, incomplete, forged, altered or mechanically produced or
         reproduced, or (iv) are otherwise in violation of or non-compliance with
         these Terms of Use.
       </p>
@@ -305,7 +305,7 @@ export const TERMS_TEXT = {
   ),
   otherTitle: 'Other Services and Features',
   otherSummary:
-    'Summary: We are not responsible for third-party services that we may invite you to use in connection with Futures Engine.',
+    'Summary: We are not responsible for third-party services that we may invite you to use in connection with Tekalo.',
   otherText:
     'For your convenience and information, the Services may provide links to other services and features, including apps, tools, widgets, activities and plugins, which may be operated by entities not affiliated with us. We make no representations or warranties regarding any such service or feature. If you choose to access any link to other services or features, you understand that you are connecting directly to that service or feature and will be subject to any terms of use, policies and privacy practices of the party that operates the service or feature.',
   copyrightTitle: 'Digital Millennium Copyright Act',
@@ -318,8 +318,8 @@ export const TERMS_TEXT = {
         Copyright Act. In the event you believe that any Content or User
         Material (defined below) infringes your copyright or other intellectual
         property right, you may notify our designated agent by email at
-        dmca@schmidtfutures.com or by mail to 155 W. 23rd St., 5th Floor, New
-        York, NY 10011, Attn: Futures Engine.
+        “_____________” or by mail to “_________________________________”, Attn:
+        Tekalo.
       </p>
       <p>You must include the following information in your complaint:</p>
       <ul className="list-disc pl-4">
@@ -576,7 +576,10 @@ export const TERMS_TEXT = {
       <p>Change log</p>
     </>
   ),
-  modificationsChangelog: ['May 12, 2023 - Terms of Use first published.'],
+  modificationsChangelog: [
+    'May 12, 2023 - Terms of Use first published.',
+    'December 22, 2023 - Updated contact information and document name',
+  ],
   electronicTitle: 'Electronic Communications',
   electronicSummary:
     'Summary: We are agreeing to communicate and enter into this contract via electronic means (i.e. there will be no signed paper copy).',
@@ -597,8 +600,8 @@ export const TERMS_TEXT = {
     <>
       <p>
         If you have any questions about these Terms, please email us at
-        support@tekalo.org. You also may write to: 155 W. 23rd St., 5th Floor,
-        New York, NY 10011, Attn: Futures Engine.
+        support@tekalo.org. You also may write to:
+        “________________________________________”, Attn: Tekalo.
       </p>
     </>
   ),

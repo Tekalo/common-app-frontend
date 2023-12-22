@@ -232,12 +232,12 @@ const SignupForm: React.FC<ISignupForm> = ({
                 validator={ToS}
               />
               {/* Follow-up opt-in */}
-              <BooleanField
+              {/* <BooleanField
                 fieldName="followUpOptIn"
                 label={APPLICANT_FORM_TEXT.FIELDS.followUpOptIn.label}
                 isSubmitted={isSubmitted}
                 initialValue={undefined}
-              />
+              /> */}
             </div>
 
             {/* Turnstile */}
