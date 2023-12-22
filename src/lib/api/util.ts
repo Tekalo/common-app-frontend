@@ -8,11 +8,11 @@ export const getBaseUrl = (): string => {
     case 'main':
       return 'https://capp-api.prod-ext.apps.futurestech.cloud';
     case 'staging':
-      return 'https://capp-api.staging.apps.futurestech.cloud';
+      return 'https://capp-api.staging.tekalo.io';
     case 'local':
       return 'http://localhost:3000';
     default:
-      return 'https://capp-api.dev.apps.futurestech.cloud';
+      return 'https://capp-api.dev.tekalo.io';
   }
 };
 
