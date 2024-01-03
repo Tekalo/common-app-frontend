@@ -8,10 +8,8 @@ import {
   OpenToRemoteMulti,
   OrgSize,
   OrgType,
-  PreferredContact,
   ReferenceAttribution,
   Roles,
-  SearchStatus,
   VisaSponsorship,
   WorkAuthorization,
   YOE,
@@ -66,16 +64,6 @@ const NewRoleSchema = z.object({
 
 /** Candidate Schemas
  */
-const NewCandidateSchema = z.object({
-  name: maxLengthString(255),
-  email: maxLengthString(255),
-  pronoun: maxLengthString(255).optional(),
-  preferredContact: PreferredContact,
-  searchStatus: SearchStatus,
-  acceptedTerms: z.literal(true),
-  acceptedPrivacy: z.literal(true),
-  followUpOptIn: z.boolean().optional(),
-});
 
 const CandidateExperienceSchema = z.object({
   lastRole: maxLengthString(255),
@@ -109,6 +97,7 @@ const CandidateInterestsSchema = z.object({
   referenceAttributionOther: maxLengthString(2048).nullable().optional(),
 });
 
+// TODO: shouldn't need this
 const UtmParams = z.object({
   ga_client_id: z.string().optional(),
   ga_session_id: z.string().optional(),
@@ -121,6 +110,7 @@ const UtmParams = z.object({
   utm_term: z.string().optional(),
 });
 
+// TODO: not sure if we need this anymore
 const CandidateDraftSchema = CandidateExperienceSchema.merge(
   CandidateInterestsSchema
 )
@@ -131,7 +121,6 @@ export {
   CandidateDraftSchema,
   CandidateExperienceSchema,
   CandidateInterestsSchema,
-  NewCandidateSchema,
   NewOrgSchema,
   NewRoleSchema,
 };

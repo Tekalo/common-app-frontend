@@ -1,9 +1,9 @@
-import { DraftResponseSchema, NewOrgOppSchema } from '@/lib/schemas/apiSchemas';
+import ApplicantSchemas from '@/capp/schemas/src/applicants';
+import OpportunitySchemas from '@/capp/schemas/src/opportunities';
 import {
   CandidateDraftSchema,
   CandidateExperienceSchema,
   CandidateInterestsSchema,
-  NewCandidateSchema,
   NewOrgSchema,
   NewRoleSchema,
 } from '@/lib/schemas/clientSchemas';
@@ -25,7 +25,9 @@ export type FieldStringType = FieldInstance<string, unknown>;
 export type DraftSubmissionType = z.infer<typeof CandidateDraftSchema>;
 export type ExperienceFieldsType = z.infer<typeof CandidateExperienceSchema>;
 export type InterestFieldsType = z.infer<typeof CandidateInterestsSchema>;
-export type NewCandidateType = z.infer<typeof NewCandidateSchema>;
+export type NewCandidateType = z.infer<
+  typeof ApplicantSchemas.ApplicantCreateRequestBodySchema
+>;
 export type NewOrgType = z.infer<typeof NewOrgSchema>;
 export type NewRoleType = z.infer<typeof NewRoleSchema>;
 export type PartialNewRoleType = Omit<NewRoleType, 'employmentType'> & {
@@ -33,41 +35,27 @@ export type PartialNewRoleType = Omit<NewRoleType, 'employmentType'> & {
   employmentTypeText: string;
 };
 export type CommitmentType = z.infer<typeof CommitmentType>;
-export type NewOrgOppFieldsType = z.infer<typeof NewOrgOppSchema>;
 export type IconType = (_props: IIconItem) => React.ReactNode;
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (_page: ReactElement) => ReactNode;
 };
 export type UploadedFileType = z.infer<typeof UploadedFile>;
 
-export type SubmissionResponseType = z.infer<typeof DraftResponseSchema>;
+export type SubmissionResponseType = z.infer<
+  typeof ApplicantSchemas.ApplicantGetSubmissionsResponseBodySchema
+>;
 
-export type AccountSubmissionResponseType = {
-  auth0Id: string;
-  email: string;
-  id: number;
-};
+export type AccountSubmissionResponseType = z.infer<
+  typeof ApplicantSchemas.ApplicantCreateResponseBodySchema
+>;
 
-export type OrgBatchSubmissionResponseType = {
-  id: number;
-  orgName: string;
-  orgType: string;
-  orgSize: string;
-  impactAreas: string[];
-  contactName: string;
-  contactEmail: string;
-  contactPhone: string;
-  equalOpportunityEmployer: boolean;
-  acceptedPrivacy: string;
-  referenceAttribution: string;
-};
+export type OrgBatchSubmissionResponseType = z.infer<
+  typeof OpportunitySchemas.OpportunityBatchResponseBodySchema
+>;
 
-export type AccountResponseType = {
-  email: string;
-  id: number;
-  isPaused: boolean;
-  name: string;
-};
+export type AccountResponseType = z.infer<
+  typeof ApplicantSchemas.ApplicantGetResponseBodySchema
+>;
 
 export type ContentTableData = {
   headers: {
