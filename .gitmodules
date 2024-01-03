@@ -1,0 +1,3 @@
+[submodule "common-app-api"]
+	path = common-app-api
+	url = git@github.com:Tekalo/common-app-api.git
