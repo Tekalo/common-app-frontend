@@ -32,6 +32,11 @@
       "@/sections/*": ["src/modules/sections/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "cypress"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "common-app-api/packages/schemas/*"
+  ],
+  "exclude": ["node_modules", "cypress", "common-app-api"]
 }

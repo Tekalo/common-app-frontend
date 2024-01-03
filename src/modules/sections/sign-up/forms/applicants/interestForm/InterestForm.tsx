@@ -107,7 +107,12 @@ const InterestForm: React.FC<IInterestForm> = ({
     if (formRef.current) {
       // We need to convert strings to booleans for specific fields
       // because radio inputs need to have string values
-      handleSave(convertStringFieldsToBool(formRef.current.value, savedForm));
+      handleSave(
+        convertStringFieldsToBool(
+          formRef.current.value,
+          savedForm
+        ) as DraftSubmissionType
+      );
     }
   };
 
@@ -122,7 +127,10 @@ const InterestForm: React.FC<IInterestForm> = ({
   $updateInterestValues.subscribe(() => {
     if (formRef.current) {
       updateFormValues(
-        convertStringFieldsToBool(formRef.current.value, savedForm)
+        convertStringFieldsToBool(
+          formRef.current.value,
+          savedForm
+        ) as DraftSubmissionType
       );
     }
   });
@@ -241,7 +249,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder={INTEREST_FORM_TEXT.FIELDS.openToRelocate.placeholder}
             listOptions={RelocationOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.openToRelocate}
+            initialValue={savedForm?.openToRelocate || undefined}
             validator={OpenToRelocate}
           />
           {/* Remote */}
@@ -367,7 +375,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             placeholder={INTEREST_FORM_TEXT.FIELDS.essayResponse.placeholder}
             isSubmitted={isSubmitted}
             tooltipText={INTEREST_FORM_TEXT.FIELDS.essayResponse.tooltipText}
-            initialValue={savedForm ? savedForm.essayResponse : ''}
+            initialValue={savedForm ? savedForm.essayResponse || undefined : ''}
             validator={RequiredEssay}
           />
           {/* Reference */}

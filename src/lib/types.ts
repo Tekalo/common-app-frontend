@@ -1,7 +1,6 @@
 import ApplicantSchemas from '@/capp/schemas/src/applicants';
 import OpportunitySchemas from '@/capp/schemas/src/opportunities';
 import {
-  CandidateDraftSchema,
   CandidateExperienceSchema,
   CandidateInterestsSchema,
   NewOrgSchema,
@@ -22,7 +21,9 @@ export type InterestRefType = FormInstance<InterestFieldsType>;
 export type FieldStringArrayType = FieldInstance<string[], unknown>;
 export type FieldBooleanType = FieldInstance<boolean, unknown>;
 export type FieldStringType = FieldInstance<string, unknown>;
-export type DraftSubmissionType = z.infer<typeof CandidateDraftSchema>;
+export type DraftSubmissionType = z.infer<
+  typeof ApplicantSchemas.ApplicantDraftSubmissionRequestBodySchema
+>;
 export type ExperienceFieldsType = z.infer<typeof CandidateExperienceSchema>;
 export type InterestFieldsType = z.infer<typeof CandidateInterestsSchema>;
 export type NewCandidateType = z.infer<
@@ -41,8 +42,14 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
 };
 export type UploadedFileType = z.infer<typeof UploadedFile>;
 
-export type SubmissionResponseType = z.infer<
-  typeof ApplicantSchemas.ApplicantGetSubmissionsResponseBodySchema
+const DraftSchema = z.object({
+  submission: ApplicantSchemas.ApplicantDraftSubmissionRequestBodySchema,
+  isFinal: z.boolean(),
+});
+
+export type SubmissionResponseType = z.infer<typeof DraftSchema>;
+export type FinalSubmissionResponseType = z.infer<
+  typeof ApplicantSchemas.ApplicantDraftSubmissionResponseBodySchema
 >;
 
 export type AccountSubmissionResponseType = z.infer<

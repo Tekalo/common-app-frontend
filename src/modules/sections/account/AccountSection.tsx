@@ -1,7 +1,7 @@
 import { APPLICANT_SIGNUP_LINK, BASE_LINK } from '@/lang/en/en';
 import { ApplicantContext } from '@/lib/providers/applicantProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';
-import { NextPageWithLayout, SubmissionResponseType } from '@/lib/types';
+import { FinalSubmissionResponseType, NextPageWithLayout } from '@/lib/types';
 import AccountApplicationStatus from '@/sections/account/components/accountApplicationStatus';
 import AccountDataControl from '@/sections/account/components/accountDataControl';
 import AccountGreeting from '@/sections/account/components/accountGreeting';
@@ -108,7 +108,7 @@ const AccountSection: NextPageWithLayout = () => {
 
   // Submissions Request
   useEffect(() => {
-    const checkApplicationEdited = (sub: SubmissionResponseType): void => {
+    const checkApplicationEdited = (sub: FinalSubmissionResponseType): void => {
       const createdAt = new Date(sub.submission.createdAt);
       const updatedAt = new Date(sub.submission.updatedAt);
       const displayDate: Date =
@@ -122,7 +122,7 @@ const AccountSection: NextPageWithLayout = () => {
         const isFinal = submissionData.isFinal;
 
         if (isFinal) {
-          checkApplicationEdited(submissionData);
+          checkApplicationEdited(submissionData as FinalSubmissionResponseType);
         }
 
         setApplicationSubmitted(isFinal);

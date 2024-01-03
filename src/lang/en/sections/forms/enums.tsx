@@ -42,8 +42,8 @@ export const EMPLOYMENT_TYPE_ENUM_OPTIONS: readonly [string, ...string[]] = [
 ];
 
 export const COMMITMENT_ENUM_TEXT = {
-  full: 'full',
-  part: 'part',
+  full: 'full' as const,
+  part: 'part' as const,
 };
 
 export const COMMITMENT_ENUM_OPTIONS: readonly [string, ...string[]] = [

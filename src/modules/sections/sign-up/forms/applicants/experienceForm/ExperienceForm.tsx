@@ -56,7 +56,10 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
 
   const doSave = () => {
     if (formRef.current) {
-      handleSave({ ...savedForm, ...formRef.current.value });
+      handleSave({
+        ...savedForm,
+        ...formRef.current.value,
+      } as DraftSubmissionType);
     }
   };
 
@@ -93,7 +96,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastRole.placeholder
             }
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.lastRole}
+            initialValue={savedForm?.lastRole || undefined}
             validator={RequiredString}
           />
 
@@ -105,7 +108,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
               APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.lastOrg.placeholder
             }
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.lastOrg}
+            initialValue={savedForm?.lastOrg || undefined}
             validator={RequiredString}
           />
 
@@ -116,7 +119,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
             placeholder="Choose one"
             listOptions={YOEOptions}
             isSubmitted={isSubmitted}
-            initialValue={savedForm?.yoe}
+            initialValue={savedForm?.yoe || undefined}
             validator={YOE}
           />
 
