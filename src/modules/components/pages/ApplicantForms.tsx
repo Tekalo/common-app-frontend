@@ -18,6 +18,7 @@ import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
+  FinalSubmissionType,
   InterestFieldsType,
   SubmissionResponseType,
 } from '@/lib/types';
@@ -196,7 +197,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       ...nullifyEmptyFields(values),
       utmParams: gtmCtx.getGtmParams(),
       originTag: '',
-    };
+    } as FinalSubmissionType;
 
     const submitFn = isEditing
       ? submissionCtx.submitCandidateEdits
