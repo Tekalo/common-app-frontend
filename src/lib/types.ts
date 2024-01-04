@@ -13,19 +13,32 @@ import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { z } from 'zod';
 
-/** Types
- */
+/** Form Types */
 export type RoleRefType = FormInstance<PartialNewRoleType>;
 export type ExperienceRefType = FormInstance<ExperienceFieldsType>;
 export type InterestRefType = FormInstance<InterestFieldsType>;
 export type FieldStringArrayType = FieldInstance<string[], unknown>;
 export type FieldBooleanType = FieldInstance<boolean, unknown>;
 export type FieldStringType = FieldInstance<string, unknown>;
-export type DraftSubmissionType = z.infer<
-  typeof ApplicantSchemas.ApplicantDraftSubmissionRequestBodySchema
->;
 export type ExperienceFieldsType = z.infer<typeof CandidateExperienceSchema>;
 export type InterestFieldsType = z.infer<typeof CandidateInterestsSchema>;
+
+/** Payload Types */
+
+const DraftSubmission =
+  ApplicantSchemas.ApplicantDraftSubmissionRequestBodySchema.extend({
+    resumeUpload: z
+      .object({
+        id: z.number(),
+        originalFilename: z.string(),
+      })
+      .nullish(),
+  });
+export type DraftSubmissionType = z.infer<typeof DraftSubmission>;
+export type FinalSubmissionType = z.infer<
+  typeof ApplicantSchemas.ApplicantCreateSubmissionRequestBodySchema
+>;
+
 export type NewCandidateType = z.infer<
   typeof ApplicantSchemas.ApplicantCreateRequestBodySchema
 >;
@@ -42,12 +55,21 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
 };
 export type UploadedFileType = z.infer<typeof UploadedFile>;
 
-const DraftSchema = z.object({
-  submission: ApplicantSchemas.ApplicantDraftSubmissionRequestBodySchema,
+const DraftSchemaResponse = z.object({
+  submission: ApplicantSchemas.ApplicantDraftSubmissionRequestBodySchema.extend(
+    {
+      resumeUpload: z
+        .object({
+          id: z.number(),
+          originalFilename: z.string(),
+        })
+        .nullish(),
+    }
+  ),
   isFinal: z.boolean(),
 });
 
-export type SubmissionResponseType = z.infer<typeof DraftSchema>;
+export type SubmissionResponseType = z.infer<typeof DraftSchemaResponse>;
 export type FinalSubmissionResponseType = z.infer<
   typeof ApplicantSchemas.ApplicantDraftSubmissionResponseBodySchema
 >;
