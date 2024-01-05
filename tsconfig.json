@@ -22,7 +22,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/api/*": ["./src/api/*"],
-      "@/capp/*": ["common-app-api/packages/*"],
+      "@capp/*": ["common-app-api/packages/*"],
       "@/components/*": ["src/modules/components/*"],
       "@/constants/*": ["src/lib/constants/*"],
       "@/cypress/*": ["cypress/*"],

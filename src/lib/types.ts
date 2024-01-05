@@ -1,5 +1,3 @@
-import ApplicantSchemas from '@/capp/schemas/src/applicants';
-import OpportunitySchemas from '@/capp/schemas/src/opportunities';
 import {
   CandidateExperienceSchema,
   CandidateInterestsSchema,
@@ -8,6 +6,8 @@ import {
 } from '@/lib/schemas/clientSchemas';
 import { CommitmentType } from '@/lib/validators/enums';
 import { UploadedFile } from '@/lib/validators/object';
+import ApplicantSchemas from '@capp/schemas/src/applicants';
+import OpportunitySchemas from '@capp/schemas/src/opportunities';
 import { FieldInstance, FormInstance } from 'houseform';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';

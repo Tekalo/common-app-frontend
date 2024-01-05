@@ -1,4 +1,3 @@
-import ApplicantSchemas from '@/capp/schemas/src/applicants';
 import ApplicantFormsNav from '@/components/pages/ApplicantFormsNav';
 import {
   ACCOUNT_LINK,
@@ -27,6 +26,7 @@ import Modal from '@/modules/components/modal/Modal/Modal';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { useAuth0 } from '@auth0/auth0-react';
+import ApplicantSchemas from '@capp/schemas/src/applicants';
 import Link from 'next/link';
 import router from 'next/router';
 import { useContext, useEffect, useState } from 'react';
