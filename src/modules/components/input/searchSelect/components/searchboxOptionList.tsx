@@ -1,18 +1,18 @@
-import SkillboxOption from '@/components/input/skillsSelect/components//skillboxOption';
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
-import { ISkill } from '@/lib/providers/skillsSearchProvider';
+import { ISearchable } from '@/lib/types';
+import SearchboxOption from '@/modules/components/input/searchSelect/components/searchboxOption';
 import { Combobox, Transition } from '@headlessui/react';
 import { ReactElement } from 'react';
 
-interface ISkillboxOptionList {
+interface ISearchboxOptionList {
   disabled: boolean;
   open: boolean;
-  options: ISkill[];
+  options: ISearchable[];
   queryMatches: boolean;
   searchQuery: string;
 }
 
-const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
+const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   disabled,
   open,
   options,
@@ -29,11 +29,11 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
         value={[searchQuery]}
       >
         {({ active }) => (
-          <SkillboxOption
+          <SearchboxOption
             active={active}
             custom={true}
             disabled={false}
-            skillName={`“${searchQuery}”`}
+            optionName={`“${searchQuery}”`}
           />
         )}
       </Combobox.Option>
@@ -58,10 +58,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
   };
 
   const maxSelectedOption = (
-    <SkillboxOption
+    <SearchboxOption
       active={false}
       disabled={true}
-      skillName={
+      optionName={
         APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect.maxSkillsSelected
       }
     />
@@ -75,10 +75,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
         value={[option.canonical]}
       >
         {({ active }) => (
-          <SkillboxOption
+          <SearchboxOption
             active={active}
             disabled={false}
-            skillName={option.canonical}
+            optionName={option.canonical}
           />
         )}
       </Combobox.Option>
@@ -111,4 +111,4 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
   );
 };
 
-export default SkillboxOptionList;
+export default SearchboxOptionList;

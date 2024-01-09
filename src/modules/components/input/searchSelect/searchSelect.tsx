@@ -1,13 +1,11 @@
-import SkillboxInput from '@/components/input/skillsSelect/components/skillboxInput';
-import SkillboxOptionList from '@/components/input/skillsSelect/components/skillboxOptionList';
-import {
-  ISkill,
-  SkillsSearchContext,
-} from '@/lib/providers/skillsSearchProvider';
+import { SkillsSearchContext } from '@/lib/providers/skillsSearchProvider';
+import { ISearchable } from '@/lib/types';
+import SearchboxInput from '@/modules/components/input/searchSelect/components/searchboxInput';
+import SearchboxOptionList from '@/modules/components/input/searchSelect/components/searchboxOptionList';
 import { Combobox } from '@headlessui/react';
 import { useContext, useEffect, useState } from 'react';
 
-export interface ISkillsSelect {
+export interface ISearchSelect {
   hasErrors: boolean;
   label: string;
   name: string;
@@ -16,7 +14,7 @@ export interface ISkillsSelect {
   value: string[];
 }
 
-const SkillsSelect: React.FC<ISkillsSelect> = ({
+const SearchSelect: React.FC<ISearchSelect> = ({
   hasErrors,
   label,
   name,
@@ -26,49 +24,62 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
 }) => {
   const [queryMatches, setQueryMatches] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [skillResults, setSkillResults] = useState<ISkill[]>([]);
+  const [searchResults, setSearchResults] = useState<ISearchable[]>([]);
+
+  // TODO: Pull this out, needs to be one level above, or on a switch based on a flag
   const searchCtx = useContext(SkillsSearchContext);
+
   const {
-    data: skillsLoaded,
-    error: skillsError,
-    isLoading: skillsLoading,
+    data: resultsLoaded,
+    error: resultsError,
+    isLoading: resultsLoading,
   } = searchCtx.useSkills();
+
+  // -----
 
   const inputId = `${name}-input`;
   const disabled = value.length >= 8;
 
   useEffect(() => {
-    const getSkills = async (): Promise<void> => {
+    const getSearchOptions = async (): Promise<void> => {
       const searchResults = searchCtx.searchWithQuery(searchQuery, value);
 
       setQueryMatches(searchResults.queryMatches);
-      setSkillResults(searchResults.results);
+      setSearchResults(searchResults.results);
     };
 
-    if ((skillsLoaded || skillsError) && !skillsLoading) {
-      getSkills();
+    if ((resultsLoaded || resultsError) && !resultsLoading) {
+      getSearchOptions();
     }
-  }, [searchCtx, searchQuery, value, skillsError, skillsLoaded, skillsLoading]);
+  }, [
+    searchCtx,
+    searchQuery,
+    value,
+    resultsError,
+    resultsLoaded,
+    resultsLoading,
+  ]);
+
+  const getInput = (): HTMLInputElement | null =>
+    document.getElementById(`${name}-input`) as HTMLInputElement;
 
   const clearInput = (): void => {
-    const skillsInput = document.getElementById(
-      `${name}-input`
-    ) as HTMLInputElement;
+    const searchInput = getInput();
 
-    if (skillsInput) {
-      skillsInput.value = '';
+    if (searchInput) {
+      searchInput.value = '';
     }
   };
 
   const focusInput = (): void => {
-    const skillsInput = document.getElementById(`${name}-input`);
+    const searchInput = getInput();
 
-    if (skillsInput) {
-      skillsInput.focus();
+    if (searchInput) {
+      searchInput.focus();
     }
   };
 
-  const removeLastSkill = (setValue: (_val: string[]) => void): void => {
+  const removeLastSelection = (setValue: (_val: string[]) => void): void => {
     const newVal = [...value];
     newVal.splice(value.length - 1, 1);
 
@@ -102,24 +113,24 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
             >
               {label}
             </Combobox.Label>
-            <SkillboxInput
+            <SearchboxInput
               clearInput={clearInput}
               disabled={disabled}
               focusInput={focusInput}
               hasErrors={hasErrors}
               name={inputId}
               placeholder={placeholder}
-              removeLastSkill={() => {
-                removeLastSkill(setValue);
+              removeLastSelection={() => {
+                removeLastSelection(setValue);
               }}
               setSearchQuery={setSearchQuery}
               setValue={setValue}
               value={value}
             />
-            <SkillboxOptionList
+            <SearchboxOptionList
               disabled={disabled}
               open={open}
-              options={skillResults}
+              options={searchResults}
               queryMatches={queryMatches}
               searchQuery={searchQuery}
             />
@@ -130,4 +141,4 @@ const SkillsSelect: React.FC<ISkillsSelect> = ({
   );
 };
 
-export default SkillsSelect;
+export default SearchSelect;

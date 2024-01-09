@@ -3,16 +3,16 @@ import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
   ISkill,
 } from '@/lib/providers/skillsSearchProvider';
-import SkillsSelect, {
-  ISkillsSelect,
-} from '@/modules/components/input/skillsSelect/skillsSelect';
+import SearchSelect, {
+  ISearchSelect,
+} from '@/modules/components/input/searchSelect/searchSelect';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-Cypress.Commands.add('mountSkillsSelect', (props: ISkillsSelect) => {
+Cypress.Commands.add('mountSkillsSelect', (props: ISearchSelect) => {
   cy.mount(
     <QueryClientProvider client={new QueryClient()}>
       <SkillsSearchProvider>
-        <SkillsSelect
+        <SearchSelect
           hasErrors={props.hasErrors}
           name={props.name}
           label={props.label}
@@ -36,7 +36,7 @@ describe('SkillsSelect', () => {
   const textBlackText = 'rgb(39, 41, 41)';
 
   let allSkills: ISkill[];
-  let skillsSelectProps: ISkillsSelect;
+  let skillsSelectProps: ISearchSelect;
   let value: string[];
 
   beforeEach(() => {
@@ -71,7 +71,7 @@ describe('SkillsSelect', () => {
       .should('have.text', mockLabel)
       .should('have.css', 'color', textBlackText);
 
-    cy.get('div[data-name=skills-select-search-icon]').should('be.visible');
+    cy.get('div[data-name=search-select-search-icon]').should('be.visible');
 
     cy.get('#skills-select-input').should(
       'have.attr',
@@ -90,13 +90,13 @@ describe('SkillsSelect', () => {
       .children()
       .should('have.length', 5);
 
-    cy.get('div[data-name="skillbox-option-Javascript"]').should(
+    cy.get('div[data-name="searchbox-option-Javascript"]').should(
       'have.css',
       'background-color',
       bgLightBlue
     );
 
-    cy.get('div[data-name=skill-option-name]').should(
+    cy.get('div[data-name=search-option-name]').should(
       'have.css',
       'color',
       textBlackText
@@ -109,7 +109,7 @@ describe('SkillsSelect', () => {
     cy.get('#skills-select-input').fastType('a');
 
     cy.get(
-      'div[data-name="skillbox-option-Agile software development"]'
+      'div[data-name="searchbox-option-Agile software development"]'
     ).fastClick();
 
     cy.get('#skills-select-input').should('have.focus');
@@ -123,7 +123,7 @@ describe('SkillsSelect', () => {
 
     cy.mountSkillsSelect(skillsSelectProps);
 
-    cy.get('div[data-name="skill-pill-Cryptography"]').fastClick();
+    cy.get('div[data-name="search-selection-pill-Cryptography"]').fastClick();
 
     cy.get('#skills-select-input').should('have.focus');
     cy.get('@setValue').should('have.been.calledOnceWithExactly', [
@@ -157,7 +157,7 @@ describe('SkillsSelect', () => {
       .should('have.focus')
       .should('have.value', '');
     cy.get(
-      'div[data-name="skillbox-option-You can select up to 8 skills"]'
+      'div[data-name="searchbox-option-You can select up to 8 skills"]'
     ).should('be.visible');
   });
 

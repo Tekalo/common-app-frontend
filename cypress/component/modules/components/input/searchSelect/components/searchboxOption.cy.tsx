@@ -1,22 +1,22 @@
 import SkillboxOption, {
-  ISkillboxOption,
-} from '@/modules/components/input/skillsSelect/components/skillboxOption';
+  ISearchboxOption,
+} from '@/modules/components/input/searchSelect/components/searchboxOption';
 
-Cypress.Commands.add('mountSkillboxOption', (props: ISkillboxOption) => {
+Cypress.Commands.add('mountSearchboxOption', (props: ISearchboxOption) => {
   cy.mount(
     <SkillboxOption
       active={props.active}
       disabled={props.disabled}
-      skillName={props.skillName}
+      optionName={props.optionName}
     />
   );
 });
 
-describe('SkillboxOption', () => {
+describe('SearchboxOption', () => {
   const mockSkillName = 'Mock Skill Name';
   let active: boolean;
   let disabled: boolean;
-  let skillboxOptionProps: ISkillboxOption;
+  let skillboxOptionProps: ISearchboxOption;
 
   beforeEach(() => {
     active = false;
@@ -25,24 +25,24 @@ describe('SkillboxOption', () => {
     skillboxOptionProps = {
       active,
       disabled,
-      skillName: mockSkillName,
+      optionName: mockSkillName,
     };
   });
 
   it('should render', () => {
-    cy.mountSkillboxOption(skillboxOptionProps);
+    cy.mountSearchboxOption(skillboxOptionProps);
 
-    cy.get(`div[data-name="skillbox-option-${mockSkillName}"]`).should(
+    cy.get(`div[data-name="searchbox-option-${mockSkillName}"]`).should(
       'have.css',
       'background-color',
       'rgb(255, 255, 255)'
     );
 
-    cy.get('div[data-name=skill-option-name]')
+    cy.get('div[data-name=search-option-name]')
       .should('be.visible')
       .should('have.css', 'color', 'rgb(39, 41, 41)');
 
-    cy.get('div[data-name="skill-option-add-Mock Skill Name"').should(
+    cy.get('div[data-name="search-option-add-Mock Skill Name"').should(
       'be.visible'
     );
   });
@@ -50,19 +50,19 @@ describe('SkillboxOption', () => {
   it('should render - active', () => {
     skillboxOptionProps.active = true;
 
-    cy.mountSkillboxOption(skillboxOptionProps);
+    cy.mountSearchboxOption(skillboxOptionProps);
 
-    cy.get(`div[data-name="skillbox-option-${mockSkillName}"]`).should(
+    cy.get(`div[data-name="searchbox-option-${mockSkillName}"]`).should(
       'have.css',
       'background-color',
       'rgb(243, 249, 255)'
     );
 
-    cy.get('div[data-name=skill-option-name]')
+    cy.get('div[data-name=search-option-name]')
       .should('be.visible')
       .should('have.css', 'color', 'rgb(39, 41, 41)');
 
-    cy.get('div[data-name="skill-option-add-Mock Skill Name"').should(
+    cy.get('div[data-name="search-option-add-Mock Skill Name"').should(
       'be.visible'
     );
   });
@@ -70,19 +70,19 @@ describe('SkillboxOption', () => {
   it('should render - disabled', () => {
     skillboxOptionProps.disabled = true;
 
-    cy.mountSkillboxOption(skillboxOptionProps);
+    cy.mountSearchboxOption(skillboxOptionProps);
 
-    cy.get(`div[data-name="skillbox-option-${mockSkillName}"]`).should(
+    cy.get(`div[data-name="searchbox-option-${mockSkillName}"]`).should(
       'have.css',
       'background-color',
       'rgb(255, 255, 255)'
     );
 
-    cy.get('div[data-name=skill-option-name]')
+    cy.get('div[data-name=search-option-name]')
       .should('be.visible')
       .should('have.css', 'color', 'rgb(159, 164, 174)');
 
-    cy.get('div[data-name="skill-option-add-Mock Skill Name"').should(
+    cy.get('div[data-name="search-option-add-Mock Skill Name"').should(
       'not.exist'
     );
   });
