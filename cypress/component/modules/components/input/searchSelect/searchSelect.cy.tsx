@@ -8,7 +8,7 @@ import SearchSelect, {
 } from '@/modules/components/input/searchSelect/searchSelect';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-Cypress.Commands.add('mountSkillsSelect', (props: ISearchSelect) => {
+Cypress.Commands.add('mountSearchSelect', (props: ISearchSelect) => {
   cy.mount(
     <QueryClientProvider client={new QueryClient()}>
       <SkillsSearchProvider>
@@ -64,7 +64,7 @@ describe('SkillsSelect', () => {
   });
 
   it('should render', () => {
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('label[data-name=label]')
       .should('be.visible')
@@ -81,7 +81,7 @@ describe('SkillsSelect', () => {
   });
 
   it('should display results', () => {
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').fastType('a');
 
@@ -104,7 +104,7 @@ describe('SkillsSelect', () => {
   });
 
   it('should add a selected skill', () => {
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').fastType('a');
 
@@ -121,7 +121,7 @@ describe('SkillsSelect', () => {
   it('should remove an already-added skill by click', () => {
     skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('div[data-name="search-selection-pill-Cryptography"]').fastClick();
 
@@ -135,7 +135,7 @@ describe('SkillsSelect', () => {
   it('should remove an already-added skill by backspace', () => {
     skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').type('{backspace}');
 
@@ -149,7 +149,7 @@ describe('SkillsSelect', () => {
   it('should not allow the user to type if 8 skills are already selected', () => {
     skillsSelectProps.value = allSkills.slice(0, 8).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').fastType('a');
 
@@ -166,7 +166,7 @@ describe('SkillsSelect', () => {
 
     skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').type(`${mockNewSkill}{backspace}e`);
 
@@ -181,7 +181,7 @@ describe('SkillsSelect', () => {
 
     skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input')
       .fastType(mockNewSkill)
@@ -206,7 +206,7 @@ describe('SkillsSelect', () => {
       .slice(0, 4)
       .map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input')
       .fastType(mockNewSkill)
