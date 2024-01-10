@@ -39,6 +39,7 @@ jobs:
       url: ${{ format('{0}/', needs.deploy.outputs.url) }}
       tag_name: ${{ github.event.pull_request.head.sha }}
     secrets:
+      API_PAT: ${{ secrets.API_PAT }}
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
