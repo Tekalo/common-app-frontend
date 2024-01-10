@@ -123,7 +123,10 @@ describe('ApplicantForms', () => {
 
       $updateInterestValues.subscribe(() => {
         updateFormValues(
-          convertStringFieldsToBool(mockInterestFields, savedForm)
+          convertStringFieldsToBool(
+            mockInterestFields as DraftSubmissionType,
+            savedForm
+          )
         );
       });
 
