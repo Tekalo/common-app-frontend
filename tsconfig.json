@@ -22,13 +22,13 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/api/*": ["./src/api/*"],
-      "@/schemas/*": ["./schemas/*"],
       "@/components/*": ["src/modules/components/*"],
       "@/constants/*": ["src/lib/constants/*"],
       "@/cypress/*": ["cypress/*"],
       "@/layouts/*": ["src/lib/layouts/*"],
-      "@/lib/*": ["./src/lib/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/providers/*": ["src/lib/providers/*"],
+      "@/schemas/*": ["schemas/*"],
       "@/sections/*": ["src/modules/sections/*"]
     }
   },
