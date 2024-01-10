@@ -30,6 +30,7 @@ jobs:
       environment: 'production'
       tag_name: ${{ inputs.tag_name }}
     secrets:
+      API_PAT: ${{ secrets.API_PAT }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -43,6 +44,7 @@ jobs:
       environment: 'production'
       tag_name: ${{ inputs.tag_name }}
     secrets:
+      API_PAT: ${{ secrets.API_PAT }}
       DEBUG_MODE_SECRET: ${{ secrets.DEBUG_MODE_SECRET }}
       NEXT_PUBLIC_TEST_PASSWORD: ${{ secrets.NEXT_PUBLIC_TEST_PASSWORD }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
