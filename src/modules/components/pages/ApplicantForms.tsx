@@ -23,10 +23,10 @@ import {
 } from '@/lib/types';
 import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
 import Modal from '@/modules/components/modal/Modal/Modal';
+import ApplicantSchemas from '@/schemas/src/applicants';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { useAuth0 } from '@auth0/auth0-react';
-import ApplicantSchemas from '@capp/schemas/src/applicants';
 import Link from 'next/link';
 import router from 'next/router';
 import { useContext, useEffect, useState } from 'react';
