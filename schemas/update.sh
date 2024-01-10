@@ -19,3 +19,7 @@ else
 fi
 
 ls ${localDir}
+
+cat ${localDir}/applicants.ts
+cat ${localDir}/opportunities.ts
+cat ${localDir}/shared.ts
