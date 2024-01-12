@@ -17,9 +17,3 @@ else
   sed -i -e ${replaceReg} ${localDir}/applicants.ts
   sed -i -e ${replaceReg} ${localDir}/opportunities.ts
 fi
-
-ls ${localDir}
-
-cat ${localDir}/applicants.ts
-cat ${localDir}/opportunities.ts
-cat ${localDir}/shared.ts
