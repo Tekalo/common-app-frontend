@@ -1,7 +1,7 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
-import SkillsSelect from '@/modules/components/input/skillsSelect/skillsSelect';
+import SearchSelect from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
@@ -32,7 +32,7 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
       {({ value, setValue, errors }) => {
         return (
           <div>
-            <SkillsSelect
+            <SearchSelect
               hasErrors={!!errors.length}
               label={label}
               name={inputId}

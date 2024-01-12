@@ -3,16 +3,16 @@ import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
   ISkill,
 } from '@/lib/providers/skillsSearchProvider';
-import SkillsSelect, {
-  ISkillsSelect,
-} from '@/modules/components/input/skillsSelect/skillsSelect';
+import SearchSelect, {
+  ISearchSelect,
+} from '@/modules/components/input/searchSelect/searchSelect';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-Cypress.Commands.add('mountSkillsSelect', (props: ISkillsSelect) => {
+Cypress.Commands.add('mountSearchSelect', (props: ISearchSelect) => {
   cy.mount(
     <QueryClientProvider client={new QueryClient()}>
       <SkillsSearchProvider>
-        <SkillsSelect
+        <SearchSelect
           hasErrors={props.hasErrors}
           name={props.name}
           label={props.label}
@@ -36,7 +36,7 @@ describe('SkillsSelect', () => {
   const textBlackText = 'rgb(39, 41, 41)';
 
   let allSkills: ISkill[];
-  let skillsSelectProps: ISkillsSelect;
+  let skillsSelectProps: ISearchSelect;
   let value: string[];
 
   beforeEach(() => {
@@ -64,14 +64,14 @@ describe('SkillsSelect', () => {
   });
 
   it('should render', () => {
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('label[data-name=label]')
       .should('be.visible')
       .should('have.text', mockLabel)
       .should('have.css', 'color', textBlackText);
 
-    cy.get('div[data-name=skills-select-search-icon]').should('be.visible');
+    cy.get('div[data-name=search-select-search-icon]').should('be.visible');
 
     cy.get('#skills-select-input').should(
       'have.attr',
@@ -81,7 +81,7 @@ describe('SkillsSelect', () => {
   });
 
   it('should display results', () => {
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').fastType('a');
 
@@ -90,13 +90,13 @@ describe('SkillsSelect', () => {
       .children()
       .should('have.length', 5);
 
-    cy.get('div[data-name="skillbox-option-Javascript"]').should(
+    cy.get('div[data-name="searchbox-option-Javascript"]').should(
       'have.css',
       'background-color',
       bgLightBlue
     );
 
-    cy.get('div[data-name=skill-option-name]').should(
+    cy.get('div[data-name=search-option-name]').should(
       'have.css',
       'color',
       textBlackText
@@ -104,12 +104,12 @@ describe('SkillsSelect', () => {
   });
 
   it('should add a selected skill', () => {
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').fastType('a');
 
     cy.get(
-      'div[data-name="skillbox-option-Agile software development"]'
+      'div[data-name="searchbox-option-Agile software development"]'
     ).fastClick();
 
     cy.get('#skills-select-input').should('have.focus');
@@ -121,9 +121,9 @@ describe('SkillsSelect', () => {
   it('should remove an already-added skill by click', () => {
     skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
-    cy.get('div[data-name="skill-pill-Cryptography"]').fastClick();
+    cy.get('div[data-name="search-selection-pill-Cryptography"]').fastClick();
 
     cy.get('#skills-select-input').should('have.focus');
     cy.get('@setValue').should('have.been.calledOnceWithExactly', [
@@ -135,7 +135,7 @@ describe('SkillsSelect', () => {
   it('should remove an already-added skill by backspace', () => {
     skillsSelectProps.value = allSkills.slice(0, 3).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').type('{backspace}');
 
@@ -149,7 +149,7 @@ describe('SkillsSelect', () => {
   it('should not allow the user to type if 8 skills are already selected', () => {
     skillsSelectProps.value = allSkills.slice(0, 8).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').fastType('a');
 
@@ -157,7 +157,7 @@ describe('SkillsSelect', () => {
       .should('have.focus')
       .should('have.value', '');
     cy.get(
-      'div[data-name="skillbox-option-You can select up to 8 skills"]'
+      'div[data-name="searchbox-option-You can select up to 8 skills"]'
     ).should('be.visible');
   });
 
@@ -166,7 +166,7 @@ describe('SkillsSelect', () => {
 
     skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input').type(`${mockNewSkill}{backspace}e`);
 
@@ -181,7 +181,7 @@ describe('SkillsSelect', () => {
 
     skillsSelectProps.value = allSkills.slice(0, 4).map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input')
       .fastType(mockNewSkill)
@@ -206,7 +206,7 @@ describe('SkillsSelect', () => {
       .slice(0, 4)
       .map((s) => s.canonical);
 
-    cy.mountSkillsSelect(skillsSelectProps);
+    cy.mountSearchSelect(skillsSelectProps);
 
     cy.get('#skills-select-input')
       .fastType(mockNewSkill)

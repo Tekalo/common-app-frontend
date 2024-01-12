@@ -122,3 +122,7 @@ export interface IBoolItem {
   value: boolean;
   displayText: string;
 }
+
+export interface ISearchable {
+  canonical: string;
+}

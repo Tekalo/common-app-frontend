@@ -1,13 +1,16 @@
 import { CloseSVG } from '@/lib/constants/svgs';
 
-export interface ISkillPill {
+export interface ISearchSelectionPill {
   value: string;
   removeValue: (value: string) => void;
 }
 
-const SkillPill: React.FC<ISkillPill> = ({ removeValue, value }) => (
+const SearchSelectionPill: React.FC<ISearchSelectionPill> = ({
+  removeValue,
+  value,
+}) => (
   <div
-    data-name={`skill-pill-${value}`}
+    data-name={`search-selection-pill-${value}`}
     key={value}
     className="mr-1 inline-flex max-w-[270px] cursor-pointer items-center rounded-sm bg-light-blue p-[2px] text-component-small text-black-text"
     onClick={() => removeValue(value)}
@@ -24,4 +27,4 @@ const SkillPill: React.FC<ISkillPill> = ({ removeValue, value }) => (
   </div>
 );
 
-export default SkillPill;
+export default SearchSelectionPill;
