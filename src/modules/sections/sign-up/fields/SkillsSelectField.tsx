@@ -1,8 +1,12 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
-import SearchSelect from '@/modules/components/input/searchSelect/searchSelect';
+import { SkillsSearchContext } from '@/lib/providers/skillsSearchProvider';
+import SearchSelect, {
+  ISearchSelectConfig,
+} from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
+import { useContext } from 'react';
 import { z } from 'zod';
 
 export interface ISkillsSelectField {
@@ -21,6 +25,12 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
   validator,
 }) => {
   const inputId = getInputId(fieldName);
+  const config: ISearchSelectConfig = {
+    isScrollable: false,
+    maxItems: 8,
+    providerContext: useContext(SkillsSearchContext),
+    showDefaultOptions: false,
+  };
 
   return (
     <Field<string[]>
@@ -33,6 +43,7 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
         return (
           <div>
             <SearchSelect
+              config={config}
               hasErrors={!!errors.length}
               label={label}
               name={inputId}

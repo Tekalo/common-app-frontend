@@ -1,7 +1,7 @@
 import { mockSkillsResponse } from '@/cypress/fixtures/mocks';
 import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
+import { ISearchableResults } from '@/lib/providers/shared';
 import SkillsSearchProvider, {
-  ISkillSearchResults,
   SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -14,8 +14,8 @@ export interface IMockComponent {
 
 const MockComponent: React.FC<IMockComponent> = ({ query, value }) => {
   const searchCtx = useContext(SkillsSearchContext);
-  const { data, error, isLoading } = searchCtx.useSkills();
-  const [skills, setSkills] = useState<ISkillSearchResults>({
+  const { data, error, isLoading } = searchCtx.useSearchable();
+  const [skills, setSkills] = useState<ISearchableResults>({
     queryMatches: false,
     results: [],
   });

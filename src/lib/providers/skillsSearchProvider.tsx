@@ -1,25 +1,24 @@
 import { get } from '@/lib/helpers/api/apiHelpers';
 import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
-import { IProvider } from '@/lib/providers/shared';
-import { ISearchable } from '@/lib/types';
+import {
+  IProvider,
+  ISearchable,
+  ISearchableContext,
+  ISearchableResults,
+} from '@/lib/providers/shared';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import Fuse from 'fuse.js';
 import { createContext, useEffect, useState } from 'react';
 
 export type ISkill = ISearchable;
 
-export interface ISkillSearchResults {
-  queryMatches: boolean;
-  results: ISkill[];
-}
-
 export interface IGetSkillsResponse {
   data: ISkill[];
 }
 
-interface ISkillsSearchContext {
-  searchWithQuery: (query: string, value: string[]) => ISkillSearchResults;
-  useSkills: () => UseQueryResult<boolean, Error>;
+export interface ISkillsSearchContext extends ISearchableContext {
+  searchWithQuery: (query: string, value: string[]) => ISearchableResults;
+  useSearchable: () => UseQueryResult<boolean, Error>;
 }
 
 export const SkillsSearchContext = createContext<ISkillsSearchContext>(
@@ -74,7 +73,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
   const searchWithQuery = (
     query: string,
     value: string[]
-  ): ISkillSearchResults => {
+  ): ISearchableResults => {
     const alreadySelected = (skill: ISkill) => !value.includes(skill.canonical);
     const queryIncludes = (skill: ISkill) =>
       skill.canonical.toLowerCase().includes(query.toLowerCase());
@@ -102,7 +101,7 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     <SkillsSearchContext.Provider
       value={{
         searchWithQuery,
-        useSkills,
+        useSearchable: useSkills,
       }}
     >
       {children}
