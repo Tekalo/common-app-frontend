@@ -13,18 +13,17 @@ import { nullifyEmptyFields } from '@/lib/helpers/transformers';
 import { voidFn } from '@/lib/helpers/utilities';
 import { GTMContext } from '@/lib/providers/gtmProvider/gtmProvider';
 import { SubmissionContext } from '@/lib/providers/submissionProvider';
-import {
-  CandidateDraftSchema,
-  CandidateInterestsSchema,
-} from '@/lib/schemas/clientSchemas';
+import { CandidateInterestsSchema } from '@/lib/schemas/clientSchemas';
 import {
   DraftSubmissionType,
   ExperienceFieldsType,
+  FinalSubmissionType,
   InterestFieldsType,
   SubmissionResponseType,
 } from '@/lib/types';
 import ErrorModal from '@/modules/components/modal/ErrorModal/ErrorModal';
 import Modal from '@/modules/components/modal/Modal/Modal';
+import ApplicantSchemas from '@/schemas/src/applicants';
 import ExperienceForm from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import InterestForm from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -137,17 +136,19 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
   };
 
   const getNullSubmission = (): DraftSubmissionType => {
-    return Object.keys(CandidateDraftSchema.shape).reduce(
-      (k, v) => ({ ...k, [v]: null }),
-      {}
-    );
+    return Object.keys(
+      ApplicantSchemas.ApplicantDraftSubmissionRequestBodySchema.shape
+    ).reduce((k, v) => ({ ...k, [v]: null }), {} as DraftSubmissionType);
   };
 
   // FUNCTION: Saves form responses to parent state
   const handleNext = (values: ExperienceFieldsType) => {
     window.dataLayerEvent(TRACKING.CANDIDATE_NEXT_BTN);
 
-    setDraftFormValues({ ...draftFormValues, ...values });
+    setDraftFormValues({
+      ...draftFormValues,
+      ...values,
+    } as DraftSubmissionType);
     setExperienceFields(values);
     setIsInterestFormVisible(true);
   };
@@ -188,7 +189,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
     setDraftFormValues({
       ...draftFormValues,
       ...values,
-    });
+    } as DraftSubmissionType);
 
     const finalFormValues = {
       ...getNullSubmission(),
@@ -196,7 +197,7 @@ const ApplicantForms: React.FC<IApplicantForms> = ({ isEditing = false }) => {
       ...nullifyEmptyFields(values),
       utmParams: gtmCtx.getGtmParams(),
       originTag: '',
-    };
+    } as FinalSubmissionType;
 
     const submitFn = isEditing
       ? submissionCtx.submitCandidateEdits

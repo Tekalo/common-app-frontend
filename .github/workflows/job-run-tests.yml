@@ -15,6 +15,9 @@ on:
         type: string
         required: true
     secrets:
+      API_PAT:
+        description: The PAT needed to clone the API repository
+        required: true
       DEBUG_MODE_SECRET:
         description: secret to bypass cloudflare
         required: true
@@ -45,6 +48,13 @@ jobs:
         run: |
           git checkout ${{ inputs.tag_name }}
 
+      - name: Checkout API Repo
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          repository: Tekalo/common-app-api
+          path: common-app-api
+          token: ${{ secrets.API_PAT }}
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4
         with:
@@ -56,6 +66,9 @@ jobs:
         with:
           version: latest
           run_install: false
+
+      - name: Pull API Schemas
+        run: pnpm update-schemas
 
       - name: Run Unit Tests
         uses: cypress-io/github-action@v6.6.0

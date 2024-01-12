@@ -4,7 +4,11 @@ import {
   applicantSubmissionsEndpoint,
 } from '@/lib/helpers/api/endpoints';
 import { IProvider } from '@/lib/providers/shared';
-import { DraftSubmissionType, SubmissionResponseType } from '@/lib/types';
+import {
+  DraftSubmissionType,
+  FinalSubmissionType,
+  SubmissionResponseType,
+} from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import { QueryClient, UseQueryResult, useQuery } from '@tanstack/react-query';
 import React from 'react';
@@ -15,11 +19,11 @@ interface ISubmissionContext {
     authToken: string
   ) => Promise<Response>;
   submitCandidateApplication: (
-    values: DraftSubmissionType,
+    values: FinalSubmissionType,
     authToken: string
   ) => Promise<Response>;
   submitCandidateEdits: (
-    values: DraftSubmissionType,
+    values: FinalSubmissionType,
     authToken: string
   ) => Promise<Response>;
   useSubmission: () => UseQueryResult<SubmissionResponseType, Error>;
@@ -72,7 +76,7 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
   };
 
   const submitCandidateApplication = async (
-    values: DraftSubmissionType,
+    values: FinalSubmissionType,
     authToken: string
   ): Promise<Response> => {
     return post(applicantSubmissionsEndpoint, values, authToken).then(
@@ -81,7 +85,7 @@ const SubmissionProvider: React.FC<IProvider> = ({ children }) => {
   };
 
   const submitCandidateEdits = async (
-    values: DraftSubmissionType,
+    values: FinalSubmissionType,
     authToken: string
   ) => {
     return put(applicantSubmissionsEndpoint, values, authToken).then(

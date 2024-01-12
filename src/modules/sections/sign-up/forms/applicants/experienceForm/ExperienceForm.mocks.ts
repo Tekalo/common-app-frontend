@@ -1,4 +1,5 @@
 import { voidFn } from '@/lib/helpers/utilities';
+import { DraftSubmissionType } from '@/lib/types';
 import { IExperienceForm } from '@/sections/sign-up/forms/applicants/experienceForm/ExperienceForm';
 import { Subject } from 'rxjs';
 
@@ -10,7 +11,7 @@ const base: IExperienceForm = {
   handleNext: voidFn,
   handleSave: voidFn,
   isEditing: false,
-  savedForm: {},
+  savedForm: {} as DraftSubmissionType,
   showUploadErrorModal: voidFn,
 };
 
@@ -20,7 +21,7 @@ const editing: IExperienceForm = {
   handleNext: voidFn,
   handleSave: voidFn,
   isEditing: true,
-  savedForm: {},
+  savedForm: {} as DraftSubmissionType,
   showUploadErrorModal: voidFn,
 };
 

@@ -21,6 +21,7 @@ cypress/screenshots
 # misc
 .DS_Store
 *.pem
+schemas/src/*
 
 # debug
 npm-debug.log*

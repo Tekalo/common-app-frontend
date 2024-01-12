@@ -105,8 +105,8 @@ describe('Candidate Application', () => {
           workAuthorization: null,
           yoe: '4',
         });
-        expect(responseSubmission.skills).to.have.length(8);
-        expect(responseSubmission.resumeUpload).to.include({
+        expect(responseSubmission?.skills).to.have.length(8);
+        expect(responseSubmission?.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
         });
       });
@@ -153,13 +153,13 @@ describe('Candidate Application', () => {
           yoe: '4',
         });
 
-        expect(responseSubmission.skills).to.have.length(8);
+        expect(responseSubmission?.skills).to.have.length(8);
 
         // The id is assigned by the db so we won't know what it is
-        expect(responseSubmission.resumeUpload).to.include({
+        expect(responseSubmission?.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
         });
-        expect(responseSubmission.resumeUpload?.id).to.be.a('number');
+        expect(responseSubmission?.resumeUpload?.id).to.be.a('number');
       });
 
       // Confirm success
@@ -302,9 +302,9 @@ describe('Candidate Application', () => {
           yoe: '4',
         });
 
-        expect(responseSubmission.skills).to.have.length(8);
+        expect(responseSubmission?.skills).to.have.length(8);
 
-        expect(responseSubmission.resumeUpload).to.include({
+        expect(responseSubmission?.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
         });
       });

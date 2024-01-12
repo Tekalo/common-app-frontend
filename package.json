@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build-storybook": "storybook build -o .storybook/build",
-    "build:for-edge": "pnpx @cloudflare/next-on-pages",
+    "build:for-edge": "pnpm update-schemas && pnpx @cloudflare/next-on-pages",
     "build": "next build",
     "cy": "./cypress/scripts/setup-test-env.sh 'cypress open'",
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
@@ -23,8 +23,10 @@
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "coverage-report": "open coverage/lcov-report/index.html",
+    "test:all": "pnpm test:unit && pnpm test:e2e",
     "test:e2e": "start-test dev 3000 e2e:ci",
     "test:unit": "./cypress/scripts/setup-test-env.sh 'cypress run --component'",
+    "update-schemas": "./schemas/update.sh",
     "wrangle": "pnpm build && pnpm start && pnpm wrangler pages dev ./out"
   },
   "lint-staged": {
@@ -47,6 +49,7 @@
     "@heroicons/react": "^2.0.18",
     "@marsidev/react-turnstile": "^0.4.0",
     "@sentry/nextjs": "^7.85.0",
+    "@tanstack/react-query": "^5.0.0",
     "common-app-frontend": "link:",
     "dnd-core": "^16.0.1",
     "file-type-checker": "^1.0.8",
@@ -61,7 +64,6 @@
     "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-phone-input-2": "^2.15.1",
-    "@tanstack/react-query": "^5.0.0",
     "rxjs": "^7.8.1",
     "universal-cookie": "^6.1.1",
     "wrangler": "^3.19.0",
@@ -83,6 +85,7 @@
     "@storybook/storybook-deployer": "^2.8.16",
     "@storybook/testing-library": "0.2.2",
     "@tailwindcss/forms": "^0.5.7",
+    "@tsconfig/node20": "^20.1.2",
     "@types/node": "20.10.4",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",

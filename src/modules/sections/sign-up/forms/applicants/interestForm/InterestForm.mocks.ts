@@ -1,4 +1,5 @@
 import { voidFn } from '@/lib/helpers/utilities';
+import { DraftSubmissionType } from '@/lib/types';
 import { IInterestForm } from '@/sections/sign-up/forms/applicants/interestForm/InterestForm';
 import { Subject } from 'rxjs';
 
@@ -10,7 +11,7 @@ const base: IInterestForm = {
   handleSave: voidFn,
   handleSubmit: voidFn,
   isEditing: false,
-  savedForm: {},
+  savedForm: {} as DraftSubmissionType,
   updateFormValues: voidFn,
 };
 
@@ -20,7 +21,7 @@ const editing: IInterestForm = {
   handleSave: voidFn,
   handleSubmit: voidFn,
   isEditing: true,
-  savedForm: {},
+  savedForm: {} as DraftSubmissionType,
   updateFormValues: voidFn,
 };
 

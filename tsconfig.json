@@ -26,11 +26,12 @@
       "@/constants/*": ["src/lib/constants/*"],
       "@/cypress/*": ["cypress/*"],
       "@/layouts/*": ["src/lib/layouts/*"],
-      "@/lib/*": ["./src/lib/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/providers/*": ["src/lib/providers/*"],
+      "@/schemas/*": ["schemas/*"],
       "@/sections/*": ["src/modules/sections/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "cypress"]
+  "exclude": ["node_modules", "cypress", "common-app-api"]
 }
