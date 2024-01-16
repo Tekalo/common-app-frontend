@@ -2,7 +2,7 @@ import { SearchIconSVG } from '@/lib/constants/svgs';
 import { removeValueFromArray } from '@/lib/helpers/transformers';
 import SearchSelectionPill from '@/modules/components/input/searchSelect/components/searchSelectionPill';
 import { Combobox } from '@headlessui/react';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 
 interface ISearchboxInput {
   clearInput: () => void;
@@ -12,8 +12,10 @@ interface ISearchboxInput {
   name: string;
   placeholder: string;
   removeLastSelection: () => void;
+  searchQuery: string;
   setSearchQuery: (query: string) => void;
   setValue: (val: string[]) => void;
+  showOptions: (isDeletion?: boolean) => void;
   value: string[];
 }
 
@@ -25,8 +27,10 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
   name,
   placeholder,
   removeLastSelection,
+  searchQuery,
   setSearchQuery,
   setValue,
+  showOptions,
   value,
 }) => {
   const [previousValue, setPreviousValue] = useState('');
@@ -37,8 +41,14 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
   const onFocus = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) {
       event.target.value = '';
+    } else {
+      showOptions();
     }
   };
+
+  useEffect(() => {
+    setInputWidth(searchQuery);
+  }, [searchQuery]);
 
   const onKeyUpEvent = (event: KeyboardEvent<HTMLInputElement>) => {
     const inputTarget = event.target as HTMLInputElement;
@@ -49,6 +59,7 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
         if (previousValue === '') {
           removeLastSelection();
           setInputWidth(inputTarget.value, true);
+          showOptions(true);
         }
         break;
       case 'Enter':
@@ -60,6 +71,7 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
       case 'Escape':
         // Escape clears the input, so we need to resize again
         setInputWidth('');
+        setSearchQuery('');
         break;
     }
 

@@ -45,8 +45,9 @@ const SearchSelect: React.FC<ISearchSelect> = ({
     isLoading: resultsLoading,
   } = searchCtx.useSearchable();
 
-  const inputId = `${name}-input`;
   const disabled = value.length >= config.maxItems;
+  const inputId = `${name}-input`;
+  const showOptionsButtonId = `open-${name}-btn`;
 
   useEffect(() => {
     const getSearchOptions = async (): Promise<void> => {
@@ -67,6 +68,15 @@ const SearchSelect: React.FC<ISearchSelect> = ({
     resultsLoaded,
     resultsLoading,
   ]);
+
+  // This displays the default options when focusing the input
+  const clickShowOptionsButton = (isDeletion = false) => {
+    const valLengthCheck = isDeletion ? value.length === 1 : value.length === 0;
+
+    if (config.showDefaultOptions && valLengthCheck && !searchQuery.length) {
+      document?.getElementById(showOptionsButtonId)?.click();
+    }
+  };
 
   const getInput = (): HTMLInputElement | null =>
     document.getElementById(`${name}-input`) as HTMLInputElement;
@@ -131,10 +141,16 @@ const SearchSelect: React.FC<ISearchSelect> = ({
               removeLastSelection={() => {
                 removeLastSelection(setValue);
               }}
+              searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               setValue={setValue}
+              showOptions={clickShowOptionsButton}
               value={value}
             />
+            <Combobox.Button
+              id={showOptionsButtonId}
+              className="hidden"
+            ></Combobox.Button>
             <SearchboxOptionList
               disabled={disabled}
               maxSelectedMessage={maxSelectedMessage}

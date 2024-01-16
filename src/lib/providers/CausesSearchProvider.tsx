@@ -56,10 +56,10 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
         const res = await get(causesEndpoint, '');
 
         if (res.ok) {
-          const skills: ICause[] = ((await res.json()) as IGetCausesResponse)
+          const causes: ICause[] = ((await res.json()) as IGetCausesResponse)
             .data;
 
-          setCauses(skills);
+          setCauses(causes);
 
           return true;
         } else {
@@ -82,14 +82,20 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
 
     let results: ICause[];
 
-    if (fuse) {
-      results = fuse.search<ICause>(query).map((r) => r.item);
+    // If no query and none selected, show them the default options
+    if (!query.length && !value.length) {
+      // TODO: UNDO THE NOT
+      results = causes.filter((c) => !c.priority);
     } else {
-      results = causes.filter(queryIncludes);
-    }
+      if (fuse) {
+        results = fuse.search<ICause>(query).map((r) => r.item);
+      } else {
+        results = causes.filter(queryIncludes);
+      }
 
-    // Limit number of returned results for visibility reasons
-    results = results.filter(alreadySelected).slice(0, 8);
+      // Limit number of returned results for visibility reasons
+      results = results.filter(alreadySelected).slice(0, 8);
+    }
 
     return {
       queryMatches: causes.some(queryMatches),
