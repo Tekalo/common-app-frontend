@@ -132,7 +132,6 @@ describe('Candidate Application', () => {
           essayResponse: 'Essay entry.',
           githubUrl: null,
           hoursPerWeek: null,
-          interestCauses: ['algorithmic fairness'],
           interestEmploymentType: ['full', 'part'],
           interestRoles: ['software engineer'],
           interestWorkArrangement: ['advisor'],
@@ -151,6 +150,7 @@ describe('Candidate Application', () => {
         });
 
         expect(responseSubmission.skills).to.have.length(8);
+        expect(responseSubmission.interestCauses).to.have.length(2);
 
         // The id is assigned by the db so we won't know what it is
         expect(responseSubmission.resumeUpload).to.include({
@@ -164,7 +164,7 @@ describe('Candidate Application', () => {
     });
   });
 
-  it.only('Should submit a candidate, all fields', () => {
+  it('Should submit a candidate, all fields', () => {
     cy.intercept({
       method: 'POST',
       url: applicantsEndpoint,
@@ -298,6 +298,7 @@ describe('Candidate Application', () => {
         });
 
         expect(responseSubmission.skills).to.have.length(8);
+        expect(responseSubmission.interestCauses).to.have.length(2);
 
         expect(responseSubmission.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
