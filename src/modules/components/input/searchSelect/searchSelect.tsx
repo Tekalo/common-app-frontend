@@ -1,13 +1,15 @@
-import { ISearchable, ISearchableContext } from '@/lib/providers/shared';
+import { ICausesSearchContext } from '@/lib/providers/CausesSearchProvider';
+import { ISearchable } from '@/lib/providers/shared';
+import { ISkillsSearchContext } from '@/lib/providers/skillsSearchProvider';
 import SearchboxInput from '@/modules/components/input/searchSelect/components/searchboxInput';
 import SearchboxOptionList from '@/modules/components/input/searchSelect/components/searchboxOptionList';
 import { Combobox } from '@headlessui/react';
-import { useEffect, useState } from 'react';
+import { Context, useContext, useEffect, useState } from 'react';
 
 export interface ISearchSelectConfig {
   isScrollable: boolean;
   maxItems: number;
-  providerContext: ISearchableContext;
+  providerContext: Context<ICausesSearchContext | ISkillsSearchContext>;
   showDefaultOptions: boolean;
 }
 
@@ -33,7 +35,7 @@ const SearchSelect: React.FC<ISearchSelect> = ({
   const [queryMatches, setQueryMatches] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<ISearchable[]>([]);
-  const searchCtx = config.providerContext;
+  const searchCtx = useContext(config.providerContext);
 
   const {
     data: resultsLoaded,

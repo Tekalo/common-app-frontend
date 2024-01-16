@@ -6,7 +6,6 @@ import SearchSelect, {
   ISearchSelectConfig,
 } from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
-import { useContext } from 'react';
 import { z } from 'zod';
 
 export interface ICausesSelectField {
@@ -14,6 +13,7 @@ export interface ICausesSelectField {
   initialValue: string[] | undefined;
   isSubmitted: boolean;
   label: string;
+  setParentValue?: (val: string[]) => void;
   validator?: z.ZodSchema;
 }
 
@@ -22,13 +22,14 @@ const CausesSelectField: React.FC<ICausesSelectField> = ({
   initialValue,
   isSubmitted,
   label,
+  setParentValue,
   validator,
 }) => {
   const inputId = getInputId(fieldName);
   const config: ISearchSelectConfig = {
     isScrollable: false,
     maxItems: 8,
-    providerContext: useContext(CausesSearchContext),
+    providerContext: CausesSearchContext,
     showDefaultOptions: false,
   };
 
@@ -53,7 +54,12 @@ const CausesSelectField: React.FC<ICausesSelectField> = ({
                       .placeholder
                   : ''
               }
-              setValue={setValue}
+              setValue={(val) => {
+                if (setParentValue) {
+                  setParentValue(val);
+                }
+                setValue(val);
+              }}
               value={value}
             />
             {printErrorMessages(inputId, isSubmitted, errors, false)}

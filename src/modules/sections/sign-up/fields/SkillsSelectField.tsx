@@ -6,7 +6,6 @@ import SearchSelect, {
   ISearchSelectConfig,
 } from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
-import { useContext } from 'react';
 import { z } from 'zod';
 
 export interface ISkillsSelectField {
@@ -28,7 +27,7 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
   const config: ISearchSelectConfig = {
     isScrollable: false,
     maxItems: 8,
-    providerContext: useContext(SkillsSearchContext),
+    providerContext: SkillsSearchContext,
     showDefaultOptions: false,
   };
 

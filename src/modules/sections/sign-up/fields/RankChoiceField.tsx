@@ -1,11 +1,11 @@
-import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import RankChoice from '@/components/input/rankChoice/RankChoice';
-import { CauseOptions } from '@/lib/constants/selects';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
 import { ISelectItem } from '@/lib/types';
+import { CausesSelectValidator } from '@/lib/validators/array';
 import { Field } from 'houseform';
 import { z } from 'zod';
+import CausesSelectField from './CausesSelectField';
 
 export interface IRankChoiceField {
   fieldName: string;
@@ -24,12 +24,7 @@ export interface IRankChoiceField {
 
 const RankChoiceField: React.FC<IRankChoiceField> = ({
   fieldName,
-  selectLabel,
   rankLabel,
-  placeholder,
-  selectionLabelMulti,
-  selectionLabelSingle,
-  listOptions,
   isSubmitted,
   initialValue,
   validator,
@@ -42,8 +37,7 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
       return value.map((s) => {
         return {
           value: s,
-          displayText:
-            CauseOptions.find((item) => item.value === s)?.displayText || '',
+          displayText: s,
         };
       });
     } else {
@@ -57,25 +51,23 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
       onSubmitValidate={validator}
       onChangeValidate={validator}
     >
-      {({ value, setValue, onBlur, errors }) => {
+      {({ value, setValue, errors }) => {
+        console.log('val', value);
+
         const items = mapValueToItems(value);
+
+        console.log('items', items);
 
         return (
           <>
             <div>
-              <MultiSelect
-                errors={errors}
-                disabled={disabled}
-                label={selectLabel}
-                limit={5}
-                listOptions={listOptions}
-                name={inputId}
-                onBlur={onBlur}
-                placeholder={placeholder}
-                selectionLabelMulti={selectionLabelMulti}
-                selectionLabelSingle={selectionLabelSingle}
-                setValue={setValue}
-                value={value || []}
+              <CausesSelectField
+                fieldName={fieldName}
+                initialValue={initialValue}
+                isSubmitted={isSubmitted}
+                label="Causes label"
+                setParentValue={setValue}
+                validator={CausesSelectValidator}
               />
               {printErrorMessages(inputId, isSubmitted, errors, disabled)}
             </div>

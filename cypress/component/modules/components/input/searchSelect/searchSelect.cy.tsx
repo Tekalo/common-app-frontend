@@ -2,6 +2,7 @@ import { mockSkills, mockSkillsResponse } from '@/cypress/fixtures/mocks';
 import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
   ISkill,
+  SkillsSearchContext,
 } from '@/lib/providers/skillsSearchProvider';
 import SearchSelect, {
   ISearchSelect,
@@ -14,6 +15,7 @@ Cypress.Commands.add('mountSearchSelect', (props: ISearchSelect) => {
       <SkillsSearchProvider>
         <SearchSelect
           hasErrors={props.hasErrors}
+          config={props.config}
           name={props.name}
           label={props.label}
           placeholder={props.placeholder}
@@ -25,7 +27,7 @@ Cypress.Commands.add('mountSearchSelect', (props: ISearchSelect) => {
   );
 });
 
-describe('SkillsSelect', () => {
+describe('SearchSelect', () => {
   const mockLabel = 'Skills select label';
   const mockName = 'skills-select';
   const mockPlaceholder = 'Skills Select';
@@ -50,6 +52,12 @@ describe('SkillsSelect', () => {
       placeholder: mockPlaceholder,
       setValue: cy.stub().as('setValue'),
       value,
+      config: {
+        isScrollable: false,
+        maxItems: 8,
+        providerContext: SkillsSearchContext,
+        showDefaultOptions: false,
+      },
     };
 
     cy.intercept(
