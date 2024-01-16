@@ -17,6 +17,7 @@ export interface ISearchSelect {
   config: ISearchSelectConfig;
   hasErrors: boolean;
   label: string;
+  maxSelectedMessage: string;
   name: string;
   placeholder: string;
   setValue: (_val: string[]) => void;
@@ -27,6 +28,7 @@ const SearchSelect: React.FC<ISearchSelect> = ({
   config,
   hasErrors,
   label,
+  maxSelectedMessage,
   name,
   placeholder,
   setValue,
@@ -135,6 +137,7 @@ const SearchSelect: React.FC<ISearchSelect> = ({
             />
             <SearchboxOptionList
               disabled={disabled}
+              maxSelectedMessage={maxSelectedMessage}
               open={open}
               options={searchResults}
               queryMatches={queryMatches}

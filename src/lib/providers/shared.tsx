@@ -7,6 +7,7 @@ export interface IProvider {
 
 export interface ISearchable {
   canonical: string;
+  priority: boolean;
 }
 
 export interface ISearchableResults {

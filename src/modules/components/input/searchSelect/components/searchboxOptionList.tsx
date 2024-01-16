@@ -1,4 +1,3 @@
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { ISearchable } from '@/lib/providers/shared';
 import SearchboxOption from '@/modules/components/input/searchSelect/components/searchboxOption';
 import { Combobox, Transition } from '@headlessui/react';
@@ -6,6 +5,7 @@ import React, { ReactElement } from 'react';
 
 interface ISearchboxOptionList {
   disabled: boolean;
+  maxSelectedMessage: string;
   open: boolean;
   options: ISearchable[];
   queryMatches: boolean;
@@ -14,6 +14,7 @@ interface ISearchboxOptionList {
 
 const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   disabled,
+  maxSelectedMessage,
   open,
   options,
   queryMatches,
@@ -61,9 +62,7 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
     <SearchboxOption
       active={false}
       disabled={true}
-      optionName={
-        APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect.maxSkillsSelected
-      }
+      optionName={maxSelectedMessage}
     />
   );
 

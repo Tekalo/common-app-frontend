@@ -1,8 +1,5 @@
 import RankChoice from '@/components/input/rankChoice/RankChoice';
-import {
-  APPLICANT_EXPERIENCE_FORM_TEXT,
-  INTEREST_FORM_TEXT,
-} from '@/lang/en/en';
+import { INTEREST_FORM_TEXT } from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
 import { CausesSearchContext } from '@/lib/providers/CausesSearchProvider';
@@ -52,10 +49,10 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
   };
 
   const config: ISearchSelectConfig = {
-    isScrollable: false,
-    maxItems: 8,
+    isScrollable: true,
+    maxItems: 5,
     providerContext: CausesSearchContext,
-    showDefaultOptions: false,
+    showDefaultOptions: true,
   };
 
   return (
@@ -68,9 +65,6 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
       {({ value, setValue, errors }) => {
         const items = mapValueToItems(value);
 
-        console.log('value', value);
-        console.log('items', items);
-
         return (
           <>
             <div>
@@ -78,11 +72,13 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
                 config={config}
                 hasErrors={!!errors.length}
                 label={INTEREST_FORM_TEXT.FIELDS.interestCauses.selectLabel}
+                maxSelectedMessage={
+                  INTEREST_FORM_TEXT.FIELDS.interestCauses.maxCausesSelected
+                }
                 name={inputId}
                 placeholder={
                   !value.length
-                    ? APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect
-                        .placeholder
+                    ? INTEREST_FORM_TEXT.FIELDS.interestCauses.placeholder
                     : ''
                 }
                 setValue={(val) => {
@@ -94,10 +90,7 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
             </div>
             <RankChoice
               label={rankLabel}
-              setValue={(v) => {
-                console.log(2);
-                setValue(v);
-              }}
+              setValue={setValue}
               name="interestRank"
               rankOptions={items}
             />
