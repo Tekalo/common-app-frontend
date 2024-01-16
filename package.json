@@ -63,7 +63,7 @@
     "react-phone-input-2": "^2.15.1",
     "@tanstack/react-query": "^5.0.0",
     "rxjs": "^7.8.1",
-    "universal-cookie": "^6.1.1",
+    "universal-cookie": "^7.0.0",
     "wrangler": "^3.19.0",
     "zod": "^3.22.4"
   },
