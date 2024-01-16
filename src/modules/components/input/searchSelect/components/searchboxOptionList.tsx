@@ -5,6 +5,7 @@ import React, { ReactElement } from 'react';
 
 interface ISearchboxOptionList {
   disabled: boolean;
+  isScrollable: boolean;
   maxSelectedMessage: string;
   open: boolean;
   options: ISearchable[];
@@ -14,6 +15,7 @@ interface ISearchboxOptionList {
 
 const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   disabled,
+  isScrollable,
   maxSelectedMessage,
   open,
   options,
@@ -21,6 +23,7 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   searchQuery,
 }) => {
   const shouldDisplayOptions = !!searchQuery?.length || searchQuery === '';
+  const scrollableClasses = 'max-h-[300px] overflow-y-scroll';
 
   const addCustomOption = (): ReactElement => {
     return (
@@ -100,7 +103,9 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
         >
           <Combobox.Options
             data-name="skills-select-options"
-            className="absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none"
+            className={`absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none ${
+              isScrollable ? scrollableClasses : ''
+            }`}
           >
             {displayOptions}
           </Combobox.Options>

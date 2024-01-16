@@ -12,7 +12,6 @@ interface ISearchboxInput {
   name: string;
   placeholder: string;
   removeLastSelection: () => void;
-  searchQuery: string;
   setSearchQuery: (query: string) => void;
   setValue: (val: string[]) => void;
   showOptions: (isDeletion?: boolean) => void;
@@ -27,13 +26,16 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
   name,
   placeholder,
   removeLastSelection,
-  searchQuery,
   setSearchQuery,
   setValue,
   showOptions,
   value,
 }) => {
   const [previousValue, setPreviousValue] = useState('');
+
+  useEffect(() => {
+    setInputWidth('');
+  }, [value]);
 
   // This is for when the max number of results have been selected
   // Don't allow them to type, and forces showing the message
@@ -46,10 +48,6 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
     }
   };
 
-  useEffect(() => {
-    setInputWidth(searchQuery);
-  }, [searchQuery]);
-
   const onKeyUpEvent = (event: KeyboardEvent<HTMLInputElement>) => {
     const inputTarget = event.target as HTMLInputElement;
 
@@ -59,7 +57,6 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
         if (previousValue === '') {
           removeLastSelection();
           setInputWidth(inputTarget.value, true);
-          showOptions(true);
         }
         break;
       case 'Enter':

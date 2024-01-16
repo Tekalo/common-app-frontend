@@ -84,8 +84,7 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
 
     // If no query and none selected, show them the default options
     if (!query.length && !value.length) {
-      // TODO: UNDO THE NOT
-      results = causes.filter((c) => !c.priority);
+      results = causes.filter((c) => c.priority);
     } else {
       if (fuse) {
         results = fuse.search<ICause>(query).map((r) => r.item);

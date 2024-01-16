@@ -70,10 +70,8 @@ const SearchSelect: React.FC<ISearchSelect> = ({
   ]);
 
   // This displays the default options when focusing the input
-  const clickShowOptionsButton = (isDeletion = false) => {
-    const valLengthCheck = isDeletion ? value.length === 1 : value.length === 0;
-
-    if (config.showDefaultOptions && valLengthCheck && !searchQuery.length) {
+  const clickShowOptionsButton = () => {
+    if (config.showDefaultOptions && !value.length && !searchQuery.length) {
       document?.getElementById(showOptionsButtonId)?.click();
     }
   };
@@ -141,7 +139,6 @@ const SearchSelect: React.FC<ISearchSelect> = ({
               removeLastSelection={() => {
                 removeLastSelection(setValue);
               }}
-              searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               setValue={setValue}
               showOptions={clickShowOptionsButton}
@@ -153,6 +150,7 @@ const SearchSelect: React.FC<ISearchSelect> = ({
             ></Combobox.Button>
             <SearchboxOptionList
               disabled={disabled}
+              isScrollable={config.isScrollable}
               maxSelectedMessage={maxSelectedMessage}
               open={open}
               options={searchResults}
