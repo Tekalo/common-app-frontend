@@ -1,8 +1,8 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
-import { ISearchable } from '@/lib/types';
+import { ISearchable } from '@/lib/providers/shared';
 import SearchboxOption from '@/modules/components/input/searchSelect/components/searchboxOption';
 import { Combobox, Transition } from '@headlessui/react';
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 interface ISearchboxOptionList {
   disabled: boolean;

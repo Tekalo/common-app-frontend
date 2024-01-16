@@ -1,33 +1,35 @@
 import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
-import { SkillsSearchContext } from '@/lib/providers/skillsSearchProvider';
+import { CausesSearchContext } from '@/lib/providers/CausesSearchProvider';
 import SearchSelect, {
   ISearchSelectConfig,
 } from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
-export interface ISkillsSelectField {
+export interface ICausesSelectField {
   fieldName: string;
   initialValue: string[] | undefined;
   isSubmitted: boolean;
   label: string;
+  setParentValue?: (val: string[]) => void;
   validator?: z.ZodSchema;
 }
 
-const SkillsSelectField: React.FC<ISkillsSelectField> = ({
+const CausesSelectField: React.FC<ICausesSelectField> = ({
   fieldName,
   initialValue,
   isSubmitted,
   label,
+  setParentValue,
   validator,
 }) => {
   const inputId = getInputId(fieldName);
   const config: ISearchSelectConfig = {
     isScrollable: false,
     maxItems: 8,
-    providerContext: SkillsSearchContext,
+    providerContext: CausesSearchContext,
     showDefaultOptions: false,
   };
 
@@ -52,7 +54,12 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
                       .placeholder
                   : ''
               }
-              setValue={setValue}
+              setValue={(val) => {
+                if (setParentValue) {
+                  setParentValue(val);
+                }
+                setValue(val);
+              }}
               value={value}
             />
             {printErrorMessages(inputId, isSubmitted, errors, false)}
@@ -63,4 +70,4 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
   );
 };
 
-export default SkillsSelectField;
+export default CausesSelectField;

@@ -1,11 +1,20 @@
-import { SkillsSearchContext } from '@/lib/providers/skillsSearchProvider';
-import { ISearchable } from '@/lib/types';
+import { ICausesSearchContext } from '@/lib/providers/CausesSearchProvider';
+import { ISearchable } from '@/lib/providers/shared';
+import { ISkillsSearchContext } from '@/lib/providers/skillsSearchProvider';
 import SearchboxInput from '@/modules/components/input/searchSelect/components/searchboxInput';
 import SearchboxOptionList from '@/modules/components/input/searchSelect/components/searchboxOptionList';
 import { Combobox } from '@headlessui/react';
-import { useContext, useEffect, useState } from 'react';
+import { Context, useContext, useEffect, useState } from 'react';
+
+export interface ISearchSelectConfig {
+  isScrollable: boolean;
+  maxItems: number;
+  providerContext: Context<ICausesSearchContext | ISkillsSearchContext>;
+  showDefaultOptions: boolean;
+}
 
 export interface ISearchSelect {
+  config: ISearchSelectConfig;
   hasErrors: boolean;
   label: string;
   name: string;
@@ -15,6 +24,7 @@ export interface ISearchSelect {
 }
 
 const SearchSelect: React.FC<ISearchSelect> = ({
+  config,
   hasErrors,
   label,
   name,
@@ -25,20 +35,16 @@ const SearchSelect: React.FC<ISearchSelect> = ({
   const [queryMatches, setQueryMatches] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<ISearchable[]>([]);
-
-  // TODO: Pull this out, needs to be one level above, or on a switch based on a flag
-  const searchCtx = useContext(SkillsSearchContext);
+  const searchCtx = useContext(config.providerContext);
 
   const {
     data: resultsLoaded,
     error: resultsError,
     isLoading: resultsLoading,
-  } = searchCtx.useSkills();
-
-  // -----
+  } = searchCtx.useSearchable();
 
   const inputId = `${name}-input`;
-  const disabled = value.length >= 8;
+  const disabled = value.length >= config.maxItems;
 
   useEffect(() => {
     const getSearchOptions = async (): Promise<void> => {

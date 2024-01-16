@@ -42,3 +42,8 @@ export const SkillsSelectValidator = z
   .array(RequiredString)
   .min(1, ERROR_TEXT.required)
   .max(8);
+
+export const CausesSelectValidator = z
+  .array(RequiredString)
+  .min(1, ERROR_TEXT.required)
+  .max(8);
