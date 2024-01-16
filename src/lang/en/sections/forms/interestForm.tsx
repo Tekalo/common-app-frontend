@@ -53,12 +53,13 @@ export const INTEREST_FORM_TEXT = {
     },
     interestCauses: {
       selectLabel:
-        'Which causes are you interested in hearing opportunities for?',
+        'Which causes are you interested in hearing opportunities for? Add up to 5 causes',
       rankLabel:
         'Rank the causes you would be interested in working on with 1 being the highest.',
-      placeholder: 'Choose up to 5 causes',
+      placeholder: 'Type your own or choose from the list',
       selectionLabelMulti: ' Causes selected',
       selectionLabelSingle: ' Cause selected',
+      maxCausesSelected: 'You can choose up to 5 causes',
     },
     otherCauses: {
       label: 'Other causes (optional)',

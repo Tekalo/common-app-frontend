@@ -4,7 +4,6 @@ import {
   APPLICANT_EXPERIENCE_LINK,
   APPLICANT_SIGNUP_LINK,
   APPLICANT_SUCCESS_LINK,
-  CAUSE_ENUM_OPTIONS,
 } from '@/lang/en/en';
 import {
   applicantDraftSubmissionsEndpoint,
@@ -96,7 +95,6 @@ describe('Candidate Application', () => {
           linkedInUrl: null,
           openToRelocate: null,
           openToRemoteMulti: [],
-          otherCauses: [],
           portfolioPassword: null,
           portfolioUrl: null,
           previousImpactExperience: null,
@@ -119,7 +117,7 @@ describe('Candidate Application', () => {
       fillCurrentLocation();
       fillOpenToRelocation();
       fillOpenToRemoteMulti();
-      selectInterestCauses(['algorithmic fairness']);
+      selectInterestCauses();
       fillEssay();
       saveAndConfirmInterestForm();
       submitInterestForm();
@@ -134,7 +132,6 @@ describe('Candidate Application', () => {
           essayResponse: 'Essay entry.',
           githubUrl: null,
           hoursPerWeek: null,
-          interestCauses: ['algorithmic fairness'],
           interestEmploymentType: ['full', 'part'],
           interestRoles: ['software engineer'],
           interestWorkArrangement: ['advisor'],
@@ -143,7 +140,6 @@ describe('Candidate Application', () => {
           linkedInUrl: null,
           openToRelocate: 'yes',
           openToRemoteMulti: ['remote'],
-          otherCauses: [],
           portfolioPassword: null,
           portfolioUrl: null,
           previousImpactExperience: false,
@@ -154,6 +150,7 @@ describe('Candidate Application', () => {
         });
 
         expect(responseSubmission.skills).to.have.length(8);
+        expect(responseSubmission.interestCauses).to.have.length(2);
 
         // The id is assigned by the db so we won't know what it is
         expect(responseSubmission.resumeUpload).to.include({
@@ -241,7 +238,6 @@ describe('Candidate Application', () => {
       fillOpenToRemoteMulti();
       fillDesiredSalary();
       selectInterestCauses();
-      fillOtherCauses();
       selectWorkAuthorization();
       selectInterestGovt();
       selectInterestGovtTypes();
@@ -292,7 +288,6 @@ describe('Candidate Application', () => {
           linkedInUrl: 'linkedInUrl',
           openToRelocate: 'yes',
           openToRemoteMulti: ['remote'],
-          otherCauses: ['otherCause1', 'otherCause2'],
           portfolioPassword: 'portfolioPwd',
           portfolioUrl: 'portfolioUrl',
           previousImpactExperience: true,
@@ -303,6 +298,7 @@ describe('Candidate Application', () => {
         });
 
         expect(responseSubmission.skills).to.have.length(8);
+        expect(responseSubmission.interestCauses).to.have.length(2);
 
         expect(responseSubmission.resumeUpload).to.include({
           originalFilename: 'example_file.docx',
@@ -376,7 +372,7 @@ describe('Candidate Application', () => {
 
     for (i = 0; i < 8; i++) {
       cy.get('#input-skills-input').fastType('a');
-      cy.get('ul[data-name=skills-select-options]')
+      cy.get('ul[data-name=input-skills-select-options]')
         .children()
         .should('have.length', 9)
         .eq(0)
@@ -463,42 +459,17 @@ describe('Candidate Application', () => {
     cy.get('input[name=input-desiredSalary]').fastType('$200,000');
   }
 
-  function selectInterestCauses(selectedCauses?: string[]): void {
-    const input = cy.get('button[name=input-interestCauses]');
-    let shouldSelectOther = false;
+  function selectInterestCauses(): void {
+    let i;
 
-    // Select 4 randomly and then other
-    if (!selectedCauses?.length) {
-      shouldSelectOther = true;
-      const allCauses = [...CAUSE_ENUM_OPTIONS];
-      selectedCauses = [];
-
-      for (let i = 0; i < 4; i++) {
-        const len = allCauses.length;
-        const rndmIndex = Math.floor(Math.random() * len);
-
-        selectedCauses.push(allCauses[rndmIndex]);
-        allCauses.splice(rndmIndex, 1);
-      }
+    for (i = 0; i < 2; i++) {
+      cy.get('#input-interestCauses-input').fastType('a');
+      cy.get('ul[data-name=input-interestCauses-select-options]')
+        .children()
+        // .should('have.length', 3)
+        .eq(0)
+        .click();
     }
-
-    input.fastClick();
-
-    selectedCauses.forEach((cause: string) => {
-      cy.get(`li[data-name="input-interestCauses-${cause}"]`).fastClick();
-    });
-
-    if (shouldSelectOther) {
-      cy.get(`li[data-name="input-interestCauses-other"]`).fastClick();
-    }
-
-    input.fastClick();
-  }
-
-  function fillOtherCauses(): void {
-    cy.get('input[name=input-otherCauses]').fastType(
-      'otherCause1, otherCause2'
-    );
   }
 
   function selectWorkAuthorization(): void {

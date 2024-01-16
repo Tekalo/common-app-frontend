@@ -1,6 +1,7 @@
 const baseApiUrl = '/api/';
 export const applicantsEndpoint = `${baseApiUrl}applicants`;
 export const applicantResumeEndpoint = `${applicantsEndpoint}/:id/resume`;
+export const causesEndpoint = `${baseApiUrl}causes`;
 export const opportunityEndpoint = `${baseApiUrl}opportunities`;
 export const opportunityBatchEndpoint = `${opportunityEndpoint}/batch`;
 export const existingApplicantEndpoint = `${applicantsEndpoint}/me`;

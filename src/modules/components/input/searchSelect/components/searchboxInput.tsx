@@ -2,7 +2,7 @@ import { SearchIconSVG } from '@/lib/constants/svgs';
 import { removeValueFromArray } from '@/lib/helpers/transformers';
 import SearchSelectionPill from '@/modules/components/input/searchSelect/components/searchSelectionPill';
 import { Combobox } from '@headlessui/react';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 
 interface ISearchboxInput {
   clearInput: () => void;
@@ -14,6 +14,7 @@ interface ISearchboxInput {
   removeLastSelection: () => void;
   setSearchQuery: (query: string) => void;
   setValue: (val: string[]) => void;
+  showOptions: (isDeletion?: boolean) => void;
   value: string[];
 }
 
@@ -27,9 +28,14 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
   removeLastSelection,
   setSearchQuery,
   setValue,
+  showOptions,
   value,
 }) => {
   const [previousValue, setPreviousValue] = useState('');
+
+  useEffect(() => {
+    setInputWidth('');
+  }, [value]);
 
   // This is for when the max number of results have been selected
   // Don't allow them to type, and forces showing the message
@@ -37,6 +43,8 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
   const onFocus = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) {
       event.target.value = '';
+    } else {
+      showOptions();
     }
   };
 
@@ -60,6 +68,7 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
       case 'Escape':
         // Escape clears the input, so we need to resize again
         setInputWidth('');
+        setSearchQuery('');
         break;
     }
 

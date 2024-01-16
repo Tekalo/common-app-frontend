@@ -17,6 +17,7 @@ export interface ISearchSelect {
   config: ISearchSelectConfig;
   hasErrors: boolean;
   label: string;
+  maxSelectedMessage: string;
   name: string;
   placeholder: string;
   setValue: (_val: string[]) => void;
@@ -27,6 +28,7 @@ const SearchSelect: React.FC<ISearchSelect> = ({
   config,
   hasErrors,
   label,
+  maxSelectedMessage,
   name,
   placeholder,
   setValue,
@@ -43,8 +45,9 @@ const SearchSelect: React.FC<ISearchSelect> = ({
     isLoading: resultsLoading,
   } = searchCtx.useSearchable();
 
-  const inputId = `${name}-input`;
   const disabled = value.length >= config.maxItems;
+  const inputId = `${name}-input`;
+  const showOptionsButtonId = `open-${name}-btn`;
 
   useEffect(() => {
     const getSearchOptions = async (): Promise<void> => {
@@ -65,6 +68,13 @@ const SearchSelect: React.FC<ISearchSelect> = ({
     resultsLoaded,
     resultsLoading,
   ]);
+
+  // This displays the default options when focusing the input
+  const clickShowOptionsButton = () => {
+    if (config.showDefaultOptions && !value.length && !searchQuery.length) {
+      document?.getElementById(showOptionsButtonId)?.click();
+    }
+  };
 
   const getInput = (): HTMLInputElement | null =>
     document.getElementById(`${name}-input`) as HTMLInputElement;
@@ -131,10 +141,18 @@ const SearchSelect: React.FC<ISearchSelect> = ({
               }}
               setSearchQuery={setSearchQuery}
               setValue={setValue}
+              showOptions={clickShowOptionsButton}
               value={value}
             />
+            <Combobox.Button
+              id={showOptionsButtonId}
+              className="hidden"
+            ></Combobox.Button>
             <SearchboxOptionList
               disabled={disabled}
+              isScrollable={config.isScrollable}
+              maxSelectedMessage={maxSelectedMessage}
+              name={name}
               open={open}
               options={searchResults}
               queryMatches={queryMatches}

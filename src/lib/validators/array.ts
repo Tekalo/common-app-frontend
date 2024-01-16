@@ -8,13 +8,6 @@ import {
 import { OptionalString, RequiredString } from '@/lib/validators/string';
 import { z } from 'zod';
 
-export const CausesValidator = RequiredString.array().refine(
-  (v: string[]) => !!v.length,
-  {
-    message: ERROR_TEXT.interestCauses,
-  }
-);
-
 export const CommitmentTypeValidator = CommitmentType.array().refine(
   (v) => !!v.length,
   { message: ERROR_TEXT.requiredSelectGroup }
@@ -45,5 +38,5 @@ export const SkillsSelectValidator = z
 
 export const CausesSelectValidator = z
   .array(RequiredString)
-  .min(1, ERROR_TEXT.required)
+  .min(1, ERROR_TEXT.interestCauses)
   .max(8);

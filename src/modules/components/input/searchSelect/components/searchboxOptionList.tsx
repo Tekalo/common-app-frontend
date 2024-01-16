@@ -1,4 +1,3 @@
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { ISearchable } from '@/lib/providers/shared';
 import SearchboxOption from '@/modules/components/input/searchSelect/components/searchboxOption';
 import { Combobox, Transition } from '@headlessui/react';
@@ -6,6 +5,9 @@ import React, { ReactElement } from 'react';
 
 interface ISearchboxOptionList {
   disabled: boolean;
+  isScrollable: boolean;
+  maxSelectedMessage: string;
+  name: string;
   open: boolean;
   options: ISearchable[];
   queryMatches: boolean;
@@ -14,12 +16,16 @@ interface ISearchboxOptionList {
 
 const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   disabled,
+  isScrollable,
+  maxSelectedMessage,
+  name,
   open,
   options,
   queryMatches,
   searchQuery,
 }) => {
   const shouldDisplayOptions = !!searchQuery?.length || searchQuery === '';
+  const scrollableClasses = 'max-h-[300px] overflow-y-scroll';
 
   const addCustomOption = (): ReactElement => {
     return (
@@ -61,9 +67,7 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
     <SearchboxOption
       active={false}
       disabled={true}
-      optionName={
-        APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect.maxSkillsSelected
-      }
+      optionName={maxSelectedMessage}
     />
   );
 
@@ -100,8 +104,10 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
           className={`${open ? 'relative z-10' : null}`}
         >
           <Combobox.Options
-            data-name="skills-select-options"
-            className="absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none"
+            data-name={`${name}-select-options`}
+            className={`absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none ${
+              isScrollable ? scrollableClasses : ''
+            }`}
           >
             {displayOptions}
           </Combobox.Options>

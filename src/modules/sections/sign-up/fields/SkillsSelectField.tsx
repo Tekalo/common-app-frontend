@@ -45,6 +45,10 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
               config={config}
               hasErrors={!!errors.length}
               label={label}
+              maxSelectedMessage={
+                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect
+                  .maxSkillsSelected
+              }
               name={inputId}
               placeholder={
                 !value.length
