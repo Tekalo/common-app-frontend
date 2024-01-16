@@ -1,11 +1,17 @@
 import RankChoice from '@/components/input/rankChoice/RankChoice';
+import {
+  APPLICANT_EXPERIENCE_FORM_TEXT,
+  INTEREST_FORM_TEXT,
+} from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
+import { CausesSearchContext } from '@/lib/providers/CausesSearchProvider';
 import { ISelectItem } from '@/lib/types';
-import { CausesSelectValidator } from '@/lib/validators/array';
+import SearchSelect, {
+  ISearchSelectConfig,
+} from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
 import { z } from 'zod';
-import CausesSelectField from './CausesSelectField';
 
 export interface IRankChoiceField {
   fieldName: string;
@@ -44,6 +50,14 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
       return [];
     }
   };
+
+  const config: ISearchSelectConfig = {
+    isScrollable: false,
+    maxItems: 8,
+    providerContext: CausesSearchContext,
+    showDefaultOptions: false,
+  };
+
   return (
     <Field<string[]>
       name={fieldName}
@@ -52,28 +66,38 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
       onChangeValidate={validator}
     >
       {({ value, setValue, errors }) => {
-        console.log('val', value);
-
         const items = mapValueToItems(value);
 
+        console.log('value', value);
         console.log('items', items);
 
         return (
           <>
             <div>
-              <CausesSelectField
-                fieldName={fieldName}
-                initialValue={initialValue}
-                isSubmitted={isSubmitted}
-                label="Causes label"
-                setParentValue={setValue}
-                validator={CausesSelectValidator}
+              <SearchSelect
+                config={config}
+                hasErrors={!!errors.length}
+                label={INTEREST_FORM_TEXT.FIELDS.interestCauses.selectLabel}
+                name={inputId}
+                placeholder={
+                  !value.length
+                    ? APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect
+                        .placeholder
+                    : ''
+                }
+                setValue={(val) => {
+                  setValue(val);
+                }}
+                value={value}
               />
               {printErrorMessages(inputId, isSubmitted, errors, disabled)}
             </div>
             <RankChoice
               label={rankLabel}
-              setValue={setValue}
+              setValue={(v) => {
+                console.log(2);
+                setValue(v);
+              }}
               name="interestRank"
               rankOptions={items}
             />

@@ -1,3 +1,5 @@
+import { get } from '@/lib/helpers/api/apiHelpers';
+import { causesEndpoint } from '@/lib/helpers/api/endpoints';
 import {
   IProvider,
   ISearchable,
@@ -51,48 +53,18 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
     return useQuery<boolean, Error>({
       queryKey: [queryKey],
       queryFn: async () => {
-        setCauses([
-          {
-            canonical: 'Animal Rights',
-          },
-          {
-            canonical: 'Banimal Rights',
-          },
-          {
-            canonical: 'Canimal Rights',
-          },
-          {
-            canonical: 'Dnimal Rights',
-          },
-          {
-            canonical: 'Enimal Rights',
-          },
-          {
-            canonical: 'Fnimal Rights',
-          },
-          {
-            canonical: 'Gnimal Rights',
-          },
-          {
-            canonical: 'Hnimal Rights',
-          },
-          {
-            canonical: 'Inimal Rights',
-          },
-        ]);
-        return true;
-        // const res = await get(causesEndpoint, '');
+        const res = await get(causesEndpoint, '');
 
-        // if (res.ok) {
-        //   const skills: ICause[] = ((await res.json()) as IGetCausesResponse)
-        //     .data;
+        if (res.ok) {
+          const skills: ICause[] = ((await res.json()) as IGetCausesResponse)
+            .data;
 
-        //   setCauses(skills);
+          setCauses(skills);
 
-        //   return true;
-        // } else {
-        //   throw new Error(res.status.toString(), { cause: res });
-        // }
+          return true;
+        } else {
+          throw new Error(res.status.toString(), { cause: res });
+        }
       },
       retry: 1,
     });

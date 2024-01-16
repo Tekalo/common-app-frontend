@@ -33,7 +33,7 @@ import {
   InterestRefType,
 } from '@/lib/types';
 import {
-  CausesValidator,
+  CausesSelectValidator,
   CommitmentTypeValidator,
   EmploymentTypeValidator,
   RemoteValidator,
@@ -53,7 +53,6 @@ import {
 } from '@/lib/validators/string';
 import ChangeNotifier from '@/modules/components/application/ChangeNotifier';
 import {
-  FreeTagField,
   FreeTextField,
   LongTextField,
   MultiSelectField,
@@ -286,16 +285,7 @@ const InterestForm: React.FC<IInterestForm> = ({
             listOptions={CauseOptions}
             isSubmitted={isSubmitted}
             initialValue={savedForm?.interestCauses || []}
-            validator={CausesValidator}
-          />
-          {/* Other Causes*/}
-          <FreeTagField
-            fieldName="otherCauses"
-            label={INTEREST_FORM_TEXT.FIELDS.otherCauses.label}
-            placeholder={INTEREST_FORM_TEXT.FIELDS.otherCauses.placeholder}
-            isSubmitted={isSubmitted}
-            initialValue={savedForm?.otherCauses || []}
-            validator={OptionalString.array()}
+            validator={CausesSelectValidator}
           />
           {/* Work Auth*/}
           <SingleSelectField

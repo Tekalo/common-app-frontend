@@ -87,10 +87,6 @@ describe('Applicant <InterestForm />', () => {
         'have.text',
         ERROR_TEXT.requiredSelectGroup
       );
-      cy.get('#errorMessage-input-interestCauses').should(
-        'have.text',
-        ERROR_TEXT.interestCauses
-      );
       cy.get('#errorMessage-input-essayResponse').should(
         'have.text',
         ERROR_TEXT.required
@@ -126,7 +122,6 @@ describe('Applicant <InterestForm />', () => {
       cy.get(Selectors.remote.input).should('exist');
       cy.get(Selectors.salary.input).should('exist');
       cy.get(Selectors.interestCauses.input).should('exist');
-      cy.get(Selectors.otherCauses.input).should('exist');
       cy.get(Selectors.workAuthorization.input).should('exist');
       cy.get(Selectors.govInterest.no).should('exist');
       cy.get(Selectors.govInterest.yes).should('exist');
@@ -154,7 +149,6 @@ describe('Applicant <InterestForm />', () => {
       cy.get(Selectors.remote.input).should('exist');
       cy.get(Selectors.salary.input).should('exist');
       cy.get(Selectors.interestCauses.input).should('exist');
-      cy.get(Selectors.otherCauses.input).should('exist');
       cy.get(Selectors.workAuthorization.input).should('exist');
       cy.get(Selectors.govInterest.no).should('exist');
       cy.get(Selectors.govInterest.yes).should('exist');
@@ -182,7 +176,6 @@ describe('Applicant <InterestForm />', () => {
       cy.get(Selectors.remote.input).should('exist');
       cy.get(Selectors.salary.input).should('exist');
       cy.get(Selectors.interestCauses.input).should('exist');
-      cy.get(Selectors.otherCauses.input).should('exist');
       cy.get(Selectors.workAuthorization.input).should('exist');
       cy.get(Selectors.govInterest.no).should('exist');
       cy.get(Selectors.govInterest.yes).should('exist');
@@ -408,9 +401,6 @@ describe('Applicant <InterestForm />', () => {
           );
           expect(submissionBody.openToRemoteMulti).to.deep.equal(
             mockSavedForm.openToRemoteMulti
-          );
-          expect(submissionBody.otherCauses).to.deep.equal(
-            mockSavedForm.otherCauses
           );
           expect(submissionBody.previousImpactExperience).to.equal(
             mockSavedForm.previousImpactExperience
