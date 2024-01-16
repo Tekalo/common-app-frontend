@@ -1,4 +1,5 @@
 import { mockSkills, mockSkillsResponse } from '@/cypress/fixtures/mocks';
+import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
 import { skillsEndpoint } from '@/lib/helpers/api/endpoints';
 import SkillsSearchProvider, {
   ISkill,
@@ -18,6 +19,7 @@ Cypress.Commands.add('mountSearchSelect', (props: ISearchSelect) => {
           config={props.config}
           name={props.name}
           label={props.label}
+          maxSelectedMessage={props.maxSelectedMessage}
           placeholder={props.placeholder}
           setValue={props.setValue}
           value={props.value}
@@ -49,6 +51,8 @@ describe('SearchSelect', () => {
       hasErrors: false,
       name: mockName,
       label: mockLabel,
+      maxSelectedMessage:
+        APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect.maxSkillsSelected,
       placeholder: mockPlaceholder,
       setValue: cy.stub().as('setValue'),
       value,

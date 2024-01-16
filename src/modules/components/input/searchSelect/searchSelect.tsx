@@ -152,6 +152,7 @@ const SearchSelect: React.FC<ISearchSelect> = ({
               disabled={disabled}
               isScrollable={config.isScrollable}
               maxSelectedMessage={maxSelectedMessage}
+              name={name}
               open={open}
               options={searchResults}
               queryMatches={queryMatches}

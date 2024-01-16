@@ -7,6 +7,7 @@ interface ISearchboxOptionList {
   disabled: boolean;
   isScrollable: boolean;
   maxSelectedMessage: string;
+  name: string;
   open: boolean;
   options: ISearchable[];
   queryMatches: boolean;
@@ -17,6 +18,7 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   disabled,
   isScrollable,
   maxSelectedMessage,
+  name,
   open,
   options,
   queryMatches,
@@ -102,7 +104,7 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
           className={`${open ? 'relative z-10' : null}`}
         >
           <Combobox.Options
-            data-name="skills-select-options"
+            data-name={`${name}-select-options`}
             className={`absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none ${
               isScrollable ? scrollableClasses : ''
             }`}

@@ -93,7 +93,7 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
       }
 
       // Limit number of returned results for visibility reasons
-      results = results.filter(alreadySelected).slice(0, 8);
+      results = results.filter(alreadySelected).slice(0, 15);
     }
 
     return {
