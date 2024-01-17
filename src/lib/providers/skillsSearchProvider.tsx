@@ -5,6 +5,7 @@ import {
   ISearchable,
   ISearchableContext,
   ISearchableResults,
+  prioritySort,
 } from '@/lib/providers/shared';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import Fuse from 'fuse.js';
@@ -87,6 +88,9 @@ const SkillsSearchProvider: React.FC<IProvider> = ({ children }) => {
     } else {
       results = skills.filter(queryIncludes);
     }
+
+    // Move priority items to the top
+    results.sort(prioritySort);
 
     // Limit number of returned results for visibility reasons
     results = results.filter(alreadySelected).slice(0, 8);

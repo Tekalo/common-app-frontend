@@ -5,6 +5,7 @@ import {
   ISearchable,
   ISearchableContext,
   ISearchableResults,
+  prioritySort,
 } from '@/lib/providers/shared';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import Fuse from 'fuse.js';
@@ -59,6 +60,9 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
           const causes: ICause[] = ((await res.json()) as IGetCausesResponse)
             .data;
 
+          // TODO: REMOVE
+          causes.push({ canonical: 'test', priority: false });
+
           setCauses(causes);
 
           return true;
@@ -91,6 +95,8 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
       } else {
         results = causes.filter(queryIncludes);
       }
+
+      results.sort(prioritySort);
 
       // Limit number of returned results for visibility reasons
       results = results.filter(alreadySelected).slice(0, 15);

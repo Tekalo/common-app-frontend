@@ -19,3 +19,11 @@ export interface ISearchableContext {
   searchWithQuery: (query: string, value: string[]) => ISearchableResults;
   useSearchable: () => UseQueryResult<boolean, Error>;
 }
+
+export const prioritySort = (a: ISearchable, b: ISearchable) => {
+  if (a.priority && !b.priority) {
+    return -1;
+  } else if (b.priority && !a.priority) {
+    return 1;
+  } else return 0;
+};
