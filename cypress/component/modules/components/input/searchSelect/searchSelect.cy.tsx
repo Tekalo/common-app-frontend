@@ -97,7 +97,7 @@ describe('SearchSelect', () => {
 
     cy.get('#skills-select-input').fastType('a');
 
-    cy.get('ul[data-name=skills-select-options]')
+    cy.get('ul[data-name=skills-select-select-options]')
       .should('be.visible')
       .children()
       .should('have.length', 5);
