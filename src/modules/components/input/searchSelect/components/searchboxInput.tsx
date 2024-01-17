@@ -63,6 +63,7 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
         // Resize on value add
         if (inputTarget.value === '') {
           setInputWidth(inputTarget.value);
+          setSearchQuery('');
         }
         break;
       case 'Escape':

@@ -32,7 +32,6 @@ const NewOrgSchema = z.object({
     type: OrgType,
     size: OrgSize,
     impactAreas: Causes.array(),
-    impactAreasOther: z.array(maxLengthString(255)).nullable().optional(),
     eoe: z.boolean(),
   }),
   contact: z.object({

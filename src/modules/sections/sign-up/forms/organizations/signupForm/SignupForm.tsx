@@ -1,13 +1,11 @@
 import {
   AttributionOtpions,
-  CauseOptions,
   CommitmentOptions,
   OrgSizeOptions,
   OrgTypeOptions,
   TrueFalseOptions,
 } from '@/lib/constants/selects';
 import {
-  Causes,
   CommitmentType,
   OrgSize,
   OrgType,
@@ -15,30 +13,29 @@ import {
 } from '@/lib/validators/enums';
 
 import Button from '@/components/buttons/Button/Button';
-import { ERROR_TEXT, ORG_SIGNUP_FORM_TEXT } from '@/lang/en/en';
+import { ORG_SIGNUP_FORM_TEXT } from '@/lang/en/en';
 import {
   executeScroll,
   hasLengthError,
   jumpToFirstErrorMessage,
 } from '@/lib/helpers/utilities';
 import { NewOrgType } from '@/lib/types';
+import { CausesSelectValidator } from '@/lib/validators/array';
 import { EOE } from '@/lib/validators/literal';
 import {
   Email,
   OptionalPhoneNumber,
-  OptionalString,
   RequiredString,
 } from '@/lib/validators/string';
 import OrgAdditionalInfoBox from '@/modules/components/application/OrgAdditionalInfoBox';
 import {
-  FreeTagField,
   FreeTextField,
-  MultiSelectField,
   PhoneNumberField,
   SelectBooleanField,
   SelectGroupField,
   SingleSelectField,
 } from '@/sections/sign-up/fields';
+import CausesSelectField from '@/sections/sign-up/fields/CausesSelectField';
 import { Form } from 'houseform';
 import { useEffect } from 'react';
 
@@ -101,37 +98,13 @@ const SignupForm: React.FC<ISignupForm> = ({ previousForm, handleSubmit }) => {
           />
 
           {/* Org Impact Areas */}
-          <MultiSelectField
+          <CausesSelectField
             fieldName="organization.impactAreas"
-            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.label}
-            placeholder={ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.placeholder}
-            selectionLabelMulti={
-              ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.selectionLabelMulti
-            }
-            selectionLabelSingle={
-              ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.selectionLabelSingle
-            }
-            listOptions={CauseOptions}
-            isSubmitted={isSubmitted}
             initialValue={previousForm?.organization.impactAreas || []}
-            validator={Causes.array().min(1, {
-              message: ERROR_TEXT.impactAreasRequired,
-            })}
+            isSubmitted={isSubmitted}
+            label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreas.label}
+            validator={CausesSelectValidator}
           />
-
-          {/* Other Impact Areas*/}
-          {value?.organization?.impactAreas.includes('other') && (
-            <FreeTagField
-              fieldName="organization.impactAreasOther"
-              label={ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreasOther.label}
-              placeholder={
-                ORG_SIGNUP_FORM_TEXT.FIELDS.orgImpactAreasOther.placeholder
-              }
-              isSubmitted={isSubmitted}
-              initialValue={previousForm?.organization.impactAreasOther || []}
-              validator={OptionalString.array()}
-            />
-          )}
 
           {/* Contact name */}
           <FreeTextField
