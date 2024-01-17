@@ -1,42 +1,50 @@
-import SkillPill from '@/components/input/skillsSelect/components//skillPill';
 import { SearchIconSVG } from '@/lib/constants/svgs';
 import { removeValueFromArray } from '@/lib/helpers/transformers';
+import SearchSelectionPill from '@/modules/components/input/searchSelect/components/searchSelectionPill';
 import { Combobox } from '@headlessui/react';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 
-interface ISkillboxInput {
+interface ISearchboxInput {
   clearInput: () => void;
   disabled: boolean;
   focusInput: () => void;
   hasErrors: boolean;
   name: string;
   placeholder: string;
-  removeLastSkill: () => void;
+  removeLastSelection: () => void;
   setSearchQuery: (query: string) => void;
   setValue: (val: string[]) => void;
+  showOptions: (isDeletion?: boolean) => void;
   value: string[];
 }
 
-const SkillboxInput: React.FC<ISkillboxInput> = ({
+const SearchboxInput: React.FC<ISearchboxInput> = ({
   clearInput,
   disabled,
   focusInput,
   hasErrors,
   name,
   placeholder,
-  removeLastSkill,
+  removeLastSelection,
   setSearchQuery,
   setValue,
+  showOptions,
   value,
 }) => {
   const [previousValue, setPreviousValue] = useState('');
 
-  // This is for when the top number of skills have been selected
+  useEffect(() => {
+    setInputWidth('');
+  }, [value]);
+
+  // This is for when the max number of results have been selected
   // Don't allow them to type, and forces showing the message
-  // about the max number of skills
+  // about the max number of selections
   const onFocus = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled) {
       event.target.value = '';
+    } else {
+      showOptions();
     }
   };
 
@@ -47,7 +55,7 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       case 'Backspace':
         // Resize on pill remove
         if (previousValue === '') {
-          removeLastSkill();
+          removeLastSelection();
           setInputWidth(inputTarget.value, true);
         }
         break;
@@ -55,11 +63,13 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
         // Resize on value add
         if (inputTarget.value === '') {
           setInputWidth(inputTarget.value);
+          setSearchQuery('');
         }
         break;
       case 'Escape':
         // Escape clears the input, so we need to resize again
         setInputWidth('');
+        setSearchQuery('');
         break;
     }
 
@@ -87,15 +97,15 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
       className="relative box-border flex w-full flex-wrap items-start justify-start gap-y-1 rounded-[3px] border border-gray-2 p-1 text-component-medium outline-0 placeholder:text-gray-2 focus:ring-blue-2"
       onClick={focusInput}
     >
-      <div className="mx-1 mt-[2px]" data-name="skills-select-search-icon">
+      <div className="mx-1 mt-[2px]" data-name="search-select-search-icon">
         <SearchIconSVG />
       </div>
-      {value.map((skill) => (
-        <SkillPill
-          key={skill}
-          value={skill}
+      {value.map((selection) => (
+        <SearchSelectionPill
+          key={selection}
+          value={selection}
           removeValue={() => {
-            setValue(removeValueFromArray(skill, value));
+            setValue(removeValueFromArray(selection, value));
             setInputWidth('', true);
             focusInput();
           }}
@@ -125,4 +135,4 @@ const SkillboxInput: React.FC<ISkillboxInput> = ({
   );
 };
 
-export default SkillboxInput;
+export default SearchboxInput;

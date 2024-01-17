@@ -1,8 +1,6 @@
 import '@/cypress/support/commands';
 import { OrganizationRoleSelectors as RoleSelectors } from '@/cypress/support/selectors/organization-role.selectors';
-import { OrganizationSignupSelectors } from '@/cypress/support/selectors/organization-signup.selectors';
 import {
-  CAUSE_ENUM_OPTIONS,
   ORG_SIGNUP_LINK,
   REF_ENUM_OPTIONS,
   ROLE_ENUM_OPTIONS,
@@ -33,7 +31,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas([getRandomEntry([...CAUSE_ENUM_OPTIONS], true)]);
+    selectImpactAreas();
     fillContactName();
     fillContactEmail();
     selectCommitmentTypes(['full']);
@@ -72,7 +70,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
+    selectImpactAreas();
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -126,7 +124,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas([getRandomEntry([...CAUSE_ENUM_OPTIONS], true)]);
+    selectImpactAreas();
     fillContactName();
     fillContactEmail();
     selectCommitmentTypes(['part']);
@@ -169,8 +167,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
-    fillImpactAreasOther();
+    selectImpactAreas();
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -208,14 +205,7 @@ describe('Organization Application', () => {
 
     // Review form
     cy.get(reviewPageTitleSelector).should('exist');
-    cy.get('span[data-name="label-orgImpactAreasOther"]').should(
-      'have.text',
-      'Other impact areas: '
-    );
-    cy.get('span[data-name="value-orgImpactAreasOther"]').should(
-      'have.text',
-      'impact Area 1, impact Area 2, impact Area 3'
-    );
+
     acceptPrivacy();
     submitOrgApplication();
 
@@ -228,7 +218,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas([getRandomEntry([...CAUSE_ENUM_OPTIONS], true)]);
+    selectImpactAreas();
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -273,7 +263,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
+    selectImpactAreas();
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -322,7 +312,7 @@ describe('Organization Application', () => {
     fillOrgName();
     selectOrgType();
     selectOrgSize();
-    selectImpactAreas([...CAUSE_ENUM_OPTIONS]);
+    selectImpactAreas();
     fillContactName();
     fillContactEmail();
     fillContactPhone();
@@ -431,25 +421,32 @@ describe('Organization Application', () => {
     cy.get('li[data-name="input-organization.size-51-100"]').fastClick();
   }
 
-  function selectImpactAreas(areas: string[]): void {
-    const input = cy.get('button[name="input-organization.impactAreas"]');
+  function selectImpactAreas(): void {
+    let i;
 
-    input.fastClick();
-
-    areas.forEach((area) => {
-      cy.get(
-        `li[data-name="input-organization.impactAreas-${area}"]`
-      ).fastClick();
-    });
-
-    input.fastClick();
+    for (i = 0; i < 2; i++) {
+      cy.get('input[id="input-organization.impactAreas-input"]').fastType('a');
+      cy.get('ul[data-name="input-organization.impactAreas-select-options"]')
+        .children()
+        // .should('have.length', 3)
+        .eq(0)
+        .click();
+    }
   }
 
-  function fillImpactAreasOther(): void {
-    cy.get(OrganizationSignupSelectors.impactAreasOther.input).fastType(
-      'impact Area 1, impact Area 2, impact Area 3'
-    );
-  }
+  // function selectImpactAreas(areas: string[]): void {
+  //   const input = cy.get('button[name="input-organization.impactAreas"]');
+
+  //   input.fastClick();
+
+  //   areas.forEach((area) => {
+  //     cy.get(
+  //       `li[data-name="input-organization.impactAreas-${area}"]`
+  //     ).fastClick();
+  //   });
+
+  //   input.fastClick();
+  // }
 
   function fillContactName(): void {
     cy.get('input[name="input-contact.name"]').fastType('Contact Name');
@@ -575,7 +572,7 @@ describe('Organization Application', () => {
 
     for (i = 0; i < 8; i++) {
       cy.get('#input-desiredSkills-input').fastType('a');
-      cy.get('ul[data-name=skills-select-options]')
+      cy.get('ul[data-name=input-desiredSkills-select-options]')
         .children()
         .should('have.length', 9)
         .eq(0)

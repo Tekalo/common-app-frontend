@@ -9,7 +9,9 @@ import {
 
 import { voidFn } from '@/cypress/fixtures/mocks';
 import { APPLICANT_FORM_TEXT, ERROR_TEXT } from '@/lang/en/en';
+import CausesSearchProvider from '@/lib/providers/CausesSearchProvider';
 import { DraftSubmissionType } from '@/lib/types';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { Subject } from 'rxjs';
@@ -17,15 +19,19 @@ import { Subject } from 'rxjs';
 Cypress.Commands.add('mountInterestForm', (props: IInterestForm) => {
   cy.mount(
     <DndProvider backend={TouchBackend}>
-      <InterestForm
-        $updateInterestValues={props.$updateInterestValues}
-        changeHasOcurred={props.changeHasOcurred}
-        handleSave={props.handleSave}
-        handleSubmit={props.handleSubmit}
-        isEditing={props.isEditing}
-        savedForm={props.savedForm}
-        updateFormValues={props.updateFormValues}
-      />
+      <QueryClientProvider client={new QueryClient()}>
+        <CausesSearchProvider>
+          <InterestForm
+            $updateInterestValues={props.$updateInterestValues}
+            changeHasOcurred={props.changeHasOcurred}
+            handleSave={props.handleSave}
+            handleSubmit={props.handleSubmit}
+            isEditing={props.isEditing}
+            savedForm={props.savedForm}
+            updateFormValues={props.updateFormValues}
+          />
+        </CausesSearchProvider>
+      </QueryClientProvider>
     </DndProvider>
   );
 });
@@ -81,10 +87,6 @@ describe('Applicant <InterestForm />', () => {
         'have.text',
         ERROR_TEXT.requiredSelectGroup
       );
-      cy.get('#errorMessage-input-interestCauses').should(
-        'have.text',
-        ERROR_TEXT.interestCauses
-      );
       cy.get('#errorMessage-input-essayResponse').should(
         'have.text',
         ERROR_TEXT.required
@@ -120,7 +122,6 @@ describe('Applicant <InterestForm />', () => {
       cy.get(Selectors.remote.input).should('exist');
       cy.get(Selectors.salary.input).should('exist');
       cy.get(Selectors.interestCauses.input).should('exist');
-      cy.get(Selectors.otherCauses.input).should('exist');
       cy.get(Selectors.workAuthorization.input).should('exist');
       cy.get(Selectors.govInterest.no).should('exist');
       cy.get(Selectors.govInterest.yes).should('exist');
@@ -148,7 +149,6 @@ describe('Applicant <InterestForm />', () => {
       cy.get(Selectors.remote.input).should('exist');
       cy.get(Selectors.salary.input).should('exist');
       cy.get(Selectors.interestCauses.input).should('exist');
-      cy.get(Selectors.otherCauses.input).should('exist');
       cy.get(Selectors.workAuthorization.input).should('exist');
       cy.get(Selectors.govInterest.no).should('exist');
       cy.get(Selectors.govInterest.yes).should('exist');
@@ -176,7 +176,6 @@ describe('Applicant <InterestForm />', () => {
       cy.get(Selectors.remote.input).should('exist');
       cy.get(Selectors.salary.input).should('exist');
       cy.get(Selectors.interestCauses.input).should('exist');
-      cy.get(Selectors.otherCauses.input).should('exist');
       cy.get(Selectors.workAuthorization.input).should('exist');
       cy.get(Selectors.govInterest.no).should('exist');
       cy.get(Selectors.govInterest.yes).should('exist');
@@ -402,9 +401,6 @@ describe('Applicant <InterestForm />', () => {
           );
           expect(submissionBody.openToRemoteMulti).to.deep.equal(
             mockSavedForm.openToRemoteMulti
-          );
-          expect(submissionBody.otherCauses).to.deep.equal(
-            mockSavedForm.otherCauses
           );
           expect(submissionBody.previousImpactExperience).to.equal(
             mockSavedForm.previousImpactExperience

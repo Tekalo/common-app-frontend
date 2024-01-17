@@ -6,6 +6,7 @@ import GTMProvider from '@/providers/gtmProvider/gtmProvider';
 import SkillsSearchProvider from '@/providers/skillsSearchProvider';
 import SubmissionProvider from '@/providers/submissionProvider';
 import { ReactNode } from 'react';
+import CausesSearchProvider from './CausesSearchProvider';
 
 interface ITekaloProvidersWrapper {
   children: ReactNode;
@@ -16,17 +17,19 @@ const TekaloProvidersWrapper: React.FC<ITekaloProvidersWrapper> = ({
 }) => (
   // GTMProvider needs CookiesProvider
   <ApplicantProvider>
-    <CookiesProvider>
-      <DebugProvider>
-        <FileUploadProvider>
-          <GTMProvider>
-            <SubmissionProvider>
-              <SkillsSearchProvider>{children}</SkillsSearchProvider>
-            </SubmissionProvider>
-          </GTMProvider>
-        </FileUploadProvider>
-      </DebugProvider>
-    </CookiesProvider>
+    <CausesSearchProvider>
+      <CookiesProvider>
+        <DebugProvider>
+          <FileUploadProvider>
+            <GTMProvider>
+              <SubmissionProvider>
+                <SkillsSearchProvider>{children}</SkillsSearchProvider>
+              </SubmissionProvider>
+            </GTMProvider>
+          </FileUploadProvider>
+        </DebugProvider>
+      </CookiesProvider>
+    </CausesSearchProvider>
   </ApplicantProvider>
 );
 

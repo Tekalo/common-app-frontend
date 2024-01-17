@@ -56,12 +56,6 @@ const OrgDetailReview: React.FC<IOrgDetailReview> = ({
             .map((area) => capitalizeFirstLetter(area))
             .join(', ')
         )}
-        {orgInfo?.organization.impactAreasOther &&
-          renderRow(
-            'orgImpactAreasOther',
-            'Other impact areas: ',
-            orgInfo?.organization.impactAreasOther.join(', ')
-          )}
       </div>
       <div className="mt-4 space-y-2">
         {renderRow('orgContactName', 'Contact name: ', orgInfo?.contact.name)}

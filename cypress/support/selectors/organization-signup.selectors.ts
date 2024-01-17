@@ -24,7 +24,7 @@ export const OrganizationSignupSelectors = {
     },
   },
   impactAreas: {
-    input: 'button[name="input-organization.impactAreas"]',
+    input: 'input[id="input-organization.impactAreas-input"]',
     options: {
       algoFairness:
         'li[data-name="input-organization.impactAreas-algorithmic fairness"]',
