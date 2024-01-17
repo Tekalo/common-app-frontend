@@ -575,7 +575,7 @@ describe('Organization Application', () => {
 
     for (i = 0; i < 8; i++) {
       cy.get('#input-desiredSkills-input').fastType('a');
-      cy.get('ul[data-name=skills-select-options]')
+      cy.get('ul[data-name=input-desiredSkills-select-options]')
         .children()
         .should('have.length', 9)
         .eq(0)
