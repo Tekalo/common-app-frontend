@@ -85,7 +85,15 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
 
     // If no query and none selected, show them the default options
     if (!query.length && !value.length) {
-      results = causes.filter((c) => c.priority);
+      results = causes
+        .filter((c) => c.priority)
+        .sort((a, b) => {
+          if (a.canonical.charAt(0) > b.canonical.charAt(0)) {
+            return 1;
+          } else if (a.canonical.charAt(0) < b.canonical.charAt(0)) {
+            return -1;
+          } else return 0;
+        });
     } else {
       if (fuse) {
         results = fuse.search<ICause>(query).map((r) => r.item);
