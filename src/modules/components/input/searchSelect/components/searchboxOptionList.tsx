@@ -1,25 +1,31 @@
-import SkillboxOption from '@/components/input/skillsSelect/components//skillboxOption';
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
-import { ISkill } from '@/lib/providers/skillsSearchProvider';
+import { ISearchable } from '@/lib/providers/shared';
+import SearchboxOption from '@/modules/components/input/searchSelect/components/searchboxOption';
 import { Combobox, Transition } from '@headlessui/react';
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-interface ISkillboxOptionList {
+interface ISearchboxOptionList {
   disabled: boolean;
+  isScrollable: boolean;
+  maxSelectedMessage: string;
+  name: string;
   open: boolean;
-  options: ISkill[];
+  options: ISearchable[];
   queryMatches: boolean;
   searchQuery: string;
 }
 
-const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
+const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   disabled,
+  isScrollable,
+  maxSelectedMessage,
+  name,
   open,
   options,
   queryMatches,
   searchQuery,
 }) => {
   const shouldDisplayOptions = !!searchQuery?.length || searchQuery === '';
+  const scrollableClasses = 'max-h-[312px] overflow-y-scroll';
 
   const addCustomOption = (): ReactElement => {
     return (
@@ -29,11 +35,11 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
         value={[searchQuery]}
       >
         {({ active }) => (
-          <SkillboxOption
+          <SearchboxOption
             active={active}
             custom={true}
             disabled={false}
-            skillName={`“${searchQuery}”`}
+            optionName={`“${searchQuery}”`}
           />
         )}
       </Combobox.Option>
@@ -58,12 +64,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
   };
 
   const maxSelectedOption = (
-    <SkillboxOption
+    <SearchboxOption
       active={false}
       disabled={true}
-      skillName={
-        APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect.maxSkillsSelected
-      }
+      optionName={maxSelectedMessage}
     />
   );
 
@@ -75,10 +79,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
         value={[option.canonical]}
       >
         {({ active }) => (
-          <SkillboxOption
+          <SearchboxOption
             active={active}
             disabled={false}
-            skillName={option.canonical}
+            optionName={option.canonical}
           />
         )}
       </Combobox.Option>
@@ -100,8 +104,10 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
           className={`${open ? 'relative z-10' : null}`}
         >
           <Combobox.Options
-            data-name="skills-select-options"
-            className="absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none"
+            data-name={`${name}-select-options`}
+            className={`absolute end-0 z-20 w-full rounded-[3px] bg-white p-1 pt-1 shadow-md focus:outline-none ${
+              isScrollable ? scrollableClasses : ''
+            }`}
           >
             {displayOptions}
           </Combobox.Options>
@@ -111,4 +117,4 @@ const SkillboxOptionList: React.FC<ISkillboxOptionList> = ({
   );
 };
 
-export default SkillboxOptionList;
+export default SearchboxOptionList;

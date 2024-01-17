@@ -3,9 +3,9 @@
 import { IApplicationLayout } from '@/lib/layouts/forms/application/ApplicationLayout';
 import { IFileUpload } from '@/modules/components/input/fileUpload/FileUpload';
 import { IMultiSelect } from '@/modules/components/input/multiSelect/MultiSelect';
+import { ISearchSelect } from '@/modules/components/input/searchSelect/searchSelect';
 import { ISkillPill } from '@/modules/components/input/skillsSelect/components/skillPill';
 import { ISkillboxOption } from '@/modules/components/input/skillsSelect/components/skillboxOption';
-import { ISkillsSelect } from '@/modules/components/input/skillsSelect/skillsSelect';
 import { IApplicantForms } from '@/modules/components/pages/ApplicantForms';
 import { IFileUploadField } from '@/modules/sections/sign-up/fields/FileUploadField';
 import { IPhoneNumberField } from '@/modules/sections/sign-up/fields/PhoneNumberField';
@@ -65,10 +65,10 @@ declare global {
       mountSignInActionPage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;
-      mountSkillboxOption(props: ISkillboxOption): Chainable<void>;
-      mountSkillPill(props: ISkillPill): Chainable<void>;
+      mountSearchboxOption(props: ISkillboxOption): Chainable<void>;
+      mountSearchSelectionPill(props: ISkillPill): Chainable<void>;
       mountSkillsSearchProvider(props: IMockComponent): Chainable<void>;
-      mountSkillsSelect(props: ISkillsSelect): Chainable<void>;
+      mountSearchSelect(props: ISearchSelect): Chainable<void>;
       mountViewResumePage(
         auth0Context: Auth0ContextInterface<User>
       ): Chainable<void>;

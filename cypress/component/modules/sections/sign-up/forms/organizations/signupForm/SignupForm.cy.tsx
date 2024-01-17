@@ -4,10 +4,19 @@ import SignupForm, {
 
 import { voidFn } from '@/cypress/fixtures/mocks';
 import { OrganizationSignupSelectors as Selectors } from '@/cypress/support/selectors/organization-signup.selectors';
+import CausesSearchProvider from '@/lib/providers/CausesSearchProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 Cypress.Commands.add('mountOrganizationSignupForm', (props: ISignupForm) => {
   cy.mount(
-    <SignupForm handleSubmit={props.handleSubmit} previousForm={undefined} />
+    <QueryClientProvider client={new QueryClient()}>
+      <CausesSearchProvider>
+        <SignupForm
+          handleSubmit={props.handleSubmit}
+          previousForm={undefined}
+        />
+      </CausesSearchProvider>
+    </QueryClientProvider>
   );
 });
 
@@ -30,7 +39,6 @@ describe('Organization <SignupForm />', () => {
       cy.get(Selectors.type.input).should('exist');
       cy.get(Selectors.size.input).should('exist');
       cy.get(Selectors.impactAreas.input).should('exist');
-      cy.get(Selectors.impactAreasOther.input).should('not.exist');
       cy.get(Selectors.phone.input).should('exist');
       cy.get(Selectors.positionType.fullTime).should('exist');
       cy.get(Selectors.positionType.partTime).should('exist');
@@ -47,16 +55,6 @@ describe('Organization <SignupForm />', () => {
 
       cy.get(Selectors.referenceAttribution.options.other).click();
       cy.get(Selectors.referenceAttributionOther.input).should('exist');
-    });
-
-    it('should render impactAreasOther when "other" impact area is selected', () => {
-      cy.mountOrganizationSignupForm(props);
-
-      cy.get(Selectors.impactAreas.input).fastClick();
-      cy.get(Selectors.impactAreas.options.other).fastClick();
-      cy.get(Selectors.impactAreas.input).fastClick();
-
-      cy.get(Selectors.impactAreasOther.input).should('be.visible');
     });
   });
 });

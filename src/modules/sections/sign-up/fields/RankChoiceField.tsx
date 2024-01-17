@@ -1,9 +1,12 @@
-import MultiSelect from '@/components/input/multiSelect/MultiSelect';
 import RankChoice from '@/components/input/rankChoice/RankChoice';
-import { CauseOptions } from '@/lib/constants/selects';
+import { INTEREST_FORM_TEXT } from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
+import { CausesSearchContext } from '@/lib/providers/CausesSearchProvider';
 import { ISelectItem } from '@/lib/types';
+import SearchSelect, {
+  ISearchSelectConfig,
+} from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
@@ -24,12 +27,7 @@ export interface IRankChoiceField {
 
 const RankChoiceField: React.FC<IRankChoiceField> = ({
   fieldName,
-  selectLabel,
   rankLabel,
-  placeholder,
-  selectionLabelMulti,
-  selectionLabelSingle,
-  listOptions,
   isSubmitted,
   initialValue,
   validator,
@@ -42,14 +40,21 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
       return value.map((s) => {
         return {
           value: s,
-          displayText:
-            CauseOptions.find((item) => item.value === s)?.displayText || '',
+          displayText: s,
         };
       });
     } else {
       return [];
     }
   };
+
+  const config: ISearchSelectConfig = {
+    isScrollable: true,
+    maxItems: 5,
+    providerContext: CausesSearchContext,
+    showDefaultOptions: true,
+  };
+
   return (
     <Field<string[]>
       name={fieldName}
@@ -57,25 +62,29 @@ const RankChoiceField: React.FC<IRankChoiceField> = ({
       onSubmitValidate={validator}
       onChangeValidate={validator}
     >
-      {({ value, setValue, onBlur, errors }) => {
+      {({ value, setValue, errors }) => {
         const items = mapValueToItems(value);
 
         return (
           <>
             <div>
-              <MultiSelect
-                errors={errors}
-                disabled={disabled}
-                label={selectLabel}
-                limit={5}
-                listOptions={listOptions}
+              <SearchSelect
+                config={config}
+                hasErrors={!!errors.length}
+                label={INTEREST_FORM_TEXT.FIELDS.interestCauses.selectLabel}
+                maxSelectedMessage={
+                  INTEREST_FORM_TEXT.FIELDS.interestCauses.maxCausesSelected
+                }
                 name={inputId}
-                onBlur={onBlur}
-                placeholder={placeholder}
-                selectionLabelMulti={selectionLabelMulti}
-                selectionLabelSingle={selectionLabelSingle}
-                setValue={setValue}
-                value={value || []}
+                placeholder={
+                  !value.length
+                    ? INTEREST_FORM_TEXT.FIELDS.interestCauses.placeholder
+                    : ''
+                }
+                setValue={(val) => {
+                  setValue(val);
+                }}
+                value={value}
               />
               {printErrorMessages(inputId, isSubmitted, errors, disabled)}
             </div>

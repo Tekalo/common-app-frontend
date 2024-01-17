@@ -18,7 +18,7 @@ import { YOE } from '@/lib/validators/enums';
 import { UploadedFile } from '@/lib/validators/object';
 import { OptionalString, RequiredString } from '@/lib/validators/string';
 import ChangeNotifier from '@/modules/components/application/ChangeNotifier';
-import SkillsSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
+import SearchSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
 import { FreeTextField, SingleSelectField } from '@/sections/sign-up/fields';
 import FileUploadField from '@/sections/sign-up/fields/FileUploadField';
 import { Form } from 'houseform';
@@ -121,7 +121,7 @@ const ExperienceForm: React.FC<IExperienceForm> = ({
           />
 
           {/* Skills */}
-          <SkillsSelectField
+          <SearchSelectField
             fieldName="skills"
             initialValue={savedForm?.skills || []}
             isSubmitted={isSubmitted}

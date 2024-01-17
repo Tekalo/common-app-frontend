@@ -130,7 +130,9 @@ describe('Experience Form', () => {
       cy.mountExperienceForm(props);
 
       mockSavedForm?.skills?.forEach((skill) => {
-        cy.get(`div[data-name="skill-pill-${skill}"]`).should('be.visible');
+        cy.get(`div[data-name="search-selection-pill-${skill}"]`).should(
+          'be.visible'
+        );
       });
     });
 

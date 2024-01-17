@@ -32,7 +32,6 @@ const NewOrgSchema = z.object({
     type: OrgType,
     size: OrgSize,
     impactAreas: Causes.array(),
-    impactAreasOther: z.array(maxLengthString(255)).nullable().optional(),
     eoe: z.boolean(),
   }),
   contact: z.object({
@@ -99,7 +98,6 @@ const CandidateInterestsSchema = z.object({
   openToRemoteMulti: z.array(OpenToRemoteMulti),
   desiredSalary: maxLengthString(255).nullable().optional(),
   interestCauses: z.array(maxLengthString(255)), // order matters
-  otherCauses: z.array(maxLengthString(255)).nullable().optional(),
   workAuthorization: WorkAuthorization,
   interestGovt: z.boolean(),
   interestGovtEmplTypes: z.array(GovtJobType).optional(),

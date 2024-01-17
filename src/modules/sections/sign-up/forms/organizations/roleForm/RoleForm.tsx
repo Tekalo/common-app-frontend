@@ -37,7 +37,7 @@ import {
   RequiredEssay,
   RequiredString,
 } from '@/lib/validators/string';
-import SkillsSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
+import SearchSelectField from '@/modules/sections/sign-up/fields/SkillsSelectField';
 import {
   FreeTextField,
   LongTextField,
@@ -354,7 +354,7 @@ const RoleForm: React.FC<IRoleForm> = ({
                 initialValue={previousForm?.desiredYoe || []}
                 validator={YOE_RANGE.array().min(1, ERROR_TEXT.required)}
               />
-              <SkillsSelectField
+              <SearchSelectField
                 fieldName="desiredSkills"
                 initialValue={previousForm?.desiredSkills || []}
                 isSubmitted={isSubmitted}

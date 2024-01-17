@@ -1,14 +1,14 @@
-import { APPLICANT_EXPERIENCE_FORM_TEXT } from '@/lang/en/en';
+import { INTEREST_FORM_TEXT } from '@/lang/en/en';
 import { printErrorMessages } from '@/lib/helpers/display';
 import { getInputId } from '@/lib/helpers/utilities';
-import { SkillsSearchContext } from '@/lib/providers/skillsSearchProvider';
+import { CausesSearchContext } from '@/lib/providers/CausesSearchProvider';
 import SearchSelect, {
   ISearchSelectConfig,
 } from '@/modules/components/input/searchSelect/searchSelect';
 import { Field } from 'houseform';
 import { z } from 'zod';
 
-export interface ISkillsSelectField {
+export interface ICausesSelectField {
   fieldName: string;
   initialValue: string[] | undefined;
   isSubmitted: boolean;
@@ -16,7 +16,7 @@ export interface ISkillsSelectField {
   validator?: z.ZodSchema;
 }
 
-const SkillsSelectField: React.FC<ISkillsSelectField> = ({
+const CausesSelectField: React.FC<ICausesSelectField> = ({
   fieldName,
   initialValue,
   isSubmitted,
@@ -25,10 +25,10 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
 }) => {
   const inputId = getInputId(fieldName);
   const config: ISearchSelectConfig = {
-    isScrollable: false,
-    maxItems: 8,
-    providerContext: SkillsSearchContext,
-    showDefaultOptions: false,
+    isScrollable: true,
+    maxItems: 5,
+    providerContext: CausesSearchContext,
+    showDefaultOptions: true,
   };
 
   return (
@@ -46,14 +46,12 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
               hasErrors={!!errors.length}
               label={label}
               maxSelectedMessage={
-                APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect
-                  .maxSkillsSelected
+                INTEREST_FORM_TEXT.FIELDS.interestCauses.maxCausesSelected
               }
               name={inputId}
               placeholder={
                 !value.length
-                  ? APPLICANT_EXPERIENCE_FORM_TEXT.FIELDS.skillsSelect
-                      .placeholder
+                  ? INTEREST_FORM_TEXT.FIELDS.interestCauses.placeholder
                   : ''
               }
               setValue={setValue}
@@ -67,4 +65,4 @@ const SkillsSelectField: React.FC<ISkillsSelectField> = ({
   );
 };
 
-export default SkillsSelectField;
+export default CausesSelectField;

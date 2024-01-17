@@ -1,38 +1,38 @@
 import { PlusIconSVG } from '@/lib/constants/svgs';
 
-export interface ISkillboxOption {
+export interface ISearchboxOption {
   active: boolean;
   custom?: boolean;
   disabled: boolean;
-  skillName: string;
+  optionName: string;
 }
 
-const SkillboxOption: React.FC<ISkillboxOption> = ({
+const SearchboxOption: React.FC<ISearchboxOption> = ({
   active,
   custom = false,
   disabled,
-  skillName,
+  optionName,
 }) => (
   <div
-    data-name={`skillbox-option-${skillName}`}
+    data-name={`searchbox-option-${optionName}`}
     className={`flex items-center p-2 ${
       active ? 'rounded-sm bg-light-blue' : 'bg-white'
     }`}
   >
     <div
-      data-name="skill-option-name"
+      data-name="search-option-name"
       className={`min-h-[18px] max-w-[334px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-component-medium ${
         disabled || custom ? 'text-gray-2' : 'text-black-text'
       }`}
     >
-      {skillName}
+      {optionName}
     </div>
     {!disabled && (
-      <div data-name={`skill-option-add-${skillName}`} className="flex-none">
+      <div data-name={`search-option-add-${optionName}`} className="flex-none">
         <PlusIconSVG />
       </div>
     )}
   </div>
 );
 
-export default SkillboxOption;
+export default SearchboxOption;

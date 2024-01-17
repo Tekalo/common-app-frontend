@@ -62,7 +62,7 @@ export const CandidateInterestSelectors = {
     input: 'input[name="input-desiredSalary"]',
   },
   interestCauses: {
-    input: 'button[name="input-interestCauses"]',
+    input: '#input-interestCauses-input',
     options: {
       algorithmicFairness:
         'li[data-name="input-interestCauses-algorithmic fairness"]',
