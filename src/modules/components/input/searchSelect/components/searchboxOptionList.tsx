@@ -25,7 +25,7 @@ const SearchboxOptionList: React.FC<ISearchboxOptionList> = ({
   searchQuery,
 }) => {
   const shouldDisplayOptions = !!searchQuery?.length || searchQuery === '';
-  const scrollableClasses = 'max-h-[300px] overflow-y-scroll';
+  const scrollableClasses = 'max-h-[312px] overflow-y-scroll';
 
   const addCustomOption = (): ReactElement => {
     return (
