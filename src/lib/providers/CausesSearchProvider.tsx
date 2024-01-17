@@ -60,9 +60,6 @@ const CausesSearchProvider: React.FC<IProvider> = ({ children }) => {
           const causes: ICause[] = ((await res.json()) as IGetCausesResponse)
             .data;
 
-          // TODO: REMOVE
-          causes.push({ canonical: 'test', priority: false });
-
           setCauses(causes);
 
           return true;
