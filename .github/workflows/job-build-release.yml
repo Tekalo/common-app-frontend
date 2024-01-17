@@ -83,7 +83,7 @@ jobs:
 
       - name: Restore cache
         id: pnpm-next-restore
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ${{ steps.pnpm-cache.outputs.STORE_PATH }}
