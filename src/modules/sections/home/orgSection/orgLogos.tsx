@@ -174,6 +174,11 @@ const recruitingLogos = [
     alt: 'Abloom Logo',
     url: 'https://abloomai.com/',
   },
+   {
+    src: '/images/logos/FinEquitylogo.png',
+    alt: 'finEQUITY Logo',
+    url: 'https://www.finequity.org/',
+  },
 ];
 
 export default recruitingLogos;
