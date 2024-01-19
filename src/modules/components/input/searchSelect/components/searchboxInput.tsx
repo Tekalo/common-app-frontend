@@ -117,12 +117,12 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
           className="h-[22px] max-w-[235px] border-none bg-transparent p-0 focus:border-none focus:ring-0 sm:max-w-[275px] md:max-w-[305px]"
           id={name}
           maxLength={60}
-          onBlur={() => {
-            // This is happening too quickly when you click on an option, we need to delay it just a bit
-            setTimeout(() => {
+          onBlur={(e) => {
+            // If they are clicking on an option, we don't want to do anything so the option gets added
+            if (!e.relatedTarget?.id.includes('headlessui-combobox-option-')) {
               clearInput();
               setInputWidth('');
-            }, 250);
+            }
           }}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
             onFocus(event);
