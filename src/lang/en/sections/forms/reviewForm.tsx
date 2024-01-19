@@ -30,7 +30,6 @@ export const REVIEW_FORM_TEXT = {
       startDate: 'Desired start date: ',
       yoe: 'Desired years of experience: ',
       skills: 'Desired skills for the role: ',
-      otherSkills: 'Desired other skills: ',
       similarStaffed:
         'Are there other employees on staff with similar roles?: ',
     },
