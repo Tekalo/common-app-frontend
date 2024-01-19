@@ -118,8 +118,11 @@ const SearchboxInput: React.FC<ISearchboxInput> = ({
           id={name}
           maxLength={60}
           onBlur={() => {
-            clearInput();
-            setInputWidth('');
+            // This is happening too quickly when you click on an option, we need to delay it just a bit
+            setTimeout(() => {
+              clearInput();
+              setInputWidth('');
+            }, 250);
           }}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
             onFocus(event);

@@ -43,4 +43,4 @@ export const SkillsSelectValidator = z
 export const CausesSelectValidator = z
   .array(RequiredString)
   .min(1, ERROR_TEXT.interestCauses)
-  .max(8, INTEREST_FORM_TEXT.FIELDS.interestCauses.maxCausesSelected);
+  .max(5, INTEREST_FORM_TEXT.FIELDS.interestCauses.maxCausesSelected);

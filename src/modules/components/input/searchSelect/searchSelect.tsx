@@ -102,7 +102,7 @@ const SearchSelect: React.FC<ISearchSelect> = ({
     setValue(newVal);
   };
 
-  const valueAlreadyAdded = (newVal: string[]) => {
+  const valueAlreadyAdded = (newVal: string[]): boolean => {
     return value.map((v) => v.toLowerCase()).includes(newVal[0].toLowerCase());
   };
 
