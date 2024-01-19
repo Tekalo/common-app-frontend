@@ -72,10 +72,6 @@ export const ORG_ROLE_FORM_TEXT = {
       label: 'Desired skills for the role, up to 8',
       placeholder: 'Search for skills',
     },
-    desiredOtherSkills: {
-      label: 'Other desired skills if not listed above (optional)',
-      placeholder: 'Desired skills separated by commas',
-    },
     similarStaffed: {
       label: 'Are there employees on staff with the same or similar role?',
       placeholder: '',

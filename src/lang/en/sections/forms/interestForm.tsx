@@ -61,10 +61,6 @@ export const INTEREST_FORM_TEXT = {
       selectionLabelSingle: ' Cause selected',
       maxCausesSelected: 'You can choose up to 5 causes',
     },
-    otherCauses: {
-      label: 'Other causes (optional)',
-      placeholder: 'Additional causes separated by commas',
-    },
     workAuthorization: {
       label: 'Work authorization (optional)',
       placeholder: 'Choose one',

@@ -26,7 +26,6 @@ const SubmissionResponseSchema = z.object({
   jdUrl: maxLengthString(500).optional(),
   desiredYoe: z.array(YOE_RANGE),
   desiredSkills: z.array(SkillsSelectValidator),
-  desiredOtherSkills: maxLengthString(255).optional(),
   visaSponsorship: VisaSponsorship,
   similarStaffed: z.boolean(),
   desiredImpactExp: maxLengthString(5000).optional(),
@@ -38,7 +37,6 @@ const NewOrgOppSchema = z.object({
     type: OrgType,
     size: OrgSize,
     impactAreas: z.array(maxLengthString(255)),
-    impactAreasOther: z.array(maxLengthString(255)).nullable().optional(),
     eoe: z.boolean(),
   }),
   contact: z.object({
@@ -55,7 +53,6 @@ const NewOrgOppResponseSchema = z.object({
   contactName: maxLengthString(2048),
   contactPhone: maxLengthString(2048).nullable(),
   impactAreas: z.array(maxLengthString(2048)),
-  impactAreasOther: z.array(maxLengthString(255)).nullable().optional(),
   orgName: maxLengthString(2048),
   orgSize: maxLengthString(2048),
   orgType: maxLengthString(2048),
