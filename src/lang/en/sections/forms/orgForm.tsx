@@ -21,7 +21,7 @@ export const ORG_FORM_TEXT = {
         <a
           className="whitespace-nowrap text-blue-1 underline"
           target="_blank"
-          href="https://calendly.com/aisling-hoey/30min"
+          href="https://calendly.com/eperakis-1/30min"
           rel="noreferrer"
         >
           Schedule a chat
