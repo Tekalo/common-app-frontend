@@ -189,7 +189,7 @@ devDependencies:
     version: 9.0.1
   pnpm:
     specifier: ^8.11.0
-    version: 8.11.0
+    version: 8.15.4
   postcss:
     specifier: ^8.4.32
     version: 8.4.35
@@ -17130,8 +17130,8 @@ packages:
       - typescript
     dev: true
 
-  /pnpm@8.11.0:
-    resolution: {integrity: sha512-nfh8FsmNsntOBR14fmfyIH7EfoCcywe/e17ErNzRYTNVg5o40LkAFEkj1qcFdwC3TSoMyxVYvrJBZHoSBqmnqw==}
+  /pnpm@8.15.4:
+    resolution: {integrity: sha512-C9Opvp6w6aaSZ23uwAowO6IYuiedmSQUdWFrOY267t0RFG+SwoQ0WPVXsdEn4J1MFx4QW9zWthACs5aFqAFrng==}
     engines: {node: '>=16.14'}
     hasBin: true
     dev: true
