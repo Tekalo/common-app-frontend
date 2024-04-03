@@ -96,7 +96,7 @@ devDependencies:
     version: 18.6.3
   '@cypress/code-coverage':
     specifier: ^3.12.13
-    version: 3.12.33(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(babel-loader@9.1.3)(cypress@13.7.1)(webpack@5.91.0)
+    version: 3.12.33(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(babel-loader@9.1.3)(cypress@13.7.2)(webpack@5.91.0)
   '@next/font':
     specifier: 14.1.4
     version: 14.1.4(next@14.1.4)
@@ -156,7 +156,7 @@ devDependencies:
     version: 6.10.0(webpack@5.91.0)
   cypress:
     specifier: ^13.6.1
-    version: 13.7.1
+    version: 13.7.2
   dotenv:
     specifier: ^16.3.1
     version: 16.4.5
@@ -4075,7 +4075,7 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@cypress/code-coverage@3.12.33(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(babel-loader@9.1.3)(cypress@13.7.1)(webpack@5.91.0):
+  /@cypress/code-coverage@3.12.33(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(babel-loader@9.1.3)(cypress@13.7.2)(webpack@5.91.0):
     resolution: {integrity: sha512-ir8g+HLjKYF9nUt9q8Mpnvv/8C8+lYIZfR4/CRI6ZZgi8bJ2pvH2h6MorMao6X3mSQNFwlGvOJioxkT35UK4mA==}
     peerDependencies:
       '@babel/core': ^7.0.1
@@ -4089,7 +4089,7 @@ packages:
       '@cypress/webpack-preprocessor': 6.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(babel-loader@9.1.3)(webpack@5.91.0)
       babel-loader: 9.1.3(@babel/core@7.24.3)(webpack@5.91.0)
       chalk: 4.1.2
-      cypress: 13.7.1
+      cypress: 13.7.2
       dayjs: 1.11.10
       debug: 4.3.4(supports-color@8.1.1)
       execa: 4.1.0
@@ -7096,12 +7096,12 @@ packages:
       '@storybook/telemetry': 7.6.17
       '@storybook/types': 7.6.17
       '@types/detect-port': 1.3.5
-      '@types/node': 18.19.26
+      '@types/node': 18.19.29
       '@types/pretty-hrtime': 1.0.3
       '@types/semver': 7.5.6
       better-opn: 3.0.2
       chalk: 4.1.2
-      cli-table3: 0.6.3
+      cli-table3: 0.6.4
       compression: 1.7.4
       detect-port: 1.5.1
       express: 4.18.2
@@ -8104,6 +8104,12 @@ packages:
       undici-types: 5.26.5
     dev: true
 
+  /@types/node@18.19.29:
+    resolution: {integrity: sha512-5pAX7ggTmWZdhUrhRWLPf+5oM7F80bcKVCBbr0zwEkTNzTJL2CWQjznpFgHYy6GrzkYi2Yjy7DHKoynFxqPV8g==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
+
   /@types/node@18.19.3:
     resolution: {integrity: sha512-k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==}
     dependencies:
@@ -8536,7 +8542,7 @@ packages:
       lodash: 4.17.21
       mlly: 1.6.1
       outdent: 0.8.0
-      vite: 5.2.7(@types/node@20.10.4)
+      vite: 5.2.8(@types/node@20.10.4)
       vite-node: 1.4.0(@types/node@20.10.4)
     transitivePeerDependencies:
       - '@types/node'
@@ -10477,8 +10483,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /cli-table3@0.6.3:
-    resolution: {integrity: sha512-w5Jac5SykAeZJKntOxJCrm63Eg5/4dhMWIcuTbo9rpE+brgaSZo0RuNJZeOyMgsUdhDeojvgyQLmjI+K50ZGyg==}
+  /cli-table3@0.6.4:
+    resolution: {integrity: sha512-Lm3L0p+/npIQWNIiyF/nAn7T5dnOwR3xNTHXYEBFBFVPXzCVNZ5lqEC/1eo/EVfpDsQ1I+TX4ORPQgp+UI0CRw==}
     engines: {node: 10.* || >= 12.*}
     dependencies:
       string-width: 4.2.3
@@ -11009,8 +11015,8 @@ packages:
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  /cypress@13.7.1:
-    resolution: {integrity: sha512-4u/rpFNxOFCoFX/Z5h+uwlkBO4mWzAjveURi3vqdSu56HPvVdyGTxGw4XKGWt399Y1JwIn9E1L9uMXQpc0o55w==}
+  /cypress@13.7.2:
+    resolution: {integrity: sha512-FF5hFI5wlRIHY8urLZjJjj/YvfCBrRpglbZCLr/cYcL9MdDe0+5usa8kTIrDHthlEc9lwihbkb5dmwqBDNS2yw==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     requiresBuild: true
@@ -11027,7 +11033,7 @@ packages:
       chalk: 4.1.2
       check-more-types: 2.24.0
       cli-cursor: 3.1.0
-      cli-table3: 0.6.3
+      cli-table3: 0.6.4
       commander: 6.2.1
       common-tags: 1.8.2
       dayjs: 1.11.10
@@ -13962,7 +13968,7 @@ packages:
       hast-util-whitespace: 2.0.1
       mdast-util-mdx-expression: 1.3.2
       mdast-util-mdxjs-esm: 1.3.1
-      property-information: 6.4.1
+      property-information: 6.5.0
       space-separated-tokens: 2.0.2
       style-to-object: 0.4.4
       unist-util-position: 4.0.4
@@ -15601,7 +15607,7 @@ packages:
       '@types/mdast': 3.0.15
       mdast-util-to-markdown: 1.5.0
       parse-entities: 4.0.1
-      stringify-entities: 4.0.3
+      stringify-entities: 4.0.4
       unist-util-remove-position: 4.0.2
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
@@ -17386,6 +17392,15 @@ packages:
       postcss: 8.4.38
     dev: true
 
+  /postcss-modules-extract-imports@3.1.0(postcss@8.4.38):
+    resolution: {integrity: sha512-k3kNe0aNFQDAZGbin48pL2VNidTF0w4/eASDsxlyspobzU3wZQLOGj7L9gfRe0Jo9/4uud09DsjFNH7winGv8Q==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      postcss: 8.4.38
+    dev: true
+
   /postcss-modules-local-by-default@3.0.3:
     resolution: {integrity: sha512-e3xDq+LotiGesympRlKNgaJ0PCzoUIdpH0dj47iWAui/kyTgh3CiAr1qP54uodmJhl6p9rN6BoNcdEDVJx9RDw==}
     engines: {node: '>= 6'}
@@ -17438,8 +17453,8 @@ packages:
       postcss-selector-parser: 6.0.16
     dev: true
 
-  /postcss-modules-scope@3.1.2(postcss@8.4.38):
-    resolution: {integrity: sha512-hHTYdjVmywC2TAmz134e9M4WZ6i9bh9OoHD8l2qVqc/fXxti1+4UDfZ+Pw/WCdkNIi811eJiTQ+RsfTFEuAjXw==}
+  /postcss-modules-scope@3.2.0(postcss@8.4.38):
+    resolution: {integrity: sha512-oq+g1ssrsZOsx9M96c5w8laRmvEu9C3adDSjI8oTcbfkrTE8hx/zfyobUoWIxaKPO8bt6S62kxpw5GqypEw1QQ==}
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
@@ -17474,9 +17489,9 @@ packages:
       icss-utils: 5.1.0(postcss@8.4.38)
       lodash.camelcase: 4.3.0
       postcss: 8.4.38
-      postcss-modules-extract-imports: 3.0.0(postcss@8.4.38)
+      postcss-modules-extract-imports: 3.1.0(postcss@8.4.38)
       postcss-modules-local-by-default: 4.0.5(postcss@8.4.38)
-      postcss-modules-scope: 3.1.2(postcss@8.4.38)
+      postcss-modules-scope: 3.2.0(postcss@8.4.38)
       postcss-modules-values: 4.0.0(postcss@8.4.38)
       string-hash: 1.1.3
     dev: true
@@ -17720,8 +17735,8 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
 
-  /property-information@6.4.1:
-    resolution: {integrity: sha512-OHYtXfu5aI2sS2LWFSN5rgJjrQ4pCy8i1jubJLe2QvMF8JJ++HXTUIVWFLfXJoaOfvYYjk2SN8J2wFUWIGXT4w==}
+  /property-information@6.5.0:
+    resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
     dev: true
 
   /protocols@2.0.1:
@@ -19440,8 +19455,8 @@ packages:
     dependencies:
       safe-buffer: 5.2.1
 
-  /stringify-entities@4.0.3:
-    resolution: {integrity: sha512-BP9nNHMhhfcMbiuQKCqMjhDP5yBCAxsPu4pHFFzJ6Alo9dZgY4VLDPutXqIjpRiMoKdp7Av85Gr73Q5uH9k7+g==}
+  /stringify-entities@4.0.4:
+    resolution: {integrity: sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg==}
     dependencies:
       character-entities-html4: 2.1.0
       character-entities-legacy: 3.0.0
@@ -20639,7 +20654,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.2.7(@types/node@20.10.4)
+      vite: 5.2.8(@types/node@20.10.4)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -20651,8 +20666,8 @@ packages:
       - terser
     dev: true
 
-  /vite@5.2.7(@types/node@20.10.4):
-    resolution: {integrity: sha512-k14PWOKLI6pMaSzAuGtT+Cf0YmIx12z9YGon39onaJNy8DLBfBJrzg9FQEmkAM5lpHBZs9wksWAsyF/HkpEwJA==}
+  /vite@5.2.8(@types/node@20.10.4):
+    resolution: {integrity: sha512-OyZR+c1CE8yeHw5V5t59aXsUPPVTHMDjEZz8MgguLL/Q7NblxhZUlTu9xSPqlsUO/y+X7dlU05jdhvyycD55DA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
