@@ -6,7 +6,7 @@
   "engines": {
     "npm": "please-use-pnpm",
     "pnpm": ">=8",
-    "node": "18"
+    "node": "^18.18.0"
   },
   "scripts": {
     "build-storybook": "storybook build -o .storybook/build",
@@ -69,8 +69,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231121.0",
-    "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.4.3",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "@cypress/code-coverage": "^3.12.13",
     "@next/font": "14.1.4",
     "@storybook/addon-essentials": "8.0.6",
