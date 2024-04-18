@@ -42,8 +42,8 @@ dependencies:
     specifier: ^7.0.0
     version: 7.0.0
   houseform:
-    specifier: ^1.11.1
-    version: 1.13.0(react@18.2.0)(zod@3.22.4)
+    specifier: 1.11.1
+    version: 1.11.1(react@18.2.0)(zod@3.22.4)
   immutability-helper:
     specifier: ^3.1.1
     version: 3.1.1
@@ -10662,8 +10662,8 @@ packages:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
     dev: true
 
-  /houseform@1.13.0(react@18.2.0)(zod@3.22.4):
-    resolution: {integrity: sha512-n3C7krxwO4uNmmp7hi4sd6+7ZiTv7DJ/WHpVhOHfxTgA4tdRqJq2k1ybLMNDv9/S1kXEYAvKn6yuQLyv0Vzq2Q==}
+  /houseform@1.11.1(react@18.2.0)(zod@3.22.4):
+    resolution: {integrity: sha512-PiiiHEapwMgamfroePYTRNO2loPqkGS6VH+ZJx4aBw9uJf4/a9qn10tpuhdpl1RtS9O1m7cp7T+D72bbpaVyiw==}
     peerDependencies:
       react: '>=16.8.0'
       zod: '>=3.9.0'
