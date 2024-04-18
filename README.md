@@ -32,3 +32,7 @@ This repository contains the code to run the Tekalo Next.js frontend application
 [Testing](./docs/testing.md)
 
 [How To](./docs/how-to/how-to.md)
+
+## Dev Notes
+
+- `houseform` dependency is hard-set to `1.11.1` as updates to `v1.12` and above are causing an infinite loop in one of the unit tests and maybe on the site itself. This would be a good first issue for a new dev to look into.
