@@ -46,7 +46,7 @@ importers:
         version: 7.0.0
       houseform:
         specifier: 1.11.1
-        version: 1.11.1(react@18.2.0)(zod@3.22.4)
+        version: 1.11.1(react@18.2.0)(zod@3.22.5)
       immutability-helper:
         specifier: ^3.1.1
         version: 3.1.1
@@ -85,7 +85,7 @@ importers:
         version: 3.51.2(@cloudflare/workers-types@4.20240405.0)
       zod:
         specifier: ^3.22.4
-        version: 3.22.4
+        version: 3.22.5
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231121.0
@@ -9065,8 +9065,8 @@ packages:
   youch@3.3.3:
     resolution: {integrity: sha512-qSFXUk3UZBLfggAW3dJKg0BMblG5biqSF8M34E06o5CSsZtH92u9Hqmj2RzGiHDi64fhe83+4tENFP2DB6t6ZA==}
 
-  zod@3.22.4:
-    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+  zod@3.22.5:
+    resolution: {integrity: sha512-HqnGsCdVZ2xc0qWPLdO25WnseXThh0kEYKIdV5F/hTHO75hNZFp8thxSeHhiPrHZKrFTo1SOgkAj9po5bexZlw==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -15640,10 +15640,10 @@ snapshots:
 
   hosted-git-info@2.8.9: {}
 
-  houseform@1.11.1(react@18.2.0)(zod@3.22.4):
+  houseform@1.11.1(react@18.2.0)(zod@3.22.5):
     dependencies:
       react: 18.2.0
-      zod: 3.22.4
+      zod: 3.22.5
 
   html-entities@2.5.2: {}
 
@@ -16868,7 +16868,7 @@ snapshots:
       workerd: 1.20240405.0
       ws: 8.16.0
       youch: 3.3.3
-      zod: 3.22.4
+      zod: 3.22.5
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -19856,6 +19856,6 @@ snapshots:
       mustache: 4.2.0
       stacktracey: 2.1.8
 
-  zod@3.22.4: {}
+  zod@3.22.5: {}
 
   zwitch@2.0.4: {}
