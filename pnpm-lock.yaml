@@ -24,8 +24,8 @@ importers:
         specifier: ^2.0.18
         version: 2.1.3(react@18.2.0)
       '@marsidev/react-turnstile':
-        specifier: ^0.5.0
-        version: 0.5.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^0.6.0
+        version: 0.6.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@sentry/nextjs':
         specifier: ^7.85.0
         version: 7.110.1(next@14.1.4(@babel/core@7.24.4)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(webpack@5.91.0(esbuild@0.17.19))
@@ -1932,8 +1932,8 @@ packages:
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
 
-  '@marsidev/react-turnstile@0.5.4':
-    resolution: {integrity: sha512-cloUDkEcJm+G7p3J8DwPtRNNB2GZqVi/nlIbgu9o3VzNyV5K/bWcSfOyWouRiR3umAQZmsFpR3OFYa4mCmy4AQ==}
+  '@marsidev/react-turnstile@0.6.0':
+    resolution: {integrity: sha512-CXv2xy27f3a7Rn1PqFeTKGxkdv4uiD7Zpbazeb+1AbC3VEfTk0OFNiyQvIIFn+kCYWkeTLdY7pXRzsfebHH97w==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -9771,7 +9771,7 @@ snapshots:
   '@babel/plugin-syntax-flow@7.24.1(@babel/core@7.24.4)':
     dependencies:
       '@babel/core': 7.24.4
-      '@babel/helper-plugin-utils': 7.24.0
+      '@babel/helper-plugin-utils': 7.24.5
 
   '@babel/plugin-syntax-import-assertions@7.24.1(@babel/core@7.24.4)':
     dependencies:
@@ -11563,7 +11563,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@marsidev/react-turnstile@0.5.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@marsidev/react-turnstile@0.6.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -11632,7 +11632,7 @@ snapshots:
   '@npmcli/fs@1.1.1':
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.3.8
+      semver: 7.6.0
 
   '@npmcli/move-file@1.1.2':
     dependencies:
@@ -12891,12 +12891,12 @@ snapshots:
 
   '@types/babel__generator@7.6.8':
     dependencies:
-      '@babel/types': 7.24.0
+      '@babel/types': 7.24.5
 
   '@types/babel__template@7.4.4':
     dependencies:
-      '@babel/parser': 7.24.4
-      '@babel/types': 7.24.0
+      '@babel/parser': 7.24.5
+      '@babel/types': 7.24.5
 
   '@types/babel__traverse@7.20.5':
     dependencies:
@@ -13304,7 +13304,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.24.1(@babel/core@7.24.5)
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.5
       '@vanilla-extract/css': 1.15.1
-      esbuild: 0.17.6
+      esbuild: 0.17.19
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -13608,7 +13608,7 @@ snapshots:
       recast: 0.21.5
       remark-frontmatter: 4.0.1
       remark-mdx-frontmatter: 1.1.1
-      semver: 7.3.8
+      semver: 7.6.0
       sort-package-json: 1.57.0
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
@@ -16546,7 +16546,7 @@ snapshots:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.3.2
       glob: 7.2.3
       ignore: 5.3.1
       merge2: 1.4.1
