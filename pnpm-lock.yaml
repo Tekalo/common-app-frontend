@@ -31,7 +31,7 @@ importers:
         version: 7.110.1(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.91.0(esbuild@0.17.19))
       '@tanstack/react-query':
         specifier: ^5.0.0
-        version: 5.31.0(react@18.3.1)
+        version: 5.32.1(react@18.3.1)
       common-app-frontend:
         specifier: 'link:'
         version: 'link:'
@@ -2596,11 +2596,11 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
 
-  '@tanstack/query-core@5.31.0':
-    resolution: {integrity: sha512-r1V6RXB1LUGoEp7HGHVK4Tl59kOvAfwI9/kNNwPsb6cR5oHgfn1683sQnoH/3xEDUKOen3fEO90EnGE+OjRw5A==}
+  '@tanstack/query-core@5.32.1':
+    resolution: {integrity: sha512-mCWa1wdGb1jiny4+qYegbSeadcFj+Nq65KFSs4A1DRveoIq7SrTwUhqu7hrB6d54cQH5x59DfJvxusn3w1Cj/g==}
 
-  '@tanstack/react-query@5.31.0':
-    resolution: {integrity: sha512-/GUUDFA8yNIYZaSyImkecVfN9mAVw1Y+9LpHkOQ1DdWaKnbLtwfjelh6OF+6EtwQCycH50EjTL68UK3YTMxwvg==}
+  '@tanstack/react-query@5.32.1':
+    resolution: {integrity: sha512-+nXLMB0JK0XwTJ+lQt49DPNLrbSppni9N5W5yMR085yW3YaRKRUFhfVTER3TvQd1UycHpoGPFnt1gHiijXERAg==}
     peerDependencies:
       react: ^18.0.0
 
@@ -9008,8 +9008,8 @@ packages:
   vfile@5.3.7:
     resolution: {integrity: sha512-r7qlzkgErKjobAmyNIkkSpizsFPYiUPuJb5pNW1RB4JcYVZhs4lIbVqk8XPk033CV/1z8ss5pkax8SuhGpcG8g==}
 
-  vite-node@1.5.3:
-    resolution: {integrity: sha512-axFo00qiCpU/JLd8N1gu9iEYL3xTbMbMrbe5nDp9GL0nb6gurIdZLkkFogZXWnE8Oyy5kfSLwNVIcVsnhE7lgQ==}
+  vite-node@1.6.0:
+    resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -12824,11 +12824,11 @@ snapshots:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.4.3(ts-node@10.9.1(@types/node@20.10.4)(typescript@5.4.5))
 
-  '@tanstack/query-core@5.31.0': {}
+  '@tanstack/query-core@5.32.1': {}
 
-  '@tanstack/react-query@5.31.0(react@18.3.1)':
+  '@tanstack/react-query@5.32.1(react@18.3.1)':
     dependencies:
-      '@tanstack/query-core': 5.31.0
+      '@tanstack/query-core': 5.32.1
       react: 18.3.1
 
   '@tanstack/react-virtual@3.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
@@ -13321,7 +13321,7 @@ snapshots:
       mlly: 1.7.0
       outdent: 0.8.0
       vite: 5.2.11(@types/node@20.10.4)(terser@5.30.3)
-      vite-node: 1.5.3(@types/node@20.10.4)(terser@5.30.3)
+      vite-node: 1.6.0(@types/node@20.10.4)(terser@5.30.3)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -20536,7 +20536,7 @@ snapshots:
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
 
-  vite-node@1.5.3(@types/node@20.10.4)(terser@5.30.3):
+  vite-node@1.6.0(@types/node@20.10.4)(terser@5.30.3):
     dependencies:
       cac: 6.7.14
       debug: 4.3.4(supports-color@8.1.1)
