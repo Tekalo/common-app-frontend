@@ -46,7 +46,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@marsidev/react-turnstile": "^0.6.0",
-    "@sentry/nextjs": "^7.85.0",
+    "@sentry/nextjs": "^8.0.0",
     "common-app-frontend": "link:",
     "dnd-core": "^16.0.1",
     "file-type-checker": "^1.0.8",
