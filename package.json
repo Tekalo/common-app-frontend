@@ -43,7 +43,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.3",
     "@cloudflare/next-on-pages": "^1.11.0",
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^2.0.0",
     "@heroicons/react": "^2.0.18",
     "@marsidev/react-turnstile": "^0.6.0",
     "@sentry/nextjs": "^7.85.0",
