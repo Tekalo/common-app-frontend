@@ -45,7 +45,7 @@
     "@cloudflare/next-on-pages": "^1.11.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
-    "@marsidev/react-turnstile": "^0.6.0",
+    "@marsidev/react-turnstile": "^0.7.0",
     "@sentry/nextjs": "^7.85.0",
     "common-app-frontend": "link:",
     "dnd-core": "^16.0.1",
