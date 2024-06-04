@@ -16,7 +16,7 @@ importers:
         version: 2.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@cloudflare/next-on-pages':
         specifier: ^1.11.0
-        version: 1.11.3(@cloudflare/workers-types@4.20240529.0)(vercel@34.2.4)(wrangler@3.57.2(@cloudflare/workers-types@4.20240529.0))
+        version: 1.11.3(@cloudflare/workers-types@4.20240529.0)(vercel@34.2.5)(wrangler@3.57.2(@cloudflare/workers-types@4.20240529.0))
       '@headlessui/react':
         specifier: ^1.7.17
         version: 1.7.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -227,7 +227,7 @@ importers:
         version: 5.4.5
       vercel:
         specifier: ^34.0.0
-        version: 34.2.4
+        version: 34.2.5
 
 packages:
 
@@ -2871,6 +2871,9 @@ packages:
   '@types/node@18.19.33':
     resolution: {integrity: sha512-NR9+KrpSajr2qBVp/Yt5TU/rp+b5Mayi3+OlMlcg2cVCfRmcG5PWZ7S4+MG9PZ5gWBoc9Pd0BKSRViuBCRPu0A==}
 
+  '@types/node@18.19.34':
+    resolution: {integrity: sha512-eXF4pfBNV5DAMKGbI02NnDtWrQ40hAN558/2vvS4gMpMIxaf6JmD7YjnZbq0Q9TDSSkKBamime8ewRoomHdt4g==}
+
   '@types/node@20.10.4':
     resolution: {integrity: sha512-D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==}
 
@@ -3114,8 +3117,8 @@ packages:
   '@vercel/next@3.8.2':
     resolution: {integrity: sha512-tTcfAC+C+3la1g2UJW0cm9lGEU1Mq5O0x73MLQPKWpoHOHqZYjbKBCUm5nAFKnaMSvWS1kFm9b0v1iKQk28mGA==}
 
-  '@vercel/next@4.2.14':
-    resolution: {integrity: sha512-CBeaXIGS7mOgFSH429HRjIOxJBbtiQW6gf1mz/rIQoNcZjSxhfe+nMAxfkDlXAzCsGQVFbzVR9omnijTFbC79w==}
+  '@vercel/next@4.2.15':
+    resolution: {integrity: sha512-SBwn8m10eg6NIkwTwKEFKtbK3o+uF5yT5mljZ7pGWMSC/CiQEhe/V9kJLfoe87PGkVVWm3uU9zvMIDqsyuxV/Q==}
 
   '@vercel/nft@0.22.5':
     resolution: {integrity: sha512-mug57Wd1BL7GMj9gXMgMeKUjdqO0e4u+0QLPYMFE1rwdJ+55oPy6lp3nIBCS8gOvigT62UI4QKUL2sGqcoW4Hw==}
@@ -6407,8 +6410,8 @@ packages:
     resolution: {integrity: sha512-ZvFw1KWS3GVyYBYb7qkmRM/WwL2TQQBxgCK62rlvm4WpVQ23Nb4tYjApUlfjrEGvOs7KHEsmyUn75OHZrJMWPw==}
     engines: {node: '>= 12.13.0'}
 
-  loader-utils@3.2.2:
-    resolution: {integrity: sha512-vjJi4vQDasD8t0kMpxe+9URAcgbSuASqoj/Wuk3MawTk97LYa2KfdHreAkd1G/pmPLMvzZEw7/OsydADNemerQ==}
+  loader-utils@3.3.0:
+    resolution: {integrity: sha512-LugZ5wJCsACYzc728QQ5J3SJ7G+3P6cLuFfdwWJRhOrJMkBMPIx5tDCT9Q9H99jTJIBddEywMrxNliGYqU4qRw==}
     engines: {node: '>= 12.13.0'}
 
   localforage@1.10.0:
@@ -9136,8 +9139,8 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vercel@34.2.4:
-    resolution: {integrity: sha512-C6YQrshh+gpNngQf0Nj1Uhopj/hhxmsBaUKBj1M8vmY8p8d3EmgZ+Q/6erjnqY+S7+QLkEtp0st6wZ7VhA+hJQ==}
+  vercel@34.2.5:
+    resolution: {integrity: sha512-ngHi9iGvnI5bUkY8Ky5DEQYyZ3pqAAKZ9a2XNaCdA4pMlLo8pq/cZlkE6eSlplhWPH9aFF2fnQARa/5cN3yemg==}
     engines: {node: '>= 16'}
     hasBin: true
 
@@ -9501,7 +9504,7 @@ snapshots:
       '@babel/traverse': 7.24.6
       '@babel/types': 7.24.6
       convert-source-map: 2.0.0
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.4
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -10349,7 +10352,7 @@ snapshots:
     dependencies:
       mime: 3.0.0
 
-  '@cloudflare/next-on-pages@1.11.3(@cloudflare/workers-types@4.20240529.0)(vercel@34.2.4)(wrangler@3.57.2(@cloudflare/workers-types@4.20240529.0))':
+  '@cloudflare/next-on-pages@1.11.3(@cloudflare/workers-types@4.20240529.0)(vercel@34.2.5)(wrangler@3.57.2(@cloudflare/workers-types@4.20240529.0))':
     dependencies:
       acorn: 8.11.3
       ast-types: 0.14.2
@@ -10363,7 +10366,7 @@ snapshots:
       package-manager-manager: 0.2.0
       pcre-to-regexp: 1.1.0
       semver: 7.6.2
-      vercel: 34.2.4
+      vercel: 34.2.5
       wrangler: 3.57.2(@cloudflare/workers-types@4.20240529.0)
     optionalDependencies:
       '@cloudflare/workers-types': 4.20240529.0
@@ -11108,7 +11111,7 @@ snapshots:
   '@npmcli/fs@1.1.1':
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.6.2
+      semver: 7.3.8
 
   '@npmcli/move-file@1.1.2':
     dependencies:
@@ -12011,7 +12014,7 @@ snapshots:
       '@storybook/types': 8.1.5
       '@types/detect-port': 1.3.5
       '@types/diff': 5.2.1
-      '@types/node': 18.19.33
+      '@types/node': 18.19.34
       '@types/pretty-hrtime': 1.0.3
       '@types/semver': 7.5.8
       better-opn: 3.0.2
@@ -12696,6 +12699,10 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
+  '@types/node@18.19.34':
+    dependencies:
+      undici-types: 5.26.5
+
   '@types/node@20.10.4':
     dependencies:
       undici-types: 5.26.5
@@ -12955,7 +12962,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.24.6(@babel/core@7.24.6)
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.6
       '@vanilla-extract/css': 1.15.2
-      esbuild: 0.17.19
+      esbuild: 0.17.6
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -13058,7 +13065,7 @@ snapshots:
 
   '@vercel/next@3.8.2': {}
 
-  '@vercel/next@4.2.14':
+  '@vercel/next@4.2.15':
     dependencies:
       '@vercel/nft': 0.27.0
     transitivePeerDependencies:
@@ -13259,7 +13266,7 @@ snapshots:
       recast: 0.21.5
       remark-frontmatter: 4.0.1
       remark-mdx-frontmatter: 1.1.1
-      semver: 7.6.2
+      semver: 7.3.8
       sort-package-json: 1.57.0
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
@@ -16012,7 +16019,7 @@ snapshots:
 
   generic-names@4.0.0:
     dependencies:
-      loader-utils: 3.2.2
+      loader-utils: 3.3.0
 
   generic-pool@3.4.2: {}
 
@@ -16181,7 +16188,7 @@ snapshots:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.3.2
+      fast-glob: 3.2.11
       glob: 7.2.3
       ignore: 5.3.1
       merge2: 1.4.1
@@ -16773,7 +16780,7 @@ snapshots:
 
   istanbul-lib-source-maps@4.0.1:
     dependencies:
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.4
       istanbul-lib-coverage: 3.2.2
       source-map: 0.6.1
     transitivePeerDependencies:
@@ -17025,7 +17032,7 @@ snapshots:
 
   loader-utils@3.2.1: {}
 
-  loader-utils@3.2.2: {}
+  loader-utils@3.3.0: {}
 
   localforage@1.10.0:
     dependencies:
@@ -20191,13 +20198,13 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vercel@34.2.4:
+  vercel@34.2.5:
     dependencies:
       '@vercel/build-utils': 8.2.1
       '@vercel/fun': 1.1.0
       '@vercel/go': 3.1.1
       '@vercel/hydrogen': 1.0.2
-      '@vercel/next': 4.2.14
+      '@vercel/next': 4.2.15
       '@vercel/node': 3.1.6
       '@vercel/python': 4.3.0
       '@vercel/redwood': 2.0.9
