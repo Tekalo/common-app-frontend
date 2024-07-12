@@ -25,7 +25,7 @@ importers:
         version: 2.1.4(react@18.3.1)
       '@marsidev/react-turnstile':
         specifier: ^0.7.0
-        version: 0.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 0.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sentry/nextjs':
         specifier: ^7.85.0
         version: 7.118.0(next@14.2.5(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.91.0(esbuild@0.17.19))
@@ -2027,8 +2027,8 @@ packages:
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
 
-  '@marsidev/react-turnstile@0.7.1':
-    resolution: {integrity: sha512-SGa0cweJ2mP1RRi9oJJrlPpZHvlklLqu8tlXDLEbsQ/WExM8Ng9cr9439lZcnu8+tfeVpQIe8qFB1UU5uE+KlQ==}
+  '@marsidev/react-turnstile@0.7.2':
+    resolution: {integrity: sha512-0jwLvAUkcLkaYaS6jBOZB3zzUiKi5dU3kZtlaeBX6yV7Y4CbFEtfHCY352ovphNz1v0ZjpOj6+3QUczJvD56VA==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -12071,7 +12071,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@marsidev/react-turnstile@0.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@marsidev/react-turnstile@0.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
