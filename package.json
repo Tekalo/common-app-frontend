@@ -114,7 +114,7 @@
     "style-loader": "^4.0.0",
     "tailwindcss": "^3.3.6",
     "typescript": "5.5.4",
-    "vercel": "^34.0.0"
+    "vercel": "^35.0.0"
   },
   "resolutions": {
     "webpack": "^5"
