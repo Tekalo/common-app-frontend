@@ -5,9 +5,7 @@ import PronunciationBox from './components/pronunciationBox';
 import RoleTypes from './components/roleTypes';
 import SponsorLogos from './components/sponsorLogos';
 
-export interface IAboutSection {}
-
-const AboutSection: React.FC<IAboutSection> = () => {
+const AboutSection: React.FC = () => {
   return (
     <div className="flex flex-col items-center px-6 pb-12 pt-20 md:pb-20 md:pt-16 lg:pb-28 lg:pt-28">
       <div className="w-full max-w-content-area">

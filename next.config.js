@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /** @type {import('next').NextConfig} */
 /* eslint @typescript-eslint/no-var-requires: "off" */
 
@@ -31,7 +32,7 @@ module.exports = withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: 'schmidt-futures',
+    org: 'all-tech-is-human',
     project: 'capp-frontend',
   },
   {

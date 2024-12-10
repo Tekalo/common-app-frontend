@@ -72,7 +72,11 @@ const AccountModals: React.FC<IAccountModals> = ({
         if (res.ok) {
           const accountResponse: AccountResponseType = await res.json();
           setMatchesPaused(accountResponse.isPaused);
-          pause ? setShowPauseModal(false) : setShowResumeModal(false);
+          if (pause) {
+            setShowPauseModal(false);
+          } else {
+            setShowResumeModal(false);
+          }
         } else {
           handleCaughtErrorResponse(res);
         }

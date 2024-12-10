@@ -1,6 +1,4 @@
-import { IHeroSection } from '@/sections/home/heroSection/HeroSection';
-
-const base: IHeroSection = {};
+const base = {};
 
 export const mockHeroSectionProps = {
   base,

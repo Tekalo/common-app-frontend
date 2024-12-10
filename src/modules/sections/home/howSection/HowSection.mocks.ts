@@ -1,6 +1,4 @@
-import { IHowSection } from '@/sections/home/howSection/HowSection';
-
-const base: IHowSection = {};
+const base = {};
 
 export const mockHowSectionProps = {
   base,

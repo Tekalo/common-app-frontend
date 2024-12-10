@@ -3,9 +3,7 @@ import { HOME_FAQ_TEXT, HOME_HOW_TEXT } from '@/lang/en/en';
 import { ITimelineItem } from '@/lib/types';
 import { useState } from 'react';
 
-export interface IHowSection {}
-
-const HowSection: React.FC<IHowSection> = () => {
+const HowSection: React.FC = () => {
   const [isForOrgsSelected, setForOrgs] = useState(false);
 
   // Store the titems that the component should conditionally render
