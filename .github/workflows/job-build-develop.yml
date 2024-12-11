@@ -101,6 +101,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy .vercel/output/static --project-name=common-app-frontend
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          packageManager: pnpm
     outputs:
       issue-number: ${{ github.event.pull_request.number }}
       url: ${{ steps.deploy.outputs.deployment-url }}
