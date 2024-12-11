@@ -118,12 +118,11 @@ jobs:
 
       - name: Publish to Cloudflare Pages
         id: deploy
-        uses: wrangler-action@6d58852c35a27e6034745c5d0bc373d739014f7f #v3.13.0
+        uses: cloudflare/wrangler-action@6d58852c35a27e6034745c5d0bc373d739014f7f #v3.13.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .vercel/output/static --project-name=common-app-frontend
-          branch: ${{ inputs.branch_name }}
+          command: pages deploy .vercel/output/static --project-name=common-app-frontend --branch=${{ inputs.branch_name }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           packageManager: pnpm
     outputs:
