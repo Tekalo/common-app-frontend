@@ -130,4 +130,3 @@ jobs:
       url: ${{ steps.deploy.outputs.url }}
       alias: ${{ steps.deploy.outputs.alias }}
       environment: ${{ steps.deploy.outputs.environment }}
-      deployment_id: ${{ steps.deploy.outputs.id }}
