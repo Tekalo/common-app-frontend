@@ -1,6 +1,4 @@
-import { ITermsAndConditions } from '@/sections/terms/TermsAndConditions';
-
-const base: ITermsAndConditions = {};
+const base = {};
 
 export const mockTermsProps = {
   base,

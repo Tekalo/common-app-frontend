@@ -1,6 +1,4 @@
-import { IPrivacyInfo } from '@/sections/privacy/PrivacyInfo';
-
-const base: IPrivacyInfo = {};
+const base = {};
 
 export const mockPrivacyInfoProps = {
   base,

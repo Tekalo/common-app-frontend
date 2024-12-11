@@ -1,6 +1,4 @@
-import { IContactSection } from '@/sections/home/contactSection/ContactSection';
-
-const base: IContactSection = {};
+const base = {};
 
 export const mockContactSectionProps = {
   base,

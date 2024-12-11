@@ -2,9 +2,7 @@ import { NAV_FOOTER_TEXT } from '@/lang/en/en';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export interface IMainFooter {}
-
-const MainFooter: React.FC<IMainFooter> = () => {
+const MainFooter: React.FC = () => {
   return (
     <footer>
       <section className="bg-gray-4 px-6 pt-10 text-center md:px-12 md:pb-32 lg:px-40 lg:py-20">

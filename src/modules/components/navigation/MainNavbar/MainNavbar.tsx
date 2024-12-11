@@ -28,11 +28,15 @@ const MainNavbar: React.FC<IMainNavbar> = ({ pageName }) => {
     : NAV_BAR_TEXT.SIGN_IN;
 
   const handleAuthentication = (e?: SyntheticEvent) => {
-    e ? e.preventDefault() : () => void {};
+    if (e) {
+      e.preventDefault();
+    }
 
-    isAuthenticated
-      ? logout({ logoutParams: { returnTo: window.location.origin } })
-      : loginWithRedirect();
+    if (isAuthenticated) {
+      logout({ logoutParams: { returnTo: window.location.origin } });
+    } else {
+      loginWithRedirect();
+    }
   };
 
   const toggleMobileMenu = () => {
@@ -90,7 +94,7 @@ const MainNavbar: React.FC<IMainNavbar> = ({ pageName }) => {
               )}
               <div
                 tabIndex={0}
-                className="my-3 hidden cursor-pointer    text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
+                className="my-3 hidden cursor-pointer text-component-large text-black-text hover:text-blue-1 active:text-blue-2 md:block"
                 data-name="sign-in-out-link"
                 onClick={(e) => handleAuthentication(e)}
               >

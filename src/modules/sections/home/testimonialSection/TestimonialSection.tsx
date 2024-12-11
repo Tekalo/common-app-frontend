@@ -1,6 +1,4 @@
-export interface ITestimonialSection {}
-
-const TestimonialSection: React.FC<ITestimonialSection> = () => {
+const TestimonialSection: React.FC = () => {
   return (
     <section className="bg-light-orange">
       {/* TITLE */}

@@ -1,6 +1,4 @@
-import { IAboutSection } from '@/sections/home/aboutSection/AboutSection';
-
-const base: IAboutSection = {};
+const base = {};
 
 export const mockAboutSectionProps = {
   base,

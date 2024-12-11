@@ -1,8 +1,4 @@
-import { ITestimonialSection } from '@/sections/home/testimonialSection/TestimonialSection';
-
-const base: ITestimonialSection = {
-  sampleTextProp: 'Hello world!',
-};
+const base = {};
 
 export const mockTestimonialSectionProps = {
   base,

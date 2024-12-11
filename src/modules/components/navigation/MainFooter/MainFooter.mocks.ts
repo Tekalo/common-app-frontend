@@ -1,6 +1,4 @@
-import { IMainFooter } from '@/components/navigation/MainFooter/MainFooter';
-
-const base: IMainFooter = {};
+const base = {};
 
 export const mockMainFooterProps = {
   base,

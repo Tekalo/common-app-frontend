@@ -9,9 +9,7 @@ import {
 } from '@/lang/en/en';
 import { useState } from 'react';
 
-export interface IPrivacyInfo {}
-
-const PrivacyInfo: React.FC<IPrivacyInfo> = () => {
+const PrivacyInfo: React.FC = () => {
   const [isForOrgsSelected, setForOrgs] = useState(false);
 
   return (

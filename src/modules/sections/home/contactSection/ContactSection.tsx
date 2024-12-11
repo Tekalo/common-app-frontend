@@ -1,9 +1,7 @@
 import Button, { ButtonVariant } from '@/components/buttons/Button/Button';
 import { CONTACT_US_MAILTO_LINK, HOME_CONTACT_TEXT } from '@/lang/en/en';
 
-export interface IContactSection {}
-
-const ContactSection: React.FC<IContactSection> = () => {
+const ContactSection: React.FC = () => {
   return (
     <section className="grid w-full place-items-center justify-center bg-blue-1 p-10 text-center align-middle md:py-14 lg:py-20">
       <div className="m-auto max-w-[618px] font-display text-white lg:max-w-[none]">

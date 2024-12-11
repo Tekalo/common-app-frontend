@@ -6,9 +6,7 @@ import {
 } from '@/lang/en/en';
 import Image from 'next/image';
 
-export interface IHeroSection {}
-
-const HeroSection: React.FC<IHeroSection> = () => {
+const HeroSection: React.FC = () => {
   return (
     <div className="bg-light-blue px-6 pb-10 pt-6 md:px-24 md:pb-20 md:pt-16 lg:pt-24">
       <div className="lg:grid-cols-13 mx-auto max-w-content-area lg:grid">

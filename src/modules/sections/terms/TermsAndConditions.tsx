@@ -1,8 +1,6 @@
 import { PRIVACY_LINK, TERMS_TEXT } from '@/lang/en/en';
 
-export interface ITermsAndConditions {}
-
-const TermsAndConditions: React.FC<ITermsAndConditions> = () => {
+const TermsAndConditions: React.FC = () => {
   const h4Mobile = 'mb-4 text-h4-mobile lg:text-h4-desktop';
   const lightBlueBox = 'bg-light-blue p-3 md:p-4';
   const p2Mobile = 'text-p2-mobile mb-8 lg:text-p2-desktop';
