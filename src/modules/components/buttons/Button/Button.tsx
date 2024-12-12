@@ -1,4 +1,4 @@
-import { IconType } from '@/lib/types';
+import { ReactNode } from 'react';
 
 export enum ButtonVariant {
   OUTLINED,
@@ -8,8 +8,8 @@ export interface IButton extends React.ComponentPropsWithoutRef<'button'> {
   label: string;
   disabled?: boolean;
   href?: string;
-  prefixedIcon?: IconType;
-  affixedIcon?: IconType;
+  prefixedIcon?: ReactNode;
+  affixedIcon?: ReactNode;
   name?: string;
   onClick?: () => void;
   variant?: ButtonVariant;

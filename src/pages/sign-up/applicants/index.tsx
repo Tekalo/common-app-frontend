@@ -60,7 +60,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [isConflict, setIsConflict] = useState(false);
   const [isTurnstileValid, setIsTurnstileValid] = useState<boolean>(true);
-  const [showContent, setShowContent] = useState<boolean>(false);
 
   useEffect(() => {
     const hasAccountData = (): boolean => {
@@ -80,8 +79,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
         router.push(ACCOUNT_LINK);
       } else if (hasAccountData()) {
         router.push(APPLICANT_EXPERIENCE_LINK);
-      } else {
-        setShowContent(true);
       }
     };
 
@@ -97,8 +94,6 @@ const ApplicantSignup: NextPageWithLayout = () => {
     ) {
       if (isAuthenticated && user) {
         redirectUserCheck();
-      } else {
-        setShowContent(true);
       }
     }
   }, [
@@ -177,72 +172,64 @@ const ApplicantSignup: NextPageWithLayout = () => {
       {auth0IsLoading ? (
         <div id="loading-spinner" className="mb-1/2 space-y-3">
           <LoadingSpinner />
-          <h3 className="text-component-small-desktop text-center ">
+          <h3 className="text-component-small-desktop text-center">
             {'Hang tight'}
           </h3>
         </div>
       ) : (
-        { showContent } && (
-          <>
-            <div
-              id="applicant-signup-page"
-              className="px-6 pb-28 pt-10 md:px-24"
-            >
-              <NavTitle
-                title={APPLICANT_FORM_TEXT.HEADER}
-                navawayText={APPLICANT_FORM_TEXT.NAVAWAY}
-                navLink={SIGN_IN_LINK}
-                navText={APPLICANT_FORM_TEXT.SIGN_IN_LINK_COPY}
+        <>
+          <div id="applicant-signup-page" className="px-6 pb-28 pt-10 md:px-24">
+            <NavTitle
+              title={APPLICANT_FORM_TEXT.HEADER}
+              navawayText={APPLICANT_FORM_TEXT.NAVAWAY}
+              navLink={SIGN_IN_LINK}
+              navText={APPLICANT_FORM_TEXT.SIGN_IN_LINK_COPY}
+            />
+            <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
+              {/* New user form */}
+              <ApplicantSignupForm
+                showUserExistsError={isConflict}
+                isAuthenticated={isAuthenticated}
+                debugIsActive={debugCtx.debugIsActive}
+                user={user}
+                handleSubmit={handleSubmit}
+                setShowPrivacyModal={setShowPrivacyModal}
+                isTurnstileValid={isTurnstileValid}
+                setIsTurnstileValid={setIsTurnstileValid}
               />
-              <div className="m-auto mt-8 max-w-[344px] md:mt-10 lg:mt-8">
-                {/* New user form */}
-                <ApplicantSignupForm
-                  showUserExistsError={isConflict}
-                  isAuthenticated={isAuthenticated}
-                  debugIsActive={debugCtx.debugIsActive}
-                  user={user}
-                  handleSubmit={handleSubmit}
-                  setShowPrivacyModal={setShowPrivacyModal}
-                  isTurnstileValid={isTurnstileValid}
-                  setIsTurnstileValid={setIsTurnstileValid}
-                />
-              </div>
-              {/* Navaway for organizations */}
-              <div
-                id="applicant-signup-org-navaway"
-                className="mt-6 text-center"
-              >
-                {APPLICANT_FORM_TEXT.IFORG[0]}
-                <span className="text-blue-1 underline underline-offset-4">
-                  <Link href={ORG_SIGNUP_LINK}>
-                    {APPLICANT_FORM_TEXT.IFORG[1]}
-                  </Link>
-                </span>
-              </div>
             </div>
-            <TableModal
-              tableData={APPLICANT_CONTENT_TABLE_TEXT}
-              headerText={PRIVACY_MODAL_TEXT.HEADER}
-              extras={privacyModalExtras}
-              isOpen={showPrivacyModal}
-              closeModal={() => {
-                setShowPrivacyModal(false);
-              }}
-            />
-            <ErrorModal
-              isOpen={showErrorModal}
-              titleText={ERROR_MODAL_TEXT.requestFailed}
-              descriptionText={ERROR_MODAL_TEXT.somethingWrong}
-              buttonText={ERROR_MODAL_TEXT.okButton}
-              buttonHandler={() => {
-                setShowErrorModal(false);
-              }}
-              closeModal={() => {
-                setShowErrorModal(false);
-              }}
-            />
-          </>
-        )
+            {/* Navaway for organizations */}
+            <div id="applicant-signup-org-navaway" className="mt-6 text-center">
+              {APPLICANT_FORM_TEXT.IFORG[0]}
+              <span className="text-blue-1 underline underline-offset-4">
+                <Link href={ORG_SIGNUP_LINK}>
+                  {APPLICANT_FORM_TEXT.IFORG[1]}
+                </Link>
+              </span>
+            </div>
+          </div>
+          <TableModal
+            tableData={APPLICANT_CONTENT_TABLE_TEXT}
+            headerText={PRIVACY_MODAL_TEXT.HEADER}
+            extras={privacyModalExtras}
+            isOpen={showPrivacyModal}
+            closeModal={() => {
+              setShowPrivacyModal(false);
+            }}
+          />
+          <ErrorModal
+            isOpen={showErrorModal}
+            titleText={ERROR_MODAL_TEXT.requestFailed}
+            descriptionText={ERROR_MODAL_TEXT.somethingWrong}
+            buttonText={ERROR_MODAL_TEXT.okButton}
+            buttonHandler={() => {
+              setShowErrorModal(false);
+            }}
+            closeModal={() => {
+              setShowErrorModal(false);
+            }}
+          />
+        </>
       )}
     </div>
   );

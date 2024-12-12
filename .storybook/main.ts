@@ -20,7 +20,8 @@ const config: StorybookConfig = {
         },
       },
     },
-    '@chromatic-com/storybook'
+    '@chromatic-com/storybook',
+    '@storybook/addon-styling-webpack'
   ],
 
   framework: {

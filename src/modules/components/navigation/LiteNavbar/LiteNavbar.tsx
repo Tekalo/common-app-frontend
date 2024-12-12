@@ -8,7 +8,6 @@ import {
   NAV_BAR_TEXT,
   NAV_LITE_HEADER_TEXT,
 } from '@/lang/en/en';
-import { IconType } from '@/lib/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -43,11 +42,7 @@ const LiteNavbar: React.FC<ILiteNavbar> = ({ isEditing, title }) => {
                     data-name="lite-navbar-account-btn"
                     variant={ButtonVariant.OUTLINED}
                     label={NAV_BAR_TEXT.MY_ACCOUNT}
-                    prefixedIcon={
-                      (
-                        <UserCircleIcon className="w-6" />
-                      ) as unknown as IconType
-                    }
+                    prefixedIcon={<UserCircleIcon className="w-6" />}
                     className="flex cursor-pointer items-center justify-center space-x-1 px-2 py-2 font-sans text-component-large md:px-6 md:py-3"
                   >
                     {NAV_BAR_TEXT.MY_ACCOUNT}
