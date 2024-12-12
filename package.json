@@ -6,7 +6,7 @@
   "engines": {
     "npm": "please-use-pnpm",
     "pnpm": ">=9",
-    "node": "^20.11.1"
+    "node": "18.18.0"
   },
   "scripts": {
     "build-storybook": "storybook build -o .storybook/build",
@@ -43,7 +43,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@cloudflare/next-on-pages": "^1.13.7",
-    "@headlessui/react": "^2.2.0",
+    "@headlessui/react": "^1.7.19",
     "@heroicons/react": "^2.2.0",
     "@marsidev/react-turnstile": "^0.7.2",
     "@sentry/nextjs": "^7.120.1",
