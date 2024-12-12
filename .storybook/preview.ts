@@ -40,6 +40,8 @@ const preview: Preview = {
     },
     viewport: { viewports: customViewports },
   },
+
+  tags: ['autodocs']
 };
 
 export default preview;

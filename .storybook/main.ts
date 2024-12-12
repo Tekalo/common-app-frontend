@@ -1,7 +1,8 @@
 import type { StorybookConfig } from '@storybook/nextjs';
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   staticDirs: ['../public'],
+
   addons: [
     'storybook-addon-auth0-react',
     '@storybook/addon-links',
@@ -19,16 +20,18 @@ const config: StorybookConfig = {
         },
       },
     },
+    '@chromatic-com/storybook'
   ],
+
   framework: {
     name: '@storybook/nextjs',
     options: {},
   },
-  core: {
-    builder: '@storybook/builder-webpack5',
-  },
-  docs: {
-    autodocs: 'tag',
-  },
+
+  docs: {},
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript'
+  }
 };
 export default config;
