@@ -6,7 +6,7 @@
   "engines": {
     "npm": "please-use-pnpm",
     "pnpm": ">=8",
-    "node": "^18.18.0"
+    "node": "^22.0.0"
   },
   "scripts": {
     "build-storybook": "storybook build -o .storybook/build",
@@ -83,7 +83,7 @@
     "@storybook/storybook-deployer": "^2.8.16",
     "@storybook/testing-library": "0.2.2",
     "@tailwindcss/forms": "^0.5.7",
-    "@types/node": "20.17.10",
+    "@types/node": "22.10.2",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
