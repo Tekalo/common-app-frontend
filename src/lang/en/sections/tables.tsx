@@ -55,7 +55,7 @@ export const APPLICANT_CONTENT_TABLE_TEXT: ContentTableData = {
     {
       heading: 'Other sources',
       bullets: [
-        ['Data from other programs run by Schmidt Futures or third parties'],
+        ['Data from other programs run by All Tech Is Human or third parties'],
         ['Enable Applicants to Other Programs to Utilize Tekalo'],
         ['Talent Connectors', 'Organizations', 'Service Providers'],
       ],

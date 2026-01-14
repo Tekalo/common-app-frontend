@@ -190,7 +190,7 @@ describe('Candidate Application', () => {
     fillPhoneNumber();
     acceptPrivacy();
     acceptTerms();
-    acceptFollowUpOptIn();
+    // acceptFollowUpOptIn();
     submitCandidateSignup();
 
     cy.url().should('include', APPLICANT_EXPERIENCE_LINK);
@@ -346,9 +346,9 @@ describe('Candidate Application', () => {
     cy.get(Selectors.terms.input).fastClick();
   }
 
-  function acceptFollowUpOptIn(): void {
-    cy.get(Selectors.followUp.input).fastClick();
-  }
+  // function acceptFollowUpOptIn(): void {
+  //   cy.get(Selectors.followUp.input).fastClick();
+  // }
 
   function submitCandidateSignup(): void {
     cy.get(Selectors.buttons.submit).fastClick();

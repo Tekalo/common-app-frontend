@@ -1,7 +1,6 @@
 import {
   ALL_TECH_IS_HUMAN_URL,
   FAST_FORWARD_URL,
-  SCHMIDT_FUTURES_URL,
   US_DIGITAL_RESPONSE_URL,
 } from './externalLinks';
 
@@ -123,10 +122,6 @@ export const HOME_FAQ_TEXT = {
   ORG_ANSWER_8: {
     text: 'The review and matchmaking process is currently conducted by Talent Connectors at ',
     partners: [
-      {
-        name: 'Schmidt Futures',
-        url: SCHMIDT_FUTURES_URL,
-      },
       {
         name: 'All Tech Is Human',
         url: ALL_TECH_IS_HUMAN_URL,
